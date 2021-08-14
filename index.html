@@ -151,8 +151,8 @@ img {vertical-align: middle;}
       </div>
  
       <div class="content">
-        <h1>Сайт</h1>
-        <p>Здесь могло бы быть что-то написано но мне лень это писать.</p>
+        <h1 class="web">Сайт</h1>
+        <p class="content_d">Здесь могло бы быть что-то написано но мне лень это писать.</p>
         
       </div>
   <div class="sidebar">
@@ -278,6 +278,18 @@ body {
   font-family: Arial;
   margin: 0;
   
+}
+.web{
+  background-color: #474655;
+  color: azure;
+  padding-left: 1%;
+}
+.content_d{
+  background-color: rgb(104, 101, 116);
+  color: #f2f2f2;
+  -webkit-box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
+-moz-box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
+box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
 }
 
 .content {padding:20px;}
@@ -488,6 +500,7 @@ body {
   transition: all 0.5s ease;
   background-size: contain !important;
   background-position: center center !important;
+  background-color: rgb(85, 85, 85);
 }
 .sidebar.active ~ .home_content{
   z-index: 100;
