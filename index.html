@@ -10,7 +10,7 @@
     <!-- Styles file-->
     <link rel="stylesheet" href="styles.css">
    </head>
-<body>
+<body style="background-color: rgb(85, 85, 85);">
   
     <div class="home_content">
       <div class="header">
@@ -54,11 +54,14 @@
       </div>
       <div class="content">
         
-        <h1 class="web">&nbsp;<div class="bx bx-globe"> Привет</div></h1>
-        <p class="content_d">Здесь могло бы быть что-то написано но мне лень это писать.</p>  
-        
+        <h1 class="web">&nbsp;<div class="bx bx-globe"> Привет </h1>
+        <div class="content_d">Здесь могло бы быть что-то написано, но мне лень это писать. <br>Пока что просто посмотрите на моего кота:)  
+        <div class="cat_div">
+        <img src="src/cat.jpg" class="catpic">
+        </div>
       </div>
       
+
   <div class="sidebar">
     <div class="logo_content">
       <div class="logo">
@@ -68,6 +71,13 @@
       <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav_list">
+      <li>
+        <a href="https://vk.com/arsenij_kotikov">
+          <i class='bx bxl-vk' ></i>
+          <span class="links_name">Мой <b>ВКонтакте</b> </span>
+        </a>
+        <span class="tooltip"></span>
+      </li>
       <li>
         <a href="https://www.youtube.com/channel/UCOYprFCDyhHdhbtfzZNqYFQ">
           <i class='bx bxl-youtube' ></i>
@@ -99,9 +109,9 @@
       <li>
         <a href="https://github.com/kotru21/kotru21.github.io">
           <i class='bx bx-folder' ></i>
-          <span class="links_name">github-репозиторий</span>
+          <span class="links_name"><b>Github</b>-репозиторий</span>
         </a>
-        <span class="tooltip">GitHub_repo</span>
+        <span class="tooltip">GitHub репо</span>
       </li>
       <li>
         <a href="about.html">
@@ -115,14 +125,14 @@
           <i class='#' ></i>
           <span class="links_name">______________</span>
         </a>
-        <span class="tooltip"></span>
+        <span class="tooltip">:)</span>
       </li>
       <li>
         <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="links_name" >Setting</span>
+          <i class='bx bx-cake' ></i>
+          <span class="links_name">на этом пока всё)</span>
         </a>
-        <span class="tooltip">Setting</span>
+        <span class="tooltip">:)</span>
       </li>
     </ul>
     
@@ -164,6 +174,7 @@
 
       setTimeout(showSlides, 4000); // Change image every 2 seconds
     }
+
     </script>
 
 </body>
