@@ -31,11 +31,15 @@ body {
   margin: 0;
 }
 .web{
-  background-color: #474655;
+  padding-top: 1%;
+  background: #474655;
   color: azure;
-  padding-left: 1%;
+
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  display: flex;
+  justify-content: center;
+
 }
 .icons2{
   margin-top: 1%;
@@ -45,11 +49,25 @@ body {
   color: #f2f2f2;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding-left: 10px;
-  font-size: 2vh;
   -webkit-box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
   -moz-box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
   box-shadow: 0px 5px 8px 5px rgba(34, 60, 80, 0.06);
+  padding-top: 2%;
+
+
+}
+.textcover{
+  margin-left: 5%;
+}
+div.text_inside{
+  text-align: center;
+
+  height: 12%;
+  font-size: max(1vw, 20px);
+  
+}
+div.text_inside p {
+  display: inline-block;
   text-align: left;
 }
 .catpic{
@@ -58,12 +76,18 @@ body {
   border-radius: 2%;
   margin-bottom: 8%;
   margin-top: 2.5%;
+  
+  
 }
 .catpic:hover {
   box-shadow: 0 0 10px 1px rgba(0, 140, 186, 0.5);
 }
+
 .cat_div{
-  width: 90px;
+
+  text-align: center;
+  display: block;
+
 }
 .content {padding:10px; }
 
@@ -176,20 +200,7 @@ body {
   opacity: 1;
   top: 50%
 }
-/*.sidebar ul li input{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  border-radius: 12px;
-  outline: none;
-  border: none;
-  background: #1d1b31;
-  padding-left: 50px;
-  font-size: 18px;
-  color: #fff; 
-} */
+
 .sidebar ul li .bx-search{
   position: absolute;
   z-index: 99;
@@ -237,27 +248,7 @@ body {
   
 }
 
-/*
-.profile #log_out{
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 50px;
-  line-height: 50px;
-  font-size: 20px;
-  border-radius: 12px;
-  text-align: center;
-  transition: all 0.4s ease;
-  background: #1d1b31;
-  
-}
-.sidebar.active .profile #log_out{
-  left: 88%;
-}
-.sidebar.active .profile #log_out{
-  background: none
-} */
+
 .home_content{
   position: absolute;
   height: 100%;
@@ -376,3 +367,6 @@ body {
  @media only screen and (max-width: 300px) {
    .text {font-size: 11px}
  }
+ 
+
+
