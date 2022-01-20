@@ -1,33 +1,69 @@
 <html>
     <head>
-        <title>about</title>
+        <title>О сайте:)</title>
+        <link rel="shortcut icon" type="image/jpg" href="weblogo.ico"/>
     </head>
-    <body style="background-color:rgb(85, 85, 85);text-align:center;">
+    <body style="background-color:rgb(85, 85, 85);text-align:center;font-size: 2vh;">
 
 <div class="container">
                 
-<h1 class="web">Этот сайт сделан с помощью</h1>
-<div class="icons2">
-<img src="https://img.shields.io/badge/HTML5-E34F25?style=for-the-badge&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
-<img src="https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github&logoColor=white">
+<h1>Этот сайт сделан с помощью<hr></h1>
+
+<img class="img" src="https://img.shields.io/badge/HTML5-E34F25?style=for-the-badge&logo=html5&logoColor=white">
+<img class="img" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img class="img" src="https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github&logoColor=white">
+<img class="img" src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
+
+<p><button class="back" onclick="window.location.href='./index.html'">вернуться назад</button>
 </div>
 </div>
-</div>
+
 </body>
 <style>
 
 .container{
     margin-top:5%;
-    justify-content: center;
     background-color: #474655;
     color: white;
+    padding-bottom: 40px;
+    padding-top: 20px;
+    
 }
-.web{
-    font-size: 40px;
+
+.back{
+    background-color: #585769;
+    font-size: 4vh;
     text-align: center;
-    justify-content: center;
+    margin-top: 1%;
+    border-radius: 5px;
+    border-width: 0px;
+    box-shadow: 0 0 5px rgb(59, 59, 59);
+    color: white;
+    padding: 10px;
+
+}
+.back:hover{
+    background-color: #4a4a5a;
+
+    text-align: center;
+    margin-top: 1%;
+    border-radius: 5px;
+    border-width: 0px;
+    box-shadow: 0 0 15px rgb(167, 109, 159);
+    color: white;
+    padding: 10px;
+}
+.img{
+    width: 30vh;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgb(59, 59, 59);
+}
+hr{
+    margin-left: 5%;
+    margin-right: 5%;
+    border-width: 2px;
+    border-style:solid;
 }
 </style>
 </html>
