@@ -208,10 +208,7 @@ div.text_inside p {
   font-size: 22px;
   transition: all 0.5 ease;
 }
-.sidebar ul li .bx-search:hover{
-  background: #fff;
-  color: #1d1b31;
-}
+
 .sidebar ul li a{
   color: #fff;
   display: flex;
@@ -224,6 +221,7 @@ div.text_inside p {
 .sidebar ul li a:hover{
   color: #11101d;
   background: #fff;
+  box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
 }
 .sidebar ul li i{
   font-size: 18px;
@@ -247,7 +245,6 @@ div.text_inside p {
   pointer-events: auto
   
 }
-
 
 .home_content{
   position: absolute;
@@ -368,5 +365,3 @@ div.text_inside p {
    .text {font-size: 11px}
  }
  
-
-
