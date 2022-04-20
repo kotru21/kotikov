@@ -93,7 +93,7 @@ div.text_inside p {
   animation: rText .5s forwards;
 }
 .animatedtext-second{
-  animation-delay: .375s; //need to be recoded
+  animation-delay: .375s; <!-- need to be recoded -->
   
 }
 @keyframes rText {
