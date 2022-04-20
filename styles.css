@@ -32,9 +32,9 @@ body {
 }
 .web{
   padding-top: 1%;
+  padding-bottom: 1%;
   background: #474655;
   color: azure;
-
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: flex;
@@ -81,6 +81,29 @@ div.text_inside p {
 }
 .catpic:hover {
   box-shadow: 0 0 10px 1px rgba(0, 140, 186, 0.5);
+}
+.animatedtext{
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 40px;
+}
+.animatedtext-content{
+  display: block;
+  opacity: none;
+  animation: rText .5s forwards;
+}
+.animatedtext-second{
+  animation-delay: .175s; 
+  
+}
+@keyframes rText {
+  from{
+    transform: translateY(20px);
+  }
+  to{
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .cat_div{
