@@ -3,11 +3,13 @@
   <link rel="shortcut icon" type="image/jpg" href="src/weblogo.ico" />
 </head>
 
-<body style="background-color: rgb(158, 158, 158); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
+<body style="background-color: rgb(77, 69, 87); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
   <div class="pagemiddle">
     <h1 class="collection">зачем ты это читаешь?</h1>
     <div class="btns">
-      <button class="back" onclick="window.location.href='./index.html'">вернуться назад</button>
+      <span class="animatedtext-content">
+        <button class="back" onclick="window.location.href='./index.html'">вернуться назад</button>
+      </span>
     </div>
     <div class="linksdiv">
       <p></p>
@@ -15,7 +17,9 @@
         <a href="https://unpkg.com/boxicons@2.1.2/">
           <div class="info">
             <div class="img_div">
-              <h2 class="text1">icons</h2>
+              <span class="animatedtext-content">
+                <h2 class="text1">icons</h2>
+              </span>
               <span class="animatedtext-content animatedtext-second"><img src="src/img3.PNG" class="preview_img" alt="icons" /></span>
             </div>
           </div>
@@ -25,7 +29,9 @@
           <a href="https://dev.to/codinglabweb/side-navigation-bar-in-html-css-javascript-3d9d">
             <div class="info">
               <div class="img_div">
-                <h2 class="text1">sidebar</h2>
+                <span class="animatedtext-content">
+                  <h2 class="text1">sidebar</h2>
+                </span>
                 <span class="animatedtext-content animatedtext-second"><img src="src/img1.PNG" class="preview_img" /></span>
               </div>
             </div>
@@ -36,7 +42,9 @@
             <a href="https://w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto">
               <div class="info">
                 <div class="img_div">
-                  <h2 class="text1">slider</h2>
+                  <span class="animatedtext-content">
+                    <h2 class="text1">slider</h2>
+                  </span>
                   <span class="animatedtext-content animatedtext-second"><img src="src/img2.PNG" class="preview_img" /></span>
                 </div>
               </div>
@@ -47,7 +55,9 @@
               <a href="https://github.com/alexandresanlim/Badges4-README.md-Profile">
                 <div class="info">
                   <div class="img_div">
-                    <h2 class="text1">badges</h2>
+                    <span class="animatedtext-content">
+                      <h2 class="text1">badges</h2>
+                    </span>
                     <span class="animatedtext-content animatedtext-second"><img src="src/img4.PNG" class="preview_img" /></span>
                   </div>
                 </div>
@@ -102,6 +112,7 @@
               padding-top: 0.4%;
               padding-left: 1%;
               padding-bottom: 0.4%;
+              -webkit-tap-highlight-color: transparent;
             }
 
             .links {
@@ -137,7 +148,7 @@
             }
 
             .preview_img:hover {
-              box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.726);
+              box-shadow: 0 0 1vw 1px rgba(255, 255, 255, 0.726);
               transition: 0.3s;
             }
 
@@ -178,7 +189,8 @@
             .back {
               background-color: #585769;
               font-size: 4vh;
-              border-radius: 5px;
+              border-radius: 30px;
+              width: 75%;
               border-width: 0px;
               box-shadow: 0 0 5px rgb(59, 59, 59);
               color: white;
@@ -188,6 +200,7 @@
 
             .back:hover {
               box-shadow: 0 0 15px rgb(167, 109, 159);
+              background-color: rgba(167, 109, 159, 0.479);
               transition: 0.3s;
             }
 
