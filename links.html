@@ -1,218 +1,202 @@
 <head>
-  <title>links</title>
-  <link rel="shortcut icon" type="image/jpg" href="src/weblogo.ico" />
-
+	<title>links</title>
+	<link rel="shortcut icon" type="image/jpg" href="src/weblogo.ico" />
 </head>
 
-<body
-  style="background-color: rgb(158, 158, 158); font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
-  <div class="pagemiddle">
-    <h1 class="collection">зачем ты это читаешь?</h1>
-    <div class="btns">
-      <button class="back" onclick="window.location.href='./index.html'">вернуться назад</button>
-    </div>
-    <div class="linksdiv">
+<body style="background-color: rgb(158, 158, 158); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
+	<div class="pagemiddle">
+		<h1 class="collection">зачем ты это читаешь?</h1>
+		<div class="btns">
+			<button class="back" onclick="window.location.href='./index.html'">вернуться назад</button>
+		</div>
+		<div class="linksdiv">
+			<p></p>
+			<div class="info">
+				<a href="https://unpkg.com/boxicons@2.1.2/">
+					<div class="info">
+						<div class="img_div">
+							<h2 class="text1">icons</h2>
+							<span class="animatedtext-content animatedtext-second"><img src="src/img3.PNG" class="preview_img" alt="icons" /></span>
+						</div>
+					</div>
+				</a>
 
-      <p>
-      <div class="info">
-        <a href="https://unpkg.com/boxicons@2.1.1/">
-          <div class="info">
-            <div class="img_div">
-              <h2 class="text1">icons</h2>
-              <span class="animatedtext-content animatedtext-second"><img src="src/img3.PNG" class="preview_img"
-                  alt="icons"></span>
-            </div>
-          </div>
-      </div>
-      </a>
-      </p>
-      <div class="info">
-        <a href="https://dev.to/codinglabweb/side-navigation-bar-in-html-css-javascript-3d9d">
-          <div class="info">
-            <div class="img_div">
-              <h2 class="text1">sidebar</h2>
-              <span class="animatedtext-content animatedtext-second"><img src="src/img1.PNG" class="preview_img"></span>
-            </div>
-          </div>
-      </div>
-      </a>
-      </p>
+				<div class="info">
+					<a href="https://dev.to/codinglabweb/side-navigation-bar-in-html-css-javascript-3d9d">
+						<div class="info">
+							<div class="img_div">
+								<h2 class="text1">sidebar</h2>
+								<span class="animatedtext-content animatedtext-second"><img src="src/img1.PNG" class="preview_img" /></span>
+							</div>
+						</div>
+					</a>
 
-      <p>
-      <div class="info">
-        <a href="https://w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto">
-          <div class="info">
-            <div class="img_div">
-              <h2 class="text1">slider</h2>
-              <span class="animatedtext-content animatedtext-second"><img src="src/img2.PNG" class="preview_img"></span>
-            </div>
-          </div>
-      </div>
-      </a>
-      </p>
+					<p></p>
+					<div class="info">
+						<a href="https://w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow_auto">
+							<div class="info">
+								<div class="img_div">
+									<h2 class="text1">slider</h2>
+									<span class="animatedtext-content animatedtext-second"><img src="src/img2.PNG" class="preview_img" /></span>
+								</div>
+							</div>
+						</a>
 
-      <p>
-      <div class="info">
-        <a href="https://github.com/alexandresanlim/Badges4-README.md-Profile">
-          <div class="info">
-            <div class="img_div">
-              <h2 class="text1">badges</h2>
-              <span class="animatedtext-content animatedtext-second"><img src="src/img4.PNG" class="preview_img"></span>
-            </div>
-          </div>
-      </div>
-      </a>
-      </p>
+						<p></p>
+						<div class="info">
+							<a href="https://github.com/alexandresanlim/Badges4-README.md-Profile">
+								<div class="info">
+									<div class="img_div">
+										<h2 class="text1">badges</h2>
+										<span class="animatedtext-content animatedtext-second"><img src="src/img4.PNG" class="preview_img" /></span>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<style>
+						A {
+							text-decoration: none;
+						}
 
-    </div>
+						.collection {
+							background-color: rgb(77, 69, 87);
+							color: rgb(233, 233, 233);
+							padding-left: 1%;
+							font-size: 3vh;
+							padding: 10px;
+							text-align: center;
+							border-top-left-radius: 5px;
+							border-top-right-radius: 5px;
+						}
 
-  </div>
-  <style>
-    A {
-      text-decoration: none;
-    }
+						.animatedtext {
+							color: #fff;
+							text-transform: uppercase;
+							line-height: 40px;
+						}
 
-    .collection {
-      background-color: rgb(77, 69, 87);
-      color: rgb(233, 233, 233);
-      padding-left: 1%;
-      font-size: 3vh;
-      padding: 10px;
-      text-align: center;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+						.animatedtext-content {
+							display: block;
+							opacity: 0;
+							animation: rText 0.5s forwards;
+						}
 
+						.animatedtext-second {
+							animation-delay: 0.175s;
+						}
 
-    }
+						@keyframes rText {
+							from {
+								transform: translateY(20px);
+							}
 
-    .animatedtext {
-      color: #fff;
-      text-transform: uppercase;
-      line-height: 40px;
-    }
+							to {
+								opacity: 1;
+								transform: none;
+							}
+						}
 
-    .animatedtext-content {
-      display: block;
-      opacity: 0;
-      animation: rText .5s forwards;
-    }
+						.linksdiv {
+							background-color: rgb(68, 68, 68);
+							padding-top: 0.4%;
+							padding-left: 1%;
+							padding-bottom: 0.4%;
+						}
 
-    .animatedtext-second {
-      animation-delay: .175s;
+						.links {
+							color: rgb(144, 170, 255);
+						}
 
-    }
+						.pagemiddle {
+							background-color: rgb(86, 80, 95);
+							border-top-left-radius: 5px;
+							border-top-right-radius: 5px;
+						}
 
-    @keyframes rText {
-      from {
-        transform: translateY(20px);
-      }
+						.info {
+							background-color: rgb(49, 49, 49);
+							border-radius: 5px;
+							box-shadow: 0 0 20px 1px rgba(17, 17, 17, 0.274);
+						}
 
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+						.img_div {
+							text-align: center;
+							display: block;
+						}
 
-    .linksdiv {
-      background-color: rgb(68, 68, 68);
-      padding-top: 0.4%;
-      padding-left: 1%;
-      padding-bottom: 0.4%;
+						.preview_img {
+							max-height: 1000px;
+							max-width: 1000px;
+							border-radius: 3px;
+							margin-bottom: 3vw;
+							width: auto !important;
+							/*override the width below*/
+							width: 100%;
+							max-width: 900px;
+						}
 
+						.preview_img:hover {
+							box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.726);
+							transition: 0.3s;
+						}
 
-    }
+						.text1 {
+							color: rgb(144, 170, 255);
+							margin-left: 2%;
+							font-size: 3vh;
+							padding: 10px;
+							background: rgb(49, 49, 49);
+							background: linear-gradient(
+								80deg,
+								rgba(49, 49, 49, 1) 0%,
+								rgba(86, 80, 95, 0.5046393557422969) 50%,
+								rgba(49, 49, 49, 1) 100%
+							);
+						}
 
-    .links {
-      color: rgb(144, 170, 255);
+						/* width */
+						::-webkit-scrollbar {
+							width: 10px;
+						}
 
+						/* Track */
+						::-webkit-scrollbar-track {
+							background: #f1f1f1;
+						}
 
-    }
+						/* Handle */
+						::-webkit-scrollbar-thumb {
+							background: #474655;
+						}
 
-    .pagemiddle {
-      background-color: rgb(86, 80, 95);
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+						/* Handle on hover */
+						::-webkit-scrollbar-thumb:hover {
+							background: #474655;
+						}
 
-    }
+						.back {
+							background-color: #585769;
+							font-size: 4vh;
+							border-radius: 5px;
+							border-width: 0px;
+							box-shadow: 0 0 5px rgb(59, 59, 59);
+							color: white;
+							padding: 10px;
+							margin-bottom: 2vh;
+						}
 
-    .info {
-      background-color: rgb(49, 49, 49);
-      border-radius: 5px;
-      box-shadow: 0 0 20px 1px rgba(17, 17, 17, 0.274);
+						.back:hover {
+							box-shadow: 0 0 15px rgb(167, 109, 159);
+							transition: 0.3s;
+						}
 
-    }
-
-    .img_div {
-      text-align: center;
-      display: block;
-
-    }
-
-    .preview_img {
-      max-height: 1000px;
-      max-width: 1000px;
-      border-radius: 3px;
-      margin-bottom: 3vw;
-      width: auto !important;
-      /*override the width below*/
-      width: 100%;
-      max-width: 900px;
-
-    }
-
-    .preview_img:hover {
-      box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.726);
-    }
-
-    .text1 {
-      color: rgb(144, 170, 255);
-      margin-left: 2%;
-      font-size: 3vh;
-      padding: 10px;
-      background: rgb(49, 49, 49);
-      background: linear-gradient(80deg, rgba(49, 49, 49, 1) 0%, rgba(86, 80, 95, 0.5046393557422969) 50%, rgba(49, 49, 49, 1) 100%);
-
-    }
-
-    /* width */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #474655;
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #474655;
-    }
-
-    .back {
-      background-color: #585769;
-      font-size: 4vh;
-      border-radius: 5px;
-      border-width: 0px;
-      box-shadow: 0 0 5px rgb(59, 59, 59);
-      color: white;
-      padding: 10px;
-      margin-bottom: 2vh;
-
-    }
-
-    .back:hover {
-      box-shadow: 0 0 15px rgb(167, 109, 159);
-
-    }
-
-    .btns {
-      text-align: center;
-    }
-  </style>
+						.btns {
+							text-align: center;
+						}
+					</style>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
