@@ -96,7 +96,7 @@ img {
 
 .jumbotron {
   min-width: 250px;
-  min-height: 500px;
+  min-height: 50vh;
   background-position: center;
 }
 
