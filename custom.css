@@ -203,6 +203,7 @@ img {
   .jumbotron {
     background-image: url(./src/preview.png);
     background-size: cover;
+    padding-top: 100px;
   }
   .slideshow-container {
     display: none;
