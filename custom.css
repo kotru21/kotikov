@@ -257,3 +257,23 @@ img {
   background: #fff;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #11101d;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(163, 163, 163);
+}
