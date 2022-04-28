@@ -101,8 +101,8 @@ img {
 }
 
 .card-deck {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
 }
 .card-text {
   color: #9b9b9b;
@@ -113,9 +113,14 @@ img {
   border-color: #11101d;
   color: white;
   border-radius: 1rem;
+  transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow, 0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .card-img-bottom,
@@ -128,8 +133,17 @@ img {
 
 .main {
   background-color: #1d1d1d;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+}
+.main-transparent {
+  background-color: #1d1d1d;
+  opacity: 0.9;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
@@ -145,7 +159,6 @@ img {
   bottom: 0;
 }
 .progress {
-  text-align: right;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   display: block;
@@ -153,6 +166,15 @@ img {
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
+}
+.progress-bar-wip {
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: block;
+  width: 90%;
+  position: relative;
+  bottom: 0;
 }
 
 ::selection {
@@ -277,4 +299,7 @@ img {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(163, 163, 163);
+}
+.progress-bar-striped {
+  height: 100%;
 }
