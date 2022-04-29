@@ -112,6 +112,7 @@ img {
   background-color: #1d1d1d;
   border-color: #11101d;
   color: white;
+  opacity: 0;
   border-radius: 1rem;
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow, 0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
@@ -245,6 +246,11 @@ img {
 
 .animatedtext-second {
   animation-delay: 0.175s;
+}
+.visible {
+  display: block;
+  opacity: 0;
+  animation: rText 0.5s forwards;
 }
 
 @keyframes rText {
