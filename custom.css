@@ -120,8 +120,15 @@ img {
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
 }
 .card:hover {
-  transform: scale(1.05);
+  animation: transform 200ms forwards;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes transform {
+  to {
+    opacity: 1;
+    transform: scale(1.03);
+  }
 }
 
 .card-img-bottom,
@@ -249,8 +256,8 @@ img {
 }
 .visible {
   display: block;
-  opacity: 0;
-  animation: rText 0.5s forwards;
+  opacity: 1;
+  transition: ease-in-out 0.5s;
 }
 
 @keyframes rText {
