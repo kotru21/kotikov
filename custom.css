@@ -118,6 +118,8 @@ img {
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 .card:hover {
   animation: transform 200ms forwards;
