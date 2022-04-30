@@ -90,8 +90,32 @@ img {
   color: #9b9b9b;
   font-size: 1.5rem;
 }
+.h3d {
+  color: #9b9b9b;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 0.1rem;
+}
 .h2xl {
   color: white;
+}
+.h2xld {
+  color: white;
+  font-size: 2.5rem;
+}
+.dsc {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  clear: both;
+  display: inline-block;
+}
+.dsc-img {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  float: left;
+  width: 15vh;
+  max-width: 30px;
 }
 
 .jumbotron {
