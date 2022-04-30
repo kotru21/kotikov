@@ -158,13 +158,34 @@
           </div>
         </div>
       </div>
-
       <div class="main-transparent">
         <p></p>
-        <h2 class="h2xl text-center">⚒️Сайт всё ещё в разработке</h2>
+        <h2 class="h2xl text-center"><span class="animatedtext-content">Чем я интересуюсь❓</span></h2>
+        <p></p>
       </div>
       <div class="main">
-        <p></p>
+        <div class="dsc">
+          <img src="./src/eth.png" class="dsc-img rounded float-left" alt="..." />
+          <h2 class="h2xld"><span class="animatedtext-content">Блокчейн</span></h2>
+          <h3 class="h3d">
+            <span class="animatedtext-content animatedtext-second"
+              >Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки персональных данных и идентификации, в маркетинге и компьютерных играх.</span
+            >
+          </h3>
+        </div>
+        <div class="dsc">
+          <img src="./src/web.png" class="dsc-img rounded float-left" alt="..." />
+          <h2 class="h2xld"><span class="animatedtext-content">Web разработка</span></h2>
+          <h3 class="h3d">
+            <span class="animatedtext-content animatedtext-second">WEB-разработка — процедура создания WEB-приложения или WEB-сайта.Основными этапами этого процесса являются такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а также работы по конфигурированию сервера.</span>
+          </h3>
+        </div>
+        <div class="dsc">
+          <img src="./src/meow.png" class="dsc-img rounded float-left" alt="..." />
+          <h2 class="h2xld"><span class="animatedtext-content">Котики</span></h2>
+          <h3 class="h3d"><span class="animatedtext-content animatedtext-second">Лол, здесь нужно что-то объяснять? Котики классные.</span></h3>
+        </div>
+        <hr class="hr" />
         <h3 class="h3 text-center">
           Скоро здесь будет ещё больше интересного.<br />
           А пока посмотрите на моего котика:)
@@ -178,42 +199,42 @@
       <div class="main padding">
         <h2 class="h2x text-center">Arsenij Kotikov©, 2022</h2>
       </div>
-
-      <script>
-        let slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-          let i;
-          let slides = document.getElementsByClassName("mySlides");
-
-          for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-          }
-          slideIndex++;
-          if (slideIndex > slides.length) {
-            slideIndex = 1;
-          }
-          document.body.classList.remove("color3");
-          slides[slideIndex - 1].style.display = "block";
-          document.body.classList.add("color" + slideIndex);
-          setTimeout(showSlides, 4000); // Change image every 2 seconds
-          let slideIndexm1 = slideIndex - 1;
-          document.body.classList.remove("color" + slideIndexm1);
-        }
-      </script>
-      <script>
-        jQuery(document).ready(function ($) {
-          $(".card").viewportChecker({
-            classToAdd: "visible",
-            classToRemove: "",
-            invertBottomOffset: true,
-            repeat: false,
-            callbackFunction: function (elem, action) {},
-            scrollHorizontal: false,
-          });
-        });
-      </script>
     </div>
+
+    <script>
+      let slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        document.body.classList.remove("color3");
+        slides[slideIndex - 1].style.display = "block";
+        document.body.classList.add("color" + slideIndex);
+        setTimeout(showSlides, 4000); // Change image every 2 seconds
+        let slideIndexm1 = slideIndex - 1;
+        document.body.classList.remove("color" + slideIndexm1);
+      }
+    </script>
+    <script>
+      jQuery(document).ready(function ($) {
+        $(".card").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+      });
+    </script>
   </body>
 </html>
