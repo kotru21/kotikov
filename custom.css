@@ -273,7 +273,7 @@ img {
 }
 @media (min-width: 800px) {
   .jumbotron {
-    background-image: url(./src/preview.png);
+    background-image: url(./src/site_preview.png);
     background-size: cover;
     padding-top: 100px;
   }
