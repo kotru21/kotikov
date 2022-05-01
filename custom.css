@@ -358,3 +358,9 @@ img {
 .progress-bar-striped {
   height: 100%;
 }
+a:link {
+  color: #ffffff; /* Цвет ссылок */
+}
+a:visited {
+  color: #ffffff; /* Цвет посещенных ссылок */
+}
