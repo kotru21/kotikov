@@ -3,6 +3,7 @@
 }
 body {
   font-family: Verdana, sans-serif;
+  overflow-x: hidden;
 }
 .mySlides {
   display: none;
@@ -63,11 +64,7 @@ img {
   }
 }
 /* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .text {
-    font-size: 11px;
-  }
-}
+
 .hr {
   color: white;
 }
@@ -78,6 +75,7 @@ img {
 .row {
   margin: 0;
 }
+
 .h1 {
   font-size: 4rem;
   color: white;
@@ -111,6 +109,7 @@ img {
   display: inline-block;
   word-break: break-word;
 }
+
 .dsc-img {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -173,6 +172,10 @@ img {
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+}
+.main-ref {
+  height: 100%;
+  width: 100%;
 }
 .main-transparent {
   background-color: #1d1d1d;
@@ -263,7 +266,11 @@ img {
     display: block;
   }
 }
-
+@media screen and (min-height: 1400px) {
+  .main-ref {
+    height: 22rem;
+  }
+}
 @media (min-width: 800px) {
   .jumbotron {
     background-image: url(./src/preview.png);
