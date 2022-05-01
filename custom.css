@@ -109,6 +109,7 @@ img {
   width: 100%;
   clear: both;
   display: inline-block;
+  word-break: break-word;
 }
 .dsc-img {
   margin-left: 1rem;
@@ -249,6 +250,14 @@ img {
 @media screen and (max-width: 767px) {
   .jumbotron {
     background-image: none;
+  }
+  .slideshow-container {
+    display: block;
+  }
+}
+@media screen and (max-width: 400px) {
+  .h2xld {
+    font-size: 1.5rem;
   }
   .slideshow-container {
     display: block;
