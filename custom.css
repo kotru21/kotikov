@@ -306,11 +306,17 @@ img {
   .slideshow-container {
     display: none;
   }
+  .navbar{
+    background: linear-gradient(to left, rgba(51, 51, 51, 0), rgba(73, 73, 73, 0.7) , rgba(51, 51, 51, 0) );
+  }
 }
 .animatedtext {
   color: #fff;
   text-transform: uppercase;
   line-height: 4rem;
+}
+.linear-bg{
+  background: linear-gradient(to bottom, #1d1d1d , #1d1d1dd0 );
 }
 
 .animatedtext-content {
