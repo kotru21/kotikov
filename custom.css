@@ -29,6 +29,29 @@ img {
   width: 100%;
   text-align: center;
 }
+.rgbtext{
+  background: linear-gradient(to right, rgb(255, 255, 255) 20%, #dab055 30%, #da9e44 70%, rgb(255, 255, 255) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: textShine 7s ease-in-out infinite alternate;
+}
+.rgbtext-blue{
+  background: linear-gradient(to right, rgb(172, 230, 248) 20%, #6255da 30%, #4460da 70%, rgb(71, 230, 216) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: textShine 7s ease-in-out infinite alternate;
+}
+
+@keyframes textShine {
+  to {
+    background-position: 200%;
+  }
+}
+
 
 /* Number text (1/3 etc) */
 .numbertext {
