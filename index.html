@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width" initial-scale="1.0" minimum-scale="1.0" maximum-scale="1.0" user-scalable="no" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Арсений Котиков" />
@@ -59,9 +59,7 @@
     <div class="main linear-bg" style="box-shadow: 0 -10px 20px 10px rgba(17, 16, 29, 0.5)">
       <p class="lead"></p>
       <h1 class="h1 text-center"><span class="animatedtext-content">Привет!</span></h1>
-      <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem">
-        <span class="animatedtext-content animatedtext-second">тут нужно что-то написать про себя, так? Когда-нибудь я так и сделаю.</span>
-      </h3>
+      <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem">тут нужно что-то написать про себя, так? Когда-нибудь я так и сделаю.</h3>
       <hr class="hr" />
     </div>
     <div class="main-transparent">
@@ -139,9 +137,7 @@
       </svg>
     </div>
     <div class="main-transparent">
-      <h3 class="h3 text-center">
-        <span class="animatedtext-content animatedtext-second">Возможно, когда-нибудь я выучу это...</span>
-      </h3>
+      <h3 class="h3 text-center">Возможно, когда-нибудь я выучу это...</h3>
     </div>
     <div class="progress-bar-striped progress-bar-animated">
       <div class="card-deck">
@@ -219,26 +215,20 @@
     <div class="main" style="padding-top: 2rem">
       <div class="dsc">
         <img src="./src/eth.png" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld"><span class="animatedtext-content">Блокчейн</span></h2>
-        <h3 class="h3d">
-          <span class="animatedtext-content animatedtext-second">
-            Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки персональных данных и идентификации, в маркетинге и компьютерных играх.
-          </span>
-        </h3>
+        <h2 class="h2xld">Блокчейн</h2>
+        <h3 class="h3d">Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки персональных данных и идентификации, в маркетинге и компьютерных играх.</h3>
         <hr class="hr" style="margin-bottom: -0.5rem" />
       </div>
       <div class="dsc">
         <img src="./src/web.png" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld"><span class="animatedtext-content">Web разработка</span></h2>
-        <h3 class="h3d">
-          <span class="animatedtext-content animatedtext-second">WEB-разработка — процедура создания WEB-приложения или WEB-сайта. Основными этапами этого процесса являются такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а также работы по конфигурированию сервера.</span>
-        </h3>
+        <h2 class="h2xld">Web разработка</h2>
+        <h3 class="h3d">WEB-разработка — процедура создания WEB-приложения или WEB-сайта. Основными этапами этого процесса являются такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а также работы по конфигурированию сервера.</h3>
         <hr class="hr" style="margin-bottom: -0.5rem" />
       </div>
       <div class="dsc">
         <img src="./src/meow.png" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld"><span class="animatedtext-content">Котики</span></h2>
-        <h3 class="h3d"><span class="animatedtext-content animatedtext-second">Лол, здесь нужно что-то объяснять? Котики классные.</span></h3>
+        <h2 class="h2xld">Котики</h2>
+        <h3 class="h3d">Лол, здесь нужно что-то объяснять? Котики классные.</h3>
       </div>
     </div>
     <div class="main-transparent">
@@ -276,7 +266,7 @@
     </div>
     <div class="main-transparent highlighted">
       <p></p>
-      <h2 class="h2xl text-center"><span class="animatedtext-content">🔥Скоро здесь будет ещё больше интересного.</span></h2>
+      <h2 class="h2xl text-center">🔥Скоро здесь будет ещё больше интересного.</h2>
       <p></p>
     </div>
     <div class="container progress-bar-animated">
@@ -342,16 +332,6 @@
     <!-- Adding a .visible class to the element when it is in the viewport. -->
     <script>
       jQuery(document).ready(function ($) {
-        $(".card").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-      });
-      jQuery(document).ready(function ($) {
         $(".svg").viewportChecker({
           classToAdd: "svg-animated",
           classToRemove: "",
@@ -360,8 +340,6 @@
           callbackFunction: function (elem, action) {},
           scrollHorizontal: false,
         });
-      });
-      jQuery(document).ready(function ($) {
         $(".card-img-bottom").viewportChecker({
           classToAdd: "visible",
           classToRemove: "",
@@ -370,8 +348,6 @@
           callbackFunction: function (elem, action) {},
           scrollHorizontal: false,
         });
-      });
-      jQuery(document).ready(function ($) {
         $(".card-img-top").viewportChecker({
           classToAdd: "visible",
           classToRemove: "",
@@ -380,16 +356,61 @@
           callbackFunction: function (elem, action) {},
           scrollHorizontal: false,
         });
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
-        $(".has-animation").each(function (index) {
-          $(this)
-            .delay($(this).data("delay"))
-            .queue(function () {
-              $(this).addClass("animate-in");
-            });
+        $(".card").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".dsc-img").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".h2xld").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".h2xl").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".h3d").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".h3").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+        $(".rounded").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
         });
       });
     </script>
