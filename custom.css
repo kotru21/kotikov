@@ -254,7 +254,7 @@ img {
 }
 
 .navbar {
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
   background-color: rgba(73, 73, 73, 0.7);
   position: fixed;
   padding-top: 1rem;
