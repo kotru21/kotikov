@@ -16,6 +16,7 @@ img {
 .slideshow-container {
   max-width: 1000px;
   position: relative;
+  z-index: -1;
   margin: auto;
 }
 
@@ -351,13 +352,18 @@ img {
 }
 
 @keyframes fade {
-  from {
+  0% {
     opacity: 0.8;
   }
-  to {
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+  100% {
     opacity: 1;
   }
 }
+
 .rounded {
   max-width: 1000px;
 }

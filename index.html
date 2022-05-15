@@ -47,7 +47,7 @@
 
         <div class="mySlides fade">
           <div class="numbertext"></div>
-          <img src="./src/mobile_red.png" style="width: 100%" />
+          <img src="./src/mobile_red.png" style="width: 100%" class="" />
         </div>
 
         <div class="mySlides fade">
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div class="main linear-bg">
+    <div class="main linear-bg" style="box-shadow: 0 -10px 20px 10px rgba(17, 16, 29, 0.5)">
       <p class="lead"></p>
       <h1 class="h1 text-center"><span class="animatedtext-content">Привет!</span></h1>
       <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem">
@@ -359,6 +359,17 @@
           repeat: false,
           callbackFunction: function (elem, action) {},
           scrollHorizontal: false,
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".has-animation").each(function (index) {
+          $(this)
+            .delay($(this).data("delay"))
+            .queue(function () {
+              $(this).addClass("animate-in");
+            });
         });
       });
     </script>
