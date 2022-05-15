@@ -254,7 +254,7 @@ img {
 }
 
 .navbar {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
   background-color: rgba(73, 73, 73, 0.7);
   position: fixed;
   padding-top: 1rem;
@@ -400,6 +400,14 @@ svg {
   top: 0;
   left: 0;
   right: 0;
+  opacity: 0;
+}
+svg.svg-animated {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: wave 1s forwards;
 }
 .container {
   position: relative;
@@ -410,4 +418,21 @@ svg {
   background: linear-gradient(#1d1d1dd8, #1d1d1d, #1d1d1d);
   vertical-align: middle;
   overflow: hidden;
+}
+
+.main-transparent.highlighted {
+  background: linear-gradient(to top, rgb(56, 37, 32) 0%, transparent 60%);
+}
+.main.highlighted {
+  background: linear-gradient(to top, rgb(56, 37, 32) 90%, transparent 60%);
+}
+@keyframes wave {
+  0% {
+    top: -80px;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
 }

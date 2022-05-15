@@ -107,11 +107,13 @@
         </div>
       </div>
     </div>
-    <div class="main">
+    <div class="main highlighted">
+      <p></p>
       <h2 class="h2xl text-center"><span class="animatedtext-content">Что я учу/планирую выучить?</span></h2>
+      <p></p>
     </div>
     <div class="container progress-bar-animated" style="margin-bottom: 0; background: #1d1d1de0">
-      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" viewBox="0 0 1440 150" version="1.1">
+      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" class="svg" viewBox="0 0 1440 150" version="1.1">
         <defs>
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
             <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
@@ -183,13 +185,13 @@
         </div>
       </div>
     </div>
-    <div class="main-transparent">
+    <div class="main-transparent highlighted">
       <p></p>
       <h2 class="h2xl text-center"><span class="animatedtext-content">Чем я интересуюсь❓</span></h2>
       <p></p>
     </div>
     <div class="container progress-bar-animated">
-      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" viewBox="0 0 1440 150" version="1.1">
+      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" class="svg" viewBox="0 0 1440 150" version="1.1">
         <defs>
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
             <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
@@ -272,13 +274,13 @@
         </div>
       </div>
     </div>
-    <div class="main-transparent">
+    <div class="main-transparent highlighted">
       <p></p>
       <h2 class="h2xl text-center"><span class="animatedtext-content">🔥Скоро здесь будет ещё больше интересного.</span></h2>
       <p></p>
     </div>
     <div class="container progress-bar-animated">
-      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" viewBox="0 0 1440 150" version="1.1">
+      <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" class="svg" viewBox="0 0 1440 150" version="1.1">
         <defs>
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
             <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
@@ -342,6 +344,16 @@
       jQuery(document).ready(function ($) {
         $(".card").viewportChecker({
           classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+      });
+      jQuery(document).ready(function ($) {
+        $(".svg").viewportChecker({
+          classToAdd: "svg-animated",
           classToRemove: "",
           invertBottomOffset: true,
           repeat: false,
