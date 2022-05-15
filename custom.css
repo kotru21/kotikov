@@ -188,7 +188,22 @@ img {
 .card-img-top {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  opacity: 100%;
+}
+.card-img-bottom.visible,
+.card-img-mid.visible,
+.card-img-top.visible {
+  animation: card-img 2s forwards;
+}
+
+@keyframes card-img {
+  from {
+    opacity: 50%;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 100%;
+    transform: none;
+  }
 }
 
 .main {

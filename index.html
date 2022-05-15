@@ -361,6 +361,26 @@
           scrollHorizontal: false,
         });
       });
+      jQuery(document).ready(function ($) {
+        $(".card-img-bottom").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+      });
+      jQuery(document).ready(function ($) {
+        $(".card-img-top").viewportChecker({
+          classToAdd: "visible",
+          classToRemove: "",
+          invertBottomOffset: true,
+          repeat: false,
+          callbackFunction: function (elem, action) {},
+          scrollHorizontal: false,
+        });
+      });
     </script>
     <script>
       $(document).ready(function () {
