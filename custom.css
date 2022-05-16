@@ -257,8 +257,7 @@ img {
   width: 100%;
 }
 .main-transparent {
-  background-color: #1d1d1d;
-  opacity: 10;
+  background-color: #1d1d1d9a;
   margin-bottom: -10px;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -443,9 +442,11 @@ img {
   animation: catpics 10s infinite;
   transition: all 1s ease-out;
 }
+
 @keyframes catpics {
   0% {
     background-position: right top;
+    background-position: 50% 0;
   }
   50% {
     background-position: left bottom;
