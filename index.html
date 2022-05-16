@@ -65,50 +65,53 @@
     <div class="main-transparent">
       <h2 class="h2xl text-center"><span class="animatedtext-content animatedtext-second">какие технологии я использую?</span></h2>
     </div>
-    <div class="card-deck">
-      <div class="row">
-        <div class="col-sm-4 d-inline-flex">
-          <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
-            <img class="card-img-top" src="./src/JS.png" alt="Javascript" />
-            <div class="card-body">
-              <h5 class="card-title">Javascript</h5>
-              <p class="card-text">JavaScript это язык, который позволяет вам применять сложные вещи на web странице.</p>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 15%">15% &nbsp;</div>
+    <div class="catbg">
+      <div class="card-deck">
+        <div class="row">
+          <div class="col-sm-4 d-inline-flex">
+            <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
+              <img class="card-img-top" src="./src/JS.png" alt="Javascript" />
+              <div class="card-body">
+                <h5 class="card-title">Javascript</h5>
+                <p class="card-text">JavaScript это язык, который позволяет вам применять сложные вещи на web странице.</p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 15%">15% &nbsp;</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4 d-inline-flex">
-          <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
-            <img class="card-img-bottom" src="./src/CSS.png" alt="Cascading Style Sheets" />
-            <div class="card-body">
-              <h5 class="card-title">CSS</h5>
-              <p class="card-text">Cascading Style Sheets — формальный язык описания внешнего вида web страницы.</p>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 40%">40% &nbsp;</div>
+          <div class="col-sm-4 d-inline-flex">
+            <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
+              <img class="card-img-bottom" src="./src/CSS.png" alt="Cascading Style Sheets" />
+              <div class="card-body">
+                <h5 class="card-title">CSS</h5>
+                <p class="card-text">Cascading Style Sheets — формальный язык описания внешнего вида web страницы.</p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 40%">40% &nbsp;</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4 d-inline-flex">
-          <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
-            <img class="card-img-bottom" src="./src/HTML.png" alt="HyperText Markup Language" />
-            <div class="card-body">
-              <h5 class="card-title">HTML</h5>
-              <p class="card-text">Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно отображать загруженный сайт.</p>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%">45% &nbsp;</div>
+          <div class="col-sm-4 d-inline-flex">
+            <div class="card" style="width: 100rem; margin: 0 auto; float: none; margin-bottom: 10px">
+              <img class="card-img-bottom" src="./src/HTML.png" alt="HyperText Markup Language" />
+              <div class="card-body">
+                <h5 class="card-title">HTML</h5>
+                <p class="card-text">Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно отображать загруженный сайт.</p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 45%">45% &nbsp;</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="main highlighted">
-      <p></p>
-      <h2 class="h2xl text-center"><span class="animatedtext-content">Что я учу/планирую выучить?</span></h2>
-      <p></p>
+
+      <div class="main-transparent highlighted">
+        <p></p>
+        <h2 class="h2xl text-center"><span class="animatedtext-content">Что я учу/планирую выучить?</span></h2>
+        <p></p>
+      </div>
     </div>
     <div class="container progress-bar-animated" style="margin-bottom: 0; background: #1d1d1de0">
       <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" class="svg" viewBox="0 0 1440 150" version="1.1">
@@ -324,7 +327,7 @@
         document.body.classList.remove("color3");
         slides[slideIndex - 1].style.display = "block";
         document.body.classList.add("color" + slideIndex);
-        setTimeout(showSlides, 4000); // Change image every 2 seconds
+        setTimeout(showSlides, 4000); // Change image every 4 seconds
         let slideIndexm1 = slideIndex - 1;
         document.body.classList.remove("color" + slideIndexm1);
       }
