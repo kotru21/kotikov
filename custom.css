@@ -440,13 +440,12 @@ img {
   background-image: url(./src/cat.png);
   background-size: 8rem;
   animation: catpics 10s infinite;
-  transition: all 1s ease-out;
+  transition: all 3s ease-out;
 }
 
 @keyframes catpics {
   0% {
     background-position: right top;
-    background-position: 50% 0;
   }
   50% {
     background-position: left bottom;
