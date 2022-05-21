@@ -11,7 +11,7 @@ body::after {
   height: 0;
   overflow: hidden;
   z-index: -1;
-  content: url(./src/cat.png);
+  content: url(./src/index/cat.png);
 }
 html {
   scroll-behavior: smooth;
@@ -365,7 +365,7 @@ img {
 }
 @media (min-width: 800px) {
   .jumbotron {
-    background-image: url(./src/site-preview.png);
+    background-image: url(./src/index/site-preview.png);
     background-size: cover;
     animation: big-header-pic 1s forwards;
     padding-top: 100px;
@@ -448,7 +448,7 @@ img {
   opacity: 0;
 }
 .catbg {
-  background-image: url(./src/cat.png);
+  background-image: url(./src/index/cat.png);
   background-size: 8rem;
   animation: catpics 10s infinite;
   transition: all 3s ease-out;
