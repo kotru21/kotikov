@@ -5,6 +5,14 @@ body {
   font-family: Verdana, sans-serif;
   overflow-x: hidden;
 }
+body::after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  content: url(./src/cat.png);
+}
 html {
   scroll-behavior: smooth;
 }
