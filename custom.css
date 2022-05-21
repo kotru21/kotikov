@@ -5,6 +5,9 @@ body {
   font-family: Verdana, sans-serif;
   overflow-x: hidden;
 }
+html {
+  scroll-behavior: smooth;
+}
 .mySlides {
   display: none;
 }
