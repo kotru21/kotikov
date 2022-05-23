@@ -298,9 +298,18 @@
         ></path>
       </svg>
     </div>
-    <div class="main" style="margin-bottom: -2rem; padding-top: 2rem">
-      <h3 class="h3 text-center">А пока посмотрите на моего котика:)</h3>
-      <img loading="lazy" src="./src/index/cat.jpg" class="rounded mx-auto d-block" alt="котек" width="700rem" style="max-width: 80%" />
+    <div class="main dsc-end-main" style="margin-bottom: -2rem; padding-top: 3rem">
+      <div class="row">
+        <div class="col" align="center">
+          <div class="dsc-end rounded">
+            <h3 class="h3 text-center">
+              Остались вопросы?<br />
+              Напиши на почту :D
+            </h3>
+            <a href="mailto:kotikovdev@gmail.com"><img id="myImg" src="./src/index/Static.png" class="Mail" loading="lazy" /></a>
+          </div>
+        </div>
+      </div>
       <p></p>
       <hr class="hr" />
     </div>
@@ -429,6 +438,18 @@
         return false;
       }
       msieversion();
+    </script>
+    <script>
+      $(function () {
+        $("#myImg").hover(
+          function () {
+            $(this).attr("src", "./src/index/Live.gif");
+          },
+          function () {
+            $(this).attr("src", "./src/index/Static.png");
+          }
+        );
+      });
     </script>
   </body>
 </html>
