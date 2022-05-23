@@ -375,11 +375,6 @@ img {
     -moz-transition: all 0.5s;
     transition: all 0.5s;
   }
-  .dsc-end-main {
-    background-image: url("./src/index/dsc-cat.png");
-    background-size: cover;
-    background-position: center;
-  }
   .slideshow-container {
     display: none;
   }
@@ -393,6 +388,13 @@ img {
   }
   100% {
     opacity: 1;
+  }
+}
+@media (min-width: 900px) {
+  .dsc-end-main {
+    background-image: url("./src/index/dsc-cat.png");
+    background-size: cover;
+    background-position: center;
   }
 }
 .animatedtext {
@@ -557,6 +559,7 @@ svg.svg-animated {
   background-color: #7a70d352;
   min-width: 20rem;
   width: 38vw;
+  max-width: 600px;
   height: 100%;
 }
 .Mail {
