@@ -219,15 +219,8 @@ img {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 .card:hover {
-  animation: transform 200ms forwards;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
-}
-
-@keyframes transform {
-  to {
-    opacity: 1;
-    transform: scale(1.03);
-  }
+  transform: scale(1.03);
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .card-img-bottom,
