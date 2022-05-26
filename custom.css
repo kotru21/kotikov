@@ -222,6 +222,33 @@ img {
   transform: scale(1.03);
   -webkit-font-smoothing: subpixel-antialiased;
 }
+.card.linked:hover {
+  transform: scale(1.03);
+  -webkit-font-smoothing: subpixel-antialiased;
+  animation: rgb-shadow 4s forwards;
+}
+@keyframes rgb-shadow {
+  0% {
+    box-shadow: 0px 0px 30px rgba(11, 124, 199, 1);
+    box-shadow: 0px 0px 10px rgba(11, 124, 199, 1);
+  }
+  20% {
+    box-shadow: 0px 0px 30px rgba(168, 11, 199, 1);
+    box-shadow: 0px 0px 10px rgba(168, 11, 199, 1);
+  }
+  40% {
+    box-shadow: 0px 0px 30px rgba(11, 199, 96, 1);
+    box-shadow: 0px 0px 10px rgba(11, 199, 96, 1);
+  }
+  60% {
+    box-shadow: 0px 0px 30px rgba(199, 11, 11, 1);
+    box-shadow: 0px 0px 10px rgba(199, 11, 11, 1);
+  }
+  80% {
+    box-shadow: 0px 0px 30px rgba(199, 96, 11, 1);
+    box-shadow: 0px 0px 10px rgba(199, 96, 11, 1);
+  }
+}
 
 .card-img-bottom,
 .card-img-mid,
