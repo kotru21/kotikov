@@ -596,8 +596,16 @@ svg.svg-animated {
 }
 
 .carousel-item {
-  opacity: 0.5;
+  animation: carousel-anim 1s;
   transition: all 0.5s;
+}
+@keyframes carousel-anim {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .carousel-item.active {
   opacity: 1;
