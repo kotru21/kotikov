@@ -629,4 +629,5 @@ svg.svg-animated {
 }
 .catbg.slider {
   background-image: url("./src/index/bg-slider.webp");
+  background-size: 70%;
 }
