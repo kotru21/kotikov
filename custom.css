@@ -171,7 +171,6 @@ img {
   animation: rText 0.5s forwards;
 }
 .dsc {
-  margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
   clear: both;
@@ -277,7 +276,6 @@ img {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background-color: #1d1d1d;
-  padding-top: 1rem;
   padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
@@ -289,16 +287,13 @@ img {
 }
 .main-transparent {
   background-color: #1d1d1df3;
-  margin-top: -0.5rem;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  backdrop-filter: blur(5px);
 }
-
 .progress-bar {
   text-align: right;
   -webkit-backface-visibility: hidden;
