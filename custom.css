@@ -552,6 +552,7 @@ svg.svg-animated {
   background: linear-gradient(#1d1d1dd8, #1d1d1d, #1d1d1d);
   vertical-align: middle;
   overflow: hidden;
+  width: 100%;
 }
 
 .main-transparent.highlighted {
