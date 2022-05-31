@@ -22,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js" integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="ViewportAnim.js"></script>
     <link href="custom.css" rel="stylesheet" />
     <title>Добро пожаловать</title>
   </head>
@@ -430,90 +431,6 @@
       }
     </script>
     <!-- Adding a .visible class to the element when it is in the viewport. -->
-    <script>
-      jQuery(document).ready(function ($) {
-        $(".svg").viewportChecker({
-          classToAdd: "svg-animated",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".card-img-bottom").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".card-img-top").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".card").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".dsc-img").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".h2xld").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".h2xl").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".h3d").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".h3").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-        $(".rounded").viewportChecker({
-          classToAdd: "visible",
-          classToRemove: "",
-          invertBottomOffset: true,
-          repeat: false,
-          callbackFunction: function (elem, action) {},
-          scrollHorizontal: false,
-        });
-      });
-    </script>
     <script>
       function msieversion() {
         var ua = window.navigator.userAgent;
