@@ -539,5 +539,19 @@
         );
       });
     </script>
+    <script>
+      if (navigator.deviceMemory < 4) {
+        let confirmAction = confirm("На вашем устройству <4 гигабайт ОЗУ. Загрузить упрощённую версию сайта?");
+        if (confirmAction) {
+          const nobg = document.getElementsByClassName("catbg");
+          for (var i = 0; i < nobg.length; i++) {
+            nobg[i].style.backgroundImage = "none";
+          }
+          nobg.style.backgroundImage = "none";
+        } else {
+          alert("Ну как хочешь");
+        }
+      }
+    </script>
   </body>
 </html>
