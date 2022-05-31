@@ -80,14 +80,3 @@ jQuery(document).ready(function ($) {
     scrollHorizontal: false,
   });
 });
-function msieversion() {
-  var ua = window.navigator.userAgent;
-  var msie = ua.indexOf("MSIE ");
-
-  if (msie > 0) {
-    window.location.href = "IE-warning.html";
-  } // If another browser, return 0
-
-  return false;
-}
-msieversion();
