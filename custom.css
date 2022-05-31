@@ -171,6 +171,7 @@ img {
   animation: rText 0.5s forwards;
 }
 .dsc {
+  margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
   clear: both;
