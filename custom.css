@@ -289,8 +289,8 @@ img {
 }
 .main-transparent {
   background-color: #1d1d1df3;
-  margin-bottom: -10px;
-  padding-top: 1rem;
+  margin-top: -0.5rem;
+  padding-top: 1.5rem;
   padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
@@ -553,7 +553,6 @@ svg.svg-animated {
   min-width: 100%;
   margin: 0;
   height: 7vw;
-  margin-bottom: -3vh;
   background: linear-gradient(#1d1d1dd8, #1d1d1d, #1d1d1d);
   vertical-align: middle;
   overflow: hidden;
