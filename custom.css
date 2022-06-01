@@ -426,7 +426,7 @@ img {
   line-height: 4rem;
 }
 .linear-bg {
-  background: linear-gradient(to bottom, #1d1d1d, #1d1d1dd0);
+  background: linear-gradient(to bottom, #1d1d1d, #1d1d1de7);
 }
 
 .animatedtext-content {
