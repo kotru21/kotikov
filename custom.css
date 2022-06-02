@@ -470,7 +470,6 @@ img {
   animation-delay: 0.175s;
 }
 .animatedtext-card-header {
-  animation-delay: 0.175s;
   display: block;
   opacity: 0;
   animation: lText 0.5s forwards;
@@ -487,7 +486,7 @@ img {
   transition: ease-in-out 0.5s;
 }
 .animatedtext-card-text {
-  animation-delay: 0.175s;
+  animation-delay: 0.075s;
   display: block;
   opacity: 0;
   animation: oText 1s forwards;
