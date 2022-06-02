@@ -22,7 +22,22 @@ html {
 img {
   vertical-align: middle;
 }
-
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(73, 73, 73, 0.7);
+  position: fixed;
+  padding-top: 1rem;
+  width: 100%;
+  z-index: 999;
+  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
+  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
+}
+.btn:hover {
+  color: #11101d;
+  background: #fff;
+  box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
+}
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
@@ -41,6 +56,7 @@ img {
   width: 100%;
   text-align: center;
 }
+
 .rgbtext {
   background: linear-gradient(to right, rgb(255, 255, 255) 20%, #dab055 30%, #da9e44 70%, rgb(255, 255, 255) 80%);
   -webkit-background-clip: text;
@@ -56,12 +72,6 @@ img {
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
   animation: textShine 7s ease-in-out infinite alternate;
-}
-
-@keyframes textShine {
-  to {
-    background-position: 200%;
-  }
 }
 
 /* Number text (1/3 etc) */
@@ -97,8 +107,7 @@ img {
     background-color: rgb(0, 131, 131);
   }
 }
-/* On smaller screens, decrease text size */
-
+/* font & text decorations */
 .hr {
   color: white;
   margin-top: 2rem;
@@ -170,25 +179,10 @@ img {
   display: block;
   animation: rText 0.5s forwards;
 }
-.dsc {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  width: 100%;
-  clear: both;
-  display: inline-block;
-  word-break: break-word;
-}
-
-.dsc-img {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  float: left;
-  width: 15vh;
-  max-width: 30px;
-  opacity: 0;
-}
-.dsc-img.visible {
-  animation: card-img 2s forwards;
+.animatedtext {
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 4rem;
 }
 
 .jumbotron {
@@ -196,7 +190,7 @@ img {
   min-height: 50vh;
   background-position: center;
 }
-
+/* card */
 .card-deck {
   padding-top: 1.5rem;
   padding-bottom: 1rem;
@@ -204,6 +198,16 @@ img {
 .card-text {
   color: #9b9b9b;
   padding-bottom: 1rem;
+}
+.card-text-special {
+  color: #9b9b9b;
+  padding-bottom: 1rem;
+  opacity: 0;
+  animation: oText 1s forwards;
+}
+.card-title-special {
+  animation: lText 1s forwards;
+  opacity: 0;
 }
 .card {
   background-color: #1d1d1d;
@@ -272,29 +276,6 @@ img {
     transform: none;
   }
 }
-
-.main {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background-color: #1d1d1d;
-  padding-bottom: 1rem;
-  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-}
-.main-ref {
-  height: 100%;
-  width: 100%;
-}
-.main-transparent {
-  background-color: #1d1d1df3;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-}
 .progress-bar {
   text-align: right;
   -webkit-backface-visibility: hidden;
@@ -322,7 +303,73 @@ img {
   position: relative;
   bottom: 0;
 }
+/* main element */
+.main {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: #1d1d1d;
+  padding-bottom: 1rem;
+  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+}
+.main-ref {
+  height: 100%;
+  width: 100%;
+}
+.main-transparent {
+  background-color: #1d1d1df3;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+}
+.main-transparent.highlighted {
+  background: linear-gradient(to top, rgb(56, 37, 32) 0%, transparent 60%);
+}
+.main.highlighted {
+  background: linear-gradient(to top, rgb(56, 37, 32) 90%, transparent 60%);
+}
+.dsc {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  clear: both;
+  display: inline-block;
+  word-break: break-word;
+}
 
+.dsc-img {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  float: left;
+  width: 15vh;
+  max-width: 30px;
+  opacity: 0;
+}
+.dsc-img.visible {
+  animation: card-img 2s forwards;
+}
+.catbg {
+  background-image: url(./src/index/cat.webp);
+  background-size: 40rem;
+  animation: catpics 10s infinite;
+  transition: all 3s ease-out;
+}
+
+@keyframes catpics {
+  0% {
+    background-position: right top;
+  }
+  50% {
+    background-position: left bottom;
+  }
+  100% {
+    background-position: right top;
+  }
+}
 ::selection {
   color: #fff;
   background: #11101d;
@@ -336,18 +383,6 @@ img {
   opacity: 100%;
 }
 
-.navbar {
-  backdrop-filter: blur(10px);
-  background-color: rgba(73, 73, 73, 0.7);
-  position: fixed;
-  padding-top: 1rem;
-  width: 100%;
-  z-index: 999;
-  -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
-  -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
-}
-
 .color1 {
   animation: colorf 5.5s;
 }
@@ -357,7 +392,7 @@ img {
 .color3 {
   animation: colort 5.5s;
 }
-
+/* @media, responsivity starts right here :D */
 @media screen and (max-width: 767px) {
   .jumbotron {
     background-image: none;
@@ -420,11 +455,7 @@ img {
     background-position: center;
   }
 }
-.animatedtext {
-  color: #fff;
-  text-transform: uppercase;
-  line-height: 4rem;
-}
+
 .linear-bg {
   background: linear-gradient(to bottom, #1d1d1d, #1d1d1de7);
 }
@@ -438,16 +469,53 @@ img {
 .animatedtext-second {
   animation-delay: 0.175s;
 }
+.animatedtext-card-header {
+  animation-delay: 0.175s;
+  display: block;
+  opacity: 0;
+  animation: lText 0.5s forwards;
+}
+.card-title {
+  opacity: 0;
+}
+.card-text {
+  opacity: 0;
+}
 .visible {
   display: block;
   opacity: 1;
   transition: ease-in-out 0.5s;
 }
-
+.animatedtext-card-text {
+  animation-delay: 0.175s;
+  display: block;
+  opacity: 0;
+  animation: oText 1s forwards;
+}
 @keyframes rText {
   from {
     opacity: 0;
     transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes oText {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@keyframes lText {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
   }
 
   to {
@@ -478,32 +546,11 @@ img {
   padding-top: 1rem;
   opacity: 0;
 }
-.catbg {
-  background-image: url(./src/index/cat.webp);
-  background-size: 40rem;
-  animation: catpics 10s infinite;
-  transition: all 3s ease-out;
-}
 
-@keyframes catpics {
-  0% {
-    background-position: right top;
-  }
-  50% {
-    background-position: left bottom;
-  }
-  100% {
-    background-position: right top;
-  }
-}
 .rounded.visible {
   animation: card-img 2s forwards;
 }
-.btn:hover {
-  color: #11101d;
-  background: #fff;
-  box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
-}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -558,12 +605,6 @@ svg.svg-animated {
   width: 100%;
 }
 
-.main-transparent.highlighted {
-  background: linear-gradient(to top, rgb(56, 37, 32) 0%, transparent 60%);
-}
-.main.highlighted {
-  background: linear-gradient(to top, rgb(56, 37, 32) 90%, transparent 60%);
-}
 @keyframes wave {
   0% {
     top: -80px;
@@ -574,6 +615,16 @@ svg.svg-animated {
     opacity: 1;
   }
 }
+
+.Mail {
+  max-width: 50%;
+  transition: 1s;
+}
+.Mail:hover {
+  -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
+  transition: 1s;
+}
 .dsc-end {
   background-image: url("./src/index/s.webp");
   background-size: contain;
@@ -583,15 +634,6 @@ svg.svg-animated {
   width: 38vw;
   max-width: 600px;
   height: 100%;
-}
-.Mail {
-  max-width: 50%;
-  transition: 1s;
-}
-.Mail:hover {
-  -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
-  filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
-  transition: 1s;
 }
 
 .carousel-item {
@@ -629,4 +671,9 @@ svg.svg-animated {
 .catbg.slider {
   background-image: url("./src/index/bg-slider.webp");
   background-size: 70%;
+}
+@keyframes textShine {
+  to {
+    background-position: 200%;
+  }
 }

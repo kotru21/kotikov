@@ -79,4 +79,21 @@ jQuery(document).ready(function ($) {
     callbackFunction: function (elem, action) {},
     scrollHorizontal: false,
   });
+  $(".card-title").viewportChecker({
+    classToAdd: "animatedtext-card-header",
+    classToRemove: "",
+    invertBottomOffset: true,
+    repeat: false,
+    callbackFunction: function (elem, action) {},
+    scrollHorizontal: false,
+  });
+
+  $(".card-text").viewportChecker({
+    classToAdd: "animatedtext-card-text",
+    classToRemove: "",
+    invertBottomOffset: true,
+    repeat: false,
+    callbackFunction: function (elem, action) {},
+    scrollHorizontal: false,
+  });
 });
