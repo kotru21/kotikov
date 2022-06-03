@@ -355,19 +355,17 @@ img {
 .catbg {
   background-image: url(./src/index/cat.webp);
   background-size: 40rem;
-  animation: catpics 10s infinite;
+  animation: catpics 10s 2s infinite;
   transition: all 3s ease-out;
 }
 
 @keyframes catpics {
-  0% {
+  25% {
     background-position: right top;
   }
-  50% {
+
+  75% {
     background-position: left bottom;
-  }
-  100% {
-    background-position: right top;
   }
 }
 ::selection {
