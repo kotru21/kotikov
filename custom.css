@@ -363,6 +363,7 @@ img {
   margin-right: 1rem;
   float: left;
   width: 15vh;
+  min-width: 130px;
   max-width: 30px;
   opacity: 0;
 }
