@@ -169,12 +169,12 @@ img {
   animation: rText 0.5s forwards;
 }
 .h2xld {
+  margin-top: 1rem;
   color: white;
   font-size: 2.5rem;
   opacity: 0;
 }
 .h2xld.visible {
-  margin-top: 1rem;
   color: white;
   font-size: 2.5rem;
   display: block;
