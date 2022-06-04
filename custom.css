@@ -332,6 +332,26 @@ img {
 .main.highlighted {
   background: linear-gradient(to top, rgb(56, 37, 32) 90%, transparent 60%);
 }
+.hr {
+  opacity: 0;
+  display: block;
+  position: sticky;
+}
+.hr.visible {
+  animation: hr_anim 1s forwards;
+}
+@keyframes hr_anim {
+  from {
+    left: 50%;
+    width: 0%;
+    opacity: 0.2;
+  }
+  to {
+    left: 5%;
+    width: 90%;
+    opacity: 0.3;
+  }
+}
 .dsc {
   margin-top: 1rem;
   margin-bottom: 1rem;

@@ -96,4 +96,12 @@ jQuery(document).ready(function ($) {
     callbackFunction: function (elem, action) {},
     scrollHorizontal: false,
   });
+  $(".hr").viewportChecker({
+    classToAdd: "visible",
+    classToRemove: "",
+    invertBottomOffset: true,
+    repeat: false,
+    callbackFunction: function (elem, action) {},
+    scrollHorizontal: false,
+  });
 });
