@@ -390,6 +390,12 @@ img {
 .color3 {
   animation: colort 5.5s;
 }
+@media screen and (max-width: 1200px) {
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+}
 /* @media, responsivity starts right here :D */
 @media screen and (max-width: 767px) {
   .jumbotron {
