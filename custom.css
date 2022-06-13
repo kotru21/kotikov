@@ -108,6 +108,20 @@ img {
   }
 }
 /* font & text decorations */
+a.bettertouch {
+  position: relative;
+  z-index: 50;
+}
+
+a.bettertouch:before {
+  position: absolute;
+  content: "";
+  top: -10px;
+  right: -10px;
+  left: -10px;
+  bottom: -10px;
+  z-index: 40;
+}
 .h2x {
   color: white;
   font-size: 1rem;
@@ -374,7 +388,7 @@ img {
   background-image: url(./src/index/cat.webp);
   background-size: 40rem;
   transition: all 3s ease-out;
-  margin 0;
+  margin: 0;
 }
 
 ::selection {
