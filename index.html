@@ -26,6 +26,7 @@
     <script src="ViewportAnim.js"></script>
     <link href="custom.css" rel="stylesheet" />
     <link rel="preload" href="./src/index/cat.webp" as="image" />
+
     <title>Добро пожаловать</title>
   </head>
   <body class="bd">
@@ -433,17 +434,19 @@
     </script>
     <!-- Adding a .visible class to the element when it is in the viewport. -->
     <script>
-      function msieversion() {
-        var ua = window.navigator.userAgent;
-        var msie = ua.indexOf("MSIE ");
+      window.onload = function () {
+        function msieversion() {
+          var ua = window.navigator.userAgent;
+          var msie = ua.indexOf("MSIE ");
 
-        if (msie > 0) {
-          window.location.href = "IE-warning.html";
-        } // If another browser, return 0
+          if (msie > 0) {
+            window.location.href = "IE-warning.html";
+          } // If another browser, return 0
 
-        return false;
-      }
-      msieversion();
+          return false;
+        }
+        msieversion();
+      };
     </script>
     <script>
       $(function () {
