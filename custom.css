@@ -374,6 +374,7 @@ img {
   background-image: url(./src/index/cat.webp);
   background-size: 40rem;
   transition: all 3s ease-out;
+  margin 0;
 }
 
 ::selection {
