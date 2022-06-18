@@ -9,6 +9,21 @@
       }
       check();
     </script>
+    <script>
+      window.onload = function () {
+        function msieversion() {
+          var ua = window.navigator.userAgent;
+          var msie = ua.indexOf("MSIE ");
+
+          if (msie > 0) {
+            window.location.href = "IE-warning.html";
+          } // If another browser, return 0
+
+          return false;
+        }
+        msieversion();
+      };
+    </script>
     <meta name="viewport" content="width=device-width" initial-scale="1.0" minimum-scale="1.0" maximum-scale="1.0" user-scalable="no" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Арсений Котиков" />
