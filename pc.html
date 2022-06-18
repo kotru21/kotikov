@@ -105,8 +105,37 @@
           </p>
         </div>
       </div>
-
       <div class="innerh1">
+        <h1 class="Contenth1 text-center">&nbsp</h1>
+        <hr />
+        <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Мои текущие проекты</h1>
+        <hr />
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body" style="border-radius: 0.4rem !important">
+              <img loading="lazy" src="https://counts.pages.dev/web.ico" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd)" />
+              <h5 class="card-title">Сколько до 01.09</h5>
+
+              <p class="card-text">Здесь можно узнать точное время до этого дня. Страшно? Мне тоже(</p>
+              <a href="https://counts.pages.dev" class="btn btn-primary">Проверить</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body" style="border-radius: 0.4rem !important">
+              <img loading="lazy" src="https://letsgo.pages.dev/googlex.png" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd)" />
+              <h5 class="card-title">Googlex</h5>
+
+              <p class="card-text">Просто мемный поисковик с константной строкой поиска:D</p>
+              <a onclick="CreateUrl()" class="btn btn-primary">Проверить</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="innerh1" style="margin-top: -5rem">
         <h1 class="Contenth1 text-center">&nbsp</h1>
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Чем я интересуюсь ?</h1>
@@ -250,7 +279,6 @@
           </div>
         </div>
       </div>
-
       <div class="innerh1">
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem"><a href="https://github.com/kotru21/kotikov/blob/main/pc.html" class="bx bx-brush btn" style="font-size: 3rem; width: 6vw; min-width: 70px"></a>Сайт ещё в разработке</h1>
@@ -335,6 +363,10 @@
             background-color: rgb(12, 12, 12);
             z-index: 55;
           }
+          .row {
+            padding-bottom: 2rem;
+          }
+
           .dsc:hover {
             transform: scale(1.05);
             filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
@@ -392,6 +424,20 @@
             text-shadow: 5px 5px 10px black;
             word-break: keep-all;
           }
+          .card-title {
+            font-size: 2rem;
+          }
+
+          .card {
+            border-radius: 0.5rem;
+            border-width: 0.15rem;
+            background: linear-gradient(242deg, #ce0000, #ff8522, #c322ff);
+            background-size: 600% 600%;
+            -webkit-animation: anim 11s ease infinite;
+            -moz-animation: anim 11s ease infinite;
+            animation: anim 11s ease infinite;
+          }
+
           .img {
             position: absolute;
             right: 0px;
@@ -589,6 +635,15 @@
           //       },
           //     });
           //   });
+        </script>
+        <script>
+          function CreateUrl() {
+            let inp = prompt("Введите запрос", "мяу");
+            if (inp != null) {
+              wordArray = inp.split("&");
+              window.open("https://letsgo.pages.dev/?" + wordArray);
+            }
+          }
         </script>
       </div>
     </div>
