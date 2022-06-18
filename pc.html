@@ -85,20 +85,20 @@
       </div>
       <div class="left">
         <div class="percdivL">
-          <h1 class="Contenth1"><i class="bx bx-code-alt" style="font-size: 4rem"></i>Web-Dev</h1>
+          <h1 class="Contenth1"><i class="bx bx-code-alt" style="font-size: 4rem !important"></i>Web-Dev</h1>
           <p>WEB-разработка — процедура создания WEB-приложения или WEB-сайта. Основными этапами этого процесса являются такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а также работы по конфигурированию сервера.</p>
         </div>
       </div>
       <div class="right">
         <div class="percdivR">
-          <h1 class="Contenth1"><i class="bx bxl-github" style="font-size: 4rem"></i>Open Source</h1>
+          <h1 class="Contenth1"><i class="bx bxl-github" style="font-size: 4rem !important"></i>Open Source</h1>
           <p>Сообщество свободного программного обеспечения (англ. Free software community) — это сообщество пользователей и разработчиков свободного программного обеспечения, а также участников движения свободного программного обеспечения. Одним из наиболее известных сообществ является Linux-сообщество.</p>
         </div>
       </div>
 
       <div class="left">
         <div class="percdivL">
-          <h1 class="Contenth1"><i class="bx bxs-brush" style="font-size: 4rem"></i>WEB-дизайн</h1>
+          <h1 class="Contenth1"><i class="bx bxs-brush" style="font-size: 4rem !important"></i>WEB-дизайн</h1>
           <p>
             Веб-дизайн это работа над внешним видом сайта. Выбор того, какие элементы будут представлены на странице и в каком порядке они будут отражаться на мониторах пользователей. Например, он решает, что будет, если навести курсор мыши на определенный блок и в какой последовательности будет отображаться информация при прокрутке
             страницы вниз.
@@ -115,7 +115,7 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body" style="border-radius: 0.4rem !important">
-              <img loading="lazy" src="https://counts.pages.dev/web.ico" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd)" />
+              <img loading="lazy" src="https://counts.pages.dev/web.ico" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd); width: 9vw" />
               <h5 class="card-title">Сколько до 01.09</h5>
 
               <p class="card-text">Здесь можно узнать точное время до этого дня. Страшно? Мне тоже(</p>
@@ -126,7 +126,7 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body" style="border-radius: 0.4rem !important">
-              <img loading="lazy" src="https://letsgo.pages.dev/googlex.png" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd)" />
+              <img loading="lazy" src="https://letsgo.pages.dev/googlex.png" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd); width: 9vw" />
               <h5 class="card-title">Googlex</h5>
 
               <p class="card-text">Просто мемный поисковик с константной строкой поиска:D</p>
@@ -182,7 +182,7 @@
         <p>Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно отображать загруженный сайт. Cascading Style Sheets — формальный язык описания внешнего вида web страницы.</p>
       </div>
       <div class="dsc">
-        <i class="bx bxs-server" style="font-size: 10rem; float: left; background: none"></i>
+        <i class="bx bxs-server" style="font-size: 10rem; float: left; background: none; height: 20vh"></i>
         <h1 class="Contenth1">PHP / Node.js</h1>
         <p>
           PHP - C-подобный скриптовый язык общего назначения, интенсивно применяемый для разработки веб-приложений. В настоящее время поддерживается подавляющим большинством хостинг-провайдеров и является одним из лидеров среди языков, применяющихся для создания динамических веб-сайтов. Node или Node.js — программная платформа,
@@ -321,12 +321,15 @@
         <style>
           p {
             opacity: 0.8;
+            font-size: calc(0.6rem + 0.5vw);
           }
           a.bigger {
             font-size: 2rem;
           }
           i {
+            margin-bottom: 2%;
             border-radius: 0.4rem;
+            font-size: 8vw !important;
           }
           hr {
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, white 35%, rgba(255, 255, 255, 0.1) 100%);
@@ -338,7 +341,10 @@
             margin-top: 4rem;
             transition: 1s;
             height: fit-content;
-            min-height: 10rem;
+            min-height: 15vh;
+          }
+          .card-title-special {
+            font-size: 2vw !important;
           }
           .innerh1 {
             padding-bottom: 2rem;
@@ -355,13 +361,14 @@
           .container {
             padding-left: 5%;
             padding-right: 5%;
-            left: -30%;
-            right: -30%;
+            left: -30vw;
+            right: -30vw;
             box-shadow: 10px 10px 10px black;
             margin: 0 auto;
             height: fit-content;
             background-color: rgb(12, 12, 12);
             z-index: 55;
+            max-width: 150vh;
           }
           .row {
             padding-bottom: 2rem;
@@ -394,11 +401,13 @@
             float: right;
           }
           .dsc-img {
-            width: 10rem;
+            width: 16vh;
+            max-width: 300px;
             float: left;
             margin-right: 1rem;
             border-radius: 0.2rem !important;
           }
+
           .percdivL {
             width: 50%;
             float: left;
@@ -414,18 +423,19 @@
             margin-top: 15%;
           }
           .h1 {
-            font-size: 6rem;
+            font-size: 6vw;
           }
           .h2 {
-            font-size: 3rem;
+            font-size: 3vw;
           }
           .Contenth1 {
-            font-size: 4rem;
+            font-size: calc(3rem + 1vw);
             text-shadow: 5px 5px 10px black;
             word-break: keep-all;
           }
           .card-title {
-            font-size: 2rem;
+            font-size: 2vw;
+            padding-top: 0.6vw;
           }
 
           .card {
