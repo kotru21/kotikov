@@ -76,7 +76,7 @@
       </div>
       <div class="right">
         <div class="percdivR">
-          <h1 class="Contenth1"><i class="bx bxl-github" style="font-size: 4rem"></i>OpenSource</h1>
+          <h1 class="Contenth1"><i class="bx bxl-github" style="font-size: 4rem"></i>Open Source</h1>
           <p>Сообщество свободного программного обеспечения (англ. Free software community) — это сообщество пользователей и разработчиков свободного программного обеспечения, а также участников движения свободного программного обеспечения. Одним из наиболее известных сообществ является Linux-сообщество.</p>
         </div>
       </div>
@@ -238,7 +238,7 @@
 
       <div class="innerh1">
         <hr />
-        <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Сайт ещё в разработке</h1>
+        <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem"><a href="https://github.com/kotru21/kotikov/blob/main/pc.html" class="bx bx-brush btn" style="font-size: 3rem; width: 6vw; min-width: 70px"></a>Сайт ещё в разработке</h1>
         <hr />
       </div>
       <div class="container progress-bar-animated" style="box-shadow: 0 20px 15px #1d1d1d"></div>
@@ -375,6 +375,7 @@
           .Contenth1 {
             font-size: 4rem;
             text-shadow: 5px 5px 10px black;
+            word-break: keep-all;
           }
           .img {
             position: absolute;
@@ -537,6 +538,11 @@
           ::-webkit-scrollbar-thumb {
             background: red;
             border-radius: 5px;
+          }
+          @media screen and (max-width: 900px) {
+            .img {
+              display: none;
+            }
           }
         </style>
         <script>
