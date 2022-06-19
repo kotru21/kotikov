@@ -79,11 +79,12 @@
 
     <div class="progress-bar-animated progress-bar-striped paddingcont"></div>
     <img class="img" src="./src/pc_index/mobile_web.png" />
-    <div class="container" style="margin-bottom: 0 !important; padding-top: 3rem">
+    <div class="container" style="padding-top: 3rem">
       <div class="innerh1">
         <h1 class="Contenth1 text-center">Чем я занимаюсь?</h1>
         <hr />
       </div>
+
       <div class="left">
         <div class="percdivL">
           <h1 class="Contenth1"><i class="bx bx-code-alt" style="font-size: 4rem !important"></i>Web-Dev</h1>
@@ -106,8 +107,10 @@
           </p>
         </div>
       </div>
+    </div>
+    <div class="container">
+      <h1 class="Contenth1 text-center" style="user-select: none">&nbsp;</h1>
       <div class="innerh1">
-        <h1 class="Contenth1 text-center">&nbsp</h1>
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Мои текущие проекты</h1>
         <hr />
@@ -136,8 +139,7 @@
           </div>
         </div>
       </div>
-      <div class="innerh1" style="margin-top: -5rem">
-        <h1 class="Contenth1 text-center">&nbsp</h1>
+      <div class="innerh1">
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Чем я интересуюсь ?</h1>
         <hr />
@@ -160,14 +162,13 @@
         <p>Кому-то не нравятся компьютерные игры? Серьёзно? Компьютерная игра — компьютерная программа, служащая для организации игрового процесса (геймплея), связи с партнёрами по игре, или сама выступающая в качестве партнёра.</p>
       </div>
       <hr style="border: 1px dashed rgb(255, 255, 255); margin-top: 2rem; margin-bottom: 1rem" />
-      <div class="dsc">
+      <div class="dsc" style="margin-bottom: 4rem">
         <img loading="lazy" src="./src/pc_index/pc_cat.png" class="dsc-img rounded" alt="..." />
         <h1 class="Contenth1">Котики</h1>
         <p>Лол, здесь нужно что-то объяснять? Котики классные.</p>
       </div>
 
       <div class="innerh1">
-        <h1 class="Contenth1 text-center">&nbsp</h1>
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Мой стек</h1>
         <hr />
@@ -191,7 +192,6 @@
         </p>
       </div>
       <div class="innerh1">
-        <h1 class="Contenth1 text-center">&nbsp</h1>
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Что я учу/планирую выучить</h1>
         <hr />
@@ -221,7 +221,6 @@
       </div>
 
       <div class="innerh1">
-        <h1 class="Contenth1 text-center">&nbsp</h1>
         <hr />
         <h1 class="Contenth1 text-center endpage" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Ещё контакты</h1>
         <div style="box-shadow: none; background-image: url(./src/index/cookie.webp); background-size: 10%; padding-bottom: 4rem">
@@ -359,6 +358,7 @@
           }
           .innerh1 {
             padding-bottom: 3rem;
+            margin-top: 2rem;
           }
           body {
             margin: 0;
@@ -441,7 +441,7 @@
             font-size: 3vw;
           }
           .Contenth1 {
-            font-size: calc(3rem + 1vw);
+            font-size: calc(3rem + 0.6vw);
             text-shadow: 5px 5px 10px black;
             word-break: keep-all;
           }
@@ -545,6 +545,9 @@
             font-size: 1.5rem;
             margin-right: 2rem;
             background-color: #ffffff2f;
+          }
+          .row {
+            height: fit-content;
           }
           .dynamic {
             font-size: 3rem;
