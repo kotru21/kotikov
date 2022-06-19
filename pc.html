@@ -346,6 +346,16 @@
           .card-title-special {
             font-size: 2vw !important;
           }
+          .card {
+            transition: 1s;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-smooth: always;
+          }
+          .card:hover {
+            transform: scale(1.04);
+            filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+          }
           .innerh1 {
             padding-bottom: 2rem;
           }
@@ -375,7 +385,7 @@
           }
 
           .dsc:hover {
-            transform: scale(1.05);
+            transform: scale(1.04);
             filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
           }
           .dsc:hover > .bx {
