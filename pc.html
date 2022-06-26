@@ -337,6 +337,7 @@
           .github-profile-badge-img {
             width: 8vw;
             height: 8vw;
+            transition: 2s;
           }
           .github-profile-badge-logo {
             width: 2vw;
@@ -344,6 +345,9 @@
           }
           .github-profile-badge-name {
             font-size: 2vw;
+          }
+          .github-profile-badge-img:hover {
+            filter: drop-shadow(0 0 5px rgb(54, 54, 255));
           }
           .gh-img {
             width: 100%;
@@ -514,6 +518,13 @@
             height: 100%;
             width: 100%;
           }
+          .card-slider {
+            transition: 1s;
+          }
+          .card-slider:hover {
+            transform: scale(1.04);
+            filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+          }
           a.bettertouch {
             position: relative;
             z-index: 50;
@@ -537,7 +548,7 @@
           }
           .card-body {
             border-radius: 0 0 1rem 1rem;
-            background-color: rgb(0, 0, 0) !important;
+            background-color: rgb(27, 27, 27) !important;
           }
           .card-img-bottom {
             border-radius: 1rem 1rem 0 0;
