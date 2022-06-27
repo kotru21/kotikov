@@ -221,16 +221,21 @@
         <hr />
         <h1 class="Contenth1 text-center dynamic" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Мой GitHub</h1>
         <hr />
-        <div class="github-dsc">
+        <div class="gh-hover">
           <div class="github-profile-badge" data-user="kotru21"></div>
           <script src="https://cdn.jsdelivr.net/gh/Rapsssito/github-profile-badge@latest/src/widget.min.js"></script>
           <img src="https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true" style="width: 100%" />
-          <div style="display: flex; justify-content: center; margin-top: 1rem; width: 100%">
-            <img src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true" style="margin-right: 2rem" class="gh-img" />
-            <img src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true" alt="github stats" class="gh-img" />
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 1rem">
+          <div class="row">
+            <div class="m-auto">
+              <img src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true" style="margin-right: 2rem" class="gh-img gh-hover" />
+              <img src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true" alt="github stats" class="gh-img gh-hover" />
+            </div>
           </div>
         </div>
       </div>
+
       <div class="innerh1">
         <hr />
         <h1 class="Contenth1 text-center endpage" style="text-shadow: 0px 0px 10px black; margin-left: -5vw; margin-right: -5vw; padding-top: 1rem; padding-bottom: 1rem">Ещё контакты</h1>
@@ -335,9 +340,8 @@
             -moz-osx-font-smoothing: grayscale;
           }
 
-          .github-dsc {
+          .gh-hover {
             transition: 1s;
-            outline: 1px solid transparent;
           }
           .github-profile-badge-img {
             width: 8vw;
@@ -355,8 +359,9 @@
             filter: drop-shadow(0 0 5px rgb(54, 54, 255));
           }
           .gh-img {
-            width: 100%;
             transition: 2s;
+            width: 31vw;
+            min-width: 400px;
           }
           .gh-img:hover {
             filter: drop-shadow(0 0 5px rgb(54, 54, 255));
@@ -398,7 +403,8 @@
             transform: scale(1.04);
             filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
           }
-          .github-dsc:hover {
+
+          .gh-hover:hover {
             transform: scale(1.04);
             filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
           }
