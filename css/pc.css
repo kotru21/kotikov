@@ -12,8 +12,8 @@
   transition: 2s;
 }
 .github-profile-badge-logo {
-  width: 2vw;
-  height: 2vw;
+  width: 2vw !important;
+  height: 2vw !important;
 }
 .github-profile-badge-name {
   font-size: 2vw !important;
