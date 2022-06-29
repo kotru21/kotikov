@@ -59,22 +59,23 @@
     </nav>
 
     <div class="hello_container bd">
-      <div class="leftcont">
-        <h1 class="h1">Привет</h1>
-        <hr />
-        <h2 class="h2">Добро пожаловать на сайт</h2>
-        <div class="contact">
-          <div class="mx-auto my-2 order-1 order-md-1 position-relative">
-            <span class="animatedtext-content">
-              <a class="bx bxl-youtube btn bigger" href="https://www.youtube.com/channel/UCOYprFCDyhHdhbtfzZNqYFQ"> </a>
-              <a class="bx bxl-vk btn bigger" href="https://vk.com/arsenij_kotikov"> </a>
-              <a class="bx bxl-twitter btn bigger" href="https://twitter.com/arsenij_kotikov"> </a>
-            </span>
+      <div style="background-image: url('./src/pc_index/header.svg'); height: 100%; background-repeat: no-repeat; background-size: cover" class="anim">
+        <div class="leftcont">
+          <h1 class="h1">Привет</h1>
+          <hr />
+          <h2 class="h2">Добро пожаловать на сайт</h2>
+          <div class="contact">
+            <div class="mx-auto my-2 order-1 order-md-1 position-relative">
+              <span class="animatedtext-content">
+                <a class="bx bxl-youtube btn bigger" href="https://www.youtube.com/channel/UCOYprFCDyhHdhbtfzZNqYFQ"> </a>
+                <a class="bx bxl-vk btn bigger" href="https://vk.com/arsenij_kotikov"> </a>
+                <a class="bx bxl-twitter btn bigger" href="https://twitter.com/arsenij_kotikov"> </a>
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="progress-bar-animated progress-bar-striped paddingcont"></div>
     <img class="img" src="./src/pc_index/mobile_web.png" />
     <div class="container" style="padding-top: 3rem">
@@ -687,6 +688,17 @@
           @media screen and (max-width: 900px) {
             .img {
               display: none;
+            }
+          }
+          .anim {
+            animation: img-anim 2s forwards;
+          }
+          @keyframes img-anim {
+            from {
+              transform: scale(1.05);
+            }
+            to {
+              transform: none;
             }
           }
         </style>
