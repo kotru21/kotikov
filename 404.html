@@ -26,7 +26,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js" integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://kotikov.pages.dev/ViewportAnim.js"></script>
-    <link href="https://kotikov.pages.dev/custom.css" rel="stylesheet" />
+    <link href="https://kotikov.pages.dev/css/mobile.css" rel="stylesheet" />
+    <link href="https://kotikov.pages.dev/css/404.css" rel="stylesheet" />
     <title>404 Not Found</title>
   </head>
   <body style="background-color: #1d1d1d" class="progress-bar-striped progress-bar-animated">
@@ -49,74 +50,5 @@
       </div>
     </div>
   </body>
-  <style>
-    body{
-      overflow: hidden;
-    }
-    .btn {
-      animation: rgb-shadow 2s 2s;
-    }
-    @keyframes rgb-shadow {
-      0% {
-      }
-      50% {
-        box-shadow: 0px 0px 10px rgb(0, 102, 255);
-        background-color: rgba(0, 102, 255, 0.445);
-      }
-      100% {
-      }
-    }
 
-    body {
-      background: black;
-      color: white;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    .container {
-      text-align: center;
-      height: 100%;
-    }
-
-    .glitch {
-      font-size: 10rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      position: relative;
-      text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
-      animation: glitch 525ms forwards;
-      animation-iteration-count: 3;
-    }
-
-    @keyframes glitch {
-      0% {
-        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
-      }
-      15% {
-        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
-      }
-      16% {
-        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
-      }
-      49% {
-        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00;
-      }
-      50% {
-        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
-      }
-      99% {
-        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff, 0 -0.04em 0 #fffc00;
-      }
-      100% {
-        text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff, -0.04em -0.025em 0 #fffc00;
-      }
-      to {
-        text-shadow: none;
-      }
-    }
-    .card{
-      min-height: 50vh;
-    }
-  </style>
 </html>
