@@ -11,7 +11,7 @@ body::after {
   height: 0;
   overflow: hidden;
   z-index: -1;
-  content: url(./src/index/cat.webp);
+  content: url(../src/index/cat.webp);
 }
 html {
   scroll-behavior: smooth;
@@ -385,7 +385,7 @@ a.bettertouch:before {
   animation: card-img 2s forwards;
 }
 .catbg {
-  background-image: url(./src/index/cat.webp);
+  background-image: url(../src/index/cat.webp);
   background-size: 40rem;
   transition: all 3s ease-out;
   margin: 0;
@@ -449,7 +449,7 @@ a.bettertouch:before {
 }
 @media (min-width: 800px) {
   .jumbotron {
-    background-image: url(./src/index/site-preview.webp);
+    background-image: url(../src/index/site-preview.webp);
     background-size: cover;
     animation: big-header-pic 1s forwards;
     padding-top: 100px;
@@ -477,7 +477,7 @@ a.bettertouch:before {
 }
 @media (min-width: 900px) {
   .dsc-end-main {
-    background-image: url("./src/index/dsc-cat.webp");
+    background-image: url("../src/index/dsc-cat.webp");
     background-size: cover;
     background-position: center;
   }
@@ -652,7 +652,7 @@ svg.svg-animated {
   transition: 1s;
 }
 .dsc-end {
-  background-image: url("./src/index/s.webp");
+  background-image: url("../src/index/s.webp");
   background-size: contain;
   background-position: center;
   background-color: #7a70d352;
@@ -695,7 +695,7 @@ svg.svg-animated {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 .catbg.slider {
-  background-image: url("./src/index/bg-slider.webp");
+  background-image: url("../src/index/bg-slider.webp");
   background-size: 70%;
 }
 @keyframes textShine {
