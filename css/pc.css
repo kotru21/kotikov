@@ -7,8 +7,8 @@
   transition: 1s;
 }
 .github-profile-badge-img {
-  width: 8vw;
-  height: 8vw;
+  width: 8vw !important;
+  height: 8vw !important;
   transition: 2s;
 }
 .github-profile-badge-logo {
