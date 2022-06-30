@@ -10,9 +10,9 @@
 <br>
 <hr />
 ⚒️work in progress... <br>
-Website on _Cloudflare Pages_: https://kotikov.pages.dev <br>
-_Github_ repo: https://github.com/kotru21/kotikov <br>
-Want to improve my code? Make a Pull Request or create an issue
+Website on <a href="https://kotikov.pages.dev"> Cloudflare Pages</a> <br>
+<a href="https://github.com/kotru21/kotikov"> Github repository </a><br>
+Want to improve my code? Make a <b>Pull Request</b> or create an <b>issue</b>
 <hr />
 
 ![Preview](https://user-images.githubusercontent.com/88907641/176704235-776b639b-9469-4b13-b91f-b5e14bc91846.png)
