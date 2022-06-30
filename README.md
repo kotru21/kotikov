@@ -1,4 +1,4 @@
-# Just website
+# <h1>Just website</h1>
 ⚒️work in progress...
 ### In this repo Im just trying to make some *website:)*  
 Website on _Cloudflare Pages_: https://kotikov.pages.dev <br>
