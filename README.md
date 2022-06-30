@@ -1,5 +1,4 @@
 # <h1 align="center">Just website</h1>
-<br>
 <h2 align="center">Made with:</h2>
  <p align="center">
 <img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white" >
