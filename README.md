@@ -1,20 +1,44 @@
-# <span style="text-align: center">Just website</span>
-
-<p align="center">made with:</p> <br>
-
-![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+# <h1 align="center">Just website</h1>
+<br>
+<h2 align="center">Made with:</h2>
+  
+![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
   
 <br>
-<br>
-⚒️work in progress...
-### In this repo Im just trying to make some *website:)*  
 <hr />
+⚒️work in progress... <br>
 Website on _Cloudflare Pages_: https://kotikov.pages.dev <br>
 _Github_ repo: https://github.com/kotru21/kotikov <br>
 Want to improve my code? Make a Pull Request or create an issue
 <hr />
 
 ![Preview](https://user-images.githubusercontent.com/88907641/176704235-776b639b-9469-4b13-b91f-b5e14bc91846.png)
+
+<br>
+
+<h2 align="center">Some tech Info</h2>
+
+![filetree](https://user-images.githubusercontent.com/88907641/176716024-c172bacc-22f9-4843-955e-90e7c316ee2b.png)
+
+<p> filetree, relevant at the time of the release of 3.0 </p>
+<hr />
+<br>
+<h2 align="center"> Techonologies that Im used when coding this </h2>
+
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+![CodePen](https://img.shields.io/badge/Codepen-000000?style=for-the-badge&logo=codepen&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+<br>
+<hr />
+<h1 align="center"> Todo:</h1>
+<ul>
+  <li> Separate Projects page</li>
+  <li> Upgrade adaptivity🤔</li>
+  <li> Upgrade to bootstrap 5.2</li>
+  <li> Better code quality</li>
+</ul>
