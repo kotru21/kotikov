@@ -9,7 +9,7 @@
   </p>
 <br>
 <hr />
-<h2>⚒️work in progress... </h2>
+<h2 align="center">⚒️work in progress... </h2>
 <br>
 <ul>
 <li>Website on <a href="https://kotikov.pages.dev"> Cloudflare Pages</a></li> <br>
