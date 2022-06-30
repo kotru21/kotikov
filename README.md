@@ -1,17 +1,20 @@
 # <h1 align="center">Just website</h1>
 <br>
 <h2 align="center">Made with:</h2>
-  
-![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) 
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
-  
+ <p align="center">
+<img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white" >
+<img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" >
+<img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" >
+<img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" >
+  </p>
 <br>
 <hr />
-⚒️work in progress... <br>
-Website on <a href="https://kotikov.pages.dev"> Cloudflare Pages</a> <br>
-<a href="https://github.com/kotru21/kotikov"> Github repository </a><br>
+<h2>⚒️work in progress... </h2>
+<br>
+<ul>
+<li>Website on <a href="https://kotikov.pages.dev"> Cloudflare Pages</a></li> <br>
+<li><a href="https://github.com/kotru21/kotikov"> Github repository </a></li><br>
+</ul>
 Want to improve my code? Make a <b>Pull Request</b> or create an <b>issue</b>
 <hr />
 
@@ -27,12 +30,12 @@ Want to improve my code? Make a <b>Pull Request</b> or create an <b>issue</b>
 <hr />
 <br>
 <h2 align="center"> Techonologies that Im used when coding this </h2>
-
-![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
-![CodePen](https://img.shields.io/badge/Codepen-000000?style=for-the-badge&logo=codepen&logoColor=white)
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-
+<p align="center">
+<img src="https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white" >
+<img src="https://img.shields.io/badge/Codepen-000000?style=for-the-badge&logo=codepen&logoColor=white" >
+<img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" >
+<img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" >
+</p>
 <br>
 <hr />
 <h1 align="center"> Todo:</h1>
