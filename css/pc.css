@@ -7,9 +7,11 @@
   transition: 1s;
   outline: 1px solid transparent;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transform: translateZ(0);
   will-change: transform;
   -webkit-perspective: 1000;
+  perspective: 1000;
 }
 .github-profile-badge-img {
   width: 8vw !important;
@@ -26,9 +28,11 @@
 .github-profile-badge-img:hover {
   filter: drop-shadow(0 0 5px rgb(54, 54, 255));
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transform: translateZ(0);
   will-change: transform;
   -webkit-perspective: 1000;
+  perspective: 1000;
 }
 .gh-img {
   transition: 2s;
