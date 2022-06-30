@@ -1,4 +1,4 @@
-# <h1>Just website</h1>
+# <span style="text-align: center">Just website</span>
 ⚒️work in progress...
 ### In this repo Im just trying to make some *website:)*  
 Website on _Cloudflare Pages_: https://kotikov.pages.dev <br>
