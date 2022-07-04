@@ -163,13 +163,13 @@ body {
   margin-top: 15%;
 }
 .h1 {
-  font-size: 6vw;
+  font-size: vw;
 }
 .h2 {
   font-size: 3vw;
 }
 .Contenth1 {
-  font-size: calc(3rem + 0.6vw);
+  font-size: calc(2.5rem + 0.6vw);
   text-shadow: 5px 5px 10px black;
   word-break: keep-all;
 }
