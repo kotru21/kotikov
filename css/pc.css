@@ -36,7 +36,6 @@
 }
 .gh-img {
   transition: 2s;
-  width: 31vw;
   min-width: 400px;
 }
 .gh-img:hover {
@@ -98,8 +97,8 @@ body {
   overflow-x: hidden;
 }
 .container {
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 4%;
+  padding-right: 4%;
   left: -30vw;
   right: -30vw;
   box-shadow: 10px 10px 10px black;
