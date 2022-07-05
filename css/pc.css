@@ -58,12 +58,17 @@ hr {
   height: 1rem;
 }
 .dsc {
-  margin: 1rem;
-  padding-bottom: 0.2rem;
-  margin-top: 4rem;
   transition: 1s;
   height: fit-content;
-  min-height: 15vh;
+  display: flex;
+}
+.dsc-inner {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column; /*This solves everything*/
+}
+.dsc-h1 {
+  width: 100%;
 }
 .card-title-special {
   font-size: 2vw !important;
@@ -125,6 +130,14 @@ body {
   background: #fff;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
 }
+.dsc-text {
+  width: 100%;
+}
+.hr-dsc {
+  border: 1px dashed rgb(255, 255, 255);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
 .Mail {
   max-width: 15rem;
   transition: 1s;
@@ -139,17 +152,21 @@ body {
   float: right;
 }
 .dsc-img {
-  width: 16vh;
-  max-width: 300px;
   float: left;
-  margin-right: 1rem;
+  width: auto;
+  height: 18vh;
+  margin-right: 2rem;
   border-radius: 0.2rem !important;
   padding-top: 0.5rem;
 }
-
+.dsc-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5vw;
+}
 .percdivL {
-  width: 50%;
   float: left;
+  width: 50%;
 }
 .paddingcont {
   height: 6rem;
@@ -171,6 +188,7 @@ body {
   font-size: calc(2.5rem + 0.6vw);
   text-shadow: 5px 5px 10px black;
   word-break: keep-all;
+  height: min-content;
 }
 .card-title {
   font-size: 2vw;
