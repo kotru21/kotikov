@@ -160,6 +160,11 @@ body {
   border-radius: 0.2rem !important;
   padding-top: 0.5rem;
 }
+.carousel-inner {
+  height: max-content;
+  padding-top: 5%;
+  height: 100%;
+}
 .dsc-flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -237,6 +242,8 @@ body {
 }
 .card-slider {
   transition: 1s;
+  height: calc(max-content + 1rem);
+  border-radius: 2rem !important;
 }
 .card-slider:hover {
   transform: scale(1.04);
@@ -404,5 +411,84 @@ a.bettertouch:before {
   }
   to {
     transform: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .container {
+    background: white;
+    color: rgb(0, 0, 0);
+  }
+  .night.light-scheme {
+    background: #eee;
+    color: black;
+  }
+  .hr-dsc {
+    background-color: black;
+  }
+  .dsc > i {
+    color: #000000;
+  }
+  .dsc-h1.Contenth1 {
+    text-shadow: none;
+  }
+  .Contenth1 {
+    color: white;
+  }
+  .dsc:hover {
+    transform: scale(1.04);
+    filter: none;
+  }
+  .dsc-h1.Contenth1 {
+    color: black;
+  }
+  .card-slider {
+    background-color: black;
+  }
+  .card-body {
+    background-color: white !important;
+  }
+  .card-slider {
+    transition: 1s;
+    height: calc(max-content + 1rem);
+    filter: drop-shadow(0 0 10px black);
+  }
+  .card-slider:hover {
+    filter: none;
+  }
+  .left i.bx,
+  .right i.bx {
+    background-color: #000000;
+    text-shadow: none;
+  }
+  .left .Contenth1,
+  .right .Contenth1 {
+    text-shadow: 0 0 8px black;
+  }
+  body {
+    background-color: #4b4b4e;
+  }
+  .card-body .dsc-img {
+    filter: drop-shadow(0 0 10px black) !important;
+  }
+  .card:hover {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 10px black);
+  }
+  .Contenth1 {
+    text-shadow: 0 0 8px black;
+  }
+  hr {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgb(0, 0, 0) 35%, rgba(255, 255, 255, 0.1) 100%);
+  }
+  .gh-hover:hover {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+  }
+  .github-profile-badge-name {
+    color: black !important;
+  }
+  .dsc-end {
+    background-color: #454545;
+    color: white;
   }
 }

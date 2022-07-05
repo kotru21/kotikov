@@ -21,9 +21,11 @@
 
           return false;
         }
+
         msieversion();
       };
     </script>
+
     <meta name="viewport" content="width=device-width" initial-scale="1.0" minimum-scale="1.0" maximum-scale="1.0" user-scalable="no" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Арсений Котиков" />
@@ -63,7 +65,7 @@
       <div style="background-image: url('./src/pc_index/header.svg'); height: 100%; background-repeat: no-repeat; background-size: cover" class="anim">
         <div class="leftcont">
           <h1 class="h1">Привет</h1>
-          <hr />
+          <hr style="background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, white 35%, rgba(255, 255, 255, 0.1) 100%)" />
           <h2 class="h2">Добро пожаловать на сайт</h2>
           <div class="contact">
             <div class="mx-auto my-2 order-1 order-md-1 position-relative">
@@ -132,7 +134,6 @@
             <div class="card-body" style="border-radius: 0.4rem !important">
               <img loading="lazy" src="https://letsgo.pages.dev/googlex.png" class="dsc-img rounded" alt="..." style="filter: drop-shadow(0 0 5px #0d6efd); width: 9vw" />
               <h5 class="card-title">Googlex</h5>
-
               <p class="card-text">Просто мемный поисковик с константной строкой поиска:D</p>
               <a onclick="CreateUrl()" class="btn btn-primary">Проверить</a>
             </div>
@@ -252,14 +253,14 @@
         <div class="gh-hover">
           <div class="github-profile-badge" data-user="kotru21"></div>
           <script src="https://cdn.jsdelivr.net/gh/Rapsssito/github-profile-badge@latest/src/widget.min.js"></script>
-          <img src="https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515" style="width: 100%" />
+          <img id="GH-img1" src="https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515" style="width: 100%" />
         </div>
         <div class="row" style="padding-top: 1.5rem">
           <div class="col-lg-6 col-md-6 col-xs-6 thumb">
-            <img class="gh-hover img-responsive" style="width: 100%" src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00" />
+            <img id="GH-img2" class="gh-hover img-responsive" style="width: 100%" src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00" />
           </div>
           <div class="col-lg-6 col-md-6 col-xs-6 thumb">
-            <img class="gh-hover img-responsive" style="width: 100%" src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true" />
+            <img id="GH-img3" class="gh-hover img-responsive" style="width: 100%" src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true" />
           </div>
         </div>
       </div>
@@ -399,6 +400,26 @@
               window.open("https://letsgo.pages.dev/?" + wordArray);
             }
           }
+        </script>
+        <script>
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+            document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=none";
+            document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00&bg_color=none";
+            document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
+          }
+          window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+            console.log("a");
+            const newColorScheme = event.matches ? "dark" : "light";
+            if (newColorScheme == "dark") {
+              document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515";
+              document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00";
+              document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true";
+            } else {
+              document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=none";
+              document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00&bg_color=none";
+              document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
+            }
+          });
         </script>
       </div>
     </div>
