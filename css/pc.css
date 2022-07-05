@@ -418,7 +418,7 @@ a.bettertouch:before {
   .container {
     background: white;
     color: rgb(0, 0, 0);
-    box-shadow: 0 0 8px black;
+    box-shadow: 0 10px 8px black;
   }
   .night.light-scheme {
     background: #eee;
