@@ -154,6 +154,7 @@ body {
 .dsc-img {
   float: left;
   width: auto;
+  min-width: min-content;
   height: 18vh;
   margin-right: 2rem;
   border-radius: 0.2rem !important;
