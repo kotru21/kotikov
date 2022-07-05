@@ -215,6 +215,18 @@ body {
   max-width: 110vh;
   transition: 1s;
 }
+.cookiebg {
+  transition: 0.2s;
+  box-shadow: none;
+  background-image: url(../src/index/cookie.webp);
+  background-size: 10%;
+  padding-bottom: 4rem;
+}
+
+#like-a:hover ~ #like-b {
+  transition: 0.2s;
+  background-image: url(../src/pc_index/heart.webp);
+}
 .img.scrolled {
   transform: translateX(5vw);
   opacity: 0;
