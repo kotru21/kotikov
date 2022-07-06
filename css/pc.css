@@ -168,7 +168,7 @@ body {
 .dsc-flex-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5vw;
+  gap: 2vw;
 }
 .percdivL {
   float: left;
