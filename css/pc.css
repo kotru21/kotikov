@@ -2,7 +2,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+::selection {
+  background: rgba(200, 200, 255, 0.4);
+}
 .gh-hover {
   transition: 1s;
   outline: 1px solid transparent;
