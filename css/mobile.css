@@ -153,16 +153,12 @@ a.bettertouch:before {
 }
 .h3d {
   color: #9b9b9b;
-  font-size: 1.3rem;
-  margin-left: 1rem;
-  margin-right: 0.1rem;
+  font-size: 1.2rem;
   opacity: 0;
 }
 .h3d.visible {
   color: #9b9b9b;
-  font-size: 1.3rem;
-  margin-left: 1rem;
-  margin-right: 0.1rem;
+
   animation: rText 0.5s forwards;
   animation-delay: 0.175s;
   opacity: 0;
@@ -206,7 +202,8 @@ a.bettertouch:before {
 }
 .card-text {
   color: #9b9b9b;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
 }
 .card-text-special {
   color: #9b9b9b;
@@ -321,13 +318,15 @@ a.bettertouch:before {
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 .main-ref {
   height: 100%;
   width: 100%;
 }
 .main-transparent {
-  background-color: #1d1d1df3;
+  background-color: #1d1d1dde;
   padding-top: 1rem;
   padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
@@ -353,13 +352,12 @@ a.bettertouch:before {
 }
 @keyframes hr_anim {
   from {
-    left: 50%;
     width: 0%;
     opacity: 0.2;
   }
   to {
     left: 5%;
-    width: 90%;
+    width: 100%;
     opacity: 0.3;
   }
 }
@@ -373,7 +371,6 @@ a.bettertouch:before {
 }
 
 .dsc-img {
-  margin-left: 1rem;
   margin-right: 1rem;
   float: left;
   width: 15vh;
