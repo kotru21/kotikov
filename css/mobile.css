@@ -326,7 +326,7 @@ a.bettertouch:before {
   width: 100%;
 }
 .main-transparent {
-  background-color: #1d1d1dde;
+  background-color: #1d1d1df1;
   padding-top: 1rem;
   padding-bottom: 1rem;
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
