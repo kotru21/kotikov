@@ -52,7 +52,7 @@ body {
 }
 .github-profile-badge-name {
   font-size: 2vw !important;
-  color: var(--color-default);
+  color: var(--color-default) !important;
 }
 .github-profile-badge-img:hover {
   filter: drop-shadow(0 0 5px rgb(54, 54, 255));
