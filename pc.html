@@ -62,10 +62,12 @@
             document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515";
             document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00";
             document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true";
+            document.getElementById("moonlight").className = "btn bx bx-planet btn1";
           } else {
             document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=none";
             document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00&bg_color=none";
             document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
+            document.getElementById("moonlight").className = "btn bx bx-moon btn1";
           }
         });
       }
@@ -105,7 +107,7 @@
           <a class="bx bxl-twitter btn" href="https://twitter.com/arsenij_kotikov"> </a>
         </span>
       </div>
-      <button class="btn bx bx-moon btn1" style="margin-left: 1rem"></button>
+      <button class="btn bx bx-moon btn1" id="moonlight" style="margin-left: 1rem"></button>
     </nav>
 
     <div class="hello_container bd">
