@@ -332,7 +332,6 @@ a.bettertouch:before {
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.3);
 }
 .main-transparent.highlighted {
   background: linear-gradient(to top, rgb(56, 37, 32) 0%, transparent 60%);
