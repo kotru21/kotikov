@@ -105,6 +105,13 @@ hr {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smooth: always;
+  border-radius: 0.5rem;
+  border-width: 0.15rem;
+  background: linear-gradient(242deg, #ce0000, #ff8522, #c322ff);
+  background-size: 600% 600%;
+  -webkit-animation: anim 11s ease infinite;
+  -moz-animation: anim 11s ease infinite;
+  animation: anim 11s ease infinite;
 }
 .card:hover {
   transform: scale(1.04);
@@ -130,6 +137,7 @@ hr {
 }
 .row {
   padding-bottom: 2rem;
+  height: fit-content;
 }
 
 .dsc:hover {
@@ -240,16 +248,6 @@ hr {
   font-size: 2vw;
   padding-top: 0.6vw;
   color: var(--color-default);
-}
-
-.card {
-  border-radius: 0.5rem;
-  border-width: 0.15rem;
-  background: linear-gradient(242deg, #ce0000, #ff8522, #c322ff);
-  background-size: 600% 600%;
-  -webkit-animation: anim 11s ease infinite;
-  -moz-animation: anim 11s ease infinite;
-  animation: anim 11s ease infinite;
 }
 
 .img {
@@ -365,9 +363,6 @@ a.bettertouch:before {
   background-color: var(--bx-bg);
 }
 
-.row {
-  height: fit-content;
-}
 .dynamic {
   font-size: 3rem;
   background: linear-gradient(242deg, #ce0000, #ff8522, #c322ff);
