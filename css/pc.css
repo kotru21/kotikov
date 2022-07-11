@@ -156,6 +156,9 @@ hr {
 .btn {
   color: white !important;
 }
+.btn-outline-primary {
+  color: rgb(13, 110, 253) !important;
+}
 .dsc-text {
   width: 100%;
 }
