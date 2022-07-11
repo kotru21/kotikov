@@ -149,7 +149,6 @@ a.bettertouch:before {
   opacity: 1;
   animation: rText 0.5s forwards;
   animation-delay: 0.175s;
-  opacity: 0;
 }
 .h3d {
   color: #9b9b9b;
