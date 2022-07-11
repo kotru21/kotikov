@@ -2,6 +2,32 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body {
+  overflow-x: hidden;
+}
+:root {
+  --container-background: white;
+  --color-default-ch1: white;
+  --color-default: rgb(12, 12, 12);
+  --body-background: #4b4b4e;
+  --bx-bg: #88888f56;
+  --Contenth1-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  --card-body: white;
+  --color-nav-bx: white;
+  --card-shadow: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+  --dsc-hover: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.418));
+}
+.dark-mode {
+  --container-background: rgb(12, 12, 12);
+  --color-default: white;
+  --color-nav-bx: white;
+  --body-background: rgb(0, 0, 0);
+  --bx-bg: #d1d1e052;
+  --Contenth1-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+  --card-body: rgb(27, 27, 27);
+  --card-shadow: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+  --dsc-hover: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+}
 ::selection {
   background: rgba(200, 200, 255, 0.4);
 }
@@ -26,6 +52,7 @@
 }
 .github-profile-badge-name {
   font-size: 2vw !important;
+  color: var(--color-default);
 }
 .github-profile-badge-img:hover {
   filter: drop-shadow(0 0 5px rgb(54, 54, 255));
@@ -46,6 +73,7 @@
 p {
   opacity: 0.8;
   font-size: calc(0.6rem + 0.5vw);
+  color: var(--color-default);
 }
 a.bigger {
   font-size: 2rem;
@@ -74,6 +102,7 @@ hr {
 }
 .card-title-special {
   font-size: 2vw !important;
+  color: var(--color-default);
 }
 .card {
   transition: 1s;
@@ -83,35 +112,34 @@ hr {
 }
 .card:hover {
   transform: scale(1.04);
-  filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+  filter: var(--card-shadow);
 }
 
 .gh-hover:hover {
   transform: scale(1.04);
-  filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+  filter: var(--card-shadow);
 }
 .innerh1 {
   padding-bottom: 3rem;
   margin-top: 2rem;
 }
 body {
-  margin: 0;
-  background-color: rgb(0, 0, 0);
-  color: white;
-  font-family: sans-serif;
+  background-color: var(--body-background);
   background-image: url("../src/pc_index/code.png");
-  background-size: 15%;
-  overflow-x: hidden;
+  background-size: 20%;
+  margin: 0;
+  padding: 0;
+  max-height: 100%;
 }
 .container {
   padding-left: 4%;
   padding-right: 4%;
   left: -30vw;
   right: -30vw;
-  box-shadow: 10px 10px 10px black;
+  box-shadow: var(--card-shadow);
   margin: 0 auto;
   height: fit-content;
-  background-color: rgb(12, 12, 12);
+  background-color: var(--container-background);
   z-index: 55;
   max-width: 150vh;
 }
@@ -121,16 +149,19 @@ body {
 
 .dsc:hover {
   transform: scale(1.04);
-  filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
 }
 .dsc:hover > .bx {
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+  filter: var(--dsc-hover);
   transition: 1s;
 }
 .btn:hover {
-  color: #11101d;
+  color: var(--color-default);
   background: #fff;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 3px 10px, rgba(255, 255, 255, 0.3) -5px 5px;
+  color: black !important;
+}
+.btn {
+  color: white !important;
 }
 .dsc-text {
   width: 100%;
@@ -187,20 +218,30 @@ body {
   margin-top: 15%;
 }
 .h1 {
-  font-size: vw;
+  font-size: 4vw;
+  color: var(--color-default);
 }
 .h2 {
   font-size: 3vw;
+  color: var(--color-default);
 }
 .Contenth1 {
   font-size: calc(2.5rem + 0.6vw);
-  text-shadow: 5px 5px 10px black;
   word-break: keep-all;
   height: min-content;
+  color: var(--color-default);
+}
+.innerh1 > .Contenth1 {
+  text-shadow: var(--Contenth1-shadow);
+  color: var(--color-default-ch1);
+}
+.Contenth1-special {
+  color: var(--color-default) !important;
 }
 .card-title {
   font-size: 2vw;
   padding-top: 0.6vw;
+  color: var(--color-default);
 }
 
 .card {
@@ -274,11 +315,13 @@ a.bettertouch:before {
 }
 .card-body {
   border-radius: 0 0 1rem 1rem;
-  background-color: rgb(27, 27, 27) !important;
+  background-color: var(--card-body);
 }
 .card-img-bottom {
   border-radius: 1rem 1rem 0 0;
+  filter: drop-shadow(var(--Contenth1-shadow));
 }
+
 .navbar {
   backdrop-filter: blur(10px);
   position: fixed;
@@ -315,11 +358,12 @@ a.bettertouch:before {
   transition: 2s;
 }
 .bx {
-  color: white;
+  color: var(--color-default);
   font-size: 1.5rem;
   margin-right: 2rem;
-  background-color: #ffffff2f;
+  background-color: var(--bx-bg);
 }
+
 .row {
   height: fit-content;
 }
@@ -413,85 +457,5 @@ a.bettertouch:before {
   }
   to {
     transform: none;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .container {
-    background: white;
-    color: rgb(0, 0, 0);
-    box-shadow: 0 10px 8px black;
-  }
-  .night.light-scheme {
-    background: #eee;
-    color: black;
-  }
-  .hr-dsc {
-    background-color: black;
-  }
-  .dsc > i {
-    color: #000000;
-  }
-  .dsc-h1.Contenth1 {
-    text-shadow: none;
-  }
-  .Contenth1 {
-    color: white;
-  }
-  .dsc:hover {
-    transform: scale(1.04);
-    filter: none;
-  }
-  .dsc-h1.Contenth1 {
-    color: black;
-  }
-  .card-slider {
-    background-color: black;
-  }
-  .card-body {
-    background-color: white !important;
-  }
-  .card-slider {
-    transition: 1s;
-    height: calc(max-content + 1rem);
-    filter: drop-shadow(0 0 10px black);
-  }
-  .card-slider:hover {
-    filter: none;
-  }
-  .left i.bx,
-  .right i.bx {
-    background-color: #000000;
-    text-shadow: none;
-  }
-  .left .Contenth1,
-  .right .Contenth1 {
-    text-shadow: 0 0 8px black;
-  }
-  body {
-    background-color: #4b4b4e;
-  }
-  .card-body .dsc-img {
-    filter: drop-shadow(0 0 10px black) !important;
-  }
-  .card:hover {
-    transform: scale(1.04);
-    filter: drop-shadow(0 0 10px black);
-  }
-  .Contenth1 {
-    text-shadow: 0 0 8px black;
-  }
-  hr {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgb(0, 0, 0) 35%, rgba(255, 255, 255, 0.1) 100%);
-  }
-  .gh-hover:hover {
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-  }
-  .github-profile-badge-name {
-    color: black !important;
-  }
-  .dsc-end {
-    background-color: #454545;
-    color: white;
   }
 }

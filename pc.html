@@ -25,7 +25,53 @@
         msieversion();
       };
     </script>
+    <script>
+      function load() {
+        const button = document.querySelector(".btn1");
 
+        // MediaQueryList object
+        const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+        if (useDark.matches == true) {
+          document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515";
+          document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00";
+          document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true";
+        } else {
+          document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=none";
+          document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00&bg_color=none";
+          document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
+        }
+        // Toggles the "dark-mode" class based on if the media query matches
+        function toggleDarkMode(state) {
+          // Older browser don't support the second parameter in the
+          // classList.toggle method so you'd need to handle this manually
+          // if you need to support older browsers.
+          document.documentElement.classList.toggle("dark-mode", state);
+        }
+
+        // Initial setting
+        toggleDarkMode(useDark.matches);
+
+        // Listen for changes in the OS settings
+        useDark.addListener((evt) => toggleDarkMode(evt.matches));
+
+        // Toggles the "dark-mode" class on click
+        button.addEventListener("click", () => {
+          document.documentElement.classList.toggle("dark-mode");
+          document.documentElement.classList.toggle("dark-mode");
+          if (document.documentElement.classList.toggle("dark-mode")) {
+            document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515";
+            document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00";
+            document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true";
+          } else {
+            document.getElementById("GH-img1").src = "https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=none";
+            document.getElementById("GH-img2").src = "https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00&bg_color=none";
+            document.getElementById("GH-img3").src = "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
+          }
+        });
+      }
+
+      window.addEventListener("DOMContentLoaded", load);
+    </script>
     <meta name="viewport" content="width=device-width" initial-scale="1.0" minimum-scale="1.0" maximum-scale="1.0" user-scalable="no" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="Арсений Котиков" />
@@ -59,14 +105,15 @@
           <a class="bx bxl-twitter btn" href="https://twitter.com/arsenij_kotikov"> </a>
         </span>
       </div>
+      <button class="btn bx bx-color-fill btn1" style="margin-left: 1rem"></button>
     </nav>
 
     <div class="hello_container bd">
       <div style="background-image: url('./src/pc_index/header.svg'); height: 100%; background-repeat: no-repeat; background-size: cover" class="anim">
         <div class="leftcont">
-          <h1 class="h1">Привет</h1>
+          <h1 class="h1" style="color: white">Привет</h1>
           <hr style="background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, white 35%, rgba(255, 255, 255, 0.1) 100%)" />
-          <h2 class="h2">Добро пожаловать на сайт</h2>
+          <h2 class="h2" style="color: white">Добро пожаловать на сайт</h2>
           <div class="contact">
             <div class="mx-auto my-2 order-1 order-md-1 position-relative">
               <span class="animatedtext-content">
@@ -83,7 +130,7 @@
     <img class="img" src="./src/pc_index/mobile_web.png" />
     <div class="container" style="padding-top: 3rem">
       <div class="innerh1">
-        <h1 class="Contenth1 text-center">Чем я занимаюсь?</h1>
+        <h1 class="Contenth1 text-center Contenth1-special">Чем я занимаюсь?</h1>
         <hr />
       </div>
 
@@ -154,7 +201,7 @@
       </div>
       <hr class="hr-dsc" />
       <div class="dsc">
-        <img loading="lazy" src="./src/pc_index/deeplearning.png" class="dsc-img rounded" alt="..." />
+        <img loading="lazy" src="./src/pc_index/neural.webp" class="dsc-img rounded" alt="..." />
         <div class="dsc-inner">
           <h1 class="dsc-h1 Contenth1">Нейронные сети</h1>
           <p class="dsc-text">Нейро́нная сеть — математическая модель, а также её программное или аппаратное воплощение, построенная по принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого организма.</p>
@@ -162,7 +209,7 @@
       </div>
       <hr class="hr-dsc" />
       <div class="dsc">
-        <img loading="lazy" src="./src/pc_index/gamepad.png" class="dsc-img rounded" alt="..." />
+        <img loading="lazy" src="./src/pc_index/gamepad.webp" class="dsc-img rounded" alt="..." />
         <div class="dsc-inner">
           <h1 class="dsc-h1 Contenth1">Игры</h1>
           <p class="dsc-text">Кому-то не нравятся компьютерные игры? Серьёзно? Компьютерная игра — компьютерная программа, служащая для организации игрового процесса (геймплея), связи с партнёрами по игре, или сама выступающая в качестве партнёра.</p>
@@ -170,7 +217,7 @@
       </div>
       <hr class="hr-dsc" />
       <div class="dsc" style="margin-bottom: 4rem">
-        <img loading="lazy" src="./src/pc_index/pc_cat.png" class="dsc-img rounded" alt="..." />
+        <img loading="lazy" src="./src/pc_index/pc_cat.webp" class="dsc-img rounded" alt="..." />
         <div class="dsc-inner">
           <h1 class="dsc-h1 Contenth1">Котики</h1>
           <p class="dsc-text">Лол, здесь нужно что-то объяснять? Котики классные.</p>
