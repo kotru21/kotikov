@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".card-img-bottom").viewportChecker({
@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".card-img-top").viewportChecker({
@@ -20,7 +20,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".card").viewportChecker({
@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".dsc-img").viewportChecker({
@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".h2xld").viewportChecker({
@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".h2xl").viewportChecker({
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".h3d").viewportChecker({
@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".h3").viewportChecker({
@@ -68,7 +68,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".rounded").viewportChecker({
@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".card-title").viewportChecker({
@@ -84,7 +84,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
 
@@ -93,7 +93,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
   $(".hr").viewportChecker({
@@ -101,7 +101,7 @@ jQuery(document).ready(function ($) {
     classToRemove: "",
     invertBottomOffset: true,
     repeat: false,
-    callbackFunction: function (elem, action) {},
+    callbackFunction: function () {},
     scrollHorizontal: false,
   });
 });
