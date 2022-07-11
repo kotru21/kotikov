@@ -4,7 +4,14 @@
 }
 body {
   overflow-x: hidden;
+  background-color: var(--body-background);
+  background-image: url("../src/pc_index/code.png");
+  background-size: 20%;
+  margin: 0;
+  padding: 0;
+  max-height: 100%;
 }
+
 :root {
   --container-background: white;
   --color-default-ch1: white;
@@ -70,14 +77,16 @@ body {
 .gh-img:hover {
   filter: drop-shadow(0 0 5px rgb(54, 54, 255));
 }
+.gh-hover:hover {
+  transform: scale(1.04);
+  filter: var(--card-shadow);
+}
 p {
   opacity: 0.8;
   font-size: calc(0.6rem + 0.5vw);
   color: var(--color-default);
 }
-a.bigger {
-  font-size: 2rem;
-}
+
 i {
   margin-bottom: 2%;
   border-radius: 0.4rem;
@@ -86,19 +95,6 @@ i {
 hr {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, white 35%, rgba(255, 255, 255, 0.1) 100%);
   height: 1rem;
-}
-.dsc {
-  transition: 1s;
-  height: fit-content;
-  display: flex;
-}
-.dsc-inner {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column; /*This solves everything*/
-}
-.dsc-h1 {
-  width: 100%;
 }
 .card-title-special {
   font-size: 2vw !important;
@@ -115,22 +111,11 @@ hr {
   filter: var(--card-shadow);
 }
 
-.gh-hover:hover {
-  transform: scale(1.04);
-  filter: var(--card-shadow);
-}
 .innerh1 {
   padding-bottom: 3rem;
   margin-top: 2rem;
 }
-body {
-  background-color: var(--body-background);
-  background-image: url("../src/pc_index/code.png");
-  background-size: 20%;
-  margin: 0;
-  padding: 0;
-  max-height: 100%;
-}
+
 .container {
   padding-left: 4%;
   padding-right: 4%;
@@ -183,6 +168,19 @@ body {
 .percdivR {
   width: 50%;
   float: right;
+}
+.dsc {
+  transition: 1s;
+  height: fit-content;
+  display: flex;
+}
+.dsc-inner {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column; /*This solves everything*/
+}
+.dsc-h1 {
+  width: 100%;
 }
 .dsc-img {
   float: left;
@@ -291,6 +289,9 @@ body {
 .card-slider:hover {
   transform: scale(1.04);
   filter: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+}
+a.bigger {
+  font-size: 2rem;
 }
 a.bettertouch {
   position: relative;
