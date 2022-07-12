@@ -145,7 +145,14 @@ hr {
 }
 .dsc:hover > .bx {
   filter: var(--dsc-hover);
+}
+.dsc > .bx {
   transition: 1s;
+}
+.dsc-stacklike-img {
+  width: 100%;
+  padding-bottom: 3rem;
+  filter: var(--card-shadow);
 }
 .btn:hover {
   background: #fff;
@@ -344,6 +351,7 @@ a.bettertouch:before {
   max-width: 600px;
   height: 100%;
 }
+
 .contact {
   transition: 3s;
   margin-top: 2rem;
