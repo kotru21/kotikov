@@ -10,6 +10,7 @@ body {
   margin: 0;
   padding: 0;
   max-height: 100%;
+  transition: 1s;
 }
 
 :root {
@@ -73,6 +74,7 @@ body {
 .gh-img {
   transition: 2s;
   min-width: 400px;
+  transition: 1s;
 }
 .gh-img:hover {
   filter: drop-shadow(0 0 5px rgb(54, 54, 255));
@@ -134,6 +136,7 @@ hr {
   background-color: var(--container-background);
   z-index: 55;
   max-width: 150vh;
+  transition: 0.5s;
 }
 .row {
   padding-bottom: 2rem;
