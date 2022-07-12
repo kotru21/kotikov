@@ -14,6 +14,7 @@ body {
 }
 
 :root {
+  --svg-shadow: drop-shadow(0px 0px 10px rgb(0, 0, 0, 0.5));
   --container-background: white;
   --color-default-ch1: white;
   --color-default: rgb(12, 12, 12);
@@ -26,6 +27,7 @@ body {
   --dsc-hover: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.418));
 }
 .dark-mode {
+  --svg-shadow: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
   --container-background: rgb(12, 12, 12);
   --color-default: white;
   --color-nav-bx: white;
@@ -156,6 +158,10 @@ hr {
   width: 100%;
   padding-bottom: 3rem;
   filter: var(--card-shadow);
+  transition: 1s;
+}
+.dsc-stacklike-img:hover {
+  filter: var(--svg-shadow);
 }
 .btn:hover {
   background: #fff;
