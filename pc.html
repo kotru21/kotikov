@@ -1,15 +1,6 @@
 <html>
   <head>
     <script>
-      function check() {
-        var info = window.screen.width;
-        if (info < 1279) {
-          window.location.href = "index.html";
-        }
-      }
-      check();
-    </script>
-    <script>
       window.onload = function () {
         function msieversion() {
           var ua = window.navigator.userAgent;
@@ -24,6 +15,15 @@
 
         msieversion();
       };
+    </script>
+    <script>
+      function check() {
+        var info = window.screen.width;
+        if (info < 1279) {
+          window.location.href = "index.html";
+        }
+      }
+      check();
     </script>
     <script>
       function load() {
