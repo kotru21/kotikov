@@ -132,8 +132,8 @@ hr {
 .container {
   padding-left: 4%;
   padding-right: 4%;
-  left: -30vw;
-  right: -30vw;
+  left: -34vw;
+  right: -34vw;
   box-shadow: var(--card-shadow);
   margin: 0 auto;
   height: fit-content;
