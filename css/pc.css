@@ -355,7 +355,7 @@ a.bettertouch:before {
 .ref {
   width: 50%;
   margin: 0 auto;
-  padding-top: 4rem;
+  padding-top: 6rem;
   filter: var(--ref-shadow);
 }
 .navbar {
