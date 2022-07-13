@@ -340,7 +340,21 @@ a.bettertouch:before {
   border-radius: 1rem 1rem 0 0;
   filter: drop-shadow(var(--Contenth1-shadow));
 }
-
+.noback {
+  background: none;
+  border: none;
+}
+.card-img-top {
+  margin-bottom: 2rem;
+}
+.circled {
+  border-radius: 1rem;
+}
+.ref {
+  width: 50%;
+  margin: 0 auto;
+  padding-top: 4rem;
+}
 .navbar {
   backdrop-filter: blur(10px);
   position: fixed;
