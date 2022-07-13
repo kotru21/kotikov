@@ -354,6 +354,7 @@ a.bettertouch:before {
   width: 50%;
   margin: 0 auto;
   padding-top: 4rem;
+  filter: var(--card-shadow);
 }
 .navbar {
   backdrop-filter: blur(10px);
