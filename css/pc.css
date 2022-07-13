@@ -478,6 +478,9 @@ a.bettertouch:before {
   .img {
     display: none;
   }
+  .mayhide {
+    display: none;
+  }
 }
 .anim {
   animation: img-anim 2s forwards;
