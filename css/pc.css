@@ -25,6 +25,7 @@ body {
   --card-body: white;
   --color-nav-bx: white;
   --card-shadow: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+  --ref-shadow: drop-shadow(0 0 0 rgba(0, 0, 0, 0.95));
   --dsc-hover: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.418));
 }
 .dark-mode {
@@ -38,6 +39,7 @@ body {
   --Contenth1-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
   --card-body: rgb(27, 27, 27);
   --card-shadow: drop-shadow(20px 20px 20px rgb(0, 0, 0));
+  --ref-shadow: drop-shadow(20px 20px 20px rgb(0, 0, 0));
   --dsc-hover: drop-shadow(20px 20px 20px rgb(0, 0, 0));
 }
 ::selection {
@@ -354,7 +356,7 @@ a.bettertouch:before {
   width: 50%;
   margin: 0 auto;
   padding-top: 4rem;
-  filter: var(--card-shadow);
+  filter: var(--ref-shadow);
 }
 .navbar {
   backdrop-filter: blur(10px);
