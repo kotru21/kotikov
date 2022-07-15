@@ -2,6 +2,21 @@
 <html lang="ru">
   <head>
     <script>
+      window.onload = function () {
+        function msieversion() {
+          var ua = window.navigator.userAgent;
+          var msie = ua.indexOf("MSIE ");
+
+          if (msie > 0) {
+            window.location.href = "IE-warning.html";
+          } // If another browser, return 0
+
+          return false;
+        }
+        msieversion();
+      };
+    </script>
+    <script>
       function check() {
         var info = window.screen.width;
         if (info >= 1279) {
@@ -457,21 +472,6 @@
       }
     </script>
     <!-- Adding a .visible class to the element when it is in the viewport. -->
-    <script>
-      window.onload = function () {
-        function msieversion() {
-          var ua = window.navigator.userAgent;
-          var msie = ua.indexOf("MSIE ");
-
-          if (msie > 0) {
-            window.location.href = "IE-warning.html";
-          } // If another browser, return 0
-
-          return false;
-        }
-        msieversion();
-      };
-    </script>
     <script>
       $(function () {
         $("#myImg").hover(
