@@ -11,7 +11,7 @@ body {
   height: 100%;
 }
 .hello {
-  min-height: 100% !important;
+  min-height: fit-content;
   height: 100%;
   max-width: 100%;
   background-image: url("../src/index/header.svg");
@@ -20,6 +20,7 @@ body {
 .text_blur {
   backdrop-filter: blur(10px);
   height: 100%;
+  max-height: fit-content;
   background-color: #11101da8;
 }
 .text_blur > h1 {
@@ -165,9 +166,9 @@ a.bettertouch:before {
   font-size: 1rem;
 }
 .h3 {
+  opacity: 0;
   color: #9b9b9b;
   font-size: 1.5rem;
-  opacity: 0;
 }
 .h3.visible {
   color: rgba(255, 255, 255, 0.5);
@@ -183,7 +184,6 @@ a.bettertouch:before {
 }
 .h3d.visible {
   color: #9b9b9b;
-
   animation: rText 0.5s forwards;
   animation-delay: 0.175s;
   opacity: 0;
