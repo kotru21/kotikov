@@ -5,6 +5,26 @@ body {
   font-family: Verdana, sans-serif;
   overflow-x: hidden;
 }
+html,
+body {
+  min-height: 100% !important;
+  height: 100%;
+}
+.hello {
+  min-height: 100% !important;
+  height: 100%;
+  max-width: 100%;
+  background-image: url("../src/index/header.svg");
+  overflow: hidden;
+}
+.text_blur {
+  backdrop-filter: blur(10px);
+  height: 100%;
+  background-color: #11101da8;
+}
+.text_blur > h1 {
+  background-color: #1d1d1d;
+}
 body::after {
   position: absolute;
   width: 0;
@@ -23,15 +43,19 @@ img {
   vertical-align: middle;
 }
 .navbar {
-  backdrop-filter: blur(10px);
-  background-color: rgba(73, 73, 73, 0.7);
   position: fixed;
   padding-top: 1rem;
   width: 100%;
   z-index: 999;
+  transition: 1s;
+}
+
+.navbar.scrolled {
+  backdrop-filter: blur(10px);
+  background-color: rgba(73, 73, 73, 0.7);
+  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
   -moz-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
-  box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
 }
 .btn:hover {
   color: #11101d;
@@ -41,7 +65,6 @@ img {
 /* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
-  position: relative;
   z-index: -1;
   margin: auto;
 }
@@ -129,7 +152,10 @@ a.bettertouch:before {
 .row {
   margin: 0;
 }
-
+.hello {
+  height: 100%;
+  width: 100%;
+}
 .h1 {
   font-size: 4rem;
   color: white;
@@ -190,8 +216,6 @@ a.bettertouch:before {
 }
 
 .jumbotron {
-  min-width: 250px;
-  min-height: 50vh;
   background-position: center;
 }
 /* card */
@@ -321,10 +345,7 @@ a.bettertouch:before {
   padding-right: 1rem;
   padding-left: 1rem;
 }
-.main-ref {
-  height: 100%;
-  width: 100%;
-}
+
 .main-transparent {
   background-color: #1d1d1df1;
   padding-top: 1rem;
@@ -394,12 +415,15 @@ a.bettertouch:before {
 
 .bx {
   text-decoration: none;
+  background: #1d1d1da4;
   color: #fff;
   margin-right: 1rem;
   font-size: 28px;
   opacity: 100%;
 }
-
+.bx.scrolled {
+  background: none;
+}
 .color1 {
   animation: colorf 5.5s;
 }
@@ -480,7 +504,8 @@ a.bettertouch:before {
 }
 
 .linear-bg {
-  background: linear-gradient(to bottom, #1d1d1d, #1d1d1de7);
+  background: none;
+  width: 100%;
 }
 
 .animatedtext-content {
@@ -551,10 +576,11 @@ a.bettertouch:before {
 
 @keyframes fade {
   0% {
-    opacity: 0.8;
+    opacity: 1;
+    filter: drop-shadow(0 0 5px white);
   }
   50% {
-    opacity: 0.9;
+    opacity: 1;
   }
   100% {
     opacity: 1;
@@ -591,9 +617,7 @@ a.bettertouch:before {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(163, 163, 163);
 }
-.progress-bar-striped {
-  height: 100%;
-}
+
 a:link {
   color: #ffffff; /* Цвет ссылок */
 }

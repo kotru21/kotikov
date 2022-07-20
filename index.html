@@ -16,15 +16,7 @@
         msieversion();
       };
     </script>
-    <script>
-      function check() {
-        var info = window.screen.width;
-        if (info >= 1279) {
-          window.location.href = "pc.html";
-        }
-      }
-      check();
-    </script>
+
     <meta name="viewport" content="width=device-width" initial-scale="1.0" minimum-scale="1.0" maximum-scale="1.0" user-scalable="no" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content="Арсений Котиков" key="title" />
@@ -51,6 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js" integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./src/js/index/ViewportAnim.js"></script>
+    <script src="./src/js/index/NavbarScroll.js"></script>
     <link href="./css/mobile.css" rel="stylesheet" />
     <link rel="preload" href="./src/index/cat.webp" as="image" />
 
@@ -67,28 +60,31 @@
         </span>
       </div>
     </nav>
-    <div class="jumbotron">
-      <div class="slideshow-container">
-        <div class="mySlides fade">
-          <div class="numbertext"></div>
-          <img src="./src/index/mobile.webp" style="max-width: 100vw" alt="Синяя аниме пикча 1/3" />
-        </div>
+    <div class="hello">
+      <div class="jumbotron">
+        <div class="slideshow-container">
+          <div class="mySlides fade">
+            <div class="numbertext"></div>
+            <img src="./src/index/blue.webp" alt="Синяя аниме пикча 1/3" style="width: 100%" />
+          </div>
 
-        <div class="mySlides fade">
-          <div class="numbertext"></div>
-          <img src="./src/index/mobile_red.webp" style="max-width: 100vw" alt="Красная аниме пикча 2/3" />
-        </div>
+          <div class="mySlides fade">
+            <div class="numbertext"></div>
+            <img src="./src/index/red.webp" alt="Красная аниме пикча 2/3" style="width: 100%" />
+          </div>
 
-        <div class="mySlides fade">
-          <div class="numbertext"></div>
-          <img src="./src/index/mobile_orange.webp" style="max-width: 100vw" alt="Оранжевая аниме пикча 3/3" />
+          <div class="mySlides fade">
+            <div class="numbertext"></div>
+            <img src="./src/index/orange.webp" alt="Оранжевая аниме пикча 3/3" style="width: 100%" />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="main linear-bg" style="box-shadow: 0 -10px 20px 10px rgba(17, 16, 29, 0.5); padding-top: 2rem">
-      <h1 class="h1 text-center"><span class="animatedtext-content">Привет!</span></h1>
-      <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem">тут нужно что-то написать про себя, так? Когда-нибудь я так и сделаю.</h3>
-      <hr class="hr" />
+      <div class="text_blur">
+        <h1 class="h1 text-center"><span class="animatedtext-content">Привет!</span></h1>
+        <img src="./src/index/stroke.svg" />
+        <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem; margin-top: 2rem; margin-bottom: 2rem">тут нужно что-то написать про себя, так? Когда-нибудь я так и сделаю.</h3>
+        <img src="./src/index/stroke.svg" />
+      </div>
     </div>
     <div class="main-transparent">
       <h2 class="h2xl text-center">какие технологии я использую?</h2>
@@ -135,7 +131,7 @@
         </div>
       </div>
 
-      <div class="main-transparent highlighted" style="background-color: #1d1d1da1 !important; backdrop-filter: blur(5px)">
+      <div class="main-transparent highlighted" style="background: #1d1d1da1 !important; backdrop-filter: blur(5px)">
         <p></p>
         <h2 class="h2xl text-center">Что я учу/планирую выучить?</h2>
         <p></p>
@@ -307,7 +303,7 @@
         </div>
       </div>
     </div>
-    <div class="main-transparent highlighted" style="background-color: #1d1d1da1 !important">
+    <div class="main-transparent highlighted" style="background: #1d1d1da1 !important">
       <p></p>
       <h2 class="h2xl text-center">Ещё контакты</h2>
       <p></p>
@@ -396,13 +392,13 @@
         </button>
       </div>
 
-      <div class="main-transparent highlighted" style="background-color: #1d1d1da1 !important; backdrop-filter: blur(5px)">
+      <div class="main-transparent highlighted" style="background: #1d1d1da1 !important; backdrop-filter: blur(5px)">
         <p></p>
         <h2 class="h2xl text-center">🔥 сайт ещё в разработке.</h2>
         <p></p>
       </div>
     </div>
-    <div class="container progress-bar-animated" style="box-shadow: 0 20px 15px #1d1d1d">
+    <div class="container progress-bar-animated">
       <svg id="wave" style="transform: rotate(180deg); transition: 0.3s" class="svg" viewBox="0 0 1440 150" version="1.1">
         <defs>
           <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
@@ -428,7 +424,7 @@
         ></path>
       </svg>
     </div>
-    <div class="main dsc-end-main" style="margin-bottom: -2rem; padding-top: 3rem; background-image: url(./src/index/cookie.webp); background-size: 10%">
+    <div class="main dsc-end-main" style="padding-top: 1rem; background: url(./src/index/cookie.webp); background-size: 10%; background-color: #1d1d1d">
       <div class="row">
         <div class="col" align="center">
           <div class="dsc-end rounded">
@@ -440,10 +436,8 @@
           </div>
         </div>
       </div>
-      <p></p>
-      <hr style="opacity: 0.3; display: block; position: sticky; margin-top: 2rem; margin-left: 1rem; margin-right: 1rem; color: rgb(255, 255, 255)" />
     </div>
-    <div class="main padding" style="box-shadow: 0 -20px 15px #1d1d1d; padding-top: 1rem">
+    <div class="main padding" style="padding-top: 1rem">
       <h2 class="h2x text-center" style="color: #6255da"><a href="#" class="rgbtext-blue">Arsenij Kotikov©</a>, 2022</h2>
       <h2 class="h2x text-center" style="color: #dab055">Спасибо, <a class="rgbtext" href="https://www.cloudflare.com/">Сloudflare</a></h2>
     </div>
