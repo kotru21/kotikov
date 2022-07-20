@@ -229,6 +229,15 @@ a.bettertouch:before {
   padding-top: 1rem;
   opacity: 0;
 }
+.card-title {
+  background: url("../src/index/line-stroke.svg");
+}
+h5 {
+  background: #ffffff;
+  color: #1d1d1d;
+  width: fit-content;
+  padding-right: 0.5rem;
+}
 .card-text-special {
   color: #9b9b9b;
   padding-bottom: 1rem;
