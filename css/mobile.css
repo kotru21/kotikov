@@ -26,6 +26,14 @@ body {
 .text_blur > h1 {
   background-color: #1d1d1d;
 }
+.text_blur > h2 {
+  background-color: #1d1d1d;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.mywork {
+  background: #1d1d1d;
+}
 body::after {
   position: absolute;
   width: 0;
@@ -152,6 +160,7 @@ a.bettertouch:before {
 }
 .row {
   margin: 0;
+  gap: 1rem;
 }
 .hello {
   height: 100%;
