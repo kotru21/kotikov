@@ -247,6 +247,7 @@ h5 {
 .card-title-special {
   animation: lText 1s forwards;
   opacity: 0;
+  margin-bottom: 1rem;
 }
 .card {
   background-color: #1d1d1d;
@@ -261,9 +262,14 @@ h5 {
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
 }
+.card-special {
+  width: 100rem;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+}
 .card:hover {
   transform: scale(1.03);
-  -webkit-font-smoothing: subpixel-antialiased;
 }
 .card.linked:hover {
   transform: scale(1.03);
