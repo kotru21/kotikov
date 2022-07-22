@@ -230,7 +230,7 @@ a.bettertouch:before {
 /* card */
 .card-deck {
   padding-top: 1.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 .card-text {
   color: #9b9b9b;
