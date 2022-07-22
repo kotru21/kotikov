@@ -209,12 +209,12 @@ a.bettertouch:before {
 .h2xld {
   margin-top: 1rem;
   color: white;
-  font-size: 2.5rem;
+  font-size: 2rem;
   opacity: 0;
 }
 .h2xld.visible {
+  font-size: 2rem;
   color: white;
-  font-size: 2.5rem;
   display: block;
   animation: rText 0.5s forwards;
 }
@@ -407,7 +407,7 @@ h5 {
   to {
     left: 5%;
     width: 100%;
-    opacity: 0.3;
+    opacity: 1;
   }
 }
 .dsc {
@@ -421,11 +421,13 @@ h5 {
 
 .dsc-img {
   margin-right: 1rem;
+  margin-bottom: 0.2rem;
+  margin-top: 1rem;
   float: left;
-  width: 15vh;
-  min-width: 130px;
-  max-width: 30px;
+  width: 8rem;
   opacity: 0;
+  border: 0.1rem solid #ffffff;
+  border-radius: 1rem;
 }
 .dsc-img.visible {
   animation: card-img 2s forwards;
@@ -618,12 +620,13 @@ h5 {
 
 .rounded {
   max-width: 1000px;
-  padding-top: 1rem;
+
   opacity: 0;
 }
 
 .rounded.visible {
   animation: card-img 2s forwards;
+
 }
 
 /* width */
