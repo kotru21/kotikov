@@ -1,10 +1,11 @@
 body {
   overflow: hidden;
-  background: black;
+  background: #1d1d1d;
   color: white;
-  width: 100vw;
-  height: 100vh;
+  font-family: Verdana, sans-serif;
+  overflow-x: hidden;
 }
+
 .btn {
   animation: rgb-shadow 2s 2s;
 }
@@ -12,6 +13,9 @@ body {
 .container {
   text-align: center;
   height: 100%;
+  width: auto;
+  min-width: min-content;
+  max-width: max-content;
 }
 
 .glitch {
@@ -22,6 +26,42 @@ body {
   text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
   animation: glitch 525ms forwards;
   animation-iteration-count: 3;
+}
+
+.card {
+  border: 0.1rem solid white;
+  height: fit-content;
+  width: auto;
+  min-width: min-content;
+  max-width: max-content;
+  background-color: #1d1d1d;
+  border-radius: 1rem;
+  transition: 1s;
+}
+
+.card-title {
+  color: white;
+}
+
+.card:hover {
+  transform: scale(1.04);
+}
+
+.card-text {
+  animation: anim 1s forwards;
+
+  font-size: 1.2rem;
+}
+
+@keyframes anim {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 @keyframes glitch {
@@ -50,6 +90,25 @@ body {
     text-shadow: none;
   }
 }
-.card {
-  min-height: 50vh;
+@keyframes rgb-shadow {
+  0% {
+    box-shadow: 0px 0px 30px rgba(11, 124, 199, 1);
+    box-shadow: 0px 0px 10px rgba(11, 124, 199, 1);
+  }
+  20% {
+    box-shadow: 0px 0px 30px rgba(168, 11, 199, 1);
+    box-shadow: 0px 0px 10px rgba(168, 11, 199, 1);
+  }
+  40% {
+    box-shadow: 0px 0px 30px rgba(11, 199, 96, 1);
+    box-shadow: 0px 0px 10px rgba(11, 199, 96, 1);
+  }
+  60% {
+    box-shadow: 0px 0px 30px rgba(199, 11, 11, 1);
+    box-shadow: 0px 0px 10px rgba(199, 11, 11, 1);
+  }
+  80% {
+    box-shadow: 0px 0px 30px rgba(199, 96, 11, 1);
+    box-shadow: 0px 0px 10px rgba(199, 96, 11, 1);
+  }
 }
