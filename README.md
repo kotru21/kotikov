@@ -19,7 +19,7 @@
 <p align="center">Want to improve my code? Make a <b>Pull Request</b> or create an <b>issue</b></p>
 <hr />
 
-![Preview](https://user-images.githubusercontent.com/88907641/176704235-776b639b-9469-4b13-b91f-b5e14bc91846.png)
+![Preview](https://user-images.githubusercontent.com/88907641/180805180-f6bb0c06-3139-431f-954d-7bd9e000471f.png)
 
 <br>
 
