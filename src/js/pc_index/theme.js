@@ -1,3 +1,4 @@
+//Check and apply light/dark theme based on user preferences 
 function load() {
   const button = document.querySelector(".btn1");
 
