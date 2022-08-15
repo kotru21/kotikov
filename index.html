@@ -72,6 +72,9 @@
     <title>Добро пожаловать</title>
   </head>
   <body class="bd">
+    <div id="loading">
+      <div id="loading-image" class="loader">Загрузка...</div>
+    </div>
     <nav class="navbar">
       <div class="mx-auto my-2 order-1 order-md-1 position-relative">
         <span class="animatedtext-content">
@@ -717,6 +720,11 @@
       </h2>
     </div>
     <!-- The above code is a slideshow that changes the background color of the page every 4 seconds. -->
+    <script>
+      $(window).on("load", function () {
+        $("#loading").hide();
+      });
+    </script>
     <script>
       let slideIndex = 0;
       showSlides();
