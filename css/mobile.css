@@ -96,7 +96,6 @@ body {
   overflow: hidden;
 }
 .text_blur {
-  backdrop-filter: blur(10px);
   height: 100%;
   max-height: fit-content;
   background-color: #11101da8;
@@ -138,7 +137,6 @@ img {
 }
 
 .navbar.scrolled {
-  backdrop-filter: blur(10px);
   background-color: rgba(73, 73, 73, 0.7);
   box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
   -webkit-box-shadow: 4px 4px 6px -1px rgba(17, 16, 29, 0.1);
