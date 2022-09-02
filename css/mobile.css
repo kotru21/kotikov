@@ -532,6 +532,10 @@ h5 {
 .bx.scrolled {
   background: none;
 }
+.bx.scrolled:hover {
+  background: #1d1d1da4;
+  color: white;
+}
 .color1 {
   animation: colorf 5.5s;
 }
