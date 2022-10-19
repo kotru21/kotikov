@@ -360,7 +360,8 @@ a.bettertouch:before {
 }
 .leftcont > .h1 {
   font-size: 10rem;
-  background-color: #00000056;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-weight: 900;
 }
 h2.h1 {
   font-size: 5em !important;
