@@ -1,6 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
   <head>
     <script>
+      //check IE browser by navigator.useragent
       window.onload = function () {
         function msieversion() {
           var ua = window.navigator.userAgent;
@@ -12,20 +14,10 @@
 
           return false;
         }
-
         msieversion();
       };
     </script>
-    <script>
-      function check() {
-        var info = window.screen.width;
-        if (info < 779) {
-          window.location.href = "index.html";
-        }
-      }
-      check();
-    </script>
-    <script src="./src/js/pc_index/theme.js"></script>
+
     <meta
       name="viewport"
       content="width=device-width"
@@ -34,8 +26,11 @@
       maximum-scale="1.0"
       user-scalable="no"
     />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content="Арсений Котиков" key="title" />
     <meta property="og:site_name" content="Арсений Котиков" />
+    <meta name="theme-color" content="#8f00ff" />
     <meta property="og:image:secure_url" content="https://kotikov.pages.dev/src/index/web_preview.png" />
     <meta property="og:image" content="https://kotikov.pages.dev/src/index/web_preview.png" />
     <meta name="description" content="Описание? Ну и что мне сюда написать?..." />
@@ -50,583 +45,73 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:description" content="Описание? Ну и что мне сюда написать?..." />
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/pc.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
+      integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"
+      integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"
+      integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="preload" href="./src/index/cat.webp" as="image" />
+    <link href="./css/pc/pc.css" rel="stylesheet" />
     <title>Добро пожаловать</title>
   </head>
   <body>
-    <nav class="navbar">
-      <div class="mx-auto my-2 order-1 order-md-1 position-relative">
-        <span class="animatedtext-content">
-          <a class="bx bxl-youtube btn" href="https://www.youtube.com/channel/UCOYprFCDyhHdhbtfzZNqYFQ"> </a>
-          <a class="bx bxl-vk btn" href="https://vk.com/arsenij_kotikov"> </a>
-          <a class="bx bxl-twitter btn" href="https://twitter.com/arsenij_kotikov"> </a>
-        </span>
-      </div>
-      <button class="btn bx bx-moon btn1" id="moonlight" style="margin-left: 1rem"></button>
-    </nav>
-
-    <div class="hello_container bd">
-      <div
-        style="
-          background-image: url('./src/pc_index/header.svg');
-          height: 160%;
-          background-repeat: no-repeat;
-          background-size: cover;
-        "
-        class="anim"
-      >
-        <div class="leftcont">
-          <h1 class="h1" style="color: white">
-            Привет,<br />
-            Добро<br />
-            Пожаловать<br />
-            На<br />
-            Сайт
-          </h1>
-          <h2 class="h1" style="color: rgba(255, 255, 255, 0.6)">
-            Здесь<br />
-            Что-то<br />
-            Есть
-          </h2>
-          <img src="./src/pc_index/mobile_web.png" class="img" />
-        </div>
-      </div>
-    </div>
-    <div class="progress-bar-animated progress-bar-striped paddingcont"></div>
-    <div class="container" style="padding-top: 3rem">
-      <div class="innerh1">
-        <h1 class="Contenth1 text-center Contenth1-special">Чем я занимаюсь?</h1>
-        <hr />
-      </div>
-      <div class="left">
-        <div class="percdivL">
-          <h1 class="Contenth1"><i class="bx bx-code-alt" style="font-size: 4rem !important"></i>Web-Dev</h1>
-          <p>
-            WEB-разработка — процедура создания WEB-приложения или WEB-сайта. Основными этапами этого процесса являются
-            такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а
-            также работы по конфигурированию сервера.
-          </p>
-        </div>
-      </div>
-      <div class="right">
-        <div class="percdivR">
-          <h1 class="Contenth1"><i class="bx bxl-github" style="font-size: 4rem !important"></i>Open Source</h1>
-          <p>
-            Сообщество свободного программного обеспечения (англ. Free software community) — это сообщество
-            пользователей и разработчиков свободного программного обеспечения, а также участников движения свободного
-            программного обеспечения. Одним из наиболее известных сообществ является Linux-сообщество.
-          </p>
-        </div>
-      </div>
-
-      <div class="left">
-        <div class="percdivL">
-          <h1 class="Contenth1"><i class="bx bxs-brush" style="font-size: 4rem !important"></i>WEB-дизайн</h1>
-          <p>
-            Веб-дизайн это работа над внешним видом сайта. Выбор того, какие элементы будут представлены на странице и в
-            каком порядке они будут отражаться на мониторах пользователей. Например, он решает, что будет, если навести
-            курсор мыши на определенный блок и в какой последовательности будет отображаться информация при прокрутке
-            страницы вниз.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <h1 class="Contenth1 text-center" style="user-select: none">&nbsp;</h1>
-      <div class="innerh1">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Мои текущие проекты
-        </h1>
-        <hr />
-      </div>
-      <img src="./src/pc_index/info.webp" style="width: 30rem; border-radius: 1rem" />
-      <div class="row w-50 float-lg-end">
-        <div class="col-sm-6 w-100">
-          <div class="card" style="margin-bottom: 2rem">
-            <div class="card-body" style="border-radius: 0.4rem !important">
-              <img
-                loading="lazy"
-                src="https://counts.pages.dev/web.ico"
-                class="dsc-img rounded"
-                alt="..."
-                style="filter: drop-shadow(0 0 5px #0d6efd)"
-              />
-              <h5 class="card-title">Сколько до 01.09</h5>
-
-              <p class="card-text">Здесь можно узнать точное время до этого дня. Страшно? Мне тоже(</p>
-              <a href="https://counts.pages.dev" class="btn btn-primary">Проверить</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 w-100">
-          <div class="card">
-            <div class="card-body" style="border-radius: 0.4rem !important">
-              <img
-                loading="lazy"
-                src="https://letsgo.pages.dev/googlex.png"
-                class="dsc-img rounded"
-                alt="..."
-                style="filter: drop-shadow(0 0 5px #0d6efd)"
-              />
-              <h5 class="card-title">Googlex</h5>
-              <p class="card-text">Просто мемный поисковик с константной строкой поиска:D</p>
-              <a onclick="CreateUrl()" class="btn btn-primary">Проверить</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="innerh1">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Чем я интересуюсь ?
-        </h1>
-        <hr />
-      </div>
-      <div class="dsc" style="margin-top: -0.5rem">
-        <img loading="lazy" src="./src/index/eth.webp" class="dsc-img rounded" alt="..." />
-        <div class="dsc-inner">
-          <h1 class="dsc-h1 Contenth1">Блокчейн</h1>
-          <p class="dsc-text">
-            Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
-            широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
-            персональных данных и идентификации, в маркетинге и компьютерных играх.
-          </p>
-        </div>
-      </div>
-      <hr class="hr-dsc" />
-      <div class="dsc">
-        <img loading="lazy" src="./src/pc_index/neural.webp" class="dsc-img rounded" alt="..." />
-        <div class="dsc-inner">
-          <h1 class="dsc-h1 Contenth1">Нейронные сети</h1>
-          <p class="dsc-text">
-            Нейро́нная сеть — математическая модель, а также её программное или аппаратное воплощение, построенная по
-            принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого
-            организма.
-          </p>
-        </div>
-      </div>
-      <hr class="hr-dsc" />
-      <div class="dsc">
-        <img loading="lazy" src="./src/pc_index/gamepad.webp" class="dsc-img rounded" alt="..." />
-        <div class="dsc-inner">
-          <h1 class="dsc-h1 Contenth1">Игры</h1>
-          <p class="dsc-text">
-            Кому-то не нравятся компьютерные игры? Серьёзно? Компьютерная игра — компьютерная программа, служащая для
-            организации игрового процесса (геймплея), связи с партнёрами по игре, или сама выступающая в качестве
-            партнёра.
-          </p>
-        </div>
-      </div>
-      <hr class="hr-dsc" />
-      <div class="dsc" style="margin-bottom: 4rem">
-        <img loading="lazy" src="./src/pc_index/pc_cat.webp" class="dsc-img rounded" alt="..." />
-        <div class="dsc-inner">
-          <h1 class="dsc-h1 Contenth1">Котики</h1>
-          <p class="dsc-text">Лол, здесь нужно что-то объяснять? Котики классные.</p>
-        </div>
-      </div>
-
-      <div class="innerh1">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Мой стек
-        </h1>
-        <hr />
-      </div>
-      <div class="row row-cols-1 row-cols-md-5 g-8 mayhide" style="margin-bottom: 2rem">
-        <div class="col">
-          <div class="card noback">
-            <img src="./src/pc_index/design.svg" class="card-img-top" alt="..." />
-            <div class="card-body circled">
-              <h5 class="card-title">Макет</h5>
-              <p class="card-text">Figma & Photoshop</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100 noback">
-            <img src="./src/pc_index/ref.svg" class="card-img-top ref" alt="..." />
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100 noback">
-            <img src="./src/pc_index/markup.svg" class="card-img-top" alt="..." />
-            <div class="card-body circled">
-              <h5 class="card-title">Вёрстка</h5>
-              <p class="card-text">HTML & CSS</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card noback">
-            <img src="./src/pc_index/ref.svg" class="card-img-top ref" alt="..." />
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100 noback">
-            <img src="./src/pc_index/code.svg" class="card-img-top" alt="..." />
-            <div class="card-body circled">
-              <h5 class="card-title">Логика</h5>
-              <p class="card-text">JS & PHP</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dsc-flex-container">
-        <div class="dsc" style="margin-top: -0.5rem">
-          <i class="bx bxs-file-js" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">JavaScript</h1>
-            <p class="dsc-text">JavaScript это язык, который позволяет вам применять сложные вещи на web странице.</p>
-          </div>
-        </div>
-        <div class="dsc">
-          <i class="bx bxs-file-html" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">HTML / CSS</h1>
-            <p class="dsc-text">
-              Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно
-              отображать загруженный сайт. Cascading Style Sheets — формальный язык описания внешнего вида web страницы.
-            </p>
-          </div>
-        </div>
-        <div class="dsc">
-          <i class="bx bxs-server" style="font-size: 10rem; float: left; background: none; height: 20vh"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">PHP / Node.js</h1>
-            <p class="dsc-text">
-              PHP - C-подобный скриптовый язык общего назначения, интенсивно применяемый для разработки веб-приложений.
-              В настоящее время поддерживается подавляющим большинством хостинг-провайдеров и является одним из лидеров
-              среди языков, применяющихся для создания динамических веб-сайтов. Node или Node.js — программная
-              платформа, превращающая JavaScript из узкоспециализированного языка в язык общего назначения.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="innerh1">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Что я учу/планирую выучить
-        </h1>
-        <hr />
-      </div>
-      <img
-        src="./src/pc_index/about-me.png"
-        style="width: 40rem; margin-left: -44rem; margin-top: 10rem; position: absolute"
-      />
-      <div class="dsc-flex-container">
-        <div class="dsc" style="margin-top: -0.5rem">
-          <i class="bx bxl-c-plus-plus" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">C# / C++</h1>
-            <p class="dsc-text">
-              Объекто-ориентированные языки программирования промежуточного уровня.C++ широко используется для
-              разработки программного обеспечения, являясь одним из самых популярных языков программирования. Область
-              его применения включает создание операционных систем, разнообразных прикладных программ, драйверов
-              устройств, приложений для встраиваемых систем, высокопроизводительных серверов, а также игр.
-            </p>
-          </div>
-        </div>
-        <div class="dsc">
-          <i class="bx bxl-postgresql" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">SQL</h1>
-            <p class="dsc-text">
-              Structured Query Language («язык структурированных запросов») — декларативный язык программирования,
-              применяемый для создания, модификации и управления данными в реляционной базе данных, управляемой
-              соответствующей системой управления базами данных.
-            </p>
-          </div>
-        </div>
-        <div class="dsc">
-          <i class="bx bxl-python" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">Python</h1>
-            <p class="dsc-text">
-              Python — высокоуровневый язык программирования общего назначения с динамической строгой типизацией и
-              автоматическим управлением памятью, ориентированный на повышение производительности разработчика,
-              читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ.
-            </p>
-          </div>
-        </div>
-        <div class="dsc">
-          <i class="bx bxl-react" style="font-size: 10rem; float: left; background: none"></i>
-          <div class="dsc-inner">
-            <h1 class="dsc-h1 Contenth1">React.js</h1>
-            <p class="dsc-text">
-              React — JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. React
-              разрабатывается и поддерживается Facebook, Instagram и сообществом отдельных разработчиков и корпораций.
-              React может использоваться для разработки одностраничных и мобильных приложений.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="innerh1" style="padding-bottom: 0">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Мой GitHub
-        </h1>
-        <hr />
-        <div class="gh-hover">
-          <div class="github-profile-badge" data-user="kotru21"></div>
-          <script src="https://cdn.jsdelivr.net/gh/Rapsssito/github-profile-badge@latest/src/widget.min.js"></script>
-          <img
-            id="GH-img1"
-            src="https://activity-graph.herokuapp.com/graph?username=kotru21&theme=react-dark&hide_border=true&area=true&bg_color=151515"
-            style="width: 100%"
-          />
-        </div>
-        <div class="row" style="padding-top: 1.5rem">
-          <div class="col-lg-6 col-md-6 col-xs-6 thumb">
-            <img
-              id="GH-img2"
-              class="gh-hover img-responsive"
-              style="width: 100%"
-              src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&theme=dark&hide_border=true&area=true&title_color=FA8B00"
-            />
-          </div>
-          <div class="col-lg-6 col-md-6 col-xs-6 thumb">
-            <img
-              id="GH-img3"
-              class="gh-hover img-responsive"
-              style="width: 100%"
-              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=dark&hide_border=true&area=true"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="innerh1" style="padding-bottom: 0">
-        <hr />
-        <h1
-          class="Contenth1 text-center endpage"
-          id="like-a"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          Ещё контакты
-        </h1>
-        <div class="cookiebg" id="like-b">
-          <hr style="margin-bottom: 5rem" />
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="card-deck">
-                <div class="row">
-                  <div class="carousel-item active">
-                    <div class="col-xl-8 mx-auto">
-                      <div class="card-slider" style="margin: 0 auto; margin-bottom: 10px">
-                        <img
-                          class="card-img-bottom"
-                          loading="lazy"
-                          src="./src/index/inst.webp"
-                          alt="Основной аккаунт."
-                        />
-                        <div class="card-body">
-                          <h5 class="card-title-special">Instagram</h5>
-                          <a
-                            href="https://instagram.com/arsenij_kotikov"
-                            class="btn btn-outline-primary bettertouch"
-                            style="float: right; margin-top: -1rem"
-                            >Проверить</a
-                          >
-                          <p class="card-text-special">Основной аккаунт.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div class="col-xl-8 mx-auto">
-                      <div class="card-slider" style="margin: 0 auto; margin-bottom: 10px">
-                        <img
-                          class="card-img-bottom"
-                          loading="lazy"
-                          src="./src/index/capy-inst.webp"
-                          alt="Фотошопы капибар."
-                        />
-                        <div class="card-body">
-                          <h5 class="card-title-special">Instagram</h5>
-                          <a
-                            href="https://instagram.com/somecringe.psd"
-                            class="btn btn-outline-primary bettertouch"
-                            style="float: right; margin-top: -1rem"
-                            >Проверить</a
-                          >
-                          <p class="card-text-special">Фотошопы капибар.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div class="col-xl-8 mx-auto">
-                      <div class="card-slider" style="margin: 0 auto; margin-bottom: 10px">
-                        <img class="card-img-bottom" loading="lazy" src="./src/index/twitch.webp" alt="Twitch" />
-                        <div class="card-body">
-                          <h5 class="card-title-special">Twitch</h5>
-                          <a
-                            href="https://twitch.tv/kotru12"
-                            class="btn btn-outline-primary bettertouch"
-                            style="float: right; margin-top: -1rem"
-                            >Проверить</a
-                          >
-                          <p class="card-text-special">Зачем? Пусть будет.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="header">
+      <div class="content">
+        <nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Kotikov</a>
             <button
-              class="carousel-control-prev"
+              class="navbar-toggler"
               type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
             >
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next"
-            >
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="innerh1">
-        <hr />
-        <h1
-          class="Contenth1 text-center dynamic"
-          style="
-            text-shadow: 0px 0px 10px black;
-            margin-left: -5vw;
-            margin-right: -5vw;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-          "
-        >
-          <a
-            href="https://github.com/kotru21/kotikov/blob/main/pc.html"
-            class="bx bx-brush btn"
-            style="font-size: 3rem; width: 6vw; min-width: 70px"
-          ></a
-          >Сайт ещё в разработке
-        </h1>
-        <hr />
-      </div>
-      <div class="container progress-bar-animated" style="box-shadow: 0 20px 15px #1d1d1d"></div>
-      <div class="main dsc-end-main" style="margin-bottom: -2rem; padding-top: 3rem">
-        <div class="row">
-          <div class="col" align="center">
-            <div class="dsc-end rounded">
-              <h3 class="h3 text-center">
-                Остались вопросы?<br />
-                Напиши на почту :D
-              </h3>
-              <a href="mailto:kotikovdev@gmail.com"
-                ><img id="myImg" src="./src/index/Static.webp" class="Mail" loading="lazy" alt="почта"
-              /></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled">Disabled</a>
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
-        <footer class="text-center text-white">
-          <!-- Grid container -->
-          <div class="p-4 pb-0">
-            <!-- Section: Form -->
-            <section class=""></section>
-            <!-- Section: Form -->
-          </div>
-          <!-- Grid container -->
-
-          <!-- Copyright -->
-          <div class="text-center p-3" style="background-color: rgba(22, 22, 22, 0.8); border-radius: 2rem 2rem 0 0">
-            © 2022 Copyright:
-            <a class="text-white" href="#">Arsenij Kotikov</a>
-            |
-            <a class="text-white" href="https://github.com/kotru21/kotikov">Исходный код</a>
-            ❤️
-            <a class="text-white" href="https://www.cloudflare.com/">Спасибо, Cloudflare!</a>
-          </div>
-          <!-- Copyright -->
-        </footer>
-
-        <script>
-          $(function () {
-            $(document).scroll(function () {
-              var $nav = $(".navbar");
-              $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
-              var $tdo = $(".contact");
-              $tdo.toggleClass("scrolled", $(this).scrollTop() > $tdo.height());
-            });
-          });
-        </script>
-        <script>
-          function CreateUrl() {
-            let inp = prompt("Введите запрос", "мяу");
-            if (inp != null) {
-              wordArray = inp.split("&");
-              window.open("https://letsgo.pages.dev/?" + wordArray);
-            }
-          }
-        </script>
+        </nav>
+        <h1 style="font-family: 'Minomu Regular'; font-weight: normal; font-size: 42px">Добро пожаловать</h1>
       </div>
     </div>
   </body>
