@@ -1,23 +1,15 @@
+@import url("https://fonts.cdnfonts.com/css/open-sans");
 @font-face {
-  font-family: "Minomu Regular";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Minomu Regular"), url("./fonts/Minomu-Regular.otf") format("opentype");
+  font-family: "Monocraft";
+  src: local("Monocraft"), url("./fonts/Monocraft.otf") format("opentype");
 }
-@font-face {
-  font-family: "Minomu Bold";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Minomu Bold"), url("./fonts//Minomu-Bold.otf") format("opentype");
-}
-
 * {
   margin: 0;
   padding: 0;
-  font-family: "Minomu Regular";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1rem;
   line-height: 27px;
 }
 
@@ -29,19 +21,28 @@
   background: radial-gradient(100.34% 317.12% at 100% 98.43%, #ffffff 0%, #ef9675 100%);
   /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
 }
+.header-overlay {
+  background-position: 85% 100%;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+}
 .content {
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 9rem;
+  padding-right: 9rem;
 }
 h1 {
-  font-family: "Minomu Bold";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 700;
+}
+.cubefont {
+  font-family: "Monocraft";
 }
 .navbar {
   background: none !important;
   padding-top: 1rem;
-  border-bottom: solid black;
+  border-bottom: solid black 1px;
   margin: 0 !important;
   max-width: 70%;
 }
@@ -53,8 +54,8 @@ h1 {
 }
 @media only screen and (max-width: 900px) {
   .content {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .navbar {
     max-width: 100%;

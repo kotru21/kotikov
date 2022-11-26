@@ -78,6 +78,14 @@
   </head>
   <body>
     <div class="header">
+      <div
+        style="
+          background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.51) 100%);
+          width: 14rem;
+          height: 100vh;
+          position: absolute;
+        "
+      ></div>
       <div class="content">
         <nav class="navbar navbar-expand-lg bg-light">
           <a class="navbar-brand" href="#">Kotikov</a>
@@ -95,9 +103,6 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Главная</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="#">Домашняя</a>
               </li>
               <li class="nav-item">
@@ -112,8 +117,44 @@
             </ul>
           </div>
         </nav>
+
         <div style="margin-top: 8rem">
-          <h1>Добро пожаловать</h1>
+          <h1 style="max-width: 10rem; font-size: 12vh; position: relative">Добро пожаловать</h1>
+
+          <div style="position: absolute; bottom: 0; color: white; opacity: 0.8; z-index: 1">
+            <h1 class="cubefont" style="font-size: 4rem; text-align: right">Arsenij</h1>
+            <h1 class="cubefont" style="font-size: 16rem">Kotikov</h1>
+          </div>
+          <span
+            style="
+              border-radius: 50%;
+              width: 30rem;
+              height: 30rem;
+              min-height: 10rem;
+              position: absolute;
+              right: 18rem;
+              bottom: -10rem;
+              background: black;
+              z-index: 0;
+            "
+          ></span>
+          <img
+            src="./src/pc_index/orange-special.webp"
+            style="position: absolute; right: 9rem; bottom: 0rem; width: 30%; z-index: 2"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="header" style="background: black; z-index: 1; position: relative">
+      <div class="content">
+        <div style="color: white; padding-top: 3rem">
+          <h1 style="font-size: 12vh">Привет!</h1>
+          <p>ыыыыыыыыы<br />ыыыыы</p>
+          <div
+            style="position: absolute; right: 0; height: 100%; top: 0; width: 25rem; background: white; padding: 0.2rem"
+          >
+            <div style="position: relative; height: 100%; background: black"></div>
+          </div>
         </div>
       </div>
     </div>
