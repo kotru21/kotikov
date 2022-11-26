@@ -16,10 +16,17 @@
 .header {
   width: 100%;
   height: 100vh;
-  min-height: 100vh;
+  max-height: 100vh;
 
   background: radial-gradient(100.34% 317.12% at 100% 98.43%, #ffffff 0%, #ef9675 100%);
   /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+}
+.orange-image {
+  position: absolute;
+  right: 9rem;
+  bottom: 0rem;
+  width: 30%;
+  z-index: 2;
 }
 .header-overlay {
   background-position: 85% 100%;
@@ -52,6 +59,9 @@ h1 {
   width: 100%;
   max-width: 80%;
 }
+.youre-welcome {
+  font-size: 12vh;
+}
 @media only screen and (max-width: 900px) {
   .content {
     padding-left: 1rem;
@@ -59,5 +69,18 @@ h1 {
   }
   .navbar {
     max-width: 100%;
+  }
+  .youre-welcome {
+    font-size: 6vh;
+  }
+  .cubefont.arsenij {
+    font-size: 2rem !important;
+  }
+  .cubefont.kotikov {
+    font-size: 5rem !important;
+  }
+  .orange-image {
+    width: 60%;
+    right: 0;
   }
 }
