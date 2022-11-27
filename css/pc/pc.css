@@ -38,6 +38,13 @@
   padding-left: 9rem;
   padding-right: 9rem;
 }
+.card {
+  background: black;
+  color: white;
+}
+div.card-title {
+  height: 100%;
+}
 h1 {
   font-family: "Open Sans", sans-serif;
   font-style: normal;
