@@ -35,6 +35,10 @@
   min-height: 100vh;
 }
 .content {
+  padding-left: 14rem;
+  padding-right: 14rem;
+}
+.header-content {
   padding-left: 9rem;
   padding-right: 9rem;
 }
@@ -50,6 +54,7 @@ h1 {
   font-style: normal;
   font-weight: 700;
 }
+
 .cubefont {
   font-family: "Monocraft";
 }
@@ -70,7 +75,8 @@ h1 {
   font-size: 12vh;
 }
 @media only screen and (max-width: 900px) {
-  .content {
+  .content,
+  .header-content {
     padding-left: 1rem;
     padding-right: 1rem;
   }

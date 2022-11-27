@@ -86,7 +86,7 @@
           position: absolute;
         "
       ></div>
-      <div class="content">
+      <div class="content header-content">
         <nav class="navbar navbar-expand-lg bg-light">
           <a class="navbar-brand" href="#">Kotikov</a>
           <button
@@ -145,8 +145,16 @@
     <div class="header" style="background: black; position: relative">
       <div class="content">
         <div style="color: white; padding-top: 3rem">
-          <h1 class="youre-welcome">Привет!</h1>
-          <p>ыыыыыыыыы<br />ыыыыы</p>
+          <div style="max-width: 50vw">
+            <h1 class="youre-welcome">Привет!</h1>
+            <p style="margin-left: 10vw; padding-top: 1rem; max-width: 15rem">
+              Меня зовут Арсений, aka Arsenij kotikov и на этом сайте собрана информация обо мне и моих проектах
+            </p>
+            <p style="margin-left: 20vw; max-width: 20rem">Я занимаюсь веб-разработкой, учу C++ и пишу код</p>
+            <p style="margin-left: 20vw; width: 100%; position: relative; max-width: 20rem">
+              Интересуют контакты? воспользуйся навигацией сверху сайта
+            </p>
+          </div>
           <div
             style="
               position: absolute;
@@ -154,14 +162,22 @@
               bottom: 0;
               height: 5vh;
               width: 100%;
-              background: white;
+              background: linear-gradient(to right, white, black);
               padding: 0.2rem;
             "
           >
             <div style="position: relative; height: 100%; background: black"></div>
           </div>
           <div
-            style="position: absolute; right: 0; height: 100%; top: 0; width: 25vw; background: white; padding: 0.2rem"
+            style="
+              position: absolute;
+              right: 0;
+              height: 100%;
+              top: 0;
+              width: 25vw;
+              background: linear-gradient(to top, white, black);
+              padding: 0.2rem;
+            "
           >
             <div style="position: relative; height: 100%; background: black"></div>
           </div>
@@ -170,32 +186,98 @@
     </div>
     <div class="header" style="background: white; height: fit-content">
       <div class="content" style="padding-top: 3rem; padding-bottom: 3rem">
-        <div class="card" style="max-width: 35rem">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
+        <div class="card" style="max-width: 35rem; margin-bottom: 8vw">
+          <div class="dots" style="margin-left: auto; padding-top: 0.5rem; padding-right: 1rem">
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #14ff00;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #ff6b00;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #ff0000;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+          </div>
+          <div class="card-body" style="display: flex">
+            <h5 class="card-title" style="width: 30%; text-align: left">Веб-дизайн</h5>
+            <p class="card-text" style="width: 70%; text-align: left">
+              Веб-дизайнер рисует макеты лендингов, сайтов для компаний, интернет-магазинов, а также проектирует
+              интерфейсы для интернет-сервисов и приложений. Также он может создавать шаблоны для email-рассылок,
+              придумывать и рисовать интернет-баннеры. Веб-дизайнер рисует макеты лендингов, сайтов для компаний,
+              интернет-магазинов, а также проектирует интерфейсы для интернет-сервисов и приложений. Также он может
+              создавать шаблоны для email-рассылок, придумывать и рисовать интернет-баннеры.
             </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
         <div class="card" style="max-width: 35rem; margin-left: auto; margin-right: 0">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
+          <div class="dots" style="margin-left: auto; padding-top: 0.5rem; padding-right: 1rem">
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #14ff00;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #ff6b00;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+            <span
+              style="
+                height: 1.2rem;
+                width: 1.2rem;
+                background-color: #ff0000;
+                border-radius: 50%;
+                display: inline-block;
+              "
+            ></span>
+          </div>
+          <div class="card-body" style="display: flex">
+            <h5 class="card-title" style="width: 30%; text-align: left">Веб-дизайн</h5>
+            <p class="card-text" style="width: 70%; text-align: left">
+              Веб-дизайнер рисует макеты лендингов, сайтов для компаний, интернет-магазинов, а также проектирует
+              интерфейсы для интернет-сервисов и приложений. Также он может создавать шаблоны для email-рассылок,
+              придумывать и рисовать интернет-баннеры.
             </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="header" style="background: black">
-      <div class="content" style="padding-top: 3rem; padding-bottom: 3rem; background: white">
+    <div class="header" style="background: black; position: relative">
+      <div class="content" style="padding-top: 3rem; background: white">
         <hr />
         <h1 class="youre-welcome">Мои проекты</h1>
+      </div>
+      <img src="./src/pc_index/line.svg" style="width: 100%; margin-top: -1rem" />
+      <div
+        style="position: absolute; right: 0; bottom: 0; height: 5vh; width: 100%; background: white; padding: 0.2rem"
+      >
+        <div style="position: relative; height: 100%; background: black"></div>
       </div>
     </div>
   </body>
