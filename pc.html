@@ -143,15 +143,15 @@
       </div>
     </div>
     <div class="header" style="background: black; position: relative">
-      <div class="content">
+      <div class="content card-deck">
         <div style="color: white; padding-top: 3rem">
           <div style="max-width: 50vw">
             <h1 class="youre-welcome">Привет!</h1>
-            <p style="margin-left: 10vw; padding-top: 1rem; max-width: 15rem">
+            <p style="margin-left: 5vw; padding-top: 1rem; max-width: 15rem">
               Меня зовут Арсений, aka Arsenij kotikov и на этом сайте собрана информация обо мне и моих проектах
             </p>
-            <p style="margin-left: 20vw; max-width: 20rem">Я занимаюсь веб-разработкой, учу C++ и пишу код</p>
-            <p style="margin-left: 20vw; width: 100%; position: relative; max-width: 20rem">
+            <p style="margin-left: 10vw; max-width: 20rem">Я занимаюсь веб-разработкой, учу C++ и пишу код</p>
+            <p style="margin-left: 10vw; width: 100%; position: relative; max-width: 20rem">
               Интересуют контакты? воспользуйся навигацией сверху сайта
             </p>
           </div>
@@ -184,7 +184,13 @@
         </div>
       </div>
     </div>
-    <div class="header" style="background: white; height: fit-content">
+    <div style="background: url('./src/pc_index/bg.svg'), white; height: fit-content; background-size: 40%">
+      <div class="content special" style="right: 0; position: absolute">
+        <h1 class="youre-welcome" style="background: white">
+          Чем я<br />
+          занимаюсь?
+        </h1>
+      </div>
       <div class="content" style="padding-top: 3rem; padding-bottom: 3rem">
         <div class="card" style="max-width: 35rem; margin-bottom: 8vw">
           <div class="dots" style="margin-left: auto; padding-top: 0.5rem; padding-right: 1rem">
@@ -267,18 +273,66 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="header" style="background: black; position: relative">
-      <div class="content" style="padding-top: 3rem; background: white">
-        <hr />
-        <h1 class="youre-welcome">Мои проекты</h1>
+
+      <div class="header" style="background: rgba(0, 0, 0, 0.8); position: relative; backdrop-filter: blur(20px)">
+        <div class="content" style="padding-top: 3rem; background: rgba(255, 255, 255, 1)">
+          <hr />
+          <h1 class="youre-welcome" style="margin: 0">Мои проекты</h1>
+        </div>
+        <img src="./src/pc_index/line.svg" style="width: 100%" />
+        <div class="content" style="background: white; margin-top: 15vh; padding-top: 1rem; padding-bottom: 1rem">
+          <p>те проекты, которые я недавно закончил</p>
+          <p>
+            я занимаюсь веб-разработкой уже несколько лет и за это вресмя у меня накопилось множество классных проектов,
+            тут собраны последние
+          </p>
+        </div>
+        <div
+          style="position: absolute; right: 0; bottom: 0; height: 5vh; width: 100%; background: white; padding: 0.2rem"
+        >
+          <div style="position: relative; height: 100%; background: black"></div>
+        </div>
       </div>
-      <img src="./src/pc_index/line.svg" style="width: 100%; margin-top: -1rem" />
-      <div
-        style="position: absolute; right: 0; bottom: 0; height: 5vh; width: 100%; background: white; padding: 0.2rem"
-      >
-        <div style="position: relative; height: 100%; background: black"></div>
+      <div class="content" style="margin-top: 1rem; margin-bottom: 2rem">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content. This
+                  content is a little bit longer.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content. This
+                  content is a little bit longer.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="header" style="background: rgba(0, 0, 0, 0.8); position: relative; backdrop-filter: blur(20px)"></div>
     </div>
   </body>
 </html>
