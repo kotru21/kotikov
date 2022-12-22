@@ -595,7 +595,7 @@ h5 {
   .navbar {
     background: linear-gradient(to left, rgba(51, 51, 51, 0), rgba(73, 73, 73, 0.7), rgba(51, 51, 51, 0));
   }
-  .catbg.slider {
+  .catbg.slider2 {
     background-size: 10rem !important;
   }
 }
@@ -808,7 +808,7 @@ svg.svg-animated {
   transition: all 0.5s;
   opacity: 1;
 }
-.card-slider {
+.card-slider2 {
   background-color: #1d1d1d;
   border-color: #11101d;
   color: white;
@@ -822,11 +822,11 @@ svg.svg-animated {
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
 }
-.card-slider:hover {
+.card-slider2:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
-.catbg.slider {
-  background-image: url("../src/index/bg-slider.webp");
+.catbg.slider2 {
+  background-image: url("../src/index/bg-slider2.webp");
   background-size: 70%;
 }
 @keyframes textShine {

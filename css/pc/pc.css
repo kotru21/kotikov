@@ -1,105 +1,106 @@
 @import url("https://fonts.cdnfonts.com/css/open-sans");
-@font-face {
-  font-family: "Monocraft";
-  src: local("Monocraft"), url("./fonts/Monocraft.otf") format("opentype");
-}
 * {
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 27px;
-}
-
-.header {
-  width: 100%;
-  height: 100vh;
-  max-height: 100vh;
-
-  background: radial-gradient(100.34% 317.12% at 100% 98.43%, #ffffff 0%, #ef9675 100%);
-  /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-}
-.orange-image {
-  position: absolute;
-  right: 9rem;
-  bottom: 0rem;
-  width: 30%;
-  z-index: 2;
-}
-.header-overlay {
-  background-position: 85% 100%;
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-}
-.content {
-  padding-left: 14rem;
-  padding-right: 14rem;
-}
-.header-content {
-  padding-left: 9rem;
-  padding-right: 9rem;
-}
-.card {
-  background: black;
+  font-family: "Open Sans", sans-serif !important;
   color: white;
-  filter: drop-shadow(1vh 2vh 0 rgba(0, 0, 0, 0.25));
-  border-radius: 1rem;
 }
-div.card-title {
-  height: 100%;
+body {
+  background: #0c0e12 !important;
+}
+.header {
+  background: #0c0e12;
+  min-height: 100vh;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 h1 {
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 700;
+  font-weight: 900 !important;
+  font-size: 8vw !important;
+  line-height: 0.9 !important;
+}
+h2 {
+  font-size: 2rem !important;
+  line-height: 1.25 !important;
+}
+p {
+  opacity: 0.6;
+}
+.header-text {
+  position: absolute;
+  bottom: 5rem;
+  left: 12vw;
+}
+.nav-link,
+.navbar-brand {
+  color: white !important;
+  font-size: 1.4rem !important;
+}
+.navbar-brand {
+  font-weight: 800;
 }
 
-.cubefont {
-  font-family: "Monocraft";
+.nav-link {
+  padding-right: 2rem !important;
 }
-.navbar {
-  background: none !important;
-  padding-top: 1rem;
-  border-bottom: solid black 1px;
-  margin: 0 !important;
-  max-width: 70%;
+.grey {
+  background: gray;
+
+  height: 10rem;
 }
-.navbar-nav {
-  display: flex;
-  justify-content: space-between;
+.quadcol {
+  width: 30vw !important;
+  height: 30vw !important;
+  background: url("../../src/pc_index/1.png");
+}
+.quadcol-2 {
+  width: 20vw !important;
+  height: 20vw !important;
+  background: url("../../src/pc_index/2.png");
+}
+.quadcol-3 {
+  width: 15vw !important;
+  height: 30vw !important;
+  background: url("../../src/pc_index/3.png");
+}
+.quadcol-4 {
+  width: 7vw !important;
+  height: 10vw !important;
+  background: url("../../src/pc_index/4.png");
+}
+.quadcol-5 {
+  width: 10vw !important;
+  height: 20vw !important;
+  background: url("../../src/pc_index/5.png");
+}
+.content {
+  padding-left: 12vw;
+  padding-right: 12vw;
   width: 100%;
-  max-width: 80%;
+  padding-bottom: 4rem;
 }
-.youre-welcome {
-  font-size: 12vh;
+@media screen and (max-width: 1200px) {
+  .quadcol-2 {
+    display: none;
+  }
+  .quadcol-3 {
+    display: none;
+  }
 }
-@media only screen and (max-width: 900px) {
-  .content,
-  .header-content {
-    padding-left: 1rem;
-    padding-right: 1rem;
+@media screen and (max-width: 800px) {
+  .quadcol {
+    display: none;
   }
-
-  .special {
-    position: relative !important;
+  .quadcol-2 {
+    display: none;
   }
-  .navbar {
-    max-width: 100%;
+  .quadcol-3 {
+    display: none;
   }
-  .youre-welcome {
-    font-size: 6vh;
+  .quadcol-4 {
+    display: none;
   }
-  .cubefont.arsenij {
-    font-size: 2rem !important;
-  }
-  .cubefont.kotikov {
-    font-size: 5rem !important;
-  }
-  .orange-image {
-    width: 60%;
-    right: 0;
+  .quadcol-5 {
+    display: none;
   }
 }

@@ -1,93 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
-    <script>
-      //check IE browser by navigator.useragent
-      window.onload = function () {
-        function msieversion() {
-          var ua = window.navigator.userAgent;
-          var msie = ua.indexOf("MSIE ");
-
-          if (msie > 0) {
-            window.location.href = "IE-warning.html";
-          } // If another browser, return 0
-
-          return false;
-        }
-        msieversion();
-      };
-    </script>
-
-    <meta
-      name="viewport"
-      content="width=device-width"
-      initial-scale="1.0"
-      minimum-scale="1.0"
-      maximum-scale="1.0"
-      user-scalable="no"
-    />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:title" content="Арсений Котиков" key="title" />
-    <meta property="og:site_name" content="Арсений Котиков" />
-    <meta name="theme-color" content="#8f00ff" />
-    <meta property="og:image:secure_url" content="https://kotikov.pages.dev/src/index/web_preview.png" />
-    <meta property="og:image" content="https://kotikov.pages.dev/src/index/web_preview.png" />
-    <meta name="description" content="Описание? Ну и что мне сюда написать?..." />
-    <meta name="twitter:card" content="https://kotikov.pages.dev/src/index/web_preview.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:description" content="Описание? Ну и что мне сюда написать?..." />
-    <meta name="twitter:creator" content="@arsenij_kotikov" />
-    <meta property="vk:description" content="Описание? Ну и что мне сюда написать?..." />
-    <meta property="vk:image" content="https://kotikov.pages.dev/src/index/web_preview_VK.png" />
-    <link rel="image_src" href="https://kotikov.pages.dev/src/index/web_preview.png" />
-    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta property="og:description" content="Описание? Ну и что мне сюда написать?..." />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/pc/pc.css" rel="stylesheet" />
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
-      integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+      integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"
-      integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+      integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"
-      integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <link rel="preload" href="./src/index/cat.webp" as="image" />
-    <link href="./css/pc/pc.css" rel="stylesheet" />
-    <title>Добро пожаловать</title>
+    <title>Document</title>
   </head>
   <body>
     <div class="header">
       <div
-        style="
-          background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.51) 100%);
-          width: 14rem;
-          height: 100vh;
-          position: absolute;
-        "
+        style="position: absolute; right: 0; top: 0; min-height: 100%; width: 15rem; background: #ed7550; z-index: 1"
       ></div>
-      <div class="content header-content">
-        <nav class="navbar navbar-expand-lg bg-light">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid" style="padding-left: 0">
           <a class="navbar-brand" href="#">Kotikov</a>
           <button
             class="navbar-toggler"
@@ -103,236 +42,89 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#">Домашняя</a>
+                <a class="nav-link" href="#">|</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Обо мне</a>
+                <a class="nav-link active" aria-current="page" href="#">Обо мне</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link">Проекты</a>
+                <a class="nav-link" href="#">Проекты</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Контакты</a>
+                <a class="nav-link" href="#">Стек</a>
               </li>
             </ul>
           </div>
-        </nav>
-
-        <div style="margin-top: 8rem">
-          <h1 class="youre-welcome" style="max-width: 10rem; position: relative">Добро пожаловать</h1>
-
-          <div style="position: absolute; bottom: 0; color: white; opacity: 0.8; z-index: 1">
-            <h1 class="cubefont arsenij" style="font-size: 4rem; text-align: right">Arsenij</h1>
-            <h1 class="cubefont kotikov" style="font-size: 16rem">Kotikov</h1>
-          </div>
-          <span
-            style="
-              border-radius: 50%;
-              width: 30rem;
-              height: 30rem;
-              min-height: 10rem;
-              position: absolute;
-              right: 18rem;
-              bottom: -10rem;
-              background: black;
-              z-index: 0;
-            "
-          ></span>
-          <img src="./src/pc_index/orange-special.webp" class="orange-image" />
         </div>
+      </nav>
+      <div class="d-flex justify-content-between gap-5" style="overflow: hidden; z-index: 2; position: absolute">
+        <div class="quadcol grey"></div>
+        <div class="quadcol-2 grey" style="position: relative">
+          <p style="position: absolute; bottom: -2rem">Я люблю котиков</p>
+        </div>
+        <div class="quadcol-3 grey"></div>
+        <div class="quadcol-4 grey"></div>
+        <div class="quadcol-5 grey"></div>
+      </div>
+      <div class="header-text">
+        <h2>Web developer</h2>
+        <h1>Arsenij Kotikov</h1>
       </div>
     </div>
-    <div class="header" style="background: black; position: relative">
-      <div class="content card-deck">
-        <div style="color: white; padding-top: 3rem">
-          <div style="max-width: 50vw">
-            <h1 class="youre-welcome">Привет!</h1>
-            <p style="margin-left: 5vw; padding-top: 1rem; max-width: 15rem">
-              Меня зовут Арсений, aka Arsenij kotikov и на этом сайте собрана информация обо мне и моих проектах
-            </p>
-            <p style="margin-left: 10vw; max-width: 20rem">Я занимаюсь веб-разработкой, учу C++ и пишу код</p>
-            <p style="margin-left: 10vw; width: 100%; position: relative; max-width: 20rem">
-              Интересуют контакты? воспользуйся навигацией сверху сайта
-            </p>
-          </div>
-          <div
-            style="
-              position: absolute;
-              right: 0;
-              bottom: 0;
-              height: 5vh;
-              width: 100%;
-              background: linear-gradient(to right, white, black);
-              padding: 0.2rem;
-            "
-          >
-            <div style="position: relative; height: 100%; background: black"></div>
-          </div>
-          <div
-            style="
-              position: absolute;
-              right: 0;
-              height: 100%;
-              top: 0;
-              width: 25vw;
-              background: linear-gradient(to top, white, black);
-              padding: 0.2rem;
-            "
-          >
-            <div style="position: relative; height: 100%; background: black"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="background: url('./src/pc_index/bg.svg'), white; height: fit-content; background-size: 40%">
-      <div class="content special" style="right: 0; position: absolute">
-        <h1 class="youre-welcome" style="background: white">
-          Чем я<br />
-          занимаюсь?
-        </h1>
-      </div>
-      <div class="content" style="padding-top: 3rem; padding-bottom: 3rem">
-        <div class="card" style="max-width: 35rem; margin-bottom: 8vw">
-          <div class="dots" style="margin-left: auto; padding-top: 0.5rem; padding-right: 1rem">
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #14ff00;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #ff6b00;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #ff0000;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-          </div>
-          <div class="card-body" style="display: flex">
-            <h5 class="card-title" style="width: 30%; text-align: left">Веб-дизайн</h5>
-            <p class="card-text" style="width: 70%; text-align: left">
-              Веб-дизайнер рисует макеты лендингов, сайтов для компаний, интернет-магазинов, а также проектирует
-              интерфейсы для интернет-сервисов и приложений. Также он может создавать шаблоны для email-рассылок,
-              придумывать и рисовать интернет-баннеры. Веб-дизайнер рисует макеты лендингов, сайтов для компаний,
-              интернет-магазинов, а также проектирует интерфейсы для интернет-сервисов и приложений. Также он может
-              создавать шаблоны для email-рассылок, придумывать и рисовать интернет-баннеры.
-            </p>
-          </div>
-        </div>
-        <div class="card" style="max-width: 35rem; margin-left: auto; margin-right: 0">
-          <div class="dots" style="margin-left: auto; padding-top: 0.5rem; padding-right: 1rem">
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #14ff00;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #ff6b00;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-            <span
-              style="
-                height: 1.2rem;
-                width: 1.2rem;
-                background-color: #ff0000;
-                border-radius: 50%;
-                display: inline-block;
-              "
-            ></span>
-          </div>
-          <div class="card-body" style="display: flex">
-            <h5 class="card-title" style="width: 30%; text-align: left">Веб-дизайн</h5>
-            <p class="card-text" style="width: 70%; text-align: left">
-              Веб-дизайнер рисует макеты лендингов, сайтов для компаний, интернет-магазинов, а также проектирует
-              интерфейсы для интернет-сервисов и приложений. Также он может создавать шаблоны для email-рассылок,
-              придумывать и рисовать интернет-баннеры.
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <div class="header" style="background: rgba(0, 0, 0, 0.8); position: relative; backdrop-filter: blur(20px)">
-        <div class="content" style="padding-top: 3rem; background: rgba(255, 255, 255, 1)">
-          <hr />
-          <h1 class="youre-welcome" style="margin: 0">Мои проекты</h1>
-        </div>
-        <img src="./src/pc_index/line.svg" style="width: 100%" />
-        <div class="content" style="background: white; margin-top: 15vh; padding-top: 1rem; padding-bottom: 1rem">
-          <p>те проекты, которые я недавно закончил</p>
-          <p>
-            я занимаюсь веб-разработкой уже несколько лет и за это вресмя у меня накопилось множество классных проектов,
-            тут собраны последние
-          </p>
-        </div>
-        <div
-          style="position: absolute; right: 0; bottom: 0; height: 5vh; width: 100%; background: white; padding: 0.2rem"
-        >
-          <div style="position: relative; height: 100%; background: black"></div>
-        </div>
-      </div>
-      <div class="content" style="margin-top: 1rem; margin-bottom: 2rem">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content. This
-                  content is a little bit longer.
-                </p>
-              </div>
-            </div>
+    <div class="content">
+      <div class="d-flex w-100">
+        <div class="col">
+          <img src="./src/pc_index/PSD.png" style="position: absolute; left: -20vw; width: 40%" />
+          <h1 style="padding-top: 15rem">Обо мне</h1>
+          <h2>немного инфы</h2>
+          <div class="d-flex flex-row" style="padding-top: 10vw">
+            <h1>Я</h1>
+            <h2>занимаюсь WEB-разработкой<br />уже несколько лет</h2>
           </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content. This
-                  content is a little bit longer.
-                </p>
+        </div>
+        <div class="col">
+          <div style="padding-left: 10rem">
+            <h2 style="padding-top: 10rem">_index.html</h2>
+            <p>
+              &lt;!DOCTYPE html><br />
+              &lt;html lang="en"><br />
+              &lt;head><br />
+              &lt;meta charset="UTF-8"><br />
+              &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"> &lt;meta name="viewport"
+              content="width=device-width, initial-scale=1.0" ><br />
+            </p>
+            <h2>&lt;title>Arsenij Kotikov&lt;/title></h2>
+            <p>
+              <br />
+              &lt;/head> <br />&lt;body><br />
+            </p>
+            <h2>
+              &lt;h1> Веб-разрабочик &lt;/h1><br />
+
+              &lt;h2> Starting from 2020 &lt;/h2>
+            </h2>
+            <p>
+              <br />&lt;img src=”./cat.webp”> <br />&lt;/body><br />
+              &lt;/html>
+            </p>
+            <div class="d-flex w-100">
+              <div class="col" style="border-left: 0.5rem solid white">
+                <div style="padding-left: 1rem">
+                  <h2>__script.js</h2>
+                  <p>
+                    console.log(“meow!”);<br />
+                    alert(“мяу”);
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content.
-                </p>
+              <div class="col" style="border-left: 0.5rem solid white">
+                <div style="padding-left: 1rem"><h1>СТЕК</h1></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="header" style="background: rgba(0, 0, 0, 0.8); position: relative; backdrop-filter: blur(20px)"></div>
     </div>
   </body>
 </html>
