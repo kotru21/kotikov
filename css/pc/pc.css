@@ -73,13 +73,23 @@ p {
   height: 20vw !important;
   background: url("../../src/pc_index/5.png");
 }
-.content {
-  padding-left: 12vw;
-  padding-right: 12vw;
-  width: 100%;
-  padding-bottom: 4rem;
+
+@media screen and (min-width: 1200px) {
+  .content {
+    padding-left: 12vw;
+    padding-right: 12vw;
+    width: 100%;
+    padding-bottom: 4rem;
+  }
+  .about-me-pc-padding {
+    padding-top: 14rem;
+  }
 }
 @media screen and (max-width: 1200px) {
+  .content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   .quadcol-2 {
     display: none;
   }
