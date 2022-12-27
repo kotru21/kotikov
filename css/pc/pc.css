@@ -5,6 +5,10 @@
   font-family: "Open Sans", sans-serif !important;
   color: white;
 }
+.pc,
+.mobile {
+  display: none;
+}
 body {
   background: #0c0e12 !important;
 }
@@ -14,17 +18,40 @@ body {
   padding-left: 3rem;
   padding-right: 3rem;
 }
+.footer-h1 {
+  font-size: 10vh !important;
+}
 h1 {
   font-weight: 900 !important;
   font-size: 8vw !important;
   line-height: 0.9 !important;
 }
+
 h2 {
   font-size: 2rem !important;
   line-height: 1.25 !important;
 }
 p {
   opacity: 0.6;
+}
+.my-projects,
+.footer {
+  padding-top: 3rem;
+}
+.projects-div,
+.lang-div {
+  position: relative;
+  margin-top: 2rem;
+}
+.lang-div {
+  padding-top: 5rem;
+}
+.projects-img {
+  width: clamp(20rem, 70vw, 80rem);
+  object-fit: cover;
+}
+.projects-text.mobile {
+  padding-top: 5rem;
 }
 .header-text {
   position: absolute;
@@ -73,8 +100,30 @@ p {
   height: 20vw !important;
   background: url("../../src/pc_index/5.png");
 }
-
+.phone {
+  position: absolute;
+  left: -20vw;
+  width: 40%;
+  min-width: 20rem;
+  z-index: 1;
+}
+.pc-hide {
+  display: none;
+}
 @media screen and (min-width: 1200px) {
+  .pc {
+    display: block;
+  }
+  .projects-text {
+    position: absolute;
+    right: 0;
+    width: 20rem;
+    padding-right: 2rem;
+    text-align: right;
+  }
+  .projects-img {
+    height: 40rem;
+  }
   .content {
     padding-left: 12vw;
     padding-right: 12vw;
@@ -86,9 +135,28 @@ p {
   }
 }
 @media screen and (max-width: 1200px) {
+  .mobile {
+    display: block;
+  }
+  .pc-hide {
+    display: block;
+  }
+  .code {
+    font-size: 0.8rem;
+  }
+  .phone {
+    left: -40vw;
+  }
   .content {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .content-h1 {
+    font-size: 4rem !important;
+    text-align: center;
+  }
+  .content-h2-mobile-align {
+    text-align: right;
   }
   .quadcol-2 {
     display: none;

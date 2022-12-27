@@ -21,10 +21,8 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="header">
-      <div
-        style="position: absolute; right: 0; top: 0; min-height: 100%; width: 15rem; background: #ed7550; z-index: 1"
-      ></div>
+    <div class="header" style="position: relative; overflow: hidden">
+      <div style="position: absolute; right: 0; top: 0; min-height: 100%; width: 15rem; background: #ed7550"></div>
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="padding-left: 0">
           <a class="navbar-brand" href="#">Kotikov</a>
@@ -57,7 +55,7 @@
           </div>
         </div>
       </nav>
-      <div class="d-flex justify-content-between gap-5" style="overflow: hidden; z-index: 2; position: absolute">
+      <div class="d-flex justify-content-between gap-5" style="overflow: hidden; z-index: 1; position: absolute">
         <div class="quadcol grey"></div>
         <div class="quadcol-2 grey" style="position: relative">
           <p style="position: absolute; bottom: -2rem">Я люблю котиков</p>
@@ -66,6 +64,11 @@
         <div class="quadcol-4 grey"></div>
         <div class="quadcol-5 grey"></div>
       </div>
+      <img
+        class="pc-hide"
+        src="./src/pc_index/orange-special.webp"
+        style="z-index: 0; position: absolute; height: 90%; bottom: 0; right: -12rem"
+      />
       <div class="header-text">
         <h2>Web developer</h2>
         <h1>Arsenij Kotikov</h1>
@@ -75,9 +78,9 @@
     <div class="content">
       <div class="d-flex flex-wrap w-100">
         <div class="col">
-          <img src="./src/pc_index/PSD.png" style="position: absolute; left: -20vw; width: 40%" />
-          <h1 class="about-me-pc-padding">Обо мне</h1>
-          <h2>немного инфы</h2>
+          <img src="./src/pc_index/PSD.png" class="phone" />
+          <h1 class="about-me-pc-padding content-h1">Обо мне</h1>
+          <h2 class="content-h2-mobile-align">немного инфы</h2>
           <div class="d-flex flex-row" style="padding-top: 10vw">
             <h1>Я</h1>
             <h2>занимаюсь WEB-разработкой<br />уже несколько лет</h2>
@@ -86,7 +89,7 @@
         <div class="col">
           <div>
             <h2>_index.html</h2>
-            <p>
+            <p class="code">
               &lt;!DOCTYPE html><br />
               &lt;html lang="en"><br />
               &lt;head><br />
@@ -94,7 +97,7 @@
               &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"> &lt;meta name="viewport"
               content="width=device-width, initial-scale=1.0" ><br />
             </p>
-            <h2>&lt;title>Arsenij Kotikov&lt;/title></h2>
+            <h2>&lt;title> Arsenij Kotikov &lt;/title></h2>
             <p>
               <br />
               &lt;/head> <br />&lt;body><br />
@@ -112,7 +115,7 @@
               <div class="col" style="border-left: 0.5rem solid white">
                 <div style="padding-left: 1rem">
                   <h2>__script.js</h2>
-                  <p>
+                  <p class="code">
                     console.log(“meow!”);<br />
                     alert(“мяу”);
                   </p>
@@ -124,6 +127,116 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="my-projects">
+        <h1 class="about-me-pc-padding content-h1">Мои проекты</h1>
+        <div class="projects-div">
+          <div style="text-align: right">
+            <img src="./src/pc_index/letsgo.png" class="projects-img" alt="img" />
+          </div>
+          <div
+            style="
+              position: absolute;
+              left: 0;
+              top: 0;
+              z-index: -1;
+              min-height: 100%;
+              width: 15rem;
+              top: 2rem;
+              background: linear-gradient(180deg, #da88dc 0%, rgba(218, 136, 220, 0) 137.44%);
+            "
+          ></div>
+        </div>
+        <h1 class="content-h1" style="padding-top: 2.5rem">Googlex</h1>
+        <div class="projects-div">
+          <div>
+            <img src="./src/pc_index/linez-by.png" class="projects-img" alt="img" />
+          </div>
+          <div
+            style="
+              position: absolute;
+              right: 0;
+              top: 0;
+              z-index: -1;
+              min-height: 100%;
+              width: 15rem;
+              top: 2rem;
+              background: linear-gradient(180deg, #244896 0%, rgba(36, 72, 150, 0) 123%);
+            "
+          ></div>
+        </div>
+        <h1 class="content-h1" style="padding-top: 2.5rem">Линия Здоровья</h1>
+      </div>
+      <div class="my-projects">
+        <h1 class="about-me-pc-padding content-h1">Мой стек</h1>
+        <div class="lang-div">
+          <div style="width: clamp(10rem, 80vw, 30rem); height: clamp(10rem, 80vw, 30rem); background: #ed7550">
+            <h1 class="content-h1" style="position: absolute; bottom: -2rem">JavaScript</h1>
+            <p class="projects-text pc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat nulla pariatur.
+            </p>
+            <div
+              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
+            ></div>
+          </div>
+        </div>
+        <p class="projects-text mobile">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </p>
+        <div class="lang-div">
+          <div style="width: clamp(10rem, 80vw, 30rem); height: clamp(10rem, 80vw, 30rem); background: #ed7550">
+            <h1 class="content-h1" style="position: absolute; bottom: -2rem">JavaScript</h1>
+            <p class="projects-text pc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat nulla pariatur.
+            </p>
+            <div
+              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
+            ></div>
+          </div>
+        </div>
+        <p class="projects-text mobile">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </p>
+        <div class="lang-div">
+          <div style="width: clamp(10rem, 80vw, 30rem); height: clamp(10rem, 80vw, 30rem); background: #ed7550">
+            <h1 class="content-h1" style="position: absolute; bottom: -2rem">JavaScript</h1>
+            <p class="projects-text pc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat nulla pariatur.
+            </p>
+            <div
+              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
+            ></div>
+          </div>
+        </div>
+        <p class="projects-text mobile">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </p>
+      </div>
+      <div class="footer">
+        <h1 class="footer-h1 content-h1" style="text-align: left">
+          На<br class="mobile" />
+          этом<br class="mobile" />
+          пока<br class="mobile" />
+          всё<br class="mobile" />
+        </h1>
       </div>
     </div>
   </body>
