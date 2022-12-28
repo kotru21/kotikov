@@ -26,7 +26,9 @@ h1 {
   font-size: 8vw !important;
   line-height: 0.9 !important;
 }
-
+h1.special {
+  font-weight: 500 !important;
+}
 h2 {
   font-size: 2rem !important;
   line-height: 1.25 !important;
@@ -38,17 +40,28 @@ p {
 .footer {
   padding-top: 3rem;
 }
+.projects-div {
+  margin-bottom: 2rem !important;
+}
 .projects-div,
 .lang-div {
   position: relative;
-  margin-top: 2rem;
+  padding-top: 2rem;
+
+  padding-bottom: 1rem;
+}
+.lang-box {
+  width: clamp(10rem, 80vw, 30rem);
+  height: clamp(10rem, 80vw, 30rem);
+  background: #ed7550;
 }
 .lang-div {
   padding-top: 5rem;
 }
 .projects-img {
-  width: clamp(20rem, 70vw, 80rem);
+  width: clamp(22rem, 70vw, 80rem);
   object-fit: cover;
+  transition: 1s;
 }
 .projects-text.mobile {
   padding-top: 5rem;
@@ -135,6 +148,16 @@ p {
   }
 }
 @media screen and (max-width: 1200px) {
+  .projects-img.left {
+    margin-left: -3rem !important;
+  }
+  .projects-img.right {
+    margin-right: -3rem !important;
+  }
+  .projects-img.left:hover,
+  .projects-img.right:hover {
+    margin: 0 !important;
+  }
   .mobile {
     display: block;
   }
