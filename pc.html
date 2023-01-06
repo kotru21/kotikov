@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./css/pc/solar.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/pc/pc.css" rel="stylesheet" />
     <script
@@ -15,6 +16,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
       integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+      integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -128,6 +136,70 @@
           </div>
         </div>
       </div>
+
+      <div class="my-projects" style="overflow: hidden">
+        <h1 class="content-h1" style="padding-top: 5rem">Мой<br />стек</h1>
+        <div>
+          <section id="solar-system">
+            <div id="sun"></div>
+            <article id="mercury-trajectory">
+              <div id="mercury"></div>
+            </article>
+            <article id="venus-trajectory">
+              <div id="venus"></div>
+            </article>
+            <article id="earth-trajectory">
+              <div id="earth"></div>
+            </article>
+            <article id="mars-trajectory">
+              <div id="mars"></div>
+            </article>
+            <article id="main-asteroid-belt-trajectory"></article>
+            <article id="jupiter-trajectory"></article>
+            <article id="saturn-trajectory"></article>
+            <article id="uranus-trajectory"></article>
+            <article id="neptune-trajectory"></article>
+          </section>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card">
+              <h1><i class="bx bxl-javascript"></i>JS</h1>
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content. This
+                  content is a little bit longer.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <h1><i class="bx bxl-html5"></i>HTML</h1>
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content. This
+                  content is a little bit longer.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <h1><i class="bx bxl-css3"></i>CSS</h1>
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a longer card with supporting text below as a natural lead-in to additional content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="my-projects">
         <h1 class="about-me-pc-padding content-h1">Мои проекты</h1>
         <div class="projects-div">
@@ -148,7 +220,7 @@
           ></div>
         </div>
         <h1 class="content-h1 special">Googlex</h1>
-        <p>Подробнее</p>
+        <p style="padding-top: 3rem">Подробнее | UI-клон Google, но с константным поиском</p>
         <div class="projects-div">
           <div>
             <img src="./src/pc_index/linez-by.png" class="projects-img left" alt="img" />
@@ -167,70 +239,7 @@
           ></div>
         </div>
         <h1 class="content-h1 special">Линия Здоровья</h1>
-        <p>Подробнее</p>
-      </div>
-      <div class="my-projects">
-        <h1 class="about-me-pc-padding content-h1">Мой стек</h1>
-        <div class="lang-div">
-          <div class="lang-box">
-            <h1 class="content-h1 special" style="position: absolute; bottom: -2rem">JavaScript</h1>
-            <p class="projects-text pc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur.
-            </p>
-            <div
-              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
-            ></div>
-          </div>
-        </div>
-        <p class="projects-text mobile">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
-        <div class="lang-div">
-          <div class="lang-box">
-            <h1 class="content-h1 special" style="position: absolute; bottom: -2rem">JavaScript</h1>
-            <p class="projects-text pc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur.
-            </p>
-            <div
-              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
-            ></div>
-          </div>
-        </div>
-        <p class="projects-text mobile">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
-        <div class="lang-div">
-          <div class="lang-box">
-            <h1 class="content-h1 special" style="position: absolute; bottom: -2rem">JavaScript</h1>
-            <p class="projects-text pc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-              fugiat nulla pariatur.
-            </p>
-            <div
-              style="width: 1rem; height: clamp(10rem, 80vw, 30rem); background: white; position: absolute; right: 0"
-            ></div>
-          </div>
-        </div>
-        <p class="projects-text mobile">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
+        <p style="padding-top: 3rem">Подробнее | Сайт медицинского центра</p>
       </div>
       <div class="footer">
         <h1 class="footer-h1 content-h1" style="text-align: left">

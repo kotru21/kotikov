@@ -36,15 +36,14 @@ h2 {
 p {
   opacity: 0.6;
 }
-.my-projects,
+
 .footer {
   padding-top: 3rem;
 }
-.projects-div {
-  margin-bottom: 2rem !important;
-}
+
 .projects-div,
 .lang-div {
+  margin-bottom: 2rem !important;
   position: relative;
   padding-top: 2rem;
 
@@ -119,6 +118,13 @@ p {
   width: 40%;
   min-width: 20rem;
   z-index: 1;
+}
+.card {
+  background: none !important;
+  backdrop-filter: blur(10px);
+}
+i {
+  font-size: 4vw;
 }
 .pc-hide {
   display: none;
