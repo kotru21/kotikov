@@ -119,12 +119,15 @@ p {
   min-width: 20rem;
   z-index: 1;
 }
+.my-social::-webkit-scrollbar {
+  width: 0 !important;
+}
 .card {
   background: none !important;
   backdrop-filter: blur(10px);
 }
-i {
-  font-size: 4vw;
+.my-social > i {
+  font-size: 40vw;
 }
 .pc-hide {
   display: none;

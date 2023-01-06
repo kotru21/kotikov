@@ -72,11 +72,29 @@
         <div class="quadcol-4 grey"></div>
         <div class="quadcol-5 grey"></div>
       </div>
+      <div
+        class="pc-hide my-social"
+        style="
+          width: 100%;
+          overflow-x: auto;
+          white-space: nowrap;
+          position: absolute;
+          z-index: 0;
+          bottom: 10rem;
+          left: 0;
+        "
+      >
+        <i class="bx bxl-vk"></i>
+        <i class="bx bxl-youtube"></i>
+        <i class="bx bxl-twitter"></i>
+        <i class="bx bxl-javascript"></i>
+      </div>
       <img
         class="pc-hide"
         src="./src/pc_index/orange-special.webp"
         style="z-index: 0; position: absolute; height: 90%; bottom: 0; right: -12rem"
       />
+
       <div class="header-text">
         <h2>Web developer</h2>
         <h1>Arsenij Kotikov</h1>
@@ -136,119 +154,122 @@
           </div>
         </div>
       </div>
-
-      <div class="my-projects" style="overflow: hidden">
-        <h1 class="content-h1" style="padding-top: 5rem">Мой<br />стек</h1>
-        <div>
-          <section id="solar-system">
-            <div id="sun"></div>
-            <article id="mercury-trajectory">
-              <div id="mercury"></div>
-            </article>
-            <article id="venus-trajectory">
-              <div id="venus"></div>
-            </article>
-            <article id="earth-trajectory">
-              <div id="earth"></div>
-            </article>
-            <article id="mars-trajectory">
-              <div id="mars"></div>
-            </article>
-            <article id="main-asteroid-belt-trajectory"></article>
-            <article id="jupiter-trajectory"></article>
-            <article id="saturn-trajectory"></article>
-            <article id="uranus-trajectory"></article>
-            <article id="neptune-trajectory"></article>
-          </section>
+    </div>
+    <div class="my-projects" style="overflow: hidden">
+      <h1 class="content-h1" style="padding-top: 5rem">Мой<br />стек</h1>
+      <div>
+        <section id="solar-system">
+          <div id="sun"></div>
+          <article id="mercury-trajectory">
+            <div id="mercury"><i class="bx bxl-javascript"></i></div>
+          </article>
+          <article id="venus-trajectory">
+            <div id="venus"><i class="bx bxl-javascript"></i></div>
+          </article>
+          <article id="earth-trajectory">
+            <div id="earth"><i class="bx bxl-javascript"></i></div>
+          </article>
+          <article id="mars-trajectory">
+            <div id="mars"><i class="bx bxl-javascript"></i></div>
+          </article>
+          <article id="main-asteroid-belt-trajectory"></article>
+          <article id="jupiter-trajectory"></article>
+          <article id="saturn-trajectory"></article>
+          <article id="uranus-trajectory"></article>
+          <article id="neptune-trajectory"></article>
+        </section>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card">
+            <h1><i class="bx bxl-javascript"></i>JS</h1>
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                This is a longer card with supporting text below as a natural lead-in to additional content. This
+                content is a little bit longer.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card">
-              <h1><i class="bx bxl-javascript"></i>JS</h1>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content. This
-                  content is a little bit longer.
-                </p>
-              </div>
+        <div class="col">
+          <div class="card">
+            <h1><i class="bx bxl-html5"></i>HTML</h1>
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                This is a longer card with supporting text below as a natural lead-in to additional content. This
+                content is a little bit longer.
+              </p>
             </div>
           </div>
-          <div class="col">
-            <div class="card">
-              <h1><i class="bx bxl-html5"></i>HTML</h1>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content. This
-                  content is a little bit longer.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <h1><i class="bx bxl-css3"></i>CSS</h1>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a longer card with supporting text below as a natural lead-in to additional content.
-                </p>
-              </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h1><i class="bx bxl-css3"></i>CSS</h1>
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">
+                This is a longer card with supporting text below as a natural lead-in to additional content.
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="my-projects">
-        <h1 class="about-me-pc-padding content-h1">Мои проекты</h1>
-        <div class="projects-div">
-          <div style="text-align: right">
-            <img src="./src/pc_index/letsgo.png" class="projects-img right" alt="img" />
-          </div>
-          <div
-            style="
-              position: absolute;
-              left: 0;
-              top: 0;
-              z-index: -1;
-              min-height: 100%;
-              width: 15rem;
-              top: 2rem;
-              background: linear-gradient(180deg, #da88dc 0%, rgba(218, 136, 220, 0) 137.44%);
-            "
-          ></div>
+    <div class="my-projects">
+      <h1 class="about-me-pc-padding content-h1">Мои проекты</h1>
+      <div class="projects-div" style="overflow: hidden">
+        <div style="text-align: right">
+          <img src="./src/pc_index/letsgo.png" class="projects-img right" alt="img" />
         </div>
-        <h1 class="content-h1 special">Googlex</h1>
+        <div
+          style="
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            min-height: 100%;
+            width: 15rem;
+            top: 2rem;
+            background: linear-gradient(180deg, #da88dc 0%, rgba(218, 136, 220, 0) 137.44%);
+          "
+        ></div>
+      </div>
+      <h1 class="content-h1 special">Googlex</h1>
+      <div class="content">
         <p style="padding-top: 3rem">Подробнее | UI-клон Google, но с константным поиском</p>
-        <div class="projects-div">
-          <div>
-            <img src="./src/pc_index/linez-by.png" class="projects-img left" alt="img" />
-          </div>
-          <div
-            style="
-              position: absolute;
-              right: 0;
-              top: 0;
-              z-index: -1;
-              min-height: 100%;
-              width: 15rem;
-              top: 2rem;
-              background: linear-gradient(180deg, #244896 0%, rgba(36, 72, 150, 0) 123%);
-            "
-          ></div>
+      </div>
+      <div class="projects-div">
+        <div>
+          <img src="./src/pc_index/linez-by.png" class="projects-img left" alt="img" />
         </div>
-        <h1 class="content-h1 special">Линия Здоровья</h1>
+        <div
+          style="
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            min-height: 100%;
+            width: 15rem;
+            top: 2rem;
+            background: linear-gradient(180deg, #244896 0%, rgba(36, 72, 150, 0) 123%);
+          "
+        ></div>
+      </div>
+      <h1 class="content-h1 special">Линия Здоровья</h1>
+      <div class="content">
         <p style="padding-top: 3rem">Подробнее | Сайт медицинского центра</p>
       </div>
-      <div class="footer">
-        <h1 class="footer-h1 content-h1" style="text-align: left">
-          На<br class="mobile" />
-          этом<br class="mobile" />
-          пока<br class="mobile" />
-          всё<br class="mobile" />
-        </h1>
-      </div>
+    </div>
+    <div class="footer">
+      <h1 class="footer-h1 content-h1" style="text-align: left">
+        На<br class="mobile" />
+        этом<br class="mobile" />
+        пока<br class="mobile" />
+        всё<br class="mobile" />
+      </h1>
     </div>
   </body>
 </html>

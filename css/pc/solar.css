@@ -93,7 +93,7 @@ article #mercury {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: url("../../src/pc_index/js.png");
+  background: none;
   background-size: contain;
   justify-content: center;
   align-items: center;
@@ -122,7 +122,7 @@ article #venus {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: url("../../src/pc_index/js.png");
+  background: none;
 
   justify-content: center;
   align-items: center;
@@ -150,7 +150,7 @@ article #earth {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: url("../../src/pc_index/js.png");
+  background: none;
 
   justify-content: center;
   align-items: center;
@@ -171,7 +171,7 @@ article #earth::after {
   -webkit-border-radius: inherit;
   -moz-border-radius: inherit;
   border-radius: inherit;
-  background: url("../../src/pc_index/js.png");
+  background: none;
 
   -webkit-filter: drop-shadow(0 0 0.3rem var(--light-red)) blur(0.5px);
   -moz-filter: drop-shadow(0 0 0.3rem var(--light-red)) blur(0.5px);
@@ -202,7 +202,7 @@ article #mars {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background: url("../../src/pc_index/js.png");
+  background: none;
 
   justify-content: center;
   align-items: center;
