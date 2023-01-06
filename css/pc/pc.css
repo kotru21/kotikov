@@ -1,6 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/open-sans");
 * {
-  margin: 0 !important;
   padding: 0;
   font-family: "Open Sans", sans-serif !important;
   color: white;
@@ -25,16 +24,19 @@ h1 {
   font-weight: 900 !important;
   font-size: 8vw !important;
   line-height: 0.9 !important;
+  margin: 0 !important;
 }
 h1.special {
   font-weight: 500 !important;
 }
 h2 {
+  margin: 0 !important;
   font-size: 2rem !important;
   line-height: 1.25 !important;
 }
 p {
   opacity: 0.6;
+  margin: 0 !important;
 }
 
 .footer {
@@ -57,14 +59,7 @@ p {
 .lang-div {
   padding-top: 5rem;
 }
-.projects-img {
-  width: clamp(22rem, 70vw, 80rem);
-  object-fit: cover;
-  transition: 1s;
-}
-.projects-text.mobile {
-  padding-top: 5rem;
-}
+
 .header-text {
   position: absolute;
   bottom: 5rem;
@@ -132,6 +127,16 @@ p {
 .pc-hide {
   display: none;
 }
+.code {
+  font-size: 0.8rem;
+  padding-left: 5vw;
+}
+.html-code {
+  padding-left: 5vw;
+}
+.non-focus {
+  opacity: 0.4;
+}
 @media screen and (min-width: 1200px) {
   .pc {
     display: block;
@@ -143,9 +148,7 @@ p {
     padding-right: 2rem;
     text-align: right;
   }
-  .projects-img {
-    height: 40rem;
-  }
+
   .content {
     padding-left: 12vw;
     padding-right: 12vw;
@@ -157,32 +160,13 @@ p {
   }
 }
 @media screen and (max-width: 1200px) {
-  .projects-img.left {
-    margin-left: -3rem !important;
-  }
-  .projects-img.right {
-    margin-right: -3rem !important;
-  }
-  .projects-img.left:hover,
-  .projects-img.right:hover {
-    margin: 0 !important;
-  }
   .mobile {
     display: block;
   }
   .pc-hide {
     display: block;
   }
-  .code {
-    font-size: 0.8rem;
-    padding-left: 5vw;
-  }
-  .html-code {
-    padding-left: 5vw;
-  }
-  .non-focus {
-    opacity: 0.4;
-  }
+
   .phone {
     left: -40vw;
   }
