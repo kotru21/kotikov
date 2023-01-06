@@ -175,6 +175,13 @@ p {
   }
   .code {
     font-size: 0.8rem;
+    padding-left: 5vw;
+  }
+  .html-code {
+    padding-left: 5vw;
+  }
+  .non-focus {
+    opacity: 0.4;
   }
   .phone {
     left: -40vw;
