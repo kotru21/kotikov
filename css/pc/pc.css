@@ -120,6 +120,13 @@ p {
 .card {
   background: none !important;
   backdrop-filter: blur(10px);
+  border: none !important;
+}
+.pingv {
+  width: 25rem;
+  position: absolute;
+  right: 10rem;
+  top: 0;
 }
 .my-social > i {
   font-size: 40vw;
@@ -137,7 +144,55 @@ p {
 .non-focus {
   opacity: 0.4;
 }
+.todo {
+  background: linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
+  background-size: 400% 400%;
+
+  -webkit-animation: AnimationName 22s ease infinite;
+  -moz-animation: AnimationName 22s ease infinite;
+  animation: AnimationName 22s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 71% 0%;
+  }
+  50% {
+    background-position: 30% 100%;
+  }
+  100% {
+    background-position: 71% 0%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 71% 0%;
+  }
+  50% {
+    background-position: 30% 100%;
+  }
+  100% {
+    background-position: 71% 0%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 71% 0%;
+  }
+  50% {
+    background-position: 30% 100%;
+  }
+  100% {
+    background-position: 71% 0%;
+  }
+}
 @media screen and (min-width: 1200px) {
+  .row {
+    padding-top: 4rem;
+  }
+  div.html-code {
+    padding-top: 6rem;
+  }
   .pc {
     display: block;
   }
@@ -160,6 +215,11 @@ p {
   }
 }
 @media screen and (max-width: 1200px) {
+  .pingv {
+    width: 20rem;
+    opacity: 0.4;
+    right: -10rem;
+  }
   .mobile {
     display: block;
   }
