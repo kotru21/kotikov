@@ -119,7 +119,6 @@ p {
 }
 .card {
   background: none !important;
-  backdrop-filter: blur(10px);
   border: none !important;
 }
 .pingv {
