@@ -107,6 +107,42 @@ p {
   height: 20vw !important;
   background: url("../../src/pc_index/5.png");
 }
+/** list **/
+.content > ul {
+  list-style: none;
+}
+
+.content > ul li {
+  padding-bottom: clamp(2rem, 20vw, 8rem);
+  position: relative;
+}
+.ul-text-wrapper {
+  padding-top: 2rem;
+}
+.ul-text-wrapper > p {
+  background: linear-gradient(to top, #120c0c, #0c0e12ea);
+}
+.content > ul li span {
+  border-radius: 50%;
+  padding: 1.5rem 2rem;
+  margin-right: 2rem;
+  background: #fff;
+}
+.content > ul li span:before {
+  content: "";
+  position: absolute;
+  left: 2.2rem;
+  bottom: 0;
+  z-index: -1;
+  height: 100%;
+}
+
+.content > ul li:last-child span:before {
+  content: none;
+}
+.content > ul li:last-child {
+  padding-bottom: 0;
+}
 .phone {
   position: absolute;
   left: -20vw;
@@ -122,7 +158,8 @@ p {
   border: none !important;
 }
 .pingv {
-  width: 25rem;
+  width: 36rem;
+  opacity: 0.4;
   position: absolute;
   right: 10rem;
   top: 0;
@@ -142,6 +179,15 @@ p {
 }
 .non-focus {
   opacity: 0.4;
+}
+.about-me {
+  padding-top: 1rem;
+}
+.stack-btn {
+  background: none;
+  font-size: 3rem;
+  border-left: 0.5rem solid white;
+  padding-left: 1rem;
 }
 .todo {
   background: linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
@@ -186,12 +232,16 @@ p {
   }
 }
 @media screen and (min-width: 1200px) {
+  .ul-text-wrapper > p {
+    padding-left: 17rem;
+  }
+  .ul-h1 {
+    display: inline-block;
+  }
   .row {
     padding-top: 4rem;
   }
-  div.html-code {
-    padding-top: 6rem;
-  }
+
   .pc {
     display: block;
   }
@@ -209,14 +259,14 @@ p {
     width: 100%;
     padding-bottom: 4rem;
   }
-  .about-me-pc-padding {
-    padding-top: 14rem;
-  }
 }
 @media screen and (max-width: 1200px) {
+  .ul-h1 {
+    padding-top: 2rem;
+  }
+
   .pingv {
     width: 20rem;
-    opacity: 0.4;
     right: -10rem;
   }
   .mobile {

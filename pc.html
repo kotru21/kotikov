@@ -51,13 +51,13 @@
                 <a class="nav-link" href="#">|</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Обо мне</a>
+                <a class="nav-link active" aria-current="page" href="#about-me">Обо мне</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Проекты</a>
+                <a class="nav-link" href="#code-stack">Стек</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Стек</a>
+                <a class="nav-link" href="#interests">Ещё чёта</a>
               </li>
             </ul>
           </div>
@@ -84,10 +84,14 @@
           left: 0;
         "
       >
-        <i class="bx bxl-vk"></i>
-        <i class="bx bxl-youtube"></i>
-        <i class="bx bxl-twitter"></i>
-        <i class="bx bxl-javascript"></i>
+        <i class="bx bxl-vk" onclick="window.open('https://vk.com/arsenij_kotikov')"></i>
+        <i class="bx bxl-youtube" onclick="window.open('https://youtube.com/@kotikov')"></i>
+        <i class="bx bxl-twitter" onclick="window.open('https://twitter.com/arsenij_kotikov')"></i>
+        <i
+          class="bx bxl-gmail"
+          onclick="window.location.href = 'mailto:kotikovv@proton.me'"
+          style="padding-right: 12rem"
+        ></i>
       </div>
       <img
         class="pc-hide"
@@ -101,11 +105,11 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="content about-me">
       <div class="d-flex flex-wrap w-100">
         <div class="col">
           <img src="./src/pc_index/PSD.png" class="phone" />
-          <h1 class="about-me-pc-padding content-h1">Обо мне</h1>
+          <h1 class="content-h1">Обо мне</h1>
           <h2 class="content-h2-mobile-align">немного инфы</h2>
           <div class="d-flex flex-row" style="padding-top: 10vw">
             <h1>Я</h1>
@@ -113,7 +117,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="html-code">
+          <div class="html-code" id="about-me">
             <h2>_index.html</h2>
             <p class="html-code">
               &lt;!DOCTYPE html><br />
@@ -141,14 +145,13 @@
             </p>
           </div>
           <div class="d-flex w-100">
-            <div class="col" style="border-left: 0.5rem solid white">
-              <div style="padding-left: 1rem">
-                <h2>__script.js</h2>
-                <p class="html-code">alert(“мяу”);</p>
-              </div>
+            <div class="col">
+              <div style="padding-left: 1rem"><button class="stack-btn" onclick="alert('meow');">Мяу</button></div>
             </div>
-            <div class="col" style="border-left: 0.5rem solid white">
-              <div style="padding-left: 1rem"><h1>СТЕК</h1></div>
+            <div class="col">
+              <a href="#code-stack">
+                <div style="padding-left: 1rem"><button class="stack-btn">Стек</button></div>
+              </a>
             </div>
           </div>
         </div>
@@ -180,7 +183,7 @@
             <article id="neptune-trajectory"></article>
           </section>
         </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="code-stack">
           <div class="col">
             <div class="card">
               <h1><i class="bx bxl-javascript"></i>JS</h1>
@@ -250,31 +253,67 @@
         </div>
       </div>
       <div class="content">
-        <div class="container">
-          <img
-            id="GH-img1"
-            src="https://github-readme-activity-graph.cyclic.app/graph?username=kotru21&color=ffffff&point=ffffff&area_color=ffffff&line=CC0B1A&hide_border=true&area=true&bg_color=false"
-            style="width: 100%"
-          />
-          <div class="row">
-            <div class="col-sm">
-              <img
-                id="GH-img3"
-                class="gh-hover img-responsive"
-                style="width: 100%"
-                src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&layout=compact&text_color=F7F8FA&locale=ru"
-              />
-            </div>
-            <div class="col-sm">
-              <img
-                id="GH-img3"
-                class="gh-hover img-responsive"
-                style="width: 100%"
-                src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
-              />
-            </div>
+        <img
+          id="GH-img1"
+          src="https://github-readme-activity-graph.cyclic.app/graph?username=kotru21&color=ffffff&point=ffffff&area_color=ffffff&line=CC0B1A&hide_border=true&area=true&bg_color=false"
+          style="width: 100%"
+        />
+        <div class="row g-3">
+          <div class="col-sm">
+            <img
+              id="GH-img3"
+              class="gh-hover img-responsive"
+              style="width: 100%"
+              src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&layout=compact&text_color=F7F8FA&locale=ru"
+            />
+          </div>
+          <div class="col-sm">
+            <img
+              id="GH-img3"
+              class="gh-hover img-responsive"
+              style="width: 100%"
+              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
+            />
           </div>
         </div>
+      </div>
+      <div class="content" style="padding-top: 2rem" id="interests">
+        <h1 class="content-h1">Изучаю</h1>
+        <ul style="padding-top: 2rem">
+          <li>
+            <span><i class="bx bxs-cat" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">Котики</h1>
+            <div class="ul-text-wrapper">
+              <p>
+                Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
+                широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
+                персональных данных и идентификации, в маркетинге и компьютерных играх.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span><i class="bx bxs-microchip" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">ИИ</h1>
+            <div class="ul-text-wrapper">
+              <p>
+                Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
+                широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
+                персональных данных и идентификации, в маркетинге и компьютерных играх.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span><i class="bx bxl-bitcoin" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">Блокчейн</h1>
+            <div class="ul-text-wrapper">
+              <p>
+                Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
+                широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
+                персональных данных и идентификации, в маркетинге и компьютерных играх.
+              </p>
+            </div>
+          </li>
+        </ul>
       </div>
       <div class="content" style="position: relative">
         <h1 class="content-h1" style="padding-top: 5rem">Source code</h1>
@@ -284,75 +323,10 @@
             <p class="card-text">
               Этот сайт имеет открытый исходный код. Хочешь его посмотреть? Кликни по кнопочке ниже.
             </p>
+            <button type="button" class="btn btn-outline-light mt-4"><h1>Клик</h1></button>
           </div>
         </div>
         <img src="./src/pc_index/pingv.svg" alt="pingv" class="pingv" />
-      </div>
-    </div>
-
-    <div class="content">
-      <div class="my-projects">
-        <h1 class="about-me-pc-padding content-h1">Мои проекты</h1>
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-          <div class="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              class="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-          </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="./src/pc_index/linez-by.png" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="./src/pc_index/letsgo.png" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Some representative placeholder content for the second slide.</p>
-              </div>
-            </div>
-          </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-      <div class="footer">
-        <h1 class="footer-h1 content-h1" style="text-align: left">
-          На<br class="mobile" />
-          этом<br class="mobile" />
-          пока<br class="mobile" />
-          всё<br class="mobile" />
-        </h1>
       </div>
     </div>
   </body>
