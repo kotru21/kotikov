@@ -177,17 +177,27 @@ p {
 .html-code {
   padding-left: 5vw;
 }
+div.html-code {
+  padding-bottom: clamp(2rem, 4vw, 30rem);
+}
 .non-focus {
   opacity: 0.4;
 }
 .about-me {
   padding-top: 1rem;
+  min-height: 70vh;
 }
 .stack-btn {
   background: none;
   font-size: 3rem;
   border-left: 0.5rem solid white;
-  padding-left: 1rem;
+  padding-left: clamp(1rem, 2vw, 30rem);
+  transition: 1s;
+}
+.stack-btn:hover {
+  background: white;
+  color: #0c0e12;
+  padding-right: clamp(1rem, 2vw, 30rem);
 }
 .todo {
   background: linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
@@ -232,6 +242,20 @@ p {
   }
 }
 @media screen and (min-width: 1200px) {
+  .todo {
+    background: url("../../src/pc_index/vector.svg"), linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
+  }
+  .card-h1 {
+    font-size: 4vw !important;
+    padding-bottom: 1rem;
+  }
+  .card-text {
+    padding-top: 2rem;
+  }
+  .about-me-pc-bottom {
+    position: absolute;
+    bottom: 0;
+  }
   .ul-text-wrapper > p {
     padding-left: 17rem;
   }

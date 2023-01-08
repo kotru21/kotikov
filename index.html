@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <script>
-      //check IE browser by navigator.useragent
       window.onload = function () {
         function msieversion() {
           var ua = window.navigator.userAgent;
@@ -14,32 +13,14 @@
 
           return false;
         }
+
         msieversion();
       };
     </script>
-    <script>
-      function check() {
-        var info = window.screen.width;
-        if (info >= 779) {
-          window.location.href = "pc.html";
-        }
-      }
-      check();
-    </script>
-
-    <meta
-      name="viewport"
-      content="width=device-width"
-      initial-scale="1.0"
-      minimum-scale="1.0"
-      maximum-scale="1.0"
-      user-scalable="no"
-    />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta property="og:locale" content="ru_RU" />
-    <meta property="og:title" content="Арсений Котиков" key="title" />
     <meta property="og:site_name" content="Арсений Котиков" />
-    <meta name="theme-color" content="#8f00ff" />
     <meta property="og:image:secure_url" content="https://kotikov.pages.dev/src/index/web_preview.png" />
     <meta property="og:image" content="https://kotikov.pages.dev/src/index/web_preview.png" />
     <meta name="description" content="Описание? Ну и что мне сюда написать?..." />
@@ -53,432 +34,149 @@
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:description" content="Описание? Ну и что мне сюда написать?..." />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/pc/solar.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/pc/pc.css" rel="stylesheet" />
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"
-      integrity="sha512-FRX6MYITclzDyyMmSQLgZoZTfE+GLzAQpjs15adVZMY6AqhsrBLx8UZwp4FoqrrRFWY9TiaPwja7EY5fk309vw=="
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+      integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="./src/js/index/ViewportAnim.js"></script>
-    <script src="./src/js/index/NavbarScroll.js"></script>
-    <link href="./css/mobile.css" rel="stylesheet" />
-    <link rel="preload" href="./src/index/cat.webp" as="image" />
-
-    <title>Добро пожаловать</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+      integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+      integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Арсений Котиков</title>
   </head>
-  <body class="bd">
-    <div id="loading">
-      <div id="loading-image" class="loader">Загрузка...</div>
-    </div>
-    <nav class="navbar">
-      <div class="mx-auto my-2 order-1 order-md-1 position-relative">
-        <span class="animatedtext-content">
-          <a class="bx bxl-youtube btn" href="https://www.youtube.com/channel/UCOYprFCDyhHdhbtfzZNqYFQ"> </a>
-          <a class="bx bxl-vk btn" href="https://vk.com/arsenij_kotikov"> </a>
-          <a class="bx bxl-github btn" href="https://github.com/kotru21"> </a>
-          <a class="bx bxl-twitter btn" href="https://twitter.com/arsenij_kotikov"> </a>
-        </span>
-      </div>
-    </nav>
-    <div class="hello">
-      <div class="jumbotron">
-        <div class="slideshow-container">
-          <div class="mySlides fade">
-            <div class="numbertext"></div>
-            <img src="./src/index/blue.webp" alt="Синяя аниме пикча 1/3" style="width: 100%" />
-          </div>
-
-          <div class="mySlides fade">
-            <div class="numbertext"></div>
-            <img src="./src/index/red.webp" alt="Красная аниме пикча 2/3" style="width: 100%" />
-          </div>
-
-          <div class="mySlides fade">
-            <div class="numbertext"></div>
-            <img src="./src/index/orange.webp" alt="Оранжевая аниме пикча 3/3" style="width: 100%" />
-          </div>
-        </div>
-      </div>
-      <div class="text_blur">
-        <h1 class="h1 text-center"><span class="animatedtext-content">Привет!</span></h1>
-        <img src="./src/index/stroke.svg" />
-        <h3 class="h3 text-center" style="margin-left: 1rem; margin-right: 1rem; margin-top: 2rem; margin-bottom: 2rem">
-          тут нужно что-то написать про себя, так? Когда-нибудь я так и сделаю.
-        </h3>
-        <img src="./src/index/stroke.svg" />
-      </div>
-    </div>
-    <div class="text_blur" style="height: fit-content">
-      <h2 class="h2xl text-center">Чем я занимаюсь</h2>
-      <div class="card-deck">
-        <div class="row g-4">
-          <div class="col-sm-4 d-inline-flex mywork">
-            <div class="card" style="border: none">
-              <img class="card-img-top" src="./src/index/Code.webp" alt="Web-разработк" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>Web-dev</h5>
-                </div>
-                <p class="card-text">WEB-разработка — создание WEB-приложений или WEB-сайтов.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex mywork">
-            <div class="card" style="border: none">
-              <img class="card-img-top" src="./src/index/OpenSource.webp" alt="Javascript" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>Open Source</h5>
-                </div>
-                <p class="card-text">Разработка ПО с открытым исходным кодом.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex mywork">
-            <div class="card" style="border: none">
-              <img class="card-img-top" src="./src/index/brush.webp" alt="Javascript" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>WEB-дизайн</h5>
-                </div>
-                <p class="card-text">Веб-дизайн это работа над внешним видом сайта.</p>
-              </div>
-            </div>
+  <body>
+    <div class="header" style="position: relative; overflow: hidden">
+      <div style="position: absolute; right: 0; top: 0; min-height: 100%; width: 15rem; background: #ed7550"></div>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid" style="padding-left: 0">
+          <a class="navbar-brand" href="#">Kotikov</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">|</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#about-me">Обо мне</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#code-stack">Стек</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#interests">Ещё чёта</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="main-transparent">
-      <h2 class="h2xl text-center">какие технологии я использую?</h2>
-    </div>
-    <div class="catbg">
-      <div class="card-deck">
-        <div class="row g-4">
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100rem; margin: 0 auto; float: none">
-              <img class="card-img-top" src="./src/index/JS.webp" alt="Javascript" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>Javascript</h5>
-                </div>
-                <p class="card-text">
-                  JavaScript это язык, который позволяет вам применять сложные вещи на web странице.
-                </p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    aria-valuenow="75"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 15%"
-                  >
-                    15% &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100rem; margin: 0 auto; float: none">
-              <img
-                class="card-img-bottom"
-                src="./src/index/CSS_HTML.webp"
-                alt="Cascading Style Sheets & HyperText Markup Language"
-              />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>HTML/CSS</h5>
-                </div>
-                <p class="card-text">
-                  HTML — Язык гипертекстовой разметки страницы. Cascading Style Sheets — формальный язык описания
-                  внешнего вида web страницы.
-                </p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    aria-valuenow="75"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 40%"
-                  >
-                    40% &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100rem; margin: 0 auto; float: none">
-              <img class="card-img-bottom" src="./src/index/PHP_NODEJS.webp" alt="Hypertext Preprocessor & Node.js" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>PHP/Node.js</h5>
-                </div>
-                <p class="card-text">
-                  PHP - C-подобный скриптовый язык, применяемый для разработки веб-приложений. Node или Node.js —
-                  программная платформа, превращающая JavaScript в язык общего назначения.
-                </p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    aria-valuenow="75"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 45%"
-                  >
-                    45% &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      </nav>
+      <div class="d-flex justify-content-between gap-5" style="overflow: hidden; z-index: 1; position: absolute">
+        <div class="quadcol grey"></div>
+        <div class="quadcol-2 grey" style="position: relative">
+          <p style="position: absolute; bottom: -2rem">Я люблю котиков</p>
         </div>
+        <div class="quadcol-3 grey"></div>
+        <div class="quadcol-4 grey"></div>
+        <div class="quadcol-5 grey"></div>
       </div>
-
-      <div class="main-transparent highlighted" style="background: #1d1d1da1 !important">
-        <p></p>
-        <h2 class="h2xl text-center">Что я учу/планирую выучить?</h2>
-        <p></p>
-      </div>
-    </div>
-    <div class="container progress-bar-animated" style="margin-bottom: 0; background: #1d1d1df3">
-      <svg
-        id="wave"
-        style="transform: rotate(180deg); transition: 0.3s"
-        class="svg"
-        viewBox="0 0 1440 150"
-        version="1.1"
+      <div
+        class="pc-hide my-social"
+        style="
+          width: 100%;
+          overflow-x: auto;
+          white-space: nowrap;
+          position: absolute;
+          z-index: 0;
+          bottom: 10rem;
+          left: 0;
+        "
       >
-        <defs>
-          <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
-            <stop stop-color="rgba(245, 39, 39, 0.8)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 0px); opacity: 1; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-0)"
-          d="M0,135L40,122.5C80,110,160,85,240,72.5C320,60,400,60,480,72.5C560,85,640,110,720,117.5C800,125,880,115,960,102.5C1040,90,1120,75,1200,77.5C1280,80,1360,100,1440,105C1520,110,1600,100,1680,100C1760,100,1840,110,1920,102.5C2000,95,2080,70,2160,60C2240,50,2320,55,2400,57.5C2480,60,2560,60,2640,52.5C2720,45,2800,30,2880,20C2960,10,3040,5,3120,12.5C3200,20,3280,40,3360,57.5C3440,75,3520,90,3600,92.5C3680,95,3760,85,3840,87.5C3920,90,4000,105,4080,112.5C4160,120,4240,120,4320,110C4400,100,4480,80,4560,60C4640,40,4720,20,4800,22.5C4880,25,4960,50,5040,50C5120,50,5200,25,5280,27.5C5360,30,5440,60,5520,62.5C5600,65,5680,40,5720,27.5L5760,15L5760,150L5720,150C5680,150,5600,150,5520,150C5440,150,5360,150,5280,150C5200,150,5120,150,5040,150C4960,150,4880,150,4800,150C4720,150,4640,150,4560,150C4480,150,4400,150,4320,150C4240,150,4160,150,4080,150C4000,150,3920,150,3840,150C3760,150,3680,150,3600,150C3520,150,3440,150,3360,150C3280,150,3200,150,3120,150C3040,150,2960,150,2880,150C2800,150,2720,150,2640,150C2560,150,2480,150,2400,150C2320,150,2240,150,2160,150C2080,150,2000,150,1920,150C1840,150,1760,150,1680,150C1600,150,1520,150,1440,150C1360,150,1280,150,1200,150C1120,150,1040,150,960,150C880,150,800,150,720,150C640,150,560,150,480,150C400,150,320,150,240,150C160,150,80,150,40,150L0,150Z"
-        ></path>
-        <defs>
-          <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.5)" offset="0%"></stop>
-            <stop stop-color="rgba(255, 179, 11, 1)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 50px); opacity: 0.9; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-1)"
-          d="M0,39L17.1,34.7C34.3,30,69,22,103,30.3C137.1,39,171,65,206,71.5C240,78,274,65,309,62.8C342.9,61,377,69,411,73.7C445.7,78,480,78,514,67.2C548.6,56,583,35,617,30.3C651.4,26,686,39,720,49.8C754.3,61,789,69,823,62.8C857.1,56,891,35,926,34.7C960,35,994,56,1029,54.2C1062.9,52,1097,26,1131,28.2C1165.7,30,1200,61,1234,75.8C1268.6,91,1303,91,1337,95.3C1371.4,100,1406,108,1440,112.7C1474.3,117,1509,117,1543,108.3C1577.1,100,1611,82,1646,75.8C1680,69,1714,74,1749,80.2C1782.9,87,1817,95,1851,84.5C1885.7,74,1920,43,1954,30.3C1988.6,17,2023,22,2057,21.7C2091.4,22,2126,17,2160,15.2C2194.3,13,2229,13,2263,10.8C2297.1,9,2331,4,2366,17.3C2400,30,2434,61,2451,75.8L2468.6,91L2468.6,130L2451.4,130C2434.3,130,2400,130,2366,130C2331.4,130,2297,130,2263,130C2228.6,130,2194,130,2160,130C2125.7,130,2091,130,2057,130C2022.9,130,1989,130,1954,130C1920,130,1886,130,1851,130C1817.1,130,1783,130,1749,130C1714.3,130,1680,130,1646,130C1611.4,130,1577,130,1543,130C1508.6,130,1474,130,1440,130C1405.7,130,1371,130,1337,130C1302.9,130,1269,130,1234,130C1200,130,1166,130,1131,130C1097.1,130,1063,130,1029,130C994.3,130,960,130,926,130C891.4,130,857,130,823,130C788.6,130,754,130,720,130C685.7,130,651,130,617,130C582.9,130,549,130,514,130C480,130,446,130,411,130C377.1,130,343,130,309,130C274.3,130,240,130,206,130C171.4,130,137,130,103,130C68.6,130,34,130,17,130L0,130Z"
-        ></path>
-      </svg>
+        <i class="bx bxl-vk" onclick="window.open('https://vk.com/arsenij_kotikov')"></i>
+        <i class="bx bxl-youtube" onclick="window.open('https://youtube.com/@kotikov')"></i>
+        <i class="bx bxl-twitter" onclick="window.open('https://twitter.com/arsenij_kotikov')"></i>
+        <i
+          class="bx bxl-gmail"
+          onclick="window.location.href = 'mailto:kotikovv@proton.me'"
+          style="padding-right: 12rem"
+        ></i>
+      </div>
+      <img
+        class="pc-hide"
+        src="./src/pc_index/orange-special.webp"
+        style="z-index: 0; position: absolute; height: 90%; bottom: 0; right: -12rem"
+      />
+
+      <div class="header-text">
+        <h2>Web developer</h2>
+        <h1>Arsenij Kotikov</h1>
+      </div>
     </div>
-    <div class="main-transparent">
-      <h3 class="h3 text-center">Возможно, когда-нибудь я выучу это...</h3>
-    </div>
-    <div class="progress-bar-striped progress-bar-animated">
-      <div class="card-deck">
-        <div class="row g-4">
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100%">
-              <img class="card-img-bottom" loading="lazy" src="./src/index/cppSharp.webp" alt="C++ / C#" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>C++ / C#</h5>
-                </div>
-                <p class="card-text">Объекто-ориентированные языки программирования промежуточного уровня.</p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated progress-bar-wip"
-                    role="progressbar"
-                    aria-valuenow="100"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 100%"
-                  >
-                    work in progress... &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100%">
-              <img class="card-img-bottom" loading="lazy" src="./src/index/bd.webp" alt="Structured Query Language" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>SQL</h5>
-                </div>
-                <p class="card-text">
-                  Декларативный язык программирования, применяемый для управления данными в реляционной базе данных.
-                </p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated progress-bar-wip"
-                    role="progressbar"
-                    aria-valuenow="100"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 100%"
-                  >
-                    work in progress... &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100%">
-              <img class="card-img-bottom" loading="lazy" src="./src/index/Python.webp" alt="Python" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>Python</h5>
-                </div>
-                <p class="card-text">Высокоуровневый язык программирования общего назначения, написанный на C.</p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated progress-bar-wip"
-                    role="progressbar"
-                    aria-valuenow="100"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 100%"
-                  >
-                    work in progress... &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 d-inline-flex">
-            <div class="card" style="width: 100%">
-              <img class="card-img-bottom" loading="lazy" src="./src/index/ReactJs.webp" alt="React.js" />
-              <div class="card-body">
-                <div class="card-title">
-                  <h5>React.js</h5>
-                </div>
-                <p class="card-text">React — это JavaScript-библиотека для создания пользовательских интерфейсов.</p>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated progress-bar-wip"
-                    role="progressbar"
-                    aria-valuenow="100"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: 100%"
-                  >
-                    work in progress... &nbsp;
-                  </div>
-                </div>
-              </div>
-            </div>
+
+    <div class="content about-me" style="position: relative">
+      <div class="d-flex flex-wrap w-100">
+        <div class="col">
+          <img src="./src/pc_index/PSD.png" class="phone" />
+          <h1 class="content-h1">Обо мне</h1>
+          <h2 class="content-h2-mobile-align">немного инфы</h2>
+          <div class="about-me-pc-bottom d-flex flex-row">
+            <h1>Я</h1>
+            <h2>занимаюсь WEB-разработкой<br />уже несколько лет</h2>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="main-transparent highlighted">
-      <p></p>
-      <h2 class="h2xl text-center"><span class="animatedtext-content">Чем я интересуюсь❓</span></h2>
-      <p></p>
-    </div>
-    <div class="container progress-bar-animated">
-      <svg
-        id="wave"
-        style="transform: rotate(180deg); transition: 0.3s"
-        class="svg"
-        viewBox="0 0 1440 150"
-        version="1.1"
-      >
-        <defs>
-          <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
-            <stop stop-color="rgba(245, 39, 39, 0.8)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 0px); opacity: 1; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-0)"
-          d="M0,135L40,122.5C80,110,160,85,240,72.5C320,60,400,60,480,72.5C560,85,640,110,720,117.5C800,125,880,115,960,102.5C1040,90,1120,75,1200,77.5C1280,80,1360,100,1440,105C1520,110,1600,100,1680,100C1760,100,1840,110,1920,102.5C2000,95,2080,70,2160,60C2240,50,2320,55,2400,57.5C2480,60,2560,60,2640,52.5C2720,45,2800,30,2880,20C2960,10,3040,5,3120,12.5C3200,20,3280,40,3360,57.5C3440,75,3520,90,3600,92.5C3680,95,3760,85,3840,87.5C3920,90,4000,105,4080,112.5C4160,120,4240,120,4320,110C4400,100,4480,80,4560,60C4640,40,4720,20,4800,22.5C4880,25,4960,50,5040,50C5120,50,5200,25,5280,27.5C5360,30,5440,60,5520,62.5C5600,65,5680,40,5720,27.5L5760,15L5760,150L5720,150C5680,150,5600,150,5520,150C5440,150,5360,150,5280,150C5200,150,5120,150,5040,150C4960,150,4880,150,4800,150C4720,150,4640,150,4560,150C4480,150,4400,150,4320,150C4240,150,4160,150,4080,150C4000,150,3920,150,3840,150C3760,150,3680,150,3600,150C3520,150,3440,150,3360,150C3280,150,3200,150,3120,150C3040,150,2960,150,2880,150C2800,150,2720,150,2640,150C2560,150,2480,150,2400,150C2320,150,2240,150,2160,150C2080,150,2000,150,1920,150C1840,150,1760,150,1680,150C1600,150,1520,150,1440,150C1360,150,1280,150,1200,150C1120,150,1040,150,960,150C880,150,800,150,720,150C640,150,560,150,480,150C400,150,320,150,240,150C160,150,80,150,40,150L0,150Z"
-        ></path>
-        <defs>
-          <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.5)" offset="0%"></stop>
-            <stop stop-color="rgba(255, 179, 11, 1)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 50px); opacity: 0.9; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-1)"
-          d="M0,39L17.1,34.7C34.3,30,69,22,103,30.3C137.1,39,171,65,206,71.5C240,78,274,65,309,62.8C342.9,61,377,69,411,73.7C445.7,78,480,78,514,67.2C548.6,56,583,35,617,30.3C651.4,26,686,39,720,49.8C754.3,61,789,69,823,62.8C857.1,56,891,35,926,34.7C960,35,994,56,1029,54.2C1062.9,52,1097,26,1131,28.2C1165.7,30,1200,61,1234,75.8C1268.6,91,1303,91,1337,95.3C1371.4,100,1406,108,1440,112.7C1474.3,117,1509,117,1543,108.3C1577.1,100,1611,82,1646,75.8C1680,69,1714,74,1749,80.2C1782.9,87,1817,95,1851,84.5C1885.7,74,1920,43,1954,30.3C1988.6,17,2023,22,2057,21.7C2091.4,22,2126,17,2160,15.2C2194.3,13,2229,13,2263,10.8C2297.1,9,2331,4,2366,17.3C2400,30,2434,61,2451,75.8L2468.6,91L2468.6,130L2451.4,130C2434.3,130,2400,130,2366,130C2331.4,130,2297,130,2263,130C2228.6,130,2194,130,2160,130C2125.7,130,2091,130,2057,130C2022.9,130,1989,130,1954,130C1920,130,1886,130,1851,130C1817.1,130,1783,130,1749,130C1714.3,130,1680,130,1646,130C1611.4,130,1577,130,1543,130C1508.6,130,1474,130,1440,130C1405.7,130,1371,130,1337,130C1302.9,130,1269,130,1234,130C1200,130,1166,130,1131,130C1097.1,130,1063,130,1029,130C994.3,130,960,130,926,130C891.4,130,857,130,823,130C788.6,130,754,130,720,130C685.7,130,651,130,617,130C582.9,130,549,130,514,130C480,130,446,130,411,130C377.1,130,343,130,309,130C274.3,130,240,130,206,130C171.4,130,137,130,103,130C68.6,130,34,130,17,130L0,130Z"
-        ></path>
-      </svg>
-    </div>
-    <div class="main">
-      <div class="dsc">
-        <img loading="lazy" src="./src/index/eth.webp" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld">Блокчейн</h2>
-        <h3 class="h3d">
-          Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее широко
-          обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки персональных
-          данных и идентификации, в маркетинге и компьютерных играх.
-        </h3>
-        <hr class="hr" style="margin-bottom: -0.5rem" />
-      </div>
-      <div class="dsc">
-        <img loading="lazy" src="./src/index/web.webp" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld">Web разработка</h2>
-        <h3 class="h3d">
-          WEB-разработка — процедура создания WEB-приложения или WEB-сайта. Основными этапами этого процесса являются
-          такие мероприятия, как WEB-дизайн, вёрстка страниц сайта, программирование на стороне сервера и клиента, а
-          также работы по конфигурированию сервера.
-        </h3>
-        <hr class="hr" style="margin-bottom: -0.5rem" />
-      </div>
-      <div class="dsc">
-        <img loading="lazy" src="./src/index/meow.webp" class="dsc-img rounded float-left" alt="..." />
-        <h2 class="h2xld">Котики</h2>
-        <h3 class="h3d">Лол, здесь нужно что-то объяснять? Котики классные.</h3>
-      </div>
-    </div>
-    <div class="main-transparent">
-      <p></p>
-      <!-- i dont want to explain that...-->
-      <p></p>
-    </div>
-    <div class="main-ref">
-      <div class="progress-bar-striped progress-bar-animated">
-        <div class="card-deck">
-          <div class="row">
-            <div class="col-sm-4 d-inline-flex">
-              <div class="card" style="margin-bottom: 1rem">
-                <img class="card-img-top" src="./src/index/like.webp" alt="просто пикча" />
-                <div class="card-body">
-                  <div class="card-title">
-                    <h5>Понравился сайт? :D</h5>
-                  </div>
-                  <p class="card-text">У него открытый исходный код, который размещён на GitHub.</p>
-                </div>
-              </div>
+        <div class="col">
+          <div class="about-me-pc-bottom">
+            <div class="html-code" id="about-me">
+              <h2>_index.html</h2>
+              <p class="non-focus html-code">
+                &lt;head><br />
+                &lt;meta charset="UTF-8"><br />
+                &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"> &lt;meta name="viewport"
+                content="width=device-width, initial-scale=1.0" ><br />
+              </p>
+              <h2>
+                <span class="non-focus"> &lt;title></span> Arsenij Kotikov <span class="non-focus"> &lt;/title></span>
+              </h2>
+              <p class="non-focus html-code">
+                <br />
+                &lt;/head> <br />&lt;body><br />
+              </p>
+              <h2>
+                <span class="non-focus"> &lt;h1></span> Веб-разрабочик <span class="non-focus"> &lt;/h1></span><br />
+
+                <span class="non-focus"> &lt;h2> </span> Starting from 2020 <span class="non-focus"> &lt;/h2></span>
+              </h2>
             </div>
-            <div class="col-sm-8 d-inline-flex">
-              <div class="card linked">
-                <a href="https://github.com/kotru21/kotikov" style="text-decoration: none">
-                  <img class="card-img-bottom" loading="lazy" src="./src/index/gh.webp" alt="GitHub preview pic" />
-                  <div class="card-body">
-                    <div class="card-title">
-                      <h5>Репозиторий Github</h5>
-                    </div>
-                    <p class="card-text">Жмякни сюда. Все исходники находятся здесь :)</p>
-                  </div>
+            <div class="d-flex w-100">
+              <div class="col">
+                <div style="padding-left: 1rem"><button class="stack-btn" onclick="alert('meow');">Мяу</button></div>
+              </div>
+              <div class="col">
+                <a href="#code-stack">
+                  <div style="padding-left: 1rem"><button class="stack-btn">Стек</button></div>
                 </a>
               </div>
             </div>
@@ -486,280 +184,184 @@
         </div>
       </div>
     </div>
-    <div class="main-transparent highlighted" style="background: #1d1d1da1 !important">
-      <p></p>
-      <h2 class="h2xl text-center">Ещё контакты</h2>
-      <p></p>
-    </div>
 
-    <div class="container progress-bar-animated" style="margin-bottom: 0; background: #1d1d1df3">
-      <svg
-        id="wave"
-        style="transform: rotate(180deg); transition: 0.3s"
-        class="svg"
-        viewBox="0 0 1440 150"
-        version="1.1"
-      >
-        <defs>
-          <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
-            <stop stop-color="rgba(245, 39, 39, 0.8)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 0px); opacity: 1; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-0)"
-          d="M0,135L40,122.5C80,110,160,85,240,72.5C320,60,400,60,480,72.5C560,85,640,110,720,117.5C800,125,880,115,960,102.5C1040,90,1120,75,1200,77.5C1280,80,1360,100,1440,105C1520,110,1600,100,1680,100C1760,100,1840,110,1920,102.5C2000,95,2080,70,2160,60C2240,50,2320,55,2400,57.5C2480,60,2560,60,2640,52.5C2720,45,2800,30,2880,20C2960,10,3040,5,3120,12.5C3200,20,3280,40,3360,57.5C3440,75,3520,90,3600,92.5C3680,95,3760,85,3840,87.5C3920,90,4000,105,4080,112.5C4160,120,4240,120,4320,110C4400,100,4480,80,4560,60C4640,40,4720,20,4800,22.5C4880,25,4960,50,5040,50C5120,50,5200,25,5280,27.5C5360,30,5440,60,5520,62.5C5600,65,5680,40,5720,27.5L5760,15L5760,150L5720,150C5680,150,5600,150,5520,150C5440,150,5360,150,5280,150C5200,150,5120,150,5040,150C4960,150,4880,150,4800,150C4720,150,4640,150,4560,150C4480,150,4400,150,4320,150C4240,150,4160,150,4080,150C4000,150,3920,150,3840,150C3760,150,3680,150,3600,150C3520,150,3440,150,3360,150C3280,150,3200,150,3120,150C3040,150,2960,150,2880,150C2800,150,2720,150,2640,150C2560,150,2480,150,2400,150C2320,150,2240,150,2160,150C2080,150,2000,150,1920,150C1840,150,1760,150,1680,150C1600,150,1520,150,1440,150C1360,150,1280,150,1200,150C1120,150,1040,150,960,150C880,150,800,150,720,150C640,150,560,150,480,150C400,150,320,150,240,150C160,150,80,150,40,150L0,150Z"
-        ></path>
-        <defs>
-          <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.5)" offset="0%"></stop>
-            <stop stop-color="rgba(255, 179, 11, 1)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 50px); opacity: 0.9; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-1)"
-          d="M0,39L17.1,34.7C34.3,30,69,22,103,30.3C137.1,39,171,65,206,71.5C240,78,274,65,309,62.8C342.9,61,377,69,411,73.7C445.7,78,480,78,514,67.2C548.6,56,583,35,617,30.3C651.4,26,686,39,720,49.8C754.3,61,789,69,823,62.8C857.1,56,891,35,926,34.7C960,35,994,56,1029,54.2C1062.9,52,1097,26,1131,28.2C1165.7,30,1200,61,1234,75.8C1268.6,91,1303,91,1337,95.3C1371.4,100,1406,108,1440,112.7C1474.3,117,1509,117,1543,108.3C1577.1,100,1611,82,1646,75.8C1680,69,1714,74,1749,80.2C1782.9,87,1817,95,1851,84.5C1885.7,74,1920,43,1954,30.3C1988.6,17,2023,22,2057,21.7C2091.4,22,2126,17,2160,15.2C2194.3,13,2229,13,2263,10.8C2297.1,9,2331,4,2366,17.3C2400,30,2434,61,2451,75.8L2468.6,91L2468.6,130L2451.4,130C2434.3,130,2400,130,2366,130C2331.4,130,2297,130,2263,130C2228.6,130,2194,130,2160,130C2125.7,130,2091,130,2057,130C2022.9,130,1989,130,1954,130C1920,130,1886,130,1851,130C1817.1,130,1783,130,1749,130C1714.3,130,1680,130,1646,130C1611.4,130,1577,130,1543,130C1508.6,130,1474,130,1440,130C1405.7,130,1371,130,1337,130C1302.9,130,1269,130,1234,130C1200,130,1166,130,1131,130C1097.1,130,1063,130,1029,130C994.3,130,960,130,926,130C891.4,130,857,130,823,130C788.6,130,754,130,720,130C685.7,130,651,130,617,130C582.9,130,549,130,514,130C480,130,446,130,411,130C377.1,130,343,130,309,130C274.3,130,240,130,206,130C171.4,130,137,130,103,130C68.6,130,34,130,17,130L0,130Z"
-        ></path>
-      </svg>
-    </div>
-    <div class="catbg slider2">
-      <div class="main-transparent">
-        <h3 class="h3 text-center">Но... тут в основном пикчи котиков...</h3>
+    <div class="my-projects" style="overflow: hidden">
+      <div class="content">
+        <h1 class="content-h1" style="padding-top: 5rem">Мой<br />стек</h1>
+        <div>
+          <section id="solar-system">
+            <div id="sun"></div>
+            <article id="mercury-trajectory">
+              <div id="mercury"><i class="bx bxl-javascript"></i></div>
+            </article>
+            <article id="venus-trajectory">
+              <div id="venus"><i class="bx bxl-javascript"></i></div>
+            </article>
+            <article id="earth-trajectory">
+              <div id="earth"><i class="bx bxl-javascript"></i></div>
+            </article>
+            <article id="mars-trajectory">
+              <div id="mars"><i class="bx bxl-javascript"></i></div>
+            </article>
+            <article id="main-asteroid-belt-trajectory"></article>
+            <article id="jupiter-trajectory"></article>
+            <article id="saturn-trajectory"></article>
+            <article id="uranus-trajectory"></article>
+            <article id="neptune-trajectory"></article>
+          </section>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="code-stack">
+          <div class="col">
+            <div class="card">
+              <h1 class="card-h1"><i class="bx bxl-javascript"></i>JS</h1>
+              <div class="card-body">
+                <h5 class="card-title">JavaScript</h5>
+                <p class="card-text">
+                  JavaScript это язык, который позволяет вам применять сложные вещи на web странице.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <h1 class="card-h1"><i class="bx bxl-html5"></i>HTML / CSS</h1>
+              <div class="card-body">
+                <h5 class="card-title">Hyper Text Markup Language</h5>
+                <p class="card-text">
+                  Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно
+                  отображать загруженный сайт. Cascading Style Sheets — формальный язык описания внешнего вида web
+                  страницы.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <h1 class="card-h1"><i class="bx bx-server"></i>PHP / Node.js</h1>
+              <div class="card-body">
+                <h5 class="card-title">PHP / Node.js</h5>
+                <p class="card-text">
+                  PHP - C-подобный скриптовый язык общего назначения, интенсивно применяемый для разработки
+                  веб-приложений. В настоящее время поддерживается подавляющим большинством хостинг-провайдеров и
+                  является одним из лидеров среди языков, применяющихся для создания динамических веб-сайтов. Node или
+                  Node.js — программная платформа, превращающая JavaScript из узкоспециализированного языка в язык
+                  общего назначения.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        id="carouselExampleControls"
-        class="carousel slide"
-        data-bs-ride="carousel"
-        style="margin-top: 2rem; margin-bottom: 2rem; margin: 1rem"
-      >
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="col-sm-4 d-inline-flex">
-              <div class="card" style="margin: 0 auto; float: none">
-                <img class="card-img-bottom" src="./src/index/inst.webp" alt="Hypertext Preprocessor & Node.js" />
+      <div class="todo">
+        <div class="content">
+          <h1 class="content-h1" style="padding-top: 5rem">TODO</h1>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card">
+                <h1><i class="bx bxl-c-plus-plus"></i>C++</h1>
                 <div class="card-body">
-                  <div class="card-title" style="opacity: 1">
-                    <h5>Insta</h5>
-                  </div>
-                  <p class="card-text" style="opacity: 1">Основной аккаунт</p>
-                  <a href="https://instagram.com/arsenij_kotikov">
-                    <div class="progress">
-                      <div
-                        class="progress-bar progress-bar-striped progress-bar-animated progress-bar-sub"
-                        role="progressbar"
-                        aria-valuenow="75"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: 100%"
-                      >
-                        подпишись &nbsp;
-                      </div>
-                    </div>
-                  </a>
+                  <h5 class="card-title">Си плас плас</h5>
+                  <p class="card-text">
+                    Объекто-ориентированные языки программирования промежуточного уровня.C++ широко используется для
+                    разработки программного обеспечения, являясь одним из самых популярных языков программирования.
+                    Область его применения включает создание операционных систем, разнообразных прикладных программ,
+                    драйверов устройств, приложений для встраиваемых систем, высокопроизводительных серверов, а также
+                    игр.
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <div class="col-sm-4 d-inline-flex">
-              <div class="card" style="margin: 0 auto; float: none">
-                <img class="card-img-bottom" src="./src/index/capy-inst.webp" alt="Hypertext Preprocessor & Node.js" />
+            <div class="col">
+              <div class="card">
+                <h1><i class="bx bxl-google"></i>GO</h1>
                 <div class="card-body">
-                  <div class="card-title" style="opacity: 1">
-                    <h5>Insta 2</h5>
-                  </div>
-                  <p class="card-text" style="opacity: 1">Капибары.</p>
-                  <a href="https://instagram.com/somecringe.psd">
-                    <div class="progress">
-                      <div
-                        class="progress-bar progress-bar-striped progress-bar-animated progress-bar-sub"
-                        role="progressbar"
-                        aria-valuenow="75"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: 100%"
-                      >
-                        подпишись &nbsp;
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="col-sm-4 d-inline-flex">
-              <div class="card" style="margin: 0 auto; float: none">
-                <img class="card-img-bottom" src="./src/index/twitch.webp" alt="Hypertext Preprocessor & Node.js" />
-                <div class="card-body">
-                  <div class="card-title" style="opacity: 1">
-                    <h5>Twitch</h5>
-                  </div>
-                  <p class="card-text" style="opacity: 1">Пусть будет</p>
-                  <a href="https://twitch.tv/kotru12">
-                    <div class="progress">
-                      <div
-                        class="progress-bar progress-bar-striped progress-bar-animated progress-bar-sub"
-                        role="progressbar"
-                        aria-valuenow="75"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="width: 100%"
-                      >
-                        подпишись &nbsp;
-                      </div>
-                    </div>
-                  </a>
+                  <h5 class="card-title">Golang</h5>
+                  <p class="card-text">
+                    Go представляет компилируемый статически типизированный язык программирования от компании Google.
+                    Язык Go предназначен для создания различного рода приложений, но прежде всего это веб-сервисы и
+                    клиент-серверные приложения. Хотя также язык обладает возможностями по работе с графикой,
+                    низкоуровневыми возможностями и т.д.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
-
-      <div class="main-transparent highlighted" style="background: #1d1d1da1 !important">
-        <p></p>
-        <h2 class="h2xl text-center">🔥 сайт ещё в разработке.</h2>
-        <p></p>
-      </div>
-    </div>
-    <div class="container progress-bar-animated">
-      <svg
-        id="wave"
-        style="transform: rotate(180deg); transition: 0.3s"
-        class="svg"
-        viewBox="0 0 1440 150"
-        version="1.1"
-      >
-        <defs>
-          <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.1)" offset="0%"></stop>
-            <stop stop-color="rgba(245, 39, 39, 0.8)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 0px); opacity: 1; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-0)"
-          d="M0,135L40,122.5C80,110,160,85,240,72.5C320,60,400,60,480,72.5C560,85,640,110,720,117.5C800,125,880,115,960,102.5C1040,90,1120,75,1200,77.5C1280,80,1360,100,1440,105C1520,110,1600,100,1680,100C1760,100,1840,110,1920,102.5C2000,95,2080,70,2160,60C2240,50,2320,55,2400,57.5C2480,60,2560,60,2640,52.5C2720,45,2800,30,2880,20C2960,10,3040,5,3120,12.5C3200,20,3280,40,3360,57.5C3440,75,3520,90,3600,92.5C3680,95,3760,85,3840,87.5C3920,90,4000,105,4080,112.5C4160,120,4240,120,4320,110C4400,100,4480,80,4560,60C4640,40,4720,20,4800,22.5C4880,25,4960,50,5040,50C5120,50,5200,25,5280,27.5C5360,30,5440,60,5520,62.5C5600,65,5680,40,5720,27.5L5760,15L5760,150L5720,150C5680,150,5600,150,5520,150C5440,150,5360,150,5280,150C5200,150,5120,150,5040,150C4960,150,4880,150,4800,150C4720,150,4640,150,4560,150C4480,150,4400,150,4320,150C4240,150,4160,150,4080,150C4000,150,3920,150,3840,150C3760,150,3680,150,3600,150C3520,150,3440,150,3360,150C3280,150,3200,150,3120,150C3040,150,2960,150,2880,150C2800,150,2720,150,2640,150C2560,150,2480,150,2400,150C2320,150,2240,150,2160,150C2080,150,2000,150,1920,150C1840,150,1760,150,1680,150C1600,150,1520,150,1440,150C1360,150,1280,150,1200,150C1120,150,1040,150,960,150C880,150,800,150,720,150C640,150,560,150,480,150C400,150,320,150,240,150C160,150,80,150,40,150L0,150Z"
-        ></path>
-        <defs>
-          <linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0">
-            <stop stop-color="rgba(243, 106, 62, 0.5)" offset="0%"></stop>
-            <stop stop-color="rgba(255, 179, 11, 1)" offset="100%"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          style="transform: translate(0, 50px); opacity: 0.9; filter: drop-shadow(10px 31px 31px rgb(0, 0, 0))"
-          fill="url(#sw-gradient-1)"
-          d="M0,39L17.1,34.7C34.3,30,69,22,103,30.3C137.1,39,171,65,206,71.5C240,78,274,65,309,62.8C342.9,61,377,69,411,73.7C445.7,78,480,78,514,67.2C548.6,56,583,35,617,30.3C651.4,26,686,39,720,49.8C754.3,61,789,69,823,62.8C857.1,56,891,35,926,34.7C960,35,994,56,1029,54.2C1062.9,52,1097,26,1131,28.2C1165.7,30,1200,61,1234,75.8C1268.6,91,1303,91,1337,95.3C1371.4,100,1406,108,1440,112.7C1474.3,117,1509,117,1543,108.3C1577.1,100,1611,82,1646,75.8C1680,69,1714,74,1749,80.2C1782.9,87,1817,95,1851,84.5C1885.7,74,1920,43,1954,30.3C1988.6,17,2023,22,2057,21.7C2091.4,22,2126,17,2160,15.2C2194.3,13,2229,13,2263,10.8C2297.1,9,2331,4,2366,17.3C2400,30,2434,61,2451,75.8L2468.6,91L2468.6,130L2451.4,130C2434.3,130,2400,130,2366,130C2331.4,130,2297,130,2263,130C2228.6,130,2194,130,2160,130C2125.7,130,2091,130,2057,130C2022.9,130,1989,130,1954,130C1920,130,1886,130,1851,130C1817.1,130,1783,130,1749,130C1714.3,130,1680,130,1646,130C1611.4,130,1577,130,1543,130C1508.6,130,1474,130,1440,130C1405.7,130,1371,130,1337,130C1302.9,130,1269,130,1234,130C1200,130,1166,130,1131,130C1097.1,130,1063,130,1029,130C994.3,130,960,130,926,130C891.4,130,857,130,823,130C788.6,130,754,130,720,130C685.7,130,651,130,617,130C582.9,130,549,130,514,130C480,130,446,130,411,130C377.1,130,343,130,309,130C274.3,130,240,130,206,130C171.4,130,137,130,103,130C68.6,130,34,130,17,130L0,130Z"
-        ></path>
-      </svg>
-    </div>
-    <div
-      class="main dsc-end-main"
-      style="
-        padding-top: 1rem;
-        background: url(./src/index/cookie.webp);
-        background-size: 10%;
-        background-color: #1d1d1d;
-      "
-    >
-      <div class="row">
-        <div class="col" align="center">
-          <div class="dsc-end rounded">
-            <h3 class="h3 text-center">
-              Остались вопросы?<br />
-              Напиши на почту :D
-            </h3>
-            <a href="mailto:kotikovdev@gmail.com"
-              ><img id="myImg" src="./src/index/Static.webp" class="Mail" loading="lazy" alt="почта"
-            /></a>
+      <div class="content">
+        <img
+          id="GH-img1"
+          src="https://github-readme-activity-graph.cyclic.app/graph?username=kotru21&color=ffffff&point=ffffff&area_color=ffffff&line=CC0B1A&hide_border=true&area=true&bg_color=false"
+          style="width: 100%"
+        />
+        <div class="row g-3">
+          <div class="col-sm">
+            <img
+              id="GH-img3"
+              class="gh-hover img-responsive"
+              style="width: 100%"
+              src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&layout=compact&text_color=F7F8FA&locale=ru"
+            />
+          </div>
+          <div class="col-sm">
+            <img
+              id="GH-img3"
+              class="gh-hover img-responsive"
+              style="width: 100%"
+              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideNums=F7F8FA&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
+            />
           </div>
         </div>
       </div>
+      <div class="content" style="padding-top: 2rem" id="interests">
+        <h1 class="content-h1">Изучаю</h1>
+        <ul style="padding-top: clamp(2rem, 4vw, 30rem)">
+          <li>
+            <span><i class="bx bxs-cat" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">Котики</h1>
+            <div class="ul-text-wrapper">
+              <p>Лол, здесь нужно что-то объяснять? Котики классные.</p>
+            </div>
+          </li>
+          <li>
+            <span><i class="bx bxs-microchip" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">ИИ</h1>
+            <div class="ul-text-wrapper">
+              <p>
+                Нейро́нная сеть — математическая модель, а также её программное или аппаратное воплощение, построенная по
+                принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого
+                организма.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span><i class="bx bxl-bitcoin" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+            <h1 class="ul-h1">Блокчейн</h1>
+            <div class="ul-text-wrapper">
+              <p>
+                Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
+                широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
+                персональных данных и идентификации, в маркетинге и компьютерных играх.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="content" style="position: relative">
+        <h1 class="content-h1" style="padding-top: 5rem">Source code</h1>
+        <div class="card">
+          <h1 style="padding-bottom: clamp(0.5rem, 0.5vw, 30rem)"><i class="bx bx-code"></i>Ага,</h1>
+          <div class="card-body">
+            <p class="card-text" style="padding-bottom: clamp(1rem, 2vw, 30rem)">
+              Этот сайт имеет открытый исходный код. Хочешь его посмотреть? Кликни по кнопочке ниже.
+            </p>
+            <button type="button" class="stack-btn" onclick="window.open('https://github.com/kotru21/kotikov')">
+              Клик
+            </button>
+          </div>
+        </div>
+        <img src="./src/pc_index/pingv.svg" alt="pingv" class="pingv" />
+      </div>
     </div>
-    <div class="main padding" style="padding-top: 1rem">
-      <h2 class="h2x text-center" style="color: #6255da">
-        <a href="#" class="rgbtext-blue">Arsenij Kotikov©</a>, 2022
-      </h2>
-      <h2 class="h2x text-center" style="color: #dab055">
-        Спасибо, <a class="rgbtext" href="https://www.cloudflare.com/">Сloudflare</a>
-      </h2>
-    </div>
-    <!-- The above code is a slideshow that changes the background color of the page every 4 seconds. -->
-    <script>
-      $(window).on("load", function () {
-        $("#loading").hide();
-      });
-    </script>
-    <script>
-      let slideIndex = 0;
-      showSlides();
-
-      function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-          slideIndex = 1;
-        }
-        document.body.classList.remove("color3");
-        slides[slideIndex - 1].style.display = "block";
-        document.body.classList.add("color" + slideIndex);
-        setTimeout(showSlides, 4000); // Change image every 4 seconds
-        let slideIndexm1 = slideIndex - 1;
-        document.body.classList.remove("color" + slideIndexm1);
-      }
-    </script>
-    <!-- Adding a .visible class to the element when it is in the viewport. -->
-    <script>
-      $(function () {
-        $("#myImg").hover(
-          function () {
-            $(this).attr("src", "./src/index/Live.gif");
-          },
-          function () {
-            $(this).attr("src", "./src/index/Static.webp");
-          }
-        );
-      });
-    </script>
-    <script>
-      if (navigator.deviceMemory < 4) {
-        let confirmAction = confirm("На вашем устройству <4 гигабайт ОЗУ. Загрузить упрощённую версию сайта?");
-        if (confirmAction) {
-          const nobg = document.getElementsByClassName("catbg");
-          for (var i = 0; i < nobg.length; i++) {
-            nobg[i].style.backgroundImage = "none";
-          }
-        } else {
-          alert("Ну как хочешь");
-        }
-      }
-    </script>
   </body>
 </html>
