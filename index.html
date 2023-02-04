@@ -394,33 +394,36 @@
     </div>
   </body>
   <script>
-    const url = `https://api.thecatapi.com/v1/images/search`;
-    const api_key = JSON.stringify(process.env.API_KEY);
+    export function getcat(context) {
+      const url = `https://api.thecatapi.com/v1/images/search`;
+      const api_key = context.env.API_KEY;
 
-    fetch(url, {
-      headers: {
-        "x-api-key": api_key,
-      },
-    })
-      .then((response) => {
-        return response.json();
+      fetch(url, {
+        headers: {
+          "x-api-key": api_key,
+        },
       })
-      .then((data) => {
-        let imagesData = data;
-        imagesData.map(function (imageData) {
-          let image = document.createElement("img");
-          //use the url from the image object
-          image.src = `${imageData.url}`;
-          image.classList = "cat-img";
-          let gridCell = document.getElementById("grid");
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let imagesData = data;
+          imagesData.map(function (imageData) {
+            let image = document.createElement("img");
+            //use the url from the image object
+            image.src = `${imageData.url}`;
+            image.classList = "cat-img";
+            let gridCell = document.getElementById("grid");
 
-          gridCell.appendChild(image);
+            gridCell.appendChild(image);
 
-          document.getElementById("grid").appendChild(gridCell);
+            document.getElementById("grid").appendChild(gridCell);
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    }
+    getcat();
   </script>
 </html>
