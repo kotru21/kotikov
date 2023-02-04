@@ -136,7 +136,16 @@
       </div>
     </div>
 
-    <div class="content about-me" style="position: relative">
+    <div
+      class="content about-me"
+      style="
+        position: relative;
+        background: url('./src/pc_index/about-background.png');
+        background-size: 40%;
+        background-repeat: no-repeat;
+        background-position: 20% 100%;
+      "
+    >
       <div class="d-flex flex-wrap w-100">
         <div class="col">
           <img src="./src/pc_index/PSD.png" class="phone" />
@@ -294,7 +303,15 @@
           src="https://github-readme-activity-graph.cyclic.app/graph?username=kotru21&color=ffffff&point=ffffff&area_color=ffffff&line=CC0B1A&hide_border=true&area=true&bg_color=false"
           style="width: 100%"
         />
-        <div class="row g-3">
+        <div class="row g-4">
+          <div class="col-sm">
+            <img
+              id="GH-img3"
+              class="gh-hover img-responsive"
+              style="width: 100%"
+              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideNums=F7F8FA&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
+            />
+          </div>
           <div class="col-sm">
             <img
               id="GH-img3"
@@ -308,44 +325,56 @@
               id="GH-img3"
               class="gh-hover img-responsive"
               style="width: 100%"
-              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideNums=F7F8FA&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=kotru21&layout=compact&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&text_color=F7F8FA&locale=ru"
             />
           </div>
         </div>
       </div>
       <div class="content" style="padding-top: 2rem" id="interests">
         <h1 class="content-h1">Изучаю</h1>
-        <ul style="padding-top: clamp(2rem, 4vw, 30rem)">
-          <li>
-            <span><i class="bx bxs-cat" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
-            <h1 class="ul-h1">Котики</h1>
-            <div class="ul-text-wrapper">
-              <p>Лол, здесь нужно что-то объяснять? Котики классные.</p>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card">
+              <span><i class="bx bxs-cat" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+              <div class="card-body">
+                <h2 class="card-title">Котики</h2>
+                <p class="card-text">Лол, здесь нужно что-то объяснять? Котики классные.</p>
+              </div>
             </div>
-          </li>
-          <li>
-            <span><i class="bx bxs-microchip" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
-            <h1 class="ul-h1">ИИ</h1>
-            <div class="ul-text-wrapper">
-              <p>
-                Нейро́нная сеть — математическая модель, а также её программное или аппаратное воплощение, построенная по
-                принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого
-                организма.
-              </p>
+          </div>
+          <div class="col">
+            <div class="card">
+              <span><i class="bx bxs-microchip" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+              <div class="card-body">
+                <h2 class="card-title">ИИ</h2>
+                <p class="card-text">
+                  Нейро́нная сеть — математическая модель, а также её программное или аппаратное воплощение, построенная
+                  по принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого
+                  организма.
+                </p>
+              </div>
             </div>
-          </li>
-          <li>
-            <span><i class="bx bxl-bitcoin" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
-            <h1 class="ul-h1">Блокчейн</h1>
-            <div class="ul-text-wrapper">
-              <p>
-                Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
-                широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
-                персональных данных и идентификации, в маркетинге и компьютерных играх.
-              </p>
+          </div>
+          <div class="col">
+            <div class="card">
+              <span><i class="bx bxl-bitcoin" style="color: #e81010; font-size: clamp(2rem, 20vw, 10rem)"></i></span>
+              <div class="card-body">
+                <h2 class="card-title">Блокчейн</h2>
+                <p class="card-text">
+                  Блокчейн — новейшая технология, интерес к которой вырос вместе с популярностью криптовалют. Сегодня ее
+                  широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
+                  персональных данных и идентификации, в маркетинге и компьютерных играх.
+                </p>
+              </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
+      </div>
+      <div class="cat-maincontent todo">
+        <div id="grid" class="content" style="overflow: hidden">
+          <h1 class="content-h1 cat-h1" style="float: right; width: 50%">Рандом пикча</h1>
+        </div>
       </div>
       <div class="content" style="position: relative">
         <h1 class="content-h1" style="padding-top: 5rem">Source code</h1>
@@ -364,4 +393,34 @@
       </div>
     </div>
   </body>
+  <script>
+    const url = `https://api.thecatapi.com/v1/images/search`;
+    const api_key = "live_wx7MLHXsoALnQq6wejxk8O3nHEa5EASPKaKb35ezpc3tBhqKSx7vX1cTEMQ3FA4F";
+
+    fetch(url, {
+      headers: {
+        "x-api-key": api_key,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let imagesData = data;
+        imagesData.map(function (imageData) {
+          let image = document.createElement("img");
+          //use the url from the image object
+          image.src = `${imageData.url}`;
+          image.classList = "cat-img";
+          let gridCell = document.getElementById("grid");
+
+          gridCell.appendChild(image);
+
+          document.getElementById("grid").appendChild(gridCell);
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
 </html>

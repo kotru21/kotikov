@@ -157,6 +157,33 @@ p {
   background: none !important;
   border: none !important;
 }
+.row > .col {
+  border: solid 1px rgba(245, 222, 179, 0);
+  transition: 1s;
+}
+.row > .col:hover {
+  border-bottom: solid 1px white;
+  animation: bg-anim 2s;
+}
+.cat-maincontent {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.cat-img {
+  width: 100% !important;
+}
+
+@keyframes bg-anim {
+  0% {
+    background: none;
+  }
+  50% {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    background: none;
+  }
+}
 .pingv {
   width: 36rem;
   opacity: 0.4;
@@ -185,7 +212,7 @@ div.html-code {
 }
 .about-me {
   padding-top: 1rem;
-  min-height: 70vh;
+  min-height: 90vh;
 }
 .stack-btn {
   background: none;
@@ -200,51 +227,64 @@ div.html-code {
   padding-right: clamp(1rem, 2vw, 30rem);
 }
 .todo {
-  background: linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
-  background-size: 400% 400%;
-
-  -webkit-animation: AnimationName 22s ease infinite;
-  -moz-animation: AnimationName 22s ease infinite;
-  animation: AnimationName 22s ease infinite;
+  background: linear-gradient(147deg, #0c0e12, #0c0e12, #e81010c5);
+  background-size: 200% 200%;
+  -webkit-animation: todo-bg 15s ease infinite;
+  -moz-animation: todo-bg 15s ease infinite;
+  -o-animation: todo-bg 15s ease infinite;
+  animation: todo-bg 15s ease infinite;
 }
 
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes todo-bg {
   0% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
   }
   50% {
-    background-position: 30% 100%;
+    background-position: 100% 48%;
   }
   100% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
   }
 }
-@-moz-keyframes AnimationName {
+@-moz-keyframes todo-bg {
   0% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
   }
   50% {
-    background-position: 30% 100%;
+    background-position: 100% 48%;
   }
   100% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
   }
 }
-@keyframes AnimationName {
+@-o-keyframes todo-bg {
   0% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
   }
   50% {
-    background-position: 30% 100%;
+    background-position: 100% 48%;
   }
   100% {
-    background-position: 71% 0%;
+    background-position: 0% 53%;
+  }
+}
+@keyframes todo-bg {
+  0% {
+    background-position: 0% 53%;
+  }
+  50% {
+    background-position: 100% 48%;
+  }
+  100% {
+    background-position: 0% 53%;
   }
 }
 @media screen and (min-width: 1200px) {
-  .todo {
-    background: url("../../src/pc_index/vector.svg"), linear-gradient(134deg, #0c0e12, #0c0e12, #e81010);
+  .cat-img {
+    width: 30% !important;
+    float: left;
   }
+
   .card-h1 {
     font-size: 4vw !important;
     padding-bottom: 1rem;
@@ -311,6 +351,7 @@ div.html-code {
   .content-h1 {
     font-size: 4rem !important;
     text-align: center;
+    padding-bottom: 3rem;
   }
   .content-h2-mobile-align {
     text-align: right;

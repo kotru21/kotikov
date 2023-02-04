@@ -36,6 +36,7 @@ function load() {
   useDark.addListener((evt) => toggleDarkMode(evt.matches));
 
   // Toggles the "dark-mode" class on click
+  /* Changing the image source when the button is clicked. */
   button.addEventListener("click", () => {
     document.documentElement.classList.toggle("dark-mode");
     document.documentElement.classList.toggle("dark-mode");
@@ -68,6 +69,7 @@ if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matc
   document.getElementById("GH-img3").src =
     "https://github-readme-streak-stats.herokuapp.com/?user=kotru21&theme=grey&hide_border=true&area=true";
 }
+/* Changing the image source when the user changes the theme. */
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
   console.log("a");
   const newColorScheme = event.matches ? "dark" : "light";
