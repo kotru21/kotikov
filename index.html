@@ -395,7 +395,7 @@
   </body>
   <script>
     const url = `https://api.thecatapi.com/v1/images/search`;
-    const api_key = process.env.API_KEY;
+    const api_key = JSON.stringify(process.env.API_KEY);
 
     fetch(url, {
       headers: {
