@@ -394,36 +394,42 @@
     </div>
   </body>
   <script>
-    export function getcat(context) {
-      const url = `https://api.thecatapi.com/v1/images/search`;
-      const api_key = context.env.API_KEY;
+    const url = `https://api.thecatapi.com/v1/images/search`;
+    const api_key = production.env.API_KEY;
 
-      fetch(url, {
-        headers: {
-          "x-api-key": api_key,
-        },
+    fetch(url, {
+      headers: {
+        "x-api-key": api_key,
+      },
+    })
+      .then((response) => {
+        return response.json();
       })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          let imagesData = data;
-          imagesData.map(function (imageData) {
-            let image = document.createElement("img");
-            //use the url from the image object
-            image.src = `${imageData.url}`;
-            image.classList = "cat-img";
-            let gridCell = document.getElementById("grid");
+      .then((data) => {
+        let imagesData = data;
+        imagesData.map(function (imageData) {
+          let image = document.createElement("img");
+          //use the url from the image object
+          image.src = `${imageData.url}`;
+          image.classList = "cat-img";
+          let gridCell = document.getElementById("grid");
 
-            gridCell.appendChild(image);
+          gridCell.appendChild(image);
 
-            document.getElementById("grid").appendChild(gridCell);
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
+          document.getElementById("grid").appendChild(gridCell);
         });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+  <script>
+    export function onRequest(context) {
+      if (context.env.ENVIRONMENT === "development") {
+        return new Response("This is a local environment!");
+      } else {
+        return new Response("This is a live environment");
+      }
     }
-    getcat();
   </script>
 </html>
