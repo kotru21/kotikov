@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="./css/pc/solar.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/pc/pc.css" rel="stylesheet" />
+    <link href="./css/pc/window.css" rel="stylesheet" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
       integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
@@ -136,67 +137,90 @@
       </div>
     </div>
 
-    <div
-      class="content about-me"
-      style="
-        position: relative;
-        background: url('./src/pc_index/about-background.png');
-        background-size: 40%;
-        background-repeat: no-repeat;
-        background-position: 20% 100%;
-      "
-    >
-      <div class="d-flex flex-wrap w-100">
-        <div class="col">
-          <img src="./src/pc_index/PSD.png" class="phone" />
-          <h1 class="content-h1">Обо мне</h1>
-          <h2 class="content-h2-mobile-align" style="padding-bottom: 1rem">немного инфы</h2>
-          <div class="about-me-pc-bottom d-flex flex-row">
-            <h1 style="font-size: clamp(1rem, 14vh, 30rem) !important">Я</h1>
-            <h2>занимаюсь WEB-разработкой<br />уже несколько лет</h2>
-          </div>
-        </div>
-        <div class="col">
-          <div class="about-me-pc-bottom">
-            <div class="html-code" id="about-me">
-              <h2>_index.html</h2>
-              <p class="non-focus html-code">
-                &lt;head><br />
-                &lt;meta charset="UTF-8"><br />
-                &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"> &lt;meta name="viewport"
-                content="width=device-width, initial-scale=1.0" ><br />
-              </p>
-              <h2>
-                <span class="non-focus"> &lt;title></span> Arsenij Kotikov <span class="non-focus"> &lt;/title></span>
-              </h2>
-              <p class="non-focus html-code">
-                <br />
-                &lt;/head> <br />&lt;body><br />
-              </p>
-              <h2>
-                <span class="non-focus"> &lt;h1></span> Веб-разрабочик <span class="non-focus"> &lt;/h1></span><br />
-
-                <span class="non-focus"> &lt;h2> </span> Starting from 2020 <span class="non-focus"> &lt;/h2></span>
-              </h2>
+    <div class="content about-me mb-lg-5" style="position: relative">
+      <div class="window">
+        <div class="titlebar">
+          <div class="buttons">
+            <div class="close">
+              <a class="closebutton" href="#"
+                ><span><strong>x</strong></span></a
+              >
+              <!-- close button link -->
             </div>
-            <div class="d-flex w-100">
-              <div class="col">
-                <div style="padding-left: 1rem"><button class="stack-btn" onclick="alert('meow');">Мяу</button></div>
+            <div class="minimize">
+              <a class="minimizebutton" href="#"
+                ><span><strong>&ndash;</strong></span></a
+              >
+              <!-- minimize button link -->
+            </div>
+            <div class="zoom">
+              <a class="zoombutton" href="#"
+                ><span><strong>+</strong></span></a
+              >
+              <!-- zoom button link -->
+            </div>
+          </div>
+          Арсений Котиков
+          <!-- window title -->
+        </div>
+        <div class="about-me-window" style="background: white; min-height: 80vh">
+          <div class="d-flex flex-wrap w-100 h-100" style="overflow: hidden">
+            <div class="col">
+              <img src="./src/pc_index/PSD.png" class="phone" />
+              <h1 class="content-h1 inverted">Обо мне</h1>
+              <h2 class="inverted" style="padding-bottom: 1rem">немного инфы</h2>
+              <div class="about-me-pc-bottom d-flex flex-row">
+                <h1 class="inverted" style="font-size: clamp(1rem, 14vh, 30rem) !important">Я</h1>
+                <h2 class="inverted">занимаюсь WEB-разработкой<br />уже несколько лет</h2>
               </div>
-              <div class="col">
-                <a href="#code-stack">
-                  <div style="padding-left: 1rem"><button class="stack-btn">Стек</button></div>
-                </a>
+            </div>
+            <div class="col">
+              <div class="about-me-pc-bottom">
+                <div class="html-code" id="about-me">
+                  <h2 class="inverted">_index.html</h2>
+                  <p class="non-focus html-code inverted">
+                    &lt;head><br />
+                    &lt;meta charset="UTF-8"><br />
+                    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"><br />
+                    &lt;content="width=device-width, initial-scale=1.0" ><br />
+                  </p>
+                  <h2 class="inverted">
+                    <span class="non-focus inverted"> &lt;title></span> Arsenij Kotikov
+                    <span class="non-focus"> &lt;/title></span>
+                  </h2>
+                  <p class="non-focus html-code inverted">
+                    <br />
+                    &lt;/head> <br />&lt;body><br />
+                  </p>
+                  <h2 class="inverted">
+                    <span class="non-focus inverted"> &lt;h1></span> Веб-разрабочик
+                    <span class="non-focus"> &lt;/h1></span><br />
+
+                    <span class="non-focus inverted"> &lt;h2> </span> Starting from 2020
+                    <span class="non-focus inverted"> &lt;/h2></span>
+                  </h2>
+                </div>
+                <div class="d-flex w-100">
+                  <div class="col">
+                    <div style="padding-left: 1rem">
+                      <button class="stack-btn inverted" onclick="alert('meow');">Мяу</button>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <a href="#code-stack">
+                      <div style="padding-left: 1rem"><button class="stack-btn inverted">Стек</button></div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="my-projects" style="overflow: hidden">
-      <div class="content">
-        <h1 class="content-h1" style="padding-top: 5rem">Мой<br />стек</h1>
+      <div class="content pt-5">
+        <h1 class="content-h1">Мой<br />стек</h1>
         <div>
           <section id="solar-system">
             <div id="sun"></div>
@@ -262,15 +286,15 @@
         </div>
       </div>
       <div class="todo">
-        <div class="content">
-          <h1 class="content-h1" style="padding-top: 5rem">TODO</h1>
+        <div class="content pt-5">
+          <h1 class="content-h1 inverted pb-4">TODO</h1>
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
               <div class="card">
-                <h1><i class="bx bxl-c-plus-plus"></i>C++</h1>
+                <h1 class="card-h1 inverted"><i class="bx bxl-c-plus-plus inverted"></i>C++</h1>
                 <div class="card-body">
-                  <h5 class="card-title">Си плас плас</h5>
-                  <p class="card-text">
+                  <h5 class="card-title inverted">Си плас плас</h5>
+                  <p class="card-text inverted">
                     Объекто-ориентированные языки программирования промежуточного уровня.C++ широко используется для
                     разработки программного обеспечения, являясь одним из самых популярных языков программирования.
                     Область его применения включает создание операционных систем, разнообразных прикладных программ,
@@ -282,10 +306,10 @@
             </div>
             <div class="col">
               <div class="card">
-                <h1><i class="bx bxl-google"></i>GO</h1>
+                <h1 class="card-h1 inverted"><i class="bx bxl-google inverted"></i>GO</h1>
                 <div class="card-body">
-                  <h5 class="card-title">Golang</h5>
-                  <p class="card-text">
+                  <h5 class="card-title inverted">Golang</h5>
+                  <p class="card-text inverted">
                     Go представляет компилируемый статически типизированный язык программирования от компании Google.
                     Язык Go предназначен для создания различного рода приложений, но прежде всего это веб-сервисы и
                     клиент-серверные приложения. Хотя также язык обладает возможностями по работе с графикой,
@@ -297,41 +321,9 @@
           </div>
         </div>
       </div>
-      <div class="content">
-        <img
-          id="GH-img1"
-          src="https://github-readme-activity-graph.cyclic.app/graph?username=kotru21&color=ffffff&point=ffffff&area_color=ffffff&line=CC0B1A&hide_border=true&area=true&bg_color=false"
-          style="width: 100%"
-        />
-        <div class="row g-4">
-          <div class="col-sm">
-            <img
-              id="GH-img3"
-              class="gh-hover img-responsive"
-              style="width: 100%"
-              src="https://github-readme-streak-stats.herokuapp.com/?user=kotru21&background=0C0E12&border=CC0B1A&area=true&sideNums=F7F8FA&sideLabels=F7F8FA&dates=F7F8FA&currStreakNum=F7F8FA&currStreakLabel=F7F8FA&locale=ru"
-            />
-          </div>
-          <div class="col-sm">
-            <img
-              id="GH-img3"
-              class="gh-hover img-responsive"
-              style="width: 100%"
-              src="https://github-readme-stats.vercel.app/api?username=kotru21&stars,commits,prs,issues,contribs&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&layout=compact&text_color=F7F8FA&locale=ru"
-            />
-          </div>
-          <div class="col-sm">
-            <img
-              id="GH-img3"
-              class="gh-hover img-responsive"
-              style="width: 100%"
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=kotru21&layout=compact&bg_color=0C0E12&border_color=CC0B1A&title_color=CC0B1A&area=true&text_color=F7F8FA&locale=ru"
-            />
-          </div>
-        </div>
-      </div>
+
       <div class="content" style="padding-top: 2rem" id="interests">
-        <h1 class="content-h1">Изучаю</h1>
+        <h1 class="content-h1 pb-4">Изучаю</h1>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col">
@@ -377,14 +369,14 @@
         </div>
       </div> -->
       <div class="content" style="position: relative">
-        <h1 class="content-h1" style="padding-top: 5rem">Source code</h1>
+        <h1 class="content-h1 pb-4" style="padding-top: 5rem">Source code</h1>
         <div class="card">
           <h1 style="padding-bottom: clamp(0.5rem, 0.5vw, 30rem)"><i class="bx bx-code"></i>Ага,</h1>
           <div class="card-body">
             <p class="card-text" style="padding-bottom: clamp(1rem, 2vw, 30rem)">
               Этот сайт имеет открытый исходный код. Хочешь его посмотреть? Кликни по кнопочке ниже.
             </p>
-            <button type="button" class="stack-btn" onclick="window.open('https://github.com/kotru21/kotikov')">
+            <button type="button" class="stack-btn-2" onclick="window.open('https://github.com/kotru21/kotikov')">
               Клик
             </button>
           </div>
@@ -392,8 +384,45 @@
         <img src="./src/pc_index/pingv.svg" alt="pingv" class="pingv" />
       </div>
     </div>
+    <div>
+      <footer class="text-center" style="background-color: #f1f1f1">
+        <!-- Grid container -->
+        <div class="container pt-4">
+          <!-- Section: Social media -->
+          <section>
+            <a class="btn" href="https://youtube.com/@kotikov" role="button" data-mdb-ripple-color="dark"
+              ><i class="footer bx bxl-youtube inverted"></i
+            ></a>
+
+            <a class="btn" href="https://twitter.com/arsenij_kotikov" role="button" data-mdb-ripple-color="dark"
+              ><i class="footer bx bxl-twitter inverted"></i
+            ></a>
+
+            <a class="btn" href="https://github.com/kotru21" role="button" data-mdb-ripple-color="dark"
+              ><i class="footer bx bxl-github inverted"></i
+            ></a>
+
+            <a class="btn" href="https://instagram.com/arsenij_kotikov" role="button" data-mdb-ripple-color="dark"
+              ><i class="footer bx bxl-instagram inverted"></i
+            ></a>
+
+            <!-- Section: Social media -->
+
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+              © 2023 Copyright:
+              <a class="text-dark" href="https://kotikov.is-a.dev/">kotikov</a>
+            </div>
+            <!-- Copyright -->
+          </section>
+        </div>
+      </footer>
+    </div>
   </body>
-  <!-- <script>
+</html>
+<!-- <script>
     const url = `https://api.thecatapi.com/v1/images/search`;
     const api_key = production.env.API_KEY;
 
@@ -423,4 +452,3 @@
         console.log(error);
       });
   </script> -->
-</html>

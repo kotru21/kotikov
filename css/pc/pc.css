@@ -4,15 +4,18 @@
   font-family: "Open Sans", sans-serif !important;
   color: white;
 }
+.inverted {
+  color: black;
+}
 .pc,
 .mobile {
   display: none;
 }
 body {
-  background: #0c0e12 !important;
+  background: #000000 !important;
 }
 .header {
-  background: #0c0e12;
+  background: #000000;
   min-height: 100vh;
   padding-left: 3rem;
   padding-right: 3rem;
@@ -38,9 +41,12 @@ p {
   opacity: 0.6;
   margin: 0 !important;
 }
+i {
+  padding-right: 0.5rem;
+}
 
-.footer {
-  padding-top: 3rem;
+i.footer {
+  font-size: 2rem !important;
 }
 
 .projects-div,
@@ -211,23 +217,33 @@ div.html-code {
   opacity: 0.4;
 }
 .about-me {
-  padding-top: 1rem;
   min-height: 90vh;
+  padding-top: 1rem;
 }
-.stack-btn {
+
+.stack-btn,
+.stack-btn-2 {
   background: none;
   font-size: 3rem;
-  border-left: 0.5rem solid white;
+  border-left: 0.5rem solid black;
   padding-left: clamp(1rem, 2vw, 30rem);
   transition: 1s;
 }
-.stack-btn:hover {
-  background: white;
-  color: #0c0e12;
+.stack-btn-2 {
+  border-left: 0.5rem solid white;
+}
+.stack-btn:hover,
+.stack-btn-2:hover {
+  background: black;
+  color: white;
   padding-right: clamp(1rem, 2vw, 30rem);
 }
+.stack-btn-2:hover {
+  background: white;
+  color: black;
+}
 .todo {
-  background: linear-gradient(147deg, #0c0e12, #0c0e12, #e81010c5);
+  background: rgb(255, 255, 255);
   background-size: 200% 200%;
   -webkit-animation: todo-bg 15s ease infinite;
   -moz-animation: todo-bg 15s ease infinite;
@@ -280,6 +296,10 @@ div.html-code {
   }
 }
 @media screen and (min-width: 1200px) {
+  .about-me-window {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
   .cat-img {
     width: 30% !important;
     float: left;
@@ -294,7 +314,7 @@ div.html-code {
   }
   .about-me-pc-bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 8rem;
   }
   .ul-text-wrapper > p {
     padding-left: 17rem;
@@ -318,13 +338,22 @@ div.html-code {
   }
 
   .content {
-    padding-left: 12vw;
-    padding-right: 12vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
     width: 100%;
     padding-bottom: 4rem;
   }
 }
 @media screen and (max-width: 1200px) {
+  .about-me {
+    padding-top: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  .about-me-window {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   .ul-h1 {
     padding-top: 2rem;
   }
@@ -351,11 +380,8 @@ div.html-code {
   .content-h1 {
     font-size: 4rem !important;
     text-align: center;
-    padding-bottom: 3rem;
   }
-  .content-h2-mobile-align {
-    text-align: right;
-  }
+
   .quadcol-2 {
     display: none;
   }
