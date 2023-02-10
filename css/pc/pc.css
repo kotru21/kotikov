@@ -337,7 +337,8 @@ div.html-code {
     text-align: right;
   }
 
-  .content {
+  .content,
+  content-special {
     padding-left: 15vw;
     padding-right: 15vw;
     width: 100%;
@@ -347,7 +348,6 @@ div.html-code {
 @media screen and (max-width: 1200px) {
   .about-me {
     padding-top: 0;
-    margin-left: -1rem;
   }
   .about-me-window {
     padding-left: 1rem;
@@ -375,6 +375,9 @@ div.html-code {
   .content {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .content-special {
+    padding: none;
   }
   .content-h1 {
     font-size: 4rem !important;
