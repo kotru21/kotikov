@@ -424,33 +424,76 @@
     </div>
   </body>
 </html>
-<!-- <script>
-    const url = `https://api.thecatapi.com/v1/images/search`;
-    const api_key = production.env.API_KEY;
+<script>
+  
+
+
+
+interface Env {
+
+   KV: KVNamespace;
+
+   API_KEY:string;
+
+}
+
+export const onRequest: PagesFunction<Env> = async (context) => {
+
+
+
+    const api_key = env.API_KEY;
 
     fetch(url, {
+
       headers: {
+
         "x-api-key": api_key,
+
       },
+
     })
-      .then((response) => {
+
+then((response) => {
+
         return response.json();
+
       })
+
       .then((data) => {
+
         let imagesData = data;
+
         imagesData.map(function (imageData) {
+
           let image = document.createElement("img");
+
           //use the url from the image object
+
           image.src = `${imageData.url}`;
+
           image.classList = "cat-img";
+
           let gridCell = document.getElementById("grid");
 
           gridCell.appendChild(image);
 
           document.getElementById("grid").appendChild(gridCell);
+
         });
+
       })
+
       .catch(function (error) {
+
         console.log(error);
+
       });
-  </script> -->
+
+}
+
+
+
+
+
+      
+  </script>
