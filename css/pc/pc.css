@@ -221,7 +221,7 @@ i.footer {
   padding-left: 5vw;
 }
 .html-code {
-  padding-left: 5vw;
+  padding-left: clamp(2rem, 2vw, 30rem);
 }
 div.html-code {
   padding-bottom: clamp(2rem, 4vw, 30rem);
@@ -309,6 +309,9 @@ div.html-code {
   }
 }
 @media screen and (min-width: 1200px) {
+  .todo {
+    width: 80%;
+  }
   .about-me-window {
     padding-left: 2rem;
     padding-right: 2rem;
