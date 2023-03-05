@@ -383,9 +383,6 @@ div.html-code {
   .mobile {
     display: block;
   }
-  .pc-hide {
-    display: block;
-  }
 
   .phone {
     left: -40vw;
@@ -411,6 +408,9 @@ div.html-code {
   }
 }
 @media screen and (max-width: 800px) {
+  .pc-hide {
+    display: block;
+  }
   .quadcol {
     display: none;
   }
