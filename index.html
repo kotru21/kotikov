@@ -175,6 +175,72 @@
             overflow: hidden;
           "
         >
+          <div class="desktop-icons">
+            <a class="app-button" data-app-window="app-window-1">
+              <div class="icon">
+                <img src="./src/pc_index/pingv.svg" />
+                <span>Мой пека</span>
+              </div>
+            </a>
+            <!-- <div class="icon">
+              <img src="icon2.png" />
+              <span>Icon 2</span>
+            </div>
+            <div class="icon">
+              <img src="icon3.png" />
+              <span>Icon 3</span>
+            </div>
+            <div class="icon">
+              <img src="icon4.png" />
+              <span>Icon 4</span>
+            </div>
+            <div class="icon">
+              <img src="icon5.png" />
+              <span>Icon 5</span>
+            </div> -->
+          </div>
+          <style>
+            .about-me-window {
+              display: flex;
+              flex-direction: column;
+
+              justify-content: space-between;
+            }
+
+            .desktop-icons {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: left;
+              max-width: 800px;
+              margin-top: 20px;
+            }
+
+            .icon {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              margin: 10px;
+              width: 100px;
+              height: 100px;
+              background-color: black;
+
+              border-radius: 10px;
+            }
+
+            .icon img {
+              max-width: 70%;
+              max-height: 70%;
+            }
+
+            .icon span {
+              margin-top: 5px;
+              font-size: 14px;
+              font-weight: bold;
+              text-align: center;
+            }
+          </style>
+
           <div class="dock">
             <ul>
               <!-- <li>
@@ -190,9 +256,9 @@
           </div>
           <!-- Окна с приложениями -->
           <div class="app-window app-window-1">
-            <div class="app-window-header">Tiktok</div>
+            <div class="app-window-header">О пека</div>
             <div class="app-window-body">
-              <p>This is my application. It's awesome!</p>
+              <h1 class="inverted">:D</h1>
             </div>
           </div>
           <div class="app-window app-window-2">
