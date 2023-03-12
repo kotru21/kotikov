@@ -61,20 +61,36 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css"
+      integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w=="
+      crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+      integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js"
+      integrity="sha512-QTYXYEniHb1m0ZKtSyfpmw40uH9vPfV07vxsv/plIRMEiON4yOp2qoZiv/FTqFIOym4bdQ4+p9RtHaCMC0ApRw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css"
+      integrity="sha512-3/cdM9qaJ5lBlzRKqwhMw+ZcNCVonz66BO6HgJudG/P1azm9wFrru31SsBa4T4Ew1AOH8HfDXSWS6emWwPl42A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-python.min.js"
+      integrity="sha512-3qtI9+9JXi658yli19POddU1RouYtkTEhTHo6X5ilOvMiDfNvo6GIS6k2Ukrsx8MyaKSXeVrnIWeyH8G5EOyIQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <title>Арсений Котиков</title>
   </head>
   <body>
@@ -547,7 +563,7 @@
           <div class="app-window app-window-4">
             <div class="app-window-header">NASA source code(?)</div>
             <div class="app-window-body">
-              <pre><code class="language-python">
+              <pre class="line-numbers"><code class="language-python" >
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import random
@@ -802,6 +818,11 @@ def ai(text):  # переменная recommendation из recommendation.py
 #if status_weather == 'ясно':
     #recommendation_first.append('Погода на улице довольно хорошая, не хотите ли прогуляться?')
                 </code></pre>
+              <script>
+                window.addEventListener("DOMContentLoaded", function () {
+                  Prism.plugins.lineNumbers.initialize();
+                });
+              </script>
             </div>
           </div>
           <style>
