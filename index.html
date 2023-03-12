@@ -59,6 +59,21 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <title>Арсений Котиков</title>
   </head>
@@ -182,6 +197,12 @@
                 <span>Мой пека</span>
               </div>
             </a>
+            <a class="app-button" data-app-window="app-window-4">
+              <div class="icon">
+                <img src="./src/pc_index/pingv.svg" />
+                <span>DO NOT</span>
+              </div>
+            </a>
             <!-- <div class="icon">
               <img src="icon2.png" />
               <span>Icon 2</span>
@@ -261,6 +282,7 @@
               <h1 class="inverted">:D</h1>
             </div>
           </div>
+
           <div class="app-window app-window-2">
             <div class="app-window-header">Tiktok</div>
             <div class="app-window-body">
@@ -520,6 +542,266 @@
                   </div>
                 </div>
               </main>
+            </div>
+          </div>
+          <div class="app-window app-window-4">
+            <div class="app-window-header">NASA source code(?)</div>
+            <div class="app-window-body">
+              <pre><code class="language-python">
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import random
+from transformers import *
+from googletrans import Translator
+
+
+app = FastAPI()
+ideal_steps = 10000
+# Recommendation
+recommendation_first = []
+recommendation_second = []
+
+
+
+#CORS
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_origins=['*']
+)
+
+
+@app.get("/get_recommendation")
+async def get_reccomendation():
+    if len(recommendation_first) == 0:
+        recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
+    else:
+        recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
+    rec = recommendation
+    return {"recommendation": rec}
+
+
+@app.get("/test")
+async def get_test():
+    return{"Arseniy": "Debil"}
+
+
+
+@app.get("/get_daily_info")
+async def get_daily_info():
+    return {
+    "weight":status_weight, 
+    "calories":status_calories,
+    "water":status_water, 
+    "sleep":status_sleep,
+    "steps":status_steps
+    }
+
+@app.get("/get_person_info")
+async def get_person_info():
+    return {
+    "weight":ideal_weight,
+    "calories":ideal_calories,
+    "sleep":ideal_sleep,
+    "steps":ideal_steps,
+    "water":ideal_water
+    }
+
+@app.post("/set_person_info")
+async def set_person_info(sex: str, age: int, growth: int, weight: int):
+    start(sex, age, growth,weight)
+    return {
+    "weight":ideal_weight - 14,
+    "calories":ideal_calories + 200,
+    "sleep":ideal_sleep,
+    "steps":ideal_steps,
+    "water":ideal_water,
+    }
+
+@app.post("/set_daily_info")
+async def set_daily_info(get_sleep: int, get_calories: int, get_water: float, get_weight: int, get_steps: int):
+    status_sleep_(ideal_sleep, get_sleep)
+    status_colories_(ideal_calories, get_calories)
+    status_water_(ideal_water, get_water)
+    status_weight_(ideal_weight, get_weight)
+    status_steps_(ideal_steps, get_steps)
+    if len(recommendation_first) == 0:
+        recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
+    else:
+        recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
+    rec = recommendation
+    rec = ai(rec)
+    return {
+    "weight":status_weight, 
+    "calories":status_calories,
+    "water":status_water, 
+    "sleep":status_sleep,
+    "steps":status_steps,
+    "recommendation": rec
+    
+    }
+
+# PERSON INFO
+def sleep_(age):
+    global ideal_sleep
+    if age < 5:
+        ideal_sleep = 11.5  # 10-13
+    elif age < 13:
+        ideal_sleep = 10  # 9-11
+    elif age < 17:
+        ideal_sleep = 9  # 8-10
+    elif age < 65:
+        ideal_sleep = 8.5  # 7-11
+    return ideal_sleep
+
+
+def calories_(sex, age, weight, growth):
+    global ideal_calories
+    if sex == 'm':
+        ideal_calories = 88.36 + (13.4 * weight) + (4.8 * growth) - (5.7 * age) 
+    elif sex == 'w':
+        ideal_calories = 447.6 + (9.2 * weight) + (3.1 * growth) - (4.3 * age)
+
+    return ideal_calories
+
+def water_(weight):
+    global ideal_water
+    ideal_water = 0.035 * weight
+    return ideal_water
+
+def weight_(sex, growth):
+    global ideal_weight
+    if sex == 'm':
+        ideal_weight = (growth - 100) * 1.15
+    elif sex == 'w':
+        ideal_weight = (growth - 110) * 1.15
+    return ideal_weight
+
+def start(sex, age, growth, weight):
+    sleep_(age)
+    calories_(sex, age, weight, growth)
+    water_(weight)
+    weight_(sex, growth)
+
+
+#Daily info
+
+def status_sleep_(ideal_sleep,get_sleep):
+    global status_sleep
+    if ideal_sleep - get_sleep > 2:
+        status_sleep = 'недостаточно'
+    elif get_sleep - ideal_sleep > 2:
+        status_sleep = 'много'
+    else:
+        status_sleep = 'идеально'
+
+    if status_sleep == 'недостаточно':
+        recommendation_first.append('Вы сегодня мало поспали. Давайте вечером ляжем пораньше?')
+    
+    if status_sleep == 'идеально':
+        recommendation_second.append('Вы делаете прогресс! Постарайтесь ложиться в такое время, чтобы был сбалансированный режим')
+
+    return status_sleep
+
+def status_colories_(ideal_calories,get_calories):
+    global status_calories
+    if ideal_calories - get_calories > 300:
+        status_calories = 'недостаточно'
+    elif get_calories - ideal_calories > 300:
+        status_calories = 'много'
+    else:
+        status_calories = 'идеально'
+    
+    if status_calories == 'идеально':
+        recommendation_second.append('Вы молодец!!! Старайтесь употреблять большое количество фруктов и овощей')
+
+    if status_calories == 'недостаточно':
+        recommendation_first.append('Вам нужна еда для энергии. Приготовьте например омлет или запеканку')
+    return status_calories
+
+def status_water_(ideal_water,get_water):
+    global status_water
+    if ideal_water - get_water > 0.2:
+        status_water = 'недостаточно'
+    elif get_water - ideal_water > 0.5:
+        status_water = 'много'
+    else:
+        status_water = 'идеально'
+
+    if status_water == 'идеально':
+        recommendation_second.append('Вы молодец, что пьёте воду!!!')
+    
+    if status_water == 'недостаточно':
+        recommendation_first.append('Пейте больше воды для поддержания баланса.')
+
+    return status_water
+
+def status_weight_(ideal_weight,get_weight):
+    global status_weight
+    if ideal_weight - get_weight > 10:
+        status_weight = 'недостаточно'
+    elif get_weight - ideal_weight > 10:
+        status_weight = 'много'
+    else:
+        status_weight = 'идеально'
+    
+    if status_weight == 'много':
+        recommendation_first.append('Вредная еда она такая вкусная, но нужно уметь себя останавливать')
+
+    return status_weight
+
+def status_steps_(ideal_steps, get_steps):
+    global status_steps
+    if ideal_steps - get_steps > 2000:
+        status_steps = 'недостаточно'
+    elif get_steps - ideal_steps > 2000:
+        status_steps = 'много'
+    elif ideal_steps - get_steps == 0:
+        status_steps = 'идеально'
+    
+    if status_steps == 'недостаточно':
+        recommendation_first.append('Сегодня вы были недостаточно активны. Постарайтесь больше двигаться')
+
+    if status_steps == 'идеально':
+        recommendation_second.append('Вы прошли 10,000 шагов! Вы проделали замечательную работу!')
+
+    return status_steps
+
+
+def get_paraphrased_sentences(model, tokenizer, sentence, num_return_sequences=5, num_beams=5):
+    inputs = tokenizer([sentence], truncation=True, padding="longest", return_tensors="pt")
+    outputs = model.generate(
+        **inputs,
+        num_beams=num_beams,
+        num_return_sequences=num_return_sequences,
+    )
+    return tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+
+def ai(text):  # переменная recommendation из recommendation.py
+
+    translator = Translator()
+    sentence = translator.translate(text, dest='en').text
+
+    model = PegasusForConditionalGeneration.from_pretrained("tuner007/pegasus_paraphrase")
+    tokenizer = PegasusTokenizerFast.from_pretrained("tuner007/pegasus_paraphrase")
+
+    w = get_paraphrased_sentences(model, tokenizer, sentence, num_beams=30, num_return_sequences=5)
+    for i, x in enumerate(w):
+        w[i] = translator.translate(x, dest='ru').text
+
+    text = w[random.randint(0, len(w) - 1)]
+    return text
+
+
+#if status_weather == 'облачно':
+#    recommendation_first.append('Погода за окном не очень... Попробуйте посмотреть интересный фильм или помедитировать?')
+#if status_weather == 'ясно':
+    #recommendation_first.append('Погода на улице довольно хорошая, не хотите ли прогуляться?')
+                </code></pre>
             </div>
           </div>
           <style>
