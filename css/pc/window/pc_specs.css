@@ -1,15 +1,15 @@
 .window-content {
-  padding: 10px;
   overflow-y: auto;
 }
-
+.pc_specs-special {
+  background: white;
+  height: 4rem;
+}
 /* Стили таблицы */
 table {
   border-collapse: collapse;
-  margin-top: 10px;
-  margin-bottom: 10px;
+
   width: 100%;
-  border: 1px solid #ccc;
 }
 
 th,

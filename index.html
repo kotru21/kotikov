@@ -138,7 +138,6 @@
         </div>
         <div class="quadcol-3 grey"></div>
         <div class="quadcol-4 grey"></div>
-        <div class="quadcol-5 grey"></div>
       </div>
       <div
         class="pc-hide my-social"
@@ -222,28 +221,17 @@
                 <span>DO NOT</span>
               </div>
             </a>
-            <!-- <div class="icon">
-              <img src="icon2.png" />
-              <span>Icon 2</span>
-            </div>
-            <div class="icon">
-              <img src="icon3.png" />
-              <span>Icon 3</span>
-            </div>
-            <div class="icon">
-              <img src="icon4.png" />
-              <span>Icon 4</span>
-            </div>
-            <div class="icon">
-              <img src="icon5.png" />
-              <span>Icon 5</span>
-            </div> -->
           </div>
+          <style>
+            #vscode-editor {
+              width: 100%;
+              height: 100%;
+            }
+          </style>
           <style>
             .about-me-window {
               display: flex;
               flex-direction: column;
-
               justify-content: space-between;
             }
 
@@ -289,20 +277,19 @@
               <li>
                 <a class="app-button" data-app-window="app-window-2"><img src="./src/svg/tiktok.svg" /></a>
               </li>
-              <!-- <li>
-                <a class="app-button" data-app-window="app-window-3"><img src="./src/svg/yt.svg" /></a>
-              </li> -->
+              <li>
+                <a class="app-button" data-app-window="app-window-5"><img src="./src/svg/vscode.svg" /></a>
+              </li>
             </ul>
           </div>
           <!-- Окна с приложениями -->
           <div class="app-window app-window-1">
-            <div class="app-window-header">О пека</div>
+            <div class="app-window-header"><i class="bx bx-info-circle"></i>О пека</div>
             <div class="app-window-body">
               <div class="window-content">
                 <table>
                   <tr>
-                    <th>Component</th>
-                    <th>Specification</th>
+                    <td class="pc_specs-special" colspan="2">Характеристики устройства</td>
                   </tr>
                   <tr>
                     <td>Процессор</td>
@@ -338,7 +325,7 @@
           </div>
 
           <div class="app-window app-window-2">
-            <div class="app-window-header">Tiktok</div>
+            <div class="app-window-header"><i class="bx bxl-tiktok"></i>Tiktok</div>
             <div class="app-window-body">
               <header class="tiktok-header">
                 <div class="tiktok logo">
@@ -404,8 +391,8 @@
               </main>
             </div>
           </div>
-          <div class="app-window app-window-3">
-            <div class="app-window-header">Tiktok</div>
+          <!-- <div class="app-window app-window-3">
+            <div class="app-window-header">Vk</div>
             <div class="app-window-body">
               <header class="vk-header">
                 <div class="vk logo">
@@ -467,9 +454,9 @@
                 </div>
               </main>
             </div>
-          </div>
+          </div> -->
           <div class="app-window app-window-4">
-            <div class="app-window-header">NASA source code(?)</div>
+            <div class="app-window-header"><i class="bx bx-question-mark"></i>NASA source code(?)</div>
             <div class="app-window-body">
               <pre class="line-numbers"><code class="language-python" >
 from fastapi import FastAPI
@@ -726,22 +713,18 @@ def ai(text):  # переменная recommendation из recommendation.py
 #if status_weather == 'ясно':
     #recommendation_first.append('Погода на улице довольно хорошая, не хотите ли прогуляться?')
                 </code></pre>
-              <script>
-                window.addEventListener("DOMContentLoaded", function () {
-                  Prism.plugins.lineNumbers.initialize();
-                });
-              </script>
             </div>
           </div>
 
-          <div class="app-window app-window-4">
-            <h2>My Application 4</h2>
-            <p>This is my fourth application. It's awesome!</p>
-          </div>
           <div class="app-window app-window-5">
-            <h2>My Application 5</h2>
-            <p>This is my fifth application. It's awesome!</p>
+            <div class="app-window-header"><i class="bx bxl-visual-studio"></i>Visual Studio Code</div>
+            <div class="app-window-body">
+              <pre class="line-numbers"><code class="language-javascript" contenteditable="true" style="outline: none;">
+              <div id="editableDiv"></div>
+              </code></pre>
+            </div>
           </div>
+
           <script src="./src/js/window.js"></script>
           <script src="./src/js/drag-window.js"></script>
         </div>
@@ -972,3 +955,11 @@ def ai(text):  # переменная recommendation из recommendation.py
         console.log(error);
       });
   </script> -->
+<script>
+  // Get the current page's HTML content
+  var htmlContent = document.documentElement.outerHTML;
+
+  // Display the HTML content inside the editable div
+  var editableDiv = document.getElementById("editableDiv");
+  editableDiv.textContent = htmlContent;
+</script>
