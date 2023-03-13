@@ -21,8 +21,10 @@ for (let i = 0; i < appWindows.length; i++) {
     const touch = event.touches[0];
     touchOffsetX = touch.clientX - appWindow.offsetLeft;
     touchOffsetY = touch.clientY - appWindow.offsetTop;
-  }
 
+    // Disable scrolling
+    document.body.style.overflow = "hidden";
+  }
   function onMouseMove(event) {
     if (isDragging) {
       const newLeft = event.clientX - mouseOffsetX;
@@ -47,9 +49,10 @@ for (let i = 0; i < appWindows.length; i++) {
   }
 
   function onTouchEnd() {
+    // Enable scrolling again
+    document.body.style.overflow = "auto";
     isDragging = false;
   }
-
   appWindowHeader.addEventListener("mousedown", onMouseDown);
   appWindowHeader.addEventListener("touchstart", onTouchStart);
   document.addEventListener("mousemove", onMouseMove);
