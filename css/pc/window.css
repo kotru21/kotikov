@@ -4,7 +4,9 @@
   background-color: #ccc;
   cursor: move;
 }
-
+a.app-button {
+  text-decoration: none;
+}
 .dock {
   position: absolute;
   bottom: 0;
