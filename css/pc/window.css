@@ -1,8 +1,70 @@
-/* ©2015 Johannes Jakob
-   Made with <3 in Germany */
+.app-window-header {
+  padding: 10px;
+  background-color: #ccc;
+  cursor: move;
+}
 
-/* window BEGIN */
+.dock {
+  position: absolute;
+  bottom: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center; /* выравнивание содержимого по центру */
+}
 
+.dock ul {
+  background: white;
+  padding: 0.4rem;
+  border-radius: 1rem;
+  display: flex;
+  list-style: none;
+  margin: 0 auto; /* центрирование содержимого */
+}
+
+.dock li {
+  margin: 0 10px;
+}
+
+.dock a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-out;
+}
+
+.dock a:hover {
+  transform: translateY(-4px);
+}
+
+.dock img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* стили для окна с приложением */
+.app-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: none; /* скрываем окно приложения по умолчанию */
+}
+.app-window-body {
+  overflow-y: scroll;
+  height: 92%;
+}
+/* window header */
 a {
   text-decoration: none;
 }
