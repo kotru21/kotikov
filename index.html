@@ -172,606 +172,493 @@
       </div>
     </div>
 
-    <div class="content-special about-me mb-lg-5" style="position: relative">
-      <div class="window">
-        <div class="titlebar">
-          <div class="buttons">
-            <div class="close">
-              <a class="closebutton" href="#"
-                ><span class="window-span"><strong>x</strong></span></a
-              >
-              <!-- close button link -->
-            </div>
-            <div class="minimize">
-              <a class="minimizebutton" href="#"
-                ><span class="window-span"><strong>&ndash;</strong></span></a
-              >
-              <!-- minimize button link -->
-            </div>
-            <div class="zoom">
-              <a class="zoombutton" href="#"
-                ><span class="window-span"><strong>+</strong></span></a
-              >
-              <!-- zoom button link -->
-            </div>
-          </div>
-          root@macos-pc
-          <!-- window title -->
-        </div>
-        <div
-          class="about-me-window"
-          style="
-            background: url('./src/pc_index/wallpaper.jpg');
-            background-size: cover;
-            min-height: 80vh;
-            position: relative;
-            overflow: hidden;
-          "
-        >
-          <div class="desktop-icons">
-            <a class="app-button" data-app-window="app-window-1">
-              <div class="icon">
-                <img src="./src/pc_index/pingv.svg" />
-                <span>Мой пека</span>
+    <div class="content-special about-me mb-lg-5" style="position: relative; overflow: hidden;">
+      <div class="row row-cols-1 row-cols-md-2 g-1" id="code-stack">
+        <div class="col-lg-7 ">
+          <div class="window">
+            <div class="titlebar">
+              <div class="buttons">
+                <div class="close">
+                  <a class="closebutton" href="#"
+                    ><span class="window-span"><strong>x</strong></span></a
+                  >
+                  <!-- close button link -->
+                </div>
+                <div class="minimize">
+                  <a class="minimizebutton" href="#"
+                    ><span class="window-span"><strong>&ndash;</strong></span></a
+                  >
+                  <!-- minimize button link -->
+                </div>
+                <div class="zoom">
+                  <a class="zoombutton" href="#"
+                    ><span class="window-span"><strong>+</strong></span></a
+                  >
+                  <!-- zoom button link -->
+                </div>
               </div>
-            </a>
-            <a class="app-button" data-app-window="app-window-4">
-              <div class="icon" id="icon">
-                <img src="./src/svg/vscode-alt.svg" />
-                <span>DO NOT</span>
+              root@macos-pc
+              <!-- window title -->
+            </div>
+            <div
+              class="about-me-window">
+              <div class="desktop-icons">
+                <a class="app-button" data-app-window="app-window-1">
+                  <div class="icon">
+                    <img src="./src/pc_index/pingv.svg" />
+                    <span>Мой пека</span>
+                  </div>
+                </a>
+                <a class="app-button" data-app-window="app-window-4">
+                  <div class="icon" id="icon">
+                    <img src="./src/svg/vscode-alt.svg" />
+                    <span>DO NOT</span>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-          <style>
-            @keyframes bounce {
-              from,
-              20%,
-              53%,
-              80%,
-              to {
-                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-                transform: translate3d(0, 0, 0);
-              }
-
-              40%,
-              43% {
-                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                transform: translate3d(0, -30px, 0);
-              }
-
-              70% {
-                animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-                transform: translate3d(0, -15px, 0);
-              }
-
-              90% {
-                transform: translate3d(0, -4px, 0);
-              }
-            }
-
-            .bounce {
-              animation-name: bounce;
-              animation-duration: 1s;
-            }
-          </style>
-          <script>
-            const icons = document.querySelectorAll(".icon img");
-            icons.forEach((icon) => {
-              icon.addEventListener("click", () => {
-                icon.classList.add("bounce");
-                setTimeout(() => {
-                  icon.classList.remove("bounce");
-                }, 1000);
-              });
-            });
-          </script>
-          <style>
-            #vscode-editor {
-              width: 100%;
-              height: 100%;
-            }
-          </style>
-          <style>
-            .about-me-window {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            }
-
-            .desktop-icons {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: left;
-              max-width: 800px;
-              margin-top: 20px;
-            }
-
-            .icon {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              margin: 10px;
-              width: 100px;
-              height: 100px;
-              background-color: black;
-
-              border-radius: 10px;
-            }
-
-            .icon img {
-              max-width: 55%;
-              max-height: 70%;
-            }
-
-            .icon span {
-              margin-top: 5px;
-              font-size: 14px;
-              font-weight: bold;
-              text-align: center;
-            }
-          </style>
-
-          <div class="dock">
-            <ul>
-              <!-- <li>
-                <a class="app-button" data-app-window="app-window-1"><img src="./src/svg/vk.svg" /></a>
-              </li> -->
-              <li>
-                <a class="app-button" data-app-window="app-window-2"><img src="./src/svg/tiktok.svg" /></a>
-              </li>
-              <li>
-                <a class="app-button" data-app-window="app-window-5"><img src="./src/svg/vscode.svg" /></a>
-              </li>
-            </ul>
-          </div>
-          <!-- Окна с приложениями -->
-          <div class="app-window app-window-1">
-            <div class="app-window-header"><i class="bx bx-info-circle"></i>О пека</div>
-            <div class="app-window-body">
-              <div class="window-content">
-                <table>
-                  <tr>
-                    <td class="pc_specs-special" colspan="2">Характеристики устройства</td>
-                  </tr>
-                  <tr>
-                    <td>Процессор</td>
-                    <td>Процессор AMD Ryzen 5 5600X 6-Core Processor 3.70 GHz</td>
-                  </tr>
-                  <tr>
-                    <td>Оперативная память</td>
-                    <td>16,0 ГБ</td>
-                  </tr>
-                  <tr>
-                    <td>Код устройства</td>
-                    <td>MEOWOS-1</td>
-                  </tr>
-                  <tr>
-                    <td>Код продукта</td>
-                    <td>MEOW-1</td>
-                  </tr>
-                  <tr>
-                    <td>Тип системы</td>
-                    <td>64-разрядная операционная система, процессор x64</td>
-                  </tr>
-                  <tr>
-                    <td>Перо и сенсорный ввод</td>
-                    <td>Для этого монитора доступен ввод с помощью пера и сенсорный ввод</td>
-                  </tr>
-                  <tr>
-                    <td>Operating System</td>
-                    <td>MeowOS 11 Pro</td>
-                  </tr>
-                </table>
+              <style>
+                @keyframes bounce {
+                  from,
+                  20%,
+                  53%,
+                  80%,
+                  to {
+                    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                    transform: translate3d(0, 0, 0);
+                  }
+    
+                  40%,
+                  43% {
+                    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                    transform: translate3d(0, -30px, 0);
+                  }
+    
+                  70% {
+                    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+                    transform: translate3d(0, -15px, 0);
+                  }
+    
+                  90% {
+                    transform: translate3d(0, -4px, 0);
+                  }
+                }
+    
+                .bounce {
+                  animation-name: bounce;
+                  animation-duration: 1s;
+                }
+              </style>
+              <script>
+                const icons = document.querySelectorAll(".icon img");
+                icons.forEach((icon) => {
+                  icon.addEventListener("click", () => {
+                    icon.classList.add("bounce");
+                    setTimeout(() => {
+                      icon.classList.remove("bounce");
+                    }, 1000);
+                  });
+                });
+              </script>
+              <style>
+                #vscode-editor {
+                  width: 100%;
+                  height: 100%;
+                }
+              </style>
+              <style>
+                .about-me-window {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                }
+    
+                .desktop-icons {
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: left;
+                  max-width: 800px;
+                  margin-top: 20px;
+                }
+    
+                .icon {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  margin: 10px;
+                  width: 100px;
+                  height: 100px;
+                  background-color: black;
+    
+                  border-radius: 10px;
+                }
+    
+                .icon img {
+                  max-width: 55%;
+                  max-height: 70%;
+                }
+    
+                .icon span {
+                  margin-top: 5px;
+                  font-size: 14px;
+                  font-weight: bold;
+                  text-align: center;
+                }
+              </style>
+    
+              <div class="dock">
+                <ul>
+                  <!-- <li>
+                    <a class="app-button" data-app-window="app-window-1"><img src="./src/svg/vk.svg" /></a>
+                  </li> -->
+                  <li>
+                    <a class="app-button" data-app-window="app-window-2"><img src="./src/svg/tiktok.svg" /></a>
+                  </li>
+                  <li>
+                    <a class="app-button" data-app-window="app-window-5"><img src="./src/svg/vscode.svg" /></a>
+                  </li>
+                </ul>
               </div>
-            </div>
-          </div>
-
-          <div class="app-window app-window-2">
-            <div class="app-window-header"><i class="bx bxl-tiktok"></i>Tiktok</div>
-            <div class="app-window-body">
-              <header class="tiktok-header">
-                <div class="tiktok logo">
-                  <img src="./src/svg/tiktok.svg" alt="TikTok Logo" />
-                </div>
-                <div class="tiktok search">
-                  <input type="text" placeholder="Search" />
-                  <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="tiktok menu">
-                  <button><i class="fas fa-plus"></i></button>
-                  <button><i class="fas fa-heart"></i></button>
-                  <button><i class="fas fa-user"></i></button>
-                </div>
-              </header>
-              <main>
-                <div class="tiktok profile">
-                  <div class="tiktok avatar">
-                    <img src="./src/pc_index/tiktok.png" alt="Profile Picture" />
-                  </div>
-                  <div class="tiktok username">
-                    <h2 class="inverted">@arsenij_kotikov</h2>
-                    <a href="https://tiktok.com/@arsenij_kotikov">
-                      <button class="btn btn-info inverted" style="margin-top: 1rem">Подробнее</button>
-                    </a>
-                    <p>kotikov.is-a.dev/about</p>
-                  </div>
-                  <div class="tiktok stats">
-                    <div class="tiktok stat">
-                      <h2 class="inverted">60</h2>
-                      <p>Following</p>
-                    </div>
-                    <div class="tiktok stat">
-                      <h2 class="inverted">1612</h2>
-                      <p>Followers</p>
-                    </div>
-                    <div class="tiktok stat">
-                      <h2 class="inverted">85.2K</h2>
-                      <p>Likes</p>
-                    </div>
+              <!-- Окна с приложениями -->
+              <div class="app-window app-window-1">
+                <div class="app-window-header"><i class="bx bx-info-circle"></i>О пека</div>
+                <div class="app-window-body">
+                  <div class="window-content">
+                    <table>
+                      <tr>
+                        <td class="pc_specs-special" colspan="2">Характеристики устройства</td>
+                      </tr>
+                      <tr>
+                        <td>Процессор</td>
+                        <td>Процессор AMD Ryzen 5 5600X 6-Core Processor 3.70 GHz</td>
+                      </tr>
+                      <tr>
+                        <td>Оперативная память</td>
+                        <td>16,0 ГБ</td>
+                      </tr>
+                      <tr>
+                        <td>Код устройства</td>
+                        <td>MEOWOS-1</td>
+                      </tr>
+                      <tr>
+                        <td>Код продукта</td>
+                        <td>MEOW-1</td>
+                      </tr>
+                      <tr>
+                        <td>Тип системы</td>
+                        <td>64-разрядная операционная система, процессор x64</td>
+                      </tr>
+                      <tr>
+                        <td>Перо и сенсорный ввод</td>
+                        <td>Для этого монитора доступен ввод с помощью пера и сенсорный ввод</td>
+                      </tr>
+                      <tr>
+                        <td>Operating System</td>
+                        <td>MeowOS 11 Pro</td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
-                <div class="tiktok videos">
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1018/800/800" alt="Video" />
-                  </div>
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1037/800/800" alt="Video" />
-                  </div>
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1043/800/800" alt="Video" />
-                  </div>
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1059/800/800" alt="Video" />
-                  </div>
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1062/800/800" alt="Video" />
-                  </div>
-                  <div class="tiktok video">
-                    <img src="https://picsum.photos/id/1066/800/800" alt="Video" />
-                  </div>
-                </div>
-              </main>
-            </div>
-          </div>
-          <!-- <div class="app-window app-window-3">
-            <div class="app-window-header">Vk</div>
-            <div class="app-window-body">
-              <header class="vk-header">
-                <div class="vk logo">
-                  <img src="https://vk.com/images/svg_icons/favicons/fav_logo_2x.ico" alt="VK Logo" />
-                </div>
-                <div class="vk search">
-                  <input type="text" placeholder="Search" />
-                  <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="vk menu">
-                  <button><i class="fas fa-envelope"></i></button>
-                  <button><i class="fas fa-bell"></i></button>
-                  <button><i class="fas fa-user"></i></button>
-                </div>
-              </header>
-              <main>
-                <div class="vk profile">
-                  <div class="vk avatar">
-                    <img src="https://picsum.photos/id/237/200/200" alt="Profile Picture" />
-                  </div>
-                  <div class="vk username">
-                    <h1>VK User</h1>
-                    <p>VK user description goes here</p>
-                  </div>
-                  <div class="vk stats">
-                    <div class="vk stat">
-                      <h2>200</h2>
-                      <p>Friends</p>
-                    </div>
-                    <div class="vk stat">
-                      <h2>2.3K</h2>
-                      <p>Followers</p>
-                    </div>
-                    <div class="vk stat">
-                      <h2>150</h2>
-                      <p>Photos</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="vk photos">
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1018/400/400" alt="Photo" />
-                  </div>
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1037/400/400" alt="Photo" />
-                  </div>
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1043/400/400" alt="Photo" />
-                  </div>
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1059/400/400" alt="Photo" />
-                  </div>
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1062/400/400" alt="Photo" />
-                  </div>
-                  <div class="vk photo">
-                    <img src="https://picsum.photos/id/1066/400/400" alt="Photo" />
-                  </div>
-                </div>
-              </main>
-            </div>
-          </div> -->
-          <div class="app-window app-window-4">
-            <div class="app-window-header"><i class="bx bx-question-mark"></i>NASA source code(?)</div>
-            <div class="app-window-body">
-              <pre class="line-numbers"><code class="language-python" >
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-import random
-from transformers import *
-from googletrans import Translator
-
-
-app = FastAPI()
-ideal_steps = 10000
-# Recommendation
-recommendation_first = []
-recommendation_second = []
-
-
-
-#CORS
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_origins=['*']
-)
-
-
-@app.get("/get_recommendation")
-async def get_reccomendation():
-    if len(recommendation_first) == 0:
-        recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
-    else:
-        recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
-    rec = recommendation
-    return {"recommendation": rec}
-
-
-@app.get("/test")
-async def get_test():
-    return{"Arseniy": "Debil"}
-
-
-
-@app.get("/get_daily_info")
-async def get_daily_info():
-    return {
-    "weight":status_weight, 
-    "calories":status_calories,
-    "water":status_water, 
-    "sleep":status_sleep,
-    "steps":status_steps
-    }
-
-@app.get("/get_person_info")
-async def get_person_info():
-    return {
-    "weight":ideal_weight,
-    "calories":ideal_calories,
-    "sleep":ideal_sleep,
-    "steps":ideal_steps,
-    "water":ideal_water
-    }
-
-@app.post("/set_person_info")
-async def set_person_info(sex: str, age: int, growth: int, weight: int):
-    start(sex, age, growth,weight)
-    return {
-    "weight":ideal_weight - 14,
-    "calories":ideal_calories + 200,
-    "sleep":ideal_sleep,
-    "steps":ideal_steps,
-    "water":ideal_water,
-    }
-
-@app.post("/set_daily_info")
-async def set_daily_info(get_sleep: int, get_calories: int, get_water: float, get_weight: int, get_steps: int):
-    status_sleep_(ideal_sleep, get_sleep)
-    status_colories_(ideal_calories, get_calories)
-    status_water_(ideal_water, get_water)
-    status_weight_(ideal_weight, get_weight)
-    status_steps_(ideal_steps, get_steps)
-    if len(recommendation_first) == 0:
-        recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
-    else:
-        recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
-    rec = recommendation
-    rec = ai(rec)
-    return {
-    "weight":status_weight, 
-    "calories":status_calories,
-    "water":status_water, 
-    "sleep":status_sleep,
-    "steps":status_steps,
-    "recommendation": rec
+              </div>
     
-    }
+              <div class="app-window app-window-2">
+                <div class="app-window-header"><i class="bx bxl-tiktok"></i>Tiktok</div>
+                <div class="app-window-body">
+                  <header class="tiktok-header">
+                    <div class="tiktok logo">
+                      <img src="./src/svg/tiktok.svg" alt="TikTok Logo" />
+                    </div>
+                  </header>
+                  <main>
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@arsenij_kotikov" data-unique-id="arsenij_kotikov" data-embed-type="creator"  > <section> <a target="_blank" href="https://www.tiktok.com/@arsenij_kotikov?refer=creator_embed">@arsenij_kotikov</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+                    <div class="tiktok videos">
 
-# PERSON INFO
-def sleep_(age):
-    global ideal_sleep
-    if age < 5:
-        ideal_sleep = 11.5  # 10-13
-    elif age < 13:
-        ideal_sleep = 10  # 9-11
-    elif age < 17:
-        ideal_sleep = 9  # 8-10
-    elif age < 65:
-        ideal_sleep = 8.5  # 7-11
-    return ideal_sleep
+                  </main>
+                </div>
+              </div>
 
-
-def calories_(sex, age, weight, growth):
-    global ideal_calories
-    if sex == 'm':
-        ideal_calories = 88.36 + (13.4 * weight) + (4.8 * growth) - (5.7 * age) 
-    elif sex == 'w':
-        ideal_calories = 447.6 + (9.2 * weight) + (3.1 * growth) - (4.3 * age)
-
-    return ideal_calories
-
-def water_(weight):
-    global ideal_water
-    ideal_water = 0.035 * weight
-    return ideal_water
-
-def weight_(sex, growth):
-    global ideal_weight
-    if sex == 'm':
-        ideal_weight = (growth - 100) * 1.15
-    elif sex == 'w':
-        ideal_weight = (growth - 110) * 1.15
-    return ideal_weight
-
-def start(sex, age, growth, weight):
-    sleep_(age)
-    calories_(sex, age, weight, growth)
-    water_(weight)
-    weight_(sex, growth)
-
-
-#Daily info
-
-def status_sleep_(ideal_sleep,get_sleep):
-    global status_sleep
-    if ideal_sleep - get_sleep > 2:
-        status_sleep = 'недостаточно'
-    elif get_sleep - ideal_sleep > 2:
-        status_sleep = 'много'
-    else:
-        status_sleep = 'идеально'
-
-    if status_sleep == 'недостаточно':
-        recommendation_first.append('Вы сегодня мало поспали. Давайте вечером ляжем пораньше?')
+              <div class="app-window app-window-4">
+                <div class="app-window-header"><i class="bx bx-question-mark"></i>NASA source code(?)</div>
+                <div class="app-window-body">
+                  <pre class="line-numbers"><code class="language-python" >
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+    import random
+    from transformers import *
+    from googletrans import Translator
     
-    if status_sleep == 'идеально':
-        recommendation_second.append('Вы делаете прогресс! Постарайтесь ложиться в такое время, чтобы был сбалансированный режим')
-
-    return status_sleep
-
-def status_colories_(ideal_calories,get_calories):
-    global status_calories
-    if ideal_calories - get_calories > 300:
-        status_calories = 'недостаточно'
-    elif get_calories - ideal_calories > 300:
-        status_calories = 'много'
-    else:
-        status_calories = 'идеально'
     
-    if status_calories == 'идеально':
-        recommendation_second.append('Вы молодец!!! Старайтесь употреблять большое количество фруктов и овощей')
-
-    if status_calories == 'недостаточно':
-        recommendation_first.append('Вам нужна еда для энергии. Приготовьте например омлет или запеканку')
-    return status_calories
-
-def status_water_(ideal_water,get_water):
-    global status_water
-    if ideal_water - get_water > 0.2:
-        status_water = 'недостаточно'
-    elif get_water - ideal_water > 0.5:
-        status_water = 'много'
-    else:
-        status_water = 'идеально'
-
-    if status_water == 'идеально':
-        recommendation_second.append('Вы молодец, что пьёте воду!!!')
+    app = FastAPI()
+    ideal_steps = 10000
+    # Recommendation
+    recommendation_first = []
+    recommendation_second = []
     
-    if status_water == 'недостаточно':
-        recommendation_first.append('Пейте больше воды для поддержания баланса.')
-
-    return status_water
-
-def status_weight_(ideal_weight,get_weight):
-    global status_weight
-    if ideal_weight - get_weight > 10:
-        status_weight = 'недостаточно'
-    elif get_weight - ideal_weight > 10:
-        status_weight = 'много'
-    else:
-        status_weight = 'идеально'
     
-    if status_weight == 'много':
-        recommendation_first.append('Вредная еда она такая вкусная, но нужно уметь себя останавливать')
-
-    return status_weight
-
-def status_steps_(ideal_steps, get_steps):
-    global status_steps
-    if ideal_steps - get_steps > 2000:
-        status_steps = 'недостаточно'
-    elif get_steps - ideal_steps > 2000:
-        status_steps = 'много'
-    elif ideal_steps - get_steps == 0:
-        status_steps = 'идеально'
     
-    if status_steps == 'недостаточно':
-        recommendation_first.append('Сегодня вы были недостаточно активны. Постарайтесь больше двигаться')
-
-    if status_steps == 'идеально':
-        recommendation_second.append('Вы прошли 10,000 шагов! Вы проделали замечательную работу!')
-
-    return status_steps
-
-
-def get_paraphrased_sentences(model, tokenizer, sentence, num_return_sequences=5, num_beams=5):
-    inputs = tokenizer([sentence], truncation=True, padding="longest", return_tensors="pt")
-    outputs = model.generate(
-        **inputs,
-        num_beams=num_beams,
-        num_return_sequences=num_return_sequences,
+    #CORS
+    
+    app.add_middleware(
+        CORSMiddleware,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_origins=['*']
     )
-    return tokenizer.batch_decode(outputs, skip_special_tokens=True)
-
-
-def ai(text):  # переменная recommendation из recommendation.py
-
-    translator = Translator()
-    sentence = translator.translate(text, dest='en').text
-
-    model = PegasusForConditionalGeneration.from_pretrained("tuner007/pegasus_paraphrase")
-    tokenizer = PegasusTokenizerFast.from_pretrained("tuner007/pegasus_paraphrase")
-
-    w = get_paraphrased_sentences(model, tokenizer, sentence, num_beams=30, num_return_sequences=5)
-    for i, x in enumerate(w):
-        w[i] = translator.translate(x, dest='ru').text
-
-    text = w[random.randint(0, len(w) - 1)]
-    return text
-
-
-#if status_weather == 'облачно':
-#    recommendation_first.append('Погода за окном не очень... Попробуйте посмотреть интересный фильм или помедитировать?')
-#if status_weather == 'ясно':
-    #recommendation_first.append('Погода на улице довольно хорошая, не хотите ли прогуляться?')
-                </code></pre>
+    
+    
+    @app.get("/get_recommendation")
+    async def get_reccomendation():
+        if len(recommendation_first) == 0:
+            recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
+        else:
+            recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
+        rec = recommendation
+        return {"recommendation": rec}
+    
+    
+    @app.get("/test")
+    async def get_test():
+        return{"Arseniy": "Debil"}
+    
+    
+    
+    @app.get("/get_daily_info")
+    async def get_daily_info():
+        return {
+        "weight":status_weight, 
+        "calories":status_calories,
+        "water":status_water, 
+        "sleep":status_sleep,
+        "steps":status_steps
+        }
+    
+    @app.get("/get_person_info")
+    async def get_person_info():
+        return {
+        "weight":ideal_weight,
+        "calories":ideal_calories,
+        "sleep":ideal_sleep,
+        "steps":ideal_steps,
+        "water":ideal_water
+        }
+    
+    @app.post("/set_person_info")
+    async def set_person_info(sex: str, age: int, growth: int, weight: int):
+        start(sex, age, growth,weight)
+        return {
+        "weight":ideal_weight - 14,
+        "calories":ideal_calories + 200,
+        "sleep":ideal_sleep,
+        "steps":ideal_steps,
+        "water":ideal_water,
+        }
+    
+    @app.post("/set_daily_info")
+    async def set_daily_info(get_sleep: int, get_calories: int, get_water: float, get_weight: int, get_steps: int):
+        status_sleep_(ideal_sleep, get_sleep)
+        status_colories_(ideal_calories, get_calories)
+        status_water_(ideal_water, get_water)
+        status_weight_(ideal_weight, get_weight)
+        status_steps_(ideal_steps, get_steps)
+        if len(recommendation_first) == 0:
+            recommendation = recommendation_second[random.randint(0, len(recommendation_second) - 1)]
+        else:
+            recommendation = recommendation_first[random.randint(0, len(recommendation_first) - 1)]
+        rec = recommendation
+        rec = ai(rec)
+        return {
+        "weight":status_weight, 
+        "calories":status_calories,
+        "water":status_water, 
+        "sleep":status_sleep,
+        "steps":status_steps,
+        "recommendation": rec
+        
+        }
+    
+    # PERSON INFO
+    def sleep_(age):
+        global ideal_sleep
+        if age < 5:
+            ideal_sleep = 11.5  # 10-13
+        elif age < 13:
+            ideal_sleep = 10  # 9-11
+        elif age < 17:
+            ideal_sleep = 9  # 8-10
+        elif age < 65:
+            ideal_sleep = 8.5  # 7-11
+        return ideal_sleep
+    
+    
+    def calories_(sex, age, weight, growth):
+        global ideal_calories
+        if sex == 'm':
+            ideal_calories = 88.36 + (13.4 * weight) + (4.8 * growth) - (5.7 * age) 
+        elif sex == 'w':
+            ideal_calories = 447.6 + (9.2 * weight) + (3.1 * growth) - (4.3 * age)
+    
+        return ideal_calories
+    
+    def water_(weight):
+        global ideal_water
+        ideal_water = 0.035 * weight
+        return ideal_water
+    
+    def weight_(sex, growth):
+        global ideal_weight
+        if sex == 'm':
+            ideal_weight = (growth - 100) * 1.15
+        elif sex == 'w':
+            ideal_weight = (growth - 110) * 1.15
+        return ideal_weight
+    
+    def start(sex, age, growth, weight):
+        sleep_(age)
+        calories_(sex, age, weight, growth)
+        water_(weight)
+        weight_(sex, growth)
+    
+    
+    #Daily info
+    
+    def status_sleep_(ideal_sleep,get_sleep):
+        global status_sleep
+        if ideal_sleep - get_sleep > 2:
+            status_sleep = 'недостаточно'
+        elif get_sleep - ideal_sleep > 2:
+            status_sleep = 'много'
+        else:
+            status_sleep = 'идеально'
+    
+        if status_sleep == 'недостаточно':
+            recommendation_first.append('Вы сегодня мало поспали. Давайте вечером ляжем пораньше?')
+        
+        if status_sleep == 'идеально':
+            recommendation_second.append('Вы делаете прогресс! Постарайтесь ложиться в такое время, чтобы был сбалансированный режим')
+    
+        return status_sleep
+    
+    def status_colories_(ideal_calories,get_calories):
+        global status_calories
+        if ideal_calories - get_calories > 300:
+            status_calories = 'недостаточно'
+        elif get_calories - ideal_calories > 300:
+            status_calories = 'много'
+        else:
+            status_calories = 'идеально'
+        
+        if status_calories == 'идеально':
+            recommendation_second.append('Вы молодец!!! Старайтесь употреблять большое количество фруктов и овощей')
+    
+        if status_calories == 'недостаточно':
+            recommendation_first.append('Вам нужна еда для энергии. Приготовьте например омлет или запеканку')
+        return status_calories
+    
+    def status_water_(ideal_water,get_water):
+        global status_water
+        if ideal_water - get_water > 0.2:
+            status_water = 'недостаточно'
+        elif get_water - ideal_water > 0.5:
+            status_water = 'много'
+        else:
+            status_water = 'идеально'
+    
+        if status_water == 'идеально':
+            recommendation_second.append('Вы молодец, что пьёте воду!!!')
+        
+        if status_water == 'недостаточно':
+            recommendation_first.append('Пейте больше воды для поддержания баланса.')
+    
+        return status_water
+    
+    def status_weight_(ideal_weight,get_weight):
+        global status_weight
+        if ideal_weight - get_weight > 10:
+            status_weight = 'недостаточно'
+        elif get_weight - ideal_weight > 10:
+            status_weight = 'много'
+        else:
+            status_weight = 'идеально'
+        
+        if status_weight == 'много':
+            recommendation_first.append('Вредная еда она такая вкусная, но нужно уметь себя останавливать')
+    
+        return status_weight
+    
+    def status_steps_(ideal_steps, get_steps):
+        global status_steps
+        if ideal_steps - get_steps > 2000:
+            status_steps = 'недостаточно'
+        elif get_steps - ideal_steps > 2000:
+            status_steps = 'много'
+        elif ideal_steps - get_steps == 0:
+            status_steps = 'идеально'
+        
+        if status_steps == 'недостаточно':
+            recommendation_first.append('Сегодня вы были недостаточно активны. Постарайтесь больше двигаться')
+    
+        if status_steps == 'идеально':
+            recommendation_second.append('Вы прошли 10,000 шагов! Вы проделали замечательную работу!')
+    
+        return status_steps
+    
+    
+    def get_paraphrased_sentences(model, tokenizer, sentence, num_return_sequences=5, num_beams=5):
+        inputs = tokenizer([sentence], truncation=True, padding="longest", return_tensors="pt")
+        outputs = model.generate(
+            **inputs,
+            num_beams=num_beams,
+            num_return_sequences=num_return_sequences,
+        )
+        return tokenizer.batch_decode(outputs, skip_special_tokens=True)
+    
+    
+    def ai(text):  # переменная recommendation из recommendation.py
+    
+        translator = Translator()
+        sentence = translator.translate(text, dest='en').text
+    
+        model = PegasusForConditionalGeneration.from_pretrained("tuner007/pegasus_paraphrase")
+        tokenizer = PegasusTokenizerFast.from_pretrained("tuner007/pegasus_paraphrase")
+    
+        w = get_paraphrased_sentences(model, tokenizer, sentence, num_beams=30, num_return_sequences=5)
+        for i, x in enumerate(w):
+            w[i] = translator.translate(x, dest='ru').text
+    
+        text = w[random.randint(0, len(w) - 1)]
+        return text
+    
+    
+    #if status_weather == 'облачно':
+    #    recommendation_first.append('Погода за окном не очень... Попробуйте посмотреть интересный фильм или помедитировать?')
+    #if status_weather == 'ясно':
+        #recommendation_first.append('Погода на улице довольно хорошая, не хотите ли прогуляться?')
+                    </code></pre>
+                </div>
+              </div>
+    
+              <div class="app-window app-window-5">
+                <div class="app-window-header"><i class="bx bxl-visual-studio"></i>Visual Studio Code</div>
+                <div class="app-window-body">
+                  <pre class="line-numbers"><code class="language-javascript" contenteditable="true" style="outline: none;">
+                  <div id="editableDiv"></div>
+                  </code></pre>
+                </div>
+              </div>
+    
+              <script src="./src/js/window.js"></script>
+              <script src="./src/js/drag-window.js"></script>
             </div>
           </div>
-
-          <div class="app-window app-window-5">
-            <div class="app-window-header"><i class="bx bxl-visual-studio"></i>Visual Studio Code</div>
-            <div class="app-window-body">
-              <pre class="line-numbers"><code class="language-javascript" contenteditable="true" style="outline: none;">
-              <div id="editableDiv"></div>
-              </code></pre>
-            </div>
-          </div>
-
-          <script src="./src/js/window.js"></script>
-          <script src="./src/js/drag-window.js"></script>
         </div>
+        <div class="col-lg-3 p-5">
+          <h1>CatOS</h1>
+          <p class="pt-2">Это почти как MacOS, только работает на cat magic ✨</p>
+        </div>
+
       </div>
+
     </div>
     <div class="my-projects" style="overflow: hidden">
       <div class="content pt-5">
@@ -803,7 +690,7 @@ def ai(text):  # переменная recommendation из recommendation.py
             <div class="card">
               <h1 class="card-h1"><i class="bx bxl-javascript"></i>JS</h1>
               <div class="card-body">
-                <h5 class="card-title">JavaScript</h5>
+                <h2 class="card-title">JavaScript</h2>
                 <p class="card-text">
                   JavaScript это язык, который позволяет вам применять сложные вещи на web странице.
                 </p>
@@ -814,7 +701,7 @@ def ai(text):  # переменная recommendation из recommendation.py
             <div class="card">
               <h1 class="card-h1"><i class="bx bxl-html5"></i>HTML / CSS</h1>
               <div class="card-body">
-                <h5 class="card-title">Hyper Text Markup Language</h5>
+                <h2 class="card-title">Hyper Text Markup Language</h2>
                 <p class="card-text">
                   Язык гипертекстовой разметки страницы. Он используется для того, чтобы дать браузеру понять, как нужно
                   отображать загруженный сайт. Cascading Style Sheets — формальный язык описания внешнего вида web
@@ -827,7 +714,7 @@ def ai(text):  # переменная recommendation из recommendation.py
             <div class="card">
               <h1 class="card-h1"><i class="bx bx-server"></i>PHP / Node.js</h1>
               <div class="card-body">
-                <h5 class="card-title">PHP / Node.js</h5>
+                <h2 class="card-title">PHP / Node.js</h2>
                 <p class="card-text">
                   PHP - C-подобный скриптовый язык общего назначения, интенсивно применяемый для разработки
                   веб-приложений. В настоящее время поддерживается подавляющим большинством хостинг-провайдеров и

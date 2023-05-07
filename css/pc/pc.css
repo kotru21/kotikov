@@ -25,7 +25,7 @@ body {
 }
 h1 {
   font-weight: 900 !important;
-  font-size: 8vw !important;
+  font-size: 6vw !important;
   line-height: 0.9 !important;
   margin: 0 !important;
 }
@@ -92,26 +92,32 @@ i.footer {
   width: 30vw !important;
   height: 30vw !important;
   background: url("../../src/pc_index/1.png");
+
+  background-size: cover;
 }
 .quadcol-2 {
   width: 20vw !important;
   height: 20vw !important;
   background: url("../../src/pc_index/2.png");
+  background-size: cover;
 }
 .quadcol-3 {
   width: 15vw !important;
   height: 30vw !important;
   background: url("../../src/pc_index/3.png");
+  background-size: 140%;
 }
 .quadcol-4 {
   width: 7vw !important;
   height: 10vw !important;
   background: url("../../src/pc_index/4.png");
+  background-size: cover;
 }
 .quadcol-5 {
   width: 10vw !important;
   height: 20vw !important;
   background: url("../../src/pc_index/5.png");
+  background-size: cover;
 }
 /** list **/
 .content > ul {
@@ -119,7 +125,7 @@ i.footer {
 }
 
 .content > ul li {
-  padding-bottom: clamp(2rem, 20vw, 8rem);
+  padding-bottom: clamp(3rem, 20vw, 8rem);
   position: relative;
 }
 .ul-text-wrapper {
@@ -211,7 +217,7 @@ i.footer {
   top: 0;
 }
 .my-social > i {
-  font-size: 40vw;
+  font-size: clamp(2rem,40vw,15rem);
 }
 .pc-hide {
   display: none;
@@ -322,11 +328,11 @@ div.html-code {
   }
 
   .card-h1 {
-    font-size: 4vw !important;
-    padding-bottom: 1rem;
+    font-size: 3.5vh !important;
+    padding-bottom: 0.8rem;
   }
   .card-text {
-    padding-top: 2rem;
+    padding-top: 0.5rem;
   }
   .about-me-pc-bottom {
     position: absolute;
@@ -355,13 +361,16 @@ div.html-code {
 
   .content,
   .content-special {
-    padding-left: 15vw;
-    padding-right: 15vw;
+    padding-left: clamp(4rem,15vw,20rem);
+    padding-right: clamp(4rem,15vw,20rem);
     width: 100%;
-    padding-bottom: 4rem;
+    padding-bottom: 2rem;
   }
 }
 @media screen and (max-width: 1200px) {
+  .content{
+    padding: 1rem;
+  }
   .about-me {
     padding-top: 0;
   }
@@ -388,10 +397,7 @@ div.html-code {
     left: -40vw;
     padding-top: 17rem;
   }
-  .content {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+
   .content-special {
     padding: none;
   }
@@ -400,9 +406,7 @@ div.html-code {
     text-align: center;
   }
 
-  .quadcol-2 {
-    display: none;
-  }
+
   .quadcol-3 {
     display: none;
   }

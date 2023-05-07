@@ -7,6 +7,13 @@
 a.app-button {
   text-decoration: none;
 }
+.about-me-window{
+  background: url('../../src/svg/window.svg');
+  background-size: cover;
+  min-height: 70vh;
+  position: relative;
+  overflow: hidden;
+}
 .dock {
   position: absolute;
   bottom: 0;
