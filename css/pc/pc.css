@@ -1,10 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/open-sans");
-*::-webkit-scrollbar{
+::-webkit-scrollbar{
   background: white;
 }
-*::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb{
   background: gray
- 
 }
 * {
   padding: 0;
@@ -183,7 +182,7 @@ i.footer {
   }
 }
 .my-social::-webkit-scrollbar {
-  width: 0 !important;
+  display: none;
 }
 .card {
   background: none !important;

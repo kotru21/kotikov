@@ -81,7 +81,7 @@ a.app-button {
 /* scrollbar styling */
 /* Works on Chrome/Edge/Safari */
 .app-window-body::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 .app-window-body::-webkit-scrollbar-track {
