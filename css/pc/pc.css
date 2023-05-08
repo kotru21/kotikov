@@ -59,7 +59,10 @@ i {
   padding-right: 0.5rem;
 }
 .bx {
-  font-size: 40pt;
+  font-size: 30pt;
+}
+.card-h1 {
+  font-size: 30pt !important;
 }
 #code-stack .card-h1 {
   padding-left: 1rem;
@@ -201,6 +204,7 @@ i.footer {
   background: none !important;
   border: none !important;
 }
+
 .card-text::first-letter {
   padding-left: 0.5rem;
 }
@@ -366,12 +370,9 @@ div.html-code {
   }
 
   .card-h1 {
-    font-size: 40pt !important;
-    padding-bottom: 0.8rem;
+    font-size: 30pt !important;
   }
-  .card-text {
-    padding-top: 1rem;
-  }
+
   .about-me-pc-bottom {
     position: absolute;
     bottom: 8rem;
