@@ -26,6 +26,11 @@ body {
   padding-left: 3rem;
   padding-right: 3rem;
 }
+.header.content-header {
+  min-height: 50vh;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .footer-h1 {
   font-size: 10vh !important;
 }
@@ -34,6 +39,9 @@ h1 {
   font-size: 6vw !important;
   line-height: 0.9 !important;
   margin: 0 !important;
+}
+.h1-weak {
+  font-weight: 350 !important;
 }
 h1.special {
   font-weight: 500 !important;
@@ -50,7 +58,12 @@ p {
 i {
   padding-right: 0.5rem;
 }
-
+.bx {
+  font-size: 40pt;
+}
+#code-stack .card-h1 {
+  padding-left: 1rem;
+}
 i.footer {
   font-size: 2rem !important;
 }
@@ -353,7 +366,7 @@ div.html-code {
   }
 
   .card-h1 {
-    font-size: 3.5vh !important;
+    font-size: 40pt !important;
     padding-bottom: 0.8rem;
   }
   .card-text {
@@ -390,6 +403,9 @@ div.html-code {
     padding-right: clamp(4rem, 15vw, 20rem);
     width: 100%;
     padding-bottom: 2rem;
+  }
+  .content.content-github-reffer {
+    padding-bottom: 0;
   }
 }
 @media screen and (max-width: 1200px) {

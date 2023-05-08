@@ -7,8 +7,8 @@
 a.app-button {
   text-decoration: none;
 }
-.about-me-window{
-  background: url('../../src/svg/window.svg');
+.about-me-window {
+  background: url("../../src/svg/window.svg");
   background-size: cover;
   min-height: 70vh;
   position: relative;
@@ -105,7 +105,9 @@ span.window-span {
   line-height: 9px;
   vertical-align: 50%;
 }
-
+.app-window-header .bx {
+  font-size: 18pt;
+}
 .titlebar {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ebebeb, color-stop(1, #d5d5d5)));
   background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);
