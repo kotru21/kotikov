@@ -1,9 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/open-sans");
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   background: white;
 }
-::-webkit-scrollbar-thumb{
-  background: gray
+::-webkit-scrollbar-thumb {
+  background: gray;
 }
 * {
   padding: 0;
@@ -188,10 +188,10 @@ i.footer {
   background: none !important;
   border: none !important;
 }
-.card-text::first-letter{
+.card-text::first-letter {
   padding-left: 0.5rem;
 }
-.card-title{
+.card-title {
   padding-left: 0.5rem;
 }
 .row > .col {
@@ -211,7 +211,6 @@ i.footer {
   width: 100% !important;
 }
 
-
 .pingv {
   width: 36rem;
   opacity: 0.4;
@@ -220,7 +219,7 @@ i.footer {
   top: 0;
 }
 .my-social > i {
-  font-size: clamp(2rem,40vw,15rem);
+  font-size: clamp(2rem, 40vw, 15rem);
 }
 .pc-hide {
   display: none;
@@ -244,23 +243,31 @@ div.html-code {
 }
 
 .stack-btn,
-.stack-btn-2 {
+.stack-btn-2,
+.cw-lc-btn {
   background: none;
   font-size: 3rem;
   border-left: 0.5rem solid black;
   padding-left: clamp(1rem, 2vw, 30rem);
   transition: 1s;
 }
-.stack-btn-2 {
+.cw-lc-btn {
+  margin-top: 0.75rem;
+  font-size: 1.75rem;
+}
+.stack-btn-2,
+.cw-lc-btn {
   border-left: 0.5rem solid white;
 }
 .stack-btn:hover,
-.stack-btn-2:hover {
+.stack-btn-2:hover,
+.cw-lc-btn:hover {
   background: black;
   color: white;
   padding-right: clamp(1rem, 2vw, 30rem);
 }
-.stack-btn-2:hover {
+.stack-btn-2:hover,
+.cw-lc-btn:hover {
   background: white;
   color: black;
 }
@@ -324,11 +331,10 @@ div.html-code {
   100% {
     padding-top: 6rem;
   }
-
 }
 @media screen and (min-width: 1200px) {
   .col:nth-child(odd) {
-  animation: col-move-padding forwards 1s;
+    animation: col-move-padding forwards 1s;
   }
   .todo {
     width: 80%;
@@ -380,14 +386,14 @@ div.html-code {
 
   .content,
   .content-special {
-    padding-left: clamp(4rem,15vw,20rem);
-    padding-right: clamp(4rem,15vw,20rem);
+    padding-left: clamp(4rem, 15vw, 20rem);
+    padding-right: clamp(4rem, 15vw, 20rem);
     width: 100%;
     padding-bottom: 2rem;
   }
 }
 @media screen and (max-width: 1200px) {
-  .content{
+  .content {
     padding: 1rem;
   }
   .about-me {
@@ -424,7 +430,6 @@ div.html-code {
     font-size: 4rem !important;
     text-align: center;
   }
-
 
   .quadcol-3 {
     display: none;

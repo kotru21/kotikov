@@ -94,6 +94,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Арсений Котиков</title>
   </head>
   <body>
@@ -172,9 +173,9 @@
       </div>
     </div>
 
-    <div class="content-special about-me mb-lg-5" style="position: relative; overflow: hidden;">
+    <div class="content-special about-me mb-lg-5" style="position: relative; overflow: hidden">
       <div class="row row-cols-1 row-cols-md-2 g-1" id="code-stack">
-        <div class="col-lg-7 ">
+        <div class="col-lg-7">
           <div class="window">
             <div class="titlebar">
               <div class="buttons">
@@ -200,8 +201,7 @@
               root@macos-pc
               <!-- window title -->
             </div>
-            <div
-              class="about-me-window">
+            <div class="about-me-window">
               <div class="desktop-icons">
                 <a class="app-button" data-app-window="app-window-1">
                   <div class="icon">
@@ -283,7 +283,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="app-window app-window-2">
                 <div class="app-window-header"><i class="bx bxl-tiktok"></i>Tiktok</div>
                 <div class="app-window-body">
@@ -293,9 +293,19 @@
                     </div>
                   </header>
                   <main>
-                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@arsenij_kotikov" data-unique-id="arsenij_kotikov" data-embed-type="creator"  > <section> <a target="_blank" href="https://www.tiktok.com/@arsenij_kotikov?refer=creator_embed">@arsenij_kotikov</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-                    <div class="tiktok videos">
-
+                    <blockquote
+                      class="tiktok-embed"
+                      cite="https://www.tiktok.com/@arsenij_kotikov"
+                      data-unique-id="arsenij_kotikov"
+                      data-embed-type="creator"
+                    >
+                      <section>
+                        <a target="_blank" href="https://www.tiktok.com/@arsenij_kotikov?refer=creator_embed"
+                          >@arsenij_kotikov</a
+                        >
+                      </section>
+                    </blockquote>
+                    <script async src="https://www.tiktok.com/embed.js"></script>
                   </main>
                 </div>
               </div>
@@ -560,16 +570,18 @@
                     </code></pre>
                 </div>
               </div>
-    
+
               <div class="app-window app-window-5">
                 <div class="app-window-header"><i class="bx bxl-visual-studio"></i>Visual Studio Code</div>
                 <div class="app-window-body">
-                  <pre class="line-numbers"><code class="language-javascript" contenteditable="true" style="outline: none;">
+                  <pre
+                    class="line-numbers"
+                  ><code class="language-javascript" contenteditable="true" style="outline: none;">
                   <div id="editableDiv"></div>
                   </code></pre>
                 </div>
               </div>
-    
+
               <script src="./src/js/window.js"></script>
               <script src="./src/js/drag-window.js"></script>
             </div>
@@ -579,9 +591,7 @@
           <h1>CatOS</h1>
           <p class="pt-2">Это почти как MacOS, только работает на cat magic ✨</p>
         </div>
-
       </div>
-
     </div>
     <div class="my-projects" style="overflow: hidden">
       <div class="content pt-5">
@@ -651,7 +661,7 @@
         </div>
       </div>
       <div class="todo">
-        <div class="content pt-5" >
+        <div class="content pt-5">
           <h1 class="content-h1 inverted pb-4">TODO</h1>
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
@@ -714,6 +724,289 @@
                   широко обсуждают не только в мире финансов. Блокчейн уже пробуют использовать для хранения и обработки
                   персональных данных и идентификации, в маркетинге и компьютерных играх.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .background {
+            width: 100vw;
+            height: 100%;
+            position: relative;
+            background-image: url("background.svg"); /* use an svg file with a noise filter */
+            background-size: cover;
+          }
+
+          .element {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-size: contain;
+            transition: transform 1s ease-out; /* increased duration and added easing */
+          }
+
+          /* use different svg files for each element */
+          .element:nth-child(1) {
+            background-image: url("./src/svg/svg1.svg");
+            background-size: 80%;
+            opacity: 60%;
+          }
+
+          .element:nth-child(2) {
+            background-image: url("./src/svg/svg2.svg");
+          }
+
+          .element:nth-child(3) {
+            background-image: url("./src/svg/svg3.svg");
+          }
+
+          .element:nth-child(4) {
+            background-image: url("./src/svg/svg3.svg");
+            background-size: 60%;
+            background-repeat: no-repeat;
+            opacity: 60%;
+          }
+
+          .element:nth-child(5) {
+            background-image: url("./src/svg/svg3.svg");
+          }
+
+          .element:nth-child(6) {
+            background-image: url("./src/svg/svg1.svg");
+            background-size: 60%;
+            background-repeat: no-repeat;
+            opacity: 60%;
+          }
+
+          .element:nth-child(7) {
+            background-image: url("./src/svg/svg3.svg");
+          }
+
+          .element:nth-child(8) {
+            background-image: url("./src/svg/svg1.svg");
+          }
+
+          .element:nth-child(9) {
+            background-image: url("./src/svg/svg3.svg");
+            background-size: 60%;
+            background-repeat: no-repeat;
+            opacity: 60%;
+          }
+
+          .element:nth-child(10) {
+            background-image: url("./src/svg/svg2.svg");
+          }
+        </style>
+        <script>
+          $(document).ready(function () {
+            const container = document.getElementById("container");
+            // get the container width and height
+            var winWidth = $(container).width();
+            var winHeight = $(container).height() - 200;
+
+            // create an array to store the factors for each element
+            var factors = [];
+
+            // create 10 elements and append them to the body
+            for (var i = 0; i < 6; i++) {
+              var element = $("<div class='element'></div>");
+
+              // generate a random position for each element
+              var x = Math.floor(Math.random() * winWidth);
+              var y = Math.floor(Math.random() * winHeight);
+
+              // set the initial position for each element
+              element.css("left", x + "px");
+              element.css("top", y + "px");
+
+              $(".background").append(element);
+
+              // generate a random factor for each element and push it to the array
+              var factor = Math.random() * 0.5 + 0.5;
+              factors.push(factor);
+            }
+
+            // check if any elements overlap and move them if needed
+            function preventOverlap() {
+              // loop through each pair of elements
+              $(".element").each(function (i) {
+                var elem1 = $(this);
+                $(".element").each(function (j) {
+                  var elem2 = $(this);
+                  // skip if comparing the same element
+                  if (i == j) return;
+
+                  // get the bounding boxes of the elements
+                  var rect1 = elem1[0].getBoundingClientRect();
+                  var rect2 = elem2[0].getBoundingClientRect();
+
+                  // check if the elements overlap
+                  var overlap = !(
+                    rect1.right < rect2.left ||
+                    rect1.left > rect2.right ||
+                    rect1.bottom < rect2.top ||
+                    rect1.top > rect2.bottom
+                  );
+
+                  // if they do, move one of them to a new position
+                  if (overlap) {
+                    var newX = Math.floor(Math.random() * winWidth);
+                    var newY = Math.floor(Math.random() * winHeight);
+                    elem1.css("left", newX + "px");
+                    elem1.css("top", newY + "px");
+                  }
+                });
+              });
+            }
+
+            // call the function once at the beginning
+            preventOverlap();
+
+            // add a mousemove event listener to the body
+            $("body").mousemove(function (e) {
+              // get the mouse position relative to the center of the window
+              var mouseX = e.pageX - winWidth / 2;
+              var mouseY = e.pageY - winHeight / 2;
+
+              // loop through each element and update its position
+              $(".element").each(function (index) {
+                // get the factor for this element from the array
+                var factor = factors[index];
+
+                // calculate the new position for this element
+                var newX = mouseX * factor;
+                var newY = mouseY * factor;
+
+                // limit the movement to a certain range
+                newX = Math.max(-100, Math.min(100, newX));
+                newY = Math.max(-100, Math.min(100, newY));
+
+                // apply a translate transform to this element
+                $(this).css("transform", "translate(" + newX + "px, " + newY + "px)");
+              });
+            });
+          });
+        </script>
+      </div>
+      <div class="background" id="container">
+        <div class="content">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col no-hover">
+              <div class="codewars-profile">
+                <img src="./src/svg/codewars.svg" alt="Codewars logo" />
+                <div class="codewars-info">
+                  <h3>Username</h3>
+                  <p class="codewars-rank">Rank: 5 kyu</p>
+                  <p class="codewars-honor">Honor: 1234</p>
+                  <p class="codewars-challenges">Honor: 1234</p>
+                  <a href="codewars.com/users/Arsenij%20Kotikov">
+                    <button class="cw-lc-btn">Профиль</button>
+                  </a>
+                </div>
+              </div>
+              <style>
+                .codewars-profile,
+                .leetcode-profile {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  z-index: 1;
+                }
+
+                .codewars-profile img,
+                .leetcode-profile img {
+                  max-width: 8rem;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: contain;
+                }
+
+                .codewars-info,
+                .leetcode-info {
+                  margin-left: 1rem;
+                  width: 100%;
+                  background-color: black;
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                }
+                .background .element {
+                  opacity: 20%;
+                }
+                .row > .col.no-hover:hover {
+                  background: none;
+                  border: none;
+                }
+                .row > .col.no-hover {
+                  border: none;
+                  transition: none;
+                }
+              </style>
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+              <script>
+                $(document).ready(function () {
+                  const username = "Arsenij%20Kotikov";
+                  // Get stats and insert them into html
+                  $.get(`https://www.codewars.com/api/v1/users/${username}`, function (data) {
+                    $(".codewars-profile .codewars-info h3").text(data.username);
+                    $(".codewars-profile .codewars-info .codewars-rank").text("Rank: " + data.ranks.overall.name);
+                    $(".codewars-profile .codewars-info .codewars-honor").text("Honor: " + data.honor);
+                    $(".codewars-profile .codewars-info .codewars-challenges").text(
+                      "Challenges: " + data.codeChallenges.totalCompleted
+                    );
+                  });
+                });
+              </script>
+            </div>
+            <div class="col no-hover">
+              <div class="leetcode-profile">
+                <img src="./src/svg/leetcode.svg" alt="Leetcode logo" />
+                <div class="leetcode-info">
+                  <h3>kotru21</h3>
+                  <p class="leetcode-Rank">Rank: 5 kyu</p>
+                  <p class="leetcode-EasySolved">Rank: 5 kyu</p>
+                  <p class="leetcode-MediumSolved">Honor: 1234</p>
+                  <p class="leetcode-HardSolved">Honor: 1234</p>
+                  <a href="https://leetcode.com/kotru21/">
+                    <button class="cw-lc-btn">Профиль</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <script>
+              const username = "kotru21";
+
+              fetch(`https://leetcode-stats-api.herokuapp.com/${username}`)
+                .then((response) => {
+                  // Catch err
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.json();
+                })
+                .then((data) => {
+                  $(".leetcode-profile .leetcode-info .leetcode-Rank").text(`Rank: ${data.ranking}`);
+                  $(".leetcode-profile .leetcode-info .leetcode-EasySolved").text(
+                    `Easy: ${data.easySolved}/${data.totalEasy}`
+                  );
+                  $(".leetcode-profile .leetcode-info .leetcode-MediumSolved").text(
+                    `Medium: ${data.mediumSolved}/${data.totalMedium}`
+                  );
+                  $(".leetcode-profile .leetcode-info .leetcode-HardSolved").text(
+                    `Hard: ${data.hardSolved}/${data.totalHard}`
+                  );
+                  console.log(data); // User statistics logging
+                })
+                .catch((error) => console.error(error));
+            </script>
+            <div class="col no-hover p-5">
+              <div class="position-relative pt-sm-5">
+                <div class="position-absolute bottom-0">
+                  <h1>Stat</h1>
+                  <p class="pt-2">Codewars и Leetcode</p>
+                </div>
               </div>
             </div>
           </div>
