@@ -111,10 +111,10 @@ i.footer {
   height: 10rem;
 }
 .quadcol {
+  max-height: 60vh;
   width: 30vw !important;
   height: 30vw !important;
   background: url("../../src/pc_index/1.png");
-
   background-size: cover;
 }
 .quadcol-2 {
@@ -124,6 +124,7 @@ i.footer {
   background-size: cover;
 }
 .quadcol-3 {
+  max-height: 60vh;
   width: 15vw !important;
   height: 30vw !important;
   background: url("../../src/pc_index/3.png");
