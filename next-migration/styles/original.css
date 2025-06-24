@@ -431,11 +431,7 @@ p {
 .background {
   width: 100vw;
   height: 100%;
-  position: relative;
-  background-image: url("/background.svg");
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
+  background: linear-gradient(rgba(0, 0, 0, 0), black, rgba(0, 0, 0, 0));
 }
 
 /* Базовый элемент анимации */
@@ -1050,6 +1046,12 @@ footer .button {
 }
 .p-5 {
   padding: 3rem;
+}
+.pt-8 {
+  padding-top: 3rem;
+}
+.pb-8 {
+  padding-bottom: 3rem;
 }
 
 /* Layout utilities */

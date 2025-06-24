@@ -145,7 +145,7 @@ export default function Stats() {
   return (
     <>
       {/* Элементы для анимации */}
-      <div className="background  " id="container">
+      <div className="background pt-8 pb-8" id="container">
         <div className="content">
           <div className="row row-cols-1 row-cols-md-3 g-4">
             <div className="col no-hover">
