@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <title>Браузер устарел</title>
+  </head>
+  <body>
+    <h1 style="text-align: center; /*default*/ margin: 0 auto; font-size: 200%">
+      <b
+        >Обнаружено использование устаревшего браузера (Internet Explorer
+        <span id="ver"></span>)</b
+      >
+    </h1>
+    <hr />
+    <div class="container">
+      <h1
+        style="
+          text-align: center; /*default*/
+          margin: 0 auto;
+          margin-bottom: 1%;
+        ">
+        ссылки на скачивание современных браузеров:
+      </h1>
+      <h1
+        class="lnk"
+        onclick="window.location.href = 'https://www.google.com/intl/ru/chrome/'">
+        <img src="/images/sub/Chrome.png" />Google Chrome
+      </h1>
+      <h1
+        class="lnk"
+        onclick="window.location.href = 'https://www.microsoft.com/ru-ru/edge'">
+        <img src="/images/sub/Edge.png" />Microsoft Edge
+      </h1>
+      <h1
+        class="lnk"
+        onclick="window.location.href = 'https://www.mozilla.org/ru/firefox/new/'">
+        <img src="/images/sub/Firefox.png" />Mozilla Firefox
+      </h1>
+    </div>
+  </body>
+  <script>
+    function msieversion() {
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+
+      if (msie > 0) {
+        document.getElementById("ver").innerHTML = parseInt(
+          ua.substring(msie + 5, ua.indexOf(".", msie))
+        );
+      }
+      return false;
+    }
+    msieversion();
+  </script>
+  <style>
+    html {
+      background: #1d1d1d;
+      color: white;
+      overflow: hidden;
+      margin: 40px;
+    }
+    .container {
+      margin-left: 50px;
+    }
+    .lnk {
+      text-decoration: underline;
+      cursor: pointer;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+    .lnk img {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+    .lnk:hover {
+      color: #ed7550;
+    }
+  </style>
+</html>

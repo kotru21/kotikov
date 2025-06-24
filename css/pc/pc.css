@@ -105,11 +105,7 @@ i.footer {
 .nav-link {
   padding-right: 2rem !important;
 }
-.grey {
-  background: gray;
 
-  height: 10rem;
-}
 .quadcol {
   max-height: 60vh;
   width: 30vw !important;
