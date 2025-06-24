@@ -91,6 +91,10 @@ body {
    TYPOGRAPHY
    ======================== */
 
+.my-social .bx {
+  font-size: 120pt;
+}
+
 .footer-h1 {
   font-size: clamp(4rem, 10vh, 8rem);
 }

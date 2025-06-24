@@ -112,12 +112,12 @@ img {
 
 /* Утилиты для скрытия элементов на разных устройствах */
 .pc-hide {
-  display: none;
+  display: block;
 }
 
 @media (min-width: 768px) {
   .pc-hide {
-    display: block;
+    display: none;
   }
 
   .mobile-hide {

@@ -117,7 +117,6 @@ export default function Header() {
           onClick={() => (window.location.href = "mailto:kotikovv@proton.me")}
           style={{ paddingRight: "12rem" }}></i>
       </div>
-      {/* Изображение на заднем плане */}
       <Image
         className="pc-hide"
         src="/images/pc_index/orange-special.webp"
@@ -125,7 +124,7 @@ export default function Header() {
         width={400}
         height={600}
         style={{
-          zIndex: 0,
+          zIndex: 20,
           position: "absolute",
           height: "90%",
           width: "auto",
