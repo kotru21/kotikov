@@ -73,7 +73,7 @@ export default function Header() {
       </nav>{" "}
       {/* Квадратные колонки */}
       <div
-        className="pc-show d-flex justify-content-between gap-5"
+        className="d-flex justify-content-between gap-5"
         style={{
           overflow: "hidden",
           zIndex: 1,

@@ -225,10 +225,11 @@ a:hover {
 
 .fire-flame:nth-child(1) {
   width: 200px;
-  left: 5%;
+  left: 2%;
   bottom: -30px;
 }
 .fire-flame:nth-child(2) {
+  filter: blur(2px);
   width: 90px;
   left: 15%;
   bottom: -25px;
@@ -244,6 +245,7 @@ a:hover {
   bottom: -20px;
 }
 .fire-flame:nth-child(5) {
+  filter: blur(4px);
   width: 80px;
   left: 45%;
   bottom: -40px;
@@ -254,6 +256,7 @@ a:hover {
   bottom: -15px;
 }
 .fire-flame:nth-child(7) {
+  filter: blur(8px);
   width: 65px;
   left: 65%;
   bottom: -30px;
