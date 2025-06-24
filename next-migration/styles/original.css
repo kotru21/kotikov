@@ -1,265 +1,386 @@
-/* Базовые стили, максимально близкие к оригиналу */
-@import url("https://fonts.cdnfonts.com/css/open-sans");
-
-/* Переопределяем глобальные стили */
-* {
-  padding: 0;
-  font-family: "Open Sans", sans-serif !important;
-  color: white;
+/* CSS переменные для цветовой схемы */
+:root {
+  --primary-color: #ed7550;
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --secondary-color: #333333;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
 }
 
-.inverted {
-  color: black;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: #000000 !important;
-  margin: 0;
+  font-family: var(--font-family);
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
-/* Скрытие элементов */
-.pc,
-.mobile {
-  display: none !important;
+/* Утилитарные классы для цветов */
+.text-inverted {
+  color: var(--background-color);
 }
 
-/* pc-hide означает "скрыть на ПК" - показывать только на мобильных */
-.pc-hide {
-  display: block !important;
+.text-muted {
+  color: var(--text-muted);
 }
 
+/* ========================
+   RESPONSIVE UTILITIES
+   ======================== */
+
+/* Базовые утилиты видимости (mobile-first подход) */
+.mobile-only {
+  display: block;
+}
+
+.desktop-only {
+  display: none;
+}
+
+/* Tablet и Desktop */
 @media (min-width: 768px) {
-  .pc {
-    display: block !important;
+  .mobile-only {
+    display: none;
   }
-  .pc-hide {
-    display: none !important;
+
+  .desktop-only {
+    display: block;
   }
-  .mobile-hide {
-    display: none !important;
+
+  .tablet-hide {
+    display: none;
   }
 }
 
+/* Только мобильные устройства */
 @media (max-width: 767px) {
-  .pc-show {
-    display: none !important;
-  }
-  .mobile {
-    display: block !important;
-  }
-  .pc-hide {
-    display: block !important;
+  .mobile-hide {
+    display: none;
   }
 }
 
-/* Хедер */
+/* ========================
+   HEADER STYLES
+   ======================== */
+
 .header {
-  background: #000000;
+  background: var(--background-color);
   min-height: 100vh;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding: 0 3rem;
   position: relative;
-  overflow: visible !important;
+  overflow: visible;
 }
 
 .header.content-header {
   min-height: 50vh;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding: 0;
 }
 
-/* Типографика */
+/* ========================
+   TYPOGRAPHY
+   ======================== */
+
 .footer-h1 {
-  font-size: 10vh !important;
+  font-size: clamp(4rem, 10vh, 8rem);
 }
 
 h1 {
-  font-weight: 900 !important;
-  font-size: 6vw !important;
-  line-height: 0.9 !important;
-  margin: 0 !important;
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 0.9;
+  margin: 0;
 }
 
 .h1-weak {
-  font-weight: 350 !important;
+  font-weight: 350;
 }
 
 h1.special {
-  font-weight: 500 !important;
+  font-weight: 500;
 }
 
 h2 {
-  margin: 0 !important;
-  font-size: 2rem !important;
-  line-height: 1.25 !important;
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.25;
 }
 
 p {
-  opacity: 0.6;
-  margin: 0 !important;
+  color: var(--text-muted);
+  margin: 0;
 }
 
-/* Иконки */
-i {
+/* ========================
+   ICONS & UTILITIES
+   ======================== */
+
+.icon {
   padding-right: 0.5rem;
 }
 
 .card-h1 {
-  font-size: 30pt !important;
+  color: var(--text-color);
+  font-size: clamp(1.5rem, 5vw, 30pt);
 }
 
 #code-stack .card-h1 {
   padding-left: 1rem;
 }
 
-i.footer {
-  font-size: 2rem !important;
+.footer-icon {
+  font-size: 2rem;
 }
 
-/* Навигация */
+/* ========================
+   NAVIGATION
+   ======================== */
+
 .navbar-brand {
-  color: white !important;
-  font-size: 1.4rem !important;
+  color: var(--text-color);
+  font-size: 1.4rem;
   font-weight: 800;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-link {
-  color: white !important;
-  font-size: 1.4rem !important;
-  padding-right: 2rem !important;
+  color: var(--text-color);
+  font-size: 1.4rem;
+  padding-right: 2rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* Текст в хедере */
-.header-text {
-  position: absolute;
-  bottom: 5rem;
-  left: 12vw;
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--primary-color);
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
-/* Социальные сети в мобильной версии */
+/* ========================
+   SOCIAL MEDIA SECTION
+   ======================== */
+
 .my-social {
-  width: 100% !important;
-  overflow-x: auto !important;
-  white-space: nowrap !important;
-  position: absolute !important;
-  z-index: 0 !important;
-  bottom: 10rem !important;
-  left: 0 !important;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 0;
+  bottom: 10rem;
+  left: 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .my-social::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome/Safari */
 }
 
-.my-social > i {
-  font-size: clamp(2rem, 40vw, 15rem) !important;
+.my-social > i,
+.my-social > .social-icon {
+  font-size: clamp(2rem, 8vw, 6rem);
+  margin-right: 1rem;
+  color: var(--text-color);
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
+  display: inline-block;
 }
 
-.my-social i:hover {
+.my-social i:hover,
+.my-social .social-icon:hover {
+  color: var(--primary-color);
   transform: scale(1.1);
 }
 
-/* Квадратные колонки с фоновыми изображениями */
+/* Позиционирование текста в хедере */
+.header-text {
+  position: absolute;
+  bottom: 5rem;
+  left: clamp(2rem, 12vw, 8rem);
+}
+
+/* ========================
+   GRID LAYOUT SYSTEM
+   ======================== */
+
+/* Основной контейнер для grid layout */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Базовый класс для всех grid элементов */
+.grid-item {
+  background-size: cover;
+  background-position: center;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Специфичные размеры для разных элементов */
+.grid-item--large {
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 400px;
+}
+
+.grid-item--wide {
+  grid-column: span 2;
+  min-height: 200px;
+}
+
+.grid-item--tall {
+  grid-row: span 2;
+  min-height: 400px;
+}
+
+/* Конкретные изображения */
+.grid-item--image-1 {
+  background-image: url("/images/pc_index/1.png");
+}
+
+.grid-item--image-2 {
+  background-image: url("/images/pc_index/2.png");
+}
+
+.grid-item--image-3 {
+  background-image: url("/images/pc_index/3.png");
+}
+
+.grid-item--image-4 {
+  background-image: url("/images/pc_index/4.png");
+}
+
+.grid-item--image-5 {
+  background-image: url("/images/pc_index/5.png");
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .grid-item--large,
+  .grid-item--wide,
+  .grid-item--tall {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 200px;
+  }
+}
+
+/* Fallback для старых классов (backward compatibility) */
 .quadcol,
 .quadcol-2,
 .quadcol-3,
-.quadcol-4 {
-  flex: 1;
-}
-
-.quadcol {
-  max-height: 60vh;
-  width: 30vw !important;
-  height: 30vw !important;
-  background: url("/images/pc_index/1.png");
-  background-size: cover;
-  background-color: gray;
-}
-
-.quadcol-2 {
-  width: 20vw !important;
-  height: 20vw !important;
-  background: url("/images/pc_index/2.png");
-  background-size: cover;
-  background-color: gray;
-  position: relative;
-}
-
-.quadcol-3 {
-  max-height: 60vh;
-  width: 15vw !important;
-  height: 30vw !important;
-  background: url("/images/pc_index/3.png");
-  background-size: 140%;
-  background-color: gray;
-}
-
-.quadcol-4 {
-  width: 7vw !important;
-  height: 10vw !important;
-  background: url("/images/pc_index/4.png");
-  background-size: cover;
-  background-color: gray;
-}
-
+.quadcol-4,
 .quadcol-5 {
-  width: 10vw !important;
-  height: 20vw !important;
-  background: url("/images/pc_index/5.png");
+  /* Deprecated: Используйте .grid-item с модификаторами */
   background-size: cover;
-  background-color: gray;
+  background-position: center;
+  background-color: var(--secondary-color);
+  border-radius: 0.25rem;
 }
 
-/* Проекты и языки */
-.projects-div,
-.lang-div {
-  margin-bottom: 2rem !important;
+/* ========================
+   PROJECTS & LANGUAGES SECTIONS
+   ======================== */
+
+.projects-section,
+.projects-div {
+  margin-bottom: 2rem;
   position: relative;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding: 2rem 0 1rem;
 }
 
+.languages-section,
+.lang-div {
+  margin-bottom: 2rem;
+  position: relative;
+  padding: 5rem 0 1rem;
+}
+
+.language-showcase,
 .lang-box {
   width: clamp(10rem, 80vw, 30rem);
   height: clamp(10rem, 80vw, 30rem);
-  background: #ed7550;
+  background: var(--primary-color);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(237, 117, 80, 0.2);
 }
 
-.lang-div {
-  padding-top: 5rem;
+.language-showcase:hover,
+.lang-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(237, 117, 80, 0.3);
 }
 
 /* Кастомный скроллбар */
 ::-webkit-scrollbar {
-  background: white;
+  background: var(--text-color);
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: gray;
+  background: var(--secondary-color);
+  border-radius: 4px;
 }
 
-/* Переменные для тем */
-:root {
-  --primary-color: #ed7550;
-  --background-color: #000000;
-  --text-color: white;
-  --secondary-color: #333;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }
+
+/* ========================
+   THEME SYSTEM
+   ======================== */
 
 [data-theme="light"] {
   --background-color: #ffffff;
   --text-color: #000000;
+  --text-muted: rgba(0, 0, 0, 0.6);
   --secondary-color: #f8f9fa;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --hover-bg: rgba(0, 0, 0, 0.05);
 }
 
 [data-theme="light"] body {
-  background: var(--background-color) !important;
-}
-
-[data-theme="light"] * {
-  color: var(--text-color);
+  background: var(--background-color);
 }
 
 [data-theme="light"] .header {
@@ -268,31 +389,7 @@ i.footer {
 
 [data-theme="light"] .nav-link,
 [data-theme="light"] .navbar-brand {
-  color: var(--text-color) !important;
-}
-
-/* Стили для карточек */
-.card {
-  background: none !important;
-  border: none !important;
-}
-
-.card-text::first-letter {
-  padding-left: 0.5rem;
-}
-
-.card-title {
-  padding-left: 0.5rem;
-}
-
-.row > .col {
-  border: solid 1px rgba(245, 222, 179, 0);
-  transition: 1s;
-}
-
-.row > .col:hover {
-  border-bottom: solid 1px white;
-  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
 }
 
 /* Стили для котика */
@@ -301,8 +398,11 @@ i.footer {
   padding-bottom: 2rem;
 }
 
+.cat-image,
 .cat-img {
-  width: 100% !important;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 /* Пингвин */
@@ -324,161 +424,254 @@ i.footer {
   padding-left: clamp(2rem, 2vw, 30rem);
 }
 
-/* Background animation elements */
+/* ========================
+   BACKGROUND ANIMATION SYSTEM
+   ======================== */
+
 .background {
   width: 100vw;
   height: 100%;
   position: relative;
   background-image: url("/background.svg");
   background-size: cover;
+  background-position: center;
+  overflow: hidden;
 }
 
-.element {
-  width: 100px;
-  height: 100px;
+/* Базовый элемент анимации */
+.animated-element {
   position: absolute;
+  width: clamp(60px, 8vw, 120px);
+  height: clamp(60px, 8vw, 120px);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 1s ease-out;
+  opacity: 0.6;
+  will-change: transform; /* Оптимизация производительности */
+}
+
+/* Конкретные элементы с использованием CSS переменных */
+.animated-element--type-1 {
+  background-image: url("/images/svg/svg1.svg");
+  --size-modifier: 0.8;
+  background-size: calc(100% * var(--size-modifier));
+}
+
+.animated-element--type-2 {
+  background-image: url("/images/svg/svg2.svg");
+}
+
+.animated-element--type-3 {
+  background-image: url("/images/svg/svg3.svg");
+}
+
+/* Размеры элементов */
+.animated-element--small {
+  --size-modifier: 0.6;
+  background-size: calc(100% * var(--size-modifier));
+}
+
+.animated-element--large {
+  --size-modifier: 1.2;
+  background-size: calc(100% * var(--size-modifier));
+}
+
+/* Позиционирование элементов в центре */
+.animated-element--centered {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* Уменьшенная прозрачность для background элементов */
+.background .animated-element {
+  opacity: 0.2;
+}
+
+/* Респект к предпочтениям пользователя о анимациях */
+@media (prefers-reduced-motion: reduce) {
+  .animated-element {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Fallback для старых селекторов */
+.element {
+  /* Deprecated: используйте .animated-element */
+  position: absolute;
+  width: clamp(60px, 8vw, 120px);
+  height: clamp(60px, 8vw, 120px);
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   transition: transform 1s ease-out;
-  opacity: 60%;
+  opacity: 0.6;
+  will-change: transform;
 }
 
-.element:nth-child(1) {
-  background-image: url("/images/svg/svg1.svg");
-  background-size: 80%;
-  opacity: 60%;
-}
+/* ========================
+   CODING PROFILES SECTION
+   ======================== */
 
-.element:nth-child(2) {
-  background-image: url("/images/svg/svg2.svg");
-}
-
-.element:nth-child(3) {
-  background-image: url("/images/svg/svg3.svg");
-}
-
-.element:nth-child(4) {
-  background-image: url("/images/svg/svg3.svg");
-  background-size: 60%;
-  opacity: 60%;
-}
-
-.element:nth-child(5) {
-  background-image: url("/images/svg/svg3.svg");
-}
-
-.element:nth-child(6) {
-  background-image: url("/images/svg/svg1.svg");
-  background-size: 60%;
-  opacity: 60%;
-}
-
-.element:nth-child(7) {
-  background-image: url("/images/svg/svg3.svg");
-}
-
-.element:nth-child(8) {
-  background-image: url("/images/svg/svg1.svg");
-}
-
-.element:nth-child(9) {
-  background-image: url("/images/svg/svg3.svg");
-  background-size: 60%;
-  opacity: 60%;
-}
-
-.element:nth-child(10) {
-  background-image: url("/images/svg/svg2.svg");
-}
-
-.background .element {
-  opacity: 20%;
-}
-
-.row > .col.no-hover:hover {
-  background: none;
-  border: none;
-}
-
-.row > .col.no-hover {
-  border: none;
-  transition: none;
-}
-
+.coding-profile,
 .codewars-profile,
 .leetcode-profile {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 1rem;
   z-index: 1;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
 }
 
+.coding-profile:hover,
+.codewars-profile:hover,
+.leetcode-profile:hover {
+  background: var(--hover-bg);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.coding-profile img,
 .codewars-profile img,
 .leetcode-profile img {
   max-width: 8rem;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  border-radius: 0.25rem;
 }
 
+.coding-profile-info,
 .codewars-info,
 .leetcode-info {
-  margin-left: 1rem;
-  width: 100%;
-  background-color: black;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-.cw-lc-btn {
-  background: #ed7550;
-  border: none;
-  color: white;
-  padding: 0.5rem 1rem;
+  flex: 1;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.25rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 1rem;
+  color: var(--text-color);
 }
 
-.cw-lc-btn:hover {
-  background: #d4633f;
-  transform: translateY(-1px);
+/* Стили для grid колонок */
+.grid-column {
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
 }
 
-/* Кнопки */
-.stack-btn-2,
-.btn {
-  background: #ed7550;
+.grid-column:hover:not(.no-hover) {
+  border-color: var(--text-color);
+  background: var(--hover-bg);
+}
+
+.grid-column.no-hover {
   border: none;
-  color: white;
+  transition: none;
+}
+
+.grid-column.no-hover:hover {
+  background: none;
+  border: none;
+}
+
+/* ========================
+   BUTTON SYSTEM
+   ======================== */
+
+/* Базовый стиль кнопки */
+.btn,
+.button,
+.stack-btn-2,
+.cw-lc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
   border-radius: 0.375rem;
   font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 1rem;
+  user-select: none;
 }
 
+/* Размеры кнопок */
+.btn--small,
+.cw-lc-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn--large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Состояния кнопок */
+.btn:hover,
+.button:hover,
 .stack-btn-2:hover,
-.btn:hover {
+.cw-lc-btn:hover {
   background: #d4633f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(237, 117, 80, 0.3);
+  box-shadow: 0 4px 12px rgba(237, 117, 80, 0.3);
 }
 
+.btn:active,
+.button:active,
 .stack-btn-2:active,
-.btn:active {
+.cw-lc-btn:active {
   transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(237, 117, 80, 0.2);
 }
 
-/* Карточки */
+.btn:focus,
+.button:focus,
+.stack-btn-2:focus,
+.cw-lc-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.btn:disabled,
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Вторичная кнопка */
+.btn--secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn--secondary:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* ========================
+   CARD SYSTEM
+   ======================== */
+
 .card {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
@@ -486,9 +679,10 @@ i.footer {
 }
 
 .card:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--hover-bg);
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .card-body {
@@ -496,45 +690,96 @@ i.footer {
 }
 
 .card-title {
-  color: white;
+  color: var(--text-color);
   font-weight: 600;
   margin-bottom: 1rem;
+  padding-left: 0.5rem;
 }
 
 .card-text {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
-/* TODO секция */
+.card-text::first-letter {
+  padding-left: 0.5rem;
+}
+
+/* Стили для колонок с карточками */
+.row > .col {
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+}
+
+.row .card:hover:not(.no-hover) {
+  border-color: var(--text-color);
+  background: var(--hover-bg);
+}
+
+.row > .col.no-hover {
+  border: none;
+  transition: none;
+}
+
+.row > .col.no-hover:hover {
+  background: none;
+  border: none;
+}
+
+/* ========================
+   LAYOUT SECTIONS
+   ======================== */
+
+/* TODO секция с оранжевым фоном */
+.todo-section,
 .todo {
-  background: #ed7550;
-  color: black;
+  background: var(--primary-color);
+  color: var(--background-color);
   padding: 3rem 0;
   margin-top: 3rem;
 }
 
+.todo-section .card,
 .todo .card {
   background: rgba(0, 0, 0, 0.1);
   border-color: rgba(0, 0, 0, 0.2);
+  color: var(--background-color);
 }
 
+.todo-section .card:hover,
 .todo .card:hover {
   background: rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
-/* Контент секции */
+/* Основной контент контейнер */
+.main-content,
 .content {
-  padding: 0 3rem;
+  padding: 0 clamp(1rem, 5vw, 3rem);
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
+.content-heading,
 .content-h1 {
   font-size: clamp(3rem, 8vw, 8rem);
   font-weight: 900;
   line-height: 0.9;
   margin-bottom: 2rem;
+  text-align: left;
+}
+
+.content-special {
+  padding: 3rem 0;
+  background: var(--background-color);
+}
+
+.projects-showcase,
+.my-projects {
+  background: var(--background-color);
+  padding: 3rem 0;
 }
 
 .content-special {
@@ -561,7 +806,11 @@ i.footer {
   transform: scale(1.1);
 }
 
-/* Анимации */
+/* ========================
+   ANIMATION SYSTEM
+   ======================== */
+
+/* Базовые анимации */
 @keyframes bounce {
   0%,
   20%,
@@ -578,93 +827,349 @@ i.footer {
   }
 }
 
-.bounce {
-  animation: bounce 1s;
-}
-
-/* Анимация телефона */
-@keyframes phone {
-  0% {
+@keyframes fadeInOut {
+  0%,
+  100% {
     opacity: 0.2;
   }
   50% {
     opacity: 1;
   }
-  100% {
-    opacity: 0.2;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
-.phone {
-  position: absolute;
-  left: -20vw;
-  width: 40%;
-  min-width: 20rem;
-  z-index: 1;
-  animation: phone 4s infinite;
+/* Utility классы для анимаций */
+.animate-bounce {
+  animation: bounce 1s ease-in-out;
 }
 
-/* TikTok стили */
+.animate-fade {
+  animation: fadeInOut 4s infinite ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+/* Респект к настройкам пользователя */
+@media (prefers-reduced-motion: reduce) {
+  .animate-bounce,
+  .animate-fade,
+  .animate-slide-in,
+  .phone {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Конкретные элементы */
+.phone-element,
+.phone {
+  position: absolute;
+  left: clamp(-30vw, -20vw, -10rem);
+  width: clamp(200px, 40%, 400px);
+  min-width: 200px;
+  z-index: 1;
+  animation: fadeInOut 4s infinite ease-in-out;
+}
+
+/* Обратная совместимость */
+.bounce {
+  animation: bounce 1s ease-in-out;
+}
+
+/* ========================
+   SOCIAL MEDIA COMPONENTS
+   ======================== */
+
+.social-header,
 .tiktok-header {
   padding: 1rem;
-  background: #000;
-  border-bottom: 1px solid #333;
+  background: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 
+.social-logo,
+.tiktok-logo,
 .tiktok.logo {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
-/* Специальные стили для PC Specs */
-.pc_specs-special {
-  background: #333;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding: 0.5rem;
+/* ========================
+   WINDOW COMPONENTS
+   ======================== */
+
+.window-component {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.window-content {
+  padding: 1rem;
 }
 
 .window-content table {
   width: 100%;
   border-collapse: collapse;
-  color: black;
+  color: var(--background-color);
+  background: var(--text-color);
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .window-content table td {
-  padding: 0.5rem;
-  border-bottom: 1px solid #ddd;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  vertical-align: top;
 }
 
 .window-content table td:first-child {
-  font-weight: bold;
+  font-weight: 600;
   background: #f5f5f5;
   width: 40%;
+  color: #333;
 }
 
-/* Footer стили */
+.window-content table tr:last-child td {
+  border-bottom: none;
+}
+
+/* PC Specs специальная секция */
+.pc-specs-highlight,
+.pc_specs-special {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+}
+
+/* ========================
+   FOOTER SECTION
+   ======================== */
+
 footer {
-  background: #f1f1f1 !important;
+  background: #f1f1f1;
   margin-top: 3rem;
+  padding: 2rem 0;
 }
 
+.footer-icon,
 .footer.bx {
-  font-size: 2rem !important;
-  color: #333 !important;
+  font-size: 2rem;
+  color: #333;
   margin: 0 0.5rem;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
+.footer-icon:hover,
 .footer.bx:hover {
-  color: #ed7550 !important;
+  color: var(--primary-color);
   transform: scale(1.1);
 }
 
-footer .btn {
+footer .btn,
+footer .button {
   background: none;
   border: none;
   padding: 0.5rem;
+  color: #333;
 }
+
+/* ========================
+   UTILITY CLASSES
+   ======================== */
+
+/* Spacing utilities */
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 1rem;
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+.mb-5 {
+  margin-bottom: 3rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-3 {
+  padding: 1rem;
+}
+.p-4 {
+  padding: 1.5rem;
+}
+.p-5 {
+  padding: 3rem;
+}
+
+/* Layout utilities */
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.hidden {
+  display: none;
+}
+
+/* Position utilities */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.sticky {
+  position: sticky;
+}
+
+/* Text utilities */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-bold {
+  font-weight: 600;
+}
+.text-light {
+  font-weight: 300;
+}
+
+/* Color utilities */
+.text-primary {
+  color: var(--primary-color);
+}
+.text-secondary {
+  color: var(--secondary-color);
+}
+.bg-primary {
+  background-color: var(--primary-color);
+}
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+/* Border utilities */
+.border {
+  border: 1px solid var(--border-color);
+}
+.border-primary {
+  border: 1px solid var(--primary-color);
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.rounded-full {
+  border-radius: 50%;
+}
+
+/* Shadow utilities */
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.shadow-lg {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Width utilities */
+.w-full {
+  width: 100%;
+}
+.w-auto {
+  width: auto;
+}
+.max-w-screen {
+  max-width: 100vw;
+}
+.max-w-container {
+  max-width: 1400px;
+}
+
+/* ========================
+   MODERN CSS ARCHITECTURE
+   ======================== */

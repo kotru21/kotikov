@@ -5,7 +5,7 @@ import React from "react";
 export default function TechStack() {
   return (
     <div className="my-projects" style={{ overflow: "hidden" }}>
-      <div className="content pt-5 mb-lg-5">
+      <div className="content pt-5 ">
         <h1 className="content-h1">
           <span className="h1-weak">Мой</span>
           <br />

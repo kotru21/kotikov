@@ -45,10 +45,7 @@ export default function Header() {
                 </a>
               </li>
               <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  aria-current="page"
-                  href="#about-me">
+                <a className="nav-link" aria-current="page" href="#about-me">
                   Обо мне
                 </a>
               </li>

@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function GitHub() {
   return (
     <div
-      className="header content-header mt-lg-5 mb-lg-5"
+      className="header content-header  "
       style={{
         background:
           "linear-gradient(rgba(255, 255, 0, 0), rgba(255, 255, 0, 0.5))",

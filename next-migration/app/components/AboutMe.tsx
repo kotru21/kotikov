@@ -82,7 +82,7 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 
   return (
     <div
-      className={`content-special about-me mb-lg-5 ${className}`}
+      className={`content-special about-me  ${className}`}
       style={{ position: "relative", overflow: "hidden" }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
