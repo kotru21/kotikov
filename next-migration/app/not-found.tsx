@@ -5,46 +5,30 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div style={{ margin: "1rem", marginTop: "10rem" }}>
+    <div className="not-found-container">
       <div className="col-sm-4 m-auto">
-        <div
-          className="card"
-          style={{
-            width: "90%",
-            maxWidth: "50vh",
-            margin: "0 auto",
-          }}>
-          <div className="card-body" style={{ paddingTop: "6vh" }}>
+        <div className="card not-found-card">
+          <div className="card-body not-found-card-body">
             <Image
               src="/images/sub/404cat.webp"
               alt="404 Cat"
               width={400}
               height={400}
-              style={{ width: "100%", marginTop: "-10rem" }}
+              className="not-found-image"
             />
-            <h5
-              className="card-title"
-              style={{
-                fontSize: "10rem",
-                textAlign: "center",
-              }}>
+            <h5 className="card-title not-found-title">
               <div className="container">
                 <p className="glitch">404</p>
                 <hr className="hr" />
               </div>
             </h5>
-            <p className="card-text" style={{ textAlign: "center" }}>
+            <p className="card-text not-found-text">
               Кажется, что-то пошло не так.
             </p>
-            <div className="text-center" style={{ marginTop: "4rem" }}>
+            <div className="text-center not-found-button-container">
               <Link
                 href="/"
-                className="btn btn-primary"
-                style={{
-                  background: "#ed7550",
-                  borderColor: "#ed7550",
-                  fontWeight: "bold",
-                }}>
+                className="btn btn-primary not-found-button">
                 Вернуться на главную
               </Link>
             </div>

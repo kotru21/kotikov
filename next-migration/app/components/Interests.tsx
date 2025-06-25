@@ -4,18 +4,14 @@ import React from "react";
 
 export default function Interests() {
   return (
-    <div className="content" style={{ paddingTop: "2rem" }} id="interests">
+    <div className="content interests-container" id="interests">
       <h1 className="content-h1 pb-4">Изучаю</h1>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         <div className="col">
           <div className="card">
             <span>
               <i
-                className="bx bxs-cat"
-                style={{
-                  color: "#e81010",
-                  fontSize: "clamp(2rem, 20vw, 10rem)",
-                }}></i>
+                className="bx bxs-cat interests-icon"></i>
             </span>
             <div className="card-body">
               <h2 className="card-title">Котики</h2>
@@ -29,11 +25,7 @@ export default function Interests() {
           <div className="card">
             <span>
               <i
-                className="bx bxs-microchip"
-                style={{
-                  color: "#e81010",
-                  fontSize: "clamp(2rem, 20vw, 10rem)",
-                }}></i>
+                className="bx bxs-microchip interests-icon"></i>
             </span>
             <div className="card-body">
               <h2 className="card-title">ИИ</h2>
@@ -50,11 +42,7 @@ export default function Interests() {
           <div className="card">
             <span>
               <i
-                className="bx bxl-bitcoin"
-                style={{
-                  color: "#e81010",
-                  fontSize: "clamp(2rem, 20vw, 10rem)",
-                }}></i>
+                className="bx bxl-bitcoin interests-icon"></i>
             </span>
             <div className="card-body">
               <h2 className="card-title">Блокчейн</h2>

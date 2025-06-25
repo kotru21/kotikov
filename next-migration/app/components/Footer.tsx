@@ -5,7 +5,7 @@ import React from "react";
 export default function Footer() {
   return (
     <div>
-      <footer className="text-center" style={{ backgroundColor: "#f1f1f1" }}>
+      <footer className="text-center footer-main">
         {/* Grid container */}
         <div className="container pt-4">
           {/* Section: Social media */}
@@ -58,14 +58,9 @@ export default function Footer() {
               <i className="footer bx bxl-instagram inverted"></i>
             </a>
 
-            {/* Section: Social media */}
-
-            {/* Grid container */}
-
             {/* Copyright */}
             <div
-              className="text-center text-dark p-3"
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
+              className="text-center text-dark p-3 footer-copyright">
               © 2023 Copyright:
               <a className="text-dark" href="https://kotikov.is-a.dev/">
                 kotikov

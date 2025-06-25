@@ -50,8 +50,7 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 
   return (
     <div
-      className={`content-special about-me ${className}`}
-      style={{ position: "relative", overflow: "hidden" }}
+      className={`content-special about-me about-me-container ${className}`}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp} // Останавливаем перетаскивание при выходе курсора
@@ -83,16 +82,14 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
                   </a>
                 </div>
               </div>
-              <span style={{ color: "white", marginLeft: "1rem" }}>
+              <span className="about-me-titlebar-text">
                 root@macos-pc
               </span>
             </div>
 
             <div className="about-me-window">
               {/* Иконки на рабочем столе */}
-              <div
-                className="desktop-icons"
-                style={{ position: "absolute", top: "2rem", left: "2rem" }}>
+              <div className="desktop-icons about-me-desktop-icons">
                 <DesktopIcon
                   src="/images/pc_index/pingv.svg"
                   alt="PC Specs"

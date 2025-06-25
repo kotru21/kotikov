@@ -10,36 +10,22 @@ export default function VSCodeMainWindow({
 }: WindowProps) {
   return (
     <div
-      className="app-window show"
+      className={`app-window show ${isDragging ? 'dragging' : ''}`}
       style={{
-        position: "absolute",
         left: `${position.x}px`,
         top: `${position.y}px`,
-        cursor: isDragging ? "grabbing" : "default",
       }}
       onMouseDown={(e) => onMouseDown(e, windowId)}>
-      <div className="app-window-header" style={{ cursor: "grab" }}>
+      <div className="app-window-header">
         <i className="bx bx-code-alt"></i>VS Code
         <button
           onClick={onClose}
-          style={{
-            float: "right",
-            background: "none",
-            border: "none",
-            color: "white",
-            cursor: "pointer",
-          }}>
+          className="app-window-close-button">
           ×
         </button>
       </div>
-      <div
-        className="app-window-body"
-        style={{
-          background: "#1e1e1e",
-          color: "#d4d4d4",
-          fontFamily: "monospace",
-        }}>
-        <pre style={{ margin: 0, padding: "1rem" }}>
+      <div className="app-window-body vscode-main-window-body">
+        <pre className="vscode-main-window-pre">
           {`// Добро пожаловать в мой код!
 function greeting() {
   const developer = "Arsenij Kotikov";

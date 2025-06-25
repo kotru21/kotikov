@@ -10,25 +10,17 @@ export default function VSCodeWindow({
 }: WindowProps) {
   return (
     <div
-      className="app-window show"
+      className={`app-window show ${isDragging ? 'dragging' : ''}`}
       style={{
-        position: "absolute",
         left: `${position.x}px`,
         top: `${position.y}px`,
-        cursor: isDragging ? "grabbing" : "default",
       }}
       onMouseDown={(e) => onMouseDown(e, windowId)}>
-      <div className="app-window-header" style={{ cursor: "grab" }}>
+      <div className="app-window-header">
         <i className="bx bx-question-mark"></i>NASA source code(?)
         <button
           onClick={onClose}
-          style={{
-            float: "right",
-            background: "none",
-            border: "none",
-            color: "white",
-            cursor: "pointer",
-          }}>
+          className="app-window-close-button">
           ×
         </button>
       </div>

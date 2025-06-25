@@ -1,0 +1,128 @@
+/* Компоненты - стили для рефакторинга инлайн-стилей */
+
+/* ========== Interests Component ========== */
+.interests-container {
+  padding-top: 2rem;
+}
+
+.interests-icon {
+  color: #e81010;
+  font-size: clamp(2rem, 20vw, 10rem);
+}
+
+/* ========== Not Found Page ========== */
+.not-found-container {
+  margin: 1rem;
+  margin-top: 10rem;
+}
+
+.not-found-card {
+  width: 90%;
+  max-width: 50vh;
+  margin: 0 auto;
+}
+
+.not-found-card-body {
+  padding-top: 6vh;
+}
+
+.not-found-image {
+  width: 100%;
+  margin-top: -10rem;
+}
+
+.not-found-title {
+  font-size: 10rem;
+  text-align: center;
+}
+
+.not-found-text {
+  text-align: center;
+}
+
+.not-found-button-container {
+  margin-top: 4rem;
+}
+
+.not-found-button {
+  background: #ed7550;
+  border-color: #ed7550;
+  font-weight: bold;
+}
+
+/* ========== Footer Component ========== */
+.footer-main {
+  background-color: #f1f1f1;
+}
+
+.footer-copyright {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ========== Desktop Icon Component ========== */
+.desktop-icon {
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.desktop-icon-image {
+  display: block;
+  margin: 0 auto;
+}
+
+.desktop-icon-label {
+  font-size: 12px;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* ========== About Me Component ========== */
+.about-me-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-me-titlebar-text {
+  color: white;
+  margin-left: 1rem;
+}
+
+.about-me-desktop-icons {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+/* ========== App Windows ========== */
+.app-window {
+  position: absolute;
+}
+
+.app-window.dragging {
+  cursor: grabbing;
+}
+
+.app-window-header {
+  cursor: grab;
+}
+
+.app-window-close-button {
+  float: right;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.vscode-main-window-body {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: monospace;
+}
+
+.vscode-main-window-pre {
+  margin: 0;
+  padding: 1rem;
+}

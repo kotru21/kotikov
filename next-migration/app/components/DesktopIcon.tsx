@@ -18,28 +18,17 @@ export default function DesktopIcon({
 }: DesktopIconProps) {
   return (
     <div
-      className="icon"
-      onClick={onClick}
-      style={{
-        cursor: "pointer",
-        textAlign: "center",
-        marginBottom: "2rem",
-        color: "white",
-      }}>
+      className="icon desktop-icon"
+      onClick={onClick}>
       <Image
         src={src}
         alt={alt}
         width={64}
         height={64}
-        style={{ display: "block", margin: "0 auto" }}
+        className="desktop-icon-image"
         onClick={onIconClick}
       />
-      <span
-        style={{
-          fontSize: "12px",
-          display: "block",
-          marginTop: "0.5rem",
-        }}>
+      <span className="desktop-icon-label">
         {label}
       </span>
     </div>
