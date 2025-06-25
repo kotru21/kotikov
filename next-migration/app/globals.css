@@ -4,7 +4,6 @@
 @import "prismjs/themes/prism.min.css";
 @import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-/* Импорт наших стилей */
 @import "../styles/original.css";
 @import "../styles/windows.css";
 @import "../styles/solar.css";
@@ -115,9 +114,17 @@ img {
   display: block;
 }
 
+.pc-show {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .pc-hide {
     display: none;
+  }
+
+  .pc-show {
+    display: block;
   }
 
   .mobile-hide {

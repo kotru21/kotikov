@@ -25,7 +25,24 @@ export default function Header() {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid" style={{ paddingLeft: 0 }}>
           <a className="navbar-brand" href="#">
-            Kotikov
+            {/* Логотип для десктопа */}
+            <Image
+              src="/icons/logo_pc.svg"
+              alt="Kotikov"
+              width={120}
+              height={40}
+              className="d-none d-md-block"
+              priority
+            />
+            {/* Логотип для мобильных */}
+            <Image
+              src="/icons/logo_mobile.svg"
+              alt="Kotikov"
+              width={80}
+              height={30}
+              className="d-block d-md-none"
+              priority
+            />
           </a>
           <button
             className="navbar-toggler"
@@ -79,6 +96,12 @@ export default function Header() {
           zIndex: 1,
           position: "absolute",
           display: "flex",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "80%",
+          maxWidth: "800px",
+          alignItems: "flex-end",
         }}>
         <div className="quadcol"></div>
         <div className="quadcol-2" style={{ position: "relative" }}>

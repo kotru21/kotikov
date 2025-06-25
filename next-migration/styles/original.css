@@ -158,9 +158,24 @@ p {
   font-size: 1.4rem;
   font-weight: 800;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.navbar-brand img {
+  height: auto;
+  max-height: 100%;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05);
 }
 
 .navbar-nav {
+  min-width: 30rem;
   width: 35%;
   display: flex;
   justify-content: space-between;
@@ -314,11 +329,53 @@ p {
 .quadcol-3,
 .quadcol-4,
 .quadcol-5 {
-  /* Deprecated: Используйте .grid-item с модификаторами */
+  width: 120px;
   background-size: cover;
   background-position: center;
   background-color: var(--secondary-color);
   border-radius: 0.25rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.quadcol:hover,
+.quadcol-2:hover,
+.quadcol-3:hover,
+.quadcol-4:hover,
+.quadcol-5:hover {
+  transform: translateY(-5px);
+}
+
+/* Специфичные стили для каждого quadcol с разной высотой */
+.quadcol {
+  height: 100px;
+  background-image: url("/images/pc_index/1.png");
+}
+
+.quadcol-2 {
+  height: 140px;
+  background-image: url("/images/pc_index/2.png");
+}
+
+.quadcol-3 {
+  height: 160px;
+  background-image: url("/images/pc_index/3.png");
+}
+
+.quadcol-4 {
+  height: 120px;
+  background-image: url("/images/pc_index/4.png");
+}
+
+/* Скрытие quadcol на мобильных устройствах */
+@media (max-width: 767px) {
+  .quadcol,
+  .quadcol-2,
+  .quadcol-3,
+  .quadcol-4,
+  .quadcol-5 {
+    display: none;
+  }
 }
 
 /* ========================
