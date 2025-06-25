@@ -139,8 +139,10 @@ p {
   font-size: clamp(1.5rem, 5vw, 30pt);
 }
 
-#code-stack .card-h1 {
-  padding-left: 1rem;
+#code-stack .card-h1,
+.todo .card-h1 {
+  padding-top: 2rem;
+  padding-left: 2rem;
 }
 
 .footer-icon {
