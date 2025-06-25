@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Image from "next/image";
 import { AboutMeProps } from "@/types";
 
@@ -9,22 +9,129 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
   const [windowPositions, setWindowPositions] = useState<{
     [key: string]: { x: number; y: number };
   }>({});
+  const [savedPositions, setSavedPositions] = useState<{
+    [key: string]: { x: number; y: number };
+  }>({});
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [draggedWindow, setDraggedWindow] = useState<string | null>(null);
+  const [deviceInfo, setDeviceInfo] = useState({
+    processor: "Определяется...",
+    memory: "Определяется...",
+    platform: "Определяется...",
+    userAgent: "Определяется...",
+    screen: "Определяется...",
+    language: "Определяется...",
+    online: true,
+    hardwareConcurrency: "Определяется...",
+  });
+  // Функция для получения информации об устройстве
+  const getDeviceInfo = () => {
+    if (typeof window === "undefined") return;
 
-  const openWindow = (windowId: string) => {
-    setActiveWindow(windowId);
-    // Устанавливаем начальную позицию окна, если она не задана
-    if (!windowPositions[windowId]) {
-      setWindowPositions((prev) => ({
-        ...prev,
-        [windowId]: { x: 50, y: 50 },
-      }));
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      hardwareConcurrency?: number;
+      userAgentData?: { platform?: string };
+    };
+    const screen = window.screen;
+
+    // Определение процессора (приблизительно)
+    let processor = "Неизвестен";
+    if (nav.hardwareConcurrency) {
+      processor = `${nav.hardwareConcurrency}-ядерный процессор`;
     }
-  };
+
+    // Определение памяти (если доступно)
+    let memory = "Информация недоступна";
+    if (nav.deviceMemory) {
+      memory = `${nav.deviceMemory} ГБ`;
+    } else if (nav.hardwareConcurrency) {
+      // Примерная оценка на основе количества ядер
+      const estimatedMemory =
+        nav.hardwareConcurrency >= 8
+          ? "16+ ГБ"
+          : nav.hardwareConcurrency >= 4
+          ? "8-16 ГБ"
+          : "4-8 ГБ";
+      memory = `~${estimatedMemory} (оценка)`;
+    }
+
+    // Определение платформы
+    const platform =
+      nav.platform || nav.userAgentData?.platform || "Неизвестна";
+
+    // Определение ОС
+    let os = "Неизвестная ОС";
+    const userAgent = nav.userAgent;
+    if (userAgent.includes("Windows NT 10.0")) os = "Windows 10/11";
+    else if (userAgent.includes("Windows NT")) os = "Windows";
+    else if (userAgent.includes("Mac OS X")) os = "macOS";
+    else if (userAgent.includes("Linux")) os = "Linux";
+    else if (userAgent.includes("Android")) os = "Android";
+    else if (userAgent.includes("iPhone") || userAgent.includes("iPad"))
+      os = "iOS";
+
+    // Информация о экране
+    const screenInfo = `${screen.width}x${screen.height}, ${screen.colorDepth}-бит`;
+
+    setDeviceInfo({
+      processor,
+      memory,
+      platform,
+      userAgent: os,
+      screen: screenInfo,
+      language: nav.language || "Неизвестен",
+      online: nav.onLine,
+      hardwareConcurrency: nav.hardwareConcurrency?.toString() || "Неизвестно",
+    });
+  }; // Функция для получения центральной позиции окна
+  const getCenterPosition = useMemo(() => {
+    if (typeof window === "undefined") return { x: 50, y: 50 };
+
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Примерный размер окна (можно настроить под конкретные окна)
+    const appWindowWidth = 400;
+    const appWindowHeight = 300;
+
+    return {
+      x: Math.max(50, (windowWidth - appWindowWidth) / 2),
+      y: Math.max(50, (windowHeight - appWindowHeight) / 2),
+    };
+  }, []);
+
+  const openWindow = useCallback(
+    (windowId: string) => {
+      // Сначала устанавливаем позицию окна
+      if (savedPositions[windowId]) {
+        setWindowPositions((prev) => ({
+          ...prev,
+          [windowId]: savedPositions[windowId],
+        }));
+      } else if (!windowPositions[windowId]) {
+        // Иначе устанавливаем окно в центр
+        setWindowPositions((prev) => ({
+          ...prev,
+          [windowId]: getCenterPosition,
+        }));
+      }
+
+      // Затем показываем окно
+      setActiveWindow(windowId);
+    },
+    [savedPositions, windowPositions, getCenterPosition]
+  );
 
   const closeWindow = () => {
+    // Сохраняем текущую позицию окна перед закрытием
+    if (activeWindow && windowPositions[activeWindow]) {
+      setSavedPositions((prev) => ({
+        ...prev,
+        [activeWindow]: windowPositions[activeWindow],
+      }));
+    }
     setActiveWindow(null);
   };
 
@@ -49,7 +156,7 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
     setIsDragging(true);
     setDraggedWindow(windowId);
 
-    const windowPos = windowPositions[windowId] || { x: 50, y: 50 };
+    const windowPos = windowPositions[windowId] || getCenterPosition;
     setDragOffset({
       x: e.clientX - windowPos.x,
       y: e.clientY - windowPos.y,
@@ -72,13 +179,17 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
     setIsDragging(false);
     setDraggedWindow(null);
   };
-
   // Инициализация Prism.js для подсветки синтаксиса
   useEffect(() => {
     if (typeof window !== "undefined" && window.Prism) {
       window.Prism.highlightAll();
     }
   }, [activeWindow]);
+
+  // Получение информации об устройстве при монтировании компонента
+  useEffect(() => {
+    getDeviceInfo();
+  }, []);
 
   return (
     <div
@@ -209,8 +320,12 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
                   className="app-window show"
                   style={{
                     position: "absolute",
-                    left: `${windowPositions["pc-specs"]?.x || 50}px`,
-                    top: `${windowPositions["pc-specs"]?.y || 50}px`,
+                    left: `${
+                      windowPositions["pc-specs"]?.x ?? getCenterPosition.x
+                    }px`,
+                    top: `${
+                      windowPositions["pc-specs"]?.y ?? getCenterPosition.y
+                    }px`,
                     cursor:
                       isDragging && draggedWindow === "pc-specs"
                         ? "grabbing"
@@ -243,36 +358,41 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
                           </tr>
                           <tr>
                             <td>Процессор</td>
-                            <td>AMD Ryzen 5 5600X 6-Core Processor 3.70 GHz</td>
+                            <td>{deviceInfo.processor}</td>
+                          </tr>
+                          <tr>
+                            <td>Количество ядер</td>
+                            <td>{deviceInfo.hardwareConcurrency}</td>
                           </tr>
                           <tr>
                             <td>Оперативная память</td>
-                            <td>16,0 ГБ</td>
+                            <td>{deviceInfo.memory}</td>
+                          </tr>
+                          <tr>
+                            <td>Платформа</td>
+                            <td>{deviceInfo.platform}</td>
+                          </tr>
+                          <tr>
+                            <td>Операционная система</td>
+                            <td>{deviceInfo.userAgent}</td>
+                          </tr>
+                          <tr>
+                            <td>Разрешение экрана</td>
+                            <td>{deviceInfo.screen}</td>
+                          </tr>
+                          <tr>
+                            <td>Язык системы</td>
+                            <td>{deviceInfo.language}</td>
+                          </tr>
+                          <tr>
+                            <td>Статус сети</td>
+                            <td>{deviceInfo.online ? "Онлайн" : "Офлайн"}</td>
                           </tr>
                           <tr>
                             <td>Код устройства</td>
-                            <td>MEOWOS-1</td>
-                          </tr>
-                          <tr>
-                            <td>Код продукта</td>
-                            <td>MEOW-1</td>
-                          </tr>
-                          <tr>
-                            <td>Тип системы</td>
                             <td>
-                              64-разрядная операционная система, процессор x64
+                              USER-DEVICE-{Date.now().toString().slice(-4)}
                             </td>
-                          </tr>
-                          <tr>
-                            <td>Перо и сенсорный ввод</td>
-                            <td>
-                              Для этого монитора доступен ввод с помощью пера и
-                              сенсорный ввод
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Operating System</td>
-                            <td>MeowOS 11 Pro</td>
                           </tr>
                         </tbody>
                       </table>
@@ -285,8 +405,12 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
                   className="app-window show"
                   style={{
                     position: "absolute",
-                    left: `${windowPositions["tiktok"]?.x || 100}px`,
-                    top: `${windowPositions["tiktok"]?.y || 100}px`,
+                    left: `${
+                      windowPositions["tiktok"]?.x ?? getCenterPosition.x
+                    }px`,
+                    top: `${
+                      windowPositions["tiktok"]?.y ?? getCenterPosition.y
+                    }px`,
                     cursor:
                       isDragging && draggedWindow === "tiktok"
                         ? "grabbing"
@@ -342,8 +466,12 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
                   className="app-window show"
                   style={{
                     position: "absolute",
-                    left: `${windowPositions["vscode"]?.x || 200}px`,
-                    top: `${windowPositions["vscode"]?.y || 80}px`,
+                    left: `${
+                      windowPositions["vscode"]?.x ?? getCenterPosition.x
+                    }px`,
+                    top: `${
+                      windowPositions["vscode"]?.y ?? getCenterPosition.y
+                    }px`,
                     cursor:
                       isDragging && draggedWindow === "vscode"
                         ? "grabbing"
@@ -436,8 +564,12 @@ async def get_person_info():
                   className="app-window show"
                   style={{
                     position: "absolute",
-                    left: `${windowPositions["vscode-main"]?.x || 150}px`,
-                    top: `${windowPositions["vscode-main"]?.y || 150}px`,
+                    left: `${
+                      windowPositions["vscode-main"]?.x ?? getCenterPosition.x
+                    }px`,
+                    top: `${
+                      windowPositions["vscode-main"]?.y ?? getCenterPosition.y
+                    }px`,
                     cursor:
                       isDragging && draggedWindow === "vscode-main"
                         ? "grabbing"
