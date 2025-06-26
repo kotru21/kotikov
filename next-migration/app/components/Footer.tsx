@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Section: Social media */}
           <section>
             <a
-              className="btn"
+              className="footer-btn"
               href="https://youtube.com/@kotikov"
               role="button"
               data-mdb-ripple-color="dark">
@@ -19,7 +19,7 @@ export default function Footer() {
             </a>
 
             <a
-              className="btn"
+              className="footer-btn"
               href="https://twitter.com/arsenij_kotikov"
               role="button"
               data-mdb-ripple-color="dark">
@@ -27,7 +27,7 @@ export default function Footer() {
             </a>
 
             <a
-              className="btn"
+              className="footer-btn"
               href="https://github.com/kotru21"
               role="button"
               data-mdb-ripple-color="dark">
@@ -35,7 +35,7 @@ export default function Footer() {
             </a>
 
             <a
-              className="btn"
+              className="footer-btn"
               href="mailto:kotikovv@proton.me"
               role="button"
               data-mdb-ripple-color="dark">
@@ -43,7 +43,7 @@ export default function Footer() {
             </a>
 
             <a
-              className="btn"
+              className="footer-btn"
               href="https://vk.com/arsenij_kotikov"
               role="button"
               data-mdb-ripple-color="dark">
@@ -51,7 +51,7 @@ export default function Footer() {
             </a>
 
             <a
-              className="btn"
+              className="footer-btn"
               href="https://instagram.com/arsenij_kotikov"
               role="button"
               data-mdb-ripple-color="dark">
@@ -59,10 +59,9 @@ export default function Footer() {
             </a>
 
             {/* Copyright */}
-            <div
-              className="text-center text-dark p-3 footer-copyright">
+            <div className="text-center footer-copyright-text p-3 footer-copyright">
               © 2023 Copyright:
-              <a className="text-dark" href="https://kotikov.is-a.dev/">
+              <a className="footer-link" href="https://kotikov.is-a.dev/">
                 kotikov
               </a>
             </div>

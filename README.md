@@ -3,7 +3,8 @@
 <p align="center">My portfolio, made with ❤️</p>
 <h2 align="center">Project languages:</h2>
  <p align="center">
-<img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white" >
+<img src="https://img.shields.io/badge/next.js-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white" >
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" >
 <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" >
 <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" >
 <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" >
@@ -43,6 +44,6 @@
 <ul>
   <li> Separate Projects page</li>
   <li> Upgrade adaptivity🤔</li>
-  <li> Upgrade to bootstrap 5.2</li>
   <li> Better code quality</li>
+  <li> ✅ Removed Bootstrap dependency</li>
 </ul>

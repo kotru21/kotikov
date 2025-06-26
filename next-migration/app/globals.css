@@ -1,5 +1,7 @@
-/* Импорт Bootstrap */
-@import "bootstrap/dist/css/bootstrap.min.css";
+/* Tailwind CSS директивы для v4 */
+@import "tailwindcss";
+
+/* Импорт компонентов и стилей */
 @import "boxicons/css/boxicons.min.css";
 @import "prismjs/themes/prism.min.css";
 @import "prismjs/plugins/line-numbers/prism-line-numbers.css";

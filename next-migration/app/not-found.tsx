@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="not-found-container">
-      <div className="col-sm-4 m-auto">
+      <div className="not-found-column">
         <div className="card not-found-card">
           <div className="card-body not-found-card-body">
             <Image
@@ -26,9 +26,7 @@ export default function NotFound() {
               Кажется, что-то пошло не так.
             </p>
             <div className="text-center not-found-button-container">
-              <Link
-                href="/"
-                className="btn btn-primary not-found-button">
+              <Link href="/" className="btn btn-primary not-found-button">
                 Вернуться на главную
               </Link>
             </div>

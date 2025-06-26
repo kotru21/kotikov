@@ -69,12 +69,6 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="image_src" href="/images/web_preview.png" />
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-          crossOrigin="anonymous"
-          async
-        />
         <script async src="https://www.tiktok.com/embed.js" />
         <script
           async
