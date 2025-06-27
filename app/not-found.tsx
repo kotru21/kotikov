@@ -34,7 +34,6 @@ const NotFound: React.FC = () => {
         />
       </div>
 
-      {/* Дополнительные элементы фона для более красивого эффекта */}
       <div
         aria-hidden="true"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transform-gpu overflow-hidden blur-3xl">
@@ -129,7 +128,7 @@ const NotFound: React.FC = () => {
         />
       </div>
 
-      {/* Летающие нянкэты разного размера */}
+      {/* Летающие нянкэты */}
       <FlyingNyancat
         size="large"
         position={{ top: "15%", left: "-120px" }}
