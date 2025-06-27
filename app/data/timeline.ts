@@ -9,7 +9,7 @@ export const timelineData: TimelineItem[] = [
     description:
       "Создание фулстек приложения для мониторинга здоровья. Реализация взаимодействия с API, разработка пользовательского интерфейса и интеграция с бэкендом.",
     technologies: ["React", "API", "Node.js"],
-    type: "Хакатон",
+    type: "project",
   },
   {
     id: 2,
