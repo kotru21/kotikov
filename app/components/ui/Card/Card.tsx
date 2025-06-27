@@ -6,7 +6,7 @@ interface BaseComponentProps {
 }
 
 interface CardProps extends BaseComponentProps {
-  variant?: "default" | "outlined" | "elevated";
+  variant?: "default" | "outlined" | "elevated" | "bgNone";
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
   style?: React.CSSProperties;
@@ -28,6 +28,7 @@ const Card: React.FC<CardProps> = ({
     outlined:
       "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700",
     elevated: "bg-white dark:bg-gray-800 shadow-lg",
+    bgNone: "bg-transparent border-none",
   };
 
   const paddingClasses = {
