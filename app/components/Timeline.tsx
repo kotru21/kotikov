@@ -86,7 +86,8 @@ export default function Timeline() {
                 color: colors.text.muted,
               }}>
               <span>←</span>
-              <span>Наведите курсор и прокрутите колёсиком мыши</span>
+              <span className="hidden sm:inline">Наведите курсор и прокрутите колёсиком мыши</span>
+              <span className="sm:hidden">Проведите пальцем для прокрутки</span>
               <span>→</span>
             </div>
           </div>
