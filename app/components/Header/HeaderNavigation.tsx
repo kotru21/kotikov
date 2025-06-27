@@ -81,7 +81,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
               <span className="sr-only">Your Company</span>
               <Image
                 alt=""
-                src="/Logo_mobile.svg"
+                src="/logo_mobile.svg"
                 width={32}
                 height={32}
                 className="h-8 w-auto"
