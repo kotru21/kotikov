@@ -1,58 +1,16 @@
 import React from "react";
-import Image from "next/image";
+import FlyingNyancat from "../FlyingNyancat";
 
 const HeaderNyancat: React.FC = () => {
   return (
     <>
-      {/* Анимированный Nyancat */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "-150px",
-          zIndex: 1,
-          animation: "nyancat-fly 15s linear infinite",
-        }}>
-        <Image
-          src="/nyancat.svg"
-          alt="Nyancat"
-          width={120}
-          height={80}
-          style={{
-            width: "120px",
-            height: "auto",
-          }}
-        />
-      </div>
-
-      {/* Радужный след */}
-      {Array.from({ length: 12 }, (_, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "-150px",
-            zIndex: 0,
-            animation: `nyancat-fly 15s linear infinite`,
-            animationDelay: `${i * 0.15}s`,
-            opacity: Math.max(0.1, 1 - i * 0.08),
-          }}>
-          <div
-            style={{
-              width: `${Math.max(20, 60 - i * 4)}px`,
-              height: `${Math.max(8, 20 - i * 1)}px`,
-              background: `linear-gradient(90deg, 
-                hsl(${(i * 30) % 360}, 100%, 60%),
-                hsl(${(i * 30 + 60) % 360}, 100%, 60%),
-                hsl(${(i * 30 + 120) % 360}, 100%, 60%)
-              )`,
-              borderRadius: "4px",
-              transform: `translateX(-${i * 12}px) translateY(${25 + i}px)`,
-            }}
-          />
-        </div>
-      ))}
+      <FlyingNyancat
+        size="xlarge"
+        position={{ top: "20%", left: "-150px" }}
+        animationName="nyancat-fly"
+        animationDuration="15s"
+        zIndex={1}
+      />
 
       {/* Стили анимации */}
       <style jsx>{`

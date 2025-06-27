@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/app/components/ui";
 import { Card } from "@/app/components/ui";
 import { colors } from "@/app/styles/colors";
+import FlyingNyancat from "@/app/components/FlyingNyancat";
 
 const NotFound: React.FC = () => {
   return (
@@ -127,6 +128,119 @@ const NotFound: React.FC = () => {
           style={{ animationDelay: "1s" }}
         />
       </div>
+
+      {/* Летающие нянкэты разного размера */}
+      <FlyingNyancat
+        size="large"
+        position={{ top: "15%", left: "-120px" }}
+        animationName="nyancat-fly-404-1"
+        animationDuration="20s"
+        animationDelay="0s"
+        zIndex={-5}
+      />
+
+      <FlyingNyancat
+        size="medium"
+        position={{ top: "60%", left: "-80px" }}
+        animationName="nyancat-fly-404-2"
+        animationDuration="25s"
+        animationDelay="8s"
+        zIndex={-5}
+      />
+
+      <FlyingNyancat
+        size="small"
+        position={{ top: "80%", left: "-60px" }}
+        animationName="nyancat-fly-404-3"
+        animationDuration="18s"
+        animationDelay="12s"
+        zIndex={-5}
+      />
+
+      <FlyingNyancat
+        size="small"
+        position={{ top: "35%", left: "-40px" }}
+        animationName="nyancat-fly-404-4"
+        animationDuration="22s"
+        animationDelay="5s"
+        zIndex={-5}
+      />
+
+      {/* Стили анимации для летающих нянкэтов */}
+      <style jsx>{`
+        @keyframes nyancat-fly-404-1 {
+          0% {
+            transform: translateX(-120px) translateY(0px) rotate(0deg);
+          }
+          25% {
+            transform: translateX(25vw) translateY(-60px) rotate(5deg);
+          }
+          50% {
+            transform: translateX(50vw) translateY(40px) rotate(-3deg);
+          }
+          75% {
+            transform: translateX(75vw) translateY(-30px) rotate(7deg);
+          }
+          100% {
+            transform: translateX(calc(100vw + 120px)) translateY(0px)
+              rotate(0deg);
+          }
+        }
+
+        @keyframes nyancat-fly-404-2 {
+          0% {
+            transform: translateX(-80px) translateY(0px) rotate(0deg);
+          }
+          20% {
+            transform: translateX(20vw) translateY(50px) rotate(-8deg);
+          }
+          40% {
+            transform: translateX(40vw) translateY(-40px) rotate(5deg);
+          }
+          60% {
+            transform: translateX(60vw) translateY(30px) rotate(-4deg);
+          }
+          80% {
+            transform: translateX(80vw) translateY(-50px) rotate(6deg);
+          }
+          100% {
+            transform: translateX(calc(100vw + 80px)) translateY(0px)
+              rotate(0deg);
+          }
+        }
+
+        @keyframes nyancat-fly-404-3 {
+          0% {
+            transform: translateX(-60px) translateY(0px) rotate(0deg);
+          }
+          30% {
+            transform: translateX(30vw) translateY(-70px) rotate(10deg);
+          }
+          60% {
+            transform: translateX(60vw) translateY(20px) rotate(-5deg);
+          }
+          100% {
+            transform: translateX(calc(100vw + 60px)) translateY(0px)
+              rotate(0deg);
+          }
+        }
+
+        @keyframes nyancat-fly-404-4 {
+          0% {
+            transform: translateX(-40px) translateY(0px) rotate(0deg);
+          }
+          33% {
+            transform: translateX(33vw) translateY(80px) rotate(-12deg);
+          }
+          66% {
+            transform: translateX(66vw) translateY(-45px) rotate(8deg);
+          }
+          100% {
+            transform: translateX(calc(100vw + 40px)) translateY(0px)
+              rotate(0deg);
+          }
+        }
+      `}</style>
     </div>
   );
 };
