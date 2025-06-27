@@ -5,18 +5,22 @@ import { colors } from "../styles/colors";
 import { skillsData } from "../data/skills";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useMobileSkillsScroll } from "../hooks/useMobileSkillsScroll";
-import { SkillCard, SkillMobileCard, SkillProgressIndicator } from "./Skills";
+import { SkillCard, SkillProgressIndicator } from "./Skills";
+import SkillMobileCardsContainer from "./Skills/SkillMobileCardsContainer";
 
 const SkillsCards: React.FC = () => {
   const isMobile = useIsMobile();
-  const { activeCardIndex } = useMobileSkillsScroll({
+  const {
+    activeCardIndex,
+    transitionProgress,
+    isTransitioning,
+    previousActiveIndex,
+  } = useMobileSkillsScroll({
     skillsCount: skillsData.length,
   });
 
   // Мобильная версия
   if (isMobile) {
-    const activeSkill = skillsData[activeCardIndex];
-
     //100vh для заголовка + по 100vh для каждой карточки
     const sectionHeight = 100 + skillsData.length * 100;
 
@@ -43,17 +47,17 @@ const SkillsCards: React.FC = () => {
           </p>
         </div>
 
-        {/* Sticky контейнер с карточкой */}
+        {/* Sticky контейнер с карточками */}
         <div className="sticky top-0 h-screen overflow-hidden">
           <div
-            className="h-full flex items-center justify-center px-8"
+            className="h-full"
             style={{ background: colors.background.primary }}>
-            <div className="w-full max-w-sm">
-              <SkillMobileCard
-                key={`skill-${activeSkill.id}-${activeCardIndex}`}
-                skill={activeSkill}
-              />
-            </div>
+            <SkillMobileCardsContainer
+              activeCardIndex={activeCardIndex}
+              transitionProgress={transitionProgress}
+              isTransitioning={isTransitioning}
+              previousActiveIndex={previousActiveIndex}
+            />
           </div>
 
           {/* Индикатор прогресса */}

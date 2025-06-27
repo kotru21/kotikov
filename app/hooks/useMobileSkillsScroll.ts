@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface UseMobileSkillsScrollOptions {
   skillsCount: number;
@@ -9,6 +9,11 @@ export const useMobileSkillsScroll = ({
 }: UseMobileSkillsScrollOptions) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [transitionProgress, setTransitionProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
+  const previousScrollRef = useRef(0);
+  const previousActiveIndexRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +24,14 @@ export const useMobileSkillsScroll = ({
       const scrollTop = window.scrollY;
       const skillsSectionTop = skillsSection.offsetTop;
       const skillsSectionHeight = skillsSection.offsetHeight;
+
+      // Определяем направление скролла
+      const currentScrollDirection =
+        scrollTop > previousScrollRef.current ? "down" : "up";
+      if (scrollTop !== previousScrollRef.current) {
+        setScrollDirection(currentScrollDirection);
+        previousScrollRef.current = scrollTop;
+      }
 
       // Позиция скролла относительно начала секции скиллов
       const scrollInSection = scrollTop - skillsSectionTop;
@@ -34,14 +47,20 @@ export const useMobileSkillsScroll = ({
         // Еще не дошли до секции скиллов
         setScrollProgress(0);
         setActiveCardIndex(0);
+        setTransitionProgress(0);
+        setIsTransitioning(false);
       } else if (scrollInSection <= headerHeight) {
         // В области заголовка секции скиллов
         setScrollProgress(0);
         setActiveCardIndex(0);
+        setTransitionProgress(0);
+        setIsTransitioning(false);
       } else if (scrollInSection >= skillsSectionHeight - viewportHeight) {
         // Прошли секцию скиллов полностью
         setScrollProgress(1);
         setActiveCardIndex(skillsCount - 1);
+        setTransitionProgress(0);
+        setIsTransitioning(false);
       } else {
         // В области карточек
         const cardScrollPosition = scrollInSection - headerHeight;
@@ -51,17 +70,66 @@ export const useMobileSkillsScroll = ({
         );
 
         // Каждая карточка занимает равную долю от общего прогресса
-        const cardProgress = 1 / (skillsCount - 1);
+        const cardStep = 1 / Math.max(1, skillsCount - 1);
 
-        // Добавляем небольшой порог для переключения карточек
-        const threshold = cardProgress * 0.5; // 50% от ширины одной карточки
-        const adjustedIndex = Math.min(
-          skillsCount - 1,
-          Math.max(0, Math.round((progress + threshold) / cardProgress))
-        );
+        // Вычисляем точную позицию в пределах карточек
+        const exactPosition = progress / cardStep;
+        const baseCardIndex = Math.floor(exactPosition);
+        const nextCardIndex = Math.min(skillsCount - 1, baseCardIndex + 1);
+
+        // Прогресс внутри текущего сегмента (0-1)
+        const segmentProgress = exactPosition - baseCardIndex;
+
+        // Определяем пороги для переходов
+        const transitionThreshold = 0.3; // Простой порог в 30%
+
+        let finalActiveIndex: number;
+        let finalTransitionProgress: number;
+        let finalIsTransitioning: boolean;
+
+        if (segmentProgress < transitionThreshold) {
+          // Находимся на базовой карточке
+          finalActiveIndex = baseCardIndex;
+          finalTransitionProgress = 0;
+          finalIsTransitioning = false;
+        } else if (segmentProgress > 1 - transitionThreshold) {
+          // Находимся на следующей карточке
+          finalActiveIndex = nextCardIndex;
+          finalTransitionProgress = 0;
+          finalIsTransitioning = false;
+        } else {
+          // В процессе перехода между карточками
+          const transitionRange = 1 - 2 * transitionThreshold;
+          const normalizedProgress =
+            (segmentProgress - transitionThreshold) / transitionRange;
+
+          finalActiveIndex = baseCardIndex;
+          finalTransitionProgress = normalizedProgress;
+          finalIsTransitioning = true;
+        }
 
         setScrollProgress(progress);
-        setActiveCardIndex(adjustedIndex);
+        setActiveCardIndex(finalActiveIndex);
+        setTransitionProgress(finalTransitionProgress);
+        setIsTransitioning(finalIsTransitioning);
+
+        // Дебаг информация (можно убрать позже)
+        if (process.env.NODE_ENV === "development" && Math.random() < 0.1) {
+          console.log("Scroll Debug:", {
+            exactPosition: exactPosition.toFixed(2),
+            baseCardIndex,
+            nextCardIndex,
+            segmentProgress: segmentProgress.toFixed(2),
+            finalActiveIndex,
+            finalTransitionProgress: finalTransitionProgress.toFixed(2),
+            finalIsTransitioning,
+            scrollDirection:
+              scrollTop > previousScrollRef.current ? "down" : "up",
+          });
+        }
+
+        // Обновляем ссылку на предыдущий индекс
+        previousActiveIndexRef.current = finalActiveIndex;
       }
     };
 
@@ -74,5 +142,9 @@ export const useMobileSkillsScroll = ({
   return {
     scrollProgress,
     activeCardIndex,
+    transitionProgress,
+    isTransitioning,
+    scrollDirection,
+    previousActiveIndex: previousActiveIndexRef.current,
   };
 };

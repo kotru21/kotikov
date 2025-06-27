@@ -60,6 +60,41 @@ body {
   }
 }
 
+/* Анимации для карточек скиллов */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes cardPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@keyframes skillFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 /* Утилиты для анимаций */
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out;
@@ -75,6 +110,66 @@ body {
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-card-pulse {
+  animation: cardPulse 3s ease-in-out infinite;
+}
+
+.animate-skill-float {
+  animation: skillFloat 4s ease-in-out infinite;
+}
+
+/* 3D эффекты */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Переходы для мобильных карточек */
+.skill-card-transition {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-card-entering {
+  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.skill-card-exiting {
+  animation: slideOutLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(150%) scale(0.7) rotateY(60deg);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    transform: translateX(-150%) scale(0.7) rotateY(-60deg);
+    opacity: 0;
+    filter: blur(8px);
+  }
 }
 
 /* Плавная прокрутка */
