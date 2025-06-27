@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Google bots
+User-agent: Googlebot
+Allow: /
+
+# Yandex bots
+User-agent: YandexBot
+Allow: /
+
+# Bing bots
+User-agent: bingbot
+Allow: /
+
+Sitemap: https://ktkv.me/sitemap.xml
