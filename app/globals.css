@@ -236,3 +236,23 @@ html {
     transparent 100%
   );
 }
+
+/* Мобильная версия с короткими масками */
+@media (max-width: 768px) {
+  .timeline-fade-mask {
+    -webkit-mask: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10px,
+      black calc(100% - 10px),
+      transparent 100%
+    );
+    mask: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10px,
+      black calc(100% - 10px),
+      transparent 100%
+    );
+  }
+}
