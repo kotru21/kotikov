@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 import { MdEmail } from "react-icons/md";
-import { FaLinkedin, FaGithub, FaTelegram } from "react-icons/fa";
+import { FaGithub, FaTelegram } from "react-icons/fa";
 
 export interface ContactInfo {
   label: string;
@@ -12,20 +12,20 @@ export interface ContactInfo {
 export const contactsData: ContactInfo[] = [
   {
     label: "Email",
-    value: "mail@kotikov.is-a.dev",
-    link: "mailto:mail@kotikov.is-a.dev",
+    value: "inbox@ktkv.me",
+    link: "inbox@ktkv.me",
     icon: MdEmail,
   },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/",
-    link: "",
-    icon: FaLinkedin,
-  },
+  // {
+  //   label: "LinkedIn",
+  //   value: "linkedin.com/in/",
+  //   link: "",
+  //   icon: FaLinkedin,
+  // },
   {
     label: "GitHub",
     value: "github.com/kotru21",
-    link: "https://github.comkotru21",
+    link: "https://github.com/kotru21",
     icon: FaGithub,
   },
   {
