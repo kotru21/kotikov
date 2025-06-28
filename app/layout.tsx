@@ -16,11 +16,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kotikov - Frontend Developer",
+    default: "Kotikov - Frontend Developer | Портфолио",
     template: "%s | Kotikov",
   },
   description:
-    "Frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов. React, Next.js, TypeScript, современные веб-технологии.",
+    "Портфолио frontend разработчика Kotikov. Современные веб-приложения с использованием React, Next.js, TypeScript. Опыт работы, навыки и контакты.",
   keywords: [
     "frontend developer",
     "веб-разработчик",
@@ -53,35 +53,49 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ru_RU",
-    url: "https://kotikov.is-a.dev",
+    url: "https://ktkv.me",
     siteName: "Kotikov Portfolio",
-    title: "Kotikov - Frontend Developer",
+    title: "Kotikov - Frontend Developer | Портфолио",
     description:
-      "Frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
+      "Портфолио frontend разработчика Kotikov. Современные веб-приложения с использованием React, Next.js, TypeScript.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og_image.png",
         width: 1200,
         height: 630,
         alt: "Kotikov - Frontend Developer",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kotikov - Frontend Developer",
+    title: "Kotikov - Frontend Developer | Портфолио",
     description:
-      "Frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
-    images: ["/og-image.jpg"],
+      "Портфолио frontend разработчика Kotikov. Современные веб-приложения с использованием React, Next.js, TypeScript.",
+    images: ["/og_image.png"],
+    creator: "@kotikov_dev",
+    site: "@kotikov_dev",
   },
   verification: {
     google: "your-google-verification-code",
     yandex: "your-yandex-verification-code",
   },
   alternates: {
-    canonical: "https://kotikov.is-a.dev",
+    canonical: "https://ktkv.me",
   },
   category: "portfolio",
+  metadataBase: new URL("https://ktkv.me"),
+  icons: {
+    icon: [
+      {
+        url: "/logo_mobile.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/logo_mobile.svg",
+    apple: "/logo_mobile.svg",
+  },
 };
 
 export default function RootLayout({
