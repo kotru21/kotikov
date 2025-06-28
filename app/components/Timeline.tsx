@@ -44,7 +44,7 @@ export default function Timeline() {
           <div className="relative">
             {/* Левая градиентная маска */}
             <div
-              className="absolute left-0 top-0 w-24 h-full z-20 pointer-events-none"
+              className="absolute left-0 top-0 w-12 md:w-24 h-full z-20 pointer-events-none"
               style={{
                 background: `linear-gradient(to right, ${colors.background.primary}, ${colors.background.primary}B3, transparent)`,
               }}
@@ -52,7 +52,7 @@ export default function Timeline() {
 
             {/* Правая градиентная маска */}
             <div
-              className="absolute right-0 top-0 w-24 h-full z-20 pointer-events-none"
+              className="absolute right-0 top-0 w-12 md:w-24 h-full z-20 pointer-events-none"
               style={{
                 background: `linear-gradient(to left, ${colors.background.primary}, ${colors.background.primary}B3, transparent)`,
               }}
@@ -86,7 +86,9 @@ export default function Timeline() {
                 color: colors.text.muted,
               }}>
               <span>←</span>
-              <span className="hidden sm:inline">Наведите курсор и прокрутите колёсиком мыши</span>
+              <span className="hidden sm:inline">
+                Наведите курсор и прокрутите колёсиком мыши
+              </span>
               <span className="sm:hidden">Проведите пальцем для прокрутки</span>
               <span>→</span>
             </div>
