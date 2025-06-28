@@ -2,7 +2,7 @@ import React from "react";
 import { colors } from "../../styles/colors";
 
 interface TimelinePointProps {
-  type: "work" | "education" | "project";
+  type: "work" | "education" | "project" | "hackathon";
   index: number;
 }
 
@@ -10,11 +10,13 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({ type, index }) => {
   const getTypeColor = (type: string) => {
     switch (type) {
       case "work":
-        return { backgroundColor: colors.primary[500] };
+        return { backgroundColor: colors.neutral[700] };
       case "education":
-        return { backgroundColor: colors.accent.purple[500] };
+        return { backgroundColor: colors.semantic.info.DEFAULT };
       case "project":
-        return { backgroundColor: colors.accent.pink[500] };
+        return { backgroundColor: colors.semantic.success.DEFAULT };
+      case "hackathon":
+        return { backgroundColor: colors.semantic.warning.DEFAULT };
       default:
         return { backgroundColor: colors.neutral[500] };
     }
@@ -28,6 +30,8 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({ type, index }) => {
         return "🎓";
       case "project":
         return "🚀";
+      case "hackathon":
+        return "⚡";
       default:
         return "•";
     }
