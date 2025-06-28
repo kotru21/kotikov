@@ -1,7 +1,7 @@
 import React from "react";
 import { TimelineItem } from "../../types";
 import { colors, withOpacity } from "../../styles/colors";
-import { Card, Badge } from "../ui";
+import { Card, Badge, Button } from "../ui";
 
 interface TimelineCardProps {
   item: TimelineItem;
@@ -17,6 +17,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, index }) => {
         return "info";
       case "project":
         return "success";
+      case "hackathon":
+        return "warning";
       default:
         return "secondary";
     }
@@ -30,6 +32,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, index }) => {
         return "Обучение";
       case "project":
         return "Проект";
+      case "hackathon":
+        return "Хакатон";
       default:
         return type;
     }
@@ -77,7 +81,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, index }) => {
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
           {item.technologies.map((tech) => (
             <span
               key={tech}
@@ -90,6 +94,23 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ item, index }) => {
             </span>
           ))}
         </div>
+
+        {/* GitHub Button for Projects */}
+        {item.type === "project" && item.githubUrl && (
+          <div
+            className="pt-2 border-t"
+            style={{ borderColor: colors.border.dark }}>
+            <Button
+              href={item.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+              size="sm"
+              className="w-full">
+              Подробнее
+            </Button>
+          </div>
+        )}
       </Card>
     </div>
   );

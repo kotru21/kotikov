@@ -1,4 +1,5 @@
 import React from "react";
+import { colors, withOpacity } from "../../../styles/colors";
 
 interface BaseComponentProps {
   className?: string;
@@ -30,14 +31,39 @@ const Button: React.FC<ButtonProps> = ({
   const baseClasses =
     "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
-  const variantClasses = {
-    primary:
-      "bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500",
-    secondary:
-      "bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500",
-    outline:
-      "border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500",
-    ghost: "text-primary-600 hover:bg-primary-50 focus:ring-primary-500",
+  const getVariantStyles = () => {
+    switch (variant) {
+      case "primary":
+        return {
+          backgroundColor: colors.primary[600],
+          color: colors.text.primary,
+          borderColor: "transparent",
+          ":hover": {
+            backgroundColor: colors.hover.primary,
+          },
+        };
+      case "secondary":
+        return {
+          backgroundColor: colors.background.gray,
+          color: colors.text.inverse,
+          borderColor: "transparent",
+        };
+      case "outline":
+        return {
+          backgroundColor: "transparent",
+          color: colors.text.accent,
+          borderColor: colors.border.accent,
+          border: `2px solid ${colors.border.accent}`,
+        };
+      case "ghost":
+        return {
+          backgroundColor: "transparent",
+          color: colors.text.accent,
+          borderColor: "transparent",
+        };
+      default:
+        return {};
+    }
   };
 
   const sizeClasses = {
@@ -46,7 +72,28 @@ const Button: React.FC<ButtonProps> = ({
     lg: "px-6 py-3 text-lg",
   };
 
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const variantStyles = getVariantStyles();
+  const combinedClasses = `${baseClasses} ${sizeClasses[size]} ${className}`;
+
+  const handleMouseOver = (e: React.MouseEvent<HTMLElement>) => {
+    if (variant === "outline") {
+      e.currentTarget.style.backgroundColor = withOpacity(
+        colors.primary[600],
+        0.1
+      );
+    } else if (variant === "ghost") {
+      e.currentTarget.style.backgroundColor = withOpacity(
+        colors.primary[600],
+        0.05
+      );
+    }
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+    if (variant === "outline" || variant === "ghost") {
+      e.currentTarget.style.backgroundColor = "transparent";
+    }
+  };
 
   if (href) {
     return (
@@ -55,6 +102,9 @@ const Button: React.FC<ButtonProps> = ({
         target={target}
         rel={rel}
         className={combinedClasses}
+        style={variantStyles}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
         {...props}>
         {children}
       </a>
@@ -64,8 +114,11 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={combinedClasses}
+      style={variantStyles}
       disabled={disabled}
       onClick={onClick}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
       {...props}>
       {children}
     </button>

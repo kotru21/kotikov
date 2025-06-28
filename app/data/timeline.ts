@@ -9,7 +9,7 @@ export const timelineData: TimelineItem[] = [
     description:
       "Создание фулстек приложения для мониторинга здоровья. Реализация взаимодействия с API, разработка пользовательского интерфейса и интеграция с бэкендом.",
     technologies: ["React", "API", "Node.js"],
-    type: "project",
+    type: "hackathon",
   },
   {
     id: 2,
@@ -37,6 +37,7 @@ export const timelineData: TimelineItem[] = [
       "JWT",
     ],
     type: "project",
+    githubUrl: "https://github.com/kotru21/webchat",
   },
   {
     id: 4,
@@ -57,5 +58,6 @@ export const timelineData: TimelineItem[] = [
       "Анализатор TikTok аккаунтов с использованием Dynamic HTML и Node.js. Анализ чатов и статистика по ним",
     technologies: ["HTML", "CSS", "JavaScript", "React", "Git"],
     type: "project",
+    githubUrl: "https://github.com/kotru21/tiktok-chats-visualizer",
   },
 ];

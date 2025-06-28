@@ -14,7 +14,8 @@ export interface TimelineItem {
   period: string;
   description: string;
   technologies: string[];
-  type: "work" | "education" | "project";
+  type: "work" | "education" | "project" | "hackathon";
+  githubUrl?: string;
 }
 
 export interface ContactInfo {
