@@ -243,15 +243,15 @@ html {
     -webkit-mask: linear-gradient(
       to right,
       transparent 0%,
-      black 10px,
-      black calc(100% - 10px),
+      black 5px,
+      black calc(100% - 5px),
       transparent 100%
     );
     mask: linear-gradient(
       to right,
       transparent 0%,
-      black 10px,
-      black calc(100% - 10px),
+      black 5px,
+      black calc(100% - 5px),
       transparent 100%
     );
   }
