@@ -10,7 +10,7 @@ export default function StructuredData() {
     sameAs: ["https://github.com/kotru21"],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "mail@kotikov.is-a.dev",
+      email: "mail@ktkv.me",
       contactType: "professional",
     },
     knowsAbout: [
