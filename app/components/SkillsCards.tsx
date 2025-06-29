@@ -93,12 +93,11 @@ const SkillsCards: React.FC = () => {
         </div>
 
         {/* Сетка навыков */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border"
+          style={{ borderColor: colors.border.dark }}>
           {skillsData.map((skill, index) => (
-            <div
-              key={skill.id}
-              className="border-r border-b border-gray-200 last:border-r-0 md:last:border-r-0 lg:last:border-r-0 lg:[&:nth-child(3n)]:border-r-0 md:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(n+4)]:border-b-0 md:[&:nth-child(n+5)]:border-b-0 [&:nth-child(n+7)]:border-b-0"
-              style={{ borderColor: colors.border.dark }}>
+            <div key={skill.id}>
               <SkillCard skill={skill} index={index} />
             </div>
           ))}
