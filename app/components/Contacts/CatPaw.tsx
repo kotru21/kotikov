@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 
 interface CatPawProps {
   x: number;
@@ -7,7 +7,7 @@ interface CatPawProps {
   velocity: { x: number; y: number };
 }
 
-const CatPaw: React.FC<CatPawProps> = ({ x, y, isActive, velocity }) => {
+const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   //  находится ли лапа в пределах секции контактов
@@ -34,14 +34,28 @@ const CatPaw: React.FC<CatPawProps> = ({ x, y, isActive, velocity }) => {
 
     checkBounds();
 
-    // слушатель события scroll для проверки границ при скролле
-    const handleScroll = () => checkBounds();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    let scrollTimeoutId: NodeJS.Timeout;
+    let resizeTimeoutId: NodeJS.Timeout;
+
+    // Debounced обработчики для оптимизации производительности
+    const debouncedCheckBounds = () => {
+      clearTimeout(scrollTimeoutId);
+      scrollTimeoutId = setTimeout(checkBounds, 50);
+    };
+
+    const debouncedResizeCheck = () => {
+      clearTimeout(resizeTimeoutId);
+      resizeTimeoutId = setTimeout(checkBounds, 150);
+    };
+
+    window.addEventListener("scroll", debouncedCheckBounds, { passive: true });
+    window.addEventListener("resize", debouncedResizeCheck, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("scroll", debouncedCheckBounds);
+      window.removeEventListener("resize", debouncedResizeCheck);
+      clearTimeout(scrollTimeoutId);
+      clearTimeout(resizeTimeoutId);
     };
   }, [x, y]);
 
@@ -67,6 +81,7 @@ const CatPaw: React.FC<CatPawProps> = ({ x, y, isActive, velocity }) => {
         transform: `translate3d(0, 0, 0) scale(${scaleBoost}) rotate(${tiltAngle}deg)`,
         transition: "transform 0.6s cubic-bezier(0.23, 1, 0.320, 1)",
         willChange: "transform",
+        backfaceVisibility: "hidden",
       }}>
       <div
         className="text-4xl transition-all duration-500 ease-out select-none drop-shadow-lg scale-110"
@@ -78,6 +93,8 @@ const CatPaw: React.FC<CatPawProps> = ({ x, y, isActive, velocity }) => {
       </div>
     </div>
   );
-};
+});
+
+CatPaw.displayName = "CatPaw";
 
 export default CatPaw;

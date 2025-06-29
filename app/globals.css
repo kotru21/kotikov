@@ -177,6 +177,33 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Оптимизация производительности для анимированных элементов */
+.animate-fade-in-up,
+.animate-fade-in,
+.animate-slide-in-left,
+.animate-pulse-glow,
+.animate-shimmer,
+.animate-card-pulse,
+.animate-skill-float,
+.animate-bounce,
+.animate-pulse,
+.animate-ping {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Оптимизация для элементов с трансформациями */
+[style*="transform"] {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Оптимизация для анимированных Canvas элементов */
+canvas {
+  will-change: contents;
+}
+
 /* Стили для скроллбара */
 ::-webkit-scrollbar {
   width: 8px;

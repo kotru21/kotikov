@@ -1,21 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export const useIsMobile = (breakpoint: number = 768) => {
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < breakpoint);
-    };
+  const checkIsMobile = useCallback(() => {
+    setIsMobile(window.innerWidth < breakpoint);
+  }, [breakpoint]);
 
-    // Проверяем при первой загрузке
+  useEffect(() => {
     checkIsMobile();
 
-    // Добавляем слушатель изменения размера окна
-    window.addEventListener("resize", checkIsMobile);
+    let timeoutId: NodeJS.Timeout;
 
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, [breakpoint]);
+    // Debounced обработчик resize для предотвращения частых вызовов
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkIsMobile, 150); // Задержка 150ms
+    };
+
+    // Добавляем слушатель изменения размера окна
+    window.addEventListener("resize", debouncedResize, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+      clearTimeout(timeoutId);
+    };
+  }, [checkIsMobile]);
 
   return isMobile;
 };

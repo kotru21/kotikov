@@ -16,120 +16,118 @@ export const useMobileSkillsScroll = ({
   const previousActiveIndexRef = useRef(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const skillsSection = document.getElementById("skills");
-      if (!skillsSection) return;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const skillsSection = document.getElementById("skills");
+          if (!skillsSection) {
+            ticking = false;
+            return;
+          }
 
-      const viewportHeight = window.innerHeight;
-      const scrollTop = window.scrollY;
-      const skillsSectionTop = skillsSection.offsetTop;
-      const skillsSectionHeight = skillsSection.offsetHeight;
+          const viewportHeight = window.innerHeight;
+          const scrollTop = window.scrollY;
+          const skillsSectionTop = skillsSection.offsetTop;
+          const skillsSectionHeight = skillsSection.offsetHeight;
 
-      // Определяем направление скролла
-      const currentScrollDirection =
-        scrollTop > previousScrollRef.current ? "down" : "up";
-      if (scrollTop !== previousScrollRef.current) {
-        setScrollDirection(currentScrollDirection);
-        previousScrollRef.current = scrollTop;
-      }
+          // Определяем направление скролла
+          const currentScrollDirection =
+            scrollTop > previousScrollRef.current ? "down" : "up";
+          if (scrollTop !== previousScrollRef.current) {
+            setScrollDirection(currentScrollDirection);
+            previousScrollRef.current = scrollTop;
+          }
 
-      // Позиция скролла относительно начала секции скиллов
-      const scrollInSection = scrollTop - skillsSectionTop;
+          // Позиция скролла относительно начала секции скиллов
+          const scrollInSection = scrollTop - skillsSectionTop;
 
-      // Высота области заголовка (примерно 100vh)
-      const headerHeight = viewportHeight;
+          // Высота области заголовка (примерно 100vh)
+          const headerHeight = viewportHeight;
 
-      // Высота области, доступной для переключения карточек
-      const availableScrollHeight =
-        skillsSectionHeight - headerHeight - viewportHeight;
+          // Высота области, доступной для переключения карточек
+          const availableScrollHeight =
+            skillsSectionHeight - headerHeight - viewportHeight;
 
-      if (scrollInSection <= 0) {
-        // Еще не дошли до секции скиллов
-        setScrollProgress(0);
-        setActiveCardIndex(0);
-        setTransitionProgress(0);
-        setIsTransitioning(false);
-      } else if (scrollInSection <= headerHeight) {
-        // В области заголовка секции скиллов
-        setScrollProgress(0);
-        setActiveCardIndex(0);
-        setTransitionProgress(0);
-        setIsTransitioning(false);
-      } else if (scrollInSection >= skillsSectionHeight - viewportHeight) {
-        // Прошли секцию скиллов полностью
-        setScrollProgress(1);
-        setActiveCardIndex(skillsCount - 1);
-        setTransitionProgress(0);
-        setIsTransitioning(false);
-      } else {
-        // В области карточек
-        const cardScrollPosition = scrollInSection - headerHeight;
-        const progress = Math.max(
-          0,
-          Math.min(1, cardScrollPosition / availableScrollHeight)
-        );
+          if (scrollInSection <= 0) {
+            // Еще не дошли до секции скиллов
+            setScrollProgress(0);
+            setActiveCardIndex(0);
+            setTransitionProgress(0);
+            setIsTransitioning(false);
+          } else if (scrollInSection <= headerHeight) {
+            // В области заголовка секции скиллов
+            setScrollProgress(0);
+            setActiveCardIndex(0);
+            setTransitionProgress(0);
+            setIsTransitioning(false);
+          } else if (scrollInSection >= skillsSectionHeight - viewportHeight) {
+            // Прошли секцию скиллов полностью
+            setScrollProgress(1);
+            setActiveCardIndex(skillsCount - 1);
+            setTransitionProgress(0);
+            setIsTransitioning(false);
+          } else {
+            // В области карточек
+            const cardScrollPosition = scrollInSection - headerHeight;
+            const progress = Math.max(
+              0,
+              Math.min(1, cardScrollPosition / availableScrollHeight)
+            );
 
-        // Каждая карточка занимает равную долю от общего прогресса
-        const cardStep = 1 / Math.max(1, skillsCount - 1);
+            // Каждая карточка занимает равную долю от общего прогресса
+            const cardStep = 1 / Math.max(1, skillsCount - 1);
 
-        // Вычисляем точную позицию в пределах карточек
-        const exactPosition = progress / cardStep;
-        const baseCardIndex = Math.floor(exactPosition);
-        const nextCardIndex = Math.min(skillsCount - 1, baseCardIndex + 1);
+            // Вычисляем точную позицию в пределах карточек
+            const exactPosition = progress / cardStep;
+            const baseCardIndex = Math.floor(exactPosition);
+            const nextCardIndex = Math.min(skillsCount - 1, baseCardIndex + 1);
 
-        // Прогресс внутри текущего сегмента (0-1)
-        const segmentProgress = exactPosition - baseCardIndex;
+            // Прогресс внутри текущего сегмента (0-1)
+            const segmentProgress = exactPosition - baseCardIndex;
 
-        // Определяем пороги для переходов
-        const transitionThreshold = 0.3; // Простой порог в 30%
+            // Определяем пороги для переходов
+            const transitionThreshold = 0.3; // Простой порог в 30%
 
-        let finalActiveIndex: number;
-        let finalTransitionProgress: number;
-        let finalIsTransitioning: boolean;
+            let finalActiveIndex: number;
+            let finalTransitionProgress: number;
+            let finalIsTransitioning: boolean;
 
-        if (segmentProgress < transitionThreshold) {
-          // Находимся на базовой карточке
-          finalActiveIndex = baseCardIndex;
-          finalTransitionProgress = 0;
-          finalIsTransitioning = false;
-        } else if (segmentProgress > 1 - transitionThreshold) {
-          // Находимся на следующей карточке
-          finalActiveIndex = nextCardIndex;
-          finalTransitionProgress = 0;
-          finalIsTransitioning = false;
-        } else {
-          // В процессе перехода между карточками
-          const transitionRange = 1 - 2 * transitionThreshold;
-          const normalizedProgress =
-            (segmentProgress - transitionThreshold) / transitionRange;
+            if (segmentProgress < transitionThreshold) {
+              // Находимся на базовой карточке
+              finalActiveIndex = baseCardIndex;
+              finalTransitionProgress = 0;
+              finalIsTransitioning = false;
+            } else if (segmentProgress > 1 - transitionThreshold) {
+              // Находимся на следующей карточке
+              finalActiveIndex = nextCardIndex;
+              finalTransitionProgress = 0;
+              finalIsTransitioning = false;
+            } else {
+              // В процессе перехода между карточками
+              const transitionRange = 1 - 2 * transitionThreshold;
+              const normalizedProgress =
+                (segmentProgress - transitionThreshold) / transitionRange;
 
-          finalActiveIndex = baseCardIndex;
-          finalTransitionProgress = normalizedProgress;
-          finalIsTransitioning = true;
-        }
+              finalActiveIndex = baseCardIndex;
+              finalTransitionProgress = normalizedProgress;
+              finalIsTransitioning = true;
+            }
 
-        setScrollProgress(progress);
-        setActiveCardIndex(finalActiveIndex);
-        setTransitionProgress(finalTransitionProgress);
-        setIsTransitioning(finalIsTransitioning);
+            setScrollProgress(progress);
+            setActiveCardIndex(finalActiveIndex);
+            setTransitionProgress(finalTransitionProgress);
+            setIsTransitioning(finalIsTransitioning);
 
-        // Дебаг информация (можно убрать позже)
-        if (process.env.NODE_ENV === "development" && Math.random() < 0.1) {
-          console.log("Scroll Debug:", {
-            exactPosition: exactPosition.toFixed(2),
-            baseCardIndex,
-            nextCardIndex,
-            segmentProgress: segmentProgress.toFixed(2),
-            finalActiveIndex,
-            finalTransitionProgress: finalTransitionProgress.toFixed(2),
-            finalIsTransitioning,
-            scrollDirection:
-              scrollTop > previousScrollRef.current ? "down" : "up",
-          });
-        }
+            // Обновляем ссылку на предыдущий индекс
+            previousActiveIndexRef.current = finalActiveIndex;
+          }
 
-        // Обновляем ссылку на предыдущий индекс
-        previousActiveIndexRef.current = finalActiveIndex;
+          ticking = false;
+        });
+
+        ticking = true;
       }
     };
 

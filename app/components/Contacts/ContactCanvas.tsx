@@ -29,12 +29,17 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
 
       // Устанавливаем размер canvas
       const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * window.devicePixelRatio;
-      canvas.height = rect.height * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      const dpr = Math.min(window.devicePixelRatio, 2); // Ограничиваем DPR для производительности
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
 
-      // Отключаем сглаживание для пикселизованного эффекта
+      // Оптимизация производительности Canvas
       ctx.imageSmoothingEnabled = false;
+      ctx.globalCompositeOperation = "source-over";
+
+      // Оптимизированная очистка Canvas
+      ctx.clearRect(0, 0, rect.width, rect.height);
 
       // Создаем пикселизованный фон
       const pixelSize = 8; // Размер одного пикселя
@@ -167,12 +172,19 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
     useEffect(() => {
       initCanvas();
 
+      let resizeTimeoutId: NodeJS.Timeout;
+
       const handleResize = () => {
-        setTimeout(initCanvas, 100);
+        clearTimeout(resizeTimeoutId);
+        // Debounce resize чтобы избежать частых перерисовок
+        resizeTimeoutId = setTimeout(initCanvas, 200);
       };
 
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize, { passive: true });
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        clearTimeout(resizeTimeoutId);
+      };
     }, [initCanvas]);
 
     // Экспонируем методы через imperative handle
