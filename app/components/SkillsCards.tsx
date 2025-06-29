@@ -5,7 +5,7 @@ import { colors } from "../styles/colors";
 import { skillsData } from "../data/skills";
 import { useIsMobile } from "../hooks/useIsMobile";
 import { useMobileSkillsScroll } from "../hooks/useMobileSkillsScroll";
-import { SkillCard, SkillProgressIndicator } from "./Skills";
+import { SkillProgressIndicator, SkillsMarquee } from "./Skills";
 import SkillMobileCardsContainer from "./Skills/SkillMobileCardsContainer";
 
 const SkillsCards: React.FC = () => {
@@ -33,7 +33,7 @@ const SkillsCards: React.FC = () => {
           backgroundColor: colors.background.primary,
         }}>
         {/* Header */}
-        <div className="text-center pt-20 pb-16 px-4">
+        <div className="text-center pt-20 pb-16 px-4 ">
           <h2
             className="text-4xl md:text-5xl font-bold mb-6"
             style={{ color: colors.text.primary }}>
@@ -74,40 +74,11 @@ const SkillsCards: React.FC = () => {
   return (
     <section
       id="skills"
-      className="py-20 px-4 sm:px-6 lg:px-8"
+      className="py-20"
       style={{ backgroundColor: colors.background.primary }}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-6"
-            style={{ color: colors.text.primary }}>
-            Мои Навыки
-          </h2>
-          <p
-            className="text-xl max-w-3xl mx-auto"
-            style={{ color: colors.text.secondary }}>
-            Технологии и инструменты, которыми я владею для создания современных
-            веб-приложений
-          </p>
-        </div>
-
-        {/* Сетка навыков */}
-        <div className="px-8 py-12 will-change-transform">
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border gap-0 isolation-auto"
-            style={{
-              borderColor: colors.border.dark,
-              transformStyle: "preserve-3d",
-              contain: "layout style paint",
-            }}>
-            {skillsData.map((skill, index) => (
-              <div key={skill.id} className="will-change-transform">
-                <SkillCard skill={skill} index={index} />
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="max-w-full mx-auto">
+        {/* Бегущая строка скиллов */}
+        <SkillsMarquee />
       </div>
     </section>
   );

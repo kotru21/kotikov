@@ -218,3 +218,36 @@ html {
 .timeline-scroll-hidden::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Анимации для бесконечной бегущей строки скиллов */
+@keyframes scroll-left-infinite {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+
+@keyframes scroll-right-infinite {
+  0% {
+    transform: translate3d(-25%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left-infinite linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.animate-scroll-right {
+  animation: scroll-right-infinite linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}

@@ -1,14 +1,18 @@
 import { SkillData } from "../types";
 import { colors } from "../styles/colors";
 import { FaReact, FaNodeJs, FaGitAlt, FaCss3Alt } from "react-icons/fa";
-import { SiTypescript, SiNextdotjs } from "react-icons/si";
+import {
+  SiTypescript,
+  SiNextdotjs,
+  SiExpress,
+  SiMongodb,
+} from "react-icons/si";
 
 export const skillsData: SkillData[] = [
   {
     id: 1,
     name: "React",
-    description:
-      "Создание современных интерактивных пользовательских интерфейсов",
+    description: "Создание современных интерактивных интерфейсов",
     icon: FaReact,
     level: 40,
     color: colors.accent.blue[500],
@@ -24,7 +28,7 @@ export const skillsData: SkillData[] = [
   {
     id: 3,
     name: "Next.js",
-    description: "Full-stack React фреймворк с SSR и статической генерацией",
+    description: "Full-stack React фреймворк с SSR",
     icon: SiNextdotjs,
     level: 40,
     color: colors.neutral[800],
@@ -52,5 +56,21 @@ export const skillsData: SkillData[] = [
     icon: FaGitAlt,
     level: 60,
     color: colors.semantic.warning.DEFAULT,
+  },
+  {
+    id: 7,
+    name: "Express.js",
+    description: "Серверный фреймворк для Node.js",
+    icon: SiExpress,
+    level: 30,
+    color: colors.semantic.warning.DEFAULT,
+  },
+  {
+    id: 8,
+    name: "MongoDB",
+    description: "Документо-ориентированная NoSQL база данных",
+    icon: SiMongodb,
+    level: 20,
+    color: colors.semantic.success.DEFAULT,
   },
 ];
