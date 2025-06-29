@@ -11,14 +11,14 @@ interface SkillCardProps {
 const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
   return (
     <Card
-      className="p-8 group hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+      className=" group hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
       style={{
         backgroundColor: colors.background.tertiary,
         animationDelay: `${index * 0.1}s`,
         animation: "fade-in-up 0.6s ease-out forwards",
         borderRadius: "0rem",
       }}
-      hover>
+      hover={false}>
       <div className="text-center">
         <div
           className="inline-flex items-center justify-center w-16 h-16 rounded-full text-white text-2xl mb-6 group-hover:scale-110 transition-transform duration-300"

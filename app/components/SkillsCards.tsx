@@ -93,14 +93,20 @@ const SkillsCards: React.FC = () => {
         </div>
 
         {/* Сетка навыков */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border"
-          style={{ borderColor: colors.border.dark }}>
-          {skillsData.map((skill, index) => (
-            <div key={skill.id}>
-              <SkillCard skill={skill} index={index} />
-            </div>
-          ))}
+        <div className="px-8 py-12 will-change-transform">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border gap-0 isolation-auto"
+            style={{
+              borderColor: colors.border.dark,
+              transformStyle: "preserve-3d",
+              contain: "layout style paint",
+            }}>
+            {skillsData.map((skill, index) => (
+              <div key={skill.id} className="will-change-transform">
+                <SkillCard skill={skill} index={index} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
