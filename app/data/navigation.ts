@@ -10,22 +10,22 @@ export const navigation: NavigationItem[] = [
 export const socialLinks = [
   {
     name: "GitHub",
-    url: "https://github.com/yourusername",
+    url: "https://github.com/kotru21",
     icon: "FaGithub",
   },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/yourprofile",
-    icon: "FaLinkedin",
-  },
+  // {
+  //   name: "LinkedIn",
+  //   url: "https://linkedin.com/in/yourprofile",
+  //   icon: "FaLinkedin",
+  // },
   {
     name: "Telegram",
-    url: "https://t.me/yourusername",
+    url: "https://t.me/kotikovdev",
     icon: "FaTelegram",
   },
   {
     name: "Email",
-    url: "mailto:your.email@example.com",
+    url: "mailto:inbox@ktkv.me",
     icon: "FaEnvelope",
   },
 ];
