@@ -1,31 +1,97 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
-export const useIsMobile = (breakpoint: number = 768) => {
-  const [isMobile, setIsMobile] = useState(false);
+interface UseIsMobileOptions {
+  breakpoint?: number;
+  debounceMs?: number;
+  useMatchMedia?: boolean;
+}
+
+export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
+  const config =
+    typeof options === "number"
+      ? { breakpoint: options, debounceMs: 100, useMatchMedia: true }
+      : { breakpoint: 768, debounceMs: 100, useMatchMedia: true, ...options };
+
+  const { breakpoint, debounceMs, useMatchMedia } = config;
+
+  // Инициализируем состояние с проверкой на серверную среду
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return useMatchMedia
+      ? window.matchMedia(`(max-width: ${breakpoint - 1}px)`).matches
+      : window.innerWidth < breakpoint;
+  });
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mediaQueryRef = useRef<MediaQueryList | null>(null);
 
   const checkIsMobile = useCallback(() => {
-    setIsMobile(window.innerWidth < breakpoint);
-  }, [breakpoint]);
+    if (typeof window === "undefined") return;
+
+    const newIsMobile = useMatchMedia
+      ? window.matchMedia(`(max-width: ${breakpoint - 1}px)`).matches
+      : window.innerWidth < breakpoint;
+
+    setIsMobile(newIsMobile);
+  }, [breakpoint, useMatchMedia]);
+
+  const debouncedCheck = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(checkIsMobile, debounceMs);
+  }, [checkIsMobile, debounceMs]);
 
   useEffect(() => {
-    checkIsMobile();
+    if (typeof window === "undefined") return;
 
-    let timeoutId: NodeJS.Timeout;
+    // MediaQuery API если доступно и включено
+    if (useMatchMedia && window.matchMedia) {
+      const mediaQuery = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+      mediaQueryRef.current = mediaQuery;
 
-    // Debounced обработчик resize для предотвращения частых вызовов
-    const debouncedResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkIsMobile, 150); // Задержка 150ms
-    };
+      const handleChange = (e: MediaQueryListEvent) => {
+        setIsMobile(e.matches);
+      };
 
-    // Добавляем слушатель изменения размера окна
-    window.addEventListener("resize", debouncedResize, { passive: true });
+      // Устанавливаем начальное значение
+      setIsMobile(mediaQuery.matches);
 
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener("change", handleChange);
+      } else {
+        // Fallback для старых браузеров
+        mediaQuery.addListener(handleChange);
+      }
+
+      return () => {
+        if (mediaQuery.removeEventListener) {
+          mediaQuery.removeEventListener("change", handleChange);
+        } else {
+          mediaQuery.removeListener(handleChange);
+        }
+      };
+    } else {
+      // Fallback на resize события
+      checkIsMobile();
+      window.addEventListener("resize", debouncedCheck, { passive: true });
+
+      return () => {
+        window.removeEventListener("resize", debouncedCheck);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }
+  }, [breakpoint, useMatchMedia, checkIsMobile, debouncedCheck]);
+
+  useEffect(() => {
     return () => {
-      window.removeEventListener("resize", debouncedResize);
-      clearTimeout(timeoutId);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
-  }, [checkIsMobile]);
+  }, []);
 
   return isMobile;
 };
