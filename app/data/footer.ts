@@ -37,7 +37,7 @@ export const footerSocial = {
     },
     {
       name: "Email",
-      url: "mailto:mail@kotikov.is-a.dev",
+      url: "mailto:inbox@ktkv.me",
       icon: FaEnvelope,
     },
   ] as SocialLink[],
