@@ -36,7 +36,7 @@ export const useHorizontalScroll = (
 
     const startScrollLeft = container.scrollLeft;
     const distance = targetScrollLeft - startScrollLeft;
-    const duration = 150; // уменьшаем длительность анимации
+    const duration = 150; 
     const startTime = performance.now();
 
     const animateScroll = (currentTime: number) => {
@@ -53,7 +53,6 @@ export const useHorizontalScroll = (
       }
     };
 
-    // Отменяем предыдущую анимацию, если она есть
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -71,7 +70,7 @@ export const useHorizontalScroll = (
     const handleWheel = (e: WheelEvent) => {
       const { canScrollLeft, canScrollRight } = checkScrollPosition();
 
-      // Определяем направление скролла
+      // направление скролла
       const isScrollingDown = e.deltaY > 0;
       const isScrollingUp = e.deltaY < 0;
 
