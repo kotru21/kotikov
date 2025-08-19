@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "delete-duplicates",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Remove-Item -Force 'd:\\projects\\kotikov\\app\\components\\Contacts\\ContactCard.tsx','d:\\projects\\kotikov\\app\\components\\Skills\\SkillCard.tsx' -ErrorAction SilentlyContinue"
+			]
+		}
+	]
+}

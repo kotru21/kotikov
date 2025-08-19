@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "./components/ui";
-import { colors } from "./styles/colors";
+import { Button } from "@/shared";
+import { colors } from "@/styles/colors";
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
