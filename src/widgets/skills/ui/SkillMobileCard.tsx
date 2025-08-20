@@ -30,7 +30,7 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
       // Плавная анимация входа справа
       const easeProgress = 1 - Math.pow(1 - transitionProgress, 2);
       const translateX = (1 - easeProgress) * 100; // Входит справа
-      const scale = 0.9 + easeProgress * 0.1; // Плавное увеличене
+      const scale = 0.9 + easeProgress * 0.1; // Плавное увеличение
       const rotateY = (1 - easeProgress) * 20; // Умеренный поворот
       const opacity = easeProgress;
       const blur = (1 - easeProgress) * 3;
