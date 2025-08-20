@@ -7,7 +7,7 @@ import {
 import { EXPLOSION_DURATION, ANIMATION_INTERVAL } from "../lib/constants";
 import type { Pixel, Position } from "../types";
 import type { NyancatSize } from "../lib/constants";
-import { usePerformanceSettings } from "@/features/performance/usePerformanceSettings";
+import { usePerformanceSettings } from "@/features";
 
 export const useExplosion = (size: NyancatSize) => {
   const [isExploded, setIsExploded] = useState(false);

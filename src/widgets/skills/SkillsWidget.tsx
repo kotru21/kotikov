@@ -2,8 +2,7 @@
 
 import React from "react";
 import { skillsData } from "@/entities/skill/data";
-import { useIsMobile } from "@/features/device/useIsMobile";
-import { useMobileSkillsScroll } from "@/features/skills-scroll/useMobileSkillsScroll";
+import { useIsMobile, useMobileSkillsScroll } from "@/features";
 import { SkillsMobileView, SkillsDesktopView } from "./ui";
 
 const SkillsWidget: React.FC = () => {

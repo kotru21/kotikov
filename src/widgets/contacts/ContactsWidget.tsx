@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useCallback } from "react";
 import { contactsData } from "@/entities/contact/data";
-import { usePawAnimation } from "@/features/paw/usePawAnimation";
+import { usePawAnimation } from "@/features";
 import type { ContactCanvasRef } from "./ui";
 import { ContactsView } from "./ui";
 
