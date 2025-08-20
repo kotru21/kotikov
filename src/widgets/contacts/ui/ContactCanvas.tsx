@@ -6,6 +6,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { colors } from "@/styles/colors";
+import { CONTACT_CANVAS_PIXEL_SIZE } from "./constants";
 
 interface ContactCanvasProps {
   onInitCanvas: () => void;
@@ -19,6 +20,50 @@ export interface ContactCanvasRef {
 const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
   ({ onInitCanvas }, ref) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+    const rectRef = useRef<DOMRect | null>(null);
+    const dprRef = useRef<number>(1);
+    // Предварительно отрисованный штамп кисти (сетка-выравнивание)
+    const brushCanvasRef = useRef<HTMLCanvasElement | null>(null);
+    // Радиус кисти в "ячейках" сетки, чтобы края совпадали с фоном
+    const brushRadiusCellsRef = useRef<number>(3); // 3 * 8px = 24px радиус
+
+    // Константы (фиксированные на компонент)
+    const pixelSize = CONTACT_CANVAS_PIXEL_SIZE; // единый размер сетки
+    // Визуальный оффсет сетки: смещает фон и кисть одинаково для "пиксельной" эстетики
+    const gridOffsetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+    const gridLockedRef = useRef<boolean>(false);
+
+    const drawBackground = useCallback(() => {
+      const ctx = ctxRef.current;
+      const rect = rectRef.current;
+      if (!ctx || !rect) return;
+      // Очистка
+      ctx.clearRect(0, 0, rect.width, rect.height);
+
+      const cols = Math.ceil(rect.width / pixelSize);
+      const rows = Math.ceil(rect.height / pixelSize);
+      const baseColors = [
+        colors.primary[900],
+        colors.primary[800],
+        colors.primary[700],
+      ];
+      const offset = gridOffsetRef.current;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * pixelSize + offset.x;
+          const y = row * pixelSize + offset.y;
+          const progress = (row + col) / (rows + cols);
+          const colorIndex = Math.floor(progress * (baseColors.length - 1));
+          const baseColor = baseColors[colorIndex];
+          ctx.fillStyle = baseColor;
+          ctx.fillRect(x, y, pixelSize, pixelSize);
+          ctx.strokeStyle = colors.primary[600] + "20";
+          ctx.lineWidth = 0.5;
+          ctx.strokeRect(x, y, pixelSize, pixelSize);
+        }
+      }
+    }, [pixelSize]);
 
     const initCanvas = useCallback(() => {
       const canvas = canvasRef.current;
@@ -29,144 +74,115 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
 
       // Устанавливаем размер canvas
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio, 2); // Ограничиваем DPR для производительности
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // ограничиваем DPR для производительности
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // сбрасываем трансформации перед масштабом
       ctx.scale(dpr, dpr);
+      // кэшируем ссылки
+      ctxRef.current = ctx;
+      rectRef.current = rect;
+      dprRef.current = dpr;
 
       // Оптимизация производительности Canvas
       ctx.imageSmoothingEnabled = false;
       ctx.globalCompositeOperation = "source-over";
 
-      // Оптимизированная очистка Canvas
-      ctx.clearRect(0, 0, rect.width, rect.height);
+      // Рисуем фон
+      drawBackground();
 
-      // Создаем пикселизованный фон
-      const pixelSize = 8; // Размер одного пикселя
-      const cols = Math.ceil(rect.width / pixelSize);
-      const rows = Math.ceil(rect.height / pixelSize);
-
-      // Создаем массив цветов для градиента
-      const baseColors = [
-        colors.primary[900],
-        colors.primary[800],
-        colors.primary[700],
-      ];
-
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const x = col * pixelSize;
-          const y = row * pixelSize;
-
-          // Вычисляем цвет пикселя на основе позиции для градиентного эффекта
-          const progress = (row + col) / (rows + cols);
-          const colorIndex = Math.floor(progress * (baseColors.length - 1));
-
-          // Применяем базовый цвет
-          const baseColor = baseColors[colorIndex];
-          ctx.fillStyle = baseColor;
-          ctx.fillRect(x, y, pixelSize, pixelSize);
-
-          // Добавляем тонкие границы пикселей
-          ctx.strokeStyle = colors.primary[600] + "20";
-          ctx.lineWidth = 0.5;
-          ctx.strokeRect(x, y, pixelSize, pixelSize);
+      // Подготавливаем штамп кисти один раз (круглая кисть из ячеек pixelSize)
+      const brushRadiusPx = brushRadiusCellsRef.current * pixelSize;
+      const size = brushRadiusPx * 2; // диаметр кратен pixelSize
+      const brushCanvas = document.createElement("canvas");
+      brushCanvas.width = size;
+      brushCanvas.height = size;
+      const bctx = brushCanvas.getContext("2d");
+      if (bctx) {
+        bctx.imageSmoothingEnabled = false;
+        // Рисуем дискретными квадратами кратными pixelSize
+        const cells = size / pixelSize;
+        for (let py = 0; py < cells; py++) {
+          for (let px = 0; px < cells; px++) {
+            const cx = px * pixelSize + pixelSize / 2;
+            const cy = py * pixelSize + pixelSize / 2;
+            const dx = cx - brushRadiusPx;
+            const dy = cy - brushRadiusPx;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist <= brushRadiusPx) {
+              const intensity = 1 - dist / brushRadiusPx;
+              let fillColor: string;
+              if (intensity > 0.7) fillColor = colors.accent.pink[400];
+              else if (intensity > 0.4) fillColor = colors.accent.purple[400];
+              else if (intensity > 0.2) fillColor = colors.accent.blue[400];
+              else fillColor = colors.primary[300];
+              bctx.fillStyle = fillColor;
+              bctx.fillRect(
+                px * pixelSize,
+                py * pixelSize,
+                pixelSize,
+                pixelSize
+              );
+            }
+          }
         }
+        // Важно: не рисуем stroke у кисти, чтобы не "забивать" сетку фона
       }
+      brushCanvasRef.current = brushCanvas;
+
+      // Сбрасываем фиксацию оффсета
+      gridLockedRef.current = false;
 
       // Вызываем колбэк для уведомления родителя
       onInitCanvas();
-    }, [onInitCanvas]);
+    }, [onInitCanvas, drawBackground, pixelSize]);
 
     const drawOnCanvas = useCallback(
       (x: number, y: number, prevX: number, prevY: number) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+        const ctx = ctxRef.current;
+        const rect = rectRef.current;
+        const brush = brushCanvasRef.current;
+        if (!ctx || !rect || !brush) return;
 
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        const rect = canvas.getBoundingClientRect();
-        // Рисуем под лапой, смещая немного вниз
+        // Локальные координаты без дополнительных смещений — рисуем под указателем
         const canvasX = x - rect.left;
-        const canvasY = y - rect.top + 15; // Смещение под лапу
+        const canvasY = y - rect.top;
         const canvasPrevX = prevX - rect.left;
-        const canvasPrevY = prevY - rect.top + 15;
+        const canvasPrevY = prevY - rect.top;
 
-        // Отключаем сглаживание для четких пикселей
-        ctx.imageSmoothingEnabled = false;
-
-        const pixelSize = 8; // Размер пикселя (должен совпадать с initCanvas)
-
-        // Создаем линию между предыдущей и текущей позицией для непрерывного рисования
-        const distance = Math.sqrt(
-          Math.pow(canvasX - canvasPrevX, 2) +
-            Math.pow(canvasY - canvasPrevY, 2)
+        // Линейная интерполяция между точками, шаг по половине пикселя для плавности
+        const distance = Math.hypot(
+          canvasX - canvasPrevX,
+          canvasY - canvasPrevY
         );
-        const steps = Math.max(1, Math.floor(distance / (pixelSize / 2)));
+        const step = Math.max(1, Math.floor(pixelSize / 2));
+        const steps = Math.max(1, Math.floor(distance / step));
+        // На первом штрихе фиксируем визуальный оффсет сетки, чтобы кисть и фон совпадали по фазе
+        if (!gridLockedRef.current) {
+          const rPx = brushRadiusCellsRef.current * pixelSize;
+          const offX = (((canvasX - rPx) % pixelSize) + pixelSize) % pixelSize;
+          const offY = (((canvasY - rPx) % pixelSize) + pixelSize) % pixelSize;
+          gridOffsetRef.current = { x: offX, y: offY };
+          // перерисовываем фон с новым оффсетом один раз
+          drawBackground();
+          gridLockedRef.current = true;
+        }
 
         for (let i = 0; i <= steps; i++) {
           const t = steps > 0 ? i / steps : 0;
           const interpX = canvasPrevX + (canvasX - canvasPrevX) * t;
           const interpY = canvasPrevY + (canvasY - canvasPrevY) * t;
-
-          // Определяем какие пиксели нужно закрасить в области кисти
-          const brushRadius = 20; // Радиус кисти в пикселях
-          const startPixelX = Math.floor((interpX - brushRadius) / pixelSize);
-          const endPixelX = Math.floor((interpX + brushRadius) / pixelSize);
-          const startPixelY = Math.floor((interpY - brushRadius) / pixelSize);
-          const endPixelY = Math.floor((interpY + brushRadius) / pixelSize);
-
-          for (let pixelY = startPixelY; pixelY <= endPixelY; pixelY++) {
-            for (let pixelX = startPixelX; pixelX <= endPixelX; pixelX++) {
-              const pixelCenterX = pixelX * pixelSize + pixelSize / 2;
-              const pixelCenterY = pixelY * pixelSize + pixelSize / 2;
-
-              // Проверяем, находится ли пиксель в радиусе кисти
-              const distanceFromCenter = Math.sqrt(
-                Math.pow(pixelCenterX - interpX, 2) +
-                  Math.pow(pixelCenterY - interpY, 2)
-              );
-
-              if (distanceFromCenter <= brushRadius) {
-                // Выбираем цвет на основе расстояния от центра кисти
-                const colorIntensity = 1 - distanceFromCenter / brushRadius;
-                let fillColor;
-
-                if (colorIntensity > 0.7) {
-                  fillColor = colors.accent.pink[400]; // Яркий центр
-                } else if (colorIntensity > 0.4) {
-                  fillColor = colors.accent.purple[400]; // Средняя зона
-                } else if (colorIntensity > 0.2) {
-                  fillColor = colors.accent.blue[400]; // Внешняя зона
-                } else {
-                  fillColor = colors.primary[300]; // Край кисти
-                }
-
-                // Закрашиваем пиксель
-                ctx.fillStyle = fillColor;
-                ctx.fillRect(
-                  pixelX * pixelSize,
-                  pixelY * pixelSize,
-                  pixelSize,
-                  pixelSize
-                );
-
-                // Добавляем границу пикселя для четкости
-                ctx.strokeStyle = colors.accent.pink[500] + "40";
-                ctx.lineWidth = 0.5;
-                ctx.strokeRect(
-                  pixelX * pixelSize,
-                  pixelY * pixelSize,
-                  pixelSize,
-                  pixelSize
-                );
-              }
-            }
-          }
+          // Визуальный snap: рисуем штамп кратно сетке, используя зафиксированный оффсет
+          const rPx = brushRadiusCellsRef.current * pixelSize;
+          const off = gridOffsetRef.current;
+          const snappedX =
+            Math.round((interpX - rPx - off.x) / pixelSize) * pixelSize + off.x;
+          const snappedY =
+            Math.round((interpY - rPx - off.y) / pixelSize) * pixelSize + off.y;
+          ctx.drawImage(brush, snappedX, snappedY);
         }
       },
-      []
+      [pixelSize, drawBackground]
     );
 
     useEffect(() => {
@@ -203,6 +219,7 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
         className="absolute inset-0 w-full h-full"
         style={{
           background: `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`,
+          pointerEvents: "none", // не блокируем события секции
         }}
       />
     );

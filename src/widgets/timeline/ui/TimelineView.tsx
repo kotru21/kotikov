@@ -64,7 +64,10 @@ const TimelineView: React.FC<TimelineViewProps> = ({
             <div
               ref={containerRef}
               className="overflow-x-auto  timeline-scroll-hidden pt-4"
-              style={{ overscrollBehavior: "contain" }}>
+              style={{
+                overscrollBehaviorX: "contain",
+                overscrollBehaviorY: "auto",
+              }}>
               <div className="flex space-x-8 min-w-max px-28">
                 {timelineData.map((item, index) => (
                   <div key={item.id} className="relative">

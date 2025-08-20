@@ -119,6 +119,20 @@ export const usePawAnimation = (
           onDraw(newPawPos.x, newPawPos.y, prev.pawPos.x, prev.pawPos.y);
         }
 
+        // Минимальные пороги, чтобы не вызывать лишние рендеры
+        const posDeltaSmall =
+          Math.abs(newPawPos.x - prev.pawPos.x) < 0.25 &&
+          Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
+          Math.abs(newSmoothMousePos.x - prev.smoothMousePos.x) < 0.25 &&
+          Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
+        const velDeltaSmall =
+          Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
+
+        if (posDeltaSmall && velDeltaSmall) {
+          // возвращаем предыдущее состояние без изменений — React не перерендерит
+          return prev;
+        }
+
         return {
           ...prev,
           smoothMousePos: newSmoothMousePos,

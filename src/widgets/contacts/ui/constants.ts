@@ -1,0 +1,1 @@
+export const CONTACT_CANVAS_PIXEL_SIZE = 8;

@@ -69,15 +69,15 @@ export const useHorizontalScroll = (
         (isScrollingDown && canScrollRight) || (isScrollingUp && canScrollLeft);
 
       if (shouldUseHorizontalScroll) {
+        // блокируем только когда реально скроллим по горизонтали
         e.preventDefault();
-        e.stopPropagation();
         const scrollAmount = e.deltaY * scrollMultiplier;
         const targetScrollLeft = container.scrollLeft + scrollAmount;
         smoothScrollTo(targetScrollLeft);
       } else {
-        const scrollAmount = e.deltaY;
-        window.scrollBy(0, scrollAmount);
-        e.preventDefault();
+        // не вмешиваемся в вертикальный скролл
+        // если достигнут край, позволяем нативной прокрутке страницы
+        // ничего не делаем, событие поднимется вверх по дереву
       }
     };
 

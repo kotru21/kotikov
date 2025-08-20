@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, useRef } from "react";
 
 interface CatPawProps {
   x: number;
@@ -9,6 +9,12 @@ interface CatPawProps {
 
 const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const coordsRef = useRef({ x, y });
+
+  // актуализируем координаты без перерендера
+  useEffect(() => {
+    coordsRef.current = { x, y };
+  }, [x, y]);
 
   //  находится ли лапа в пределах секции контактов
   useEffect(() => {
@@ -23,11 +29,12 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
       const pawSize = 50; // Размер лапы (25px от центра в каждую сторону)
 
       // находится ли лапа в пределах секции с небольшим отступом
+      const { x: cx, y: cy } = coordsRef.current;
       const isInBounds =
-        x >= rect.left - pawSize &&
-        x <= rect.right + pawSize &&
-        y >= rect.top - pawSize &&
-        y <= rect.bottom + pawSize;
+        cx >= rect.left - pawSize &&
+        cx <= rect.right + pawSize &&
+        cy >= rect.top - pawSize &&
+        cy <= rect.bottom + pawSize;
 
       setIsVisible(isInBounds);
     };
@@ -37,7 +44,6 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
     let scrollTimeoutId: NodeJS.Timeout;
     let resizeTimeoutId: NodeJS.Timeout;
 
-    // Debounced обработчики для оптимизации производительности
     const debouncedCheckBounds = () => {
       clearTimeout(scrollTimeoutId);
       scrollTimeoutId = setTimeout(checkBounds, 50);
@@ -57,7 +63,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
       clearTimeout(scrollTimeoutId);
       clearTimeout(resizeTimeoutId);
     };
-  }, [x, y]);
+  }, []);
 
   //  угол поворота на основе скорости движения
   const rotationAngle =
