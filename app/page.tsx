@@ -9,7 +9,7 @@ import StructuredData from "./components/StructuredData";
 
 export default function Home() {
   return (
-    <div>
+    <main>
       <StructuredData />
       <Header />
 
@@ -20,6 +20,6 @@ export default function Home() {
       <Contacts />
 
       <Footer />
-    </div>
+    </main>
   );
 }

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Kotikov",
   },
   description:
-    "Моё портфолио. Я создаю современные веб-приложения с использованием React, Next.js, TypeScript.",
+    "Frontend разработчик Kotikov. Создаю современные веб-приложения с использованием React, Next.js, TypeScript. Профессиональная разработка пользовательских интерфейсов.",
   keywords: [
     "frontend developer",
     "веб-разработчик",
@@ -34,7 +34,10 @@ export const metadata: Metadata = {
     "UI/UX",
     "responsive design",
     "portfolio",
+    "котиков",
     "kotikov",
+    "фронтенд разработчик",
+    "портфолио разработчика",
   ],
   authors: [{ name: "Kotikov" }],
   creator: "Kotikov",
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "Kotikov Portfolio",
     title: "Kotikov - Frontend Developer | Портфолио",
     description:
-      "Моё портфолио. Я создаю современные веб-приложения с использованием React, Next.js, TypeScript.",
+      "Frontend разработчик Kotikov. Создаю современные веб-приложения с использованием React, Next.js, TypeScript. Профессиональная разработка пользовательских интерфейсов.",
     images: [
       {
         url: "/og_image.png",
@@ -72,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kotikov - Frontend Developer | Портфолио",
     description:
-      "Моё портфолио. Я создаю современные веб-приложения с использованием React, Next.js, TypeScript.",
+      "Frontend разработчик Kotikov. Создаю современные веб-приложения с использованием React, Next.js, TypeScript. Профессиональная разработка пользовательских интерфейсов.",
     images: ["/og_image.png"],
     creator: "@kotikov_dev",
     site: "@kotikov_dev",

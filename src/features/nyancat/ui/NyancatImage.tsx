@@ -42,6 +42,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
         alt="Nyancat"
         width={config.width}
         height={config.height}
+        priority
         style={{
           width: `${config.width}px`,
           height: "auto",
