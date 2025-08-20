@@ -2,10 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { Button } from "@/app/components/ui";
-import { Card } from "@/app/components/ui";
-import { colors } from "@/app/styles/colors";
-import FlyingNyancat from "@/app/components/FlyingNyancat";
+import { Button, Card } from "@/shared";
+import { colors } from "@/styles/colors";
+import { FlyingNyancat } from "@/features/nyancat";
 
 const NotFound: React.FC = () => {
   return (

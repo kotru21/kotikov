@@ -1,9 +1,11 @@
-import Header from "./components/Header";
-import SkillsCards from "./components/SkillsCards";
-import Timeline from "./components/Timeline";
-import Contacts from "./components/Contacts";
-import Footer from "./components/Footer";
-import StructuredData from "./components/StructuredData";
+import {
+  HeaderWidget as Header,
+  SkillsWidget as SkillsCards,
+  TimelineWidget as Timeline,
+  ContactsWidget as Contacts,
+  FooterWidget as Footer,
+  StructuredDataWidget as StructuredData,
+} from "@/widgets";
 
 export default function Home() {
   return (
