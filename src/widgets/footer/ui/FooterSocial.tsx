@@ -1,9 +1,9 @@
 import React from "react";
-import type { SocialLink } from "@/entities/navigation/model/types";
+import { navigation } from "@/entities";
 
 interface FooterSocialProps {
   title: string;
-  socialLinks: SocialLink[];
+  socialLinks: navigation.SocialLink[];
 }
 
 const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {

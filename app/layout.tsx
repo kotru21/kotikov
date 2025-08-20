@@ -77,10 +77,6 @@ export const metadata: Metadata = {
     creator: "@kotikov_dev",
     site: "@kotikov_dev",
   },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-  },
   alternates: {
     canonical: "https://ktkv.me",
   },

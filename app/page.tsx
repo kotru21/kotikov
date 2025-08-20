@@ -4,8 +4,8 @@ import {
   TimelineWidget as Timeline,
   ContactsWidget as Contacts,
   FooterWidget as Footer,
-  StructuredDataWidget as StructuredData,
 } from "@/widgets";
+import StructuredData from "./components/StructuredData";
 
 export default function Home() {
   return (

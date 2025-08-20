@@ -1,9 +1,9 @@
 import React from "react";
-import type { NavigationItem } from "@/entities/navigation/model/types";
+import { navigation } from "@/entities";
 
 interface FooterNavigationProps {
   title: string;
-  links: NavigationItem[];
+  links: navigation.NavigationItem[];
 }
 
 const FooterNavigation: React.FC<FooterNavigationProps> = ({

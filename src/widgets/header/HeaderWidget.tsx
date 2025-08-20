@@ -2,8 +2,7 @@
 
 import React from "react";
 import { colors } from "@/styles/colors";
-import { navigation } from "@/entities/navigation/data";
-import { headerContent } from "@/entities/header/data";
+import { navigation, header } from "@/entities";
 import {
   HeaderNyancat,
   HeaderNavigation,
@@ -24,7 +23,7 @@ const HeaderWidget: React.FC = () => {
       <HeaderNyancat />
 
       {/* Навигация */}
-      <HeaderNavigation navigation={navigation} />
+      <HeaderNavigation navigation={navigation.navigation} />
 
       <div className="relative isolate px-6 pt-14 lg:px-8">
         {/* Фоновые градиенты */}
@@ -32,10 +31,10 @@ const HeaderWidget: React.FC = () => {
 
         {/* Основной контент */}
         <HeaderHero
-          title={headerContent.title}
-          subtitle={headerContent.subtitle}
-          announcement={headerContent.announcement}
-          buttons={headerContent.buttons}
+          title={header.headerContent.title}
+          subtitle={header.headerContent.subtitle}
+          announcement={header.headerContent.announcement}
+          buttons={header.headerContent.buttons}
         />
       </div>
     </div>
