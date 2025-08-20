@@ -72,12 +72,12 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      // Устанавливаем размер canvas
+      // размер canvas
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2); // ограничиваем DPR для производительности
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // сбрасываем трансформации перед масштабом
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
       // кэшируем ссылки
       ctxRef.current = ctx;
@@ -91,7 +91,7 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
       // Рисуем фон
       drawBackground();
 
-      // Подготавливаем штамп кисти один раз (круглая кисть из ячеек pixelSize)
+      // штамп кисти  (круглая кисть из ячеек pixelSize)
       const brushRadiusPx = brushRadiusCellsRef.current * pixelSize;
       const size = brushRadiusPx * 2; // диаметр кратен pixelSize
       const brushCanvas = document.createElement("canvas");
@@ -100,7 +100,7 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
       const bctx = brushCanvas.getContext("2d");
       if (bctx) {
         bctx.imageSmoothingEnabled = false;
-        // Рисуем дискретными квадратами кратными pixelSize
+
         const cells = size / pixelSize;
         for (let py = 0; py < cells; py++) {
           for (let px = 0; px < cells; px++) {
@@ -126,25 +126,24 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
             }
           }
         }
-        // Важно: не рисуем stroke у кисти, чтобы не "забивать" сетку фона
       }
       brushCanvasRef.current = brushCanvas;
 
-      // Сбрасываем фиксацию оффсета
-      gridLockedRef.current = false;
-
-      // Вызываем колбэк для уведомления родителя
+      // колбэк для уведомления родителя
       onInitCanvas();
     }, [onInitCanvas, drawBackground, pixelSize]);
 
     const drawOnCanvas = useCallback(
       (x: number, y: number, prevX: number, prevY: number) => {
         const ctx = ctxRef.current;
-        const rect = rectRef.current;
+        const canvas = canvasRef.current;
         const brush = brushCanvasRef.current;
-        if (!ctx || !rect || !brush) return;
+        if (!ctx || !canvas || !brush) return;
 
-        // Локальные координаты без дополнительных смещений — рисуем под указателем
+        // актуальные координаты canvas для точного позиционирования
+        const rect = canvas.getBoundingClientRect();
+
+        // Локальные координаты относительно canvas
         const canvasX = x - rect.left;
         const canvasY = y - rect.top;
         const canvasPrevX = prevX - rect.left;
@@ -157,13 +156,12 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
         );
         const step = Math.max(1, Math.floor(pixelSize / 2));
         const steps = Math.max(1, Math.floor(distance / step));
-        // На первом штрихе фиксируем визуальный оффсет сетки, чтобы кисть и фон совпадали по фазе
         if (!gridLockedRef.current) {
           const rPx = brushRadiusCellsRef.current * pixelSize;
           const offX = (((canvasX - rPx) % pixelSize) + pixelSize) % pixelSize;
           const offY = (((canvasY - rPx) % pixelSize) + pixelSize) % pixelSize;
           gridOffsetRef.current = { x: offX, y: offY };
-          // перерисовываем фон с новым оффсетом один раз
+          // фон с новым оффсетом один раз
           drawBackground();
           gridLockedRef.current = true;
         }
@@ -219,7 +217,7 @@ const ContactCanvas = forwardRef<ContactCanvasRef, ContactCanvasProps>(
         className="absolute inset-0 w-full h-full"
         style={{
           background: `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`,
-          pointerEvents: "none", // не блокируем события секции
+          pointerEvents: "none",
         }}
       />
     );

@@ -115,8 +115,13 @@ export const usePawAnimation = (
         const velocityY =
           (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime || 16));
 
-        if (Math.abs(pawDeltaX) > 0.3 || Math.abs(pawDeltaY) > 0.3) {
-          onDraw(newPawPos.x, newPawPos.y, prev.pawPos.x, prev.pawPos.y);
+        if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
+          onDraw(
+            prev.mousePos.x,
+            prev.mousePos.y,
+            newSmoothMousePos.x,
+            newSmoothMousePos.y
+          );
         }
 
         // Минимальные пороги, чтобы не вызывать лишние рендеры
