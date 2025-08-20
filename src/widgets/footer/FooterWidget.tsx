@@ -2,11 +2,7 @@
 
 import React from "react";
 import { colors } from "@/styles/colors";
-import {
-  footerSocialLinks,
-  navigation as navItems,
-} from "@/entities/navigation/data";
-import { footerInfo, footerConfig } from "@/entities/footer/data";
+import { navigation, footer } from "@/entities";
 import {
   FooterInfo,
   FooterNavigation,
@@ -33,22 +29,28 @@ const FooterWidget: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Левая секция - Информация */}
           <FooterInfo
-            title={footerInfo.title}
-            description={footerInfo.description}
+            title={footer.footerInfo.title}
+            description={footer.footerInfo.description}
           />
 
           {/* Центральная секция - Быстрые ссылки */}
-          <FooterNavigation title="Быстрые ссылки" links={navItems} />
+          <FooterNavigation
+            title="Быстрые ссылки"
+            links={navigation.navigation}
+          />
 
           {/* Правая секция - Социальные сети */}
           <FooterSocial
             title="Связаться со мной"
-            socialLinks={footerSocialLinks}
+            socialLinks={navigation.footerSocialLinks}
           />
         </div>
 
         {/* Нижняя секция */}
-        <FooterBottom year={currentYear} version={footerConfig.version} />
+        <FooterBottom
+          year={currentYear}
+          version={footer.footerConfig.version}
+        />
 
         {/* Анимированный кот внизу */}
         <FooterCat />

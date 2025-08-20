@@ -1,5 +1,5 @@
 import React, { useCallback, memo } from "react";
-import { useIsMobile } from "@/features/device/useIsMobile";
+import { useIsMobile } from "@/features";
 import { useExplosion } from "../hooks/useExplosion";
 import { ExplosionPixels } from "./ExplosionPixels";
 import { RainbowTrail } from "./RainbowTrail";

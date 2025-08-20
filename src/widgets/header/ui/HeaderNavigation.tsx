@@ -3,10 +3,10 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { colors } from "@/styles/colors";
-import type { NavigationItem } from "@/entities/navigation/model/types";
+import { navigation as navigationEntity } from "@/entities";
 
 interface HeaderNavigationProps {
-  navigation: NavigationItem[];
+  navigation: navigationEntity.NavigationItem[];
 }
 
 const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
@@ -19,7 +19,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">ktkv</span>
             {/* Логотип для мобильных устройств */}
             <Image
               alt=""
@@ -78,7 +78,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">ktkv</span>
               <Image
                 alt=""
                 src="/logo_mobile.svg"

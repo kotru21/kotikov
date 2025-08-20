@@ -1,5 +1,5 @@
 import React from "react";
-import { FlyingNyancat } from "@/features/nyancat";
+import { FlyingNyancat } from "@/features";
 
 const HeaderNyancat: React.FC = () => {
   return (

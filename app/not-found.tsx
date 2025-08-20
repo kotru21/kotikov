@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button, Card } from "@/shared";
 import { colors } from "@/styles/colors";
-import { FlyingNyancat } from "@/features/nyancat";
+import { FlyingNyancat } from "@/features";
 
 const NotFound: React.FC = () => {
   return (

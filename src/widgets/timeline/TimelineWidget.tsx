@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useHorizontalScroll } from "@/features/scrolling/useHorizontalScroll";
+import { useHorizontalScroll } from "@/features";
 import { TimelineView } from "./ui";
 
 const TimelineWidget: React.FC = () => {
