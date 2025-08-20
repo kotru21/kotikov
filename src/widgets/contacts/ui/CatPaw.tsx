@@ -63,7 +63,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
       clearTimeout(scrollTimeoutId);
       clearTimeout(resizeTimeoutId);
     };
-  }, []);
+  }, [x, y]);
 
   //  угол поворота на основе скорости движения
   const rotationAngle =
