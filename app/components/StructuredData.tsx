@@ -8,6 +8,7 @@ export default function StructuredData() {
     jobTitle: person.personData.jobTitle,
     description: person.personData.description,
     url: person.personData.url,
+    image: "https://ktkv.me/og_image.png",
     sameAs: person.personData.sameAs,
     contactPoint: {
       "@type": "ContactPoint",

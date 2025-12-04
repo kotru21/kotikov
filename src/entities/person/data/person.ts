@@ -4,8 +4,8 @@ export const personData = {
   description:
     "Frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
   url: "https://ktkv.me",
-  sameAs: ["https://github.com/kotru21"],
-  email: "mail@ktkv.me",
+  sameAs: ["https://github.com/kotru21", "https://t.me/arsenij_kotikov"],
+  email: "inbox@ktkv.me",
   skills: [
     "Frontend Development",
     "React",

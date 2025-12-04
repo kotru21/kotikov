@@ -22,7 +22,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             <span className="sr-only">ktkv</span>
             {/* Логотип для мобильных устройств */}
             <Image
-              alt=""
+              alt="Kotikov логотип"
               src="/logo_mobile.svg"
               width={32}
               height={32}
@@ -30,7 +30,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             />
             {/* Логотип для ПК */}
             <Image
-              alt=""
+              alt="Kotikov логотип"
               src="/logo_pc.svg"
               width={32}
               height={32}
@@ -80,7 +80,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">ktkv</span>
               <Image
-                alt=""
+                alt="Kotikov логотип"
                 src="/logo_mobile.svg"
                 width={32}
                 height={32}

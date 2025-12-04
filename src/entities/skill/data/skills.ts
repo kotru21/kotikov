@@ -14,7 +14,7 @@ export const skillsData: SkillData[] = [
     name: "React",
     description: "Создание современных интерактивных интерфейсов",
     icon: FaReact,
-    level: 40,
+    level: 70,
     color: colors.accent.blue[500],
   },
   {
@@ -22,7 +22,7 @@ export const skillsData: SkillData[] = [
     name: "TypeScript",
     description: "Типизированный JavaScript для больших приложений",
     icon: SiTypescript,
-    level: 25,
+    level: 55,
     color: colors.accent.blue[600],
   },
   {
@@ -30,7 +30,7 @@ export const skillsData: SkillData[] = [
     name: "Next.js",
     description: "Full-stack React фреймворк с SSR",
     icon: SiNextdotjs,
-    level: 40,
+    level: 60,
     color: colors.neutral[800],
   },
   {
@@ -38,7 +38,7 @@ export const skillsData: SkillData[] = [
     name: "Node.js",
     description: "Серверная разработка на JavaScript",
     icon: FaNodeJs,
-    level: 55,
+    level: 65,
     color: colors.semantic.success.DEFAULT,
   },
   {
@@ -46,7 +46,7 @@ export const skillsData: SkillData[] = [
     name: "CSS/Tailwind",
     description: "Стилизация и адаптивная верстка",
     icon: FaCss3Alt,
-    level: 65,
+    level: 85,
     color: colors.accent.purple[500],
   },
   {
@@ -54,7 +54,7 @@ export const skillsData: SkillData[] = [
     name: "Git",
     description: "Контроль версий и командная разработка",
     icon: FaGitAlt,
-    level: 60,
+    level: 70,
     color: colors.semantic.warning.DEFAULT,
   },
   {
@@ -62,7 +62,7 @@ export const skillsData: SkillData[] = [
     name: "Express.js",
     description: "Серверный фреймворк для Node.js",
     icon: SiExpress,
-    level: 30,
+    level: 50,
     color: colors.semantic.warning.DEFAULT,
   },
   {
@@ -70,7 +70,7 @@ export const skillsData: SkillData[] = [
     name: "MongoDB",
     description: "Документо-ориентированная NoSQL база данных",
     icon: SiMongodb,
-    level: 20,
+    level: 30,
     color: colors.semantic.success.DEFAULT,
   },
 ];

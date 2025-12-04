@@ -6,7 +6,7 @@ export const contactsData: ContactInfo[] = [
   {
     label: "Email",
     value: "inbox@ktkv.me",
-    link: "inbox@ktkv.me",
+    link: "mailto:inbox@ktkv.me",
     icon: MdEmail,
   },
   {
