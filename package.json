@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.2.0",
+  "packageManager": "bun@1.x",
   "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
