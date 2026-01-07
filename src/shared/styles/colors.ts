@@ -33,6 +33,7 @@ export const colors = {
   // Акцентные цвета
   accent: {
     pink: {
+      300: "#ffd4e8",
       400: "#f687b3",
       500: "#ed64a6",
       600: "#d53f8c",
