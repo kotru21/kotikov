@@ -8,7 +8,6 @@ import {
 
 import {
   FooterBottom,
-  FooterCat,
   FooterInfo,
   FooterNavigation,
   FooterSocial,
@@ -47,7 +46,6 @@ const FooterWidget: React.FC = () => {
           year={currentYear}
         />
 
-        <FooterCat />
       </div>
 
     </footer>

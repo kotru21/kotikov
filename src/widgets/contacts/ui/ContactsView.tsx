@@ -66,22 +66,10 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       {/* Контент секции */}
       <div className="relative z-10 container mx-auto px-4 pointer-events-auto">
         <div className="max-w-6xl mx-auto">
-          {/* Заголовок */}
-          <div className="mb-12 text-center md:text-left">
-            <h2
-              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-4"
-              style={{ filter: `drop-shadow(4px 4px 0 ${colors.primary[500]})` }}>
-              Связь
-            </h2>
-            <p className="text-xl font-bold bg-white dark:bg-black inline-block px-4 py-2 border-2 border-black dark:border-white shadow-[4px_4px_0_0_black] dark:shadow-[4px_4px_0_0_white]">
-              Пишите, звоните, отправляйте голубей
-            </p>
-          </div>
 
-          {/* Сетка контактов (Mondrian / Bauhaus Grid) */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-transparent max-w-4xl mx-auto">
             {contacts.map((contact, index) => {
-               // Логика сетки для 3 элементов (Email, Github, Telegram):
+               // Логика сетки
                // 0: Большой квадрат слева (2x2)
                // 1: Широкая плашка сверху справа (2x1)
                // 2: Широкая плашка снизу справа (2x1)
