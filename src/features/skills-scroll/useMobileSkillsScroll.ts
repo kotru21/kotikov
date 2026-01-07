@@ -6,9 +6,18 @@ interface UseMobileSkillsScrollOptions {
   skillsCount: number;
 }
 
+interface UseMobileSkillsScrollReturn {
+  scrollProgress: number;
+  activeCardIndex: number;
+  transitionProgress: number;
+  isTransitioning: boolean;
+  scrollDirection: "up" | "down";
+  previousActiveIndex: number;
+}
+
 export const useMobileSkillsScroll = ({
   skillsCount,
-}: UseMobileSkillsScrollOptions) => {
+}: UseMobileSkillsScrollOptions): UseMobileSkillsScrollReturn => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [transitionProgress, setTransitionProgress] = useState(0);
@@ -20,7 +29,7 @@ export const useMobileSkillsScroll = ({
   useEffect(() => {
     let ticking = false;
 
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (!ticking) {
         requestAnimationFrame(() => {
           const skillsSection = document.getElementById("skills");
@@ -115,7 +124,7 @@ export const useMobileSkillsScroll = ({
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => { window.removeEventListener("scroll", handleScroll); };
   }, [skillsCount]);
 
   return {

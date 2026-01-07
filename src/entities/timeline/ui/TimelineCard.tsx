@@ -14,7 +14,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
   item,
   index,
 }) => {
-  const getTypeLabel = (type: string) => {
+  const getTypeLabel = (type: string): string => {
     switch (type) {
       case "work":
         return "Работа";
@@ -35,8 +35,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
       <div 
         className={`absolute -top-2 -right-2 w-full h-full border-2 border-black dark:border-white -z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 ${
            index % 3 === 0 ? "bg-primary-500" : index % 3 === 1 ? "bg-primary-300" : "bg-primary-700"
-        }`}>
-      </div>
+        }`} />
       
       <Card
         padding="sm"
@@ -83,7 +82,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
           ))}
         </div>
 
-        {item.type === "project" && item.githubUrl && (
+        {item.type === "project" && item.githubUrl !== undefined && item.githubUrl !== "" && (
           <div
             className="pt-4 mt-4 border-t-2 border-black dark:border-white"
             style={{ borderColor: colors.border.dark }}>

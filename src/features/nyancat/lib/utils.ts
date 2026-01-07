@@ -5,7 +5,7 @@ import { EXPLOSION_COLORS, SIZE_CONFIG } from "./constants";
 export const generateExplosionPixels = (size: NyancatSize): Pixel[] => {
   const config = SIZE_CONFIG[size];
   const pixels: Pixel[] = [];
-  const shapes: Array<"square" | "circle" | "triangle"> = [
+  const shapes: ("square" | "circle" | "triangle")[] = [
     "square",
     "circle",
     "triangle",
@@ -40,8 +40,8 @@ export const updatePixelPhysics = (pixel: Pixel): Pixel => ({
 
 export const getElementCenter = (element: HTMLElement): Position => {
   const rect = element.getBoundingClientRect();
-  const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
-  const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
 
   return {
     x: rect.left + scrollX + rect.width / 2,
@@ -58,7 +58,7 @@ export const calculateTrailOpacity = (
 };
 
 export const calculateTrailWidth = (
-  index: number,
+  _index: number,
   size: NyancatSize
 ): number => {
   const config = SIZE_CONFIG[size];
@@ -67,7 +67,7 @@ export const calculateTrailWidth = (
 };
 
 export const calculateTrailHeight = (
-  index: number,
+  _index: number,
   size: NyancatSize
 ): number => {
   const config = SIZE_CONFIG[size];
@@ -96,5 +96,5 @@ export const calculateTrailTransform = (
   const translateX = -index * config.trailSpacing;
   const translateY = config.trailOffset + index;
 
-  return `translateX(${translateX}px) translateY(${translateY}px)`;
+  return `translateX(${String(translateX)}px) translateY(${String(translateY)}px)`;
 };

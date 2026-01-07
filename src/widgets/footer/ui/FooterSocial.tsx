@@ -17,9 +17,9 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
     <div className="space-y-4">
       <h3 className="text-xl font-bold text-text-primary dark:text-text-primary uppercase mb-4">{title}</h3>
       <div className="flex flex-wrap justify-center md:justify-start gap-4">
-        {socialLinks.map((link, index) => (
+        {socialLinks.map((link) => (
           <a
-            key={index}
+            key={link.url}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"

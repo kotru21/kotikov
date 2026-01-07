@@ -28,7 +28,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
       // Generate a unique ID based on copy index AND position in the original array
       // This handles cases where the input 'skills' array already has duplicates
       // 10000 limit allows for up to 10k skills in one row which is plenty
-      uniqueKey: `${copyIndex}-${index}-${skill.id}`,
+      uniqueKey: `${String(copyIndex)}-${String(index)}-${String(skill.id)}`,
     }))
   ).flat();
 
@@ -37,7 +37,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
       <div
         className={`flex gap-6 animate-${animationDirection}`}
         style={{
-          animationDuration: `${speed}s`,
+          animationDuration: `${String(speed)}s`,
           animationTimingFunction: "linear",
           animationIterationCount: "infinite",
           width: "max-content",

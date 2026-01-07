@@ -1,0 +1,1 @@
+export { isInteractiveTarget } from "./dom";

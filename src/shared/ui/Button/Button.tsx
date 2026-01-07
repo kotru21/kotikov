@@ -1,6 +1,6 @@
 import React from "react";
 
-type ButtonStyleProps = {
+interface ButtonStyleProps {
   className?: string; // Остается для возможных исключений, но мы будем избегать использования
   children?: React.ReactNode;
   variant?: "primary" | "secondary" | "outline";
@@ -9,7 +9,7 @@ type ButtonStyleProps = {
   fullHeight?: boolean;
   shadowColor?: string;
   ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
-};
+}
 
 type ButtonAsButtonProps = ButtonStyleProps &
   Omit<React.ComponentPropsWithoutRef<"button">, "className" | "children" | "style"> & {
@@ -59,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${heightClass} ${className}`;
   
-  const style = shadowColor ? ({ "--accent-shadow": shadowColor } as React.CSSProperties) : undefined;
+  const style = shadowColor !== undefined && shadowColor !== "" ? ({ "--accent-shadow": shadowColor } as React.CSSProperties) : undefined;
 
   if ("href" in rest && typeof rest.href === "string") {
     const { href, ...anchorProps } = rest;

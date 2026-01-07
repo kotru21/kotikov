@@ -1,8 +1,12 @@
+import type React from "react";
 import { useCallback, useMemo, useRef } from "react";
 
-import { InteractiveTextRegistry } from "../model/types";
+import type { InteractiveTextRegistry } from "../model/types";
 
-export const useInteractiveRegistry = () => {
+export const useInteractiveRegistry = (): {
+  interactiveElementsRef: React.RefObject<Set<HTMLElement>>;
+  registry: InteractiveTextRegistry;
+} => {
   const interactiveElementsRef = useRef<Set<HTMLElement>>(new Set());
 
   const register = useCallback((el: HTMLElement) => {

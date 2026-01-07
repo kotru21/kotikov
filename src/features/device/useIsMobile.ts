@@ -8,7 +8,7 @@ interface UseIsMobileOptions {
   useMatchMedia?: boolean;
 }
 
-export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
+export const useIsMobile = (options: UseIsMobileOptions | number = {}): boolean => {
   const config =
     typeof options === "number"
       ? { breakpoint: options, debounceMs: 100, useMatchMedia: true }
@@ -21,18 +21,18 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mediaQueryRef = useRef<MediaQueryList | null>(null);
 
-  const checkIsMobile = useCallback(() => {
+  const checkIsMobile = useCallback((): void => {
     if (typeof window === "undefined") return;
 
     const newIsMobile = useMatchMedia
-      ? window.matchMedia(`(max-width: ${breakpoint - 1}px)`).matches
+      ? window.matchMedia(`(max-width: ${String(breakpoint - 1)}px)`).matches
       : window.innerWidth < breakpoint;
 
     setIsMobile(newIsMobile);
   }, [breakpoint, useMatchMedia]);
 
-  const debouncedCheck = useCallback(() => {
-    if (timeoutRef.current) {
+  const debouncedCheck = useCallback((): void => {
+    if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(checkIsMobile, debounceMs);
@@ -41,11 +41,11 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (useMatchMedia && window.matchMedia) {
-      const mediaQuery = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    if (useMatchMedia) {
+      const mediaQuery = window.matchMedia(`(max-width: ${String(breakpoint - 1)}px)`);
       mediaQueryRef.current = mediaQuery;
 
-      const handleChange = (e: MediaQueryListEvent) => {
+      const handleChange = (e: MediaQueryListEvent): void => {
         setIsMobile(e.matches);
       };
 
@@ -62,7 +62,7 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
 
       return () => {
         window.removeEventListener("resize", debouncedCheck);
-        if (timeoutRef.current) {
+        if (timeoutRef.current !== null) {
           clearTimeout(timeoutRef.current);
         }
       };
@@ -71,7 +71,7 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
+      if (timeoutRef.current !== null) {
         clearTimeout(timeoutRef.current);
       }
     };

@@ -15,9 +15,9 @@ const FooterNavigation: React.FC<FooterNavigationProps> = ({
     <div className="space-y-4">
       <h3 className="text-xl font-bold text-text-primary dark:text-text-primary uppercase mb-4">{title}</h3>
       <div className="flex flex-col space-y-2">
-        {links.map((link, index) => (
+        {links.map((link) => (
           <a
-            key={index}
+            key={link.href}
             href={link.href}
             className="text-text-secondary dark:text-gray-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-bold">
             {link.name}

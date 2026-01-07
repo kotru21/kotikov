@@ -18,12 +18,12 @@ export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({
         className={pixel.shape === "circle" ? "rounded-full" : ""}
         style={{
           position: "fixed",
-          top: `${explosionPosition.y + pixel.y}px`,
-          left: `${explosionPosition.x + pixel.x}px`,
-          width: `${pixel.size}px`,
-          height: `${pixel.size}px`,
+          top: `${String(explosionPosition.y + pixel.y)}px`,
+          left: `${String(explosionPosition.x + pixel.x)}px`,
+          width: `${String(pixel.size)}px`,
+          height: `${String(pixel.size)}px`,
           backgroundColor: pixel.color,
-          transform: `translate(-50%, -50%) rotate(${pixel.rotation}deg)`,
+          transform: `translate(-50%, -50%) rotate(${String(pixel.rotation)}deg)`,
           clipPath:
             pixel.shape === "triangle"
               ? "polygon(50% 0%, 0% 100%, 100% 100%)"

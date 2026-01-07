@@ -89,7 +89,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                }
 
                return (
-                 <div key={index} className={gridClasses + " h-full"}>
+                 <div key={contact.label} className={gridClasses + " h-full"}>
                    <Button
                      variant="primary"
                      fullWidth

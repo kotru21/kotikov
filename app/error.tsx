@@ -10,7 +10,7 @@ interface ErrorPageProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorPageProps) {
+export default function Error({ error, reset }: ErrorPageProps): React.JSX.Element {
   useEffect(() => {
     // Логирование ошибки в сервис мониторинга (например, Sentry)
     console.error("App Router Error:", error);

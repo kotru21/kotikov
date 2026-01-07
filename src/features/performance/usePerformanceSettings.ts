@@ -16,7 +16,7 @@ export const usePerformanceSettings = (): PerformanceSettings => {
   });
 
   useEffect(() => {
-    const detectSettings = () => {
+    const detectSettings = (): void => {
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
@@ -33,7 +33,7 @@ export const usePerformanceSettings = (): PerformanceSettings => {
         const start = performance.now();
         let frameCount = 0;
 
-        const measureFrameRate = (timestamp: number) => {
+        const measureFrameRate = (timestamp: number): void => {
           frameCount++;
           if (timestamp - start > 1000) {
             highRefreshRate = frameCount > 80;
@@ -57,7 +57,7 @@ export const usePerformanceSettings = (): PerformanceSettings => {
     detectSettings();
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleChange = () => detectSettings();
+    const handleChange = (): void => { detectSettings(); };
 
     mediaQuery.addEventListener("change", handleChange);
 

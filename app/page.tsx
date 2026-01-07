@@ -6,7 +6,7 @@ import { TimelineWidget as Timeline } from "@/widgets/timeline";
 
 import StructuredData from "./components/StructuredData";
 
-export default function Home() {
+export default function Home(): React.JSX.Element {
   return (
     <main>
       <StructuredData />

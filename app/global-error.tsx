@@ -24,7 +24,7 @@ interface GlobalErrorProps {
   reset: () => void;
 }
 
-export default function GlobalError({ error, reset }: GlobalErrorProps) {
+export default function GlobalError({ error, reset }: GlobalErrorProps): React.JSX.Element {
   useEffect(() => {
     // Критическая ошибка - лог с высоким приоритетом
     console.error("Global Error:", error);

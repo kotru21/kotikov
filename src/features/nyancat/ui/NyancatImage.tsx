@@ -49,7 +49,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
         height={config.height}
         priority={priority}
         style={{
-          width: `${config.width}px`,
+          width: `${String(config.width)}px`,
           height: "auto",
         }}
       />

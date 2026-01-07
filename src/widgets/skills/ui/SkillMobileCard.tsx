@@ -16,7 +16,12 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
   direction = "current",
 }) => {
   // трансформации для эффектов перелистывания
-  const getTransformStyle = () => {
+  const getTransformStyle = (): {
+    transform: string;
+    opacity: number;
+    zIndex: number;
+    filter: string;
+  } => {
     if (direction === "current") {
       return {
         transform: "translateX(0) scale(1) rotateY(0deg)",
@@ -36,35 +41,27 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
       const blur = (1 - easeProgress) * 3;
 
       return {
-        transform: `translateX(${translateX}%) scale(${scale}) rotateY(${rotateY}deg)`,
+        transform: `translateX(${String(translateX)}%) scale(${String(scale)}) rotateY(${String(rotateY)}deg)`,
         opacity,
         zIndex: 15,
-        filter: `blur(${blur}px) brightness(${0.95 + easeProgress * 0.05})`,
+        filter: `blur(${String(blur)}px) brightness(${String(0.95 + easeProgress * 0.05)})`,
       };
     }
 
-    if (direction === "exiting") {
-      // Плавная анимация выхода влево
-      const easeProgress = Math.pow(transitionProgress, 2);
-      const translateX = -easeProgress * 100; // Уходит влево
-      const scale = 1 - easeProgress * 0.1; // Плавное уменьшение
-      const rotateY = -easeProgress * 20; // Умеренный поворот
-      const opacity = 1 - easeProgress;
-      const blur = easeProgress * 3;
-
-      return {
-        transform: `translateX(${translateX}%) scale(${scale}) rotateY(${rotateY}deg)`,
-        opacity,
-        zIndex: 5,
-        filter: `blur(${blur}px) brightness(${1 - easeProgress * 0.05})`,
-      };
-    }
+    // direction === "exiting"
+    // Плавная анимация выхода влево
+    const easeProgress = Math.pow(transitionProgress, 2);
+    const translateX = -easeProgress * 100; // Уходит влево
+    const scale = 1 - easeProgress * 0.1; // Плавное уменьшение
+    const rotateY = -easeProgress * 20; // Умеренный поворот
+    const opacity = 1 - easeProgress;
+    const blur = easeProgress * 3;
 
     return {
-      transform: "translateX(100%) scale(0.85) rotateY(30deg)",
-      opacity: 0,
-      zIndex: 1,
-      filter: "blur(4px) brightness(0.9)",
+      transform: `translateX(${String(translateX)}%) scale(${String(scale)}) rotateY(${String(rotateY)}deg)`,
+      opacity,
+      zIndex: 5,
+      filter: `blur(${String(blur)}px) brightness(${String(1 - easeProgress * 0.05)})`,
     };
   };
 
@@ -114,7 +111,7 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
               </span>
               <span
                 className="text-sm font-bold text-black dark:text-white">
-                {skill.level}%
+                {String(skill.level)}%
               </span>
             </div>
             <div className="w-full h-4 border-2 border-black dark:border-white p-0.5">
@@ -122,7 +119,7 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
                 className="h-full transition-all duration-1000 ease-out"
                 style={{
                   backgroundColor: skill.color,
-                  width: isActive ? `${skill.level}%` : "0%",
+                  width: isActive ? `${String(skill.level)}%` : "0%",
                 }}
               />
             </div>

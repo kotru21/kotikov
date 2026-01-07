@@ -16,7 +16,7 @@ const SkillProgressIndicator: React.FC<SkillProgressIndicatorProps> = ({
       <div className="flex gap-3">
         {Array.from({ length: totalItems }).map((_, index) => (
           <div
-            key={index}
+            key={`indicator-${String(index)}`}
             className="w-2 h-2 rounded-full transition-all duration-500 ease-out"
             style={{
               backgroundColor:

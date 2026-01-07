@@ -35,7 +35,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent): void => {
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -47,11 +47,11 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
       // Let's update facing based on movement delta in the animation loop for smoothness
     };
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (): void => {
       setIsVisible(true);
     };
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = (): void => {
       setIsVisible(false);
     };
 
@@ -79,7 +79,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
       const JUMP_HEIGHT = 100;
       const DISTANCE_THRESHOLD = 60; 
 
-      const animate = (time: number) => {
+      const animate = (time: number): void => {
         if (!catRef.current || !containerRef.current) {
             frameRef.current = requestAnimationFrame(animate);
             return;
@@ -176,13 +176,13 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
             }
         }
 
-        catRef.current.style.transform = `translate(${currentPos.current.x - 25}px, ${currentPos.current.y - 25}px)`;
+        catRef.current.style.transform = `translate(${String(currentPos.current.x - 25)}px, ${String(currentPos.current.y - 25)}px)`;
         frameRef.current = requestAnimationFrame(animate);
       };
       
       frameRef.current = requestAnimationFrame(animate);
-      return () => cancelAnimationFrame(frameRef.current);
-  }, []); // Empty deps, using refs
+      return () => { cancelAnimationFrame(frameRef.current); };
+  }, [containerRef]);
 
   return (
     <div

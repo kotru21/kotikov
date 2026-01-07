@@ -43,7 +43,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         <div className="flex lg:hidden">
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={() => { setMobileMenuOpen(true); }}
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse">
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
@@ -86,7 +86,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             </a>
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => { setMobileMenuOpen(false); }}
               className="-m-2.5 rounded-none p-2.5 text-black dark:text-white border-2 border-transparent hover:border-black dark:hover:border-white hover:bg-primary-500 hover:text-black transition-all">
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />

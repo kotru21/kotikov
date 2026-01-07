@@ -19,13 +19,18 @@ const SkillMobileCardsContainer: React.FC<SkillMobileCardsContainerProps> = ({
   // previousActiveIndex - убрали из деструктуризации, так как не используется
 }) => {
   // Определяем какие карточки показывать
-  const getCurrentSkills = () => {
-    const skills: Array<{
+  const getCurrentSkills = (): {
+    skill: SkillData;
+    direction: "entering" | "exiting" | "current";
+    isActive: boolean;
+    progress: number;
+  }[] => {
+    const skills: {
       skill: SkillData;
       direction: "entering" | "exiting" | "current";
       isActive: boolean;
       progress: number;
-    }> = [];
+    }[] = [];
 
     if (!isTransitioning) {
       // Показываем только текущую карточку без переходов
@@ -76,7 +81,7 @@ const SkillMobileCardsContainer: React.FC<SkillMobileCardsContainerProps> = ({
       {/* Карточки */}
       {skillsToRender.map(({ skill, direction, isActive, progress }, index) => (
         <SkillMobileCard
-          key={`${skill.id}-${direction}-${index}`}
+          key={`${String(skill.id)}-${direction}-${String(index)}`}
           skill={skill}
           isActive={isActive}
           transitionProgress={progress}

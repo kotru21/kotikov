@@ -92,7 +92,7 @@ export const gradientStyles = {
 };
 
 // 6. Утилиты для создания CSS-переменных
-export const createCSSVariables = () => {
+export const createCSSVariables = (): Record<string, string> => {
   const cssVars: Record<string, string> = {};
 
   // Основные цвета
@@ -119,7 +119,7 @@ export const createCSSVariables = () => {
 };
 
 // 7. Функция для применения темы
-export const applyTheme = (theme: "dark" | "light") => {
+export const applyTheme = (theme: "dark" | "light"): void => {
   const selectedTheme = themes[theme];
   const root = document.documentElement;
 

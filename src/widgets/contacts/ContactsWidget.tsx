@@ -36,7 +36,7 @@ const ContactsWidget: React.FC = () => {
     },
   } = usePawAnimation(handleDraw);
 
-  const handleClearCanvas = () => {
+  const handleClearCanvas = (): void => {
     canvasRef.current?.initCanvas();
   };
 

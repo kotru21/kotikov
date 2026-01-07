@@ -8,8 +8,8 @@ export interface ContactCardProps {
 }
 
 const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "auto" }) => {
-  const handleClick = () => {
-    if (contact.link) {
+  const handleClick = (): void => {
+    if (contact.link !== undefined && contact.link !== "") {
       window.open(contact.link, "_blank");
     }
   };
@@ -24,7 +24,7 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "
   return (
     <div
       className={`p-6 transition-all duration-300 border-2 border-transparent ${
-        contact.link ? "cursor-pointer" : ""
+        contact.link !== undefined && contact.link !== "" ? "cursor-pointer" : ""
       }`}
       style={{
         background: "transparent",

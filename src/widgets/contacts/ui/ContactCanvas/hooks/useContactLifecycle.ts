@@ -1,6 +1,12 @@
 import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
 
+interface UseContactLifecycleReturn {
+  canvasRef: RefObject<HTMLCanvasElement | null>;
+  ctxRef: RefObject<CanvasRenderingContext2D | null>;
+  initCanvas: () => void;
+}
+
 export const useContactLifecycle = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
@@ -8,8 +14,8 @@ export const useContactLifecycle = (
   pixelSize: number,
   generateCats: (rows: number, cols: number) => void,
   drawBackground: () => void
-) => {
-  const initCanvas = useCallback(() => {
+): UseContactLifecycleReturn => {
+  const initCanvas = useCallback((): void => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -19,7 +25,7 @@ export const useContactLifecycle = (
     ctxRef.current = ctx;
 
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio, 2);
     
     // Reset transform before resize to avoid compounding
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -41,7 +47,7 @@ export const useContactLifecycle = (
 
   useEffect(() => {
     initCanvas();
-    const handleResize = () => {
+    const handleResize = (): void => {
       setTimeout(initCanvas, 100);
     };
     window.addEventListener("resize", handleResize, { passive: true });

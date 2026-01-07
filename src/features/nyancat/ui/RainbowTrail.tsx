@@ -36,22 +36,22 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
     <>
       {Array.from({ length: config.trailSegments }, (_, i) => (
         <div
-          key={`trail-${i}`}
+          key={`trail-${String(i)}`}
           style={{
             position: "absolute",
             top: position.top,
             left: position.left,
             zIndex: zIndex - 1,
             animation: `${animationName} ${animationDuration} linear infinite`,
-            animationDelay: `${
+            animationDelay: `${String(
               parseFloat(animationDelay) + i * config.trailDelay
-            }s`,
+            )}s`,
             opacity: calculateTrailOpacity(i, size),
           }}>
           <div
             style={{
-              width: `${calculateTrailWidth(i, size)}px`,
-              height: `${calculateTrailHeight(i, size)}px`,
+              width: `${String(calculateTrailWidth(i, size))}px`,
+              height: `${String(calculateTrailHeight(i, size))}px`,
               background: generateTrailGradient(i, size),
               transform: calculateTrailTransform(i, size),
             }}

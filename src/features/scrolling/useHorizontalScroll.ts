@@ -9,15 +9,15 @@ interface UseHorizontalScrollOptions {
 
 export const useHorizontalScroll = (
   options: UseHorizontalScrollOptions = {}
-) => {
+): { containerRef: React.RefObject<HTMLDivElement | null>; sectionRef: React.RefObject<HTMLElement | null> } => {
   const { enabled = true, scrollMultiplier = 2 } = options;
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const animationFrameRef = useRef<number | null>(null);
 
-  const checkScrollPosition = useCallback(() => {
+  const checkScrollPosition = useCallback((): { canScrollLeft: boolean; canScrollRight: boolean } => {
     const container = containerRef.current;
-    if (!container) return { canScrollLeft: false, canScrollRight: false };
+    if (container === null) return { canScrollLeft: false, canScrollRight: false };
 
     const tolerance = 5;
     const scrollLeft = container.scrollLeft;
@@ -31,16 +31,16 @@ export const useHorizontalScroll = (
     return { canScrollLeft, canScrollRight };
   }, []);
 
-  const smoothScrollTo = useCallback((targetScrollLeft: number) => {
+  const smoothScrollTo = useCallback((targetScrollLeft: number): void => {
     const container = containerRef.current;
-    if (!container) return;
+    if (container === null) return;
 
     const startScrollLeft = container.scrollLeft;
     const distance = targetScrollLeft - startScrollLeft;
     const duration = 400; 
     const startTime = performance.now();
 
-    const animateScroll = (currentTime: number) => {
+    const animateScroll = (currentTime: number): void => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
@@ -51,7 +51,7 @@ export const useHorizontalScroll = (
       }
     };
 
-    if (animationFrameRef.current) {
+    if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
     }
 
@@ -63,9 +63,9 @@ export const useHorizontalScroll = (
     const container = containerRef.current;
     const target = container;
     
-    if (!target || !container) return;
+    if (target === null || container === null) return;
 
-    const handleWheel = (e: WheelEvent) => {
+    const handleWheel = (e: WheelEvent): void => {
       const { canScrollLeft, canScrollRight } = checkScrollPosition();
       const isScrollingDown = e.deltaY > 0;
       const isScrollingUp = e.deltaY < 0;
@@ -77,8 +77,6 @@ export const useHorizontalScroll = (
         const scrollAmount = e.deltaY * scrollMultiplier;
         const targetScrollLeft = container.scrollLeft + scrollAmount;
         smoothScrollTo(targetScrollLeft);
-      } else {
-        // nothing
       }
     };
 
@@ -86,7 +84,7 @@ export const useHorizontalScroll = (
 
     return () => {
       target.removeEventListener("wheel", handleWheel);
-      if (animationFrameRef.current) {
+      if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };

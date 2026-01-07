@@ -1,13 +1,17 @@
 import type { RefObject } from "react";
 import { useCallback } from "react";
 
+interface UseGridCoverageReturn {
+  checkCoverage: (targetRect: DOMRect) => number;
+}
+
 export const useGridCoverage = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   paintedRef: RefObject<Map<string, string>>,
   pixelSize: number
-) => {
+): UseGridCoverageReturn => {
   const checkCoverage = useCallback(
-    (targetRect: DOMRect) => {
+    (targetRect: DOMRect): number => {
       const canvas = canvasRef.current;
       if (!canvas) return 0;
 
@@ -54,7 +58,7 @@ export const useGridCoverage = (
 
           if (overlapW > 0 && overlapH > 0) {
             totalCells++;
-            if (paintedRef.current.has(`${c},${r}`)) paintedCells++;
+            if (paintedRef.current.has(`${String(c)},${String(r)}`)) paintedCells++;
           }
         }
       }

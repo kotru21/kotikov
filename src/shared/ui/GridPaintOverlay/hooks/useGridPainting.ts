@@ -3,17 +3,22 @@ import { useCallback, useRef } from "react";
 
 import { colors } from "@/styles/colors";
 
+interface UseGridPaintingReturn {
+  paintedRef: RefObject<Map<string, string>>;
+  drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
+}
+
 export const useGridPainting = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   pixelSize: number,
   brushRadius: number,
   alpha: number
-) => {
+): UseGridPaintingReturn => {
   const paintedRef = useRef<Map<string, string>>(new Map());
 
   const drawOnCanvas = useCallback(
-    (x: number, y: number, prevX: number, prevY: number) => {
+    (x: number, y: number, prevX: number, prevY: number): void => {
       const ctx = ctxRef.current;
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
@@ -55,7 +60,7 @@ export const useGridPainting = (
             const intensity = 1 - dist / brushRadius;
             const col = Math.round((centerX - pixelSize / 2) / pixelSize);
             const row = Math.round((centerY - pixelSize / 2) / pixelSize);
-            const key = `${col},${row}`;
+            const key = `${String(col)},${String(row)}`;
 
             const existing = pixelsToDraw.get(key);
             if (existing && existing.intensity >= intensity) continue;

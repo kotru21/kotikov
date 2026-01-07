@@ -1,14 +1,21 @@
+import type { RefObject } from "react";
 import { useCallback,useRef } from "react";
 
 import { colors } from "@/styles/colors";
 
 import { CAT_POSES } from "../../constants";
 
-export const useContactCats = () => {
+interface UseContactCatsReturn {
+  catMapRef: RefObject<Map<string, string>>;
+  revealedPixelsRef: RefObject<Set<string>>;
+  generateCats: (rows: number, cols: number) => void;
+}
+
+export const useContactCats = (): UseContactCatsReturn => {
   const catMapRef = useRef<Map<string, string>>(new Map()); // "col,row" -> color
   const revealedPixelsRef = useRef<Set<string>>(new Set()); // Уже закрашенные пиксели
 
-  const generateCats = useCallback((rows: number, cols: number) => {
+  const generateCats = useCallback((rows: number, cols: number): void => {
     catMapRef.current.clear();
     revealedPixelsRef.current.clear();
 
@@ -34,7 +41,7 @@ export const useContactCats = () => {
     }
     const placements: CatPlacement[] = [];
 
-    const maxCatWidth = Math.max(...CAT_POSES.map((p) => p[0]?.length || 0));
+    const maxCatWidth = Math.max(...CAT_POSES.map((p) => p[0]?.length ?? 0));
     const maxCatHeight = Math.max(...CAT_POSES.map((p) => p.length));
     const cellWidth = maxCatWidth + 3;
     const cellHeight = maxCatHeight + 3;
@@ -51,14 +58,14 @@ export const useContactCats = () => {
           cellCenterY - centerY
         );
         const maxDist = Math.hypot(centerX, centerY);
-        const normalizedDist = distFromCenter / maxDist;
+        const normalizedDist = maxDist !== 0 ? distFromCenter / maxDist : 0;
 
         // Вероятность размещения кота: больше по краям
         const probability = 0.2 + normalizedDist * 0.3;
 
         if (Math.random() < probability) {
           const pose = CAT_POSES[Math.floor(Math.random() * CAT_POSES.length)];
-          const catW = pose[0]?.length || 0;
+          const catW = pose[0]?.length ?? 0;
           const catH = pose.length;
 
           const offsetX = Math.floor(Math.random() * (cellWidth - catW));
@@ -77,7 +84,7 @@ export const useContactCats = () => {
       pose.forEach((rowArr, rIdx) => {
         rowArr.forEach((cell, cIdx) => {
           if (cell === 1) {
-            const key = `${startC + cIdx},${startR + rIdx}`;
+            const key = `${String(startC + cIdx)},${String(startR + rIdx)}`;
             if (!catMapRef.current.has(key)) {
               catMapRef.current.set(key, color);
             }

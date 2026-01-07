@@ -3,6 +3,11 @@ import { useCallback } from "react";
 
 import { colors } from "@/styles/colors";
 
+interface UseContactDrawingReturn {
+  drawBackground: () => void;
+  drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
+}
+
 export const useContactDrawing = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
@@ -10,8 +15,8 @@ export const useContactDrawing = (
   revealedPixelsRef: RefObject<Set<string>>,
   pixelSize: number,
   brushRadius: number
-) => {
-  const drawBackground = useCallback(() => {
+): UseContactDrawingReturn => {
+  const drawBackground = useCallback((): void => {
     const ctx = ctxRef.current;
     const canvas = canvasRef.current;
     if (!ctx || !canvas) return;
@@ -32,7 +37,7 @@ export const useContactDrawing = (
       for (let col = 0; col < cols; col++) {
         const x = col * pixelSize;
         const y = row * pixelSize;
-        const key = `${col},${row}`;
+        const key = `${String(col)},${String(row)}`;
         const isCat = catMapRef.current.has(key);
 
         const progress = (row + col) / (rows + cols);
@@ -54,7 +59,7 @@ export const useContactDrawing = (
   }, [pixelSize, canvasRef, ctxRef, catMapRef]);
 
   const drawOnCanvas = useCallback(
-    (x: number, y: number, prevX: number, prevY: number) => {
+    (x: number, y: number, prevX: number, prevY: number): void => {
       const ctx = ctxRef.current;
       const canvas = canvasRef.current;
       if (!ctx || !canvas) return;
@@ -101,7 +106,7 @@ export const useContactDrawing = (
               const pixelY = pixelCenterY - pixelSize / 2;
               const col = Math.round(pixelX / pixelSize);
               const row = Math.round(pixelY / pixelSize);
-              const key = `${col},${row}`;
+              const key = `${String(col)},${String(row)}`;
 
               if (revealedPixelsRef.current.has(key)) continue;
 
@@ -110,7 +115,7 @@ export const useContactDrawing = (
 
               let fillColor: string;
 
-              if (catColor) {
+              if (catColor !== undefined && catColor !== "") {
                 fillColor = catColor;
               } else {
                 const variation = Math.random();

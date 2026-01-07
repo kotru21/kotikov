@@ -1,6 +1,8 @@
+import type { JSX } from "react";
+
 import { personData } from "@/shared/config/content";
 
-export default function StructuredData() {
+export default function StructuredData(): JSX.Element {
   const personStructuredData = {
     "@context": "https://schema.org",
     "@type": "Person",

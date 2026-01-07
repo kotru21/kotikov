@@ -1,5 +1,5 @@
 import React from "react";
 
-import { InteractiveTextRegistry } from "./types";
+import type { InteractiveTextRegistry } from "./types";
 
 export const InteractiveTextContext = React.createContext<InteractiveTextRegistry | null>(null);

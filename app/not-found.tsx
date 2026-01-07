@@ -89,7 +89,7 @@ const NotFound: React.FC = () => {
                 variant="outline"
                 size="lg"
                 fullWidth
-                onClick={() => window.history.back()}>
+                onClick={() => { window.history.back(); }}>
                 ← Назад
               </Button>
             </div>

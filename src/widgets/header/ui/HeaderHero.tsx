@@ -33,7 +33,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
 }) => {
   return (
     <div className="mx-auto max-w-2xl py-12 lg:py-16 relative isolate">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm" />
       
       <div className="relative z-10">
         {announcement && (

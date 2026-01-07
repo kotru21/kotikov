@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef } from "react";
 
 import { InteractiveTextContext } from "../model/context";
-import { InteractiveTextRegistry } from "../model/types";
+import type { InteractiveTextRegistry } from "../model/types";
 
 interface InteractiveTextProps {
   text: string;
@@ -13,14 +13,14 @@ const InteractiveChar = memo(
     char,
     register,
     unregister,
-  }: { char: string } & InteractiveTextRegistry) => {
+  }: { char: string } & InteractiveTextRegistry): React.JSX.Element => {
     const ref = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
       const el = ref.current;
-      if (el) register(el);
-      return () => {
-        if (el) unregister(el);
+      if (el !== null) register(el);
+      return (): void => {
+        if (el !== null) unregister(el);
       };
     }, [register, unregister]);
 
@@ -47,26 +47,26 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
-} & React.ComponentPropsWithoutRef<T>) => {
-  const Component = as || "div";
+} & React.ComponentPropsWithoutRef<T>): React.JSX.Element => {
+  const Component = as ?? "div";
   const registry = React.useContext(InteractiveTextContext);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (el && registry) registry.register(el);
-    return () => {
-      if (el && registry) registry.unregister(el);
+    if (el !== null && registry !== null) registry.register(el);
+    return (): void => {
+      if (el !== null && registry !== null) registry.unregister(el);
     };
   }, [registry]);
 
-  const props = {
+  const classNameValue = className ?? "";
+  const props: Record<string, unknown> = {
     ...rest,
     ref,
-    className: `${className || ""} transition-colors duration-200`,
-    ...(style ? { style } : {}),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any;
+    className: `${classNameValue} transition-colors duration-200`,
+    ...(style !== undefined ? { style } : {}),
+  };
 
   return <Component {...props}>{children}</Component>;
 };
@@ -84,19 +84,19 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({
   const words = text.split(" ");
   return (
     <span className={className}>
-      {words.map((word, index) => (
-        <React.Fragment key={index}>
+      {words.map((word, wordIndex) => (
+        <React.Fragment key={`word-${word}-${String(wordIndex)}`}>
           <span className="inline-block whitespace-nowrap">
             {word.split("").map((char, charIndex) => (
               <InteractiveChar
-                key={charIndex}
+                key={`char-${word}-${String(charIndex)}`}
                 char={char}
                 register={registry.register}
                 unregister={registry.unregister}
               />
             ))}
           </span>
-          {index < words.length - 1 && (
+          {wordIndex < words.length - 1 && (
             <InteractiveChar
               char=" "
               register={registry.register}

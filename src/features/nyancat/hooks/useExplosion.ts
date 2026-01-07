@@ -13,7 +13,15 @@ import {
 } from "../lib/utils";
 import type { Pixel, Position } from "../types";
 
-export const useExplosion = (size: NyancatSize) => {
+interface UseExplosionReturn {
+  isExploded: boolean;
+  pixels: Pixel[];
+  explosionPosition: Position;
+  nyancatRef: React.RefObject<HTMLDivElement | null>;
+  explode: () => void;
+}
+
+export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
   const [isExploded, setIsExploded] = useState(false);
   const [pixels, setPixels] = useState<Pixel[]>([]);
   const [explosionPosition, setExplosionPosition] = useState<Position>({
@@ -27,7 +35,7 @@ export const useExplosion = (size: NyancatSize) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
 
   const explode = useCallback(() => {
-    if (isExploded || !nyancatRef.current) return;
+    if (isExploded || nyancatRef.current === null) return;
 
     const center = getElementCenter(nyancatRef.current);
     setExplosionPosition(center);
@@ -44,14 +52,14 @@ export const useExplosion = (size: NyancatSize) => {
 
     startTimeRef.current = performance.now();
 
-    const tick = () => {
+    const tick = (): void => {
       const now = performance.now();
       const elapsed = now - startTimeRef.current;
       if (elapsed >= EXPLOSION_DURATION || reducedMotion) {
         setIsExploded(false);
         setPixels([]);
         pixelsRef.current = [];
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
         return;
       }
@@ -75,7 +83,7 @@ export const useExplosion = (size: NyancatSize) => {
 
   useEffect(() => {
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 

@@ -32,7 +32,7 @@ export const SkillsInteractionProvider: React.FC<{
   );
 };
 
-export const useSkillsInteraction = () => {
+export const useSkillsInteraction = (): SkillsInteractionContextType => {
   const context = useContext(SkillsInteractionContext);
   if (!context) {
     throw new Error(

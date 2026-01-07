@@ -3,7 +3,7 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { isInteractiveTarget } from "@/shared/lib/dom/isInteractiveTarget";
+import { isInteractiveTarget } from "@/shared/lib";
 
 interface MousePosition {
   x: number;
@@ -18,9 +18,22 @@ interface PawAnimationState {
   isDrawing: boolean;
 }
 
+interface PawAnimationHandlers {
+  handlePointerEnter: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerMove: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerLeave: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerDown: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerUp: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerCancel: (e: React.PointerEvent<HTMLElement>) => void;
+}
+
+interface UsePawAnimationReturn extends PawAnimationState {
+  handlers: PawAnimationHandlers;
+}
+
 export const usePawAnimation = (
   onDraw: (x: number, y: number, prevX: number, prevY: number) => void
-) => {
+): UsePawAnimationReturn => {
   const [state, setState] = useState<PawAnimationState>({
     mousePos: { x: 0, y: 0 },
     smoothMousePos: { x: 0, y: 0 },
@@ -36,7 +49,7 @@ export const usePawAnimation = (
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
 
-  const updatePointerPos = useCallback((x: number, y: number) => {
+  const updatePointerPos = useCallback((x: number, y: number): void => {
     setState((prev) => {
       const deltaX = x - prev.mousePos.x;
       const deltaY = y - prev.mousePos.y;
@@ -53,7 +66,7 @@ export const usePawAnimation = (
     }));
     mouseVelocityRef.current = { x: 0, y: 0 };
 
-    if (animationFrameRef.current) {
+    if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
     }
@@ -160,7 +173,7 @@ export const usePawAnimation = (
   useEffect(() => {
     if (!state.isDrawing) return;
 
-    const animate = (currentTime: number) => {
+    const animate = (currentTime: number): void => {
       const deltaTime = currentTime - lastUpdateTimeRef.current;
       if (deltaTime < 16) {
         if (state.isDrawing) {
@@ -202,7 +215,7 @@ export const usePawAnimation = (
           smoothness *= 1.5;
         }
 
-        const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+        const ease = (t: number): number => 1 - Math.pow(1 - t, 3);
         const easedSmoothness = ease(smoothness);
 
         const newPawPos = {
@@ -211,9 +224,9 @@ export const usePawAnimation = (
         };
 
         const velocityX =
-          (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime || 16));
+          (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
         const velocityY =
-          (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime || 16));
+          (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
 
         if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
           onDraw(
@@ -263,7 +276,7 @@ export const usePawAnimation = (
     animationFrameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationFrameRef.current) {
+      if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };

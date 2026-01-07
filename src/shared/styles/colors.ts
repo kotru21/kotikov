@@ -138,18 +138,23 @@ export type SemanticColors = keyof typeof colors.semantic;
 // Утилитарные функции для работы с цветами
 export const getColor = (path: string): string => {
   const keys = path.split(".");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let result: any = colors;
+  let result: unknown = colors;
 
   for (const key of keys) {
-    result = result[key];
-    if (result === undefined) {
+    if (result !== null && typeof result === "object" && key in result) {
+      result = (result as Record<string, unknown>)[key];
+    } else {
       console.warn(`Color path "${path}" not found`);
       return "#000000";
     }
   }
 
-  return result as string;
+  if (typeof result === "string") {
+    return result;
+  }
+
+  console.warn(`Color path "${path}" is not a string`);
+  return "#000000";
 };
 
 // Функция для получения контрастного цвета
@@ -178,12 +183,12 @@ export const withOpacity = (color: string, opacity: number): string => {
     const r = parseInt(color.slice(1, 3), 16);
     const g = parseInt(color.slice(3, 5), 16);
     const b = parseInt(color.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    return `rgba(${String(r)}, ${String(g)}, ${String(b)}, ${String(opacity)})`;
   }
 
   // Если цвет уже в rgb/rgba формате
   if (color.startsWith("rgb")) {
-    return color.replace("rgb(", "rgba(").replace(")", `, ${opacity})`);
+    return color.replace("rgb(", "rgba(").replace(")", `, ${String(opacity)})`);
   }
 
   return color;

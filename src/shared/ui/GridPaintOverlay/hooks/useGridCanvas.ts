@@ -1,14 +1,18 @@
 import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
 
+interface UseGridCanvasReturn {
+  initCanvas: () => void;
+}
+
 export const useGridCanvas = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   alpha: number,
   pixelSize: number,
   paintedRef: RefObject<Map<string, string>>
-) => {
-  const initCanvas = useCallback(() => {
+): UseGridCanvasReturn => {
+  const initCanvas = useCallback((): void => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -17,7 +21,7 @@ export const useGridCanvas = (
     ctxRef.current = ctx;
 
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio, 2);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     canvas.width = Math.max(1, Math.floor(rect.width * dpr));
@@ -45,12 +49,12 @@ export const useGridCanvas = (
   useEffect(() => {
     initCanvas();
     let timeout: NodeJS.Timeout;
-    const handleResize = () => {
+    const handleResize = (): void => {
       clearTimeout(timeout);
       timeout = setTimeout(initCanvas, 100);
     };
     window.addEventListener("resize", handleResize, { passive: true });
-    return () => window.removeEventListener("resize", handleResize);
+    return () => { window.removeEventListener("resize", handleResize); };
   }, [initCanvas]);
 
   return { initCanvas };

@@ -16,7 +16,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
       className=" group hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
       style={{
         backgroundColor: colors.background.tertiary,
-        animationDelay: `${index * 0.1}s`,
+        animationDelay: `${String(index * 0.1)}s`,
         animation: "fade-in-up 0.6s ease-out forwards",
         borderRadius: "0rem",
       }}
@@ -48,7 +48,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
             <span
               className="text-sm font-bold"
               style={{ color: colors.text.inverse }}>
-              {skill.level}%
+              {String(skill.level)}%
             </span>
           </div>
           <div
@@ -58,8 +58,8 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
               className="h-2 rounded-full transition-all duration-1000 ease-out"
               style={{
                 backgroundColor: skill.color,
-                width: `${skill.level}%`,
-                animationDelay: `${index * 0.2 + 0.5}s`,
+                width: `${String(skill.level)}%`,
+                animationDelay: `${String(index * 0.2 + 0.5)}s`,
               }}
             />
           </div>

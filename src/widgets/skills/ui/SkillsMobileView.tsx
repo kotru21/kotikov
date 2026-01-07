@@ -26,7 +26,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
       id="skills"
       className="relative bg-background-primary dark:bg-background-tertiary transition-colors duration-300"
       style={{
-        height: `${sectionHeight}vh`,
+        height: `${String(sectionHeight)}vh`,
       }}>
       {/* Header */}
       <div className="text-center pt-20 pb-12 px-4">
