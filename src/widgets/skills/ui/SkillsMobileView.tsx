@@ -31,7 +31,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
       {/* Header */}
       <div className="text-center pt-20 pb-12 px-4">
         <h2
-          className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-text-inverse"
+          className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white"
           style={{ }}>
           Мои Навыки
         </h2>
