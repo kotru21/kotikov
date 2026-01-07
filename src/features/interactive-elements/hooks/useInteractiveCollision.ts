@@ -23,13 +23,15 @@ export const useInteractiveCollision = (
       const maxY = Math.max(y, prevY) + buffer;
 
       interactiveElementsRef.current.forEach((el) => {
-        // Оптимизация: если уже закрашен (черный), пропускаем
-        if (el.style.color === "black" && el.dataset.interactiveMode !== "solid") return;
-        if (
-          el.style.backgroundColor === "black" &&
-          el.dataset.interactiveMode === "solid"
-        )
-          return;
+        
+        const targetColor = el.dataset.interactiveColor || "black";
+        
+       
+        const isSolid = el.dataset.interactiveMode === "solid";
+        if (!isSolid && el.style.color === targetColor) return;
+        
+        const targetBg = el.dataset.interactiveBg || "black";
+        if (isSolid && el.style.backgroundColor === targetBg) return;
 
         const rect = el.getBoundingClientRect();
 
@@ -47,13 +49,16 @@ export const useInteractiveCollision = (
           const mode = el.dataset.interactiveMode;
 
           if (mode === "solid") {
-            el.style.backgroundColor = "black";
-            el.style.borderColor = "black";
-            el.style.color = "white";
+            el.style.backgroundColor = targetBg;
+            el.style.borderColor = targetBg;
+            el.style.color = el.dataset.interactiveText || "white";
+            if (el.dataset.interactiveShadow) {
+              el.style.boxShadow = el.dataset.interactiveShadow;
+            }
           } else if (mode === "border") {
-            el.style.borderColor = "black";
+            el.style.borderColor = targetColor;
           } else {
-            el.style.color = "black";
+            el.style.color = targetColor;
           }
         }
       });

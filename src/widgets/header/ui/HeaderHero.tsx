@@ -40,11 +40,14 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
           <div className="hidden sm:mb-8 sm:flex">
             <InteractiveElement
               data-interactive-mode="solid"
+              data-interactive-bg="black"
+              data-interactive-text="white"
+              data-interactive-shadow="4px 4px 0px 0px rgba(255,255,255,1)"
               className="relative px-4 py-1.5 text-sm font-bold leading-6 text-black dark:text-neutral-50 border-2 border-black dark:border-white bg-primary-200 dark:bg-primary-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-200">
               {announcement.text}{" "}
               <a
                 href={announcement.linkHref}
-                className="font-black text-black dark:text-neutral-50 underline decoration-2 relative z-10 transition-colors">
+                className="font-black text-inherit underline decoration-2 relative z-10 transition-colors">
                 <span aria-hidden="true" className="absolute inset-0" />
                 {announcement.linkText} <span aria-hidden="true">&rarr;</span>
               </a>
@@ -78,7 +81,10 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
             href={buttons.secondary.href}
             className="text-sm font-semibold leading-6 text-text-primary dark:text-text-inverse group"
           >
-           <InteractiveText text={buttons.secondary.text} /> <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform inline-block">→</span>
+           <InteractiveText text={buttons.secondary.text} />{" "}
+           <InteractiveElement as="span" aria-hidden="true" className="group-hover:translate-x-1 transition-transform inline-block">
+             →
+           </InteractiveElement>
           </a>
         </div>
       </div>
