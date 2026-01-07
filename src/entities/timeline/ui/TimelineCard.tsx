@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 
-import { Button } from "@/shared/ui/Button";
-import { Card } from "@/shared/ui/Card";
+import { Button, Card } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 import type { TimelineItem } from "../model/types";
@@ -35,13 +34,13 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
       {/* Decorative geometric background shape */}
       <div 
         className={`absolute -top-2 -right-2 w-full h-full border-2 border-black dark:border-white -z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 ${
-           index % 3 === 0 ? 'bg-[#d12c1f]' : index % 3 === 1 ? 'bg-[#f4bf21]' : 'bg-[#1b54a7]'
+           index % 3 === 0 ? "bg-primary-500" : index % 3 === 1 ? "bg-primary-300" : "bg-primary-700"
         }`}>
       </div>
       
       <Card
         padding="sm"
-        className="relative z-10 border-2 border-black dark:border-white bg-[#f5f5f3] dark:bg-[#111111] shadow-none h-full flex flex-col rounded-none"
+        className="relative z-10 border-2 border-black dark:border-white bg-background-primary dark:bg-background-tertiary shadow-none h-full flex flex-col rounded-none"
         hover={false}>
         <div className="flex items-center justify-between mb-4 border-b-2 border-black dark:border-white pb-2">
           <span className="font-bold text-xs uppercase bg-black dark:bg-white text-white dark:text-black px-2 py-1">
@@ -58,9 +57,14 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
           {item.title}
         </h3>
 
-        <p className={`font-bold mb-3 border-l-4 pl-2 ${
-           index % 3 === 0 ? 'border-[#d12c1f] text-[#d12c1f]' : index % 3 === 1 ? 'border-[#f4bf21] text-[#b45309] dark:text-[#f4bf21]' : 'border-[#1b54a7] text-[#1b54a7] dark:text-[#63b3ed]'
-        }`}>
+        <p
+          className={`font-bold mb-3 border-l-4 pl-2 ${
+            index % 3 === 0
+              ? "border-primary-700 text-primary-800"
+              : index % 3 === 1
+                ? "border-primary-500 text-primary-700 dark:text-primary-300"
+                : "border-primary-300 text-primary-700 dark:text-primary-300"
+          }`}>
           {item.company}
         </p>
 
@@ -89,7 +93,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
               rel="noopener noreferrer"
               variant="outline"
               size="sm"
-              className="w-full">
+              fullWidth>
               Подробнее
             </Button>
           </div>
@@ -103,3 +107,4 @@ const TimelineCard = memo(TimelineCardComponent);
 TimelineCard.displayName = "TimelineCard";
 
 export default TimelineCard;
+

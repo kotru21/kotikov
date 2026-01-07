@@ -13,8 +13,9 @@ const criticalColors = {
   error: "#dc2626",
   errorLight: "#fee2e2",
   button: {
-    bg: "#6366f1",
-    hover: "#4f46e5",
+    bg: "#00ffb9",
+    hover: "#00d99d",
+    text: "#111111",
   },
 };
 
@@ -25,7 +26,7 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
-    // Критическая ошибка - логируем с высоким приоритетом
+    // Критическая ошибка - лог с высоким приоритетом
     console.error("Global Error:", error);
   }, [error]);
 
@@ -53,8 +54,8 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
               className="px-4 py-2 rounded-none transition-colors border-2 border-black"
               style={{
                 backgroundColor: criticalColors.button.bg,
-                color: criticalColors.text.primary,
-                border: "none",
+                color: criticalColors.button.text,
+                border: `2px solid ${criticalColors.button.bg}`,
                 cursor: "pointer",
               }}
               onMouseOver={(e) => {

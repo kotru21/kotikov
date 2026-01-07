@@ -1,44 +1,50 @@
 import React from "react";
 
 type ButtonStyleProps = {
-  className?: string;
+  className?: string; // Остается для возможных исключений, но мы будем избегать использования
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
+  fullWidth?: boolean;
+  fullHeight?: boolean;
+  shadowColor?: string;
 };
 
 type ButtonAsButtonProps = ButtonStyleProps &
-  Omit<React.ComponentPropsWithoutRef<"button">, "className" | "children"> & {
+  Omit<React.ComponentPropsWithoutRef<"button">, "className" | "children" | "style"> & {
     href?: undefined;
   };
 
 type ButtonAsAnchorProps = ButtonStyleProps &
-  Omit<React.ComponentPropsWithoutRef<"a">, "className" | "children" | "href"> & {
+  Omit<React.ComponentPropsWithoutRef<"a">, "className" | "children" | "href" | "style"> & {
     href: string;
   };
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
   const {
     children,
     className = "",
     variant = "primary",
     size = "md",
+    fullWidth = false,
+    fullHeight = false,
+    shadowColor,
     ...rest
   } = props;
+  
   const baseClasses =
-    "inline-flex items-center justify-center font-bold uppercase tracking-wide rounded-none border-2 border-black dark:border-white transition-all duration-100 focus:outline-none focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center gap-2 font-bold uppercase tracking-wide rounded-none border-2 border-black dark:border-white transition-all duration-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-600 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantClasses = {
     primary:
-      "bg-[#d12c1f] text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+      "bg-white text-black shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:shadow-[4px_4px_0px_0px_var(--accent-shadow)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] dark:hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
     secondary:
-      "bg-[#f4bf21] text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+      "bg-white text-black shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:shadow-[4px_4px_0px_0px_var(--accent-shadow)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] dark:hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
     outline:
       "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black shadow-none hover:shadow-none",
-    ghost:
-      "bg-transparent border-transparent text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/10 shadow-none hover:shadow-none",
+
   };
 
   const sizeClasses = {
@@ -47,14 +53,21 @@ const Button: React.FC<ButtonProps> = (props) => {
     lg: "px-8 py-4 text-base border-2",
   };
 
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const widthClass = fullWidth ? "w-full" : "";
+  const heightClass = fullHeight ? "h-full" : "";
+
+  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${heightClass} ${className}`;
+  
+  const style = shadowColor ? ({ "--accent-shadow": shadowColor } as React.CSSProperties) : undefined;
 
   if ("href" in rest && typeof rest.href === "string") {
     const { href, ...anchorProps } = rest;
     return (
       <a
+        ref={ref as React.Ref<HTMLAnchorElement>}
         href={href}
         className={combinedClasses}
+        style={style}
         {...anchorProps}
       >
         {children}
@@ -64,12 +77,17 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   return (
     <button
+      ref={ref as React.Ref<HTMLButtonElement>}
       className={combinedClasses}
+      style={style}
       {...rest}
     >
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = "Button";
+
 
 export default Button;

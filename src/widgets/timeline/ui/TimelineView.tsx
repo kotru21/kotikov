@@ -4,7 +4,7 @@ import React from "react";
 
 import { TimelineCard } from "@/entities/timeline";
 import { timelineData } from "@/shared/config/content";
-import BauhausGridPattern from "@/shared/ui/BauhausGridPattern";
+import { BauhausGridPattern } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 import TimelinePoint from "./TimelinePoint";
@@ -49,12 +49,12 @@ const TimelineView: React.FC<TimelineViewProps> = ({
           <div className="relative">
             {/* Левая  */}
             <div
-              className="absolute left-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-r from-white via-white/60 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60 dark:to-transparent"
+              className="absolute left-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-r from-white via-white/60 to-transparent dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent"
             />
 
             {/* Правая */}
             <div
-              className="absolute right-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-l from-white via-white/60 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60 dark:to-transparent"
+              className="absolute right-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-l from-white via-white/60 to-transparent dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent"
             />
 
             {/* Контейнер для скролла */}
@@ -110,3 +110,4 @@ const TimelineView: React.FC<TimelineViewProps> = ({
 };
 
 export default TimelineView;
+

@@ -1,6 +1,6 @@
 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="40" height="120" fill="#82FFBB"/>
-<rect x="120" y="80" width="40" height="120" transform="rotate(90 120 80)" fill="#82FFBB"/>
-<rect x="80" y="40" width="80" height="80" transform="rotate(90 80 40)" fill="#82FFBB"/>
-<rect x="120" width="40" height="40" transform="rotate(90 120 0)" fill="#82FFBB"/>
+<rect width="40" height="120" fill="#00ffb9"/>
+<rect x="120" y="80" width="40" height="120" transform="rotate(90 120 80)" fill="#00ffb9"/>
+<rect x="80" y="40" width="80" height="80" transform="rotate(90 80 40)" fill="#00ffb9"/>
+<rect x="120" width="40" height="40" transform="rotate(90 120 0)" fill="#00ffb9"/>
 </svg>

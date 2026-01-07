@@ -1,23 +1,20 @@
 import type { Config } from "tailwindcss";
 
-import { colors } from "./src/shared/styles/colors.js";
+import { colors } from "./src/shared/styles/colors.ts";
 
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         primary: colors.primary,
         neutral: colors.neutral,
-        accent: {
-          pink: colors.accent.pink,
-          purple: colors.accent.purple,
-          blue: colors.accent.blue,
-        },
+        accent: colors.accent,
         semantic: {
           success: colors.semantic.success,
           warning: colors.semantic.warning,
@@ -65,10 +62,10 @@ const config: Config = {
         },
         "pulse-glow": {
           "0%, 100%": {
-            boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
+            boxShadow: "0 0 20px rgba(0, 255, 185, 0.25)",
           },
           "50%": {
-            boxShadow: "0 0 40px rgba(99, 102, 241, 0.6)",
+            boxShadow: "0 0 40px rgba(0, 255, 185, 0.55)",
           },
         },
       },

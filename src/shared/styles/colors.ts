@@ -1,18 +1,19 @@
 // Цветовая палитра для портфолио (Bauhaus Style)
 export const colors = {
-  // Основные цвета
+  // Основные цвета (акцентный scale бренда)
+  // Базовый акцент: #00ffb9
   primary: {
-    50: "#fff5f5",
-    100: "#fed7d7",
-    200: "#feb2b2",
-    300: "#fc8181",
-    400: "#f56565",
-    500: "#d12c1f", // Bauhaus Red
-    600: "#c53030",
-    700: "#9b2c2c",
-    800: "#822727",
-    900: "#63171b",
-    950: "#450a0a",
+    50: "#eafff8",
+    100: "#c9fff0",
+    200: "#9effe4",
+    300: "#63ffd5",
+    400: "#2cffc7",
+    500: "#00ffb9", 
+    600: "#00d99d",
+    700: "#00b583",
+    800: "#008f67",
+    900: "#006a4d",
+    950: "#003829",
   },
 
   // Нейтральные цвета
@@ -30,60 +31,57 @@ export const colors = {
     950: "#050505",
   },
 
-  // Акцентные цвета
+  // Акцентные цвета (единая система оттенков #00ffb9)
+  // Используйте этот раздел для всего, что раньше было "красным/жёлтым/синим" акцентом.
   accent: {
-    pink: {
-      300: "#ffd4e8",
-      400: "#f687b3",
-      500: "#ed64a6",
-      600: "#d53f8c",
-    },
-    purple: {
-      400: "#9f7aea",
-      500: "#805ad5",
-      600: "#1b54a7", // Bauhaus Blue replacement
-    },
-    blue: {
-      400: "#63b3ed",
-      500: "#1b54a7", // Bauhaus Blue
-      600: "#2b6cb0",
-    },
-    yellow: {
-      500: "#f4bf21", // Bauhaus Yellow
-    }
+    50: "#eafff8",
+    100: "#c9fff0",
+    200: "#9effe4",
+    300: "#63ffd5",
+    400: "#2cffc7",
+    500: "#00ffb9",
+    600: "#00d99d",
+    700: "#00b583",
+    800: "#008f67",
+    900: "#006a4d",
+    950: "#003829",
+    // Пары для контраста (WCAG-friendly дефолты)
+    fg: "#111111", // текст/иконки на светлом accent фоне
+    fgInverse: "#f5f5f3", // текст/иконки на очень тёмном accent фоне
+    glow: "#00ffb9",
   },
 
   // Семантические цвета
   semantic: {
     success: {
-      light: "#dcfce7",
-      DEFAULT: "#16a34a",
-      dark: "#14532d",
+      light: "#eafff8",
+      DEFAULT: "#00d99d",
+      dark: "#006a4d",
     },
     warning: {
-      light: "#fef3c7",
-      DEFAULT: "#f4bf21", // Bauhaus Yellow
-      dark: "#b45309",
+      light: "#c9fff0",
+      DEFAULT: "#00ffb9",
+      dark: "#008f67",
     },
     error: {
-      light: "#fee2e2",
-      DEFAULT: "#d12c1f", // Bauhaus Red
-      dark: "#7f1d1d",
+      light: "#9effe4",
+      DEFAULT: "#00b583",
+      dark: "#006a4d",
     },
     info: {
-      light: "#dbeafe",
-      DEFAULT: "#1b54a7", // Bauhaus Blue
-      dark: "#1e3a8a",
+      light: "#eafff8",
+      DEFAULT: "#00d99d",
+      dark: "#008f67",
     },
   },
 
   // Градиенты
   gradients: {
-    primary: "linear-gradient(135deg, #d12c1f 0%, #1b54a7 100%)",
-    sunset: "linear-gradient(135deg, #d12c1f 0%, #f4bf21 100%)",
-    ocean: "linear-gradient(135deg, #1b54a7 0%, #171717 100%)",
-    forest: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-    fire: "linear-gradient(135deg, #f4bf21 0%, #d12c1f 100%)",
+    primary: "linear-gradient(135deg, #00ffb9 0%, #008f67 100%)",
+    sunset: "linear-gradient(135deg, #63ffd5 0%, #00ffb9 100%)",
+    ocean: "linear-gradient(135deg, #00d99d 0%, #171717 100%)",
+    forest: "linear-gradient(135deg, #00ffb9 0%, #00b583 100%)",
+    fire: "linear-gradient(135deg, #2cffc7 0%, #008f67 100%)",
   },
 
   // Цвета фона
@@ -91,7 +89,7 @@ export const colors = {
     primary: "#f5f5f3", // Paper White
     secondary: "#ffffff",
     tertiary: "#111111",
-    accent: "#f4bf21",
+    accent: "#9effe4",
     light: "#ffffff",
     gray: "#eeeeee",
   },
@@ -103,7 +101,7 @@ export const colors = {
     tertiary: "#616161",
     muted: "#757575",
     inverse: "#f5f5f3",
-    accent: "#d12c1f",
+    accent: "#008f67",
   },
 
 
@@ -112,21 +110,21 @@ export const colors = {
     light: "#e5e5e5",
     DEFAULT: "#d4d4d4",
     dark: "#525252",
-    accent: "#6366f1",
+    accent: "#00d99d",
   },
 
   // Hover состояния
   hover: {
-    primary: "#4f46e5",
+    primary: "#00b583",
     secondary: "#404040",
-    accent: "#ec4899",
+    accent: "#00d99d",
     light: "#f5f5f5",
   },
 
   // Focus состояния
   focus: {
-    ring: "#6366f1",
-    background: "#eef2ff",
+    ring: "#00d99d",
+    background: "#eafff8",
   },
 } as const;
 

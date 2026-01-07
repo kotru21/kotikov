@@ -70,5 +70,4 @@ export const CAT_POSES = [
   CAT_STRETCHING,
 ];
 
-// Старый экспорт для обратной совместимости
-export const PIXEL_CAT = CAT_SITTING;
+

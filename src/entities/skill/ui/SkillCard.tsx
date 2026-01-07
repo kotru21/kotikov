@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-import { Card } from "@/shared/ui/Card";
+import { Card } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 import type { SkillData } from "../model/types";
@@ -23,18 +23,18 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
       hover={false}>
       <div className="text-center">
         <div
-          className="inline-flex items-center justify-center w-16 h-16 rounded-full text-white text-2xl mb-6 group-hover:scale-110 transition-transform duration-300"
+          className="inline-flex items-center justify-center w-16 h-16 rounded-full text-black text-2xl mb-6 group-hover:scale-110 transition-transform duration-300"
           style={{ backgroundColor: skill.color }}>
           <skill.icon className="w-8 h-8" />
         </div>
         <h3
           className="text-2xl font-bold mb-4"
-          style={{ color: colors.text.primary }}>
+          style={{ color: colors.text.inverse }}>
           {skill.name}
         </h3>
         <p
           className="mb-6 leading-relaxed"
-          style={{ color: colors.neutral[600] }}>
+          style={{ color: colors.neutral[200] }}>
           {skill.description}
         </p>
 
@@ -42,7 +42,7 @@ const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
           <div className="flex justify-between items-center mb-2">
             <span
               className="text-sm font-medium"
-              style={{ color: colors.neutral[700] }}>
+              style={{ color: colors.neutral[200] }}>
               Уровень
             </span>
             <span
@@ -73,3 +73,4 @@ const SkillCard = memo(SkillCardComponent);
 SkillCard.displayName = "SkillCard";
 
 export default SkillCard;
+

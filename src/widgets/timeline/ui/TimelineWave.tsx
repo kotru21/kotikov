@@ -12,9 +12,9 @@ const TimelineWave: React.FC = () => {
         xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={colors.primary[500]} />
-            <stop offset="50%" stopColor={colors.semantic.warning.DEFAULT} />
-            <stop offset="100%" stopColor={colors.accent.blue[500]} />
+            <stop offset="0%" stopColor={colors.accent[500]} />
+            <stop offset="50%" stopColor={colors.accent[300]} />
+            <stop offset="100%" stopColor={colors.accent[700]} />
           </linearGradient>
         </defs>
         <path

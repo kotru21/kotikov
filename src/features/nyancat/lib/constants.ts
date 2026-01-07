@@ -1,9 +1,11 @@
+import { colors } from "@/styles/colors";
+
 export const EXPLOSION_COLORS = [
-  "#d12c1f", // Red
-  "#f4bf21", // Yellow
-  "#1b54a7", // Blue
-  "#f5f5f3", // White
-  "#111111", // Black
+  colors.accent[500],
+  colors.accent[300],
+  colors.accent[700],
+  colors.neutral[50],
+  colors.neutral[900],
 ] as const;
 
 export const EXPLOSION_DURATION = 3000;

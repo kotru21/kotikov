@@ -87,7 +87,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-none p-2.5 text-black dark:text-white border-2 border-transparent hover:border-black dark:hover:border-white hover:bg-red-500 hover:text-white transition-all">
+              className="-m-2.5 rounded-none p-2.5 text-black dark:text-white border-2 border-transparent hover:border-black dark:hover:border-white hover:bg-primary-500 hover:text-black transition-all">
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />
             </button>
@@ -99,7 +99,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-none px-3 py-2 text-base/7 font-bold uppercase text-black dark:text-white hover:bg-[#d12c1f] hover:text-white transition-colors">
+                    className="-mx-3 block rounded-none px-3 py-2 text-base/7 font-bold uppercase text-black dark:text-white hover:bg-primary-500 hover:text-black transition-colors">
                     {item.name}
                   </a>
                 ))}
@@ -107,7 +107,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
               <div className="py-6">
                 <a
                   href="#"
-                  className="-mx-3 block rounded-none px-3 py-2.5 text-base/7 font-bold uppercase text-black dark:text-white hover:bg-[#d12c1f] hover:text-white transition-colors">
+                  className="-mx-3 block rounded-none px-3 py-2.5 text-base/7 font-bold uppercase text-black dark:text-white hover:bg-primary-500 hover:text-black transition-colors">
                   Туда
                 </a>
               </div>

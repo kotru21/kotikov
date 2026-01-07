@@ -10,7 +10,7 @@ export const skillsData = [
     description: "Создание современных интерактивных интерфейсов",
     icon: FaReact,
     level: 70,
-    color: colors.accent.blue[500],
+    color: colors.accent[600],
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const skillsData = [
     description: "Типизированный JavaScript для больших приложений",
     icon: SiTypescript,
     level: 55,
-    color: colors.accent.blue[600],
+    color: colors.accent[700],
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const skillsData = [
     description: "Full-stack React фреймворк с SSR",
     icon: SiNextdotjs,
     level: 60,
-    color: colors.neutral[800],
+    color: colors.accent[800],
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const skillsData = [
     description: "Стилизация и адаптивная верстка",
     icon: FaCss3Alt,
     level: 85,
-    color: colors.accent.purple[500],
+    color: colors.accent[500],
   },
   {
     id: 6,

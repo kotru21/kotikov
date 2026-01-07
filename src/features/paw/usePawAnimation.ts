@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback,useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { isInteractiveTarget } from "@/shared/lib/dom/isInteractiveTarget";
 
 interface MousePosition {
   x: number;
@@ -30,22 +33,19 @@ export const usePawAnimation = (
   const lastUpdateTimeRef = useRef<number>(0);
   const mouseVelocityRef = useRef<MousePosition>({ x: 0, y: 0 });
 
-  const handleMouseEnter = useCallback(() => {
-    setState((prev) => ({ ...prev, isDrawing: true }));
-  }, []);
+  const pointerDownRef = useRef(false);
+  const pointerIdRef = useRef<number | null>(null);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const newPos = { x: e.clientX, y: e.clientY };
-
+  const updatePointerPos = useCallback((x: number, y: number) => {
     setState((prev) => {
-      const deltaX = newPos.x - prev.mousePos.x;
-      const deltaY = newPos.y - prev.mousePos.y;
+      const deltaX = x - prev.mousePos.x;
+      const deltaY = y - prev.mousePos.y;
       mouseVelocityRef.current = { x: deltaX, y: deltaY };
-      return { ...prev, mousePos: newPos };
+      return { ...prev, mousePos: { x, y } };
     });
   }, []);
 
-  const handleMouseLeave = useCallback(() => {
+  const stopDrawing = useCallback(() => {
     setState((prev) => ({
       ...prev,
       isDrawing: false,
@@ -58,6 +58,104 @@ export const usePawAnimation = (
       animationFrameRef.current = null;
     }
   }, []);
+
+  const handlePointerEnter = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (isInteractiveTarget(e.target)) {
+        if (e.pointerType === "mouse") stopDrawing();
+        return;
+      }
+
+      // Мышь рисует по hover
+      if (e.pointerType === "mouse") {
+        setState((prev) => ({ ...prev, isDrawing: true }));
+        updatePointerPos(e.clientX, e.clientY);
+      }
+    },
+    [stopDrawing, updatePointerPos]
+  );
+
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (isInteractiveTarget(e.target)) {
+        if (e.pointerType === "mouse") stopDrawing();
+        return;
+      }
+
+      // Мышь: рисуем только пока isDrawing (hover внутри зоны)
+      if (e.pointerType === "mouse") {
+        if (!state.isDrawing) {
+          setState((prev) => ({ ...prev, isDrawing: true }));
+        }
+        updatePointerPos(e.clientX, e.clientY);
+        return;
+      }
+
+      // Touch/Pen: только при зажатии
+      if (!pointerDownRef.current) return;
+      updatePointerPos(e.clientX, e.clientY);
+    },
+    [state.isDrawing, stopDrawing, updatePointerPos]
+  );
+
+  const handlePointerLeave = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      // Мышь: ушли из зоны — прекращаем
+      if (e.pointerType === "mouse") {
+        stopDrawing();
+      }
+    },
+    [stopDrawing]
+  );
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (isInteractiveTarget(e.target)) return;
+
+      // Touch/Pen: начинаем рисовать только по зажатию
+      if (e.pointerType !== "mouse") {
+        pointerDownRef.current = true;
+        pointerIdRef.current = e.pointerId;
+        setState((prev) => ({ ...prev, isDrawing: true }));
+        updatePointerPos(e.clientX, e.clientY);
+
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        } catch {
+          // ignore
+        }
+      }
+    },
+    [updatePointerPos]
+  );
+
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (e.pointerType === "mouse") return;
+
+      pointerDownRef.current = false;
+      pointerIdRef.current = null;
+      stopDrawing();
+
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+    },
+    [stopDrawing]
+  );
+
+  const handlePointerCancel = useCallback(
+    (e: React.PointerEvent<HTMLElement>) => {
+      if (e.pointerType === "mouse") return;
+
+      pointerDownRef.current = false;
+      pointerIdRef.current = null;
+      stopDrawing();
+    },
+    [stopDrawing]
+  );
 
   useEffect(() => {
     if (!state.isDrawing) return;
@@ -181,9 +279,12 @@ export const usePawAnimation = (
   return {
     ...state,
     handlers: {
-      handleMouseEnter,
-      handleMouseMove,
-      handleMouseLeave,
+      handlePointerEnter,
+      handlePointerMove,
+      handlePointerLeave,
+      handlePointerDown,
+      handlePointerUp,
+      handlePointerCancel,
     },
   };
 };

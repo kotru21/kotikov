@@ -145,7 +145,7 @@ export default tseslint.config(
             {
               name: "@/shared",
               message:
-                "Public API only: не импортируй из '@/shared'. Используй '@/shared/<slice>' (например '@/shared/ui/Button', '@/shared/ui/Card', '@/shared/config/content').",
+                "Public API only: не импортируй из '@/shared'. Используй '@/shared/<slice>' (например '@/shared/ui', '@/shared/config/content').",
             },
           ],
           patterns: [
@@ -169,9 +169,9 @@ export default tseslint.config(
                 "Public API only: не импортируй внутренности features (hooks/lib/types/ui). Используй '@/features/<slice>'.",
             },
             {
-              group: ["@/shared/ui/*/*"],
+              group: ["@/shared/ui/*", "@/shared/ui/*/**"],
               message:
-                "Public API only: не импортируй файлы внутри shared/ui-компонента. Импортируй из '@/shared/ui/<Component>'.",
+                "Public API only: shared/ui импортируется только из '@/shared/ui' (barrel).",
             },
           ],
         },
@@ -181,3 +181,4 @@ export default tseslint.config(
   // ВАЖНО: eslint-config-prettier должен быть последним
   eslintConfigPrettier
 );
+

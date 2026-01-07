@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import BauhausGridPattern from "@/shared/ui/BauhausGridPattern";
+import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillsCursorNyancat,SkillsMarquee } from "./index";
@@ -29,3 +29,4 @@ const SkillsDesktopView: React.FC = () => {
 };
 
 export default SkillsDesktopView;
+

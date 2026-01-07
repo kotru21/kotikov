@@ -19,7 +19,7 @@ const FooterNavigation: React.FC<FooterNavigationProps> = ({
           <a
             key={index}
             href={link.href}
-            className="text-text-secondary dark:text-gray-400 hover:text-[#d12c1f] dark:hover:text-[#f4bf21] transition-colors duration-200 text-sm font-bold">
+            className="text-text-secondary dark:text-gray-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 text-sm font-bold">
             {link.name}
           </a>
         ))}

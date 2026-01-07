@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback,useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 
 import { usePawAnimation } from "@/features/paw";
 import { contactsData } from "@/shared/config/content";
@@ -26,27 +26,19 @@ const ContactsWidget: React.FC = () => {
     pawPos,
     pawVelocity,
     isDrawing,
-    handlers: { handleMouseEnter, handleMouseMove, handleMouseLeave },
+    handlers: {
+      handlePointerEnter,
+      handlePointerMove,
+      handlePointerLeave,
+      handlePointerDown,
+      handlePointerUp,
+      handlePointerCancel,
+    },
   } = usePawAnimation(handleDraw);
 
   const handleClearCanvas = () => {
     canvasRef.current?.initCanvas();
   };
-
-  useEffect(() => {
-    const section = document.getElementById("contacts-section");
-    if (!section) return;
-
-    section.addEventListener("mouseenter", handleMouseEnter);
-    section.addEventListener("mouseleave", handleMouseLeave);
-    section.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      section.removeEventListener("mouseenter", handleMouseEnter);
-      section.removeEventListener("mouseleave", handleMouseLeave);
-      section.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [handleMouseEnter, handleMouseLeave, handleMouseMove]);
 
   return (
     <ContactsView
@@ -57,6 +49,12 @@ const ContactsWidget: React.FC = () => {
       onClearCanvas={handleClearCanvas}
       onCanvasInit={handleCanvasInit}
       canvasRef={canvasRef}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
     />
   );
 };

@@ -4,8 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 import { FlyingNyancat } from "@/features/nyancat";
-import { Button } from "@/shared/ui/Button";
-import { Card } from "@/shared/ui/Card";
+import { Button, Card } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 const NotFound: React.FC = () => {
@@ -19,7 +18,7 @@ const NotFound: React.FC = () => {
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
+          className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-accent-300 to-accent-700 opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
         />
       </div>
 
@@ -31,7 +30,7 @@ const NotFound: React.FC = () => {
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
+          className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-accent-300 to-accent-700 opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
         />
       </div>
 
@@ -42,7 +41,7 @@ const NotFound: React.FC = () => {
           style={{
             clipPath: "polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)",
           }}
-          className="aspect-square w-96 bg-linear-to-br from-purple-400/20 to-pink-400/20 rotate-45"
+          className="aspect-square w-96 bg-linear-to-br from-accent-200/20 to-accent-600/20 rotate-45"
         />
       </div>
 
@@ -73,23 +72,27 @@ const NotFound: React.FC = () => {
           </p>
 
           {/* Кнопки действий */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/">
-              <Button
-                variant="primary"
-                size="lg"
-                className="w-full sm:w-auto px-8">
-                🏠 На главную
-              </Button>
-            </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto">
+            <div className="w-full sm:w-auto">
+              <Link href="/">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  fullWidth>
+                  🏠 На главную
+                </Button>
+              </Link>
+            </div>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto px-8"
-              onClick={() => window.history.back()}>
-              ← Назад
-            </Button>
+            <div className="w-full sm:w-auto">
+              <Button
+                variant="outline"
+                size="lg"
+                fullWidth
+                onClick={() => window.history.back()}>
+                ← Назад
+              </Button>
+            </div>
           </div>
 
           {/* Дополнительные ссылки */}
@@ -118,14 +121,14 @@ const NotFound: React.FC = () => {
         </Card>
 
         {/* Анимированные элементы */}
-        <div className="absolute top-10 left-10 w-4 h-4 bg-accent-pink-400 rounded-full animate-bounce opacity-60" />
-        <div className="absolute top-20 right-20 w-6 h-6 bg-accent-blue-400 rounded-full animate-pulse opacity-60" />
+        <div className="absolute top-10 left-10 w-4 h-4 bg-accent-300 rounded-full animate-bounce opacity-60" />
+        <div className="absolute top-20 right-20 w-6 h-6 bg-accent-500 rounded-full animate-pulse opacity-60" />
         <div
-          className="absolute bottom-20 left-20 w-5 h-5 bg-accent-purple-400 rounded-full animate-bounce opacity-60"
+          className="absolute bottom-20 left-20 w-5 h-5 bg-accent-700 rounded-full animate-bounce opacity-60"
           style={{ animationDelay: "0.5s" }}
         />
         <div
-          className="absolute bottom-10 right-10 w-3 h-3 bg-primary-400 rounded-full animate-pulse opacity-60"
+          className="absolute bottom-10 right-10 w-3 h-3 bg-accent-400 rounded-full animate-pulse opacity-60"
           style={{ animationDelay: "1s" }}
         />
       </div>
@@ -247,3 +250,4 @@ const NotFound: React.FC = () => {
 };
 
 export default NotFound;
+

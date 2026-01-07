@@ -4,7 +4,7 @@ import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import { skillsData, social } from "@/shared/config/content";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui";
 
 import { SkillMarqueeRow } from "./index";
 
@@ -39,7 +39,6 @@ const SkillsMarquee: React.FC = () => {
             rel="noopener noreferrer"
             variant="primary"
             size="lg"
-            className="group gap-3"
         >
             <FaLinkedinIn className="text-xl" />
             <span>Мой профиль в LinkedIn</span>
@@ -50,3 +49,4 @@ const SkillsMarquee: React.FC = () => {
 };
 
 export default SkillsMarquee;
+

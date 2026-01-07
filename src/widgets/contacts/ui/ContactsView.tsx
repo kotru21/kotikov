@@ -3,10 +3,11 @@
 import React from "react";
 
 import { ContactCard, type ContactInfo } from "@/entities/contact";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui";
+import { colors } from "@/styles/colors";
 
 import type { ContactCanvasRef } from "./ContactCanvas";
-import { CatPaw,ContactCanvas } from "./index";
+import { CatPaw, ContactCanvas } from "./index";
 
 interface ContactsViewProps {
   contacts: ContactInfo[];
@@ -16,6 +17,12 @@ interface ContactsViewProps {
   onClearCanvas: () => void;
   onCanvasInit: () => void;
   canvasRef: React.RefObject<ContactCanvasRef | null>;
+  onPointerEnter: React.PointerEventHandler<HTMLElement>;
+  onPointerMove: React.PointerEventHandler<HTMLElement>;
+  onPointerLeave: React.PointerEventHandler<HTMLElement>;
+  onPointerDown: React.PointerEventHandler<HTMLElement>;
+  onPointerUp: React.PointerEventHandler<HTMLElement>;
+  onPointerCancel: React.PointerEventHandler<HTMLElement>;
 }
 
 const ContactsView: React.FC<ContactsViewProps> = ({
@@ -26,12 +33,24 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   onClearCanvas,
   onCanvasInit,
   canvasRef,
+  onPointerEnter,
+  onPointerMove,
+  onPointerLeave,
+  onPointerDown,
+  onPointerUp,
+  onPointerCancel,
 }) => {
   return (
     <section
       id="contacts-section"
       className="relative min-h-screen md:min-h-40 flex items-center justify-center py-20 overflow-hidden"
-      style={{ cursor: "none" }}>
+      style={{ cursor: isDrawing ? "none" : undefined, touchAction: "pan-y" }}
+      onPointerEnter={onPointerEnter}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}>
       {/* Интерактивный фон */}
       <ContactCanvas ref={canvasRef} onInitCanvas={onCanvasInit} />
 
@@ -49,7 +68,9 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         <div className="max-w-6xl mx-auto">
           {/* Заголовок */}
           <div className="mb-12 text-center md:text-left">
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-4 drop-shadow-[4px_4px_0_rgba(209,44,31,1)]">
+            <h2
+              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-4"
+              style={{ filter: `drop-shadow(4px 4px 0 ${colors.primary[500]})` }}>
               Связь
             </h2>
             <p className="text-xl font-bold bg-white dark:bg-black inline-block px-4 py-2 border-2 border-black dark:border-white shadow-[4px_4px_0_0_black] dark:shadow-[4px_4px_0_0_white]">
@@ -66,45 +87,42 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                // 2: Широкая плашка снизу справа (2x1)
                
                let gridClasses = "col-span-1";
-               let colorClasses = "bg-white dark:bg-neutral-900";
                let variant: "auto" | "light" | "dark" = "auto";
 
                if (index === 0) {
                  gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
-                 colorClasses = "bg-[#f5f5f3] dark:bg-[#111111]"; // Paper/Black
                  variant = "auto";
                } else if (index === 1) {
                  gridClasses = "md:col-span-2 min-h-[150px]";
-                 colorClasses = "bg-[#f4bf21] text-black"; // Bauhaus Yellow
                  variant = "light";
                } else if (index === 2) {
                  gridClasses = "md:col-span-2 min-h-[150px]";
-                 colorClasses = "bg-[#1b54a7] text-white"; // Bauhaus Blue
                  variant = "dark";
                }
 
                return (
-                <div
-                  key={index}
-                  className={`
-                    group relative border-4 border-black dark:border-white hover:-translate-y-2 transition-transform duration-200
-                    ${gridClasses}
-                    ${colorClasses}
-                    shadow-[8px_8px_0_0_black] dark:shadow-[8px_8px_0_0_white]
-                    flex items-center justify-center p-6
-                  `}
-                >
-                  <div className="w-full">
-                     <ContactCard contact={contact} variant={variant} />
-                  </div>
-                </div>
+                 <div key={index} className={gridClasses + " h-full"}>
+                   <Button
+                     variant="primary"
+                     fullWidth
+                     fullHeight
+                   >
+                     <div className="w-full">
+                       <ContactCard contact={contact} variant={variant} />
+                     </div>
+                   </Button>
+                 </div>
                );
             })}
           </div>
 
           {/* Кнопка очистки */}
           <div className="mt-16 text-center">
-            <Button onClick={onClearCanvas} variant="primary" size="lg">
+            <Button
+              onClick={onClearCanvas}
+              variant="primary"
+              size="lg"
+              shadowColor={colors.primary[500]}>
               ОЧИСТИТЬ ХОЛСТ
             </Button>
           </div>
@@ -115,3 +133,4 @@ const ContactsView: React.FC<ContactsViewProps> = ({
 };
 
 export default ContactsView;
+

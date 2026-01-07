@@ -11,7 +11,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
   const [isVisible, setIsVisible] = useState(true);
   const coordsRef = useRef({ x, y });
 
-  // актуализируем координаты без перерендера
+  // координаты без перерендера
   useEffect(() => {
     coordsRef.current = { x, y };
   }, [x, y]);

@@ -1,5 +1,9 @@
 import React from "react";
 
+import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
+import { Button } from "@/shared/ui";
+import { colors } from "@/styles/colors";
+
 
 interface HeaderHeroProps {
   title: string;
@@ -29,45 +33,55 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
 }) => {
   return (
     <div className="mx-auto max-w-2xl py-12 lg:py-16 relative isolate">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#d12c1f] rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm"></div>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm"></div>
       
-      {announcement && (
-        <div className="hidden sm:mb-8 sm:flex">
-          <div
-            className="relative px-4 py-1.5 text-sm font-bold leading-6 text-gray-900 dark:text-gray-100 border-2 border-black dark:border-white bg-[#f4bf21] dark:bg-[#b45309] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-200">
-            {announcement.text}{" "}
-            <a
-              href={announcement.linkHref}
-              className="font-black text-black dark:text-white underline decoration-2">
-              <span aria-hidden="true" className="absolute inset-0" />
-              {announcement.linkText} <span aria-hidden="true">&rarr;</span>
-            </a>
+      <div className="relative z-10">
+        {announcement && (
+          <div className="hidden sm:mb-8 sm:flex">
+            <InteractiveElement
+              data-interactive-mode="solid"
+              className="relative px-4 py-1.5 text-sm font-bold leading-6 text-black dark:text-neutral-50 border-2 border-black dark:border-white bg-primary-200 dark:bg-primary-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-200">
+              {announcement.text}{" "}
+              <a
+                href={announcement.linkHref}
+                className="font-black text-black dark:text-neutral-50 underline decoration-2 relative z-10 transition-colors">
+                <span aria-hidden="true" className="absolute inset-0" />
+                {announcement.linkText} <span aria-hidden="true">&rarr;</span>
+              </a>
+            </InteractiveElement>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="flex flex-col items-start relative z-10">
+        <div className="flex flex-col items-start">
         <h1
-          className="text-6xl font-black tracking-tight text-[#111111] dark:text-[#f5f5f3] sm:text-8xl drop-shadow-none uppercase">
-          {title}
+          className="text-6xl font-black tracking-tight text-text-primary dark:text-text-inverse sm:text-8xl drop-shadow-none uppercase">
+          <InteractiveText text={title} />
         </h1>
-        <div className="w-24 h-4 bg-[#d12c1f] my-6"></div>
-        <p
-          className="mt-2 text-xl font-bold leading-8 text-[#424242] dark:text-[#d4d4d4] max-w-xl border-l-4 border-[#1b54a7] dark:border-[#63b3ed] pl-6">
-          {subtitle}
-        </p>
+        <InteractiveElement data-interactive-mode="solid" className="w-24 h-4 bg-primary-500 my-6" />
+        <InteractiveElement as="p" data-interactive-mode="border"
+          className="mt-2 text-xl font-bold leading-8 text-text-secondary dark:text-neutral-300 max-w-xl border-l-4 border-primary-700 dark:border-primary-300 pl-6">
+          <InteractiveText text={subtitle} />
+        </InteractiveElement>
         <div className="mt-10 flex items-center gap-x-6">
-          <a
+          <InteractiveElement as={Button}
+            data-interactive-mode="solid"
             href={buttons.primary.href}
-            className="rounded-none bg-[#111111] dark:bg-[#f5f5f3] px-6 py-4 text-sm font-bold text-[#f5f5f3] dark:text-[#111111] shadow-[8px_8px_0px_0px_#d12c1f] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_#d12c1f] transition-all border-2 border-black dark:border-white">
+            variant="primary"
+            size="lg"
+            shadowColor={colors.primary[500]}
+            className="dark:bg-black dark:text-white dark:border-white"
+          >
             {buttons.primary.text}
-          </a>
+          </InteractiveElement>
+
           <a
             href={buttons.secondary.href}
-            className="text-sm font-bold leading-6 text-[#111111] dark:text-[#f5f5f3] hover:text-[#d12c1f] dark:hover:text-[#f4bf21] transition-colors flex items-center gap-2 group border-b-2 border-black dark:border-white pb-1">
-            {buttons.secondary.text} <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform">→</span>
+            className="text-sm font-semibold leading-6 text-text-primary dark:text-text-inverse group"
+          >
+           <InteractiveText text={buttons.secondary.text} /> <span aria-hidden="true" className="group-hover:translate-x-1 transition-transform inline-block">→</span>
           </a>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface ErrorPageProps {
@@ -63,3 +63,4 @@ export default function Error({ error, reset }: ErrorPageProps) {
     </div>
   );
 }
+
