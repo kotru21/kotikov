@@ -11,7 +11,6 @@ import {
   FooterCat,
   FooterInfo,
   FooterNavigation,
-  FooterParticles,
   FooterSocial,
 } from "./ui";
 
@@ -21,7 +20,6 @@ const FooterWidget: React.FC = () => {
   return (
     <footer
       className="relative py-12 px-6 bg-background-primary dark:bg-background-tertiary transition-colors duration-300 border-t-4 border-black dark:border-white">
-      {/* Декоративные элементы */}
       <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-black/20 dark:via-white/20 to-transparent"></div>
 
       <div className="max-w-6xl mx-auto">
@@ -45,17 +43,13 @@ const FooterWidget: React.FC = () => {
           />
         </div>
 
-        {/* Нижняя секция */}
         <FooterBottom
           year={currentYear}
         />
 
-        {/* Анимированный кот внизу */}
         <FooterCat />
       </div>
 
-      {/* Плавающие частицы для красоты */}
-      <FooterParticles />
     </footer>
   );
 };
