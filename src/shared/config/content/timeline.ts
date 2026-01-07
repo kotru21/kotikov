@@ -39,7 +39,7 @@ export const timelineData = [
   },
   {
     id: 4,
-    title: "Trainee Frontend Developer",
+    title: "Frontend Developer",
     company: "Innowise",
     period: "май 2025 - тудэй",
     description:
