@@ -20,7 +20,7 @@ const HeaderWidget: React.FC = () => {
       {/* Навигация */}
       <HeaderNavigation navigation={navigation} />
 
-      <div className="relative isolate px-6 pt-24 lg:px-8 flex-grow flex items-center justify-center">
+      <div className="relative isolate px-6 pt-24 lg:px-8 grow flex items-center justify-center">
         {/* Фоновые градиенты */}
         <HeaderBackground />
 

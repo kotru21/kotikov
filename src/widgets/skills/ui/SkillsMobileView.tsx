@@ -24,7 +24,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
   return (
     <section
       id="skills"
-      className="relative bg-[#f5f5f3] dark:bg-black"
+      className="relative bg-background-primary dark:bg-background-tertiary transition-colors duration-300"
       style={{
         height: `${sectionHeight}vh`,
       }}>
@@ -46,7 +46,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
       {/* Sticky контейнер с карточками */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div
-          className="h-full bg-[#f5f5f3] dark:bg-black"
+          className="h-full bg-background-primary dark:bg-background-tertiary"
           style={{ }}>
           <SkillMobileCardsContainer
             activeCardIndex={activeCardIndex}

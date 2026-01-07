@@ -15,10 +15,10 @@ const SkillsDesktopView: React.FC = () => {
       <section
         ref={containerRef}
         id="skills"
-        className="py-10 bg-[#f5f5f3] dark:bg-black relative overflow-hidden"
+        className="py-10 bg-background-primary dark:bg-background-tertiary relative overflow-hidden transition-colors duration-300"
         style={{ }}>
         <SkillsCursorNyancat containerRef={containerRef} />
-        <BauhausGridPattern opacity={0.1} size={40} />
+        <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
         <div className="max-w-full mx-auto relative z-10">
           {/* Бегущая строка скиллов */}
           <SkillsMarquee />

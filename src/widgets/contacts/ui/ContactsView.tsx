@@ -35,7 +35,6 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       {/* Интерактивный фон */}
       <ContactCanvas ref={canvasRef} onInitCanvas={onCanvasInit} />
 
-      {/* Кошачья лапа следует за курсором */}
       {isDrawing && (
         <CatPaw
           x={pawPos.x}

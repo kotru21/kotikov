@@ -13,7 +13,7 @@ export const timelineData = [
     id: 2,
     title: "Высшее образование",
     company: "БГУИР",
-    period: "2024 - Настоящее время",
+    period: "2024 - тудэй",
     description: "Обучение на факультете информационной безопасности.",
     technologies: ["InfoSec", "Cryptography"],
     type: "education" as const,
@@ -41,7 +41,7 @@ export const timelineData = [
     id: 4,
     title: "Trainee Frontend Developer",
     company: "Innowise",
-    period: "май 2025 - Настоящее время",
+    period: "май 2025 - тудэй",
     description:
       "Разработка современных веб-приложений с использованием React и TypeScript. Стажировка.",
     technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Jest"],

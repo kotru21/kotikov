@@ -24,15 +24,15 @@ const HeaderBackground: React.FC = () => {
 
       {/* ТРЕУГОЛЬНИК (Желтый) - Снизу по центру (CSS Triangle) */}
       <div 
-        className="absolute bottom-[-10%] left-[40%] w-0 h-0 border-l-[100px] border-r-[100px] border-b-[173px] md:border-l-[150px] md:border-r-[150px] md:border-b-[260px] border-l-transparent border-r-transparent border-b-[#f4bf21] mix-blend-multiply dark:mix-blend-screen opacity-60 blur-3xl animate-pulse"
+        className="absolute bottom-[-10%] left-[40%] w-0 h-0 border-l-100 border-r-100 border-b-173 md:border-l-150 md:border-r-150 md:border-b-260 border-l-transparent border-r-transparent border-b-[#f4bf21] mix-blend-multiply dark:mix-blend-screen opacity-60 blur-3xl animate-pulse"
         style={{ transform: "rotate(-15deg)", animationDelay: "4s", animationDuration: "12s" }}
       />
 
       {/* Декоративные линии */}
-      <div className="absolute top-[15%] left-0 w-full h-[1px] bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-[85%] left-0 w-full h-[1px] bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-0 left-[20%] w-[1px] h-full bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-0 right-[20%] w-[1px] h-full bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-[15%] left-0 w-full h-px-black/10 dark:bg-white/10" />
+      <div className="absolute top-[85%] left-0 w-full h-px bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-0 left-[20%] w-px h-full bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-0 right-[20%] w-px h-full bg-black/10 dark:bg-white/10" />
     </div>
   );
 };

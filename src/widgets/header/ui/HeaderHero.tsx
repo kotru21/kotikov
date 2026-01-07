@@ -30,12 +30,11 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
   return (
     <div className="mx-auto max-w-2xl py-12 lg:py-16 relative isolate">
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#d12c1f] rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm"></div>
-      <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#1b54a7] rotate-45 mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-[-30%] translate-y-[20%]"></div>
       
       {announcement && (
         <div className="hidden sm:mb-8 sm:flex">
           <div
-            className="relative px-4 py-1.5 text-sm font-bold leading-6 text-gray-900 dark:text-gray-100 border-2 border-black dark:border-white bg-[#f4bf21] dark:bg-[#b45309] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-200">
+            className="relative px-4 py-1.5 text-sm font-bold leading-6 text-gray-900 dark:text-gray-100 border-2 border-black dark:border-white bg-[#f4bf21] dark:bg-[#b45309] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-200">
             {announcement.text}{" "}
             <a
               href={announcement.linkHref}
@@ -60,7 +59,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
         <div className="mt-10 flex items-center gap-x-6">
           <a
             href={buttons.primary.href}
-            className="rounded-none bg-[#111111] dark:bg-[#f5f5f3] px-6 py-4 text-sm font-bold text-[#f5f5f3] dark:text-[#111111] shadow-[8px_8px_0px_0px_#d12c1f] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_0px_#d12c1f] transition-all border-2 border-black dark:border-white">
+            className="rounded-none bg-[#111111] dark:bg-[#f5f5f3] px-6 py-4 text-sm font-bold text-[#f5f5f3] dark:text-[#111111] shadow-[8px_8px_0px_0px_#d12c1f] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_#d12c1f] transition-all border-2 border-black dark:border-white">
             {buttons.primary.text}
           </a>
           <a

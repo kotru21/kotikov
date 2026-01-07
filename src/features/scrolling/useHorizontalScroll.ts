@@ -37,14 +37,15 @@ export const useHorizontalScroll = (
 
     const startScrollLeft = container.scrollLeft;
     const distance = targetScrollLeft - startScrollLeft;
-    const duration = 150;
+    const duration = 400; 
     const startTime = performance.now();
 
     const animateScroll = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      container.scrollLeft = startScrollLeft + distance * easeOutQuart;
+
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      container.scrollLeft = startScrollLeft + distance * easeOutCubic;
       if (progress < 1) {
         animationFrameRef.current = requestAnimationFrame(animateScroll);
       }
@@ -60,7 +61,7 @@ export const useHorizontalScroll = (
   useEffect(() => {
     if (!enabled) return;
     const container = containerRef.current;
-    const target = sectionRef.current || container;
+    const target = container;
     
     if (!target || !container) return;
 
@@ -72,15 +73,12 @@ export const useHorizontalScroll = (
         (isScrollingDown && canScrollRight) || (isScrollingUp && canScrollLeft);
 
       if (shouldUseHorizontalScroll) {
-        // блокируем только когда реально скроллим по горизонтали
         e.preventDefault();
         const scrollAmount = e.deltaY * scrollMultiplier;
         const targetScrollLeft = container.scrollLeft + scrollAmount;
         smoothScrollTo(targetScrollLeft);
       } else {
-        // не вмешиваемся в вертикальный скролл
-        // если достигнут край, позволяем нативной прокрутке страницы
-        // ничего не делаем, событие поднимется вверх по дереву
+        // nothing
       }
     };
 

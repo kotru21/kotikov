@@ -47,14 +47,14 @@ const TimelineView: React.FC<TimelineViewProps> = ({
 
           {/* Контейнер для скролла с градиентными масками */}
           <div className="relative">
-            {/* Левая градиентная маска */}
+            {/* Левая  */}
             <div
-              className="absolute left-0 top-0 w-12 md:w-24 h-full z-20 pointer-events-none bg-linear-to-r from-background-primary via-background-primary/70 to-transparent dark:from-background-tertiary dark:via-background-tertiary/70"
+              className="absolute left-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-r from-white via-white/60 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60 dark:to-transparent"
             />
 
-            {/* Правая градиентная маска */}
+            {/* Правая */}
             <div
-              className="absolute right-0 top-0 w-12 md:w-24 h-full z-20 pointer-events-none bg-linear-to-l from-background-primary via-background-primary/70 to-transparent dark:from-background-tertiary dark:via-background-tertiary/70"
+              className="absolute right-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-l from-white via-white/60 to-transparent dark:from-[#0a0a0a] dark:via-[#0a0a0a]/60 dark:to-transparent"
             />
 
             {/* Контейнер для скролла */}
@@ -105,30 +105,6 @@ const TimelineView: React.FC<TimelineViewProps> = ({
         </div>
       </div>
 
-      {/* Пиксельный переход в секцию контактов */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-0 bottom-0 w-full translate-y-full z-30"
-      >
-        <svg
-          className="block w-full h-20 text-white dark:text-black"
-          viewBox="0 0 1200 96"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          focusable="false"
-          style={{ transform: 'scaleY(-1)' }}
-        >
-          <defs>
-            <pattern id="pixelWavePattern" x="0" y="0" width="40" height="8" patternUnits="userSpaceOnUse">
-              <rect width="40" height="8" fill="currentColor" />
-            </pattern>
-          </defs>
-          <path
-            d="M 0 96 H 1200 V 52 H 1160 V 44 H 1120 V 36 H 1080 V 28 H 1040 V 36 H 1000 V 44 H 960 V 52 H 920 V 60 H 880 V 52 H 840 V 44 H 800 V 36 H 760 V 28 H 720 V 36 H 680 V 44 H 640 V 52 H 600 V 60 H 560 V 52 H 520 V 44 H 480 V 36 H 440 V 28 H 400 V 36 H 360 V 44 H 320 V 52 H 280 V 60 H 240 V 52 H 200 V 44 H 160 V 36 H 120 V 28 H 80 V 36 H 40 V 44 H 0 V 96 Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
     </section>
   );
 };
