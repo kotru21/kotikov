@@ -1,12 +1,12 @@
-import type { MutableRefObject,RefObject } from "react";
+import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
 
 export const useGridCanvas = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
+  ctxRef: RefObject<CanvasRenderingContext2D | null>,
   alpha: number,
   pixelSize: number,
-  paintedRef: MutableRefObject<Map<string, string>>
+  paintedRef: RefObject<Map<string, string>>
 ) => {
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;

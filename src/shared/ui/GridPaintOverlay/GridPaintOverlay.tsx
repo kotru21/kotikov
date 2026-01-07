@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { useImperativeHandle } from "react";
 
 import { useGridCanvas } from "./hooks/useGridCanvas";
 import { useGridCoverage } from "./hooks/useGridCoverage";
@@ -17,10 +17,16 @@ interface GridPaintOverlayProps {
   brushRadius?: number;
   alpha?: number;
   className?: string;
+  ref?: React.Ref<GridPaintOverlayRef>;
 }
 
-const GridPaintOverlay = forwardRef<GridPaintOverlayRef, GridPaintOverlayProps>(
-  ({ pixelSize = 14, brushRadius = 22, alpha = 0.95, className }, ref) => {
+const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
+  pixelSize = 14,
+  brushRadius = 22,
+  alpha = 0.95,
+  className,
+  ref,
+}) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
 
@@ -65,8 +71,6 @@ const GridPaintOverlay = forwardRef<GridPaintOverlayRef, GridPaintOverlayProps>(
         style={{ pointerEvents: "none" }}
       />
     );
-  }
-);
+};
 
-GridPaintOverlay.displayName = "GridPaintOverlay";
 export default GridPaintOverlay;

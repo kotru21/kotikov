@@ -1,11 +1,11 @@
-import type { MutableRefObject,RefObject } from "react";
+import type { RefObject } from "react";
 import { useCallback, useRef } from "react";
 
 import { colors } from "@/styles/colors";
 
 export const useGridPainting = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
+  ctxRef: RefObject<CanvasRenderingContext2D | null>,
   pixelSize: number,
   brushRadius: number,
   alpha: number

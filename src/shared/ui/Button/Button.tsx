@@ -8,6 +8,7 @@ type ButtonStyleProps = {
   fullWidth?: boolean;
   fullHeight?: boolean;
   shadowColor?: string;
+  ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
 };
 
 type ButtonAsButtonProps = ButtonStyleProps &
@@ -22,17 +23,17 @@ type ButtonAsAnchorProps = ButtonStyleProps &
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
 
-const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
-  const {
-    children,
-    className = "",
-    variant = "primary",
-    size = "md",
-    fullWidth = false,
-    fullHeight = false,
-    shadowColor,
-    ...rest
-  } = props;
+const Button: React.FC<ButtonProps> = ({
+  children,
+  className = "",
+  variant = "primary",
+  size = "md",
+  fullWidth = false,
+  fullHeight = false,
+  shadowColor,
+  ref,
+  ...rest
+}) => {
   
   const baseClasses =
     "inline-flex items-center justify-center gap-2 font-bold uppercase tracking-wide rounded-none border-2 border-black dark:border-white transition-all duration-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-600 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed";
@@ -85,9 +86,6 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
       {children}
     </button>
   );
-});
-
-Button.displayName = "Button";
-
+};
 
 export default Button;

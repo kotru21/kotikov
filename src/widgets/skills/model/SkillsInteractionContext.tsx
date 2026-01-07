@@ -20,7 +20,7 @@ export const SkillsInteractionProvider: React.FC<{
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   return (
-    <SkillsInteractionContext.Provider
+    <SkillsInteractionContext
       value={{
         activeElement,
         setActiveElement,
@@ -28,7 +28,7 @@ export const SkillsInteractionProvider: React.FC<{
         setMousePos,
       }}>
       {children}
-    </SkillsInteractionContext.Provider>
+    </SkillsInteractionContext>
   );
 };
 

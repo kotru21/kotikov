@@ -1,9 +1,9 @@
-import type { MutableRefObject,RefObject } from "react";
+import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
 
 export const useContactLifecycle = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
+  ctxRef: RefObject<CanvasRenderingContext2D | null>,
   onInitCanvas: () => void,
   pixelSize: number,
   generateCats: (rows: number, cols: number) => void,

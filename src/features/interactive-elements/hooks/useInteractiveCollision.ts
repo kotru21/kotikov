@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import type { GridPaintOverlayRef } from "@/shared/ui";
 
 export const useInteractiveCollision = (
-  interactiveElementsRef: React.MutableRefObject<Set<HTMLElement>>
+  interactiveElementsRef: React.RefObject<Set<HTMLElement>>
 ) => {
   const checkCollisions = useCallback(
     (

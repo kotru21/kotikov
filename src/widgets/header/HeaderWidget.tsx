@@ -62,14 +62,14 @@ const HeaderWidget: React.FC = () => {
       >
         <HeaderBackground paintRef={paintRef} />
 
-        <InteractiveTextContext.Provider value={registry}>
+        <InteractiveTextContext value={registry}>
           <HeaderHero
             title={headerContent.title}
             subtitle={headerContent.subtitle}
             announcement={headerContent.announcement}
             buttons={headerContent.buttons}
           />
-        </InteractiveTextContext.Provider>
+        </InteractiveTextContext>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 // @ts-check
 
 import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 import boundariesPlugin from "eslint-plugin-boundaries";
 import importPlugin from "eslint-plugin-import";
@@ -8,9 +9,8 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   {
-    // Аналог .eslintignore (flat config)
     ignores: [
       "node_modules/**",
       ".next/**",
@@ -22,6 +22,16 @@ export default tseslint.config(
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["*.mjs"],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   {
     name: "project-rules",
     plugins: {
@@ -45,10 +55,8 @@ export default tseslint.config(
       ],
     },
     rules: {
-      // Не дублируем отчёты: unused-imports уже делает то, что нужно
       "@typescript-eslint/no-unused-vars": "off",
-
-      // Часто полезно, но слишком жёстко для UI-слоя (можно ужесточить позже)
+      "@typescript-eslint/no-deprecated": "error",
       "@typescript-eslint/no-explicit-any": "warn",
 
       // Clean imports

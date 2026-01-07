@@ -1,9 +1,9 @@
-import type { MutableRefObject,RefObject } from "react";
+import type { RefObject } from "react";
 import { useCallback } from "react";
 
 export const useGridCoverage = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  paintedRef: MutableRefObject<Map<string, string>>,
+  paintedRef: RefObject<Map<string, string>>,
   pixelSize: number
 ) => {
   const checkCoverage = useCallback(

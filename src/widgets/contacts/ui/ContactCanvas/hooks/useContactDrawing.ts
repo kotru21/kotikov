@@ -1,13 +1,13 @@
-import type { MutableRefObject,RefObject } from "react";
+import type { RefObject } from "react";
 import { useCallback } from "react";
 
 import { colors } from "@/styles/colors";
 
 export const useContactDrawing = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
-  catMapRef: MutableRefObject<Map<string, string>>,
-  revealedPixelsRef: MutableRefObject<Set<string>>,
+  ctxRef: RefObject<CanvasRenderingContext2D | null>,
+  catMapRef: RefObject<Map<string, string>>,
+  revealedPixelsRef: RefObject<Set<string>>,
   pixelSize: number,
   brushRadius: number
 ) => {
