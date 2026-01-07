@@ -13,7 +13,7 @@ export const headerContent = {
       href: "#skills",
     },
     secondary: {
-      text: "Куда эта кнопка ведет?",
+      text: "Мой опыт",
       href: "#timeline",
     },
   },
