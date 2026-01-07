@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { Button, Card } from "@/shared";
+import React from "react";
+
+import { FlyingNyancat } from "@/features/nyancat";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
 import { colors } from "@/styles/colors";
-import { FlyingNyancat } from "@/features";
 
 const NotFound: React.FC = () => {
   return (
@@ -40,7 +42,7 @@ const NotFound: React.FC = () => {
           style={{
             clipPath: "polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)",
           }}
-          className="aspect-square w-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rotate-45"
+          className="aspect-square w-96 bg-linear-to-br from-purple-400/20 to-pink-400/20 rotate-45"
         />
       </div>
 
@@ -49,10 +51,11 @@ const NotFound: React.FC = () => {
         <Card
           variant="bgNone"
           padding="lg"
-          className="max-w-2xl mx-auto backdrop-blur-sm">
+          className="max-w-2xl mx-auto">
           {/* 404 в большом размере */}
           <div
-            className={`text-8xl md:text-9xl font-bold mb-8 text-${colors.primary[600]}`}>
+            className="text-8xl md:text-9xl font-bold mb-8"
+            style={{ color: colors.primary[600] }}>
             404
           </div>
 

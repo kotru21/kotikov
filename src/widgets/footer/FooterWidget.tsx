@@ -1,15 +1,18 @@
-"use client";
-
 import React from "react";
-import { colors } from "@/styles/colors";
-import { navigation, footer } from "@/entities";
+
 import {
-  FooterInfo,
-  FooterNavigation,
-  FooterSocial,
+  footerInfo,
+  footerSocialLinks,
+  navigation,
+} from "@/shared/config/content";
+
+import {
   FooterBottom,
   FooterCat,
+  FooterInfo,
+  FooterNavigation,
   FooterParticles,
+  FooterSocial,
 } from "./ui";
 
 const FooterWidget: React.FC = () => {
@@ -17,39 +20,34 @@ const FooterWidget: React.FC = () => {
 
   return (
     <footer
-      className="relative py-12 px-6"
-      style={{
-        background: colors.background.primary,
-        borderTop: `3px solid ${colors.primary[500]}`,
-      }}>
+      className="relative py-12 px-6 bg-background-primary dark:bg-background-tertiary transition-colors duration-300 border-t-4 border-black dark:border-white">
       {/* Декоративные элементы */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-black/20 dark:via-white/20 to-transparent"></div>
 
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 text-center md:text-left">
           {/* Левая секция - Информация */}
           <FooterInfo
-            title={footer.footerInfo.title}
-            description={footer.footerInfo.description}
+            title={footerInfo.title}
+            description={footerInfo.description}
           />
 
           {/* Центральная секция - Быстрые ссылки */}
           <FooterNavigation
             title="Быстрые ссылки"
-            links={navigation.navigation}
+            links={navigation}
           />
 
           {/* Правая секция - Социальные сети */}
           <FooterSocial
             title="Связаться со мной"
-            socialLinks={navigation.footerSocialLinks}
+            socialLinks={footerSocialLinks}
           />
         </div>
 
         {/* Нижняя секция */}
         <FooterBottom
           year={currentYear}
-          version={footer.footerConfig.version}
         />
 
         {/* Анимированный кот внизу */}

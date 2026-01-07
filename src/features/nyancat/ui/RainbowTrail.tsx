@@ -1,13 +1,14 @@
 import React from "react";
+
+import type { NyancatSize } from "../lib/constants";
 import { SIZE_CONFIG } from "../lib/constants";
 import {
-  calculateTrailOpacity,
-  calculateTrailWidth,
   calculateTrailHeight,
-  generateTrailGradient,
+  calculateTrailOpacity,
   calculateTrailTransform,
+  calculateTrailWidth,
+  generateTrailGradient,
 } from "../lib/utils";
-import type { NyancatSize } from "../lib/constants";
 
 interface RainbowTrailProps {
   size: NyancatSize;
@@ -52,7 +53,6 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
               width: `${calculateTrailWidth(i, size)}px`,
               height: `${calculateTrailHeight(i, size)}px`,
               background: generateTrailGradient(i, size),
-              borderRadius: `${config.borderRadius}px`,
               transform: calculateTrailTransform(i, size),
             }}
           />

@@ -1,15 +1,16 @@
 import React from "react";
-import { navigation } from "@/entities";
+
+import type { SocialLink } from "@/entities/navigation";
 
 interface FooterSocialProps {
   title: string;
-  socialLinks: navigation.SocialLink[];
+  socialLinks: SocialLink[];
 }
 
 const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>
+      <h3 className="text-xl font-bold text-text-primary dark:text-text-primary uppercase mb-4">{title}</h3>
       <div className="flex flex-wrap justify-center md:justify-start gap-4">
         {socialLinks.map((link, index) => (
           <a
@@ -19,12 +20,9 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
             rel="noopener noreferrer"
             className="group relative"
             title={link.name}>
-            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-xl transition-all duration-300 group-hover:bg-white/20 group-hover:scale-110 group-hover:shadow-lg">
-              <link.icon className="w-5 h-5 text-white" />
+            <div className="w-12 h-12 border-2 border-black dark:border-white bg-transparent hover:bg-black dark:hover:bg-white flex items-center justify-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_#d12c1f] dark:hover:shadow-[4px_4px_0px_0px_#f4bf21]">
+              <link.icon className="w-5 h-5 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors" />
             </div>
-            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-              {link.name}
-            </span>
           </a>
         ))}
       </div>

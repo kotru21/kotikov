@@ -1,4 +1,6 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+"use client";
+
+import { useCallback, useEffect, useRef,useState } from "react";
 
 interface UseIsMobileOptions {
   breakpoint?: number;
@@ -14,12 +16,10 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}) => {
 
   const { breakpoint, debounceMs, useMatchMedia } = config;
 
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return useMatchMedia
-      ? window.matchMedia(`(max-width: ${breakpoint - 1}px)`).matches
-      : window.innerWidth < breakpoint;
-  });
+  // IMPORTANT: keep the initial value deterministic between SSR and the first client render.
+  // If we read `window` here, SSR will render `false` but the client may render `true` before hydration,
+  // causing a React hydration mismatch.
+  const [isMobile, setIsMobile] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mediaQueryRef = useRef<MediaQueryList | null>(null);

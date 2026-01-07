@@ -1,11 +1,15 @@
-import React, { useCallback, memo } from "react";
-import { useIsMobile } from "@/features";
+"use client";
+
+import React, { memo,useCallback } from "react";
+
+import { useIsMobile } from "@/features/device";
+
 import { useExplosion } from "../hooks/useExplosion";
-import { ExplosionPixels } from "./ExplosionPixels";
-import { RainbowTrail } from "./RainbowTrail";
-import { NyancatImage } from "./NyancatImage";
-import { InteractionOverlay } from "./InteractionOverlay";
 import type { FlyingNyancatProps } from "../types";
+import { ExplosionPixels } from "./ExplosionPixels";
+import { InteractionOverlay } from "./InteractionOverlay";
+import { NyancatImage } from "./NyancatImage";
+import { RainbowTrail } from "./RainbowTrail";
 
 const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
   ({

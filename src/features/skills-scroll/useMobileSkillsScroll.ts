@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+"use client";
+
+import { useEffect, useRef,useState } from "react";
 
 interface UseMobileSkillsScrollOptions {
   skillsCount: number;

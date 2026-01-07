@@ -1,7 +1,10 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
-import { SIZE_CONFIG } from "../lib/constants";
+import React from "react";
+
 import type { NyancatSize } from "../lib/constants";
+import { SIZE_CONFIG } from "../lib/constants";
 
 interface NyancatImageProps {
   size: NyancatSize;
@@ -12,6 +15,7 @@ interface NyancatImageProps {
   onMouseEnter: () => void;
   onClick: () => void;
   forwardRef?: React.RefObject<HTMLDivElement | null>;
+  priority?: boolean;
 }
 
 export const NyancatImage: React.FC<NyancatImageProps> = ({
@@ -23,6 +27,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   onMouseEnter,
   onClick,
   forwardRef,
+  priority = false,
 }) => {
   const config = SIZE_CONFIG[size];
 
@@ -42,7 +47,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
         alt="Nyancat"
         width={config.width}
         height={config.height}
-        priority
+        priority={priority}
         style={{
           width: `${config.width}px`,
           height: "auto",

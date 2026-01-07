@@ -50,7 +50,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             </p>
             <button
               onClick={reset}
-              className="px-4 py-2 rounded-lg transition-colors"
+              className="px-4 py-2 rounded-none transition-colors border-2 border-black"
               style={{
                 backgroundColor: criticalColors.button.bg,
                 color: criticalColors.text.primary,

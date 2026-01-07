@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useRef } from "react";
+import React, { memo, useEffect, useRef,useState } from "react";
 
 interface CatPawProps {
   x: number;

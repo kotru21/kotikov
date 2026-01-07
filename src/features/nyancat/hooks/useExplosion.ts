@@ -1,13 +1,17 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+"use client";
+
+import { useCallback,useEffect, useRef, useState } from "react";
+
+import { usePerformanceSettings } from "@/features/performance";
+
+import type { NyancatSize } from "../lib/constants";
+import { ANIMATION_INTERVAL,EXPLOSION_DURATION } from "../lib/constants";
 import {
   generateExplosionPixels,
-  updatePixelPhysics,
   getElementCenter,
+  updatePixelPhysics,
 } from "../lib/utils";
-import { EXPLOSION_DURATION, ANIMATION_INTERVAL } from "../lib/constants";
 import type { Pixel, Position } from "../types";
-import type { NyancatSize } from "../lib/constants";
-import { usePerformanceSettings } from "@/features";
 
 export const useExplosion = (size: NyancatSize) => {
   const [isExploded, setIsExploded] = useState(false);

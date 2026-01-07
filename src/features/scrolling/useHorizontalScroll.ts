@@ -1,4 +1,6 @@
-import { useEffect, useRef, useCallback } from "react";
+"use client";
+
+import { useCallback,useEffect, useRef } from "react";
 
 interface UseHorizontalScrollOptions {
   enabled?: boolean;
@@ -57,9 +59,10 @@ export const useHorizontalScroll = (
 
   useEffect(() => {
     if (!enabled) return;
-    const section = sectionRef.current;
     const container = containerRef.current;
-    if (!section || !container) return;
+    const target = sectionRef.current || container;
+    
+    if (!target || !container) return;
 
     const handleWheel = (e: WheelEvent) => {
       const { canScrollLeft, canScrollRight } = checkScrollPosition();
@@ -81,10 +84,10 @@ export const useHorizontalScroll = (
       }
     };
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
+    target.addEventListener("wheel", handleWheel, { passive: false });
 
     return () => {
-      container.removeEventListener("wheel", handleWheel);
+      target.removeEventListener("wheel", handleWheel);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

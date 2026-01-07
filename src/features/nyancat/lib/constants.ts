@@ -1,14 +1,9 @@
 export const EXPLOSION_COLORS = [
-  "#ff0080",
-  "#ff8000",
-  "#ffff00",
-  "#80ff00",
-  "#00ff80",
-  "#0080ff",
-  "#8000ff",
-  "#ff00ff",
-  "#00ffff",
-  "#ff4040",
+  "#d12c1f", // Red
+  "#f4bf21", // Yellow
+  "#1b54a7", // Blue
+  "#f5f5f3", // White
+  "#111111", // Black
 ] as const;
 
 export const EXPLOSION_DURATION = 3000;

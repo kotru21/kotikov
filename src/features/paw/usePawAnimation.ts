@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+"use client";
+
+import { useCallback,useEffect, useRef, useState } from "react";
 
 interface MousePosition {
   x: number;

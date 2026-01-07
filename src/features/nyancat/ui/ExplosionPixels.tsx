@@ -1,4 +1,5 @@
 import React from "react";
+
 import type { Pixel, Position } from "../types";
 
 interface ExplosionPixelsProps {
@@ -14,6 +15,7 @@ export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({
     {pixels.map((pixel) => (
       <div
         key={pixel.id}
+        className={pixel.shape === "circle" ? "rounded-full" : ""}
         style={{
           position: "fixed",
           top: `${explosionPosition.y + pixel.y}px`,
@@ -21,12 +23,13 @@ export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({
           width: `${pixel.size}px`,
           height: `${pixel.size}px`,
           backgroundColor: pixel.color,
+          transform: `translate(-50%, -50%) rotate(${pixel.rotation}deg)`,
+          clipPath:
+            pixel.shape === "triangle"
+              ? "polygon(50% 0%, 0% 100%, 100% 100%)"
+              : undefined,
           zIndex: 9999,
-          borderRadius: "1px",
-          opacity: 0.9,
-          transition: "opacity 0.5s ease-out",
           pointerEvents: "none",
-          boxShadow: "0 0 2px rgba(0,0,0,0.3)",
         }}
       />
     ))}

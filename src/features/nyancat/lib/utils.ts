@@ -1,21 +1,29 @@
-import { EXPLOSION_COLORS, SIZE_CONFIG } from "./constants";
 import type { Pixel, Position } from "../types";
 import type { NyancatSize } from "./constants";
+import { EXPLOSION_COLORS, SIZE_CONFIG } from "./constants";
 
 export const generateExplosionPixels = (size: NyancatSize): Pixel[] => {
   const config = SIZE_CONFIG[size];
   const pixels: Pixel[] = [];
+  const shapes: Array<"square" | "circle" | "triangle"> = [
+    "square",
+    "circle",
+    "triangle",
+  ];
 
   for (let i = 0; i < config.pixelCount; i++) {
     pixels.push({
       id: i,
-      x: Math.random() * 40 - 20,
-      y: Math.random() * 40 - 20,
+      x: 0,
+      y: 0,
       color:
         EXPLOSION_COLORS[Math.floor(Math.random() * EXPLOSION_COLORS.length)],
-      velocityX: (Math.random() - 0.5) * 200,
-      velocityY: (Math.random() - 0.5) * 200,
-      size: Math.random() * 4 + 2,
+      velocityX: (Math.random() - 0.5) * 300,
+      velocityY: (Math.random() - 0.5) * 300,
+      size: Math.random() * 8 + 4,
+      shape: shapes[Math.floor(Math.random() * shapes.length)],
+      rotation: Math.random() * 360,
+      rotationSpeed: (Math.random() - 0.5) * 10,
     });
   }
 
@@ -24,9 +32,10 @@ export const generateExplosionPixels = (size: NyancatSize): Pixel[] => {
 
 export const updatePixelPhysics = (pixel: Pixel): Pixel => ({
   ...pixel,
-  x: pixel.x + pixel.velocityX * 0.02,
-  y: pixel.y + pixel.velocityY * 0.02,
-  velocityY: pixel.velocityY + 5, // Gravity
+  x: pixel.x + pixel.velocityX * 0.016,
+  y: pixel.y + pixel.velocityY * 0.016,
+  velocityY: pixel.velocityY + 10, // Gravity
+  rotation: pixel.rotation + pixel.rotationSpeed,
 });
 
 export const getElementCenter = (element: HTMLElement): Position => {
@@ -53,7 +62,8 @@ export const calculateTrailWidth = (
   size: NyancatSize
 ): number => {
   const config = SIZE_CONFIG[size];
-  return Math.max(6, config.trailWidth - index * config.trailWidthStep);
+  // Bauhaus style: constant width blocks
+  return config.trailWidth;
 };
 
 export const calculateTrailHeight = (
@@ -61,25 +71,21 @@ export const calculateTrailHeight = (
   size: NyancatSize
 ): number => {
   const config = SIZE_CONFIG[size];
-  return Math.max(2, config.trailHeight - index * 1);
+  // Bauhaus style: constant height blocks
+  return config.trailHeight;
 };
 
 export const generateTrailGradient = (
   index: number,
-  size: NyancatSize
+  _size: NyancatSize
 ): string => {
-  const config = SIZE_CONFIG[size];
-  const baseHue = (index * config.hueStep) % 360;
-
+  // Bauhaus style: alternating solid primary colors
   const colors = [
-    `hsl(${baseHue}, 100%, ${config.lightness}%)`,
-    `hsl(${(baseHue + config.hueOffset) % 360}, 100%, ${config.lightness}%)`,
-    `hsl(${(baseHue + config.hueOffset * 2) % 360}, 100%, ${
-      config.lightness
-    }%)`,
+    EXPLOSION_COLORS[0], // Red
+    EXPLOSION_COLORS[1], // Yellow
+    EXPLOSION_COLORS[2], // Blue
   ];
-
-  return `linear-gradient(90deg, ${colors.join(", ")})`;
+  return colors[index % 3];
 };
 
 export const calculateTrailTransform = (

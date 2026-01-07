@@ -1,7 +1,10 @@
 import React, { memo } from "react";
-import { type TimelineItem } from "@/entities/timeline/model/types";
-import { colors, withOpacity } from "@/styles/colors";
-import { Card, Badge, Button } from "@/shared";
+
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
+import { colors } from "@/styles/colors";
+
+import type { TimelineItem } from "../model/types";
 
 export interface TimelineCardProps {
   item: TimelineItem;
@@ -12,21 +15,6 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
   item,
   index,
 }) => {
-  const getTypeVariant = (type: string) => {
-    switch (type) {
-      case "work":
-        return "primary" as const;
-      case "education":
-        return "info" as const;
-      case "project":
-        return "success" as const;
-      case "hackathon":
-        return "warning" as const;
-      default:
-        return "secondary" as const;
-    }
-  };
-
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "work":
@@ -43,53 +31,49 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
   };
 
   return (
-    <div className="relative flex-shrink-0 w-80">
+    <div className="relative shrink-0 group w-72 md:w-80 lg:w-96">
+      {/* Decorative geometric background shape */}
+      <div 
+        className={`absolute -top-2 -right-2 w-full h-full border-2 border-black dark:border-white -z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 ${
+           index % 3 === 0 ? 'bg-[#d12c1f]' : index % 3 === 1 ? 'bg-[#f4bf21]' : 'bg-[#1b54a7]'
+        }`}>
+      </div>
+      
       <Card
-        className={`${
-          index % 2 === 0 ? "mb-16" : "mt-16"
-        } relative z-10 border`}
-        style={{
-          backgroundColor: withOpacity(colors.background.tertiary, 0.75),
-          borderColor: colors.border.dark,
-          backdropFilter: "blur(10px)",
-        }}
-        hover>
-        <div className="flex items-center justify-between mb-3">
-          <Badge variant={getTypeVariant(item.type)} size="sm">
+        padding="sm"
+        className="relative z-10 border-2 border-black dark:border-white bg-[#f5f5f3] dark:bg-[#111111] shadow-none h-full flex flex-col rounded-none"
+        hover={false}>
+        <div className="flex items-center justify-between mb-4 border-b-2 border-black dark:border-white pb-2">
+          <span className="font-bold text-xs uppercase bg-black dark:bg-white text-white dark:text-black px-2 py-1">
             {getTypeLabel(item.type)}
-          </Badge>
+          </span>
           <span
-            className="text-sm font-medium"
-            style={{ color: colors.text.tertiary }}>
+            className="text-xs font-bold tracking-wide text-black dark:text-white uppercase">
             {item.period}
           </span>
         </div>
 
         <h3
-          className="text-xl font-bold mb-1"
-          style={{ color: colors.text.primary }}>
+          className="text-2xl font-black mb-2 text-black dark:text-white uppercase">
           {item.title}
         </h3>
 
-        <p className="font-semibold mb-3" style={{ color: colors.text.accent }}>
+        <p className={`font-bold mb-3 border-l-4 pl-2 ${
+           index % 3 === 0 ? 'border-[#d12c1f] text-[#d12c1f]' : index % 3 === 1 ? 'border-[#f4bf21] text-[#b45309] dark:text-[#f4bf21]' : 'border-[#1b54a7] text-[#1b54a7] dark:text-[#63b3ed]'
+        }`}>
           {item.company}
         </p>
 
         <p
-          className="mb-4 text-sm leading-relaxed"
-          style={{ color: colors.text.tertiary }}>
+          className="mb-6 text-sm leading-relaxed text-black dark:text-gray-300 font-medium grow">
           {item.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mt-auto">
           {item.technologies.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-1 rounded-md text-xs font-medium"
-              style={{
-                backgroundColor: colors.background.gray,
-                color: colors.text.inverse,
-              }}>
+              className="px-2 py-1 text-xs font-bold border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
               {tech}
             </span>
           ))}
@@ -97,7 +81,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
 
         {item.type === "project" && item.githubUrl && (
           <div
-            className="pt-2 border-t"
+            className="pt-4 mt-4 border-t-2 border-black dark:border-white"
             style={{ borderColor: colors.border.dark }}>
             <Button
               href={item.githubUrl}

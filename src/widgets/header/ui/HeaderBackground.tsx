@@ -1,34 +1,39 @@
 import React from "react";
 
+import BauhausGridPattern from "@/shared/ui/BauhausGridPattern";
+
 const HeaderBackground: React.FC = () => {
   return (
-    <>
-      {/* Верхний градиент */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-        <div
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-          className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
-        />
-      </div>
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* 1. Сетка (Grid Paper) */}
+      <BauhausGridPattern className="text-black dark:text-white" opacity={0.05} />
 
-      {/* Нижний градиент */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-        <div
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-          className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
-        />
-      </div>
-    </>
+      {/* 2. Плавающие фигуры (Bauhaus Shapes) */}
+      
+      {/* КРУГ (Красный) - Верхний правый угол */}
+      <div 
+        className="absolute top-10 right-[10%] w-64 h-64 md:w-96 md:h-96 rounded-full bg-[#d12c1f] mix-blend-multiply dark:mix-blend-screen opacity-60 blur-3xl animate-pulse"
+        style={{ animationDuration: "8s" }}
+      />
+
+      {/* КВАДРАТ (Синий) - Слева, слегка повернутый */}
+      <div 
+        className="absolute top-[20%] left-[5%] w-48 h-48 md:w-72 md:h-72 bg-[#1b54a7] rotate-12 mix-blend-multiply dark:mix-blend-screen opacity-60 blur-3xl animate-pulse"
+        style={{ animationDelay: "2s", animationDuration: "10s" }}
+      />
+
+      {/* ТРЕУГОЛЬНИК (Желтый) - Снизу по центру (CSS Triangle) */}
+      <div 
+        className="absolute bottom-[-10%] left-[40%] w-0 h-0 border-l-[100px] border-r-[100px] border-b-[173px] md:border-l-[150px] md:border-r-[150px] md:border-b-[260px] border-l-transparent border-r-transparent border-b-[#f4bf21] mix-blend-multiply dark:mix-blend-screen opacity-60 blur-3xl animate-pulse"
+        style={{ transform: "rotate(-15deg)", animationDelay: "4s", animationDuration: "12s" }}
+      />
+
+      {/* Декоративные линии */}
+      <div className="absolute top-[15%] left-0 w-full h-[1px] bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-[85%] left-0 w-full h-[1px] bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-0 left-[20%] w-[1px] h-full bg-black/10 dark:bg-white/10" />
+      <div className="absolute top-0 right-[20%] w-[1px] h-full bg-black/10 dark:bg-white/10" />
+    </div>
   );
 };
 

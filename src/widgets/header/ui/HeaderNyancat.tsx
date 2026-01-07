@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
-import { FlyingNyancat } from "@/features";
+
+import { FlyingNyancat } from "@/features/nyancat";
 
 const HeaderNyancat: React.FC = () => {
   return (

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/shared";
+
+import { Button } from "@/shared/ui/Button";
 import { colors } from "@/styles/colors";
 
 interface ErrorPageProps {
@@ -46,7 +47,7 @@ export default function Error({ error, reset }: ErrorPageProps) {
                 Подробности ошибки (dev)
               </summary>
               <pre
-                className="mt-2 p-4 rounded-lg text-xs overflow-auto text-left"
+                className="mt-2 p-4 rounded-none text-xs overflow-auto text-left"
                 style={{
                   backgroundColor: colors.background.secondary,
                   color: colors.text.tertiary,

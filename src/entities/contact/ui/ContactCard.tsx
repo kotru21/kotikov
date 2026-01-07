@@ -1,42 +1,50 @@
 import React, { memo } from "react";
-import { colors } from "@/styles/colors";
-import { type ContactInfo } from "@/entities/contact/model/types";
+
+import type { ContactInfo } from "../model/types";
 
 export interface ContactCardProps {
   contact: ContactInfo;
+  variant?: "auto" | "light" | "dark";
 }
 
-const ContactCardComponent: React.FC<ContactCardProps> = ({ contact }) => {
+const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "auto" }) => {
   const handleClick = () => {
     if (contact.link) {
       window.open(contact.link, "_blank");
     }
   };
 
+  const iconContainerClasses =
+    variant === "auto"
+      ? "bg-black dark:bg-white text-white dark:text-black"
+      : variant === "light"
+      ? "bg-black text-white" // For light backgrounds (Yellow/White)
+      : "bg-white text-black"; // For dark backgrounds (Blue/Red/Black)
+
   return (
     <div
-      className={`p-4 rounded-xl transition-all duration-300 hover:scale-105 ${
+      className={`p-6 transition-all duration-300 border-2 border-transparent ${
         contact.link ? "cursor-pointer" : ""
       }`}
       style={{
-        background: `linear-gradient(135deg, ${colors.neutral[800]}40, ${colors.neutral[700]}30)`,
-        border: `1px solid ${colors.neutral[600]}30`,
+        background: "transparent",
       }}
       onClick={handleClick}>
-      <div className="flex items-center space-x-3">
-        <contact.icon
-          className="text-2xl"
-          style={{ color: colors.neutral[300] }}
-        />
+      <div className="flex flex-col items-center space-y-4 text-center">
+        <div className={`p-4 border-2 border-transparent hover:scale-110 transition-transform duration-200 ${iconContainerClasses}`}>
+            <contact.icon
+              className="text-2xl"
+            />
+        </div>
         <div>
-          <p
-            className="font-semibold text-sm"
-            style={{ color: colors.neutral[300] }}>
+          <h3
+            className="font-black text-xl uppercase tracking-wider mb-2"
+            style={{ color: "currentColor" }}>
             {contact.label}
-          </p>
+          </h3>
           <p
-            className="text-sm break-all"
-            style={{ color: colors.neutral[100] }}>
+            className="text-sm font-bold opacity-90 font-mono"
+            style={{ color: "currentColor" }}>
             {contact.value}
           </p>
         </div>

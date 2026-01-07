@@ -1,21 +1,21 @@
-import { person } from "@/entities";
+import { personData } from "@/shared/config/content";
 
 export default function StructuredData() {
   const personStructuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: person.personData.name,
-    jobTitle: person.personData.jobTitle,
-    description: person.personData.description,
-    url: person.personData.url,
+    name: personData.name,
+    jobTitle: personData.jobTitle,
+    description: personData.description,
+    url: personData.url,
     image: "https://ktkv.me/og_image.png",
-    sameAs: person.personData.sameAs,
+    sameAs: personData.sameAs,
     contactPoint: {
       "@type": "ContactPoint",
-      email: person.personData.email,
+      email: personData.email,
       contactType: "professional",
     },
-    knowsAbout: person.personData.skills,
+    knowsAbout: personData.skills,
   } as const;
 
   const websiteStructuredData = {
@@ -23,10 +23,10 @@ export default function StructuredData() {
     "@type": "WebSite",
     name: "Kotikov Portfolio",
     url: "https://ktkv.me",
-    description: person.personData.description,
+    description: personData.description,
     author: {
       "@type": "Person",
-      name: person.personData.name,
+      name: personData.name,
     },
     inLanguage: "ru-RU",
   } as const;
@@ -39,7 +39,7 @@ export default function StructuredData() {
     description: "Профессиональная разработка фронтенд приложений",
     founder: {
       "@type": "Person",
-      name: person.personData.name,
+      name: personData.name,
     },
     serviceType: ["Frontend Development", "Web Development", "UI/UX Design"],
     areaServed: "Worldwide",

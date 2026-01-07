@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import { skillsData } from "@/entities/skill/data";
+
+import type { SkillData } from "@/entities/skill";
+
 import { SkillMarqueeCard } from "./index";
 
 interface SkillMarqueeRowProps {
   speed?: number;
   direction?: "left" | "right";
-  skills: typeof skillsData;
+  skills: SkillData[];
 }
 
 const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
@@ -21,9 +23,12 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
   // достаточное количество копий для плавной анимации
   const totalCopies = 4;
   const skillsCopies = Array.from({ length: totalCopies }, (_, copyIndex) =>
-    skills.map((skill) => ({
+    skills.map((skill, index) => ({
       ...skill,
-      id: copyIndex * 1000 + skill.id,
+      // Generate a unique ID based on copy index AND position in the original array
+      // This handles cases where the input 'skills' array already has duplicates
+      // 10000 limit allows for up to 10k skills in one row which is plenty
+      uniqueKey: `${copyIndex}-${index}-${skill.id}`,
     }))
   ).flat();
 
@@ -38,7 +43,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
           width: "max-content",
         }}>
         {skillsCopies.map((skill) => (
-          <SkillMarqueeCard key={skill.id} skill={skill} />
+          <SkillMarqueeCard key={skill.uniqueKey} skill={skill} />
         ))}
       </div>
     </div>

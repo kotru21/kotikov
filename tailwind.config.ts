@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+
 import { colors } from "./src/shared/styles/colors.js";
 
 const config: Config = {
@@ -7,7 +8,6 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {

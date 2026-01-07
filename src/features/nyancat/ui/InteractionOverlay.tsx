@@ -1,6 +1,7 @@
 import React from "react";
-import { SIZE_CONFIG } from "../lib/constants";
+
 import type { NyancatSize } from "../lib/constants";
+import { SIZE_CONFIG } from "../lib/constants";
 
 interface InteractionOverlayProps {
   size: NyancatSize;

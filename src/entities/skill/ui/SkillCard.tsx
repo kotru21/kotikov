@@ -1,7 +1,9 @@
 import React, { memo } from "react";
-import { type SkillData } from "@/entities/skill/model/types";
+
+import { Card } from "@/shared/ui/Card";
 import { colors } from "@/styles/colors";
-import { Card } from "@/shared";
+
+import type { SkillData } from "../model/types";
 
 export interface SkillCardProps {
   skill: SkillData;

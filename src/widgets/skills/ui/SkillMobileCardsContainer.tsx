@@ -1,6 +1,8 @@
 import React from "react";
-import { type SkillData } from "@/entities/skill/model/types";
-import { skillsData } from "@/entities/skill/data";
+
+import type { SkillData } from "@/entities/skill";
+import { skillsData } from "@/shared/config/content";
+
 import { SkillMobileCard } from "./index";
 
 interface SkillMobileCardsContainerProps {

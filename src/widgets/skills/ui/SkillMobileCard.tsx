@@ -1,6 +1,6 @@
 import React from "react";
-import { type SkillData } from "@/entities/skill/model/types";
-import { colors } from "@/styles/colors";
+
+import { type SkillData } from "@/entities/skill";
 
 interface SkillMobileCardProps {
   skill: SkillData;
@@ -83,16 +83,13 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
         willChange: "transform, opacity, filter",
       }}>
       <div
-        className="w-full max-w-sm shadow-2xl p-8 rounded-xl border backdrop-blur-sm relative overflow-hidden"
+        className="w-full max-w-sm p-8 border-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] relative bg-white dark:bg-black"
         style={{
-          backgroundColor: colors.background.tertiary,
           borderColor: skill.color,
-          borderWidth: "2px",
-          boxShadow: `0 25px 50px -12px ${skill.color}20, 0 0 0 1px ${skill.color}10`,
         }}>
         <div className="text-center">
           <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full text-white text-2xl mb-6 transition-all duration-500"
+            className="inline-flex items-center justify-center w-16 h-16 text-white text-2xl mb-6 transition-all duration-500 border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
             style={{
               backgroundColor: skill.color,
               transform: isActive ? "scale(1)" : "scale(0.9)",
@@ -100,13 +97,11 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
             <skill.icon className="w-8 h-8" />
           </div>
           <h3
-            className="text-2xl font-bold mb-4 transition-all duration-500"
-            style={{ color: colors.text.primary }}>
+            className="text-2xl font-bold mb-4 uppercase transition-all duration-500 text-black dark:text-white">
             {skill.name}
           </h3>
           <p
-            className="mb-6 leading-relaxed transition-all duration-500"
-            style={{ color: colors.text.secondary }}>
+            className="mb-8 leading-relaxed font-medium transition-all duration-500 text-neutral-600 dark:text-neutral-400">
             {skill.description}
           </p>
 
@@ -114,21 +109,17 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
               <span
-                className="text-sm font-medium"
-                style={{ color: colors.text.tertiary }}>
+                className="text-sm font-bold uppercase tracking-wider text-black dark:text-white">
                 Уровень
               </span>
               <span
-                className="text-sm font-bold"
-                style={{ color: colors.text.inverse }}>
+                className="text-sm font-bold text-black dark:text-white">
                 {skill.level}%
               </span>
             </div>
-            <div
-              className="w-full rounded-full h-2"
-              style={{ backgroundColor: colors.neutral[200] }}>
+            <div className="w-full h-4 border-2 border-black dark:border-white p-0.5">
               <div
-                className="h-2 rounded-full transition-all duration-1000 ease-out"
+                className="h-full transition-all duration-1000 ease-out"
                 style={{
                   backgroundColor: skill.color,
                   width: isActive ? `${skill.level}%` : "0%",

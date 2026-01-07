@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
-import { skillsData } from "@/entities/skill/data";
-import { useIsMobile, useMobileSkillsScroll } from "@/features";
-import { SkillsMobileView, SkillsDesktopView } from "./ui";
+
+import { useIsMobile } from "@/features/device";
+import { useMobileSkillsScroll } from "@/features/skills-scroll";
+import { skillsData } from "@/shared/config/content";
+
+import { SkillsDesktopView, SkillsMobileView } from "./ui";
 
 const SkillsWidget: React.FC = () => {
   const isMobile = useIsMobile();

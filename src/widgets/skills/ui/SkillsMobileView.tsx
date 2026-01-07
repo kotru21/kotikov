@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { colors } from "@/styles/colors";
-import { skillsData } from "@/entities/skill/data";
-import { SkillProgressIndicator, SkillMobileCardsContainer } from "./index";
+
+import { skillsData } from "@/shared/config/content";
+
+import { SkillMobileCardsContainer,SkillProgressIndicator } from "./index";
 
 interface SkillsMobileViewProps {
   activeCardIndex: number;
@@ -23,21 +24,20 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
   return (
     <section
       id="skills"
-      className="relative"
+      className="relative bg-[#f5f5f3] dark:bg-black"
       style={{
         height: `${sectionHeight}vh`,
-        backgroundColor: colors.background.primary,
       }}>
       {/* Header */}
-      <div className="text-center pt-20 pb-16 px-4 ">
+      <div className="text-center pt-20 pb-12 px-4">
         <h2
-          className="text-4xl md:text-5xl font-bold mb-6"
-          style={{ color: colors.text.primary }}>
+          className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-[#f5f5f3]"
+          style={{ }}>
           Мои Навыки
         </h2>
         <p
-          className="text-xl max-w-3xl mx-auto"
-          style={{ color: colors.text.secondary }}>
+          className="text-xl max-w-3xl mx-auto text-neutral-600 dark:text-neutral-400"
+          style={{ }}>
           Технологии и инструменты, которыми я владею для создания современных
           веб-приложений
         </p>
@@ -46,8 +46,8 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
       {/* Sticky контейнер с карточками */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div
-          className="h-full"
-          style={{ background: colors.background.primary }}>
+          className="h-full bg-[#f5f5f3] dark:bg-black"
+          style={{ }}>
           <SkillMobileCardsContainer
             activeCardIndex={activeCardIndex}
             transitionProgress={transitionProgress}

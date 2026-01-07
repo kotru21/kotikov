@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback } from "react";
-import { contactsData } from "@/entities/contact/data";
-import { usePawAnimation } from "@/features";
+import React, { useCallback,useEffect, useRef } from "react";
+
+import { usePawAnimation } from "@/features/paw";
+import { contactsData } from "@/shared/config/content";
+
 import type { ContactCanvasRef } from "./ui";
 import { ContactsView } from "./ui";
 

@@ -1,0 +1,1 @@
+export { useMobileSkillsScroll } from "./useMobileSkillsScroll";

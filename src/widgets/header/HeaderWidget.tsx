@@ -1,40 +1,35 @@
-"use client";
-
 import React from "react";
-import { colors } from "@/styles/colors";
-import { navigation, header } from "@/entities";
+
+import { headerContent, navigation } from "@/shared/config/content";
+
 import {
-  HeaderNyancat,
-  HeaderNavigation,
   HeaderBackground,
   HeaderHero,
+  HeaderNavigation,
+  HeaderNyancat,
 } from "./ui";
 
 const HeaderWidget: React.FC = () => {
   return (
     <div
       id="header"
-      style={{
-        backgroundColor: colors.background.primary,
-        position: "relative",
-        overflow: "hidden",
-      }}>
+      className="bg-background-primary dark:bg-background-tertiary relative overflow-hidden transition-colors duration-300 min-h-screen flex flex-col">
       {/* Анимированный Nyancat */}
       <HeaderNyancat />
 
       {/* Навигация */}
-      <HeaderNavigation navigation={navigation.navigation} />
+      <HeaderNavigation navigation={navigation} />
 
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="relative isolate px-6 pt-24 lg:px-8 flex-grow flex items-center justify-center">
         {/* Фоновые градиенты */}
         <HeaderBackground />
 
         {/* Основной контент */}
         <HeaderHero
-          title={header.headerContent.title}
-          subtitle={header.headerContent.subtitle}
-          announcement={header.headerContent.announcement}
-          buttons={header.headerContent.buttons}
+          title={headerContent.title}
+          subtitle={headerContent.subtitle}
+          announcement={headerContent.announcement}
+          buttons={headerContent.buttons}
         />
       </div>
     </div>
