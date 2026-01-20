@@ -6,7 +6,11 @@ Kotikov portfolio — a modern frontend developer site built with Next.js, TypeS
 
 ---
 
-![Kotikov — Screenshot](./public/screenshot.png)
+## Demo
+
+| Light | Dark |
+| --- | --- |
+| ![Kotikov — Screenshot (Light)](./public/screenshot-light.png) | ![Kotikov — Screenshot (Dark)](./public/screenshot-dark.png) |
 
 ---
 

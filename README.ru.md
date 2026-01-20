@@ -6,7 +6,11 @@
 
 ---
 
-![Kotikov — Скриншот](./public/screenshot.png)
+## Демонстрация
+
+| Светлая / Light | Тёмная / Dark |
+| --- | --- |
+| ![Kotikov — Скриншот (Light)](./public/screenshot-light.png) | ![Kotikov — Скриншот (Dark)](./public/screenshot-dark.png) |
 
 ---
 
