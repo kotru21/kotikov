@@ -1,4 +1,4 @@
-# <a href="https://ktkv.me"><img src="./public/logo_mobile.svg" alt="Kotikov logo" width="48" height="48" style="vertical-align:middle;margin-right:8px" /></a> Kotikov — Portfolio
+# <a href="https://ktkv.me"><img src="./public/logo_mobile.svg" alt="Kotikov logo" width="40" height="40" style="vertical-align:middle;margin-right:8px" /></a> Kotikov — Portfolio
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?logo=next.js)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.6-000?logo=bun)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-black?logo=vercel)](https://vercel.com/)
 
