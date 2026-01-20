@@ -1,6 +1,6 @@
-# Kotikov — Portfolio
+# <a href="https://ktkv.me"><img src="./public/logo_mobile.svg" alt="Kotikov logo" width="36" height="36" style="vertical-align:middle;margin-right:8px" /></a> Kotikov
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?logo=next.js)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.6-000?logo=bun)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-black?logo=vercel)](https://vercel.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.4-eafff8?logo=next.js&logoColor=eafff8)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.6-eafff8?logo=bun&logoColor=eafff8)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-eafff8?logo=typescript&logoColor=eafff8)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-eafff8?logo=tailwindcss&&logoColor=eafff8)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-eafff8?logo=vercel&logoColor=eafff8)](https://vercel.com/)
 
 Kotikov portfolio — a modern frontend developer site built with Next.js, TypeScript and Tailwind.
 
