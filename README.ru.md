@@ -8,7 +8,7 @@
 
 ## Демонстрация
 
-| Светлая / Light | Тёмная / Dark |
+| Светлая тема | Тёмная тема |
 | --- | --- |
 | ![Kotikov — Скриншот (Light)](./public/screenshot-light.png) | ![Kotikov — Скриншот (Dark)](./public/screenshot-dark.png) |
 

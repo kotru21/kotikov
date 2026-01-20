@@ -5,3 +5,7 @@
 ## Readme Languages
 
 [![Русский RU](https://img.shields.io/badge/Русский-RU-blue?style=for-the-badge)](./README.ru.md) [![English EN](https://img.shields.io/badge/English-EN-blue?style=for-the-badge)](./README.en.md)
+
+| Light mode | Dark mode |
+| --- | --- |
+| ![Kotikov — Скриншот (Light)](./public/screenshot-fullsize-light.png) | ![Kotikov — Скриншот (Dark)](./public/screenshot-fullsize-dark.png) |
