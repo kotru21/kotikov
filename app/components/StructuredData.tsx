@@ -1,7 +1,6 @@
 import type { JSX } from "react";
 
 /* eslint-disable react/no-danger -- Script tags intentionally use dangerouslySetInnerHTML for JSON-LD */
-
 import { personData } from "@/shared/config/content";
 
 export default function StructuredData(): JSX.Element {
@@ -51,21 +50,21 @@ export default function StructuredData(): JSX.Element {
 
   return (
     <>
-      {/* eslint-disable-next-line react/no-danger -- intentional structured data */}
+      { }
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(personStructuredData),
         }}
       />
-      {/* eslint-disable-next-line react/no-danger -- intentional structured data */}
+      { }
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteStructuredData),
         }}
       />
-      {/* eslint-disable-next-line react/no-danger -- intentional structured data */}
+      { }
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -19,7 +19,7 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "
 
   return (
     <div
-      className={`p-6 transition-all duration-300 border-2 border-transparent`}
+      className="p-6 transition-all duration-300 border-2 border-transparent"
       style={{
         background: "transparent",
       }}>

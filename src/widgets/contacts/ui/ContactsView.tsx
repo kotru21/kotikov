@@ -93,8 +93,8 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                      fullWidth
                      fullHeight
                      href={contact.link ?? undefined}
-                     target={contact.link ? "_blank" : undefined}
-                     rel={contact.link ? "noopener noreferrer" : undefined}
+                     target={contact.link !== undefined ? "_blank" : undefined}
+                     rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
                    >
                      <div className="w-full">
                        <ContactCard contact={contact} variant={variant} />

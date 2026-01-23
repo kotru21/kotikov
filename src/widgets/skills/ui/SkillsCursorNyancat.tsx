@@ -107,16 +107,14 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
                  effectiveTargetX = jumpTargetPos.current.x;
                  effectiveTargetY = jumpTargetPos.current.y;
              }
-        } else {
+        } else if (activeElement) {
             // We are Grounded. Look at live state.
-            if (activeElement) {
-                const containerRect = containerRef.current.getBoundingClientRect();
-                const elRect = activeElement.getBoundingClientRect();
-                effectiveTargetX = elRect.left - containerRect.left + elRect.width / 2;
-                effectiveTargetY = elRect.top - containerRect.top; 
-            } else {
-                // effectiveTarget is already mousePos
-            }
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const elRect = activeElement.getBoundingClientRect();
+            effectiveTargetX = elRect.left - containerRect.left + elRect.width / 2;
+            effectiveTargetY = elRect.top - containerRect.top; 
+        } else {
+            // effectiveTarget is already mousePos
         }
 
         const dx = effectiveTargetX - currentPos.current.x;
