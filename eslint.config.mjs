@@ -410,7 +410,8 @@ export default defineConfig(
             {
               target: ["entities", "features", "widgets"],
               // allow entry points in subfolders (e.g. 'skills/index.ts')
-              allow: ["index.ts", "index.tsx", "**/index.ts", "**/index.tsx"],
+              // restricted to one-level deep to avoid exposing internal subfolders
+              allow: ["index.ts", "index.tsx", "*/index.ts", "*/index.tsx"],
             },
             // App layer is flexible
             {
