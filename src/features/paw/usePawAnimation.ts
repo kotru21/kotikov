@@ -1,7 +1,6 @@
 "use client";
 
-import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import { isInteractiveTarget } from "@/shared/lib";
 
@@ -19,12 +18,12 @@ interface PawAnimationState {
 }
 
 interface PawAnimationHandlers {
-  handlePointerEnter: (e: React.PointerEvent<HTMLElement>) => void;
-  handlePointerMove: (e: React.PointerEvent<HTMLElement>) => void;
-  handlePointerLeave: (e: React.PointerEvent<HTMLElement>) => void;
-  handlePointerDown: (e: React.PointerEvent<HTMLElement>) => void;
-  handlePointerUp: (e: React.PointerEvent<HTMLElement>) => void;
-  handlePointerCancel: (e: React.PointerEvent<HTMLElement>) => void;
+  handlePointerEnter: (e: PointerEvent<HTMLElement>) => void;
+  handlePointerMove: (e: PointerEvent<HTMLElement>) => void;
+  handlePointerLeave: (e: PointerEvent<HTMLElement>) => void;
+  handlePointerDown: (e: PointerEvent<HTMLElement>) => void;
+  handlePointerUp: (e: PointerEvent<HTMLElement>) => void;
+  handlePointerCancel: (e: PointerEvent<HTMLElement>) => void;
 }
 
 interface UsePawAnimationReturn extends PawAnimationState {
@@ -73,7 +72,7 @@ export const usePawAnimation = (
   }, []);
 
   const handlePointerEnter = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       if (isInteractiveTarget(e.target)) {
         if (e.pointerType === "mouse") stopDrawing();
         return;
@@ -89,7 +88,7 @@ export const usePawAnimation = (
   );
 
   const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       if (isInteractiveTarget(e.target)) {
         if (e.pointerType === "mouse") stopDrawing();
         return;
@@ -112,7 +111,7 @@ export const usePawAnimation = (
   );
 
   const handlePointerLeave = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       // Мышь: ушли из зоны — прекращаем
       if (e.pointerType === "mouse") {
         stopDrawing();
@@ -122,7 +121,7 @@ export const usePawAnimation = (
   );
 
   const handlePointerDown = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       if (isInteractiveTarget(e.target)) return;
 
       // Touch/Pen: начинаем рисовать только по зажатию
@@ -143,7 +142,7 @@ export const usePawAnimation = (
   );
 
   const handlePointerUp = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;
@@ -160,7 +159,7 @@ export const usePawAnimation = (
   );
 
   const handlePointerCancel = useCallback(
-    (e: React.PointerEvent<HTMLElement>) => {
+    (e: PointerEvent<HTMLElement>) => {
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;

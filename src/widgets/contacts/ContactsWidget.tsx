@@ -5,8 +5,7 @@ import React, { useCallback, useRef } from "react";
 import { usePawAnimation } from "@/features/paw";
 import { contactsData } from "@/shared/config/content";
 
-import type { ContactCanvasRef } from "./ui";
-import { ContactsView } from "./ui";
+import { type ContactCanvasRef , ContactsView } from "./ui";
 
 const ContactsWidget: React.FC = () => {
   const canvasRef = useRef<ContactCanvasRef>(null);

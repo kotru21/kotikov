@@ -41,7 +41,7 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
             position: "absolute",
             top: position.top,
             left: position.left,
-            zIndex: zIndex,
+            zIndex,
           }}>
           {!isExploded && (
             <NyancatImage
@@ -70,12 +70,10 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
           />
         )}
 
-        {isExploded && (
-          <ExplosionPixels
+        {isExploded ? <ExplosionPixels
             pixels={pixels}
             explosionPosition={explosionPosition}
-          />
-        )}
+          /> : null}
 
         {!isExploded && (
           <RainbowTrail

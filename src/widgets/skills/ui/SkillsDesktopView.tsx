@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
-import { SkillsCursorNyancat,SkillsMarquee } from "./index";
+import { SkillsCursorNyancat,SkillsMarquee } from ".";
 
 const SkillsDesktopView: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);

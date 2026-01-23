@@ -1,5 +1,4 @@
-import type React from "react";
-import { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 
 import type { InteractiveTextRegistry } from "../model/types";
 

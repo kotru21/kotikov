@@ -3,8 +3,7 @@
 import Image from "next/image";
 import React from "react";
 
-import type { NyancatSize } from "../lib/constants";
-import { SIZE_CONFIG } from "../lib/constants";
+import { type NyancatSize , SIZE_CONFIG } from "../lib/constants";
 
 interface NyancatImageProps {
   size: NyancatSize;
@@ -34,9 +33,17 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   return (
     <div
       ref={forwardRef}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       style={{
         animation: `${animationName} ${animationDuration} linear infinite`,
-        animationDelay: animationDelay,
+        animationDelay,
         cursor: isMobile ? "pointer" : "default",
       }}
       onMouseEnter={onMouseEnter}

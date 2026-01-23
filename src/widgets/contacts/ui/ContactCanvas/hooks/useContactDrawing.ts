@@ -1,5 +1,4 @@
-import type { RefObject } from "react";
-import { useCallback } from "react";
+import { type RefObject , useCallback } from "react";
 
 import { colors } from "@/styles/colors";
 
@@ -51,7 +50,7 @@ export const useContactDrawing = (
 
         ctx.fillRect(x, y, pixelSize, pixelSize);
 
-        ctx.strokeStyle = colors.primary[600] + "20";
+        ctx.strokeStyle = `${colors.primary[600]  }20`;
         ctx.lineWidth = 0.5;
         ctx.strokeRect(x, y, pixelSize, pixelSize);
       }
@@ -148,7 +147,7 @@ export const useContactDrawing = (
         revealedPixelsRef.current.add(key);
       }
 
-      ctx.strokeStyle = colors.primary[600] + "15";
+      ctx.strokeStyle = `${colors.primary[600]  }15`;
       ctx.lineWidth = 0.5;
       for (const [, { x, y }] of pixelsToDrawThisFrame) {
         ctx.strokeRect(x, y, pixelSize, pixelSize);

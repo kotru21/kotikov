@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import { type SkillData } from "@/entities/skill";
+import type { SkillData } from "@/entities/skill";
 
 import { useSkillsInteraction } from "../model/SkillsInteractionContext";
 
@@ -18,11 +18,20 @@ const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
   return (
     <div
       ref={cardRef}
+      role="button"
+      tabIndex={0}
       onMouseEnter={() => { setActiveElement(cardRef.current); }}
       // Мы не зануляем элемент при выходе, чтобы кот "помнил" последнюю карту, пока мы не перейдем на другую или не уйдем в пустоту
       onMouseLeave={() => { setActiveElement(null); }}
-      className="flex items-center gap-4 px-6 py-4 border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] min-w-fit whitespace-nowrap bg-white dark:bg-black transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]">
-      {/* Логотип технологии */}
+      onFocus={() => { setActiveElement(cardRef.current); }}
+      onBlur={() => { setActiveElement(null); }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setActiveElement(cardRef.current);
+        }
+      }}
+      className="flex items-center gap-4 px-6 py-4 border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] min-w-fit whitespace-nowrap bg-white dark:bg-black transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]">      {/* Логотип технологии */}
       <div className="shrink-0">
         <div
           className="w-12 h-12 flex items-center justify-center border-2 border-black dark:border-white"

@@ -56,7 +56,7 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}): boolean 
       return () => {
         mediaQuery.removeEventListener("change", handleChange);
       };
-    } else {
+    } 
       checkIsMobile();
       window.addEventListener("resize", debouncedCheck, { passive: true });
 
@@ -66,7 +66,7 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}): boolean 
           clearTimeout(timeoutRef.current);
         }
       };
-    }
+    
   }, [breakpoint, useMatchMedia, checkIsMobile, debouncedCheck]);
 
   useEffect(() => {

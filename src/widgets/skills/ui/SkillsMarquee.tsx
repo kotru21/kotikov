@@ -6,7 +6,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { skillsData, social } from "@/shared/config/content";
 import { Button } from "@/shared/ui";
 
-import { SkillMarqueeRow } from "./index";
+import { SkillMarqueeRow } from ".";
 
 const SkillsMarquee: React.FC = () => {
   return (

@@ -16,15 +16,13 @@ const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ paintRef }) => {
         size={40}
       />
 
-      {paintRef && (
-        <GridPaintOverlay
+      {paintRef ? <GridPaintOverlay
           ref={paintRef}
           pixelSize={40}
           brushRadius={52}
           alpha={0.85}
           className="absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply dark:mix-blend-screen"
-        />
-      )}
+        /> : null}
 
       <div className="absolute top-[15%] left-0 w-full h-px bg-black/10 dark:bg-white/10" />
       <div className="absolute top-[85%] left-0 w-full h-px bg-black/10 dark:bg-white/10" />

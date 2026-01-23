@@ -1,5 +1,4 @@
-import type { RefObject } from "react";
-import { useCallback, useEffect } from "react";
+import { type RefObject , useCallback, useEffect } from "react";
 
 interface UseGridCanvasReturn {
   initCanvas: () => void;

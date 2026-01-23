@@ -4,7 +4,7 @@ import React from "react";
 
 import type { SkillData } from "@/entities/skill";
 
-import { SkillMarqueeCard } from "./index";
+import { SkillMarqueeCard } from ".";
 
 interface SkillMarqueeRowProps {
   speed?: number;

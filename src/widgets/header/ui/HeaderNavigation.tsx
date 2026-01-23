@@ -3,6 +3,7 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 import type { NavigationItem } from "@/entities/navigation";
@@ -20,7 +21,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         aria-label="Global"
         className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">ktkv</span>
             {/* Логотип для мобильных устройств */}
             <Image
@@ -38,7 +39,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
               height={32}
               className="h-8 w-auto hidden lg:block"
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -60,11 +61,11 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="#"
+          <button
+            type="button"
             className="text-sm/6 font-semibold text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse transition-colors">
             Туда <span aria-hidden="true">&rarr;</span>
-          </a>
+          </button>
         </div>
       </nav>
       <Dialog
@@ -74,7 +75,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         <div className="fixed inset-0 z-50 bg-black/50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto p-6 sm:max-w-sm border-l-2 border-black dark:border-white bg-white dark:bg-black shadow-[0_0_0_1000px_rgba(0,0,0,0.5)]">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">ktkv</span>
               <Image
                 alt="Kotikov логотип"
@@ -83,7 +84,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 height={32}
                 className="h-8 w-auto"
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => { setMobileMenuOpen(false); }}
@@ -105,11 +106,11 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 ))}
               </div>
               <div className="py-6">
-                <a
-                  href="#"
+                <button
+                  type="button"
                   className="-mx-3 block rounded-none px-3 py-2.5 text-base/7 font-bold uppercase text-black dark:text-white hover:bg-primary-500 hover:text-black transition-colors">
                   Туда
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import React from "react";
 import type { SkillData } from "@/entities/skill";
 import { skillsData } from "@/shared/config/content";
 
-import { SkillMobileCard } from "./index";
+import { SkillMobileCard } from ".";
 
 interface SkillMobileCardsContainerProps {
   activeCardIndex: number;
@@ -19,18 +19,18 @@ const SkillMobileCardsContainer: React.FC<SkillMobileCardsContainerProps> = ({
   // previousActiveIndex - убрали из деструктуризации, так как не используется
 }) => {
   // Определяем какие карточки показывать
-  const getCurrentSkills = (): {
+  const getCurrentSkills = (): Array<{
     skill: SkillData;
     direction: "entering" | "exiting" | "current";
     isActive: boolean;
     progress: number;
-  }[] => {
-    const skills: {
+  }> => {
+    const skills: Array<{
       skill: SkillData;
       direction: "entering" | "exiting" | "current";
       isActive: boolean;
       progress: number;
-    }[] = [];
+    }> = [];
 
     if (!isTransitioning) {
       // Показываем только текущую карточку без переходов

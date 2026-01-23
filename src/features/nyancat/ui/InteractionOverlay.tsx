@@ -1,7 +1,6 @@
 import React from "react";
 
-import type { NyancatSize } from "../lib/constants";
-import { SIZE_CONFIG } from "../lib/constants";
+import { type NyancatSize , SIZE_CONFIG } from "../lib/constants";
 
 interface InteractionOverlayProps {
   size: NyancatSize;
@@ -31,6 +30,9 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
 
   return (
     <div
+      role="button"
+      aria-label="Nyancat interaction"
+      tabIndex={0}
       style={{
         position: "absolute",
         top: position.top,
@@ -41,8 +43,11 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
         backgroundColor: "transparent",
         cursor: isMobile ? "pointer" : "default",
         animation: `${animationName} ${animationDuration} linear infinite`,
-        animationDelay: animationDelay,
+        animationDelay,
         pointerEvents: "auto",
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClick();
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}

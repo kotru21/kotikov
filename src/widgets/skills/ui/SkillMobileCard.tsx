@@ -1,6 +1,6 @@
 import React from "react";
 
-import { type SkillData } from "@/entities/skill";
+import type { SkillData } from "@/entities/skill";
 
 interface SkillMobileCardProps {
   skill: SkillData;
