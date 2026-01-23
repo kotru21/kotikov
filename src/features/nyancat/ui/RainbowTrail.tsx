@@ -1,7 +1,6 @@
 import React from "react";
 
-import type { NyancatSize } from "../lib/constants";
-import { SIZE_CONFIG } from "../lib/constants";
+import { type NyancatSize , SIZE_CONFIG } from "../lib/constants";
 import {
   calculateTrailHeight,
   calculateTrailOpacity,

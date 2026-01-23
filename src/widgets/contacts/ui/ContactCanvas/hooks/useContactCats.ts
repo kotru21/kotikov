@@ -1,5 +1,4 @@
-import type { RefObject } from "react";
-import { useCallback,useRef } from "react";
+import { type RefObject , useCallback,useRef } from "react";
 
 import { colors } from "@/styles/colors";
 

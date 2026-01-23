@@ -19,7 +19,7 @@ const BauhausGridPattern: React.FC<BauhausGridPatternProps> = ({
         backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
                           linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
         backgroundSize: `${String(size)}px ${String(size)}px`,
-        opacity: opacity,
+        opacity,
       }} />
   );
 };

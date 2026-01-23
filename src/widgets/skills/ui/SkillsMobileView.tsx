@@ -4,7 +4,7 @@ import React from "react";
 
 import { skillsData } from "@/shared/config/content";
 
-import { SkillMobileCardsContainer, SkillProgressIndicator } from "./index";
+import { SkillMobileCardsContainer, SkillProgressIndicator } from ".";
 
 interface SkillsMobileViewProps {
   activeCardIndex: number;

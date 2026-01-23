@@ -36,8 +36,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
       <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen opacity-80 -z-10 translate-x-1/2 -translate-y-1/2 blur-sm" />
       
       <div className="relative z-10">
-        {announcement && (
-          <div className="hidden sm:mb-8 sm:flex">
+        {announcement ? <div className="hidden sm:mb-8 sm:flex">
             <InteractiveElement
               data-interactive-mode="solid"
               data-interactive-bg="black"
@@ -52,8 +51,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
                 {announcement.linkText} <span aria-hidden="true">&rarr;</span>
               </a>
             </InteractiveElement>
-          </div>
-        )}
+          </div> : null}
 
         <div className="flex flex-col items-start">
         <h1

@@ -1,11 +1,10 @@
 import type { Pixel, Position } from "../types";
-import type { NyancatSize } from "./constants";
-import { EXPLOSION_COLORS, SIZE_CONFIG } from "./constants";
+import { EXPLOSION_COLORS, type NyancatSize , SIZE_CONFIG } from "./constants";
 
 export const generateExplosionPixels = (size: NyancatSize): Pixel[] => {
   const config = SIZE_CONFIG[size];
   const pixels: Pixel[] = [];
-  const shapes: ("square" | "circle" | "triangle")[] = [
+  const shapes: Array<"square" | "circle" | "triangle"> = [
     "square",
     "circle",
     "triangle",

@@ -65,6 +65,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps): React.J
               onMouseOut={(e) => {
                 e.currentTarget.style.backgroundColor =
                   criticalColors.button.bg;
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  criticalColors.button.hover;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.backgroundColor =
+                  criticalColors.button.bg;
               }}>
               Перезагрузить
             </button>

@@ -1,5 +1,4 @@
-import type { RefObject } from "react";
-import { useCallback } from "react";
+import { type RefObject , useCallback } from "react";
 
 interface UseGridCoverageReturn {
   checkCoverage: (targetRect: DOMRect) => number;

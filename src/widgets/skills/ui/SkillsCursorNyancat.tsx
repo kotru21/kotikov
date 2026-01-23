@@ -68,7 +68,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
 
 
 
-  const targetState = useRef({ activeElement: activeElement, mousePos: mousePos });
+  const targetState = useRef({ activeElement, mousePos });
   useEffect(() => {
     targetState.current = { activeElement, mousePos };
   }, [activeElement, mousePos]);
@@ -107,24 +107,21 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
                  effectiveTargetX = jumpTargetPos.current.x;
                  effectiveTargetY = jumpTargetPos.current.y;
              }
-        } else {
+        } else if (activeElement) {
             // We are Grounded. Look at live state.
-            if (activeElement) {
-                const containerRect = containerRef.current.getBoundingClientRect();
-                const elRect = activeElement.getBoundingClientRect();
-                effectiveTargetX = elRect.left - containerRect.left + elRect.width / 2;
-                effectiveTargetY = elRect.top - containerRect.top; 
-            } else {
-                // effectiveTarget is already mousePos
-            }
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const elRect = activeElement.getBoundingClientRect();
+            effectiveTargetX = elRect.left - containerRect.left + elRect.width / 2;
+            effectiveTargetY = elRect.top - containerRect.top; 
+        } else {
+            // effectiveTarget is already mousePos
         }
 
         const dx = effectiveTargetX - currentPos.current.x;
         const dy = effectiveTargetY - currentPos.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (!isJumping.current) {
-            if (dist > DISTANCE_THRESHOLD) {
+        if (!isJumping.current && dist > DISTANCE_THRESHOLD) {
                 // START JUMP
                 isJumping.current = true;
                 jumpStartTime.current = time;
@@ -141,7 +138,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
 
                 // Determine direction at start of jump
                 setIsFacingRight(effectiveTargetX > currentPos.current.x);
-            } else {
+        } else if (!isJumping.current) {
                 // Riding / Small Following with heavier damping
                  const lerpFactor = 0.15;
                  currentPos.current.x += (effectiveTargetX - currentPos.current.x) * lerpFactor;
@@ -151,7 +148,6 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
                  if (Math.abs(dx) > 2) {
                      setIsFacingRight(dx > 0);
                  }
-            }
         } else {
             // IN JUMP
             const timeElapsed = time - jumpStartTime.current;

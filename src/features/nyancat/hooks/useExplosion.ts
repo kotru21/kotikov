@@ -4,8 +4,7 @@ import { useCallback,useEffect, useRef, useState } from "react";
 
 import { usePerformanceSettings } from "@/features/performance";
 
-import type { NyancatSize } from "../lib/constants";
-import { ANIMATION_INTERVAL,EXPLOSION_DURATION } from "../lib/constants";
+import { ANIMATION_INTERVAL,EXPLOSION_DURATION,type NyancatSize  } from "../lib/constants";
 import {
   generateExplosionPixels,
   getElementCenter,

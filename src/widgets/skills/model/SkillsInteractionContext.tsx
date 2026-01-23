@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface SkillsInteractionContextType {
   activeElement: HTMLElement | null;
@@ -19,14 +19,10 @@ export const SkillsInteractionProvider: React.FC<{
   const [activeElement, setActiveElement] = useState<HTMLElement | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  const value = useMemo(() => ({ activeElement, setActiveElement, mousePos, setMousePos }), [activeElement, mousePos, setActiveElement, setMousePos]);
+
   return (
-    <SkillsInteractionContext
-      value={{
-        activeElement,
-        setActiveElement,
-        mousePos,
-        setMousePos,
-      }}>
+    <SkillsInteractionContext value={value}>
       {children}
     </SkillsInteractionContext>
   );

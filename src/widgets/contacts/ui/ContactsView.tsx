@@ -6,8 +6,8 @@ import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { Button } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
+import { CatPaw, ContactCanvas } from ".";
 import type { ContactCanvasRef } from "./ContactCanvas";
-import { CatPaw, ContactCanvas } from "./index";
 
 interface ContactsViewProps {
   contacts: ContactInfo[];
@@ -54,14 +54,12 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       {/* Интерактивный фон */}
       <ContactCanvas ref={canvasRef} onInitCanvas={onCanvasInit} />
 
-      {isDrawing && (
-        <CatPaw
+      {isDrawing ? <CatPaw
           x={pawPos.x}
           y={pawPos.y}
           isActive={isDrawing}
           velocity={pawVelocity}
-        />
-      )}
+        /> : null}
 
       {/* Контент секции */}
       <div className="relative z-10 container mx-auto px-4 pointer-events-auto">
@@ -89,11 +87,14 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                }
 
                return (
-                 <div key={contact.label} className={gridClasses + " h-full"}>
+                 <div key={contact.label} className={`${gridClasses  } h-full`}>
                    <Button
                      variant="primary"
                      fullWidth
                      fullHeight
+                     href={contact.link ?? undefined}
+                     target={contact.link !== undefined ? "_blank" : undefined}
+                     rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
                    >
                      <div className="w-full">
                        <ContactCard contact={contact} variant={variant} />

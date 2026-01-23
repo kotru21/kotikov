@@ -8,28 +8,22 @@ export interface ContactCardProps {
 }
 
 const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "auto" }) => {
-  const handleClick = (): void => {
-    if (contact.link !== undefined && contact.link !== "") {
-      window.open(contact.link, "_blank");
-    }
-  };
-
-  const iconContainerClasses =
-    variant === "auto"
-      ? "bg-black dark:bg-white text-white dark:text-black"
-      : variant === "light"
-      ? "bg-black text-white" // For light backgrounds (Yellow/White)
-      : "bg-white text-black"; // For dark backgrounds (Blue/Red/Black)
+  let iconContainerClasses = "";
+  if (variant === "auto") {
+    iconContainerClasses = "bg-black dark:bg-white text-white dark:text-black";
+  } else if (variant === "light") {
+    iconContainerClasses = "bg-black text-white"; // For light backgrounds (Yellow/White)
+  } else {
+    iconContainerClasses = "bg-white text-black"; // For dark backgrounds (Blue/Red/Black)
+  }
 
   return (
     <div
-      className={`p-6 transition-all duration-300 border-2 border-transparent ${
-        contact.link !== undefined && contact.link !== "" ? "cursor-pointer" : ""
-      }`}
+      className="p-6 transition-all duration-300 border-2 border-transparent"
       style={{
         background: "transparent",
-      }}
-      onClick={handleClick}>
+      }}>
+
       <div className="flex flex-col items-center space-y-4 text-center">
         <div className={`p-4 border-2 border-transparent hover:scale-110 transition-transform duration-200 ${iconContainerClasses}`}>
             <contact.icon
