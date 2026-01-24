@@ -1,4 +1,6 @@
-import { type RefObject, useCallback, useEffect } from "react";
+import { type RefObject, useCallback } from "react";
+
+import { useCanvasLifecycle } from "@/shared/ui";
 
 interface UseGridCanvasReturn {
   initCanvas: () => void;
@@ -40,18 +42,7 @@ export const useGridCanvas = (
     ctx.globalAlpha = 1;
   }, [alpha, pixelSize, paintedRef, canvasRef, ctxRef]);
 
-  useEffect(() => {
-    initCanvas();
-    let timeout: NodeJS.Timeout;
-    const handleResize = (): void => {
-      clearTimeout(timeout);
-      timeout = setTimeout(initCanvas, 100);
-    };
-    window.addEventListener("resize", handleResize, { passive: true });
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [initCanvas]);
+  useCanvasLifecycle(initCanvas);
 
   return { initCanvas };
 };

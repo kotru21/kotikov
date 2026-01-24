@@ -1,5 +1,6 @@
 import { type RefObject, useCallback } from "react";
 
+import { sampleBrushStroke } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface UseContactDrawingReturn {
@@ -11,7 +12,7 @@ export const useContactDrawing = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   catMapRef: RefObject<Map<string, string>>,
-  revealedPixelsRef: RefObject<Set<string>>,
+  revealedMapRef: RefObject<Map<string, string>>,
   pixelSize: number,
   brushRadius: number
 ): UseContactDrawingReturn => {
@@ -65,84 +66,43 @@ export const useContactDrawing = (
       const canvasPrevX = prevX - rect.left;
       const canvasPrevY = prevY - rect.top;
 
-      const distance = Math.hypot(canvasX - canvasPrevX, canvasY - canvasPrevY);
-      const steps = Math.max(1, Math.floor(distance / 3));
+      const pixelsToDraw = sampleBrushStroke(canvasX, canvasY, canvasPrevX, canvasPrevY, pixelSize, brushRadius);
 
-      const pixelsToDrawThisFrame = new Map<
-        string,
-        { x: number; y: number; color: string; intensity: number }
-      >();
+      const newDrawn: Array<{ x: number; y: number }> = [];
 
-      for (let i = 0; i <= steps; i++) {
-        const t = steps > 0 ? i / steps : 0;
-        const interpX = canvasPrevX + (canvasX - canvasPrevX) * t;
-        const interpY = canvasPrevY + (canvasY - canvasPrevY) * t;
+      for (const [key, { x: px, y: py }] of pixelsToDraw) {
+        if (revealedMapRef.current.has(key)) continue;
 
-        const brushRadiusInPixels = Math.ceil(brushRadius / pixelSize);
+        const catColor = catMapRef.current.get(key);
 
-        for (let dy = -brushRadiusInPixels; dy <= brushRadiusInPixels; dy++) {
-          for (let dx = -brushRadiusInPixels; dx <= brushRadiusInPixels; dx++) {
-            const pixelCenterX =
-              Math.floor(interpX / pixelSize) * pixelSize + pixelSize / 2 + dx * pixelSize;
-            const pixelCenterY =
-              Math.floor(interpY / pixelSize) * pixelSize + pixelSize / 2 + dy * pixelSize;
+        let fillColor: string;
 
-            const distanceFromBrush = Math.hypot(pixelCenterX - interpX, pixelCenterY - interpY);
-
-            if (distanceFromBrush <= brushRadius) {
-              const pixelX = pixelCenterX - pixelSize / 2;
-              const pixelY = pixelCenterY - pixelSize / 2;
-              const col = Math.round(pixelX / pixelSize);
-              const row = Math.round(pixelY / pixelSize);
-              const key = `${String(col)},${String(row)}`;
-
-              if (revealedPixelsRef.current.has(key)) continue;
-
-              const intensity = 1 - distanceFromBrush / brushRadius;
-              const catColor = catMapRef.current.get(key);
-
-              let fillColor: string;
-
-              if (catColor !== undefined && catColor !== "") {
-                fillColor = catColor;
-              } else {
-                const variation = Math.random();
-                if (variation > 0.92) {
-                  fillColor = colors.accent[200];
-                } else if (variation > 0.85) {
-                  fillColor = colors.accent[600];
-                } else {
-                  fillColor = colors.accent[300];
-                }
-              }
-
-              const existing = pixelsToDrawThisFrame.get(key);
-              if (!existing || intensity > existing.intensity) {
-                pixelsToDrawThisFrame.set(key, {
-                  x: pixelX,
-                  y: pixelY,
-                  color: fillColor,
-                  intensity,
-                });
-              }
-            }
+        if (catColor !== undefined && catColor !== "") {
+          fillColor = catColor;
+        } else {
+          const variation = Math.random();
+          if (variation > 0.92) {
+            fillColor = colors.accent[200];
+          } else if (variation > 0.85) {
+            fillColor = colors.accent[600];
+          } else {
+            fillColor = colors.accent[300];
           }
         }
-      }
 
-      for (const [key, { x, y, color }] of pixelsToDrawThisFrame) {
-        ctx.fillStyle = color;
-        ctx.fillRect(x, y, pixelSize, pixelSize);
-        revealedPixelsRef.current.add(key);
+        ctx.fillStyle = fillColor;
+        ctx.fillRect(px, py, pixelSize, pixelSize);
+        revealedMapRef.current.set(key, fillColor);
+        newDrawn.push({ x: px, y: py });
       }
 
       ctx.strokeStyle = `${colors.primary[600]}15`;
       ctx.lineWidth = 0.5;
-      for (const [, { x, y }] of pixelsToDrawThisFrame) {
-        ctx.strokeRect(x, y, pixelSize, pixelSize);
+      for (const p of newDrawn) {
+        ctx.strokeRect(p.x, p.y, pixelSize, pixelSize);
       }
     },
-    [brushRadius, pixelSize, canvasRef, ctxRef, catMapRef, revealedPixelsRef]
+    [brushRadius, pixelSize, canvasRef, ctxRef, catMapRef, revealedMapRef]
   );
 
   return { drawBackground, drawOnCanvas };

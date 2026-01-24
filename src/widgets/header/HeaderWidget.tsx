@@ -42,31 +42,31 @@ const HeaderWidget: React.FC = () => {
     <div
       id="header"
       className="bg-background-primary dark:bg-background-tertiary relative flex min-h-screen flex-col overflow-hidden transition-colors duration-300"
+      style={{ touchAction: "pan-y" }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
     >
+      {/* Canvas now covers entire header (nav + hero) */}
+      <HeaderBackground paintRef={paintRef} />
+
       <HeaderNyancat />
-      <HeaderNavigation navigation={navigation} />
 
-      <div
-        className="relative isolate flex grow items-center justify-center px-6 pt-24 lg:px-8"
-        style={{ touchAction: "pan-y" }}
-        onPointerEnter={handlePointerEnter}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerCancel}
-      >
-        <HeaderBackground paintRef={paintRef} />
+      <InteractiveTextContext value={registry}>
+        <HeaderNavigation navigation={navigation} />
 
-        <InteractiveTextContext value={registry}>
+        <div className="relative isolate flex grow items-center justify-center px-6 pt-24 lg:px-8">
           <HeaderHero
             title={headerContent.title}
             subtitle={headerContent.subtitle}
             announcement={headerContent.announcement}
             buttons={headerContent.buttons}
           />
-        </InteractiveTextContext>
-      </div>
+        </div>
+      </InteractiveTextContext>
     </div>
   );
 };

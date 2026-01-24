@@ -52,9 +52,13 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
 
   useEffect(() => {
     const el = ref.current;
-    if (el !== null && registry !== null) registry.register(el);
+    if (!el) return;
+    if (!registry) return;
+    if (el.hasAttribute("data-draw-exclude")) return;
+
+    registry.register(el);
     return (): void => {
-      if (el !== null && registry !== null) registry.unregister(el);
+      registry.unregister(el);
     };
   }, [registry]);
 
