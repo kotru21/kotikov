@@ -17,13 +17,14 @@ interface ContactCanvasProps {
 export interface ContactCanvasRef {
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
   initCanvas: () => void;
+  checkCoverage: (rect: DOMRect) => number;
 }
 
 const ContactCanvas: React.FC<ContactCanvasProps> = ({ onInitCanvas, ref }) => {
   const pixelSize = CONTACT_CANVAS_PIXEL_SIZE;
   const brushRadius = 20;
 
-  const { catMapRef, revealedPixelsRef, generateCats } = useContactCats();
+  const { catMapRef, revealedMapRef, generateCats } = useContactCats();
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
@@ -32,18 +33,19 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ onInitCanvas, ref }) => {
     canvasRef,
     ctxRef,
     catMapRef,
-    revealedPixelsRef,
+    revealedMapRef,
     pixelSize,
     brushRadius
   );
 
-  const { initCanvas } = useContactLifecycle(
+  const { initCanvas, checkCoverage } = useContactLifecycle(
     canvasRef,
     ctxRef,
     onInitCanvas,
     pixelSize,
     generateCats,
-    drawBackground
+    drawBackground,
+    revealedMapRef
   );
 
   useImperativeHandle(
@@ -51,8 +53,9 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ onInitCanvas, ref }) => {
     () => ({
       drawOnCanvas,
       initCanvas,
+      checkCoverage,
     }),
-    [drawOnCanvas, initCanvas]
+    [drawOnCanvas, initCanvas, checkCoverage]
   );
 
   return (

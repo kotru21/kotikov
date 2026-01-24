@@ -1,5 +1,6 @@
 import React from "react";
 
+import { InteractiveElement } from "@/features/interactive-elements";
 import { BauhausGridPattern, GridPaintOverlay, type GridPaintOverlayRef } from "@/shared/ui";
 
 interface HeaderBackgroundProps {
@@ -22,10 +23,34 @@ const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ paintRef }) => {
         />
       ) : null}
 
-      <div className="absolute top-[15%] left-0 h-px w-full bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-[85%] left-0 h-px w-full bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-0 left-[20%] h-full w-px bg-black/10 dark:bg-white/10" />
-      <div className="absolute top-0 right-[20%] h-full w-px bg-black/10 dark:bg-white/10" />
+      <InteractiveElement
+        as="div"
+        data-draw-allow
+        data-interactive-mode="solid"
+        data-interactive-threshold="0.05"
+        className="absolute top-[15%] left-0 h-px w-full bg-black/10 dark:bg-white/10"
+      />
+      <InteractiveElement
+        as="div"
+        data-draw-allow
+        data-interactive-mode="solid"
+        data-interactive-threshold="0.05"
+        className="absolute top-[85%] left-0 h-px w-full bg-black/10 dark:bg-white/10"
+      />
+      <InteractiveElement
+        as="div"
+        data-draw-allow
+        data-interactive-mode="solid"
+        data-interactive-threshold="0.05"
+        className="absolute top-0 left-[20%] h-full w-px bg-black/10 dark:bg-white/10"
+      />
+      <InteractiveElement
+        as="div"
+        data-draw-allow
+        data-interactive-mode="solid"
+        data-interactive-threshold="0.05"
+        className="absolute top-0 right-[20%] h-full w-px bg-black/10 dark:bg-white/10"
+      />
     </div>
   );
 };

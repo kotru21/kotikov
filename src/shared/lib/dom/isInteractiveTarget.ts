@@ -1,7 +1,10 @@
 export const isInteractiveTarget = (target: EventTarget | null): boolean => {
   if (!(target instanceof Element)) return false;
 
-  // Явный opt-out для рисования
+  // Если явно разрешено рисование — не считаем элемент интерактивным
+  if (target.closest("[data-draw-allow]")) return false;
+
+  // Явный opt-out для рисования (элемент помечен как исключение)
   if (target.closest("[data-draw-exclude]")) return true;
 
   // Базовые интерактивные элементы

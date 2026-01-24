@@ -3,6 +3,7 @@
 import React from "react";
 
 import { ContactCard, type ContactInfo } from "@/entities/contact";
+import { InteractiveElement } from "@/features/interactive-elements";
 import { Button } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -94,7 +95,15 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                     rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
                   >
                     <div className="w-full">
-                      <ContactCard contact={contact} variant={variant} />
+                      <InteractiveElement
+                        as="div"
+                        className="w-full h-full"
+                        data-interactive-mode={variant === "light" ? "border" : "solid"}
+                        data-interactive-bg={colors.primary[500]}
+                        data-interactive-text={variant === "dark" ? "white" : "black"}
+                      >
+                        <ContactCard contact={contact} variant={variant} />
+                      </InteractiveElement>
                     </div>
                   </Button>
                 </div>

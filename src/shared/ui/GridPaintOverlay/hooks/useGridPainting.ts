@@ -1,9 +1,10 @@
 import { type RefObject, useCallback, useRef } from "react";
 
+import { sampleBrushStroke } from "@/shared/ui"; 
 import { colors } from "@/styles/colors";
 
 interface UseGridPaintingReturn {
-  paintedRef: RefObject<Map<string, string>>;
+  paintedRef: RefObject<Map<string, { color: string; intensity: number }>>;
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
 }
 
@@ -14,7 +15,7 @@ export const useGridPainting = (
   brushRadius: number,
   alpha: number
 ): UseGridPaintingReturn => {
-  const paintedRef = useRef<Map<string, string>>(new Map());
+  const paintedRef = useRef<Map<string, { color: string; intensity: number }>>(new Map());
 
   const drawOnCanvas = useCallback(
     (x: number, y: number, prevX: number, prevY: number): void => {
@@ -28,60 +29,42 @@ export const useGridPainting = (
       const canvasPrevX = prevX - rect.left;
       const canvasPrevY = prevY - rect.top;
 
-      const distance = Math.hypot(canvasX - canvasPrevX, canvasY - canvasPrevY);
-      const steps = Math.max(1, Math.floor(distance / 3));
+      const pixelsToDraw = sampleBrushStroke(
+        canvasX,
+        canvasY,
+        canvasPrevX,
+        canvasPrevY,
+        pixelSize,
+        brushRadius
+      );
 
-      const pixelsToDraw = new Map<
-        string,
-        { x: number; y: number; color: string; intensity: number }
-      >();
+      for (const [key, { x: px, y: py, intensity }] of pixelsToDraw) {
+        const existing = paintedRef.current.get(key);
 
-      for (let i = 0; i <= steps; i++) {
-        const t = steps > 0 ? i / steps : 0;
-        const interpX = canvasPrevX + (canvasX - canvasPrevX) * t;
-        const interpY = canvasPrevY + (canvasY - canvasPrevY) * t;
-        const brushRadPx = Math.ceil(brushRadius / pixelSize);
+        if (existing !== undefined) {
+          // If intensity did not increase, skip redraw to avoid flicker
+          if (intensity <= existing.intensity) continue;
 
-        for (let dy = -brushRadPx; dy <= brushRadPx; dy++) {
-          for (let dx = -brushRadPx; dx <= brushRadPx; dx++) {
-            const centerX =
-              Math.floor(interpX / pixelSize) * pixelSize + pixelSize / 2 + dx * pixelSize;
-            const centerY =
-              Math.floor(interpY / pixelSize) * pixelSize + pixelSize / 2 + dy * pixelSize;
-
-            const dist = Math.hypot(centerX - interpX, centerY - interpY);
-            if (dist > brushRadius) continue;
-
-            const intensity = 1 - dist / brushRadius;
-            const col = Math.round((centerX - pixelSize / 2) / pixelSize);
-            const row = Math.round((centerY - pixelSize / 2) / pixelSize);
-            const key = `${String(col)},${String(row)}`;
-
-            const existing = pixelsToDraw.get(key);
-            if (existing && existing.intensity >= intensity) continue;
-
-            const r = Math.random();
-            let fillColor: string = colors.accent[300];
-            if (r > 0.92) fillColor = colors.accent[200];
-            else if (r > 0.84) fillColor = colors.accent[600];
-            else if (r > 0.76) fillColor = colors.accent[500];
-
-            pixelsToDraw.set(key, {
-              x: col * pixelSize,
-              y: row * pixelSize,
-              color: fillColor,
-              intensity,
-            });
-          }
+          // Intensity increased - keep color but update intensity and redraw with stronger alpha
+          existing.intensity = intensity;
+          ctx.globalAlpha = alpha * intensity;
+          ctx.fillStyle = existing.color;
+          ctx.fillRect(px, py, pixelSize, pixelSize);
+          continue;
         }
-      }
 
-      ctx.globalAlpha = alpha;
-      for (const [key, { x: px, y: py, color }] of pixelsToDraw) {
-        paintedRef.current.set(key, color);
-        ctx.fillStyle = color;
+        const r = Math.random();
+        let fillColor: string = colors.accent[300];
+        if (r > 0.92) fillColor = colors.accent[200];
+        else if (r > 0.84) fillColor = colors.accent[600];
+        else if (r > 0.76) fillColor = colors.accent[500];
+
+        paintedRef.current.set(key, { color: fillColor, intensity });
+        ctx.globalAlpha = alpha * intensity;
+        ctx.fillStyle = fillColor;
         ctx.fillRect(px, py, pixelSize, pixelSize);
       }
+
       ctx.globalAlpha = 1;
     },
     [alpha, brushRadius, pixelSize, canvasRef, ctxRef]

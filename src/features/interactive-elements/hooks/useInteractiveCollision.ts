@@ -1,19 +1,18 @@
 import { useCallback } from "react";
 
-import type { GridPaintOverlayRef } from "@/shared/ui";
-
 interface CheckCollisionsResult {
   checkCollisions: (
     x: number,
     y: number,
     prevX: number,
     prevY: number,
-    paintRef: React.RefObject<GridPaintOverlayRef | null>
+    paintRef: React.RefObject<{ checkCoverage: (rect: DOMRect) => number } | null>
   ) => void;
 }
 
 export const useInteractiveCollision = (
-  interactiveElementsRef: React.RefObject<Set<HTMLElement>>
+  interactiveElementsRef: React.RefObject<Set<HTMLElement>>,
+  coverageThreshold = 0.3
 ): CheckCollisionsResult => {
   const checkCollisions = useCallback(
     (
@@ -21,7 +20,7 @@ export const useInteractiveCollision = (
       y: number,
       prevX: number,
       prevY: number,
-      paintRef: React.RefObject<GridPaintOverlayRef | null>
+      paintRef: React.RefObject<{ checkCoverage: (rect: DOMRect) => number } | null>
     ): void => {
       if (paintRef.current === null) return;
 
@@ -33,6 +32,9 @@ export const useInteractiveCollision = (
       const maxY = Math.max(y, prevY) + buffer;
 
       interactiveElementsRef.current.forEach((el) => {
+        // Skip elements that explicitly opt-out of paint reactions (e.g., mobile menu items)
+        if (el.dataset.drawExclude !== undefined) return;
+
         const targetColor = el.dataset.interactiveColor ?? "black";
 
         const isSolid = el.dataset.interactiveMode === "solid";
@@ -48,7 +50,11 @@ export const useInteractiveCollision = (
         }
 
         const coverage = paint.checkCoverage(rect);
-        if (coverage > 0.3) {
+        const elementThreshold =
+          el.dataset.interactiveThreshold !== undefined
+            ? Number(el.dataset.interactiveThreshold)
+            : coverageThreshold;
+        if (coverage > elementThreshold) {
           const mode = el.dataset.interactiveMode;
 
           if (mode === "solid") {
@@ -67,7 +73,7 @@ export const useInteractiveCollision = (
         }
       });
     },
-    [interactiveElementsRef]
+    [interactiveElementsRef, coverageThreshold]
   );
 
   return { checkCollisions };
