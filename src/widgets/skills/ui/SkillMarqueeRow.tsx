@@ -17,8 +17,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
   direction = "left",
   skills,
 }) => {
-  const animationDirection =
-    direction === "left" ? "scroll-left" : "scroll-right";
+  const animationDirection = direction === "left" ? "scroll-left" : "scroll-right";
 
   // достаточное количество копий для плавной анимации
   const totalCopies = 4;
@@ -41,7 +40,8 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
           animationTimingFunction: "linear",
           animationIterationCount: "infinite",
           width: "max-content",
-        }}>
+        }}
+      >
         {skillsCopies.map((skill) => (
           <SkillMarqueeCard key={skill.uniqueKey} skill={skill} />
         ))}

@@ -43,65 +43,62 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   return (
     <section
       id="contacts-section"
-      className="relative min-h-screen md:min-h-40 flex items-center justify-center py-20 overflow-hidden"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden py-20 md:min-h-40"
       style={{ cursor: isDrawing ? "none" : undefined, touchAction: "pan-y" }}
       onPointerEnter={onPointerEnter}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-      onPointerCancel={onPointerCancel}>
+      onPointerCancel={onPointerCancel}
+    >
       {/* Интерактивный фон */}
       <ContactCanvas ref={canvasRef} onInitCanvas={onCanvasInit} />
 
-      {isDrawing ? <CatPaw
-          x={pawPos.x}
-          y={pawPos.y}
-          isActive={isDrawing}
-          velocity={pawVelocity}
-        /> : null}
+      {isDrawing ? (
+        <CatPaw x={pawPos.x} y={pawPos.y} isActive={isDrawing} velocity={pawVelocity} />
+      ) : null}
 
       {/* Контент секции */}
-      <div className="relative z-10 container mx-auto px-4 pointer-events-auto">
-        <div className="max-w-6xl mx-auto">
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-transparent max-w-4xl mx-auto">
+      <div className="pointer-events-auto relative z-10 container mx-auto px-4">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
             {contacts.map((contact, index) => {
-               // Логика сетки
-               // 0: Большой квадрат слева (2x2)
-               // 1: Широкая плашка сверху справа (2x1)
-               // 2: Широкая плашка снизу справа (2x1)
-               
-               let gridClasses = "col-span-1";
-               let variant: "auto" | "light" | "dark" = "auto";
+              // Логика сетки
+              // 0: Большой квадрат слева (2x2)
+              // 1: Широкая плашка сверху справа (2x1)
+              // 2: Широкая плашка снизу справа (2x1)
 
-               if (index === 0) {
-                 gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
-                 variant = "auto";
-               } else if (index === 1) {
-                 gridClasses = "md:col-span-2 min-h-[150px]";
-                 variant = "light";
-               } else if (index === 2) {
-                 gridClasses = "md:col-span-2 min-h-[150px]";
-                 variant = "dark";
-               }
+              let gridClasses = "col-span-1";
+              let variant: "auto" | "light" | "dark" = "auto";
 
-               return (
-                 <div key={contact.label} className={`${gridClasses  } h-full`}>
-                   <Button
-                     variant="primary"
-                     fullWidth
-                     fullHeight
-                     href={contact.link ?? undefined}
-                     target={contact.link !== undefined ? "_blank" : undefined}
-                     rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
-                   >
-                     <div className="w-full">
-                       <ContactCard contact={contact} variant={variant} />
-                     </div>
-                   </Button>
-                 </div>
-               );
+              if (index === 0) {
+                gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
+                variant = "auto";
+              } else if (index === 1) {
+                gridClasses = "md:col-span-2 min-h-[150px]";
+                variant = "light";
+              } else if (index === 2) {
+                gridClasses = "md:col-span-2 min-h-[150px]";
+                variant = "dark";
+              }
+
+              return (
+                <div key={contact.label} className={`${gridClasses} h-full`}>
+                  <Button
+                    variant="primary"
+                    fullWidth
+                    fullHeight
+                    href={contact.link ?? undefined}
+                    target={contact.link !== undefined ? "_blank" : undefined}
+                    rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
+                  >
+                    <div className="w-full">
+                      <ContactCard contact={contact} variant={variant} />
+                    </div>
+                  </Button>
+                </div>
+              );
             })}
           </div>
 
@@ -111,7 +108,8 @@ const ContactsView: React.FC<ContactsViewProps> = ({
               onClick={onClearCanvas}
               variant="primary"
               size="lg"
-              shadowColor={colors.primary[500]}>
+              shadowColor={colors.primary[500]}
+            >
               ОЧИСТИТЬ ХОЛСТ
             </Button>
           </div>
@@ -122,4 +120,3 @@ const ContactsView: React.FC<ContactsViewProps> = ({
 };
 
 export default ContactsView;
-

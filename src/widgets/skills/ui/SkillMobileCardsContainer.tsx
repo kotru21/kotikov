@@ -77,7 +77,7 @@ const SkillMobileCardsContainer: React.FC<SkillMobileCardsContainerProps> = ({
   const skillsToRender = getCurrentSkills();
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       {/* Карточки */}
       {skillsToRender.map(({ skill, direction, isActive, progress }, index) => (
         <SkillMobileCard

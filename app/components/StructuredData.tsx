@@ -50,21 +50,21 @@ export default function StructuredData(): JSX.Element {
 
   return (
     <>
-      { }
+      {}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(personStructuredData),
         }}
       />
-      { }
+      {}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteStructuredData),
         }}
       />
-      { }
+      {}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

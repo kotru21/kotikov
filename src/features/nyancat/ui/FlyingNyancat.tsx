@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo,useCallback } from "react";
+import React, { memo, useCallback } from "react";
 
 import { useIsMobile } from "@/features/device";
 
@@ -12,17 +12,9 @@ import { NyancatImage } from "./NyancatImage";
 import { RainbowTrail } from "./RainbowTrail";
 
 const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
-  ({
-    size,
-    position,
-    animationName,
-    animationDuration,
-    animationDelay = "0s",
-    zIndex = -5,
-  }) => {
+  ({ size, position, animationName, animationDuration, animationDelay = "0s", zIndex = -5 }) => {
     const isMobile = useIsMobile();
-    const { isExploded, pixels, explosionPosition, nyancatRef, explode } =
-      useExplosion(size);
+    const { isExploded, pixels, explosionPosition, nyancatRef, explode } = useExplosion(size);
 
     const handleMouseEnter = useCallback(() => {
       if (!isMobile) {
@@ -42,7 +34,8 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
             top: position.top,
             left: position.left,
             zIndex,
-          }}>
+          }}
+        >
           {!isExploded && (
             <NyancatImage
               size={size}
@@ -70,10 +63,9 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
           />
         )}
 
-        {isExploded ? <ExplosionPixels
-            pixels={pixels}
-            explosionPosition={explosionPosition}
-          /> : null}
+        {isExploded ? (
+          <ExplosionPixels pixels={pixels} explosionPosition={explosionPosition} />
+        ) : null}
 
         {!isExploded && (
           <RainbowTrail

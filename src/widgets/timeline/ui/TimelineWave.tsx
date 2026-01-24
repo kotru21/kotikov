@@ -4,12 +4,13 @@ import { colors } from "@/styles/colors";
 
 const TimelineWave: React.FC = () => {
   return (
-    <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 z-0">
+    <div className="absolute top-1/2 right-0 left-0 z-0 -translate-y-1/2 transform">
       <svg
-        className="w-full h-20"
+        className="h-20 w-full"
         viewBox="0 0 1200 80"
         preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={colors.accent[500]} />

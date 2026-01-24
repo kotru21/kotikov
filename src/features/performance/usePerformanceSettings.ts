@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 interface PerformanceSettings {
   reducedMotion: boolean;
@@ -17,12 +17,9 @@ export const usePerformanceSettings = (): PerformanceSettings => {
 
   useEffect(() => {
     const detectSettings = (): void => {
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      const deviceMemory = (navigator as { deviceMemory?: number })
-        .deviceMemory;
+      const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
       const lowPerformance =
         navigator.hardwareConcurrency <= 2 ||
         (deviceMemory !== undefined && deviceMemory <= 4) ||
@@ -57,7 +54,9 @@ export const usePerformanceSettings = (): PerformanceSettings => {
     detectSettings();
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleChange = (): void => { detectSettings(); };
+    const handleChange = (): void => {
+      detectSettings();
+    };
 
     mediaQuery.addEventListener("change", handleChange);
 

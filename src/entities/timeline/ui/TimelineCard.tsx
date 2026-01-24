@@ -10,10 +10,7 @@ export interface TimelineCardProps {
   index: number;
 }
 
-const TimelineCardComponent: React.FC<TimelineCardProps> = ({
-  item,
-  index,
-}) => {
+const TimelineCardComponent: React.FC<TimelineCardProps> = ({ item, index }) => {
   const getTypeLabel = (type: string): string => {
     switch (type) {
       case "work":
@@ -38,45 +35,42 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
   ][colorVariant];
 
   return (
-    <div className="relative shrink-0 group w-72 md:w-80 lg:w-96">
+    <div className="group relative w-72 shrink-0 md:w-80 lg:w-96">
       {/* Decorative geometric background shape */}
       <div
-        className={`absolute -top-2 -right-2 w-full h-full border-2 border-black dark:border-white -z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 ${bgClass}`} />
+        className={`absolute -top-2 -right-2 -z-10 h-full w-full border-2 border-black transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 dark:border-white ${bgClass}`}
+      />
 
       <Card
         padding="sm"
-        className="relative z-10 border-2 border-black dark:border-white bg-background-primary dark:bg-background-tertiary shadow-none h-full flex flex-col rounded-none"
-        hover={false}>
-        <div className="flex items-center justify-between mb-4 border-b-2 border-black dark:border-white pb-2">
-          <span className="font-bold text-xs uppercase bg-black dark:bg-white text-white dark:text-black px-2 py-1">
+        className="bg-background-primary dark:bg-background-tertiary relative z-10 flex h-full flex-col rounded-none border-2 border-black shadow-none dark:border-white"
+        hover={false}
+      >
+        <div className="mb-4 flex items-center justify-between border-b-2 border-black pb-2 dark:border-white">
+          <span className="bg-black px-2 py-1 text-xs font-bold text-white uppercase dark:bg-white dark:text-black">
             {getTypeLabel(item.type)}
           </span>
-          <span
-            className="text-xs font-bold tracking-wide text-black dark:text-white uppercase">
+          <span className="text-xs font-bold tracking-wide text-black uppercase dark:text-white">
             {item.period}
           </span>
         </div>
 
-        <h3
-          className="text-2xl font-black mb-2 text-black dark:text-white uppercase">
+        <h3 className="mb-2 text-2xl font-black text-black uppercase dark:text-white">
           {item.title}
         </h3>
 
-        <p
-          className={`font-bold mb-3 border-l-4 pl-2 ${companyClass}`}>
-          {item.company}
-        </p>
+        <p className={`mb-3 border-l-4 pl-2 font-bold ${companyClass}`}>{item.company}</p>
 
-        <p
-          className="mb-6 text-sm leading-relaxed text-black dark:text-gray-300 font-medium grow">
+        <p className="mb-6 grow text-sm leading-relaxed font-medium text-black dark:text-gray-300">
           {item.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 mt-auto">
+        <div className="mt-auto flex flex-wrap gap-2">
           {item.technologies.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-1 text-xs font-bold border border-black dark:border-white bg-white dark:bg-black text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors">
+              className="border border-black bg-white px-2 py-1 text-xs font-bold text-black transition-colors hover:bg-black hover:text-white dark:border-white dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"
+            >
               {tech}
             </span>
           ))}
@@ -84,15 +78,17 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({
 
         {item.type === "project" && item.githubUrl !== undefined && item.githubUrl !== "" && (
           <div
-            className="pt-4 mt-4 border-t-2 border-black dark:border-white"
-            style={{ borderColor: colors.border.dark }}>
+            className="mt-4 border-t-2 border-black pt-4 dark:border-white"
+            style={{ borderColor: colors.border.dark }}
+          >
             <Button
               href={item.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               variant="outline"
               size="sm"
-              fullWidth>
+              fullWidth
+            >
               Подробнее
             </Button>
           </div>
@@ -106,4 +102,3 @@ const TimelineCard = memo(TimelineCardComponent);
 TimelineCard.displayName = "TimelineCard";
 
 export default TimelineCard;
-

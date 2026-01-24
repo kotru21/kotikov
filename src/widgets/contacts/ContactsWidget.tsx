@@ -5,17 +5,14 @@ import React, { useCallback, useRef } from "react";
 import { usePawAnimation } from "@/features/paw";
 import { contactsData } from "@/shared/config/content";
 
-import { type ContactCanvasRef , ContactsView } from "./ui";
+import { type ContactCanvasRef, ContactsView } from "./ui";
 
 const ContactsWidget: React.FC = () => {
   const canvasRef = useRef<ContactCanvasRef>(null);
 
-  const handleDraw = useCallback(
-    (x: number, y: number, prevX: number, prevY: number) => {
-      canvasRef.current?.drawOnCanvas(x, y, prevX, prevY);
-    },
-    []
-  );
+  const handleDraw = useCallback((x: number, y: number, prevX: number, prevY: number) => {
+    canvasRef.current?.drawOnCanvas(x, y, prevX, prevY);
+  }, []);
 
   const handleCanvasInit = useCallback(() => {
     // Колбэк для инициализации холста

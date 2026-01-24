@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback,useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 interface UseHorizontalScrollOptions {
   enabled?: boolean;
@@ -9,13 +9,19 @@ interface UseHorizontalScrollOptions {
 
 export const useHorizontalScroll = (
   options: UseHorizontalScrollOptions = {}
-): { containerRef: React.RefObject<HTMLDivElement | null>; sectionRef: React.RefObject<HTMLElement | null> } => {
+): {
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  sectionRef: React.RefObject<HTMLElement | null>;
+} => {
   const { enabled = true, scrollMultiplier = 2 } = options;
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const animationFrameRef = useRef<number | null>(null);
 
-  const checkScrollPosition = useCallback((): { canScrollLeft: boolean; canScrollRight: boolean } => {
+  const checkScrollPosition = useCallback((): {
+    canScrollLeft: boolean;
+    canScrollRight: boolean;
+  } => {
     const container = containerRef.current;
     if (container === null) return { canScrollLeft: false, canScrollRight: false };
 
@@ -37,7 +43,7 @@ export const useHorizontalScroll = (
 
     const startScrollLeft = container.scrollLeft;
     const distance = targetScrollLeft - startScrollLeft;
-    const duration = 400; 
+    const duration = 400;
     const startTime = performance.now();
 
     const animateScroll = (currentTime: number): void => {
@@ -62,7 +68,7 @@ export const useHorizontalScroll = (
     if (!enabled) return;
     const container = containerRef.current;
     const target = container;
-    
+
     if (target === null || container === null) return;
 
     const handleWheel = (e: WheelEvent): void => {

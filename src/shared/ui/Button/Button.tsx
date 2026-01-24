@@ -34,7 +34,6 @@ const Button: React.FC<ButtonProps> = ({
   ref,
   ...rest
 }) => {
-  
   const baseClasses =
     "inline-flex items-center justify-center gap-2 font-bold uppercase tracking-wide rounded-none border-2 border-black dark:border-white transition-all duration-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-600 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed";
 
@@ -45,7 +44,6 @@ const Button: React.FC<ButtonProps> = ({
       "bg-white text-black shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:shadow-[4px_4px_0px_0px_var(--accent-shadow)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] dark:hover:shadow-[2px_2px_0px_0px_var(--accent-shadow)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
     outline:
       "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black shadow-none hover:shadow-none",
-
   };
 
   const sizeClasses = {
@@ -58,8 +56,11 @@ const Button: React.FC<ButtonProps> = ({
   const heightClass = fullHeight ? "h-full" : "";
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${heightClass} ${className}`;
-  
-  const style = shadowColor !== undefined && shadowColor !== "" ? ({ "--accent-shadow": shadowColor } as React.CSSProperties) : undefined;
+
+  const style =
+    shadowColor !== undefined && shadowColor !== ""
+      ? ({ "--accent-shadow": shadowColor } as React.CSSProperties)
+      : undefined;
 
   if ("href" in rest && typeof rest.href === "string") {
     const { href, ...anchorProps } = rest;

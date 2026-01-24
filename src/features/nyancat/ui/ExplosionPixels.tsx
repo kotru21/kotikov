@@ -7,10 +7,7 @@ interface ExplosionPixelsProps {
   explosionPosition: Position;
 }
 
-export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({
-  pixels,
-  explosionPosition,
-}) => (
+export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({ pixels, explosionPosition }) => (
   <>
     {pixels.map((pixel) => (
       <div
@@ -24,10 +21,7 @@ export const ExplosionPixels: React.FC<ExplosionPixelsProps> = ({
           height: `${String(pixel.size)}px`,
           backgroundColor: pixel.color,
           transform: `translate(-50%, -50%) rotate(${String(pixel.rotation)}deg)`,
-          clipPath:
-            pixel.shape === "triangle"
-              ? "polygon(50% 0%, 0% 100%, 100% 100%)"
-              : undefined,
+          clipPath: pixel.shape === "triangle" ? "polygon(50% 0%, 0% 100%, 100% 100%)" : undefined,
           zIndex: 9999,
           pointerEvents: "none",
         }}

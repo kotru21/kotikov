@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+dist
+build
+coverage
+bun.lock
+.vscode
+public
+.eslintcache
+eslint-report.json
+.gitignore
+*.log

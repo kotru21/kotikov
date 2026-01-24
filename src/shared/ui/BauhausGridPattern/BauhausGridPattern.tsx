@@ -14,13 +14,14 @@ const BauhausGridPattern: React.FC<BauhausGridPatternProps> = ({
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 pointer-events-none z-0 ${className}`}
+      className={`pointer-events-none absolute inset-0 z-0 ${className}`}
       style={{
         backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
                           linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
         backgroundSize: `${String(size)}px ${String(size)}px`,
         opacity,
-      }} />
+      }}
+    />
   );
 };
 

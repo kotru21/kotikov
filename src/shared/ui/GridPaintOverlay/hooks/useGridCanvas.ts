@@ -1,4 +1,4 @@
-import { type RefObject , useCallback, useEffect } from "react";
+import { type RefObject, useCallback, useEffect } from "react";
 
 interface UseGridCanvasReturn {
   initCanvas: () => void;
@@ -35,12 +35,7 @@ export const useGridCanvas = (
     for (const [key, color] of paintedRef.current) {
       const [c, r] = key.split(",");
       ctx.fillStyle = color;
-      ctx.fillRect(
-        Number(c) * pixelSize,
-        Number(r) * pixelSize,
-        pixelSize,
-        pixelSize
-      );
+      ctx.fillRect(Number(c) * pixelSize, Number(r) * pixelSize, pixelSize, pixelSize);
     }
     ctx.globalAlpha = 1;
   }, [alpha, pixelSize, paintedRef, canvasRef, ctxRef]);
@@ -53,7 +48,9 @@ export const useGridCanvas = (
       timeout = setTimeout(initCanvas, 100);
     };
     window.addEventListener("resize", handleResize, { passive: true });
-    return () => { window.removeEventListener("resize", handleResize); };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [initCanvas]);
 
   return { initCanvas };

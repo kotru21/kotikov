@@ -6,8 +6,6 @@ export const isInteractiveTarget = (target: EventTarget | null): boolean => {
 
   // Базовые интерактивные элементы
   return Boolean(
-    target.closest(
-      "a,button,input,textarea,select,label,[role='button'],[role='link']"
-    )
+    target.closest("a,button,input,textarea,select,label,[role='button'],[role='link']")
   );
 };

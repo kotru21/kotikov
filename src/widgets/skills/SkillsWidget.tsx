@@ -10,12 +10,8 @@ import { SkillsDesktopView, SkillsMobileView } from "./ui";
 
 const SkillsWidget: React.FC = () => {
   const isMobile = useIsMobile();
-  const {
-    activeCardIndex,
-    transitionProgress,
-    isTransitioning,
-    previousActiveIndex,
-  } = useMobileSkillsScroll({ skillsCount: skillsData.length });
+  const { activeCardIndex, transitionProgress, isTransitioning, previousActiveIndex } =
+    useMobileSkillsScroll({ skillsCount: skillsData.length });
 
   if (isMobile) {
     return (

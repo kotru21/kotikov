@@ -46,13 +46,15 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({ type, index }) => {
 
   return (
     <div
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+      className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform"
       style={{
         top: `calc(50% + ${String(getWaveOffset(index))}px)`,
-      }}>
+      }}
+    >
       <div
-        className="w-8 h-8 rounded-full border-4 border-white dark:border-neutral-900 shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-125"
-        style={getTypeColor(type)}>
+        className="flex h-8 w-8 items-center justify-center rounded-full border-4 border-white shadow-lg transition-transform duration-300 hover:scale-125 dark:border-neutral-900"
+        style={getTypeColor(type)}
+      >
         <span className="text-sm">{getTypeIcon(type)}</span>
       </div>
     </div>

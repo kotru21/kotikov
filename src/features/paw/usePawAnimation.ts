@@ -193,9 +193,7 @@ export const usePawAnimation = (
 
         const pawDeltaX = newSmoothMousePos.x - prev.pawPos.x;
         const pawDeltaY = newSmoothMousePos.y - prev.pawPos.y;
-        const distance = Math.sqrt(
-          pawDeltaX * pawDeltaX + pawDeltaY * pawDeltaY
-        );
+        const distance = Math.sqrt(pawDeltaX * pawDeltaX + pawDeltaY * pawDeltaY);
 
         const mouseSpeed = Math.sqrt(
           mouseVelocityRef.current.x ** 2 + mouseVelocityRef.current.y ** 2
@@ -222,18 +220,11 @@ export const usePawAnimation = (
           y: prev.pawPos.y + pawDeltaY * easedSmoothness,
         };
 
-        const velocityX =
-          (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
-        const velocityY =
-          (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+        const velocityX = (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+        const velocityY = (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
 
         if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
-          onDraw(
-            prev.mousePos.x,
-            prev.mousePos.y,
-            newSmoothMousePos.x,
-            newSmoothMousePos.y
-          );
+          onDraw(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
         }
 
         // Минимальные пороги, чтобы не вызывать лишние рендеры
@@ -242,8 +233,7 @@ export const usePawAnimation = (
           Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
           Math.abs(newSmoothMousePos.x - prev.smoothMousePos.x) < 0.25 &&
           Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
-        const velDeltaSmall =
-          Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
+        const velDeltaSmall = Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
 
         if (posDeltaSmall && velDeltaSmall) {
           // возвращаем предыдущее состояние без изменений — React не перерендерит

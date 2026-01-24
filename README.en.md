@@ -8,8 +8,8 @@ Kotikov portfolio — a modern frontend developer site built with Next.js, TypeS
 
 ## Demo
 
-| Light mode | Dark mode |
-| --- | --- |
+| Light mode                                                     | Dark mode                                                    |
+| -------------------------------------------------------------- | ------------------------------------------------------------ |
 | ![Kotikov — Screenshot (Light)](./public/screenshot-light.png) | ![Kotikov — Screenshot (Dark)](./public/screenshot-dark.png) |
 
 ---
@@ -39,24 +39,24 @@ bun install
 
 ## Showcase
 
-| File | Description |
-| --- | --- |
-| `app/page.tsx` | Main page — Header, Skills, Timeline, Contacts. |
-| `src/widgets/header/HeaderWidget.tsx` | Interactive header with Nyancat and canvas effects. |
-| `src/features/nyancat/*` | Nyancat — animation and explosion effects. |
-| `src/widgets/skills/SkillsWidget.tsx` | Responsive skills block (desktop + mobile scroll). |
-| `src/widgets/timeline/TimelineWidget.tsx` | Timeline of experience and projects. |
-| `src/widgets/contacts/ContactsWidget.tsx` | Contacts with paw animation. |
-| `package.json` | Scripts and Bun. |
+| File                                                                                        | Description                                                |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `app/page.tsx`                                                                              | Main page — Header, Skills, Timeline, Contacts.            |
+| `src/widgets/header/HeaderWidget.tsx`                                                       | Interactive header with Nyancat and canvas effects.        |
+| `src/features/nyancat/*`                                                                    | Nyancat — animation and explosion effects.                 |
+| `src/widgets/skills/SkillsWidget.tsx`                                                       | Responsive skills block (desktop + mobile scroll).         |
+| `src/widgets/timeline/TimelineWidget.tsx`                                                   | Timeline of experience and projects.                       |
+| `src/widgets/contacts/ContactsWidget.tsx`                                                   | Contacts with paw animation.                               |
+| `package.json`                                                                              | Scripts and Bun.                                           |
 | `vercel.json`, `next.config.ts`, `tailwind.config.ts`, `eslint.config.mjs`, `tsconfig.json` | Configs: deployment, images, theme, ESLint and TypeScript. |
 
 ---
 
 ## Tech Stack
 
-- Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4  
-- Bun (`bun@1.3.6`)  
-- Vercel (Analytics, Speed Insights)  
+- Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4
+- Bun (`bun@1.3.6`)
+- Vercel (Analytics, Speed Insights)
 - ESLint (strict TypeScript / FSD rules)
 
 ---
@@ -70,14 +70,14 @@ Build command: `bun run build`.
 
 ## Contributing
 
-- Run `bun run lint` before PRs (`eslint.config.mjs`).  
+- Run `bun run lint` before PRs (`eslint.config.mjs`).
 - PRs: fork → branch → PR.
 
 ---
 
 ## Contact
 
-- Website: [ktkv.me](https://ktkv.me)  
-- GitHub: [github.com/kotru21/kotikov](https://github.com/kotru21/kotikov)  
-- LinkedIn: [linkedin.ktkv.me](https://linkedin.ktkv.me)  
+- Website: [ktkv.me](https://ktkv.me)
+- GitHub: [github.com/kotru21/kotikov](https://github.com/kotru21/kotikov)
+- LinkedIn: [linkedin.ktkv.me](https://linkedin.ktkv.me)
 - Email: [inbox@ktkv.me](mailto:inbox@ktkv.me)

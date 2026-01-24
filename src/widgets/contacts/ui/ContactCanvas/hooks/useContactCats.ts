@@ -1,4 +1,4 @@
-import { type RefObject , useCallback,useRef } from "react";
+import { type RefObject, useCallback, useRef } from "react";
 
 import { colors } from "@/styles/colors";
 
@@ -52,10 +52,7 @@ export const useContactCats = (): UseContactCatsReturn => {
       for (let gx = 0; gx < gridCols; gx++) {
         const cellCenterX = (gx + 0.5) * cellWidth;
         const cellCenterY = (gy + 0.5) * cellHeight;
-        const distFromCenter = Math.hypot(
-          cellCenterX - centerX,
-          cellCenterY - centerY
-        );
+        const distFromCenter = Math.hypot(cellCenterX - centerX, cellCenterY - centerY);
         const maxDist = Math.hypot(centerX, centerY);
         const normalizedDist = maxDist !== 0 ? distFromCenter / maxDist : 0;
 

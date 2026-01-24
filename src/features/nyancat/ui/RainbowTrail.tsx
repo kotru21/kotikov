@@ -1,6 +1,6 @@
 import React from "react";
 
-import { type NyancatSize , SIZE_CONFIG } from "../lib/constants";
+import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 import {
   calculateTrailHeight,
   calculateTrailOpacity,
@@ -42,11 +42,10 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
             left: position.left,
             zIndex: zIndex - 1,
             animation: `${animationName} ${animationDuration} linear infinite`,
-            animationDelay: `${String(
-              parseFloat(animationDelay) + i * config.trailDelay
-            )}s`,
+            animationDelay: `${String(parseFloat(animationDelay) + i * config.trailDelay)}s`,
             opacity: calculateTrailOpacity(i, size),
-          }}>
+          }}
+        >
           <div
             style={{
               width: `${String(calculateTrailWidth(i, size))}px`,
