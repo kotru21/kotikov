@@ -17,7 +17,7 @@ export const useContactLifecycle = (
   pixelSize: number,
   generateCats: (rows: number, cols: number) => void,
   drawBackground: () => void,
-  revealedMapRef: RefObject<Map<string, string>>
+  revealedMapRef: RefObject<Map<string, { color: string; intensity: number }>>
 ): UseContactLifecycleReturn => {
   const initCanvas = useCallback((): void => {
     const canvas = canvasRef.current;
@@ -55,12 +55,15 @@ export const useContactLifecycle = (
     generateCats(rows, cols);
     drawBackground();
 
-    // Repaint revealed pixels (preserve colors)
-    for (const [key, color] of revealedMapRef.current) {
+    // Repaint revealed pixels (preserve colors + intensity)
+    for (const [key, entry] of revealedMapRef.current) {
       const [c, r] = key.split(",").map(Number);
-      ctx.fillStyle = color;
+      ctx.globalAlpha = entry.intensity;
+      ctx.fillStyle = entry.color;
       ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
     }
+
+    ctx.globalAlpha = 1;
 
     ctx.strokeStyle = `${colors.primary[600]}15`;
     ctx.lineWidth = 0.5;

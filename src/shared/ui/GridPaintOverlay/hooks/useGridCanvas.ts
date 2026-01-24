@@ -11,7 +11,7 @@ export const useGridCanvas = (
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   alpha: number,
   pixelSize: number,
-  paintedRef: RefObject<Map<string, string>>
+  paintedRef: RefObject<Map<string, { color: string; intensity: number }>>
 ): UseGridCanvasReturn => {
   const initCanvas = useCallback((): void => {
     const canvas = canvasRef.current;
@@ -33,9 +33,11 @@ export const useGridCanvas = (
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, rect.width, rect.height);
 
-    ctx.globalAlpha = alpha;
-    for (const [key, color] of paintedRef.current) {
+    for (const [key, entry] of paintedRef.current) {
       const [c, r] = key.split(",");
+      const color = entry.color;
+      const intensity = entry.intensity;
+      ctx.globalAlpha = alpha * intensity;
       ctx.fillStyle = color;
       ctx.fillRect(Number(c) * pixelSize, Number(r) * pixelSize, pixelSize, pixelSize);
     }

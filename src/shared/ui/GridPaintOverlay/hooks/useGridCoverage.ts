@@ -8,7 +8,7 @@ interface UseGridCoverageReturn {
 
 export const useGridCoverage = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
-  paintedRef: RefObject<Map<string, string>>,
+  paintedRef: RefObject<Map<string, { color: string; intensity: number }>>,
   pixelSize: number
 ): UseGridCoverageReturn => {
   const checkCoverage = useCallback(

@@ -12,7 +12,7 @@ export const useContactDrawing = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   catMapRef: RefObject<Map<string, string>>,
-  revealedMapRef: RefObject<Map<string, string>>,
+  revealedMapRef: RefObject<Map<string, { color: string; intensity: number }>>,
   pixelSize: number,
   brushRadius: number
 ): UseContactDrawingReturn => {
@@ -70,14 +70,17 @@ export const useContactDrawing = (
 
       const newDrawn: Array<{ x: number; y: number }> = [];
 
-      for (const [key, { x: px, y: py }] of pixelsToDraw) {
-        if (revealedMapRef.current.has(key)) continue;
+      for (const [key, { x: px, y: py, intensity }] of pixelsToDraw) {
+        const existing = revealedMapRef.current.get(key);
+        if (existing !== undefined && existing.intensity >= intensity) continue;
 
         const catColor = catMapRef.current.get(key);
 
         let fillColor: string;
 
-        if (catColor !== undefined && catColor !== "") {
+        if (existing !== undefined) {
+          fillColor = existing.color;
+        } else if (catColor !== undefined && catColor !== "") {
           fillColor = catColor;
         } else {
           const variation = Math.random();
@@ -90,11 +93,14 @@ export const useContactDrawing = (
           }
         }
 
+        ctx.globalAlpha = intensity;
         ctx.fillStyle = fillColor;
         ctx.fillRect(px, py, pixelSize, pixelSize);
-        revealedMapRef.current.set(key, fillColor);
+        revealedMapRef.current.set(key, { color: fillColor, intensity });
         newDrawn.push({ x: px, y: py });
       }
+
+      ctx.globalAlpha = 1;
 
       ctx.strokeStyle = `${colors.primary[600]}15`;
       ctx.lineWidth = 0.5;

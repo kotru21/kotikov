@@ -6,13 +6,13 @@ import { CAT_POSES } from "../../constants";
 
 interface UseContactCatsReturn {
   catMapRef: RefObject<Map<string, string>>;
-  revealedMapRef: RefObject<Map<string, string>>;
+  revealedMapRef: RefObject<Map<string, { color: string; intensity: number }>>;
   generateCats: (rows: number, cols: number) => void;
 }
 
 export const useContactCats = (): UseContactCatsReturn => {
   const catMapRef = useRef<Map<string, string>>(new Map()); // "col,row" -> color
-  const revealedMapRef = useRef<Map<string, string>>(new Map()); // Уже закрашенные пиксели (key -> color)
+  const revealedMapRef = useRef<Map<string, { color: string; intensity: number }>>(new Map()); // Уже закрашенные пиксели (key -> color+intensity)
 
   const generateCats = useCallback((rows: number, cols: number): void => {
     catMapRef.current.clear();

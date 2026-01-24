@@ -4,7 +4,7 @@ import { sampleBrushStroke } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface UseGridPaintingReturn {
-  paintedRef: RefObject<Map<string, string>>;
+  paintedRef: RefObject<Map<string, { color: string; intensity: number }>>;
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
 }
 
@@ -15,7 +15,7 @@ export const useGridPainting = (
   brushRadius: number,
   alpha: number
 ): UseGridPaintingReturn => {
-  const paintedRef = useRef<Map<string, string>>(new Map());
+  const paintedRef = useRef<Map<string, { color: string; intensity: number }>>(new Map());
 
   const drawOnCanvas = useCallback(
     (x: number, y: number, prevX: number, prevY: number): void => {
@@ -38,11 +38,18 @@ export const useGridPainting = (
         brushRadius
       );
 
-      ctx.globalAlpha = alpha;
-      for (const [key, { x: px, y: py }] of pixelsToDraw) {
-        const existingColor = paintedRef.current.get(key);
-        if (existingColor !== undefined) {
-          // Already painted — keep its color and avoid redraw to prevent flicker
+      for (const [key, { x: px, y: py, intensity }] of pixelsToDraw) {
+        const existing = paintedRef.current.get(key);
+
+        if (existing !== undefined) {
+          // If intensity did not increase, skip redraw to avoid flicker
+          if (intensity <= existing.intensity) continue;
+
+          // Intensity increased - keep color but update intensity and redraw with stronger alpha
+          existing.intensity = intensity;
+          ctx.globalAlpha = alpha * intensity;
+          ctx.fillStyle = existing.color;
+          ctx.fillRect(px, py, pixelSize, pixelSize);
           continue;
         }
 
@@ -52,10 +59,12 @@ export const useGridPainting = (
         else if (r > 0.84) fillColor = colors.accent[600];
         else if (r > 0.76) fillColor = colors.accent[500];
 
-        paintedRef.current.set(key, fillColor);
+        paintedRef.current.set(key, { color: fillColor, intensity });
+        ctx.globalAlpha = alpha * intensity;
         ctx.fillStyle = fillColor;
         ctx.fillRect(px, py, pixelSize, pixelSize);
       }
+
       ctx.globalAlpha = 1;
     },
     [alpha, brushRadius, pixelSize, canvasRef, ctxRef]
