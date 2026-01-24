@@ -105,8 +105,7 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="ru">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <Analytics />
         <SpeedInsights />

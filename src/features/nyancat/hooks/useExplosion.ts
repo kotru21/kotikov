@@ -1,15 +1,11 @@
 "use client";
 
-import { useCallback,useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { usePerformanceSettings } from "@/features/performance";
 
-import { ANIMATION_INTERVAL,EXPLOSION_DURATION,type NyancatSize  } from "../lib/constants";
-import {
-  generateExplosionPixels,
-  getElementCenter,
-  updatePixelPhysics,
-} from "../lib/utils";
+import { ANIMATION_INTERVAL, EXPLOSION_DURATION, type NyancatSize } from "../lib/constants";
+import { generateExplosionPixels, getElementCenter, updatePixelPhysics } from "../lib/utils";
 import type { Pixel, Position } from "../types";
 
 interface UseExplosionReturn {
@@ -43,9 +39,7 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
     const initial = generateExplosionPixels(size);
     // деградация для low perf / reduced motion
     const pruned =
-      reducedMotion || lowPerformance
-        ? initial.slice(0, Math.ceil(initial.length * 0.4))
-        : initial;
+      reducedMotion || lowPerformance ? initial.slice(0, Math.ceil(initial.length * 0.4)) : initial;
     pixelsRef.current = pruned;
     setPixels(pruned);
 
@@ -67,10 +61,7 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
       pixelsRef.current = pixelsRef.current.map(updatePixelPhysics);
 
       // ограничиваем частоту React-обновлений до ~30 FPS для уменьшения reconcile
-      if (
-        Math.floor(elapsed / 33) !==
-        Math.floor((elapsed - ANIMATION_INTERVAL) / 33)
-      ) {
+      if (Math.floor(elapsed / 33) !== Math.floor((elapsed - ANIMATION_INTERVAL) / 33)) {
         setPixels(pixelsRef.current);
       }
 

@@ -27,50 +27,44 @@ const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
   className,
   ref,
 }) => {
-    const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
 
-    // 1. Painting Logic (owns the painted data)
-    const { paintedRef, drawOnCanvas } = useGridPainting(
-      canvasRef,
-      ctxRef,
-      pixelSize,
-      brushRadius,
-      alpha
-    );
+  // 1. Painting Logic (owns the painted data)
+  const { paintedRef, drawOnCanvas } = useGridPainting(
+    canvasRef,
+    ctxRef,
+    pixelSize,
+    brushRadius,
+    alpha
+  );
 
-    // 2. Canvas Lifecycle (redraws using painted data)
-    const { initCanvas } = useGridCanvas(
-      canvasRef,
-      ctxRef,
-      alpha,
-      pixelSize,
-      paintedRef
-    );
+  // 2. Canvas Lifecycle (redraws using painted data)
+  const { initCanvas } = useGridCanvas(canvasRef, ctxRef, alpha, pixelSize, paintedRef);
 
-    // 3. Coverage Logic
-    const { checkCoverage } = useGridCoverage(canvasRef, paintedRef, pixelSize);
+  // 3. Coverage Logic
+  const { checkCoverage } = useGridCoverage(canvasRef, paintedRef, pixelSize);
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        drawOnCanvas,
-        initCanvas,
-        checkCoverage,
-      }),
-      [drawOnCanvas, initCanvas, checkCoverage]
-    );
+  useImperativeHandle(
+    ref,
+    () => ({
+      drawOnCanvas,
+      initCanvas,
+      checkCoverage,
+    }),
+    [drawOnCanvas, initCanvas, checkCoverage]
+  );
 
-    return (
-      <canvas
-        ref={canvasRef}
-        className={
-          className ??
-          "absolute inset-0 w-full h-full pointer-events-none mix-blend-multiply dark:mix-blend-screen"
-        }
-        style={{ pointerEvents: "none" }}
-      />
-    );
+  return (
+    <canvas
+      ref={canvasRef}
+      className={
+        className ??
+        "pointer-events-none absolute inset-0 h-full w-full mix-blend-multiply dark:mix-blend-screen"
+      }
+      style={{ pointerEvents: "none" }}
+    />
+  );
 };
 
 export default GridPaintOverlay;

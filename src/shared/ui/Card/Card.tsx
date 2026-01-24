@@ -24,10 +24,12 @@ const Card: React.FC<CardProps> = ({
   const baseClasses = "rounded-none transition-all duration-200";
 
   const variantClasses = {
-    default: "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
+    default:
+      "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
     outlined:
       "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white",
-    elevated: "bg-white dark:bg-black border-2 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] text-black dark:text-white",
+    elevated:
+      "bg-white dark:bg-black border-2 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] text-black dark:text-white",
     bgNone: "bg-transparent border-none shadow-none",
   } as const;
 

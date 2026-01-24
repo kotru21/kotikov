@@ -5,21 +5,17 @@ import React, { useCallback, useRef } from "react";
 import {
   InteractiveTextContext,
   useInteractiveCollision,
-  useInteractiveRegistry} from "@/features/interactive-elements";
+  useInteractiveRegistry,
+} from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
 import { headerContent, navigation } from "@/shared/config/content";
 import type { GridPaintOverlayRef } from "@/shared/ui";
 
-import {
-  HeaderBackground,
-  HeaderHero,
-  HeaderNavigation,
-  HeaderNyancat,
-} from "./ui";
+import { HeaderBackground, HeaderHero, HeaderNavigation, HeaderNyancat } from "./ui";
 
 const HeaderWidget: React.FC = () => {
   const paintRef = useRef<GridPaintOverlayRef | null>(null);
-  
+
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
 
@@ -45,13 +41,13 @@ const HeaderWidget: React.FC = () => {
   return (
     <div
       id="header"
-      className="bg-background-primary dark:bg-background-tertiary relative overflow-hidden transition-colors duration-300 min-h-screen flex flex-col"
+      className="bg-background-primary dark:bg-background-tertiary relative flex min-h-screen flex-col overflow-hidden transition-colors duration-300"
     >
       <HeaderNyancat />
       <HeaderNavigation navigation={navigation} />
 
       <div
-        className="relative isolate px-6 pt-24 lg:px-8 grow flex items-center justify-center"
+        className="relative isolate flex grow items-center justify-center px-6 pt-24 lg:px-8"
         style={{ touchAction: "pan-y" }}
         onPointerEnter={handlePointerEnter}
         onPointerMove={handlePointerMove}
@@ -76,4 +72,3 @@ const HeaderWidget: React.FC = () => {
 };
 
 export default HeaderWidget;
-

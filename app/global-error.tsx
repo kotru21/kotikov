@@ -34,24 +34,20 @@ export default function GlobalError({ error, reset }: GlobalErrorProps): React.J
     <html lang="ru">
       <body style={{ margin: 0, padding: 0 }}>
         <div
-          className="min-h-screen flex items-center justify-center "
-          style={{ backgroundColor: criticalColors.background }}>
-          <div className="text-center p-8 max-w-md mx-auto">
-            <div className="text-6xl mb-6">💥</div>
-            <h2
-              className="text-2xl font-bold mb-4"
-              style={{ color: criticalColors.text.primary }}>
+          className="flex min-h-screen items-center justify-center"
+          style={{ backgroundColor: criticalColors.background }}
+        >
+          <div className="mx-auto max-w-md p-8 text-center">
+            <div className="mb-6 text-6xl">💥</div>
+            <h2 className="mb-4 text-2xl font-bold" style={{ color: criticalColors.text.primary }}>
               Критическая ошибка
             </h2>
-            <p
-              className="mb-6"
-              style={{ color: criticalColors.text.secondary }}>
-              Произошла серьезная ошибка в приложении. Пожалуйста, перезагрузите
-              страницу.
+            <p className="mb-6" style={{ color: criticalColors.text.secondary }}>
+              Произошла серьезная ошибка в приложении. Пожалуйста, перезагрузите страницу.
             </p>
             <button
               onClick={reset}
-              className="px-4 py-2 rounded-none transition-colors border-2 border-black"
+              className="rounded-none border-2 border-black px-4 py-2 transition-colors"
               style={{
                 backgroundColor: criticalColors.button.bg,
                 color: criticalColors.button.text,
@@ -59,21 +55,18 @@ export default function GlobalError({ error, reset }: GlobalErrorProps): React.J
                 cursor: "pointer",
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  criticalColors.button.hover;
+                e.currentTarget.style.backgroundColor = criticalColors.button.hover;
               }}
               onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  criticalColors.button.bg;
+                e.currentTarget.style.backgroundColor = criticalColors.button.bg;
               }}
               onFocus={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  criticalColors.button.hover;
+                e.currentTarget.style.backgroundColor = criticalColors.button.hover;
               }}
               onBlur={(e) => {
-                e.currentTarget.style.backgroundColor =
-                  criticalColors.button.bg;
-              }}>
+                e.currentTarget.style.backgroundColor = criticalColors.button.bg;
+              }}
+            >
               Перезагрузить
             </button>
           </div>

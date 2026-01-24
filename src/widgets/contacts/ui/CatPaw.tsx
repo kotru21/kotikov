@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef,useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 interface CatPawProps {
   x: number;
@@ -66,8 +66,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
   }, [x, y]);
 
   //  угол поворота на основе скорости движения
-  const rotationAngle =
-    Math.atan2(velocity.y, velocity.x) * (180 / Math.PI) * 0.1;
+  const rotationAngle = Math.atan2(velocity.y, velocity.x) * (180 / Math.PI) * 0.1;
   const tiltAngle = isActive ? Math.max(-15, Math.min(15, rotationAngle)) : 0;
 
   const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
@@ -80,7 +79,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
 
   return (
     <div
-      className="fixed pointer-events-none z-50"
+      className="pointer-events-none fixed z-50"
       style={{
         left: x - 25,
         top: y - 25,
@@ -88,13 +87,15 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
         transition: "transform 0.6s cubic-bezier(0.23, 1, 0.320, 1)",
         willChange: "transform",
         backfaceVisibility: "hidden",
-      }}>
+      }}
+    >
       <div
-        className="text-4xl transition-all duration-500 ease-out select-none drop-shadow-lg scale-110"
+        className="scale-110 text-4xl drop-shadow-lg transition-all duration-500 ease-out select-none"
         style={{
           filter: "drop-shadow(0 8px 16px rgba(219, 39, 119, 0.3))",
           transform: `scale(1.1) rotate(${String(velocity.x * 2)}deg)`,
-        }}>
+        }}
+      >
         🐾
       </div>
     </div>

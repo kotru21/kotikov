@@ -15,8 +15,10 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold text-text-primary dark:text-text-primary uppercase mb-4">{title}</h3>
-      <div className="flex flex-wrap justify-center md:justify-start gap-4">
+      <h3 className="text-text-primary dark:text-text-primary mb-4 text-xl font-bold uppercase">
+        {title}
+      </h3>
+      <div className="flex flex-wrap justify-center gap-4 md:justify-start">
         {socialLinks.map((link) => (
           <a
             key={link.url}
@@ -24,11 +26,13 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="group relative"
-            title={link.name}>
+            title={link.name}
+          >
             <div
               style={accentShadowStyle}
-              className="w-12 h-12 border-2 border-black dark:border-white bg-transparent hover:bg-black dark:hover:bg-white flex items-center justify-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_var(--accent-shadow)]">
-              <link.icon className="w-5 h-5 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors" />
+              className="flex h-12 w-12 items-center justify-center border-2 border-black bg-transparent transition-all duration-300 hover:bg-black hover:shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:border-white dark:hover:bg-white"
+            >
+              <link.icon className="h-5 w-5 text-black transition-colors group-hover:text-white dark:text-white dark:group-hover:text-black" />
             </div>
           </a>
         ))}

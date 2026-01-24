@@ -1,4 +1,4 @@
-import { type RefObject , useCallback, useEffect } from "react";
+import { type RefObject, useCallback, useEffect } from "react";
 
 interface UseContactLifecycleReturn {
   canvasRef: RefObject<HTMLCanvasElement | null>;
@@ -25,10 +25,10 @@ export const useContactLifecycle = (
 
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio, 2);
-    
+
     // Reset transform before resize to avoid compounding
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    
+
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     ctx.scale(dpr, dpr);

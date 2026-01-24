@@ -1,4 +1,4 @@
-import { type RefObject , useCallback } from "react";
+import { type RefObject, useCallback } from "react";
 
 import { colors } from "@/styles/colors";
 
@@ -26,11 +26,7 @@ export const useContactDrawing = (
 
     const cols = Math.ceil(rect.width / pixelSize);
     const rows = Math.ceil(rect.height / pixelSize);
-    const baseColors = [
-      colors.primary[900],
-      colors.primary[800],
-      colors.primary[700],
-    ];
+    const baseColors = [colors.primary[900], colors.primary[800], colors.primary[700]];
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
@@ -50,7 +46,7 @@ export const useContactDrawing = (
 
         ctx.fillRect(x, y, pixelSize, pixelSize);
 
-        ctx.strokeStyle = `${colors.primary[600]  }20`;
+        ctx.strokeStyle = `${colors.primary[600]}20`;
         ctx.lineWidth = 0.5;
         ctx.strokeRect(x, y, pixelSize, pixelSize);
       }
@@ -87,18 +83,11 @@ export const useContactDrawing = (
         for (let dy = -brushRadiusInPixels; dy <= brushRadiusInPixels; dy++) {
           for (let dx = -brushRadiusInPixels; dx <= brushRadiusInPixels; dx++) {
             const pixelCenterX =
-              Math.floor(interpX / pixelSize) * pixelSize +
-              pixelSize / 2 +
-              dx * pixelSize;
+              Math.floor(interpX / pixelSize) * pixelSize + pixelSize / 2 + dx * pixelSize;
             const pixelCenterY =
-              Math.floor(interpY / pixelSize) * pixelSize +
-              pixelSize / 2 +
-              dy * pixelSize;
+              Math.floor(interpY / pixelSize) * pixelSize + pixelSize / 2 + dy * pixelSize;
 
-            const distanceFromBrush = Math.hypot(
-              pixelCenterX - interpX,
-              pixelCenterY - interpY
-            );
+            const distanceFromBrush = Math.hypot(pixelCenterX - interpX, pixelCenterY - interpY);
 
             if (distanceFromBrush <= brushRadius) {
               const pixelX = pixelCenterX - pixelSize / 2;
@@ -147,7 +136,7 @@ export const useContactDrawing = (
         revealedPixelsRef.current.add(key);
       }
 
-      ctx.strokeStyle = `${colors.primary[600]  }15`;
+      ctx.strokeStyle = `${colors.primary[600]}15`;
       ctx.lineWidth = 0.5;
       for (const [, { x, y }] of pixelsToDrawThisFrame) {
         ctx.strokeRect(x, y, pixelSize, pixelSize);

@@ -69,52 +69,48 @@ const SkillMobileCard: React.FC<SkillMobileCardProps> = ({
 
   return (
     <div
-      className="absolute inset-0 w-full h-full flex items-center justify-center px-8"
+      className="absolute inset-0 flex h-full w-full items-center justify-center px-8"
       style={{
         ...transformStyle,
-        transition:
-          direction === "current"
-            ? "all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)"
-            : "none",
+        transition: direction === "current" ? "all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)" : "none",
         transformStyle: "preserve-3d",
         willChange: "transform, opacity, filter",
-      }}>
+      }}
+    >
       <div
-        className="w-full max-w-sm p-8 border-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] relative bg-white dark:bg-black"
+        className="relative w-full max-w-sm border-2 bg-white p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:bg-black dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
         style={{
           borderColor: skill.color,
-        }}>
+        }}
+      >
         <div className="text-center">
           <div
-            className="inline-flex items-center justify-center w-16 h-16 text-white text-2xl mb-6 transition-all duration-500 border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+            className="mb-6 inline-flex h-16 w-16 items-center justify-center border-2 border-black text-2xl text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-500 dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
             style={{
               backgroundColor: skill.color,
               transform: isActive ? "scale(1)" : "scale(0.9)",
-            }}>
-            <skill.icon className="w-8 h-8" />
+            }}
+          >
+            <skill.icon className="h-8 w-8" />
           </div>
-          <h3
-            className="text-2xl font-bold mb-4 uppercase transition-all duration-500 text-black dark:text-white">
+          <h3 className="mb-4 text-2xl font-bold text-black uppercase transition-all duration-500 dark:text-white">
             {skill.name}
           </h3>
-          <p
-            className="mb-8 leading-relaxed font-medium transition-all duration-500 text-neutral-600 dark:text-neutral-400">
+          <p className="mb-8 leading-relaxed font-medium text-neutral-600 transition-all duration-500 dark:text-neutral-400">
             {skill.description}
           </p>
 
           {/* Прогресс бар */}
           <div className="mb-4">
-            <div className="flex justify-between items-center mb-2">
-              <span
-                className="text-sm font-bold uppercase tracking-wider text-black dark:text-white">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-sm font-bold tracking-wider text-black uppercase dark:text-white">
                 Уровень
               </span>
-              <span
-                className="text-sm font-bold text-black dark:text-white">
+              <span className="text-sm font-bold text-black dark:text-white">
                 {String(skill.level)}%
               </span>
             </div>
-            <div className="w-full h-4 border-2 border-black dark:border-white p-0.5">
+            <div className="h-4 w-full border-2 border-black p-0.5 dark:border-white">
               <div
                 className="h-full transition-all duration-1000 ease-out"
                 style={{

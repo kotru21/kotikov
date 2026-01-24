@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
-import { SkillsCursorNyancat,SkillsMarquee } from ".";
+import { SkillsCursorNyancat, SkillsMarquee } from ".";
 
 const SkillsDesktopView: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -15,11 +15,12 @@ const SkillsDesktopView: React.FC = () => {
       <section
         ref={containerRef}
         id="skills"
-        className="py-10 bg-background-primary dark:bg-background-tertiary relative overflow-hidden transition-colors duration-300"
-        style={{ }}>
+        className="bg-background-primary dark:bg-background-tertiary relative overflow-hidden py-10 transition-colors duration-300"
+        style={{}}
+      >
         <SkillsCursorNyancat containerRef={containerRef} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-        <div className="max-w-full mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-full">
           {/* Бегущая строка скиллов */}
           <SkillsMarquee />
         </div>
@@ -29,4 +30,3 @@ const SkillsDesktopView: React.FC = () => {
 };
 
 export default SkillsDesktopView;
-

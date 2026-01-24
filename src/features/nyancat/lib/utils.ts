@@ -1,22 +1,17 @@
 import type { Pixel, Position } from "../types";
-import { EXPLOSION_COLORS, type NyancatSize , SIZE_CONFIG } from "./constants";
+import { EXPLOSION_COLORS, type NyancatSize, SIZE_CONFIG } from "./constants";
 
 export const generateExplosionPixels = (size: NyancatSize): Pixel[] => {
   const config = SIZE_CONFIG[size];
   const pixels: Pixel[] = [];
-  const shapes: Array<"square" | "circle" | "triangle"> = [
-    "square",
-    "circle",
-    "triangle",
-  ];
+  const shapes: Array<"square" | "circle" | "triangle"> = ["square", "circle", "triangle"];
 
   for (let i = 0; i < config.pixelCount; i++) {
     pixels.push({
       id: i,
       x: 0,
       y: 0,
-      color:
-        EXPLOSION_COLORS[Math.floor(Math.random() * EXPLOSION_COLORS.length)],
+      color: EXPLOSION_COLORS[Math.floor(Math.random() * EXPLOSION_COLORS.length)],
       velocityX: (Math.random() - 0.5) * 300,
       velocityY: (Math.random() - 0.5) * 300,
       size: Math.random() * 8 + 4,
@@ -48,36 +43,24 @@ export const getElementCenter = (element: HTMLElement): Position => {
   };
 };
 
-export const calculateTrailOpacity = (
-  index: number,
-  size: NyancatSize
-): number => {
+export const calculateTrailOpacity = (index: number, size: NyancatSize): number => {
   const config = SIZE_CONFIG[size];
   return Math.max(0.1, 1 - index * config.opacityStep);
 };
 
-export const calculateTrailWidth = (
-  _index: number,
-  size: NyancatSize
-): number => {
+export const calculateTrailWidth = (_index: number, size: NyancatSize): number => {
   const config = SIZE_CONFIG[size];
   // Bauhaus style: constant width blocks
   return config.trailWidth;
 };
 
-export const calculateTrailHeight = (
-  _index: number,
-  size: NyancatSize
-): number => {
+export const calculateTrailHeight = (_index: number, size: NyancatSize): number => {
   const config = SIZE_CONFIG[size];
   // Bauhaus style: constant height blocks
   return config.trailHeight;
 };
 
-export const generateTrailGradient = (
-  index: number,
-  _size: NyancatSize
-): string => {
+export const generateTrailGradient = (index: number, _size: NyancatSize): string => {
   // Bauhaus style: alternating solid primary colors
   const colors = [
     EXPLOSION_COLORS[0], // Red
@@ -87,10 +70,7 @@ export const generateTrailGradient = (
   return colors[index % 3];
 };
 
-export const calculateTrailTransform = (
-  index: number,
-  size: NyancatSize
-): string => {
+export const calculateTrailTransform = (index: number, size: NyancatSize): string => {
   const config = SIZE_CONFIG[size];
   const translateX = -index * config.trailSpacing;
   const translateY = config.trailOffset + index;

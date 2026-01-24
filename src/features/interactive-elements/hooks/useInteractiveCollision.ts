@@ -33,24 +33,17 @@ export const useInteractiveCollision = (
       const maxY = Math.max(y, prevY) + buffer;
 
       interactiveElementsRef.current.forEach((el) => {
-        
         const targetColor = el.dataset.interactiveColor ?? "black";
-        
-       
+
         const isSolid = el.dataset.interactiveMode === "solid";
         if (!isSolid && el.style.color === targetColor) return;
-        
+
         const targetBg = el.dataset.interactiveBg ?? "black";
         if (isSolid && el.style.backgroundColor === targetBg) return;
 
         const rect = el.getBoundingClientRect();
 
-        if (
-          rect.right < minX ||
-          rect.left > maxX ||
-          rect.bottom < minY ||
-          rect.top > maxY
-        ) {
+        if (rect.right < minX || rect.left > maxX || rect.bottom < minY || rect.top > maxY) {
           return;
         }
 

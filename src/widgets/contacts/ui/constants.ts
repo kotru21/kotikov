@@ -69,5 +69,3 @@ export const CAT_POSES = [
   CAT_FACE,
   CAT_STRETCHING,
 ];
-
-

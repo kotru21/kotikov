@@ -15,66 +15,63 @@ interface TimelineViewProps {
   sectionRef: React.RefObject<HTMLElement | null>;
 }
 
-const TimelineView: React.FC<TimelineViewProps> = ({
-  containerRef,
-  sectionRef,
-}) => {
+const TimelineView: React.FC<TimelineViewProps> = ({ containerRef, sectionRef }) => {
   return (
     <section
       ref={sectionRef}
       id="timeline"
-      className="pb-8 px-4 sm:px-6 pt-16 lg:px-8 bg-background-primary dark:bg-background-tertiary transition-colors duration-300 relative z-10">
+      className="bg-background-primary dark:bg-background-tertiary relative z-10 px-4 pt-16 pb-8 transition-colors duration-300 sm:px-6 lg:px-8"
+    >
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
-        <div className="relative z-20 text-center px-4 mb-12">
+        <div className="relative z-20 mb-12 px-4 text-center">
           <h2
-            className="mt-2 text-4xl md:text-5xl font-bold mb-3 drop-shadow-sm text-black dark:text-white uppercase tracking-tighter"
-            style={{ }}>
+            className="mt-2 mb-3 text-4xl font-bold tracking-tighter text-black uppercase drop-shadow-sm md:text-5xl dark:text-white"
+            style={{}}
+          >
             Мой опыт
           </h2>
           <p
-            className="text-lg max-w-2xl mx-auto text-neutral-600 dark:text-neutral-400 font-medium"
-            style={{ }}>
+            className="mx-auto max-w-2xl text-lg font-medium text-neutral-600 dark:text-neutral-400"
+            style={{}}
+          >
             Путь профессионального развития и ключевые этапы карьеры
           </p>
         </div>
 
         {/* Горизонтальный таймлайн */}
-        <div className="relative ">
+        <div className="relative">
           {/* Волнистая линия */}
           <TimelineWave />
 
           {/* Контейнер для скролла с градиентными масками */}
           <div className="relative">
             {/* Левая  */}
-            <div
-              className="absolute left-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-r from-white via-white/60 to-transparent dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent"
-            />
+            <div className="pointer-events-none absolute top-0 left-0 z-20 h-full w-20 bg-linear-to-r from-white via-white/60 to-transparent md:w-36 lg:w-48 dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent" />
 
             {/* Правая */}
-            <div
-              className="absolute right-0 top-0 w-20 md:w-36 lg:w-48 h-full z-20 pointer-events-none bg-linear-to-l from-white via-white/60 to-transparent dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent"
-            />
+            <div className="pointer-events-none absolute top-0 right-0 z-20 h-full w-20 bg-linear-to-l from-white via-white/60 to-transparent md:w-36 lg:w-48 dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent" />
 
             {/* Контейнер для скролла */}
             <div
               ref={containerRef}
-              className="overflow-x-auto  timeline-scroll-hidden"
+              className="timeline-scroll-hidden overflow-x-auto"
               style={{
                 overscrollBehaviorX: "contain",
                 overscrollBehaviorY: "auto",
-              }}>
-              <div className="flex space-x-24 min-w-max px-28 items-center mb-24">
+              }}
+            >
+              <div className="mb-24 flex min-w-max items-center space-x-24 px-28">
                 {timelineData.map((item, index) => (
-                  <div 
-                    key={item.id} 
-                    className={`relative transition-all duration-500 hover:scale-105 hover:z-30 group ${
-                      index % 2 === 0 ? 'translate-y-4' : '-translate-y-4'
+                  <div
+                    key={item.id}
+                    className={`group relative transition-all duration-500 hover:z-30 hover:scale-105 ${
+                      index % 2 === 0 ? "translate-y-4" : "-translate-y-4"
                     }`}
                   >
                     {/* Точка на линии */}
-                    <div className="mb-4 flex justify-center opacity-50 group-hover:opacity-100 transition-opacity">
+                    <div className="mb-4 flex justify-center opacity-50 transition-opacity group-hover:opacity-100">
                       <TimelinePoint type={item.type} index={index} />
                     </div>
 
@@ -87,27 +84,24 @@ const TimelineView: React.FC<TimelineViewProps> = ({
           </div>
 
           {/* Индикатор прокрутки */}
-          <div className="flex justify-center ">
+          <div className="flex justify-center">
             <div
-              className="flex items-center space-x-2 text-sm px-4 py-2 rounded-full"
+              className="flex items-center space-x-2 rounded-full px-4 py-2 text-sm"
               style={{
                 backgroundColor: colors.background.gray,
                 color: colors.text.muted,
-              }}>
+              }}
+            >
               <span>←</span>
-              <span className="hidden sm:inline">
-                Наведите курсор и прокрутите колёсиком мыши
-              </span>
+              <span className="hidden sm:inline">Наведите курсор и прокрутите колёсиком мыши</span>
               <span className="sm:hidden">Проведите пальцем для прокрутки</span>
               <span>→</span>
             </div>
           </div>
         </div>
       </div>
-
     </section>
   );
 };
 
 export default TimelineView;
-

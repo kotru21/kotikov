@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { type NyancatSize , SIZE_CONFIG } from "../lib/constants";
+import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 
 interface NyancatImageProps {
   size: NyancatSize;
@@ -48,7 +48,8 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
-      onTouchStart={onClick}>
+      onTouchStart={onClick}
+    >
       <Image
         src="/nyancat.svg"
         alt="Nyancat"

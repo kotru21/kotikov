@@ -9,76 +9,73 @@ import { colors } from "@/styles/colors";
 
 const NotFound: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+      >
         <div
           style={{
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-accent-300 to-accent-700 opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
+          className="from-accent-300 to-accent-700 relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
         />
       </div>
 
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+        className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      >
         <div
           style={{
             clipPath:
               "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
           }}
-          className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-accent-300 to-accent-700 opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
+          className="from-accent-300 to-accent-700 relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
         />
       </div>
 
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 transform-gpu overflow-hidden blur-3xl">
+        className="absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 transform-gpu overflow-hidden blur-3xl"
+      >
         <div
           style={{
             clipPath: "polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)",
           }}
-          className="aspect-square w-96 bg-linear-to-br from-accent-200/20 to-accent-600/20 rotate-45"
+          className="from-accent-200/20 to-accent-600/20 aspect-square w-96 rotate-45 bg-linear-to-br"
         />
       </div>
 
       {/* Основной контент */}
       <div className="container mx-auto px-4 text-center">
-        <Card
-          variant="bgNone"
-          padding="lg"
-          className="max-w-2xl mx-auto">
+        <Card variant="bgNone" padding="lg" className="mx-auto max-w-2xl">
           {/* 404 в большом размере */}
           <div
-            className="text-8xl md:text-9xl font-bold mb-8"
-            style={{ color: colors.primary[600] }}>
+            className="mb-8 text-8xl font-bold md:text-9xl"
+            style={{ color: colors.primary[600] }}
+          >
             404
           </div>
 
           {/* Заголовок */}
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
             Страница не найдена
           </h1>
 
           {/* Описание */}
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-            К сожалению, запрашиваемая страница не существует или была
-            перемещена.
+          <p className="mb-8 text-lg leading-relaxed text-gray-600 md:text-xl dark:text-gray-300">
+            К сожалению, запрашиваемая страница не существует или была перемещена.
             <br />
             Давайте вернем вас на правильный путь!
           </p>
 
           {/* Кнопки действий */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto">
+          <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center gap-4 sm:max-w-none sm:flex-row">
             <div className="w-full sm:w-auto">
               <Link href="/">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  fullWidth>
+                <Button variant="primary" size="lg" fullWidth>
                   🏠 На главную
                 </Button>
               </Link>
@@ -89,31 +86,37 @@ const NotFound: React.FC = () => {
                 variant="outline"
                 size="lg"
                 fullWidth
-                onClick={() => { window.history.back(); }}>
+                onClick={() => {
+                  window.history.back();
+                }}
+              >
                 ← Назад
               </Button>
             </div>
           </div>
 
           {/* Дополнительные ссылки */}
-          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <div className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700">
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
               Может быть, вас заинтересует:
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <Link
                 href="/#skills"
-                className="text-primary-600 hover:text-primary-700 transition-colors duration-200">
+                className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+              >
                 Навыки
               </Link>
               <Link
                 href="/#timeline"
-                className="text-primary-600 hover:text-primary-700 transition-colors duration-200">
+                className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+              >
                 Опыт работы
               </Link>
               <Link
                 href="/#contacts"
-                className="text-primary-600 hover:text-primary-700 transition-colors duration-200">
+                className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+              >
                 Контакты
               </Link>
             </div>
@@ -121,14 +124,14 @@ const NotFound: React.FC = () => {
         </Card>
 
         {/* Анимированные элементы */}
-        <div className="absolute top-10 left-10 w-4 h-4 bg-accent-300 rounded-full animate-bounce opacity-60" />
-        <div className="absolute top-20 right-20 w-6 h-6 bg-accent-500 rounded-full animate-pulse opacity-60" />
+        <div className="bg-accent-300 absolute top-10 left-10 h-4 w-4 animate-bounce rounded-full opacity-60" />
+        <div className="bg-accent-500 absolute top-20 right-20 h-6 w-6 animate-pulse rounded-full opacity-60" />
         <div
-          className="absolute bottom-20 left-20 w-5 h-5 bg-accent-700 rounded-full animate-bounce opacity-60"
+          className="bg-accent-700 absolute bottom-20 left-20 h-5 w-5 animate-bounce rounded-full opacity-60"
           style={{ animationDelay: "0.5s" }}
         />
         <div
-          className="absolute bottom-10 right-10 w-3 h-3 bg-accent-400 rounded-full animate-pulse opacity-60"
+          className="bg-accent-400 absolute right-10 bottom-10 h-3 w-3 animate-pulse rounded-full opacity-60"
           style={{ animationDelay: "1s" }}
         />
       </div>
@@ -186,8 +189,7 @@ const NotFound: React.FC = () => {
             transform: translateX(75vw) translateY(-30px) rotate(7deg);
           }
           100% {
-            transform: translateX(calc(100vw + 120px)) translateY(0px)
-              rotate(0deg);
+            transform: translateX(calc(100vw + 120px)) translateY(0px) rotate(0deg);
           }
         }
 
@@ -208,8 +210,7 @@ const NotFound: React.FC = () => {
             transform: translateX(80vw) translateY(-50px) rotate(6deg);
           }
           100% {
-            transform: translateX(calc(100vw + 80px)) translateY(0px)
-              rotate(0deg);
+            transform: translateX(calc(100vw + 80px)) translateY(0px) rotate(0deg);
           }
         }
 
@@ -224,8 +225,7 @@ const NotFound: React.FC = () => {
             transform: translateX(60vw) translateY(20px) rotate(-5deg);
           }
           100% {
-            transform: translateX(calc(100vw + 60px)) translateY(0px)
-              rotate(0deg);
+            transform: translateX(calc(100vw + 60px)) translateY(0px) rotate(0deg);
           }
         }
 
@@ -240,8 +240,7 @@ const NotFound: React.FC = () => {
             transform: translateX(66vw) translateY(-45px) rotate(8deg);
           }
           100% {
-            transform: translateX(calc(100vw + 40px)) translateY(0px)
-              rotate(0deg);
+            transform: translateX(calc(100vw + 40px)) translateY(0px) rotate(0deg);
           }
         }
       `}</style>
@@ -250,4 +249,3 @@ const NotFound: React.FC = () => {
 };
 
 export default NotFound;
-

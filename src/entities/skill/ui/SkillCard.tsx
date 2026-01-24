@@ -13,47 +13,39 @@ export interface SkillCardProps {
 const SkillCardComponent: React.FC<SkillCardProps> = ({ skill, index }) => {
   return (
     <Card
-      className=" group hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+      className="group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl"
       style={{
         backgroundColor: colors.background.tertiary,
         animationDelay: `${String(index * 0.1)}s`,
         animation: "fade-in-up 0.6s ease-out forwards",
         borderRadius: "0rem",
       }}
-      hover={false}>
+      hover={false}
+    >
       <div className="text-center">
         <div
-          className="inline-flex items-center justify-center w-16 h-16 rounded-full text-black text-2xl mb-6 group-hover:scale-110 transition-transform duration-300"
-          style={{ backgroundColor: skill.color }}>
-          <skill.icon className="w-8 h-8" />
+          className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full text-2xl text-black transition-transform duration-300 group-hover:scale-110"
+          style={{ backgroundColor: skill.color }}
+        >
+          <skill.icon className="h-8 w-8" />
         </div>
-        <h3
-          className="text-2xl font-bold mb-4"
-          style={{ color: colors.text.inverse }}>
+        <h3 className="mb-4 text-2xl font-bold" style={{ color: colors.text.inverse }}>
           {skill.name}
         </h3>
-        <p
-          className="mb-6 leading-relaxed"
-          style={{ color: colors.neutral[200] }}>
+        <p className="mb-6 leading-relaxed" style={{ color: colors.neutral[200] }}>
           {skill.description}
         </p>
 
         <div className="mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <span
-              className="text-sm font-medium"
-              style={{ color: colors.neutral[200] }}>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-medium" style={{ color: colors.neutral[200] }}>
               Уровень
             </span>
-            <span
-              className="text-sm font-bold"
-              style={{ color: colors.text.inverse }}>
+            <span className="text-sm font-bold" style={{ color: colors.text.inverse }}>
               {String(skill.level)}%
             </span>
           </div>
-          <div
-            className="w-full rounded-full h-2"
-            style={{ backgroundColor: colors.neutral[200] }}>
+          <div className="h-2 w-full rounded-full" style={{ backgroundColor: colors.neutral[200] }}>
             <div
               className="h-2 rounded-full transition-all duration-1000 ease-out"
               style={{
@@ -73,4 +65,3 @@ const SkillCard = memo(SkillCardComponent);
 SkillCard.displayName = "SkillCard";
 
 export default SkillCard;
-

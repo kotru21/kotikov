@@ -1,4 +1,4 @@
-import { type RefObject , useCallback } from "react";
+import { type RefObject, useCallback } from "react";
 
 interface UseGridCoverageReturn {
   checkCoverage: (targetRect: DOMRect) => number;
@@ -20,11 +20,7 @@ export const useGridCoverage = (
       const intersectionRight = Math.min(targetRect.right, canvasRect.right);
       const intersectionBottom = Math.min(targetRect.bottom, canvasRect.bottom);
 
-      if (
-        intersectionLeft >= intersectionRight ||
-        intersectionTop >= intersectionBottom
-      )
-        return 0;
+      if (intersectionLeft >= intersectionRight || intersectionTop >= intersectionBottom) return 0;
 
       const relativeLeft = intersectionLeft - canvasRect.left;
       const relativeTop = intersectionTop - canvasRect.top;
@@ -41,18 +37,15 @@ export const useGridCoverage = (
 
       for (let c = startCol; c <= endCol; c++) {
         for (let r = startRow; r <= endRow; r++) {
-          
           const cellX = c * pixelSize;
           const cellY = r * pixelSize;
           const overlapW = Math.max(
             0,
-            Math.min(cellX + pixelSize, relativeRight) -
-              Math.max(cellX, relativeLeft)
+            Math.min(cellX + pixelSize, relativeRight) - Math.max(cellX, relativeLeft)
           );
           const overlapH = Math.max(
             0,
-            Math.min(cellY + pixelSize, relativeBottom) -
-              Math.max(cellY, relativeTop)
+            Math.min(cellY + pixelSize, relativeBottom) - Math.max(cellY, relativeTop)
           );
 
           if (overlapW > 0 && overlapH > 0) {

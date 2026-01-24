@@ -8,7 +8,7 @@ export const colors = {
     200: "#9effe4",
     300: "#63ffd5",
     400: "#2cffc7",
-    500: "#00ffb9", 
+    500: "#00ffb9",
     600: "#00d99d",
     700: "#00b583",
     800: "#008f67",
@@ -103,7 +103,6 @@ export const colors = {
     inverse: "#f5f5f3",
     accent: "#008f67",
   },
-
 
   // Цвета границ
   border: {

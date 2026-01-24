@@ -25,15 +25,7 @@ export const timelineData = [
     period: "2024",
     description:
       "Создание веб-мессенджера с использованием React и Node.js. Реализация функционала чата, авторизации и управления пользователями.",
-    technologies: [
-      "JavaScript",
-      "Tailwind",
-      "Node.js",
-      "Socket.IO",
-      "MongoDB",
-      "Express",
-      "JWT",
-    ],
+    technologies: ["JavaScript", "Tailwind", "Node.js", "Socket.IO", "MongoDB", "Express", "JWT"],
     type: "project" as const,
     githubUrl: "https://github.com/kotru21/webchat",
   },

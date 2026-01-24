@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface UseMobileSkillsScrollOptions {
   skillsCount: number;
@@ -43,8 +43,7 @@ export const useMobileSkillsScroll = ({
           const skillsSectionTop = skillsSection.offsetTop;
           const skillsSectionHeight = skillsSection.offsetHeight;
 
-          const currentScrollDirection =
-            scrollTop > previousScrollRef.current ? "down" : "up";
+          const currentScrollDirection = scrollTop > previousScrollRef.current ? "down" : "up";
           if (scrollTop !== previousScrollRef.current) {
             setScrollDirection(currentScrollDirection);
             previousScrollRef.current = scrollTop;
@@ -52,8 +51,7 @@ export const useMobileSkillsScroll = ({
 
           const scrollInSection = scrollTop - skillsSectionTop;
           const headerHeight = viewportHeight;
-          const availableScrollHeight =
-            skillsSectionHeight - headerHeight - viewportHeight;
+          const availableScrollHeight = skillsSectionHeight - headerHeight - viewportHeight;
 
           if (scrollInSection <= 0) {
             setScrollProgress(0);
@@ -72,10 +70,7 @@ export const useMobileSkillsScroll = ({
             setIsTransitioning(false);
           } else {
             const cardScrollPosition = scrollInSection - headerHeight;
-            const progress = Math.max(
-              0,
-              Math.min(1, cardScrollPosition / availableScrollHeight)
-            );
+            const progress = Math.max(0, Math.min(1, cardScrollPosition / availableScrollHeight));
 
             const cardStep = 1 / Math.max(1, skillsCount - 1);
             const exactPosition = progress / cardStep;
@@ -99,8 +94,7 @@ export const useMobileSkillsScroll = ({
               finalIsTransitioning = false;
             } else {
               const transitionRange = 1 - 2 * transitionThreshold;
-              const normalizedProgress =
-                (segmentProgress - transitionThreshold) / transitionRange;
+              const normalizedProgress = (segmentProgress - transitionThreshold) / transitionRange;
 
               finalActiveIndex = baseCardIndex;
               finalTransitionProgress = normalizedProgress;
@@ -124,7 +118,9 @@ export const useMobileSkillsScroll = ({
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => { window.removeEventListener("scroll", handleScroll); };
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [skillsCount]);
 
   return {

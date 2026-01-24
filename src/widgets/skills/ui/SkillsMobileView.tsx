@@ -24,30 +24,24 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
   return (
     <section
       id="skills"
-      className="relative bg-background-primary dark:bg-background-tertiary transition-colors duration-300"
+      className="bg-background-primary dark:bg-background-tertiary relative transition-colors duration-300"
       style={{
         height: `${String(sectionHeight)}vh`,
-      }}>
+      }}
+    >
       {/* Header */}
-      <div className="text-center pt-20 pb-12 px-4">
-        <h2
-          className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white"
-          style={{ }}>
+      <div className="px-4 pt-20 pb-12 text-center">
+        <h2 className="mb-6 text-4xl font-bold text-black md:text-5xl dark:text-white" style={{}}>
           Мои Навыки
         </h2>
-        <p
-          className="text-xl max-w-3xl mx-auto text-neutral-600 dark:text-neutral-400"
-          style={{ }}>
-          Технологии и инструменты, которыми я владею для создания современных
-          веб-приложений
+        <p className="mx-auto max-w-3xl text-xl text-neutral-600 dark:text-neutral-400" style={{}}>
+          Технологии и инструменты, которыми я владею для создания современных веб-приложений
         </p>
       </div>
 
       {/* Sticky контейнер с карточками */}
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div
-          className="h-full bg-background-primary dark:bg-background-tertiary"
-          style={{ }}>
+        <div className="bg-background-primary dark:bg-background-tertiary h-full" style={{}}>
           <SkillMobileCardsContainer
             activeCardIndex={activeCardIndex}
             transitionProgress={transitionProgress}
@@ -57,10 +51,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
         </div>
 
         {/* Индикатор прогресса */}
-        <SkillProgressIndicator
-          activeIndex={activeCardIndex}
-          totalItems={skillsData.length}
-        />
+        <SkillProgressIndicator activeIndex={activeCardIndex} totalItems={skillsData.length} />
       </div>
     </section>
   );

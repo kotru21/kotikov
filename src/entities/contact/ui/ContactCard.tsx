@@ -19,26 +19,25 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "
 
   return (
     <div
-      className="p-6 transition-all duration-300 border-2 border-transparent"
+      className="border-2 border-transparent p-6 transition-all duration-300"
       style={{
         background: "transparent",
-      }}>
-
+      }}
+    >
       <div className="flex flex-col items-center space-y-4 text-center">
-        <div className={`p-4 border-2 border-transparent hover:scale-110 transition-transform duration-200 ${iconContainerClasses}`}>
-            <contact.icon
-              className="text-2xl"
-            />
+        <div
+          className={`border-2 border-transparent p-4 transition-transform duration-200 hover:scale-110 ${iconContainerClasses}`}
+        >
+          <contact.icon className="text-2xl" />
         </div>
         <div>
           <h3
-            className="font-black text-xl uppercase tracking-wider mb-2"
-            style={{ color: "currentColor" }}>
+            className="mb-2 text-xl font-black tracking-wider uppercase"
+            style={{ color: "currentColor" }}
+          >
             {contact.label}
           </h3>
-          <p
-            className="text-sm font-bold opacity-90 font-mono"
-            style={{ color: "currentColor" }}>
+          <p className="font-mono text-sm font-bold opacity-90" style={{ color: "currentColor" }}>
             {contact.value}
           </p>
         </div>

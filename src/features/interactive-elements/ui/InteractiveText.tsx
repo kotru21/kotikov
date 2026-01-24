@@ -25,9 +25,7 @@ const InteractiveChar = memo(
     }, [register, unregister]);
 
     return (
-      <span
-        ref={ref}
-        className="relative inline-block transition-colors duration-200">
+      <span ref={ref} className="relative inline-block transition-colors duration-200">
         {char === " " ? "\u00A0" : char}
       </span>
     );
@@ -71,10 +69,7 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
   return <Component {...props}>{children}</Component>;
 };
 
-export const InteractiveText: React.FC<InteractiveTextProps> = ({
-  text,
-  className,
-}) => {
+export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, className }) => {
   const registry = React.useContext(InteractiveTextContext);
 
   if (!registry) {

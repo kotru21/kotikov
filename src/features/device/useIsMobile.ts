@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef,useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseIsMobileOptions {
   breakpoint?: number;
@@ -56,17 +56,16 @@ export const useIsMobile = (options: UseIsMobileOptions | number = {}): boolean 
       return () => {
         mediaQuery.removeEventListener("change", handleChange);
       };
-    } 
-      checkIsMobile();
-      window.addEventListener("resize", debouncedCheck, { passive: true });
+    }
+    checkIsMobile();
+    window.addEventListener("resize", debouncedCheck, { passive: true });
 
-      return () => {
-        window.removeEventListener("resize", debouncedCheck);
-        if (timeoutRef.current !== null) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    
+    return () => {
+      window.removeEventListener("resize", debouncedCheck);
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [breakpoint, useMatchMedia, checkIsMobile, debouncedCheck]);
 
   useEffect(() => {

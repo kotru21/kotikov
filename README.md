@@ -6,6 +6,6 @@
 
 [![Русский RU](https://img.shields.io/badge/Русский-RU-eafff8?style=for-the-badge)](./README.ru.md) [![English EN](https://img.shields.io/badge/English-EN-eafff8?style=for-the-badge)](./README.en.md)
 
-| Light mode | Dark mode |
-| --- | --- |
+| Light mode                                                            | Dark mode                                                           |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | ![Kotikov — Скриншот (Light)](./public/screenshot-fullsize-light.png) | ![Kotikov — Скриншот (Dark)](./public/screenshot-fullsize-dark.png) |
