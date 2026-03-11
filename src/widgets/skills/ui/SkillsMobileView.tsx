@@ -1,58 +1,100 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { FaLinkedinIn } from "react-icons/fa";
 
-import { skillsData } from "@/shared/config/content";
+import { skillsData, social } from "@/shared/config/content";
+import { Button } from "@/shared/ui";
 
-import { SkillMobileCardsContainer, SkillProgressIndicator } from ".";
+import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
+import { SkillMarqueeRow } from ".";
 
-interface SkillsMobileViewProps {
-  activeCardIndex: number;
-  transitionProgress: number;
-  isTransitioning: boolean;
-  previousActiveIndex: number;
-}
+const SkillsMobileView: React.FC = () => {
+  const mid = Math.ceil(skillsData.length / 2);
+  const firstRow = skillsData.slice(0, mid);
+  const secondRow = skillsData.slice(mid);
 
-const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({
-  activeCardIndex,
-  transitionProgress,
-  isTransitioning,
-  previousActiveIndex,
-}) => {
-  const sectionHeight = 100 + skillsData.length * 100; // 100vh header + 100vh per card
+  const rowsRef = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = rowsRef.current;
+    if (el === null) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
       id="skills"
-      className="bg-background-primary dark:bg-background-tertiary relative transition-colors duration-300"
-      style={{
-        height: `${String(sectionHeight)}vh`,
-      }}
+      aria-labelledby="skills-heading"
+      className="bg-background-primary dark:bg-background-tertiary relative overflow-x-hidden py-12 transition-colors duration-300"
     >
-      {/* Header */}
-      <div className="px-4 pt-20 pb-12 text-center">
-        <h2 className="mb-6 text-4xl font-bold text-black md:text-5xl dark:text-white" style={{}}>
+      {/* Заголовок */}
+      <div className="px-4 pb-8 text-center">
+        <h2
+          id="skills-heading"
+          className="mb-4 text-4xl font-bold tracking-tighter text-black uppercase dark:text-white"
+        >
           Мои Навыки
         </h2>
-        <p className="mx-auto max-w-3xl text-xl text-neutral-600 dark:text-neutral-400" style={{}}>
-          Технологии и инструменты, которыми я владею для создания современных веб-приложений
+        <p className="mx-auto max-w-sm text-lg font-medium text-neutral-600 dark:text-neutral-400">
+          Технологии и инструменты, которыми я владею
         </p>
       </div>
 
-      {/* Sticky контейнер с карточками */}
-      <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="bg-background-primary dark:bg-background-tertiary h-full" style={{}}>
-          <SkillMobileCardsContainer
-            activeCardIndex={activeCardIndex}
-            transitionProgress={transitionProgress}
-            isTransitioning={isTransitioning}
-            previousActiveIndex={previousActiveIndex}
-          />
-        </div>
-
-        {/* Индикатор прогресса */}
-        <SkillProgressIndicator activeIndex={activeCardIndex} totalItems={skillsData.length} />
+      {/* Кнопка LinkedIn над скиллами */}
+      <div className="flex justify-center pb-8">
+        <Button
+          href={social.linkedin.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="primary"
+          size="lg"
+          aria-label="Открыть мой профиль LinkedIn (откроется в новой вкладке)"
+        >
+          <FaLinkedinIn className="text-xl" aria-hidden="true" />
+          <span>Смотреть мой LinkedIn</span>
+        </Button>
       </div>
+
+      {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте */}
+      <SkillsInteractionProvider>
+        <div ref={rowsRef} className="flex flex-col gap-0">
+          <div
+            className="border-y-2 border-black bg-white py-4 dark:border-white dark:bg-black"
+            style={{
+              transform: visible ? "translateX(0)" : "translateX(-100%)",
+              opacity: visible ? 1 : 0,
+              transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
+            }}
+          >
+            <SkillMarqueeRow skills={firstRow} speed={35} direction="left" />
+          </div>
+          <div
+            className="border-b-2 border-black bg-white py-4 dark:border-white dark:bg-black"
+            style={{
+              transform: visible ? "translateX(0)" : "translateX(100%)",
+              opacity: visible ? 1 : 0,
+              transition:
+                "transform 0.7s 0.1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s 0.1s ease",
+            }}
+          >
+            <SkillMarqueeRow skills={secondRow} speed={45} direction="right" />
+          </div>
+        </div>
+      </SkillsInteractionProvider>
     </section>
   );
 };
