@@ -53,9 +53,9 @@ const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
       </div>
       {/* Название и описание */}
       <div className="flex min-w-0 flex-col">
-        <h3 className="text-lg font-bold tracking-wide text-black uppercase dark:text-white">
+        <p className="text-lg font-bold tracking-wide text-black uppercase dark:text-white">
           {skill.name}
-        </h3>
+        </p>
         <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
           {skill.description}
         </p>
