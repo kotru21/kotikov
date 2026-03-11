@@ -17,7 +17,10 @@ const SkillsMarquee: React.FC = () => {
           className="mb-4 text-4xl font-bold tracking-tighter text-black uppercase drop-shadow-sm md:text-5xl dark:text-white"
           style={{}}
         >
-          Мои Навыки
+          Мои навыки
+          <span className="mt-3 block text-base font-semibold tracking-normal normal-case text-neutral-700 dark:text-neutral-300">
+            React, JavaScript, Node.js, фреймворк Next.js
+          </span>
         </h2>
         <p
           className="mx-auto max-w-2xl text-lg font-medium text-neutral-600 dark:text-neutral-400"

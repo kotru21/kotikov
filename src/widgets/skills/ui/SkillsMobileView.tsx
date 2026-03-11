@@ -47,7 +47,10 @@ const SkillsMobileView: React.FC = () => {
           id="skills-heading"
           className="mb-4 text-4xl font-bold tracking-tighter text-black uppercase dark:text-white"
         >
-          Мои Навыки
+          Мои навыки
+          <span className="mt-3 block text-base font-semibold tracking-normal normal-case text-neutral-700 dark:text-neutral-300">
+            React, JavaScript, Node.js, фреймворк Next.js
+          </span>
         </h2>
         <p className="mx-auto max-w-sm text-lg font-medium text-neutral-600 dark:text-neutral-400">
           Технологии и инструменты, которыми я владею

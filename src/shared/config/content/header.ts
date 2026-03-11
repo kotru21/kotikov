@@ -1,7 +1,7 @@
 export const headerContent = {
   title: "Привет, я Kotikov",
   subtitle:
-    "Я — Kotikov, frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
+    "Frontend разработка на React, Next.js, JavaScript и Node.js — то, чем я занимаюсь. Я — Kotikov, создаю современные веб-приложения и интерфейсы.",
   announcement: {
     text: "Хочешь узнать обо мне подробнее?",
     linkText: "Кликай сюда!",

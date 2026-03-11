@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,22 +16,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
 export const metadata: Metadata = {
   title: {
-    default: "Kotikov - Frontend Developer | Портфолио",
+    default: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
     template: "%s | Kotikov",
   },
   description:
-    "Frontend разработчик Kotikov. Создаю современные веб-приложения на React, Next.js, TypeScript.",
+    "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
   keywords: [
     "frontend developer",
+    "frontend разработка",
     "веб-разработчик",
     "React",
     "Next.js",
+    "Node.js",
     "TypeScript",
     "JavaScript",
     "HTML",
     "CSS",
+    "фреймворк Next.js",
     "Tailwind CSS",
     "UI/UX",
     "responsive design",
@@ -59,24 +65,24 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "https://ktkv.me",
     siteName: "Kotikov Portfolio",
-    title: "Kotikov - Frontend Developer | Портфолио",
+    title: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
     description:
-      "Frontend разработчик Kotikov. Создаю современные веб-приложения на React, Next.js, TypeScript.",
+      "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
     images: [
       {
         url: "/og_image.png",
         width: 1200,
         height: 630,
-        alt: "Kotikov - Frontend Developer",
+        alt: "Kotikov — Frontend разработка на React/Next.js",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kotikov - Frontend Developer | Портфолио",
+    title: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
     description:
-      "Frontend разработчик Kotikov. Создаю современные веб-приложения на React, Next.js, TypeScript.",
+      "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
     images: ["/og_image.png"],
     creator: "@kotikov_dev",
     site: "@kotikov_dev",
@@ -89,11 +95,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/logo_mobile.svg",
+        url: "/favicon.ico",
+        type: "image/x-icon",
+      },
+      {
+        url: "/favicon.svg",
         type: "image/svg+xml",
       },
     ],
-    shortcut: "/logo_mobile.svg",
+    shortcut: "/favicon.ico",
     apple: "/logo_mobile.svg",
   },
 };
@@ -107,6 +117,17 @@ export default function RootLayout({
     <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        {gaId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="lazyOnload"
+            />
+            <Script id="ga-init" strategy="lazyOnload">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config','${gaId}',{anonymize_ip:true});`}
+            </Script>
+          </>
+        ) : null}
         <Analytics />
         <SpeedInsights />
       </body>
