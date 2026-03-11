@@ -48,7 +48,7 @@ export const timelineData = [
       "Создание файлового с использованием Tauri. Реализация функционала менеджера файлов, виртуальных списков, глубокой кастомизации UI, покрытие тестами (Unit, Integration, E2E)",
     technologies: ["Typescript", "Tailwind", "Vitest"],
     type: "project" as const,
-    githubUrl: "https://github.com/kotru21/webchat",
+    githubUrl: "https://github.com/kotru21/FileManagerTauri",
   },
   {
     id: 6,
