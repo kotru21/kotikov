@@ -78,7 +78,8 @@ export default defineConfig(
     },
     settings: {
       react: {
-        version: "detect",
+        // ESLint 10 removed context.getFilename; avoid react version auto-detect.
+        version: "19.2.4",
       },
     },
     rules: {

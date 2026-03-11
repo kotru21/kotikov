@@ -8,7 +8,7 @@ export interface ContactCardProps {
 }
 
 const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "auto" }) => {
-  let iconContainerClasses = "";
+  let iconContainerClasses: string;
   if (variant === "auto") {
     iconContainerClasses = "bg-black dark:bg-white text-white dark:text-black";
   } else if (variant === "light") {
