@@ -117,7 +117,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-        {gaId ? (
+        {gaId !== undefined && gaId !== "" ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
