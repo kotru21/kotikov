@@ -97,7 +97,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                     <div className="w-full">
                       <InteractiveElement
                         as="div"
-                        className="w-full h-full"
+                        className="h-full w-full"
                         data-interactive-mode={variant === "light" ? "border" : "solid"}
                         data-interactive-bg={colors.primary[500]}
                         data-interactive-text={variant === "dark" ? "white" : "black"}

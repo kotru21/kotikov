@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
  *   +intensity  → section is fully above viewport (exiting)
  */
 export const useScrollParallax = (
-  intensity = 100,
+  intensity = 100
 ): {
   sectionRef: React.RefObject<HTMLElement | null>;
   offset: number;

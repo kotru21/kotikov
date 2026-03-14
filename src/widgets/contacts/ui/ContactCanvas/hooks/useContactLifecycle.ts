@@ -1,6 +1,6 @@
 import { type RefObject, useCallback } from "react";
 
-import { computeCoverage,useCanvasLifecycle } from "@/shared/ui";
+import { computeCoverage, useCanvasLifecycle } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface UseContactLifecycleReturn {

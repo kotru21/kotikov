@@ -18,10 +18,13 @@ const ContactsWidget: React.FC = () => {
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
 
-  const handleDraw = useCallback((x: number, y: number, prevX: number, prevY: number) => {
-    canvasRef.current?.drawOnCanvas(x, y, prevX, prevY);
-    checkCollisions(x, y, prevX, prevY, canvasRef);
-  }, [checkCollisions]);
+  const handleDraw = useCallback(
+    (x: number, y: number, prevX: number, prevY: number) => {
+      canvasRef.current?.drawOnCanvas(x, y, prevX, prevY);
+      checkCollisions(x, y, prevX, prevY, canvasRef);
+    },
+    [checkCollisions]
+  );
 
   const handleCanvasInit = useCallback(() => {
     // Колбэк для инициализации холста

@@ -4,8 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Kotikov - Frontend Developer",
     short_name: "Kotikov",
-    description:
-      "Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js.",
+    description: "Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

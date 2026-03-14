@@ -26,7 +26,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             href="/"
             data-draw-allow
             data-interactive-color={colors.text.primary}
-            className="inline-flex items-center -m-1.5 p-1.5"
+            className="-m-1.5 inline-flex items-center p-1.5"
           >
             <span className="sr-only">ktkv</span>
             {/* Логотип для мобильных устройств */}
@@ -66,7 +66,9 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           <InteractiveElement
             as="button"
             type="button"
-            data-draw-allow            data-interactive-color={colors.text.primary}            className="text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse text-sm/6 font-semibold transition-colors"
+            data-draw-allow
+            data-interactive-color={colors.text.primary}
+            className="text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse text-sm/6 font-semibold transition-colors"
           >
             Туда <span aria-hidden="true">&rarr;</span>
           </InteractiveElement>

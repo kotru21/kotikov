@@ -19,10 +19,8 @@ export const sampleBrushAtPoint = (
 
   for (let dy = -brushRadPx; dy <= brushRadPx; dy++) {
     for (let dx = -brushRadPx; dx <= brushRadPx; dx++) {
-      const centerX =
-        Math.floor(interpX / pixelSize) * pixelSize + pixelSize / 2 + dx * pixelSize;
-      const centerY =
-        Math.floor(interpY / pixelSize) * pixelSize + pixelSize / 2 + dy * pixelSize;
+      const centerX = Math.floor(interpX / pixelSize) * pixelSize + pixelSize / 2 + dx * pixelSize;
+      const centerY = Math.floor(interpY / pixelSize) * pixelSize + pixelSize / 2 + dy * pixelSize;
 
       const dist = Math.hypot(centerX - interpX, centerY - interpY);
       if (dist > brushRadius) continue;

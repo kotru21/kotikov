@@ -39,7 +39,7 @@ export const timelineData = [
     technologies: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Jest"],
     type: "work" as const,
   },
-    {
+  {
     id: 5,
     title: "Файловый менеджер",
     company: "Личный проект",

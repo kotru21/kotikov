@@ -66,7 +66,14 @@ export const useContactDrawing = (
       const canvasPrevX = prevX - rect.left;
       const canvasPrevY = prevY - rect.top;
 
-      const pixelsToDraw = sampleBrushStroke(canvasX, canvasY, canvasPrevX, canvasPrevY, pixelSize, brushRadius);
+      const pixelsToDraw = sampleBrushStroke(
+        canvasX,
+        canvasY,
+        canvasPrevX,
+        canvasPrevY,
+        pixelSize,
+        brushRadius
+      );
 
       const newDrawn: Array<{ x: number; y: number }> = [];
 

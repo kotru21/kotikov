@@ -18,7 +18,7 @@ const SkillsMarquee: React.FC = () => {
           style={{}}
         >
           Мои навыки
-          <span className="mt-3 block text-base font-semibold tracking-normal normal-case text-neutral-700 dark:text-neutral-300">
+          <span className="mt-3 block text-base font-semibold tracking-normal text-neutral-700 normal-case dark:text-neutral-300">
             React, JavaScript, Node.js, фреймворк Next.js
           </span>
         </h2>

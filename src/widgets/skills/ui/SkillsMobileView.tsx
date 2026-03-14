@@ -28,7 +28,7 @@ const SkillsMobileView: React.FC = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 },
+      { threshold: 0.15 }
     );
 
     observer.observe(el);
@@ -48,7 +48,7 @@ const SkillsMobileView: React.FC = () => {
           className="mb-4 text-4xl font-bold tracking-tighter text-black uppercase dark:text-white"
         >
           Мои навыки
-          <span className="mt-3 block text-base font-semibold tracking-normal normal-case text-neutral-700 dark:text-neutral-300">
+          <span className="mt-3 block text-base font-semibold tracking-normal text-neutral-700 normal-case dark:text-neutral-300">
             React, JavaScript, Node.js, фреймворк Next.js
           </span>
         </h2>

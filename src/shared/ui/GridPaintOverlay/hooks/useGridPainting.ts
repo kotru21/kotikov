@@ -1,6 +1,6 @@
 import { type RefObject, useCallback, useRef } from "react";
 
-import { sampleBrushStroke } from "@/shared/ui"; 
+import { sampleBrushStroke } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface UseGridPaintingReturn {

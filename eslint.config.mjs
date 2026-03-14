@@ -18,13 +18,7 @@ export default defineConfig(
   // IGNORES
   // ═══════════════════════════════════════════════════════════════════════════
   {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "dist/**",
-      "coverage/**",
-    ],
+    ignores: ["node_modules/**", ".next/**", "out/**", "dist/**", "coverage/**"],
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -62,7 +56,6 @@ export default defineConfig(
     },
   },
 
-
   // ═══════════════════════════════════════════════════════════════════════════
   // NEXT.JS, REACT & ACCESSIBILITY RULES
   // ═══════════════════════════════════════════════════════════════════════════
@@ -97,10 +90,7 @@ export default defineConfig(
       "react/react-in-jsx-scope": "off", // Not needed in Next.js
       "react/prop-types": "off", // Using TypeScript
       "react/jsx-no-target-blank": "error",
-      "react/jsx-curly-brace-presence": [
-        "error",
-        { props: "never", children: "never" },
-      ],
+      "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }],
       "react/self-closing-comp": ["error", { component: true, html: true }],
       "react/jsx-boolean-value": ["error", "never"],
       "react/jsx-no-useless-fragment": "error",
@@ -463,8 +453,7 @@ export default defineConfig(
             },
             {
               name: "@/widgets",
-              message:
-                "Public API only: импортируй из '@/widgets/<slice>' (а не из '@/widgets').",
+              message: "Public API only: импортируй из '@/widgets/<slice>' (а не из '@/widgets').",
             },
             {
               name: "@/shared",
@@ -475,11 +464,7 @@ export default defineConfig(
           patterns: [
             // Entities internals
             {
-              group: [
-                "@/entities/*/data/*",
-                "@/entities/*/model/*",
-                "@/entities/*/ui/*",
-              ],
+              group: ["@/entities/*/data/*", "@/entities/*/model/*", "@/entities/*/ui/*"],
               message:
                 "Public API only: не импортируй внутренности entities (data/model/ui). Используй '@/entities/<slice>'.",
             },

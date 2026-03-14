@@ -28,8 +28,14 @@ export const computeCoverage = (
     for (let r = startRow; r <= endRow; r++) {
       const cellX = c * pixelSize;
       const cellY = r * pixelSize;
-      const overlapW = Math.max(0, Math.min(cellX + pixelSize, relativeRight) - Math.max(cellX, relativeLeft));
-      const overlapH = Math.max(0, Math.min(cellY + pixelSize, relativeBottom) - Math.max(cellY, relativeTop));
+      const overlapW = Math.max(
+        0,
+        Math.min(cellX + pixelSize, relativeRight) - Math.max(cellX, relativeLeft)
+      );
+      const overlapH = Math.max(
+        0,
+        Math.min(cellY + pixelSize, relativeBottom) - Math.max(cellY, relativeTop)
+      );
 
       if (overlapW > 0 && overlapH > 0) {
         totalCells++;
