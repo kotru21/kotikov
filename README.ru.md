@@ -1,6 +1,6 @@
 # <a href="https://ktkv.me"><img src="./public/logo_mobile.svg" alt="Kotikov logo" width="36" height="36" style="vertical-align:middle;margin-right:8px" /></a> Kotikov
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.4-eafff8?logo=next.js&logoColor=eafff8)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.6-eafff8?logo=bun&logoColor=eafff8)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-eafff8?logo=typescript&logoColor=eafff8)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.18-eafff8?logo=tailwindcss&&logoColor=eafff8)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-eafff8?logo=vercel&logoColor=eafff8)](https://vercel.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-eafff8?logo=next.js&logoColor=eafff8)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.11-eafff8?logo=bun&logoColor=eafff8)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-eafff8?logo=typescript&logoColor=eafff8)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.2.2-eafff8?logo=tailwindcss&&logoColor=eafff8)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-eafff8?logo=vercel&logoColor=eafff8)](https://vercel.com/)
 
 Портфолио Kotikov — современный сайт фронтенд‑разработчика, созданный на Next.js, TypeScript и Tailwind.
 
@@ -54,8 +54,8 @@ bun install
 
 ## Технологии
 
-- Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4
-- Bun (`bun@1.3.6`)
+- Next.js 16.1, React 19.2, TypeScript 5.9, Tailwind CSS 4.2
+- Bun (`bun@1.3.11`)
 - Vercel (Analytics, Speed Insights)
 - ESLint (строгая конфигурация TypeScript / FSD)
 
@@ -79,5 +79,5 @@ bun install
 
 - Сайт: [ktkv.me](https://ktkv.me)
 - GitHub: [github.com/kotru21/kotikov](https://github.com/kotru21/kotikov)
-- LinkedIn: [linkedin.ktkv.me](https://linkedin.ktkv.me)
+- LinkedIn: [linkedin.com/in/arseni-batura](https://www.linkedin.com/in/arseni-batura/)
 - Email: [inbox@ktkv.me](mailto:inbox@ktkv.me)

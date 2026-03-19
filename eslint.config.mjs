@@ -13,6 +13,19 @@ import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
+/** Allowed import targets under `src/shared` (public API paths). */
+const boundariesSharedTo = ["index.ts", "index.tsx", "config/**", "lib/**", "ui/**", "styles/**"].map(
+  (internalPath) => ({ type: "shared", internalPath }),
+);
+
+/** Public slice entry paths for entities / features / widgets. */
+function boundariesSliceTo(/** @type {string} */ elementType) {
+  return ["index.ts", "index.tsx", "*/index.ts", "*/index.tsx"].map((internalPath) => ({
+    type: elementType,
+    internalPath,
+  }));
+}
+
 export default defineConfig(
   // ═══════════════════════════════════════════════════════════════════════════
   // IGNORES
@@ -356,58 +369,50 @@ export default defineConfig(
       ],
 
       // ─────────────────────────────────────────────────────────────────────────
-      // FSD layer boundaries
+      // FSD layer boundaries + public API (entry paths via internalPath)
+      // v6: boundaries/dependencies + object selectors (replaces element-types + entry-point)
       // ─────────────────────────────────────────────────────────────────────────
-      "boundaries/element-types": [
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
           rules: [
-            { from: "shared", allow: ["shared"] },
-            { from: "entities", allow: ["entities", "shared"] },
-            { from: "features", allow: ["features", "entities", "shared"] },
             {
-              from: "widgets",
-              allow: ["widgets", "features", "entities", "shared"],
+              from: { type: "shared" },
+              allow: { to: boundariesSharedTo },
             },
             {
-              from: "app",
-              allow: ["app", "widgets", "features", "entities", "shared"],
+              from: { type: "entities" },
+              allow: { to: [...boundariesSliceTo("entities"), ...boundariesSharedTo] },
             },
-          ],
-        },
-      ],
-
-      // FSD public API enforcement (entry points only)
-      "boundaries/entry-point": [
-        "error",
-        {
-          default: "disallow",
-          rules: [
-            // Shared segments can have multiple entry points
             {
-              target: ["shared"],
-              allow: [
-                "index.ts",
-                "index.tsx",
-                // Allow direct access to shared config
-                "config/**",
-                "lib/**",
-                "ui/**",
-                "styles/**",
-              ],
+              from: { type: "features" },
+              allow: {
+                to: [...boundariesSliceTo("features"), ...boundariesSliceTo("entities"), ...boundariesSharedTo],
+              },
             },
-            // Slices only through index
             {
-              target: ["entities", "features", "widgets"],
-              // allow entry points in subfolders (e.g. 'skills/index.ts')
-              // restricted to one-level deep to avoid exposing internal subfolders
-              allow: ["index.ts", "index.tsx", "*/index.ts", "*/index.tsx"],
+              from: { type: "widgets" },
+              allow: {
+                to: [
+                  ...boundariesSliceTo("widgets"),
+                  ...boundariesSliceTo("features"),
+                  ...boundariesSliceTo("entities"),
+                  ...boundariesSharedTo,
+                ],
+              },
             },
-            // App layer is flexible
             {
-              target: ["app"],
-              allow: "**",
+              from: { type: "app" },
+              allow: {
+                to: [
+                  { type: "app", internalPath: "**" },
+                  ...boundariesSliceTo("widgets"),
+                  ...boundariesSliceTo("features"),
+                  ...boundariesSliceTo("entities"),
+                  ...boundariesSharedTo,
+                ],
+              },
             },
           ],
         },

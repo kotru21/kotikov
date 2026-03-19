@@ -1,0 +1,23 @@
+# Ensures README*.md version badges match package.json (run `bun run sync-readme-versions` locally if this fails).
+name: README versions
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Sync README from package.json
+        run: node ./scripts/sync-readme-versions.mjs
+
+      - name: Fail if READMEs are out of sync
+        run: git diff --exit-code README.md README.ru.md README.en.md

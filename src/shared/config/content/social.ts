@@ -4,7 +4,7 @@ export const social = {
     display: "github.com/kotru21",
   },
   linkedin: {
-    url: "https://linkedin.ktkv.me",
+    url: "https://www.linkedin.com/in/arseni-batura/",
   },
   telegram: {
     url: "https://t.me/arsenij_kotikov",
