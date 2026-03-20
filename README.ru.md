@@ -18,7 +18,7 @@
 
 ### Требования
 
-- Bun v1.x
+- Bun v1.3+
 
 ### Установка
 
@@ -63,7 +63,7 @@ bun install
 
 ## Деплой
 
-Деплой на Vercel: `vercel.json` содержит `bunVersion: 1.x` — убедитесь, что Vercel использует Bun v1.x при сборке.  
+Деплой на Vercel: `vercel.json` содержит `bunVersion: 1.3.x` — убедитесь, что Vercel использует Bun v1.3+ при сборке.  
 Команда сборки: `bun run build`.
 
 ---

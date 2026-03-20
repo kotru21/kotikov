@@ -18,7 +18,7 @@ Kotikov portfolio — a modern frontend developer site built with Next.js, TypeS
 
 ### Prerequisites
 
-- Bun v1.x
+- Bun v1.3+
 
 ### Install
 
@@ -63,7 +63,7 @@ bun install
 
 ## Deployment
 
-Deploy on Vercel: `vercel.json` contains `bunVersion: 1.x` — ensure Vercel uses Bun v1.x.  
+Deploy on Vercel: `vercel.json` contains `bunVersion: 1.3.x` — ensure Vercel uses Bun v1.3+.  
 Build command: `bun run build`.
 
 ---

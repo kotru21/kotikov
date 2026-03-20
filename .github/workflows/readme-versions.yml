@@ -1,4 +1,4 @@
-# Ensures README*.md version badges match package.json (run `bun run sync-readme-versions` locally if this fails).
+# Ensures README*.md and vercel.json match package.json (run `bun run sync-readme-versions` locally if this fails).
 name: README versions
 
 on:
@@ -19,5 +19,5 @@ jobs:
       - name: Sync README from package.json
         run: node ./scripts/sync-readme-versions.mjs
 
-      - name: Fail if READMEs are out of sync
-        run: git diff --exit-code README.md README.ru.md README.en.md
+      - name: Fail if READMEs or vercel.json are out of sync
+        run: git diff --exit-code README.md README.ru.md README.en.md vercel.json
