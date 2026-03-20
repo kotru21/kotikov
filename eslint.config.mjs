@@ -31,7 +31,7 @@ export default defineConfig(
   // IGNORES
   // ═══════════════════════════════════════════════════════════════════════════
   {
-    ignores: ["node_modules/**", ".next/**", "out/**", "dist/**", "coverage/**"],
+    ignores: ["node_modules/**", ".next/**", "out/**", "dist/**", "coverage/**", "scripts/**"],
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -46,6 +46,9 @@ export default defineConfig(
   {
     languageOptions: {
       parserOptions: {
+        // TODO(tech-debt): typescript-eslint@8.x peer range is `typescript <6.0.0`; remove when a
+        // release supports TypeScript 6+ (see https://github.com/typescript-eslint/typescript-eslint).
+        warnOnUnsupportedTypeScriptVersion: false,
         projectService: {
           allowDefaultProject: ["*.mjs", "eslint.config.mjs"],
         },

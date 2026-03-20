@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "esnext"],
+    "rootDir": ".",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,6 +15,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "stableTypeOrdering": true,
+    "erasableSyntaxOnly": true,
     "plugins": [
       {
         "name": "next"
