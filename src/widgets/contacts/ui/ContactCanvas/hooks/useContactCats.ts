@@ -11,8 +11,10 @@ interface UseContactCatsReturn {
 }
 
 export const useContactCats = (): UseContactCatsReturn => {
-  const catMapRef = useRef<Map<string, string>>(new Map()); // "col,row" -> color
-  const revealedMapRef = useRef<Map<string, { color: string; intensity: number }>>(new Map()); // Уже закрашенные пиксели (key -> color+intensity)
+  const catMapRef = useRef(new Map<string, string>()); // "col,row" -> color
+  const revealedMapRef = useRef(
+    new Map<string, { color: string; intensity: number }>()
+  ); // Уже закрашенные пиксели (key -> color+intensity)
 
   const generateCats = useCallback((rows: number, cols: number): void => {
     catMapRef.current.clear();

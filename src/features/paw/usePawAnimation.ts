@@ -42,8 +42,8 @@ export const usePawAnimation = (
   });
 
   const animationFrameRef = useRef<number | null>(null);
-  const lastUpdateTimeRef = useRef<number>(0);
-  const mouseVelocityRef = useRef<MousePosition>({ x: 0, y: 0 });
+  const lastUpdateTimeRef = useRef(0);
+  const mouseVelocityRef = useRef({ x: 0, y: 0 });
 
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);

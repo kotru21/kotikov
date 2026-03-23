@@ -11,14 +11,14 @@ interface SkillsCursorNyancatProps {
 
 const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({ containerRef }) => {
   const catRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<number>(0);
+  const frameRef = useRef(0);
 
   // Physics / Animation State
   const currentPos = useRef({ x: 0, y: 0 });
   const startPos = useRef({ x: 0, y: 0 });
 
   // Jump State
-  const jumpStartTime = useRef<number>(0);
+  const jumpStartTime = useRef(0);
   const isJumping = useRef(false);
   const jumpTargetElement = useRef<HTMLElement | null>(null);
   const jumpTargetPos = useRef<{ x: number; y: number } | null>(null);

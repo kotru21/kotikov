@@ -19,14 +19,14 @@ interface UseExplosionReturn {
 export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
   const [isExploded, setIsExploded] = useState(false);
   const [pixels, setPixels] = useState<Pixel[]>([]);
-  const [explosionPosition, setExplosionPosition] = useState<Position>({
+  const [explosionPosition, setExplosionPosition] = useState({
     x: 0,
     y: 0,
   });
   const nyancatRef = useRef<HTMLDivElement>(null);
   const pixelsRef = useRef<Pixel[]>([]);
   const rafRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number>(0);
+  const startTimeRef = useRef(0);
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
 
   const explode = useCallback(() => {

@@ -6,7 +6,7 @@ export const useInteractiveRegistry = (): {
   interactiveElementsRef: RefObject<Set<HTMLElement>>;
   registry: InteractiveTextRegistry;
 } => {
-  const interactiveElementsRef = useRef<Set<HTMLElement>>(new Set());
+  const interactiveElementsRef = useRef(new Set<HTMLElement>());
 
   const register = useCallback((el: HTMLElement) => {
     interactiveElementsRef.current.add(el);
