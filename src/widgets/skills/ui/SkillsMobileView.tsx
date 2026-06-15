@@ -3,13 +3,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
+import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
 import { Button } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
-import { SkillMarqueeRow } from ".";
+import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
 const SkillsMobileView: React.FC = () => {
+  const { reducedMotion, lowPerformance } = usePerformanceSettings();
+  const showMarquee = !reducedMotion && !lowPerformance;
+
   const mid = Math.ceil(skillsData.length / 2);
   const firstRow = skillsData.slice(0, mid);
   const secondRow = skillsData.slice(mid);
@@ -72,32 +76,41 @@ const SkillsMobileView: React.FC = () => {
         </Button>
       </div>
 
-      {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте */}
-      <SkillsInteractionProvider>
-        <div ref={rowsRef} className="flex flex-col gap-0">
-          <div
-            className="border-y-2 border-black bg-white py-4 dark:border-white dark:bg-black"
-            style={{
-              transform: visible ? "translateX(0)" : "translateX(-100%)",
-              opacity: visible ? 1 : 0,
-              transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
-            }}
-          >
-            <SkillMarqueeRow skills={firstRow} speed={35} direction="left" />
+      {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте; только при включённой анимации */}
+      {showMarquee ? (
+        <SkillsInteractionProvider>
+          <div ref={rowsRef} className="flex flex-col gap-2 px-2">
+            <div
+              style={{
+                transform: visible ? "translateX(0)" : "translateX(-100%)",
+                opacity: visible ? 1 : 0,
+                transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
+              }}
+            >
+              <SkillMarqueeRow curved arcHeight={44} skills={firstRow} speed={35} direction="left" />
+            </div>
+            <div
+              style={{
+                transform: visible ? "translateX(0)" : "translateX(100%)",
+                opacity: visible ? 1 : 0,
+                transition:
+                  "transform 0.7s 0.1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s 0.1s ease",
+              }}
+            >
+              <SkillMarqueeRow
+                curved
+                arcHeight={44}
+                skills={secondRow}
+                speed={45}
+                direction="right"
+              />
+            </div>
           </div>
-          <div
-            className="border-b-2 border-black bg-white py-4 dark:border-white dark:bg-black"
-            style={{
-              transform: visible ? "translateX(0)" : "translateX(100%)",
-              opacity: visible ? 1 : 0,
-              transition:
-                "transform 0.7s 0.1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s 0.1s ease",
-            }}
-          >
-            <SkillMarqueeRow skills={secondRow} speed={45} direction="right" />
-          </div>
-        </div>
-      </SkillsInteractionProvider>
+        </SkillsInteractionProvider>
+      ) : null}
+
+      {/* Сгруппированные теги навыков — всегда видны */}
+      <SkillsGroupedTags />
     </section>
   );
 };

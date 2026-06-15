@@ -5,51 +5,24 @@ import { Button } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 interface HeaderHeroProps {
+  eyebrow: string;
   title: string;
   subtitle: string;
-  announcement?: {
-    text: string;
-    linkText: string;
-    linkHref: string;
-  };
   buttons: {
-    primary: {
-      text: string;
-      href: string;
-    };
-    secondary: {
-      text: string;
-      href: string;
-    };
+    primary: { text: string; href: string };
+    secondary: { text: string; href: string };
   };
 }
 
-const HeaderHero: React.FC<HeaderHeroProps> = ({ title, subtitle, announcement, buttons }) => {
+const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, buttons }) => {
   return (
     <div className="relative isolate mx-auto max-w-2xl py-12 lg:py-16">
       <div className="bg-primary-500 absolute top-0 right-0 -z-10 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full opacity-80 mix-blend-multiply blur-sm dark:mix-blend-screen" />
 
       <div className="relative z-10">
-        {announcement ? (
-          <div className="hidden sm:mb-8 sm:flex">
-            <InteractiveElement
-              data-interactive-mode="solid"
-              data-interactive-bg="black"
-              data-interactive-text="white"
-              data-interactive-shadow="4px 4px 0px 0px rgba(255,255,255,1)"
-              className="bg-primary-200 dark:bg-primary-700 relative border-2 border-black px-4 py-1.5 text-sm leading-6 font-bold text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:text-neutral-50 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"
-            >
-              {announcement.text}{" "}
-              <a
-                href={announcement.linkHref}
-                className="relative z-10 font-black text-inherit underline decoration-2 transition-colors"
-              >
-                <span aria-hidden="true" className="absolute inset-0" />
-                {announcement.linkText} <span aria-hidden="true">&rarr;</span>
-              </a>
-            </InteractiveElement>
-          </div>
-        ) : null}
+        <p className="text-text-primary dark:text-text-inverse mb-3 inline-block border-2 border-black border-l-4 border-l-primary-500 bg-background-primary px-3 py-1 text-sm font-bold tracking-[0.28em] uppercase dark:border-white dark:border-l-primary-400 dark:bg-background-tertiary">
+          {eyebrow}
+        </p>
 
         <div className="flex flex-col items-start">
           <h1 className="text-text-primary dark:text-text-inverse text-6xl font-black tracking-tight uppercase drop-shadow-none sm:text-8xl">

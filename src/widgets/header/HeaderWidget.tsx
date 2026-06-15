@@ -8,6 +8,7 @@ import {
   useInteractiveRegistry,
 } from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
+import { usePerformanceSettings } from "@/features/performance";
 import { headerContent, navigation } from "@/shared/config/content";
 import type { GridPaintOverlayRef } from "@/shared/ui";
 
@@ -15,6 +16,9 @@ import { HeaderBackground, HeaderHero, HeaderNavigation, HeaderNyancat } from ".
 
 const HeaderWidget: React.FC = () => {
   const paintRef = useRef<GridPaintOverlayRef | null>(null);
+
+  const { reducedMotion, lowPerformance } = usePerformanceSettings();
+  const enableMotion = !reducedMotion && !lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
@@ -51,18 +55,18 @@ const HeaderWidget: React.FC = () => {
       onPointerCancel={handlePointerCancel}
     >
       {/* Canvas now covers entire header (nav + hero) */}
-      <HeaderBackground paintRef={paintRef} />
+      <HeaderBackground paintRef={enableMotion ? paintRef : undefined} />
 
-      <HeaderNyancat />
+      {enableMotion ? <HeaderNyancat /> : null}
 
       <InteractiveTextContext value={registry}>
         <HeaderNavigation navigation={navigation} />
 
         <div className="relative isolate flex grow items-center justify-center px-6 pt-24 lg:px-8">
           <HeaderHero
+            eyebrow={headerContent.eyebrow}
             title={headerContent.title}
             subtitle={headerContent.subtitle}
-            announcement={headerContent.announcement}
             buttons={headerContent.buttons}
           />
         </div>

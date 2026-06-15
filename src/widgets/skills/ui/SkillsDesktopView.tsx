@@ -15,7 +15,7 @@ const SkillsDesktopView: React.FC = () => {
       <section
         ref={containerRef}
         id="skills"
-        className="bg-background-primary dark:bg-background-tertiary relative overflow-hidden py-10 transition-colors duration-300"
+        className="bg-background-primary dark:bg-background-tertiary relative overflow-x-clip py-10 transition-colors duration-300"
         style={{}}
       >
         <SkillsCursorNyancat containerRef={containerRef} />

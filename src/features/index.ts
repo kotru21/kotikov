@@ -10,6 +10,6 @@ export { usePawAnimation } from "./paw/usePawAnimation";
 // Performance optimization features
 export { usePerformanceSettings } from "./performance/usePerformanceSettings";
 
-// Scrolling features
-export { useHorizontalScroll } from "./scrolling/useHorizontalScroll";
-export { useMobileSkillsScroll } from "./skills-scroll/useMobileSkillsScroll";
+// Theme features
+export type { ThemeChoice } from "./theme";
+export { ThemeProvider, ThemeToggle, useTheme } from "./theme";

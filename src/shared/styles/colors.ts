@@ -101,7 +101,7 @@ export const colors = {
     tertiary: "#616161",
     muted: "#757575",
     inverse: "#f5f5f3",
-    accent: "#008f67",
+    accent: "#006a4d",
   },
 
   // Цвета границ

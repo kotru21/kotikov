@@ -1,20 +1,16 @@
 export const headerContent = {
-  title: "Привет, я Kotikov",
+  eyebrow: "Frontend-разработчик",
+  title: "Kotikov",
   subtitle:
-    "Frontend разработка на React, Next.js, JavaScript и Node.js — то, чем я занимаюсь. Я — Kotikov, создаю современные веб-приложения и интерфейсы.",
-  announcement: {
-    text: "Хочешь узнать обо мне подробнее?",
-    linkText: "Кликай сюда!",
-    linkHref: "#skills",
-  },
+    "Делаю интерфейсы с характером: React, Next.js и TypeScript на фронте, Node.js по необходимости. Чисто, быстро, с вниманием к деталям.",
   buttons: {
     primary: {
-      text: "Обо мне",
-      href: "#skills",
+      text: "Смотреть проекты",
+      href: "#projects",
     },
     secondary: {
-      text: "Мой опыт",
-      href: "#timeline",
+      text: "Связаться",
+      href: "#contacts",
     },
   },
 } as const;

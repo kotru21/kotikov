@@ -3,12 +3,16 @@
 import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
+import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
 import { Button } from "@/shared/ui";
 
-import { SkillMarqueeRow } from ".";
+import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
 const SkillsMarquee: React.FC = () => {
+  const { reducedMotion, lowPerformance } = usePerformanceSettings();
+  const showMarquee = !reducedMotion && !lowPerformance;
+
   return (
     <div className="flex w-full flex-col items-center space-y-10 overflow-visible py-8">
       {/* Заголовок */}
@@ -30,11 +34,21 @@ const SkillsMarquee: React.FC = () => {
         </p>
       </div>
 
-      {/* Единственная строка со всеми скиллами */}
-      <div className="w-full border-y-2 border-black bg-white py-6 shadow-[0px_4px_0px_0px_rgba(0,0,0,0.1)] dark:border-white dark:bg-black">
-        {/* Дублируем данные чтобы строка была длинной и насыщенной */}
-        <SkillMarqueeRow skills={[...skillsData, ...skillsData]} speed={60} direction="left" />
-      </div>
+      {/* Единственная строка со всеми скиллами — только при включённой анимации */}
+      {showMarquee ? (
+        <div className="relative w-full overflow-x-clip">
+          <SkillMarqueeRow
+            curved
+            arcHeight={64}
+            skills={[...skillsData, ...skillsData]}
+            speed={60}
+            direction="left"
+          />
+        </div>
+      ) : null}
+
+      {/* Сгруппированные теги навыков — всегда видны */}
+      <SkillsGroupedTags />
 
       {/* Кнопка LinkedIn */}
       <div className="z-20 pt-2">

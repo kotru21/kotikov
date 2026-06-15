@@ -35,7 +35,7 @@ const TimelineCardComponent: React.FC<TimelineCardProps> = ({ item, index }) => 
   ][colorVariant];
 
   return (
-    <div className="group relative w-72 shrink-0 md:w-80 lg:w-96">
+    <div className="group relative w-full">
       {/* Decorative geometric background shape */}
       <div
         className={`absolute -top-2 -right-2 -z-10 h-full w-full border-2 border-black transition-transform duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 dark:border-white ${bgClass}`}

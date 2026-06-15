@@ -19,7 +19,7 @@ const CatPaw: React.FC<CatPawProps> = memo(({ x, y, isActive, velocity }) => {
   //  находится ли лапа в пределах секции контактов
   useEffect(() => {
     const checkBounds = (): void => {
-      const contactsSection = document.getElementById("contacts-section");
+      const contactsSection = document.getElementById("contacts");
       if (!contactsSection) {
         setIsVisible(false);
         return;

@@ -1,21 +1,24 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* Tailwind v4: make dark: utilities respond to a .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f5f3;
+  --foreground: #111111;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overflow-x: clip;
 }
 
 /* Глобальные анимации для портфолио */
@@ -133,45 +136,6 @@ body {
   backface-visibility: hidden;
 }
 
-/* Переходы для мобильных карточек */
-.skill-card-transition {
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.skill-card-entering {
-  animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.skill-card-exiting {
-  animation: slideOutLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(150%) scale(0.7) rotateY(60deg);
-    opacity: 0;
-    filter: blur(8px);
-  }
-  to {
-    transform: translateX(0) scale(1) rotateY(0deg);
-    opacity: 1;
-    filter: blur(0px);
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0) scale(1) rotateY(0deg);
-    opacity: 1;
-    filter: blur(0px);
-  }
-  to {
-    transform: translateX(-150%) scale(0.7) rotateY(-60deg);
-    opacity: 0;
-    filter: blur(8px);
-  }
-}
-
 /* Плавная прокрутка */
 html {
   scroll-behavior: smooth;
@@ -193,17 +157,6 @@ html {
   transform-style: preserve-3d;
 }
 
-/* Оптимизация для элементов с трансформациями */
-[style*="transform"] {
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* Оптимизация для анимированных Canvas элементов */
-canvas {
-  will-change: contents;
-}
-
 /* Стили для скроллбара */
 ::-webkit-scrollbar {
   width: 8px;
@@ -222,28 +175,14 @@ canvas {
   background: #555;
 }
 
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-track {
-    background: #2a2a2a;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #555;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #777;
-  }
+.dark ::-webkit-scrollbar-track {
+  background: #2a2a2a;
 }
-
-/* Скрытие полосы прокрутки для timeline */
-.timeline-scroll-hidden {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+.dark ::-webkit-scrollbar-thumb {
+  background: #555;
 }
-
-.timeline-scroll-hidden::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 /* Анимации для бесконечной бегущей строки скиллов */
@@ -277,4 +216,48 @@ canvas {
   will-change: transform;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+}
+
+@keyframes timeline-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes timeline-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-timeline-slide-in-right {
+  animation: timeline-slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-timeline-slide-in-left {
+  animation: timeline-slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

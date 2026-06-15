@@ -7,6 +7,7 @@ import React, { useState } from "react";
 
 import type { NavigationItem } from "@/entities/navigation";
 import { InteractiveElement } from "@/features/interactive-elements";
+import { ThemeToggle } from "@/features/theme";
 import { Logo } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -35,7 +36,8 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             <Logo variant="pc" className="hidden h-8 w-auto lg:block" />
           </InteractiveElement>
         </div>
-        <div className="flex lg:hidden">
+        <div className="flex items-center gap-x-2 lg:hidden">
+          <ThemeToggle />
           <InteractiveElement
             as="button"
             type="button"
@@ -62,16 +64,14 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
             </InteractiveElement>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <InteractiveElement
-            as="button"
-            type="button"
-            data-draw-allow
-            data-interactive-color={colors.text.primary}
+        <div className="hidden items-center gap-x-4 lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="#contacts"
             className="text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse text-sm/6 font-semibold transition-colors"
           >
-            Туда <span aria-hidden="true">&rarr;</span>
-          </InteractiveElement>
+            Связаться <span aria-hidden="true">&rarr;</span>
+          </a>
+          <ThemeToggle />
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -110,14 +110,14 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   </InteractiveElement>
                 ))}
               </div>
-              <div className="py-6">
-                <button
-                  type="button"
-                  data-draw-exclude
-                  className="hover:bg-primary-500 -mx-3 block rounded-none px-3 py-2.5 text-base/7 font-bold text-black uppercase transition-colors hover:text-black dark:text-white"
+              <div className="flex items-center justify-between py-6">
+                <a
+                  href="#contacts"
+                  className="hover:bg-primary-500 -mx-3 block rounded-none px-3 py-2.5 text-base/7 font-bold text-black uppercase transition-colors dark:text-white"
                 >
-                  Туда
-                </button>
+                  Связаться
+                </a>
+                <ThemeToggle />
               </div>
             </div>
           </div>

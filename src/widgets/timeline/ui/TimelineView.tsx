@@ -1,101 +1,154 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-import { TimelineCard } from "@/entities/timeline";
+import type { TimelineItem } from "@/entities/timeline";
+import { usePerformanceSettings } from "@/features/performance";
 import { timelineData } from "@/shared/config/content";
 import { BauhausGridPattern } from "@/shared/ui";
-import { colors } from "@/styles/colors";
 
-import TimelinePoint from "./TimelinePoint";
-import TimelineWave from "./TimelineWave";
+import TimelineSlideContent from "./TimelineSlideContent";
+import { getSlideClass, timelineMotionClass } from "./timelineUtils";
+import TimelineYearDisplay from "./TimelineYearDisplay";
 
-interface TimelineViewProps {
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  sectionRef: React.RefObject<HTMLElement | null>;
-}
+const navButtonClass =
+  "text-text-primary dark:text-text-inverse flex size-9 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 dark:border-white dark:bg-black";
 
-const TimelineView: React.FC<TimelineViewProps> = ({ containerRef, sectionRef }) => {
+const TimelineView: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
+  const { reducedMotion } = usePerformanceSettings();
+  const motionClass = reducedMotion ? "" : timelineMotionClass;
+
+  const lastIndex = timelineData.length - 1;
+  const activeItem = timelineData[activeIndex] as TimelineItem;
+  const slideClass = getSlideClass(slideDirection, reducedMotion);
+
+  const goTo = useCallback(
+    (index: number): void => {
+      setActiveIndex((current) => {
+        const next = Math.max(0, Math.min(lastIndex, index));
+        if (next !== current) {
+          setSlideDirection(next > current ? 1 : -1);
+        }
+        return next;
+      });
+    },
+    [lastIndex]
+  );
+
+  const goPrev = useCallback((): void => {
+    goTo(activeIndex - 1);
+  }, [activeIndex, goTo]);
+
+  const goNext = useCallback((): void => {
+    goTo(activeIndex + 1);
+  }, [activeIndex, goTo]);
+
   return (
     <section
-      ref={sectionRef}
-      id="timeline"
-      className="bg-background-primary dark:bg-background-tertiary relative z-10 px-4 pt-16 pb-8 transition-colors duration-300 sm:px-6 lg:px-8"
+      id="experience"
+      className="bg-background-primary dark:bg-background-tertiary relative overflow-x-hidden px-4 py-10 transition-colors duration-300 sm:px-6 lg:px-8 lg:py-12"
     >
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
+
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="relative z-20 mb-12 px-4 text-center">
-          <h2
-            className="mt-2 mb-3 text-4xl font-bold tracking-tighter text-black uppercase drop-shadow-sm md:text-5xl dark:text-white"
-            style={{}}
-          >
-            Мой опыт
+        <div className="mb-6 md:mb-8">
+          <p className="text-primary-950 dark:text-primary-300 mb-2 text-sm font-bold tracking-[0.24em] uppercase">
+            Опыт
+          </p>
+          <h2 className="text-text-primary dark:text-text-inverse text-3xl font-black tracking-tight uppercase md:text-4xl">
+            Мой путь
           </h2>
-          <p
-            className="mx-auto max-w-2xl text-lg font-medium text-neutral-600 dark:text-neutral-400"
-            style={{}}
-          >
-            Путь профессионального развития и ключевые этапы карьеры
+          <p className="text-text-secondary mt-2 max-w-xl text-sm font-medium md:text-base dark:text-neutral-400">
+            Образование, работа, хакатоны и личные проекты.
           </p>
         </div>
 
-        {/* Горизонтальный таймлайн */}
-        <div className="relative">
-          {/* Волнистая линия */}
-          <TimelineWave />
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-10 lg:gap-16">
+          <div className="flex w-full shrink-0 flex-col gap-4 md:max-w-[26rem]">
+            <div className="-mx-4 flex w-[calc(100%+2rem)] justify-center sm:-mx-6 sm:w-[calc(100%+3rem)] md:mx-0 md:w-full">
+              <div
+                className="relative h-[clamp(3.75rem,20vw,7.5rem)] w-full max-w-full"
+                aria-hidden="true"
+              >
+                <div
+                  key={activeItem.period}
+                  className={`absolute inset-0 flex items-center justify-center ${slideClass}`}
+                >
+                  <TimelineYearDisplay period={activeItem.period} />
+                </div>
+              </div>
+            </div>
 
-          {/* Контейнер для скролла с градиентными масками */}
-          <div className="relative">
-            {/* Левая  */}
-            <div className="pointer-events-none absolute top-0 left-0 z-20 h-full w-20 bg-linear-to-r from-white via-white/60 to-transparent md:w-36 lg:w-48 dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent" />
+            <div className="mx-auto flex w-full max-w-[26rem] items-center gap-2 md:mx-0">
+              <button
+                type="button"
+                onClick={goPrev}
+                disabled={activeIndex === 0}
+                aria-label="Предыдущий этап"
+                className={navButtonClass}
+              >
+                <FiChevronLeft className="size-4" aria-hidden="true" />
+              </button>
 
-            {/* Правая */}
-            <div className="pointer-events-none absolute top-0 right-0 z-20 h-full w-20 bg-linear-to-l from-white via-white/60 to-transparent md:w-36 lg:w-48 dark:from-neutral-950 dark:via-neutral-950/60 dark:to-transparent" />
-
-            {/* Контейнер для скролла */}
-            <div
-              ref={containerRef}
-              className="timeline-scroll-hidden overflow-x-auto"
-              style={{
-                overscrollBehaviorX: "contain",
-                overscrollBehaviorY: "auto",
-              }}
-            >
-              <div className="mb-24 flex min-w-max items-center space-x-24 px-28">
-                {timelineData.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className={`group relative transition-all duration-500 hover:z-30 hover:scale-105 ${
-                      index % 2 === 0 ? "translate-y-4" : "-translate-y-4"
+              <div
+                className="flex min-w-0 flex-1 items-center justify-center gap-1"
+                role="tablist"
+                aria-label="Этапы опыта"
+              >
+                {timelineData.map((entry, index) => (
+                  <button
+                    key={entry.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={index === activeIndex}
+                    aria-label={`${entry.title}, ${entry.period}`}
+                    onClick={() => {
+                      goTo(index);
+                    }}
+                    className={`h-1 w-4 shrink-0 sm:w-5 ${motionClass} ${
+                      index === activeIndex
+                        ? "bg-black dark:bg-white"
+                        : "bg-neutral-300 dark:bg-neutral-600"
                     }`}
-                  >
-                    {/* Точка на линии */}
-                    <div className="mb-4 flex justify-center opacity-50 transition-opacity group-hover:opacity-100">
-                      <TimelinePoint type={item.type} index={index} />
-                    </div>
-
-                    {/* Карточка опыта */}
-                    <TimelineCard item={item} index={index} />
-                  </div>
+                  />
                 ))}
               </div>
+
+              <button
+                type="button"
+                onClick={goNext}
+                disabled={activeIndex === lastIndex}
+                aria-label="Следующий этап"
+                className={navButtonClass}
+              >
+                <FiChevronRight className="size-4" aria-hidden="true" />
+              </button>
             </div>
           </div>
 
-          {/* Индикатор прокрутки */}
-          <div className="flex justify-center">
-            <div
-              className="flex items-center space-x-2 rounded-full px-4 py-2 text-sm"
-              style={{
-                backgroundColor: colors.background.gray,
-                color: colors.text.muted,
-              }}
-            >
-              <span>←</span>
-              <span className="hidden sm:inline">Наведите курсор и прокрутите колёсиком мыши</span>
-              <span className="sm:hidden">Проведите пальцем для прокрутки</span>
-              <span>→</span>
+          <div className="min-w-0 pt-1 md:max-w-md md:shrink-0 lg:max-w-lg lg:pt-2 xl:mr-4">
+            <div className="grid">
+              {timelineData.map((item, index) => {
+                const isActive = index === activeIndex;
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`col-start-1 row-start-1 ${
+                      isActive
+                        ? `z-10 opacity-100 ${slideClass}`
+                        : "pointer-events-none opacity-0"
+                    }`}
+                    aria-hidden={!isActive}
+                    {...(!isActive ? { inert: true } : {})}
+                  >
+                    <TimelineSlideContent item={item} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

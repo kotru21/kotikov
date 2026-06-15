@@ -8,9 +8,7 @@
 
 ## Демонстрация
 
-| Светлая тема                                                 | Тёмная тема                                                |
-| ------------------------------------------------------------ | ---------------------------------------------------------- |
-| ![Kotikov — Скриншот (Light)](./public/screenshot-light.png) | ![Kotikov — Скриншот (Dark)](./public/screenshot-dark.png) |
+Живая версия: [ktkv.me](https://ktkv.me)
 
 ---
 
@@ -41,8 +39,9 @@ bun install
 
 | Файл                                                                                        | Описание                                                 |
 | ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `app/page.tsx`                                                                              | Главная страница — Header, Skills, Timeline, Contacts.   |
+| `app/page.tsx`                                                                              | Главная страница — Header, About, Projects, Skills, Experience, Contacts. |
 | `src/widgets/header/HeaderWidget.tsx`                                                       | Интерактивный header с Nyancat и canvas-эффектами.       |
+| `src/widgets/projects/ProjectsWidget.tsx`                                                   | Секция проектов.                                         |
 | `src/features/nyancat/*`                                                                    | Nyancat — анимация и эффект explosion.                   |
 | `src/widgets/skills/SkillsWidget.tsx`                                                       | Адаптивный блок навыков (desktop + mobile scroll).       |
 | `src/widgets/timeline/TimelineWidget.tsx`                                                   | Хронология опыта и проектов.                             |

@@ -4,8 +4,10 @@ import { social } from "./social";
 
 export const navigation = [
   { name: "Главная", href: "#header" },
+  { name: "Обо мне", href: "#about" },
+  { name: "Проекты", href: "#projects" },
   { name: "Навыки", href: "#skills" },
-  { name: "Опыт", href: "#timeline" },
+  { name: "Опыт", href: "#experience" },
   { name: "Контакты", href: "#contacts" },
 ];
 

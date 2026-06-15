@@ -2,7 +2,7 @@ export const timelineData = [
   {
     id: 1,
     title: "ByChange Hackathon",
-    company: "ByCahnge",
+    company: "ByChange",
     period: "2023",
     description:
       "Создание фулстек приложения для мониторинга здоровья. Реализация взаимодействия с API, разработка пользовательского интерфейса и интеграция с бэкендом.",
@@ -13,7 +13,7 @@ export const timelineData = [
     id: 2,
     title: "Высшее образование",
     company: "БГУИР",
-    period: "2024 - тудэй",
+    period: "2024 — наст. время",
     description: "Обучение на факультете информационной безопасности.",
     technologies: ["InfoSec", "Cryptography"],
     type: "education" as const,
@@ -45,7 +45,7 @@ export const timelineData = [
     company: "Личный проект",
     period: "2025",
     description:
-      "Создание файлового с использованием Tauri. Реализация функционала менеджера файлов, виртуальных списков, глубокой кастомизации UI, покрытие тестами (Unit, Integration, E2E)",
+      "Файловый менеджер на Tauri: виртуализированные списки, глубокая кастомизация UI, покрытие тестами (Unit, Integration, E2E).",
     technologies: ["Typescript", "Tailwind", "Vitest"],
     type: "project" as const,
     githubUrl: "https://github.com/kotru21/FileManagerTauri",

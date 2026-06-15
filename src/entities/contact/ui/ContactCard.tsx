@@ -5,9 +5,16 @@ import type { ContactInfo } from "../model/types";
 export interface ContactCardProps {
   contact: ContactInfo;
   variant?: "auto" | "light" | "dark";
+  label?: React.ReactNode;
+  value?: React.ReactNode;
 }
 
-const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "auto" }) => {
+const ContactCardComponent: React.FC<ContactCardProps> = ({
+  contact,
+  variant = "auto",
+  label,
+  value,
+}) => {
   let iconContainerClasses: string;
   if (variant === "auto") {
     iconContainerClasses = "bg-black dark:bg-white text-white dark:text-black";
@@ -35,10 +42,10 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({ contact, variant = "
             className="mb-2 text-xl font-black tracking-wider uppercase"
             style={{ color: "currentColor" }}
           >
-            {contact.label}
+            {label ?? contact.label}
           </h3>
           <p className="font-mono text-sm font-bold opacity-90" style={{ color: "currentColor" }}>
-            {contact.value}
+            {value ?? contact.value}
           </p>
         </div>
       </div>
