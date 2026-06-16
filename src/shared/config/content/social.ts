@@ -7,8 +7,8 @@ export const social = {
     url: "https://www.linkedin.com/in/arseni-batura/",
   },
   telegram: {
-    url: "https://t.me/arsenij_kotikov",
-    display: "@arsenij_kotikov",
+    url: "https://t.me/kotikovdev",
+    display: "@kotikovdev",
   },
   email: {
     address: "inbox@ktkv.me",
