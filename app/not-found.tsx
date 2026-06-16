@@ -76,7 +76,7 @@ const NotFound: React.FC = () => {
             <div className="w-full sm:w-auto">
               <Link href="/">
                 <Button variant="primary" size="lg" fullWidth>
-                  🏠 На главную
+                  На главную
                 </Button>
               </Link>
             </div>
@@ -122,18 +122,6 @@ const NotFound: React.FC = () => {
             </div>
           </div>
         </Card>
-
-        {/* Анимированные элементы */}
-        <div className="bg-accent-300 absolute top-10 left-10 h-4 w-4 animate-bounce rounded-full opacity-60" />
-        <div className="bg-accent-500 absolute top-20 right-20 h-6 w-6 animate-pulse rounded-full opacity-60" />
-        <div
-          className="bg-accent-700 absolute bottom-20 left-20 h-5 w-5 animate-bounce rounded-full opacity-60"
-          style={{ animationDelay: "0.5s" }}
-        />
-        <div
-          className="bg-accent-400 absolute right-10 bottom-10 h-3 w-3 animate-pulse rounded-full opacity-60"
-          style={{ animationDelay: "1s" }}
-        />
       </div>
 
       {/* Летающие нянкэты */}
