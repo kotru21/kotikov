@@ -48,10 +48,8 @@ export function parsePeriodStart(period: string): number {
   return year * 12;
 }
 
-export function getSlideClass(direction: 1 | -1, reducedMotion: boolean): string {
-  if (reducedMotion) return "";
-  return direction > 0 ? "animate-timeline-slide-in-right" : "animate-timeline-slide-in-left";
-}
+/** Tab indicator color transition. */
+export const timelineTabMotionClass = "transition-colors duration-300 ease-in-out";
 
 export type TimelineDecadeKey = "2020s" | "2030s";
 
@@ -72,6 +70,3 @@ export function splitYearWithCatSlot(
     decadeKey: getDecadeKeyFromYear(Number.parseInt(year, 10)),
   };
 }
-
-/** Shared easing/duration for timeline motion (circle glide, year fade). */
-export const timelineMotionClass = "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";

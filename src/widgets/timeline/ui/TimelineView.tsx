@@ -10,7 +10,7 @@ import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import TimelineSlideContent from "./TimelineSlideContent";
-import { getSlideClass, parsePeriodStart, timelineMotionClass } from "./timelineUtils";
+import { parsePeriodStart, timelineTabMotionClass } from "./timelineUtils";
 import TimelineYearDisplay from "./TimelineYearDisplay";
 
 const navButtonClass =
@@ -21,10 +21,9 @@ const alignedContentBandClass = "mx-auto w-full max-w-5xl px-4";
 
 const TimelineView: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
   const touchStartXRef = useRef<number | null>(null);
   const { reducedMotion } = usePerformanceSettings();
-  const motionClass = reducedMotion ? "" : timelineMotionClass;
+  const tabMotionClass = reducedMotion ? "" : timelineTabMotionClass;
 
   const timelineData = useMemo(
     () =>
@@ -37,18 +36,11 @@ const TimelineView: React.FC = () => {
 
   const lastIndex = timelineData.length - 1;
   const activeItem = timelineData[activeIndex] as TimelineItem;
-  const slideClass = getSlideClass(slideDirection, reducedMotion);
   const panelId = `timeline-panel-${String(activeItem.id)}`;
 
   const goTo = useCallback(
     (index: number): void => {
-      setActiveIndex((current) => {
-        const next = Math.max(0, Math.min(lastIndex, index));
-        if (next !== current) {
-          setSlideDirection(next > current ? 1 : -1);
-        }
-        return next;
-      });
+      setActiveIndex((current) => Math.max(0, Math.min(lastIndex, index)));
     },
     [lastIndex]
   );
@@ -132,15 +124,10 @@ const TimelineView: React.FC = () => {
 
           <div className="flex w-full max-w-[26rem] justify-center md:max-w-none">
             <div
-              className="relative h-[clamp(3.75rem,20vw,7.5rem)] w-full"
+              className="flex h-[clamp(3.75rem,20vw,7.5rem)] w-full items-center justify-center"
               aria-hidden="true"
             >
-              <div
-                key={activeItem.period}
-                className={`absolute inset-0 flex items-center justify-center ${slideClass}`}
-              >
-                <TimelineYearDisplay period={activeItem.period} />
-              </div>
+              <TimelineYearDisplay period={activeItem.period} />
             </div>
           </div>
 
@@ -185,7 +172,7 @@ const TimelineView: React.FC = () => {
                     onClick={() => {
                       goTo(index);
                     }}
-                    className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${motionClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
+                    className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${tabMotionClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                       isActive
                         ? "bg-black dark:bg-white"
                         : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"
@@ -222,8 +209,8 @@ const TimelineView: React.FC = () => {
                   key={entry.id}
                   className={
                     isActive
-                      ? slideClass
-                      : "pointer-events-none invisible md:absolute md:inset-x-0 md:top-0"
+                      ? "col-start-1 row-start-1"
+                      : "pointer-events-none invisible col-start-1 row-start-1 opacity-0"
                   }
                   aria-hidden={!isActive}
                 >
