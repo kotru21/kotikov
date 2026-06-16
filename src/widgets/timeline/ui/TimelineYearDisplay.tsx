@@ -17,12 +17,12 @@ const digitClass =
   "text-[clamp(3.75rem,20vw,7.5rem)] font-black leading-none text-black/10 tabular-nums select-none dark:text-white/10";
 
 const yearLayoutClass =
-  "inline-flex w-[2.72em] items-center justify-center gap-[0.1em] leading-none";
+  "inline-grid w-[2.72em] grid-cols-4 items-center justify-items-center gap-x-[0.1em] leading-none";
 
-const digitSlotClass = "inline-flex w-[0.58em] shrink-0 items-center justify-center";
+const slotClass = "inline-flex h-[1em] w-full items-center justify-center";
 
-const zeroSlotClass =
-  "inline-flex h-[0.78em] w-[0.68em] shrink-0 items-center justify-center";
+const catImgClass =
+  "h-[0.84em] w-[0.84em] object-contain object-center opacity-70 dark:opacity-60";
 
 const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => {
   const year = extractYear(period);
@@ -32,7 +32,7 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
   if (parts === null) {
     return (
       <div className={`${yearLayoutClass} ${digitClass}`}>
-        <span className="text-center">{year}</span>
+        <span className="col-span-4 text-center">{year}</span>
       </div>
     );
   }
@@ -43,9 +43,9 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
 
   return (
     <div className={`${yearLayoutClass} ${digitClass}`}>
-      <span className={digitSlotClass}>{year[0]}</span>
+      <span className={slotClass}>{year[0]}</span>
 
-      <span className={zeroSlotClass}>
+      <span className={slotClass}>
         {showCat ? (
           <img
             src={catSrc}
@@ -53,15 +53,15 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
             onError={() => {
               setMissingAssets((prev) => ({ ...prev, [decadeKey]: true }));
             }}
-            className="h-full w-full object-contain object-center opacity-70 dark:opacity-60"
+            className={catImgClass}
           />
         ) : (
           <span className="leading-none">{year[1]}</span>
         )}
       </span>
 
-      <span className={digitSlotClass}>{year[2]}</span>
-      <span className={digitSlotClass}>{year[3]}</span>
+      <span className={slotClass}>{year[2]}</span>
+      <span className={slotClass}>{year[3]}</span>
     </div>
   );
 };
