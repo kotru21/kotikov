@@ -14,7 +14,7 @@ const TimelineSlideVisual: React.FC<TimelineSlideVisualProps> = ({ type, index }
 
   return (
     <div
-      className={`relative size-40 overflow-hidden rounded-full border-4 border-black sm:size-52 md:size-64 lg:size-72 dark:border-white ${accent ?? "bg-primary-500"}`}
+      className={`relative size-40 overflow-hidden rounded-full border-4 border-black sm:size-52 md:size-64 lg:size-72 dark:border-white ${accent}`}
     >
       <div className="absolute -top-4 -right-4 size-16 rounded-full bg-primary-300 opacity-90 sm:size-20" />
       <div className="absolute bottom-5 left-5 h-3 w-16 bg-black/90 dark:bg-white/90" />

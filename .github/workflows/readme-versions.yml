@@ -1,5 +1,5 @@
 # Ensures README*.md and vercel.json match package.json (run `bun run sync-readme-versions` locally if this fails).
-name: README versions
+name: CI
 
 on:
   push:
@@ -12,12 +12,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v6
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: "24"
+          bun-version: 1.3.11
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
       - name: Sync README from package.json
-        run: node ./scripts/sync-readme-versions.mjs
+        run: bun run sync-readme-versions
 
       - name: Fail if READMEs or vercel.json are out of sync
         run: git diff --exit-code README.md README.ru.md README.en.md vercel.json
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Test
+        run: bun run test
+
+      - name: Build
+        run: bun run build

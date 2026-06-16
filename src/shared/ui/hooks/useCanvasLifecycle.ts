@@ -6,7 +6,7 @@ export const useCanvasLifecycle = (init: () => void): void => {
     let timeout: number | undefined;
     const handleResize = (): void => {
       clearTimeout(timeout);
-      timeout = window.setTimeout(init, 100) as unknown as number;
+      timeout = window.setTimeout(init, 100);
     };
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
