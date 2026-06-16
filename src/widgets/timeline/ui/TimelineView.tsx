@@ -1,29 +1,42 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
-import { timelineData } from "@/shared/config/content";
+import { timelineData as rawTimelineData } from "@/shared/config/content";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import TimelineSlideContent from "./TimelineSlideContent";
-import { getSlideClass, timelineMotionClass } from "./timelineUtils";
+import { getSlideClass, parsePeriodStart, timelineMotionClass } from "./timelineUtils";
 import TimelineYearDisplay from "./TimelineYearDisplay";
 
 const navButtonClass =
   "text-text-primary dark:text-text-inverse flex size-9 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 dark:border-white dark:bg-black";
 
+const SWIPE_THRESHOLD_PX = 48;
+
 const TimelineView: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState<1 | -1>(1);
+  const touchStartXRef = useRef<number | null>(null);
   const { reducedMotion } = usePerformanceSettings();
   const motionClass = reducedMotion ? "" : timelineMotionClass;
+
+  const timelineData = useMemo(
+    () =>
+      [...rawTimelineData].sort((a, b) => {
+        const byPeriod = parsePeriodStart(a.period) - parsePeriodStart(b.period);
+        return byPeriod !== 0 ? byPeriod : a.id - b.id;
+      }),
+    []
+  );
 
   const lastIndex = timelineData.length - 1;
   const activeItem = timelineData[activeIndex] as TimelineItem;
   const slideClass = getSlideClass(slideDirection, reducedMotion);
+  const panelId = `timeline-panel-${String(activeItem.id)}`;
 
   const goTo = useCallback(
     (index: number): void => {
@@ -46,6 +59,49 @@ const TimelineView: React.FC = () => {
     goTo(activeIndex + 1);
   }, [activeIndex, goTo]);
 
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>): void => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goPrev();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goNext();
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        goTo(lastIndex);
+      }
+    },
+    [goPrev, goNext, goTo, lastIndex]
+  );
+
+  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>): void => {
+    if (event.touches.length === 0) return;
+    touchStartXRef.current = event.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLDivElement>): void => {
+      const startX = touchStartXRef.current;
+      touchStartXRef.current = null;
+      if (startX === null) return;
+      if (event.changedTouches.length === 0) return;
+
+      const delta = event.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
+
+      if (delta > 0) {
+        goPrev();
+      } else {
+        goNext();
+      }
+    },
+    [goPrev, goNext]
+  );
+
   return (
     <section
       id="experience"
@@ -66,7 +122,12 @@ const TimelineView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:justify-between md:gap-10 lg:gap-16">
+        <div
+          className="flex flex-col gap-8 md:flex-row md:items-stretch md:justify-between md:gap-10 lg:gap-16"
+          aria-roledescription="carousel"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="flex w-full shrink-0 flex-col justify-center gap-4 md:max-w-[26rem]">
             <div className="-mx-4 flex w-[calc(100%+2rem)] justify-center sm:-mx-6 sm:w-[calc(100%+3rem)] md:mx-0 md:w-full">
               <div
@@ -82,6 +143,13 @@ const TimelineView: React.FC = () => {
               </div>
             </div>
 
+            <p
+              className="text-text-secondary text-center text-xs font-bold tracking-[0.2em] uppercase md:text-left dark:text-neutral-400"
+              aria-live="polite"
+            >
+              {activeIndex + 1} / {timelineData.length}
+            </p>
+
             <div className="mx-auto flex w-full max-w-[26rem] items-center gap-2 md:mx-0">
               <button
                 type="button"
@@ -94,27 +162,36 @@ const TimelineView: React.FC = () => {
               </button>
 
               <div
-                className="flex min-w-0 flex-1 items-center justify-center gap-1"
+                className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-primary-500 [&::-webkit-scrollbar]:hidden"
                 role="tablist"
                 aria-label="Этапы опыта"
+                tabIndex={0}
+                onKeyDown={handleKeyDown}
               >
-                {timelineData.map((entry, index) => (
-                  <button
-                    key={entry.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={index === activeIndex}
-                    aria-label={`${entry.title}, ${entry.period}`}
-                    onClick={() => {
-                      goTo(index);
-                    }}
-                    className={`h-1 w-4 shrink-0 sm:w-5 ${motionClass} ${
-                      index === activeIndex
-                        ? "bg-black dark:bg-white"
-                        : "bg-neutral-300 dark:bg-neutral-600"
-                    }`}
-                  />
-                ))}
+                {timelineData.map((entry, index) => {
+                  const tabId = `timeline-tab-${String(entry.id)}`;
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={entry.id}
+                      id={tabId}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={panelId}
+                      aria-label={`${entry.title}, ${entry.period}`}
+                      onClick={() => {
+                        goTo(index);
+                      }}
+                      className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${motionClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
+                        isActive
+                          ? "bg-black dark:bg-white"
+                          : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"
+                      }`}
+                    />
+                  );
+                })}
               </div>
 
               <button
@@ -129,26 +206,14 @@ const TimelineView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-col justify-center md:max-w-md md:shrink-0 lg:max-w-lg xl:mr-4">
-            <div className="grid">
-              {timelineData.map((item, index) => {
-                const isActive = index === activeIndex;
-
-                return (
-                  <div
-                    key={item.id}
-                    className={`col-start-1 row-start-1 ${
-                      isActive
-                        ? `z-10 opacity-100 ${slideClass}`
-                        : "pointer-events-none opacity-0"
-                    }`}
-                    aria-hidden={!isActive}
-                    {...(!isActive ? { inert: true } : {})}
-                  >
-                    <TimelineSlideContent item={item} />
-                  </div>
-                );
-              })}
+          <div
+            id={panelId}
+            role="tabpanel"
+            aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
+            className="flex min-w-0 flex-col justify-center md:max-w-md md:shrink-0 lg:max-w-lg xl:mr-4"
+          >
+            <div key={activeItem.id} className={slideClass}>
+              <TimelineSlideContent item={activeItem} />
             </div>
           </div>
         </div>

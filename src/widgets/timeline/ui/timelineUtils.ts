@@ -18,11 +18,34 @@ export function getTypeLabel(type: TimelineItem["type"]): string {
   }
 }
 
-export function dotPositionPercent(index: number, count: number): number {
-  if (count <= 1) return 50;
-  const t = index / (count - 1);
-  // Keep the circle inside the container at first/last steps
-  return 12 + t * 76;
+export function parsePeriodStart(period: string): number {
+  const yearMatch = /\d{4}/.exec(period);
+  const year = yearMatch !== null ? Number.parseInt(yearMatch[0], 10) : 0;
+
+  const lower = period.toLowerCase();
+  const monthPrefixes: Array<[string, number]> = [
+    ["январ", 1],
+    ["феврал", 2],
+    ["март", 3],
+    ["апрел", 4],
+    ["май", 5],
+    ["мая", 5],
+    ["июн", 6],
+    ["июл", 7],
+    ["август", 8],
+    ["сентябр", 9],
+    ["октябр", 10],
+    ["ноябр", 11],
+    ["декабр", 12],
+  ];
+
+  for (const [prefix, month] of monthPrefixes) {
+    if (lower.includes(prefix)) {
+      return year * 12 + month;
+    }
+  }
+
+  return year * 12;
 }
 
 export function getSlideClass(direction: 1 | -1, reducedMotion: boolean): string {
@@ -37,11 +60,7 @@ export function getDecadeKeyFromYear(year: number): TimelineDecadeKey {
   return "2020s";
 }
 
-export function getDecadeKey(period: string): TimelineDecadeKey {
-  return getDecadeKeyFromYear(Number.parseInt(extractYear(period), 10));
-}
-
-/** Splits a 4-digit year into `2` + [cat as 0] + `23` parts. */
+/** Splits a 4-digit year into digit slots with the second digit replaced by a decade cat asset. */
 export function splitYearWithCatSlot(
   year: string
 ): { prefix: string; suffix: string; decadeKey: TimelineDecadeKey } | null {
