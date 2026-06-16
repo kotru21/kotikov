@@ -64,7 +64,7 @@ const HeaderWidget: React.FC = () => {
       <InteractiveTextContext value={registry}>
         <HeaderNavigation navigation={navigation} />
 
-        <div className="relative isolate flex grow items-center justify-center px-6 pt-24 lg:px-8">
+        <div className="relative isolate flex w-full grow items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 lg:px-8">
           <HeaderHero
             eyebrow={headerContent.eyebrow}
             title={headerContent.title}

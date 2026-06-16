@@ -11,7 +11,7 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-0 bottom-0 h-[62%] w-[58%] overflow-hidden opacity-90"
+      className="pointer-events-none absolute right-0 bottom-0 h-[62%] w-[58%] overflow-hidden opacity-50 dark:opacity-90"
     >
       {pattern === "waves" ? (
         <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">

@@ -87,14 +87,14 @@ const ContactsView: React.FC<ContactsViewProps> = ({
             >
               <InteractiveText text="Контакты" />
             </InteractiveElement>
-            <h2 className="text-text-primary dark:text-text-inverse text-4xl font-black tracking-tight uppercase sm:text-5xl">
+            <h2 className="text-4xl font-black tracking-tight text-white uppercase drop-shadow-sm sm:text-5xl">
               <InteractiveText text="Напишите мне" />
             </h2>
             <InteractiveElement
               as="p"
               data-draw-allow
               data-interactive-color={colors.text.primary}
-              className="text-text-secondary mx-auto mt-3 max-w-xl text-lg font-medium dark:text-neutral-300"
+              className="mx-auto mt-3 max-w-xl text-lg font-medium text-neutral-100/90 drop-shadow-sm"
             >
               <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
             </InteractiveElement>
@@ -157,7 +157,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                 type="button"
                 data-draw-allow
                 onClick={onClearCanvas}
-                className="text-text-muted hover:text-text-primary dark:hover:text-text-inverse text-xs font-bold tracking-wide uppercase underline decoration-dotted underline-offset-4 transition-colors"
+                className="text-xs font-bold tracking-wide text-neutral-300 uppercase underline decoration-dotted underline-offset-4 transition-colors hover:text-white"
               >
                 Очистить рисунок
               </button>
