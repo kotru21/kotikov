@@ -32,6 +32,13 @@ bun install
 - Build: `bun run build`
 - Start: `bun run start`
 - Lint: `bun run lint`
+- Test: `bun run test`
+
+### Переменные окружения (опционально)
+
+| Переменная | Описание |
+| ---------- | -------- |
+| `NEXT_PUBLIC_GA_ID` | ID Google Analytics 4. Если не задан, GA не подключается. На Vercel: Project → Settings → Environment Variables. |
 
 ---
 

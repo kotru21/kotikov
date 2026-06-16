@@ -108,7 +108,7 @@ const NotFound: React.FC = () => {
                 Навыки
               </Link>
               <Link
-                href="/#timeline"
+                href="/#experience"
                 className="text-primary-600 hover:text-primary-700 transition-colors duration-200"
               >
                 Опыт работы

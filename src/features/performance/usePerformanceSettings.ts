@@ -5,14 +5,12 @@ import { useEffect, useState } from "react";
 interface PerformanceSettings {
   reducedMotion: boolean;
   lowPerformance: boolean;
-  highRefreshRate: boolean;
 }
 
 export const usePerformanceSettings = (): PerformanceSettings => {
   const [settings, setSettings] = useState<PerformanceSettings>({
     reducedMotion: false,
     lowPerformance: false,
-    highRefreshRate: false,
   });
 
   useEffect(() => {
@@ -24,29 +22,9 @@ export const usePerformanceSettings = (): PerformanceSettings => {
         navigator.hardwareConcurrency <= 2 ||
         (deviceMemory !== undefined && deviceMemory <= 4);
 
-      let highRefreshRate = false;
-      try {
-        const start = performance.now();
-        let frameCount = 0;
-
-        const measureFrameRate = (timestamp: number): void => {
-          frameCount++;
-          if (timestamp - start > 1000) {
-            highRefreshRate = frameCount > 80;
-          } else if (frameCount < 10) {
-            requestAnimationFrame(measureFrameRate);
-          }
-        };
-
-        requestAnimationFrame(measureFrameRate);
-      } catch {
-        highRefreshRate = false;
-      }
-
       setSettings({
         reducedMotion,
         lowPerformance,
-        highRefreshRate,
       });
     };
 

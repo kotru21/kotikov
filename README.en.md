@@ -34,6 +34,13 @@ bun install
 - Build: `bun run build`
 - Start: `bun run start`
 - Lint: `bun run lint`
+- Test: `bun run test`
+
+### Environment variables (optional)
+
+| Variable | Description |
+| -------- | ----------- |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 measurement ID. If unset, GA is not loaded. On Vercel: Project → Settings → Environment Variables. |
 
 ---
 
