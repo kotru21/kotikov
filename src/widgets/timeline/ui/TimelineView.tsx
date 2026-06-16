@@ -6,6 +6,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
+import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import TimelineSlideContent from "./TimelineSlideContent";
@@ -14,8 +15,6 @@ import TimelineYearDisplay from "./TimelineYearDisplay";
 
 const navButtonClass =
   "text-text-primary dark:text-text-inverse flex size-9 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 dark:border-white dark:bg-black";
-
-const SWIPE_THRESHOLD_PX = 48;
 
 const TimelineView: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);

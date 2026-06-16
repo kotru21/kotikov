@@ -3,6 +3,8 @@ import React from "react";
 import { ProjectCard } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
 
+import ProjectCardDeck from "./ProjectCardDeck";
+
 const ProjectsView: React.FC = () => {
   return (
     <section
@@ -22,7 +24,11 @@ const ProjectsView: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+        <div className="sm:hidden">
+          <ProjectCardDeck />
+        </div>
+
+        <div className="hidden gap-5 sm:grid sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
           {projectsData.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

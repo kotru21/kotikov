@@ -7,13 +7,20 @@ import ProjectCardPattern from "./ProjectCardPattern";
 
 interface ProjectCardProps {
   project: ProjectItem;
+  isStacked?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false }) => {
   const CardIcon = project.cardIcon;
 
+  const shadowClass = isStacked
+    ? "shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"
+    : "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
+
   return (
-    <article className="group relative flex min-h-[22rem] flex-col overflow-hidden rounded-none border-2 border-black bg-white p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-neutral-900 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] sm:min-h-[24rem] sm:p-7">
+    <article
+      className={`group relative flex min-h-[22rem] flex-col overflow-hidden rounded-none border-2 border-black bg-white p-6 sm:min-h-[24rem] sm:p-7 dark:border-white dark:bg-neutral-900 ${shadowClass}`}
+    >
       <ProjectCardPattern pattern={project.cardPattern} color={project.accentColor} />
 
       <div className="relative z-10 flex items-start justify-between gap-4">
