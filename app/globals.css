@@ -21,6 +21,22 @@ body {
   overflow-x: clip;
 }
 
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="tab"]:not([aria-disabled="true"]),
+a[href],
+label[for],
+select,
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+[disabled],
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 /* Глобальные анимации для портфолио */
 @keyframes fade-in-up {
   from {
