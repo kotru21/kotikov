@@ -11,7 +11,7 @@ interface TimelineSlideContentProps {
 
 const TimelineSlideContent: React.FC<TimelineSlideContentProps> = ({ item }) => {
   return (
-    <div className="max-w-xl px-2 md:px-6" aria-live="polite">
+    <div className="w-full px-2 md:pl-8 md:pr-0" aria-live="polite">
       <p className="text-text-secondary text-xs font-bold tracking-[0.22em] uppercase">
         {getTypeLabel(item.type)} · {item.period}
       </p>
