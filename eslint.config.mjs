@@ -57,6 +57,18 @@ export default defineConfig(
     },
   },
 
+  {
+    name: "vitest-tooling",
+    files: ["vite.config.ts", "vitest.config.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: ["./tsconfig.vitest.json"],
+        projectService: false,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
   // ═══════════════════════════════════════════════════════════════════════════
   // CONFIG FILES (relaxed rules for ESLint plugins without proper types)
   // ═══════════════════════════════════════════════════════════════════════════
