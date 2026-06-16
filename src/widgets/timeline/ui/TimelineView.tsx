@@ -212,7 +212,7 @@ const TimelineView: React.FC = () => {
             id={panelId}
             role="tabpanel"
             aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
-            className="relative w-full"
+            className="grid w-full md:relative [&>*]:col-start-1 [&>*]:row-start-1"
           >
             {timelineData.map((entry, index) => {
               const isActive = index === activeIndex;
@@ -223,7 +223,7 @@ const TimelineView: React.FC = () => {
                   className={
                     isActive
                       ? slideClass
-                      : "pointer-events-none invisible absolute inset-x-0 top-0"
+                      : "pointer-events-none invisible md:absolute md:inset-x-0 md:top-0"
                   }
                   aria-hidden={!isActive}
                 >
