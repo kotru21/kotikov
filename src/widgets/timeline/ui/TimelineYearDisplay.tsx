@@ -14,12 +14,15 @@ interface TimelineYearDisplayProps {
 }
 
 const digitClass =
-  "text-[clamp(3.75rem,20vw,7.5rem)] font-black leading-none tracking-tighter text-black/10 tabular-nums select-none dark:text-white/10";
+  "text-[clamp(3.75rem,20vw,7.5rem)] font-black leading-none text-black/10 tabular-nums select-none dark:text-white/10";
+
+const yearLayoutClass =
+  "inline-flex w-[2.72em] items-center justify-center gap-[0.1em] leading-none";
 
 const digitSlotClass = "inline-flex w-[0.58em] shrink-0 items-center justify-center";
 
 const zeroSlotClass =
-  "mx-[0.02em] inline-flex h-[0.78em] w-[0.68em] shrink-0 items-center justify-center";
+  "inline-flex h-[0.78em] w-[0.68em] shrink-0 items-center justify-center";
 
 const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => {
   const year = extractYear(period);
@@ -28,7 +31,7 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
 
   if (parts === null) {
     return (
-      <div className={`inline-flex w-[2.42em] items-center justify-center leading-none ${digitClass}`}>
+      <div className={`${yearLayoutClass} ${digitClass}`}>
         <span className="text-center">{year}</span>
       </div>
     );
@@ -39,7 +42,7 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
   const showCat = missingAssets[decadeKey] !== true;
 
   return (
-    <div className={`inline-flex w-[2.42em] items-center justify-center leading-none ${digitClass}`}>
+    <div className={`${yearLayoutClass} ${digitClass}`}>
       <span className={digitSlotClass}>{year[0]}</span>
 
       <span className={zeroSlotClass}>
