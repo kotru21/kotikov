@@ -126,6 +126,7 @@ export const usePawAnimation = (
 
       // Touch/Pen: начинаем рисовать только по зажатию
       if (e.pointerType !== "mouse") {
+        e.preventDefault();
         pointerDownRef.current = true;
         pointerIdRef.current = e.pointerId;
         setState((prev) => ({ ...prev, isDrawing: true }));

@@ -10,7 +10,6 @@ import { useContactDrawing } from "./hooks/useContactDrawing";
 import { useContactLifecycle } from "./hooks/useContactLifecycle";
 
 interface ContactCanvasProps {
-  onInitCanvas: () => void;
   ref?: React.Ref<ContactCanvasRef>;
 }
 
@@ -20,7 +19,7 @@ export interface ContactCanvasRef {
   checkCoverage: (rect: DOMRect) => number;
 }
 
-const ContactCanvas: React.FC<ContactCanvasProps> = ({ onInitCanvas, ref }) => {
+const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
   const pixelSize = CONTACT_CANVAS_PIXEL_SIZE;
   const brushRadius = 20;
 
@@ -41,7 +40,6 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ onInitCanvas, ref }) => {
   const { initCanvas, checkCoverage } = useContactLifecycle(
     canvasRef,
     ctxRef,
-    onInitCanvas,
     pixelSize,
     generateCats,
     drawBackground,

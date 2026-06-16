@@ -13,7 +13,6 @@ interface UseContactLifecycleReturn {
 export const useContactLifecycle = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
-  onInitCanvas: () => void,
   pixelSize: number,
   generateCats: (rows: number, cols: number) => void,
   drawBackground: () => void,
@@ -71,9 +70,7 @@ export const useContactLifecycle = (
       const [c, r] = key.split(",").map(Number);
       ctx.strokeRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
     }
-
-    onInitCanvas();
-  }, [onInitCanvas, generateCats, drawBackground, pixelSize, canvasRef, ctxRef, revealedMapRef]);
+  }, [generateCats, drawBackground, pixelSize, canvasRef, ctxRef, revealedMapRef]);
 
   useCanvasLifecycle(initCanvas);
 

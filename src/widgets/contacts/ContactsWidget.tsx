@@ -17,23 +17,20 @@ const ContactsWidget: React.FC = () => {
   const canvasRef = useRef<ContactCanvasRef>(null);
 
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  const enableCanvas = !reducedMotion && !lowPerformance;
+  const enablePaint = !reducedMotion;
+  const showPaw = enablePaint && !lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
 
   const handleDraw = useCallback(
     (x: number, y: number, prevX: number, prevY: number) => {
-      if (!enableCanvas) return;
+      if (!enablePaint) return;
       canvasRef.current?.drawOnCanvas(x, y, prevX, prevY);
       checkCollisions(x, y, prevX, prevY, canvasRef);
     },
-    [checkCollisions, enableCanvas]
+    [checkCollisions, enablePaint]
   );
-
-  const handleCanvasInit = useCallback(() => {
-    // Колбэк для инициализации холста
-  }, []);
 
   const {
     pawPos,
@@ -50,7 +47,7 @@ const ContactsWidget: React.FC = () => {
   } = usePawAnimation(handleDraw);
 
   const handleClearCanvas = (): void => {
-    if (!enableCanvas) return;
+    if (!enablePaint) return;
     canvasRef.current?.initCanvas();
   };
 
@@ -60,10 +57,10 @@ const ContactsWidget: React.FC = () => {
         contacts={contactsData}
         pawPos={pawPos}
         pawVelocity={pawVelocity}
-        isDrawing={enableCanvas ? isDrawing : false}
-        canvasEnabled={enableCanvas}
+        isDrawing={isDrawing}
+        showPaw={showPaw}
+        enablePaint={enablePaint}
         onClearCanvas={handleClearCanvas}
-        onCanvasInit={handleCanvasInit}
         canvasRef={canvasRef}
         onPointerEnter={handlePointerEnter}
         onPointerMove={handlePointerMove}

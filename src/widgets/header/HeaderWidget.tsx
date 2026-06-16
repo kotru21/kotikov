@@ -18,20 +18,23 @@ const HeaderWidget: React.FC = () => {
   const paintRef = useRef<GridPaintOverlayRef | null>(null);
 
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  const enableMotion = !reducedMotion && !lowPerformance;
+  const enablePaint = !reducedMotion;
+  const showDecorations = enablePaint && !lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
 
   const handleDraw = useCallback(
     (x: number, y: number, prevX: number, prevY: number) => {
+      if (!enablePaint) return;
       paintRef.current?.drawOnCanvas(x, y, prevX, prevY);
       checkCollisions(x, y, prevX, prevY, paintRef);
     },
-    [checkCollisions]
+    [checkCollisions, enablePaint]
   );
 
   const {
+    isDrawing,
     handlers: {
       handlePointerEnter,
       handlePointerMove,
@@ -46,7 +49,7 @@ const HeaderWidget: React.FC = () => {
     <div
       id="header"
       className="bg-background-primary dark:bg-background-tertiary relative flex min-h-screen flex-col overflow-hidden transition-colors duration-300"
-      style={{ touchAction: "pan-y" }}
+      style={{ touchAction: isDrawing ? "none" : "pan-y" }}
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -54,10 +57,9 @@ const HeaderWidget: React.FC = () => {
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerCancel}
     >
-      {/* Canvas now covers entire header (nav + hero) */}
-      <HeaderBackground paintRef={enableMotion ? paintRef : undefined} />
+      <HeaderBackground paintRef={enablePaint ? paintRef : undefined} />
 
-      {enableMotion ? <HeaderNyancat /> : null}
+      {showDecorations ? <HeaderNyancat /> : null}
 
       <InteractiveTextContext value={registry}>
         <HeaderNavigation navigation={navigation} />

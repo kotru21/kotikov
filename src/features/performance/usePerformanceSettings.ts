@@ -22,8 +22,7 @@ export const usePerformanceSettings = (): PerformanceSettings => {
       const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
       const lowPerformance =
         navigator.hardwareConcurrency <= 2 ||
-        (deviceMemory !== undefined && deviceMemory <= 4) ||
-        navigator.userAgent.includes("Mobile");
+        (deviceMemory !== undefined && deviceMemory <= 4);
 
       let highRefreshRate = false;
       try {

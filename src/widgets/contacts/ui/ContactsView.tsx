@@ -15,9 +15,9 @@ interface ContactsViewProps {
   pawPos: { x: number; y: number };
   pawVelocity: { x: number; y: number };
   isDrawing: boolean;
-  canvasEnabled: boolean;
+  showPaw: boolean;
+  enablePaint: boolean;
   onClearCanvas: () => void;
-  onCanvasInit: () => void;
   canvasRef: React.RefObject<ContactCanvasRef | null>;
   onPointerEnter: React.PointerEventHandler<HTMLElement>;
   onPointerMove: React.PointerEventHandler<HTMLElement>;
@@ -27,14 +27,16 @@ interface ContactsViewProps {
   onPointerCancel: React.PointerEventHandler<HTMLElement>;
 }
 
+const CONTACTS_GRADIENT = `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`;
+
 const ContactsView: React.FC<ContactsViewProps> = ({
   contacts,
   pawPos,
   pawVelocity,
   isDrawing,
-  canvasEnabled,
+  showPaw,
+  enablePaint,
   onClearCanvas,
-  onCanvasInit,
   canvasRef,
   onPointerEnter,
   onPointerMove,
@@ -47,7 +49,10 @@ const ContactsView: React.FC<ContactsViewProps> = ({
     <section
       id="contacts"
       className="relative flex min-h-[70vh] items-center justify-center overflow-hidden py-20 md:min-h-[60vh]"
-      style={{ cursor: isDrawing ? "none" : undefined, touchAction: "pan-y" }}
+      style={{
+        cursor: isDrawing ? "none" : undefined,
+        touchAction: isDrawing ? "none" : "pan-y",
+      }}
       onPointerEnter={onPointerEnter}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
@@ -55,15 +60,20 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
-      {/* Интерактивный фон */}
-      <ContactCanvas ref={canvasRef} onInitCanvas={onCanvasInit} />
+      {enablePaint ? (
+        <ContactCanvas ref={canvasRef} />
+      ) : (
+        <div
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          style={{ background: CONTACTS_GRADIENT }}
+        />
+      )}
 
-      {isDrawing ? (
+      {showPaw && isDrawing ? (
         <CatPaw x={pawPos.x} y={pawPos.y} isActive={isDrawing} velocity={pawVelocity} />
       ) : null}
 
-      {/* Контент секции */}
-      <div className="pointer-events-auto relative z-10 container mx-auto px-4">
+      <div className="relative z-10 container mx-auto px-4">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 text-center">
             <InteractiveElement
@@ -91,11 +101,6 @@ const ContactsView: React.FC<ContactsViewProps> = ({
           </div>
           <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
             {contacts.map((contact, index) => {
-              // Логика сетки
-              // 0: Большой квадрат слева (2x2)
-              // 1: Широкая плашка сверху справа (2x1)
-              // 2: Широкая плашка снизу справа (2x1)
-
               let gridClasses = "col-span-1";
               let variant: "auto" | "light" | "dark" = "auto";
 
@@ -146,11 +151,11 @@ const ContactsView: React.FC<ContactsViewProps> = ({
             })}
           </div>
 
-          {/* Кнопка очистки */}
-          {canvasEnabled ? (
+          {enablePaint ? (
             <div className="mt-12 text-center">
               <button
                 type="button"
+                data-draw-allow
                 onClick={onClearCanvas}
                 className="text-text-muted hover:text-text-primary dark:hover:text-text-inverse text-xs font-bold tracking-wide uppercase underline decoration-dotted underline-offset-4 transition-colors"
               >
