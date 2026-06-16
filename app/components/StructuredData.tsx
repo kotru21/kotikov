@@ -8,6 +8,7 @@ export default function StructuredData(): JSX.Element {
     "@context": "https://schema.org",
     "@type": "Person",
     name: personData.name,
+    alternateName: [personData.nickname, personData.nameRu],
     jobTitle: personData.jobTitle,
     description: personData.description,
     url: personData.url,

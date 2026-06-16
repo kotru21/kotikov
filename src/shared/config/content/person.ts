@@ -1,10 +1,12 @@
 import { social } from "./social";
 
 export const personData = {
-  name: "Kotikov",
+  name: "Arsenij Kotikov",
+  nameRu: "Арсений Котиков",
+  nickname: "Kotikov",
   jobTitle: "Frontend Developer",
   description:
-    "Frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
+    "Арсений Котиков (Kotikov) — frontend разработчик, специализирующийся на создании красивых и отзывчивых пользовательских интерфейсов",
   url: "https://ktkv.me",
   sameAs: [social.github.url, social.telegram.url, social.linkedin.url],
   email: social.email.address,

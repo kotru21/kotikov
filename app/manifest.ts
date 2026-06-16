@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
 
+import { personData } from "@/shared/config/content";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kotikov - Frontend Developer",
-    short_name: "Kotikov",
-    description: "Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js.",
+    name: `${personData.name} — Frontend Developer`,
+    short_name: personData.nickname,
+    description: personData.description,
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

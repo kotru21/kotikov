@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { ThemeProvider } from "@/features/theme";
+import { personData } from "@/shared/config/content";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,13 +21,15 @@ const geistMono = Geist_Mono({
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
+const siteTitle = `${personData.nameRu} (${personData.nickname}) — Frontend разработка на React/Next.js | Портфолио`;
+const siteDescription = `Frontend разработчик ${personData.nameRu} (${personData.nickname}). Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.`;
+
 export const metadata: Metadata = {
   title: {
-    default: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
-    template: "%s | Kotikov",
+    default: siteTitle,
+    template: `%s | ${personData.nickname}`,
   },
-  description:
-    "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
+  description: siteDescription,
   keywords: [
     "frontend developer",
     "frontend разработка",
@@ -45,12 +48,15 @@ export const metadata: Metadata = {
     "portfolio",
     "котиков",
     "kotikov",
+    "Arsenij Kotikov",
+    "Арсений Котиков",
+    "arsenij kotikov",
     "фронтенд разработчик",
     "портфолио разработчика",
   ],
-  authors: [{ name: "Kotikov" }],
-  creator: "Kotikov",
-  publisher: "Kotikov",
+  authors: [{ name: personData.name }],
+  creator: personData.name,
+  publisher: personData.name,
   robots: {
     index: true,
     follow: true,
@@ -66,25 +72,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_RU",
     url: "https://ktkv.me",
-    siteName: "Kotikov Portfolio",
-    title: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
-    description:
-      "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
+    siteName: `${personData.nickname} Portfolio`,
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
         url: "/og_image.png",
         width: 1200,
         height: 630,
-        alt: "Kotikov — Frontend разработка на React/Next.js",
+        alt: `${personData.nameRu} — Frontend разработка на React/Next.js`,
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kotikov — Frontend разработка на React/Next.js | Портфолио",
-    description:
-      "Frontend разработчик Kotikov. Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.",
+    title: siteTitle,
+    description: siteDescription,
     images: ["/og_image.png"],
     creator: "@kotikov_dev",
     site: "@kotikov_dev",
