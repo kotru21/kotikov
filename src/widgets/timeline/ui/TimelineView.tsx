@@ -66,8 +66,8 @@ const TimelineView: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-10 lg:gap-16">
-          <div className="flex w-full shrink-0 flex-col gap-4 md:max-w-[26rem]">
+        <div className="flex flex-col gap-8 md:flex-row md:items-stretch md:justify-between md:gap-10 lg:gap-16">
+          <div className="flex w-full shrink-0 flex-col justify-center gap-4 md:max-w-[26rem]">
             <div className="-mx-4 flex w-[calc(100%+2rem)] justify-center sm:-mx-6 sm:w-[calc(100%+3rem)] md:mx-0 md:w-full">
               <div
                 className="relative h-[clamp(3.75rem,20vw,7.5rem)] w-full max-w-full"
@@ -129,7 +129,7 @@ const TimelineView: React.FC = () => {
             </div>
           </div>
 
-          <div className="min-w-0 pt-1 md:max-w-md md:shrink-0 lg:max-w-lg lg:pt-2 xl:mr-4">
+          <div className="flex min-w-0 flex-col justify-center md:max-w-md md:shrink-0 lg:max-w-lg xl:mr-4">
             <div className="grid">
               {timelineData.map((item, index) => {
                 const isActive = index === activeIndex;
