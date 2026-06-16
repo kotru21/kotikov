@@ -127,10 +127,10 @@ const TimelineView: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="flex w-full shrink-0 flex-col justify-center gap-4 md:max-w-[26rem]">
-            <div className="-mx-4 flex w-[calc(100%+2rem)] justify-center sm:-mx-6 sm:w-[calc(100%+3rem)] md:mx-0 md:w-full">
+          <div className="flex w-full shrink-0 flex-col items-center gap-4 md:max-w-[26rem] md:items-stretch">
+            <div className="flex w-full max-w-[26rem] justify-center">
               <div
-                className="relative h-[clamp(3.75rem,20vw,7.5rem)] w-full max-w-full"
+                className="relative h-[clamp(3.75rem,20vw,7.5rem)] w-full"
                 aria-hidden="true"
               >
                 <div
@@ -143,13 +143,13 @@ const TimelineView: React.FC = () => {
             </div>
 
             <p
-              className="text-text-secondary text-center text-xs font-bold tracking-[0.2em] uppercase md:text-left dark:text-neutral-400"
+              className="text-text-secondary w-full max-w-[26rem] text-center text-xs font-bold tracking-[0.2em] uppercase md:text-left dark:text-neutral-400"
               aria-live="polite"
             >
               {activeIndex + 1} / {timelineData.length}
             </p>
 
-            <div className="mx-auto flex w-full max-w-[26rem] items-center gap-2 md:mx-0">
+            <div className="flex w-full max-w-[26rem] items-center justify-center gap-2 md:justify-start">
               <button
                 type="button"
                 onClick={goPrev}
@@ -161,7 +161,7 @@ const TimelineView: React.FC = () => {
               </button>
 
               <div
-                className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-primary-500 [&::-webkit-scrollbar]:hidden"
+                className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-primary-500 [&::-webkit-scrollbar]:hidden"
                 role="tablist"
                 aria-label="Этапы опыта"
                 tabIndex={0}
@@ -209,11 +209,21 @@ const TimelineView: React.FC = () => {
             id={panelId}
             role="tabpanel"
             aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
-            className="flex min-w-0 flex-col justify-center md:max-w-md md:shrink-0 lg:max-w-lg xl:mr-4"
+            className="grid min-w-0 flex-col justify-center md:max-w-md md:shrink-0 lg:max-w-lg xl:mr-4 [&>*]:col-start-1 [&>*]:row-start-1"
           >
-            <div key={activeItem.id} className={slideClass}>
-              <TimelineSlideContent item={activeItem} />
-            </div>
+            {timelineData.map((entry, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <div
+                  key={entry.id}
+                  className={isActive ? slideClass : "pointer-events-none invisible"}
+                  aria-hidden={!isActive}
+                >
+                  <TimelineSlideContent item={entry} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
