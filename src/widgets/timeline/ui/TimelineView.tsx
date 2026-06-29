@@ -7,7 +7,7 @@ import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
 import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
-import { BauhausGridPattern } from "@/shared/ui";
+import { BauhausGridPattern, Section, SectionHeader } from "@/shared/ui";
 
 import TimelineSlideContent from "./TimelineSlideContent";
 import { parsePeriodStart, timelineTabMotionClass } from "./timelineUtils";
@@ -17,7 +17,7 @@ const navButtonClass =
   "text-text-primary dark:text-text-inverse flex size-9 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 dark:border-white dark:bg-black";
 
 /** Matches SkillsGroupedTags horizontal band (3 cards grid). */
-const alignedContentBandClass = "mx-auto w-full max-w-5xl px-4";
+const alignedContentBandClass = "mx-auto w-full max-w-5xl";
 
 const TimelineView: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -97,29 +97,27 @@ const TimelineView: React.FC = () => {
   );
 
   return (
-    <section
+    <Section
       id="experience"
-      className="bg-background-primary dark:bg-background-tertiary relative overflow-x-hidden py-10 transition-colors duration-300 lg:py-12"
+      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
+      className="overflow-x-hidden"
+      innerClassName="relative z-10"
     >
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
 
       <div
-        className={`${alignedContentBandClass} relative z-10 flex flex-col gap-8 md:grid md:grid-cols-[22rem_minmax(0,1fr)] md:items-stretch md:gap-6 lg:grid-cols-[26rem_minmax(0,1fr)] lg:gap-8`}
+        className={`${alignedContentBandClass} flex flex-col gap-8 md:grid md:grid-cols-[22rem_minmax(0,1fr)] md:items-stretch md:gap-6 lg:grid-cols-[26rem_minmax(0,1fr)] lg:gap-8`}
         aria-roledescription="carousel"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         <div className="flex w-full flex-col items-center gap-4 md:items-stretch">
           <div className="w-full max-w-[26rem] md:max-w-none">
-            <p className="text-primary-950 dark:text-primary-300 mb-2 text-sm font-bold tracking-[0.24em] uppercase">
-              Опыт
-            </p>
-            <h2 className="text-text-primary dark:text-text-inverse text-3xl font-black tracking-tight uppercase md:text-4xl">
-              Мой путь
-            </h2>
-            <p className="text-text-secondary mt-2 text-sm font-medium md:text-base dark:text-neutral-400">
-              Образование, работа, хакатоны и личные проекты.
-            </p>
+            <SectionHeader
+              eyebrow="Опыт"
+              title="Мой путь"
+              description="Образование, работа, хакатоны и личные проекты."
+            />
           </div>
 
           <div className="flex w-full max-w-[26rem] justify-center md:max-w-none">
@@ -221,7 +219,7 @@ const TimelineView: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 };
 
