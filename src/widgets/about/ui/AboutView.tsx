@@ -1,24 +1,21 @@
 import React from "react";
 
 import { aboutContent } from "@/shared/config/content";
+import { Section, SectionHeader } from "@/shared/ui";
 
 const AboutView: React.FC = () => {
   return (
-    <section
+    <Section
       id="about"
-      className="bg-background-primary dark:bg-background-tertiary relative px-6 py-20 transition-colors duration-300 lg:px-8"
+      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
     >
-      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
-          <p className="text-primary-950 dark:text-primary-300 mb-3 text-sm font-bold tracking-[0.24em] uppercase">
-            Обо мне
-          </p>
-          <h2 className="text-text-primary dark:text-text-inverse text-4xl font-black tracking-tight uppercase sm:text-5xl">
-            {aboutContent.title}
-          </h2>
-          <p className="text-text-secondary mt-5 max-w-xl text-lg leading-8 font-medium dark:text-neutral-300">
-            {aboutContent.body}
-          </p>
+          <SectionHeader
+            eyebrow="Обо мне"
+            title={aboutContent.title}
+            description={aboutContent.body}
+          />
         </div>
         <ul className="grid content-start gap-4">
           {aboutContent.principles.map((principle) => (
@@ -31,7 +28,7 @@ const AboutView: React.FC = () => {
           ))}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 };
 
