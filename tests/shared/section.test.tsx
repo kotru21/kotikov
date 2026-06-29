@@ -27,6 +27,19 @@ describe("Section", () => {
     expect(container.querySelector("section#skills")).toHaveClass("py-16");
   });
 
+  it("omits vertical padding when spacing=none", () => {
+    const { container } = render(
+      <Section id="footer" spacing="none">
+        <p>Footer</p>
+      </Section>
+    );
+
+    const section = container.querySelector("section#footer");
+    expect(section).toBeInTheDocument();
+    expect(section).not.toHaveClass("py-24");
+    expect(section).not.toHaveClass("py-16");
+  });
+
   it("applies container-x and container-max on inner wrapper", () => {
     const { container } = render(
       <Section id="projects">

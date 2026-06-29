@@ -2,11 +2,14 @@ import React from "react";
 
 interface SectionHeaderProps {
   eyebrow: React.ReactNode;
-  title: string;
-  description?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
   align?: "left" | "center";
   className?: string;
 }
+
+const eyebrowClasses =
+  "text-primary-950 dark:text-primary-300 mb-3 text-sm font-bold tracking-[0.24em] uppercase";
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   eyebrow,
@@ -21,18 +24,20 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 
   return (
     <header className={`mb-12 lg:mb-16 ${alignClasses} ${className}`.trim()}>
-      <p className="text-primary-950 dark:text-primary-300 mb-3 text-sm font-bold tracking-[0.24em] uppercase">
-        {eyebrow}
-      </p>
+      {typeof eyebrow === "string" ? (
+        <p className={eyebrowClasses}>{eyebrow}</p>
+      ) : (
+        eyebrow
+      )}
       <h2 className="text-text-primary dark:text-text-inverse text-4xl font-black tracking-tight uppercase sm:text-5xl">
         {title}
       </h2>
-      {description !== undefined ? (
-        <p
+      {description !== undefined && description !== null ? (
+        <div
           className={`text-text-secondary mt-4 text-lg leading-8 font-medium dark:text-neutral-400 ${descriptionAlignClasses}`}
         >
           {description}
-        </p>
+        </div>
       ) : null}
     </header>
   );

@@ -1,9 +1,10 @@
 import React from "react";
 
-interface SectionProps {
+interface SectionProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, "children" | "className" | "id"> {
   id?: string;
   children: React.ReactNode;
-  spacing?: "default" | "compact";
+  spacing?: "default" | "compact" | "none";
   backgroundClassName?: string;
   className?: string;
   innerClassName?: string;
@@ -13,6 +14,7 @@ interface SectionProps {
 const spacingClasses = {
   default: "py-24",
   compact: "py-16",
+  none: "",
 } as const;
 
 const containerClasses = "px-6 lg:px-8 max-w-6xl mx-auto";
@@ -26,12 +28,13 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(function Section(
     className = "",
     innerClassName = "",
     as: Tag = "section",
+    ...nativeProps
   },
   ref,
 ) {
   const rootClasses = [
     "relative transition-colors duration-300",
-    spacing !== undefined ? spacingClasses[spacing] : "",
+    spacing !== "none" ? spacingClasses[spacing] : "",
     backgroundClassName,
     className,
   ]
@@ -39,7 +42,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(function Section(
     .join(" ");
 
   return (
-    <Tag ref={ref} id={id} className={rootClasses}>
+    <Tag ref={ref} id={id} className={rootClasses} {...nativeProps}>
       <div className={`${containerClasses} ${innerClassName}`.trim()}>{children}</div>
     </Tag>
   );
