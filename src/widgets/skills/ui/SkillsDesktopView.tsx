@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import { BauhausGridPattern } from "@/shared/ui";
+import { BauhausGridPattern, Section } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillsCursorNyancat, SkillsMarquee } from ".";
@@ -12,19 +12,18 @@ const SkillsDesktopView: React.FC = () => {
 
   return (
     <SkillsInteractionProvider>
-      <section
+      <Section
         ref={containerRef}
         id="skills"
-        className="bg-background-primary dark:bg-background-tertiary relative overflow-x-clip py-10 transition-colors duration-300"
-        style={{}}
+        spacing="compact"
+        backgroundClassName="bg-background-primary dark:bg-background-tertiary"
+        className="overflow-x-clip"
+        innerClassName="relative z-10 max-w-full"
       >
         <SkillsCursorNyancat containerRef={containerRef} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-        <div className="relative z-10 mx-auto max-w-full">
-          {/* Бегущая строка скиллов */}
-          <SkillsMarquee />
-        </div>
-      </section>
+        <SkillsMarquee />
+      </Section>
     </SkillsInteractionProvider>
   );
 };

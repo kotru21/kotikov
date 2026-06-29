@@ -8,7 +8,6 @@ interface SectionProps {
   className?: string;
   innerClassName?: string;
   as?: "section" | "footer";
-  ref?: React.Ref<HTMLElement>;
 }
 
 const spacingClasses = {
@@ -18,16 +17,18 @@ const spacingClasses = {
 
 const containerClasses = "px-6 lg:px-8 max-w-6xl mx-auto";
 
-const Section: React.FC<SectionProps> = ({
-  id,
-  children,
-  spacing = "default",
-  backgroundClassName = "",
-  className = "",
-  innerClassName = "",
-  as: Tag = "section",
+const Section = React.forwardRef<HTMLElement, SectionProps>(function Section(
+  {
+    id,
+    children,
+    spacing = "default",
+    backgroundClassName = "",
+    className = "",
+    innerClassName = "",
+    as: Tag = "section",
+  },
   ref,
-}) => {
+) {
   const rootClasses = [
     "relative transition-colors duration-300",
     spacing !== undefined ? spacingClasses[spacing] : "",
@@ -42,6 +43,6 @@ const Section: React.FC<SectionProps> = ({
       <div className={`${containerClasses} ${innerClassName}`.trim()}>{children}</div>
     </Tag>
   );
-};
+});
 
 export default Section;
