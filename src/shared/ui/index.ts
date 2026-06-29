@@ -3,6 +3,7 @@ export { default as BauhausGridPattern } from "./BauhausGridPattern";
 export { Button } from "./Button";
 export { Card } from "./Card";
 export { Section } from "./Section";
+export { SectionHeader } from "./SectionHeader";
 export type { GridPaintOverlayRef } from "./GridPaintOverlay";
 export { GridPaintOverlay } from "./GridPaintOverlay";
 export { default as Logo } from "./Logo";
