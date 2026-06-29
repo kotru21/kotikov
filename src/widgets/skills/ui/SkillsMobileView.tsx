@@ -5,7 +5,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
-import { Button } from "@/shared/ui";
+import { Button, Section } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
@@ -40,10 +40,12 @@ const SkillsMobileView: React.FC = () => {
   }, []);
 
   return (
-    <section
+    <Section
       id="skills"
-      aria-labelledby="skills-heading"
-      className="bg-background-primary dark:bg-background-tertiary relative overflow-x-hidden py-12 transition-colors duration-300"
+      spacing="compact"
+      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
+      className="overflow-x-hidden"
+      innerClassName=""
     >
       {/* Заголовок */}
       <div className="px-4 pb-8 text-center">
@@ -111,7 +113,7 @@ const SkillsMobileView: React.FC = () => {
 
       {/* Сгруппированные теги навыков — всегда видны */}
       <SkillsGroupedTags />
-    </section>
+    </Section>
   );
 };
 
