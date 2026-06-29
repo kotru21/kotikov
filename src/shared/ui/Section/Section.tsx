@@ -19,33 +19,39 @@ const spacingClasses = {
 
 const containerClasses = "px-6 lg:px-8 max-w-6xl mx-auto";
 
-const Section = React.forwardRef<HTMLElement, SectionProps>(function Section(
-  {
-    id,
-    children,
-    spacing = "default",
-    backgroundClassName = "",
-    className = "",
-    innerClassName = "",
-    as: Tag = "section",
-    ...nativeProps
-  },
-  ref,
-) {
-  const rootClasses = [
-    "relative transition-colors duration-300",
-    spacing !== "none" ? spacingClasses[spacing] : "",
-    backgroundClassName,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+const Section = React.forwardRef<HTMLElement, SectionProps>(
+  (
+    {
+      id,
+      children,
+      spacing = "default",
+      backgroundClassName = "",
+      className = "",
+      innerClassName = "",
+      as: rootTag = "section",
+      ...nativeProps
+    },
+    ref,
+  ) => {
+    const rootClasses = [
+      "relative transition-colors duration-300",
+      spacing !== "none" ? spacingClasses[spacing] : "",
+      backgroundClassName,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  return (
-    <Tag ref={ref} id={id} className={rootClasses} {...nativeProps}>
-      <div className={`${containerClasses} ${innerClassName}`.trim()}>{children}</div>
-    </Tag>
-  );
-});
+    const RootTag = rootTag;
+
+    return (
+      <RootTag ref={ref} id={id} className={rootClasses} {...nativeProps}>
+        <div className={`${containerClasses} ${innerClassName}`.trim()}>{children}</div>
+      </RootTag>
+    );
+  },
+);
+
+Section.displayName = "Section";
 
 export default Section;
