@@ -113,4 +113,10 @@ describe("SectionHeader", () => {
 
     expect(screen.getByTestId("custom-eyebrow")).toBeInTheDocument();
   });
+
+  it("applies H2 typography scale from design spec", () => {
+    render(<SectionHeader eyebrow="Test" title="Title" />);
+    const h2 = screen.getByRole("heading", { level: 2 });
+    expect(h2).toHaveClass("text-4xl", "sm:text-5xl", "font-black", "tracking-tight", "uppercase");
+  });
 });

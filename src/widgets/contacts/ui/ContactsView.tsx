@@ -76,7 +76,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       <div className="relative z-10">
       <SectionHeader
         align="center"
-        className="[&_h2]:text-white [&_h2]:drop-shadow-sm"
+        tone="on-gradient"
         eyebrow={
           <InteractiveElement
             as="p"
