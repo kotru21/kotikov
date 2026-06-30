@@ -15,11 +15,7 @@ const AboutView: React.FC = () => {
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
 
       <div className="flex w-full flex-col gap-8 lg:gap-10">
-        <SectionHeader
-          eyebrow="Обо мне"
-          title={aboutContent.title}
-          titleId="about-heading"
-        />
+        <SectionHeader eyebrow="Обо мне" title={aboutContent.title} titleId="about-heading" />
 
         <AboutSpecPanel />
       </div>

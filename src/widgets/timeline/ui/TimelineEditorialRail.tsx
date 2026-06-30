@@ -92,7 +92,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
         </p>
 
         <div
-          className="bg-black/10 h-1 min-w-0 flex-1 overflow-hidden dark:bg-white/15"
+          className="h-1 min-w-0 flex-1 overflow-hidden bg-black/10 dark:bg-white/15"
           aria-hidden="true"
         >
           <div
@@ -138,19 +138,14 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
           ref={scrollerRef}
           role="region"
           aria-label="Лента этапов опыта. Прокрутите горизонтально или используйте стрелки."
-          className="overflow-x-auto overscroll-x-contain px-6 pb-6 [scrollbar-width:none] snap-x snap-mandatory scroll-smooth [-ms-overflow-style:none] motion-reduce:scroll-auto lg:px-8 [&::-webkit-scrollbar]:hidden"
+          className="snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain scroll-smooth px-6 pb-6 [-ms-overflow-style:none] motion-reduce:scroll-auto lg:px-8 [&::-webkit-scrollbar]:hidden"
         >
           <div className="relative flex items-start gap-10" role="list" aria-label="Этапы опыта">
             {items.map((item) => {
               const titleId = `timeline-entry-${String(item.id)}`;
 
               return (
-                <div
-                  key={item.id}
-                  role="listitem"
-                  data-timeline-card
-                  className={cardSlotClass}
-                >
+                <div key={item.id} role="listitem" data-timeline-card className={cardSlotClass}>
                   <div className="mb-4 flex h-8 shrink-0 items-center justify-center">
                     <div
                       aria-hidden="true"

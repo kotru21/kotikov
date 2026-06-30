@@ -22,13 +22,13 @@ const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({
   return (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col">
       <p
-        className={`text-xs font-bold uppercase tracking-[0.2em] ${getTimelineTypeEyebrowClass(item.type)}`}
+        className={`text-xs font-bold tracking-[0.2em] uppercase ${getTimelineTypeEyebrowClass(item.type)}`}
       >
         {getTypeLabel(item.type)}
       </p>
       <h3
         id={titleId}
-        className={`text-text-primary mt-1.5 font-black uppercase tracking-tight dark:text-text-inverse ${
+        className={`text-text-primary dark:text-text-inverse mt-1.5 font-black tracking-tight uppercase ${
           compact
             ? "text-xl leading-tight sm:text-[1.35rem]"
             : "text-xl leading-tight sm:text-2xl sm:leading-tight"
@@ -36,12 +36,12 @@ const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({
       >
         {item.title}
       </h3>
-      <p className="text-primary-950 mt-1 text-sm font-bold dark:text-primary-300">{item.company}</p>
+      <p className="text-primary-950 dark:text-primary-300 mt-1 text-sm font-bold">
+        {item.company}
+      </p>
       <p
         className={`text-text-secondary font-medium dark:text-neutral-300 ${
-          compact
-            ? "mt-2 line-clamp-4 text-sm leading-relaxed"
-            : "mt-3 text-sm leading-relaxed"
+          compact ? "mt-2 line-clamp-4 text-sm leading-relaxed" : "mt-3 text-sm leading-relaxed"
         }`}
       >
         {item.description}

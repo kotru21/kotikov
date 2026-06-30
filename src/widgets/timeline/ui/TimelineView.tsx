@@ -73,7 +73,7 @@ const TimelineView: React.FC = () => {
         <div className="flex flex-col gap-6 lg:hidden">
           <div className="flex w-full flex-col gap-3">
             <div
-              className="bg-black/10 h-1 w-full overflow-hidden dark:bg-white/15"
+              className="h-1 w-full overflow-hidden bg-black/10 dark:bg-white/15"
               aria-hidden="true"
             >
               <div

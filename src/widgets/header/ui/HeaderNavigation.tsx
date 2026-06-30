@@ -97,7 +97,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         >
           <div
             ref={mobileIslandRef}
-            className={`${islandShellClass}${isIsland ? "" : " gap-4"}`}
+            className={`${islandShellClass}${isIsland ? "" : "gap-4"}`}
             data-island={isIsland ? "true" : "false"}
             style={mobileIsland.islandStyle}
           >
@@ -139,7 +139,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   setMobileMenuOpen(true);
                 }}
                 data-draw-exclude
-                className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
+                className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 hover:text-black focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:bg-black dark:hover:text-black"
               >
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon aria-hidden="true" className="size-6" />
@@ -179,11 +179,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   <Logo variant="pc" className="h-8 w-auto" />
                 </InteractiveElement>
               ) : (
-                <Link
-                  href="/"
-                  data-draw-exclude
-                  className="-m-1.5 inline-flex items-center p-1.5"
-                >
+                <Link href="/" data-draw-exclude className="-m-1.5 inline-flex items-center p-1.5">
                   <span className="sr-only">ktkv</span>
                   <Logo variant="pc" className="h-8 w-auto" />
                 </Link>
@@ -264,7 +260,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 type="button"
                 data-draw-exclude
                 onClick={closeMobileMenu}
-                className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all focus-visible:ring-2 focus-visible:outline-none hover:border-black hover:text-black dark:text-white dark:hover:border-white"
+                className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all hover:border-black hover:text-black focus-visible:ring-2 focus-visible:outline-none dark:text-white dark:hover:border-white"
               >
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
@@ -280,7 +276,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                       href={item.href}
                       data-draw-exclude
                       onClick={closeMobileMenu}
-                      className="hover:bg-primary-500 hover:border-l-primary-500 focus-visible:ring-primary-500 dark:hover:border-l-primary-400 -mx-3 inline-flex min-h-11 w-[calc(100%+1.5rem)] items-center rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:text-white"
+                      className="hover:bg-primary-500 hover:border-l-primary-500 focus-visible:ring-primary-500 dark:hover:border-l-primary-400 -mx-3 inline-flex min-h-11 w-[calc(100%+1.5rem)] items-center rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all hover:text-black focus-visible:ring-2 focus-visible:outline-none dark:text-white"
                     >
                       {item.name}
                     </InteractiveElement>
@@ -290,7 +286,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   <a
                     href="#contacts"
                     onClick={closeMobileMenu}
-                    className="hover:bg-primary-500 focus-visible:ring-primary-500 -mx-3 inline-flex min-h-11 items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all focus-visible:ring-2 focus-visible:outline-none hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
+                    className="hover:bg-primary-500 focus-visible:ring-primary-500 -mx-3 inline-flex min-h-11 items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
                   >
                     Связаться <span aria-hidden="true">&rarr;</span>
                   </a>

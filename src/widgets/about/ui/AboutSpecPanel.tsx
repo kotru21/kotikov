@@ -31,15 +31,15 @@ const AboutSpecPanel: React.FC = () => {
 
       <div
         aria-hidden="true"
-        className="border-y-2 border-r-2 border-l-4 border-black border-l-primary-500 bg-white dark:border-white dark:border-l-primary-400 dark:bg-black"
+        className="border-l-primary-500 dark:border-l-primary-400 border-y-2 border-r-2 border-l-4 border-black bg-white dark:border-white dark:bg-black"
       >
-        <div className="border-black/15 border-b-2 dark:border-white/20">
-          <span className="inline-flex border-r-2 border-black bg-primary-500 px-4 py-2 text-xs font-bold tracking-wide text-black uppercase dark:border-white">
+        <div className="border-b-2 border-black/15 dark:border-white/20">
+          <span className="bg-primary-500 inline-flex border-r-2 border-black px-4 py-2 text-xs font-bold tracking-wide text-black uppercase dark:border-white">
             {spec.fileName}
           </span>
         </div>
 
-        <pre className="overflow-x-auto p-4 text-[0.8125rem] leading-relaxed font-mono sm:p-6 sm:text-sm">
+        <pre className="overflow-x-auto p-4 font-mono text-[0.8125rem] leading-relaxed sm:p-6 sm:text-sm">
           <code>
             <span className={commentToneClass}>{"/**"}</span>
             {"\n"}

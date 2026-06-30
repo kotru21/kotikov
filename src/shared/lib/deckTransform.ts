@@ -7,8 +7,7 @@ export interface DeckTransform {
   isActive: boolean;
 }
 
-export const DECK_MOTION_CLASS =
-  "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
+export const DECK_MOTION_CLASS = "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 export function getCyclicDeckCardRole(
   cardIndex: number,
@@ -23,10 +22,7 @@ export function getCyclicDeckCardRole(
   return "prev";
 }
 
-export function getLinearDeckCardRole(
-  cardIndex: number,
-  activeIndex: number
-): DeckCardRole {
+export function getLinearDeckCardRole(cardIndex: number, activeIndex: number): DeckCardRole {
   if (cardIndex === activeIndex) return "active";
   if (cardIndex === activeIndex + 1) return "next";
   if (cardIndex === activeIndex - 1) return "prev";

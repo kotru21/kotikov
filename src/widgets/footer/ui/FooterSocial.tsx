@@ -25,7 +25,7 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none"
+            className="group focus-visible:ring-primary-500 relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
             title={link.name}
             aria-label={link.name}
           >

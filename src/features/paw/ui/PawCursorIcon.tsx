@@ -6,12 +6,7 @@ interface PawCursorIconProps {
 
 const PawCursorIcon: React.FC<PawCursorIconProps> = ({ className = "size-10" }) => {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="currentColor"
-      aria-hidden="true"
-      className={className}
-    >
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" className={className}>
       <ellipse cx="11" cy="9" rx="3.2" ry="4" />
       <ellipse cx="21" cy="9" rx="3.2" ry="4" />
       <ellipse cx="7" cy="16" rx="2.8" ry="3.6" />

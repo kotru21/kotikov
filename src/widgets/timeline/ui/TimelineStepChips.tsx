@@ -22,11 +22,9 @@ const baseChipClass =
 const inactiveChipClass =
   "bg-white text-text-primary dark:bg-black dark:text-text-inverse lg:bg-background-primary lg:dark:bg-neutral-900";
 
-const activeChipShellClass =
-  "shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]";
+const activeChipShellClass = "shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]";
 
-const chipMotionClass =
-  "transition-[box-shadow,background-color,border-color,color] duration-200";
+const chipMotionClass = "transition-[box-shadow,background-color,border-color,color] duration-200";
 
 const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   items,
@@ -76,10 +74,10 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       aria-label="Этапы опыта"
       tabIndex={onKeyDown === undefined ? undefined : 0}
       onKeyDown={onKeyDown}
-      className={`flex w-full gap-2 overflow-x-auto [scrollbar-width:none] snap-x snap-mandatory [-ms-overflow-style:none] lg:flex-col lg:overflow-visible lg:snap-none lg:gap-2 [&::-webkit-scrollbar]:hidden${
+      className={`flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden${
         onKeyDown === undefined
           ? ""
-          : " outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+          : "focus-visible:ring-primary-500 outline-none focus-visible:ring-2"
       }`}
     >
       {items.map((entry, index) => {

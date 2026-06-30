@@ -28,7 +28,11 @@ const slotClass = "inline-flex h-[1em] w-full items-center justify-center";
 const catImgClass = "h-[0.84em] w-[0.84em] object-contain object-center";
 
 function hasDetailedPeriod(period: string, year: string): boolean {
-  const remainder = period.replace(year, "").replace(/[—–-]/g, "").replace(/н\.в\.?/gi, "").trim();
+  const remainder = period
+    .replace(year, "")
+    .replace(/[—–-]/g, "")
+    .replace(/н\.в\.?/gi, "")
+    .trim();
   return remainder.length > 0;
 }
 

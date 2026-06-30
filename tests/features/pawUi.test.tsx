@@ -1,10 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import {
-  InteractiveTextContext,
-  useInteractiveRegistry,
-} from "@/features/interactive-elements";
+import { InteractiveTextContext, useInteractiveRegistry } from "@/features/interactive-elements";
 import ClearPaintButton from "@/features/paw/ui/ClearPaintButton";
 import PaintDrawHint from "@/features/paw/ui/PaintDrawHint";
 

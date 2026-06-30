@@ -20,11 +20,11 @@ describe("TimelineView mobile a11y", () => {
     expect(tablist).toBeTruthy();
     expect(tabpanel).toBeTruthy();
 
-    const tablistIndex = Array.from(mobileSection?.children ?? []).findIndex(
-      (child) => child.contains(tablist ?? null)
+    const tablistIndex = Array.from(mobileSection?.children ?? []).findIndex((child) =>
+      child.contains(tablist ?? null)
     );
-    const tabpanelIndex = Array.from(mobileSection?.children ?? []).findIndex(
-      (child) => child.contains(tabpanel ?? null)
+    const tabpanelIndex = Array.from(mobileSection?.children ?? []).findIndex((child) =>
+      child.contains(tabpanel ?? null)
     );
 
     expect(tablistIndex).toBeGreaterThanOrEqual(0);

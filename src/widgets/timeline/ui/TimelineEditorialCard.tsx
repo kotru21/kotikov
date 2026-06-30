@@ -4,10 +4,7 @@ import type { TimelineItem } from "@/entities/timeline";
 import { Card } from "@/shared/ui";
 
 import TimelineItemDetails from "./TimelineItemDetails";
-import {
-  getTimelineTypeAccentBarClass,
-  getTimelineTypeSurfaceClass,
-} from "./timelineTypeStyles";
+import { getTimelineTypeAccentBarClass, getTimelineTypeSurfaceClass } from "./timelineTypeStyles";
 import TimelineYearDisplay from "./TimelineYearDisplay";
 
 interface TimelineEditorialCardProps {
@@ -50,7 +47,7 @@ const TimelineEditorialCard: React.FC<TimelineEditorialCardProps> = ({
         <div
           className={
             isStacked
-              ? "border-black/10 border-b pb-3 dark:border-white/10"
+              ? "border-b border-black/10 pb-3 dark:border-white/10"
               : "border-black/10 sm:border-r sm:pr-5 dark:border-white/15"
           }
         >

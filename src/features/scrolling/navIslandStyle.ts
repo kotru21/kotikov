@@ -79,11 +79,7 @@ export function computeNavIslandStyle(
   const topOffset = lerp(preset.topOffsetFrom, preset.topOffsetTo, progress);
   const borderAlpha = lerp(0, 1, scrollBlend);
   const shadowOffset = lerp(0, 4, scrollBlend);
-  const accentBarHeight = lerp(
-    preset.accentBarHeightFrom,
-    preset.accentBarHeightTo,
-    scrollBlend
-  );
+  const accentBarHeight = lerp(preset.accentBarHeightFrom, preset.accentBarHeightTo, scrollBlend);
   const islandWidth =
     progress === 0 && preset.startWidth !== undefined
       ? preset.startWidth

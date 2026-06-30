@@ -14,12 +14,7 @@ interface HeaderHeroProps {
   };
 }
 
-const HeaderHero: React.FC<HeaderHeroProps> = ({
-  eyebrow,
-  title,
-  subtitle,
-  buttons,
-}) => {
+const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, buttons }) => {
   return (
     <div className="relative isolate mx-auto w-full max-w-2xl py-8 sm:py-12 lg:py-16">
       <div className="bg-primary-500 absolute top-0 right-0 -z-10 size-24 translate-x-1/3 -translate-y-1/3 rounded-full opacity-80 mix-blend-multiply blur-sm sm:size-32 sm:translate-x-1/2 sm:-translate-y-1/2 dark:mix-blend-screen" />
@@ -60,7 +55,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({
 
             <a
               href={buttons.secondary.href}
-              className="text-text-primary dark:text-text-inverse group inline-flex min-h-11 items-center justify-center gap-1 rounded-none text-sm leading-6 font-semibold focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary focus-visible:outline-none sm:justify-start dark:focus-visible:ring-offset-background-tertiary"
+              className="text-text-primary dark:text-text-inverse group focus-visible:ring-primary-500 focus-visible:ring-offset-background-primary dark:focus-visible:ring-offset-background-tertiary inline-flex min-h-11 items-center justify-center gap-1 rounded-none text-sm leading-6 font-semibold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:justify-start"
             >
               <InteractiveText text={buttons.secondary.text} />{" "}
               <InteractiveElement

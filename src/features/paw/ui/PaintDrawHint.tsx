@@ -16,10 +16,7 @@ const toneClasses = {
   "on-gradient": "text-neutral-100/90",
 } as const;
 
-const PaintDrawHint: React.FC<PaintDrawHintProps> = ({
-  tone = "default",
-  className = "",
-}) => {
+const PaintDrawHint: React.FC<PaintDrawHintProps> = ({ tone = "default", className = "" }) => {
   const isMobile = useIsMobile();
   const message = isMobile
     ? "Зажми палец и веди — оставь след лапы"
