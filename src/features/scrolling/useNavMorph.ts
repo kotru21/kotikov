@@ -8,7 +8,6 @@ const PHASE1_END = 40;
 const PHASE2_END = 120;
 const PHASE1_PROGRESS = 0.4;
 const REDUCED_MOTION_THRESHOLD = 60;
-const LG_MEDIA_QUERY = "(min-width: 1024px)";
 
 export type NavMorphPhase = 0 | 1 | 2;
 
@@ -45,8 +44,6 @@ export const computeNavMorph = (scrollY: number, snapMorph = false): NavMorphSta
   return { progress: 1, phase: 2, isIsland: true };
 };
 
-const isDesktopNav = (): boolean => window.matchMedia(LG_MEDIA_QUERY).matches;
-
 export const useNavMorph = (): NavMorphState => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const snapMorph = reducedMotion || lowPerformance;
@@ -61,17 +58,11 @@ export const useNavMorph = (): NavMorphState => {
   snapMorphRef.current = snapMorph;
 
   useLayoutEffect(() => {
-    if (!isDesktopNav()) return;
     setState(computeNavMorph(window.scrollY, snapMorphRef.current));
   }, []);
 
   useEffect(() => {
     const update = (): void => {
-      if (!isDesktopNav()) {
-        setState({ progress: 0, phase: 0, isIsland: false });
-        return;
-      }
-
       setState(computeNavMorph(window.scrollY, snapMorphRef.current));
     };
 
@@ -83,19 +74,11 @@ export const useNavMorph = (): NavMorphState => {
       });
     };
 
-    const desktopQuery = window.matchMedia(LG_MEDIA_QUERY);
-
-    const onQueryChange = (): void => {
-      update();
-    };
-
     window.addEventListener("scroll", onScroll, { passive: true });
-    desktopQuery.addEventListener("change", onQueryChange);
     update();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      desktopQuery.removeEventListener("change", onQueryChange);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }

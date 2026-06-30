@@ -43,4 +43,14 @@ describe("deckTransform", () => {
     expect(next.transform).toContain("rotate(2.5deg)");
     expect(prev.transform).toContain("rotate(-2.5deg)");
   });
+
+  it("getDeckTransform hides distant cards in linear timeline decks", () => {
+    const hidden = getDeckTransform("hidden", false);
+    const hiddenReducedMotion = getDeckTransform("hidden", true);
+
+    expect(hidden.opacity).toBe(0);
+    expect(hidden.isActive).toBe(false);
+    expect(hiddenReducedMotion.opacity).toBe(0);
+    expect(hiddenReducedMotion.isActive).toBe(false);
+  });
 });

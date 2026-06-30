@@ -2,13 +2,15 @@
 
 import { useEffect } from "react";
 
+import { shouldResetScrollOnLoad } from "./scrollUtils";
+
 export function ScrollRestoration(): null {
   useEffect(() => {
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
 
-    if (window.location.hash.length > 0) return;
+    if (!shouldResetScrollOnLoad(window.location.hash)) return;
 
     window.scrollTo(0, 0);
   }, []);

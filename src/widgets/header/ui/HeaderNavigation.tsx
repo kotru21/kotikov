@@ -1,13 +1,19 @@
 "use client";
 
-import { Dialog, DialogPanel } from "@headlessui/react";
+import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React, { useLayoutEffect, useRef, useState } from "react";
 
 import type { NavigationItem } from "@/entities/navigation";
 import { InteractiveElement } from "@/features/interactive-elements";
-import { lerp, useNavMorph } from "@/features/scrolling";
+import { usePerformanceSettings } from "@/features/performance";
+import {
+  computeNavIslandStyle,
+  DESKTOP_NAV_ISLAND_PRESET,
+  MOBILE_NAV_ISLAND_PRESET,
+  useNavMorph,
+} from "@/features/scrolling";
 import { ThemeToggle } from "@/features/theme";
 import { Logo } from "@/shared/ui";
 import { colors } from "@/styles/colors";
@@ -19,6 +25,19 @@ interface HeaderNavigationProps {
 const PAINT_INTERACTIVE_THRESHOLD = 0.02;
 
 const px = (value: number): string => `${String(value)}px`;
+
+const islandShellClass =
+  "flex origin-center items-center justify-between data-[island=true]:hover:translate-x-px data-[island=true]:hover:translate-y-px motion-safe:transition-[transform,box-shadow] motion-safe:duration-100 motion-safe:ease-out";
+
+const menuPanelEase = "ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+const menuBackdropMotionClass =
+  "motion-safe:transition-opacity motion-safe:duration-200 motion-safe:ease-out data-closed:opacity-0";
+
+const menuPanelMotionClass = `group/mobile-panel flex motion-safe:transition-transform motion-safe:duration-250 ${menuPanelEase} data-closed:translate-x-full motion-safe:data-closed:delay-[50ms]`;
+
+const menuShadowMotionClass =
+  "bg-black motion-safe:transition-[transform,opacity] motion-safe:duration-250 motion-safe:ease-out motion-safe:delay-75 motion-safe:group-data-[closed]/mobile-panel:-translate-x-full motion-safe:group-data-[closed]/mobile-panel:opacity-0 group-data-[closed]/mobile-panel:delay-0 dark:bg-white";
 
 function resetPaintStyles(root: HTMLElement | null): void {
   if (root === null) return;
@@ -35,45 +54,18 @@ function resetPaintStyles(root: HTMLElement | null): void {
 
 const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { reducedMotion, lowPerformance } = usePerformanceSettings();
+  const snapMenuMotion = reducedMotion || lowPerformance;
   const { progress, isIsland } = useNavMorph();
-  const islandRef = useRef<HTMLDivElement>(null);
+  const desktopIslandRef = useRef<HTMLDivElement>(null);
+  const mobileIslandRef = useRef<HTMLDivElement>(null);
 
   const isPaintInteractive = progress < PAINT_INTERACTIVE_THRESHOLD;
-  const scrollBlend = Math.min(1, progress * 1.6);
+  const desktopIsland = computeNavIslandStyle(DESKTOP_NAV_ISLAND_PRESET, progress);
+  const mobileIsland = computeNavIslandStyle(MOBILE_NAV_ISLAND_PRESET, progress);
 
-  const islandPaddingX = lerp(32, 16, progress);
-  const islandPaddingY = lerp(24, 10, progress);
-  const linkGap = lerp(48, 12, progress);
-  const bgOpacity = lerp(0, 1, scrollBlend);
-  const topOffset = lerp(0, 12, progress);
-  const fontSize = lerp(14, 12, progress);
-  const borderAlpha = lerp(0, 1, scrollBlend);
-  const shadowOffset = lerp(0, 4, scrollBlend);
-  const accentBarHeight = lerp(0, 32, scrollBlend);
-  const islandWidth = `${String(lerp(100, 58, progress))}vw`;
-
-  const islandStyle: React.CSSProperties = {
-    width: islandWidth,
-    maxWidth: "100%",
-    marginInline: "auto",
-    borderRadius: 0,
-    paddingInline: px(islandPaddingX),
-    paddingBlock: px(islandPaddingY),
-    gap: px(linkGap),
-    fontSize: px(fontSize),
-    backgroundColor:
-      bgOpacity > 0 ? `rgb(var(--nav-island-bg) / ${String(bgOpacity)})` : "transparent",
-    borderWidth: borderAlpha > 0 ? 2 : 0,
-    borderStyle: "solid",
-    borderColor:
-      borderAlpha > 0
-        ? `rgb(var(--nav-island-border-rgb) / calc(var(--nav-island-border-alpha) * ${String(borderAlpha)}))`
-        : "transparent",
-    boxShadow:
-      shadowOffset > 0
-        ? `${px(shadowOffset)} ${px(shadowOffset)} 0 0 rgb(var(--nav-shadow-rgb) / ${String(scrollBlend)})`
-        : undefined,
-    willChange: "transform, width, padding, box-shadow, border-color",
+  const closeMobileMenu = (): void => {
+    setMobileMenuOpen(false);
   };
 
   const linkBase =
@@ -89,59 +81,91 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
 
   useLayoutEffect(() => {
     if (isPaintInteractive) return;
-    resetPaintStyles(islandRef.current);
+    resetPaintStyles(desktopIslandRef.current);
+    resetPaintStyles(mobileIslandRef.current);
   }, [isPaintInteractive, progress]);
 
   return (
-    <header
-      className="absolute inset-x-0 z-50 lg:fixed"
-      style={{
-        transform: `translate3d(0, ${px(topOffset)}, 0)`,
-        willChange: "transform",
-      }}
-    >
+    <header className="fixed inset-x-0 z-50">
       <nav aria-label="Global" className="px-6 pt-6 pb-2 lg:p-0">
-        <div className="relative z-10 flex items-center justify-between gap-4 lg:hidden">
-          <InteractiveElement
-            as={Link}
-            href="/"
-            data-draw-allow={isPaintInteractive ? "" : undefined}
-            data-draw-exclude={isPaintInteractive ? undefined : ""}
-            data-interactive-color={isPaintInteractive ? colors.text.primary : undefined}
-            className="inline-flex min-h-11 min-w-11 items-center"
+        <div
+          className="relative z-10 w-full lg:hidden"
+          style={{
+            transform: `translate3d(0, ${px(mobileIsland.topOffset)}, 0)`,
+            willChange: "transform",
+          }}
+        >
+          <div
+            ref={mobileIslandRef}
+            className={`${islandShellClass}${isIsland ? "" : " gap-4"}`}
+            data-island={isIsland ? "true" : "false"}
+            style={mobileIsland.islandStyle}
           >
-            <span className="sr-only">ktkv</span>
-            <Logo variant="mobile" className="h-8 w-auto" />
-          </InteractiveElement>
-          <div className="flex shrink-0 items-center gap-2">
-            <ThemeToggle />
-            <InteractiveElement
-              as="button"
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(true);
-              }}
-              data-draw-exclude
-              className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="size-6" />
-            </InteractiveElement>
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <div
+                aria-hidden="true"
+                className="bg-primary-500 shrink-0"
+                style={{ width: 4, height: px(mobileIsland.accentBarHeight) }}
+              />
+              {isPaintInteractive ? (
+                <InteractiveElement
+                  as={Link}
+                  href="/"
+                  data-draw-allow=""
+                  data-interactive-color={colors.text.primary}
+                  className="inline-flex min-h-11 min-w-11 items-center"
+                >
+                  <span className="sr-only">ktkv</span>
+                  <Logo variant="mobile" className="h-8 w-auto" />
+                </InteractiveElement>
+              ) : (
+                <Link
+                  href="/"
+                  data-draw-exclude
+                  className="inline-flex min-h-11 min-w-11 items-center"
+                >
+                  <span className="sr-only">ktkv</span>
+                  <Logo variant="mobile" className="h-8 w-auto" />
+                </Link>
+              )}
+            </div>
+
+            <div className="flex shrink-0 items-center gap-2" data-draw-exclude>
+              <ThemeToggle />
+              <InteractiveElement
+                as="button"
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(true);
+                }}
+                data-draw-exclude
+                className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon aria-hidden="true" className="size-6" />
+              </InteractiveElement>
+            </div>
           </div>
         </div>
 
-        <div className="hidden w-full justify-center lg:flex">
+        <div
+          className="hidden w-full justify-center lg:flex"
+          style={{
+            transform: `translate3d(0, ${px(desktopIsland.topOffset)}, 0)`,
+            willChange: "transform",
+          }}
+        >
           <div
-            ref={islandRef}
-            className="flex origin-center items-center justify-between data-[island=true]:hover:translate-x-px data-[island=true]:hover:translate-y-px motion-safe:transition-[transform,box-shadow] motion-safe:duration-100 motion-safe:ease-out"
+            ref={desktopIslandRef}
+            className={islandShellClass}
             data-island={isIsland ? "true" : "false"}
-            style={islandStyle}
+            style={desktopIsland.islandStyle}
           >
             <div className="flex shrink-0 items-center gap-3">
               <div
                 aria-hidden="true"
                 className="bg-primary-500 shrink-0"
-                style={{ width: 4, height: px(accentBarHeight) }}
+                style={{ width: 4, height: px(desktopIsland.accentBarHeight) }}
               />
               {isPaintInteractive ? (
                 <InteractiveElement
@@ -155,14 +179,18 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                   <Logo variant="pc" className="h-8 w-auto" />
                 </InteractiveElement>
               ) : (
-                <Link href="/" className="-m-1.5 inline-flex items-center p-1.5">
+                <Link
+                  href="/"
+                  data-draw-exclude
+                  className="-m-1.5 inline-flex items-center p-1.5"
+                >
                   <span className="sr-only">ktkv</span>
                   <Logo variant="pc" className="h-8 w-auto" />
                 </Link>
               )}
             </div>
 
-            <div className="flex items-center" style={{ gap: px(linkGap) }}>
+            <div className="flex items-center" style={{ gap: px(desktopIsland.linkGap) }}>
               {navigation.map((item) =>
                 isPaintInteractive ? (
                   <InteractiveElement
@@ -185,13 +213,13 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
 
             <div
               className="flex items-center justify-end"
-              style={{ gap: px(lerp(16, 10, progress)) }}
+              style={{ gap: px(desktopIsland.actionGap) }}
             >
-              {borderAlpha > 0.5 ? (
+              {desktopIsland.borderAlpha > 0.5 ? (
                 <div
                   aria-hidden="true"
                   className="hidden h-6 w-0.5 bg-black lg:block dark:bg-white"
-                  style={{ opacity: borderAlpha }}
+                  style={{ opacity: desktopIsland.borderAlpha }}
                 />
               ) : null}
               <a href="#contacts" className={ctaClassName}>
@@ -204,55 +232,70 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
       </nav>
 
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
-        <div className="fixed inset-0 z-50 bg-black/50" />
-        <DialogPanel className="border-l-primary-500 bg-background-primary dark:border-l-primary-400 fixed inset-y-0 right-0 z-50 w-full overflow-y-auto border-l-4 border-black p-6 shadow-[8px_0_0_0_rgba(0,0,0,1)] sm:max-w-sm dark:border-white dark:bg-black dark:shadow-[8px_0_0_0_rgba(255,255,255,1)]">
-          <div className="flex items-center justify-between">
-            <InteractiveElement
-              as={Link}
-              href="/"
-              data-draw-exclude
-              className="-m-1.5 inline-flex items-center gap-2 p-1.5"
-            >
-              <span aria-hidden="true" className="bg-primary-500 h-8 w-1" />
-              <span className="sr-only">ktkv</span>
-              <Logo variant="mobile" className="h-8 w-auto" />
-            </InteractiveElement>
-            <InteractiveElement
-              as="button"
-              type="button"
-              data-draw-exclude
-              onClick={() => {
-                setMobileMenuOpen(false);
-              }}
-              className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all focus-visible:ring-2 focus-visible:outline-none hover:border-black hover:text-black dark:text-white dark:hover:border-white"
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="size-6" />
-            </InteractiveElement>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y-2 divide-black dark:divide-white">
-              <div className="space-y-1 py-6">
-                {navigation.map((item) => (
-                  <InteractiveElement
-                    as="a"
-                    key={item.name}
-                    href={item.href}
-                    data-draw-exclude
-                    className="hover:bg-primary-500 hover:border-l-primary-500 focus-visible:ring-primary-500 dark:hover:border-l-primary-400 -mx-3 block rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:text-white"
+        <DialogBackdrop
+          transition={!snapMenuMotion}
+          className={`fixed inset-0 z-50 bg-black/50 ${snapMenuMotion ? "" : menuBackdropMotionClass}`}
+        />
+        <DialogPanel
+          transition={!snapMenuMotion}
+          className={`border-l-primary-500 bg-background-primary dark:border-l-primary-400 fixed inset-y-0 right-0 z-50 w-full sm:max-w-sm dark:border-white dark:bg-black ${
+            snapMenuMotion ? "flex" : menuPanelMotionClass
+          }`}
+        >
+          <div
+            aria-hidden="true"
+            className={`w-2 shrink-0 ${snapMenuMotion ? "bg-black dark:bg-white" : menuShadowMotionClass}`}
+          />
+          <div className="min-h-0 flex-1 overflow-y-auto border-l-4 border-black p-6 dark:border-white">
+            <div className="flex items-center justify-between">
+              <InteractiveElement
+                as={Link}
+                href="/"
+                data-draw-exclude
+                onClick={closeMobileMenu}
+                className="-m-1.5 inline-flex items-center gap-2 p-1.5"
+              >
+                <span aria-hidden="true" className="bg-primary-500 h-8 w-1" />
+                <span className="sr-only">ktkv</span>
+                <Logo variant="mobile" className="h-8 w-auto" />
+              </InteractiveElement>
+              <InteractiveElement
+                as="button"
+                type="button"
+                data-draw-exclude
+                onClick={closeMobileMenu}
+                className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all focus-visible:ring-2 focus-visible:outline-none hover:border-black hover:text-black dark:text-white dark:hover:border-white"
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon aria-hidden="true" className="size-6" />
+              </InteractiveElement>
+            </div>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y-2 divide-black dark:divide-white">
+                <div className="space-y-1 py-6">
+                  {navigation.map((item) => (
+                    <InteractiveElement
+                      as="a"
+                      key={item.name}
+                      href={item.href}
+                      data-draw-exclude
+                      onClick={closeMobileMenu}
+                      className="hover:bg-primary-500 hover:border-l-primary-500 focus-visible:ring-primary-500 dark:hover:border-l-primary-400 -mx-3 inline-flex min-h-11 w-[calc(100%+1.5rem)] items-center rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:text-white"
+                    >
+                      {item.name}
+                    </InteractiveElement>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between py-6">
+                  <a
+                    href="#contacts"
+                    onClick={closeMobileMenu}
+                    className="hover:bg-primary-500 focus-visible:ring-primary-500 -mx-3 inline-flex min-h-11 items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all focus-visible:ring-2 focus-visible:outline-none hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
                   >
-                    {item.name}
-                  </InteractiveElement>
-                ))}
-              </div>
-              <div className="flex items-center justify-between py-6">
-                <a
-                  href="#contacts"
-                  className="hover:bg-primary-500 focus-visible:ring-primary-500 -mx-3 inline-flex min-h-11 items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all focus-visible:ring-2 focus-visible:outline-none hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
-                >
-                  Связаться <span aria-hidden="true">&rarr;</span>
-                </a>
-                <ThemeToggle />
+                    Связаться <span aria-hidden="true">&rarr;</span>
+                  </a>
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           </div>

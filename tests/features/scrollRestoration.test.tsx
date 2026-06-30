@@ -1,7 +1,21 @@
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ScrollRestoration } from "@/features/scrolling";
+import { ScrollRestoration, shouldResetScrollOnLoad } from "@/features/scrolling";
+
+describe("shouldResetScrollOnLoad", () => {
+  it("returns true when there is no hash", () => {
+    expect(shouldResetScrollOnLoad("")).toBe(true);
+  });
+
+  it("returns true for a bare hash symbol", () => {
+    expect(shouldResetScrollOnLoad("#")).toBe(true);
+  });
+
+  it("returns false when an anchor target is present", () => {
+    expect(shouldResetScrollOnLoad("#skills")).toBe(false);
+  });
+});
 
 describe("ScrollRestoration", () => {
   beforeEach(() => {
@@ -36,5 +50,17 @@ describe("ScrollRestoration", () => {
     render(<ScrollRestoration />);
 
     expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("scrolls to top when only a bare hash symbol is present", () => {
+    vi.spyOn(window, "location", "get").mockReturnValue({
+      hash: "#",
+    } as Location);
+
+    const scrollTo = vi.spyOn(window, "scrollTo").mockImplementation(() => undefined);
+
+    render(<ScrollRestoration />);
+
+    expect(scrollTo).toHaveBeenCalledWith(0, 0);
   });
 });

@@ -163,16 +163,14 @@ describe("useNavMorph", () => {
     });
   };
 
-  it("cleans up scroll and media-query listeners on unmount", () => {
+  it("cleans up scroll listener on unmount", () => {
     const { unmount } = renderHook(() => useNavMorph());
-    const desktopRemoveListener = mediaQueryMocks.get(LG_MEDIA_QUERY)?.removeEventListener;
 
     expect(scrollHandlers.size).toBe(1);
 
     unmount();
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith("scroll", expect.any(Function));
-    expect(desktopRemoveListener).toHaveBeenCalledWith("change", expect.any(Function));
     expect(scrollHandlers.size).toBe(0);
   });
 
@@ -194,47 +192,13 @@ describe("useNavMorph", () => {
     expect(rafCallbacks).toHaveLength(1);
   });
 
-  it("resets morph state when viewport is below lg", () => {
+  it("updates morph state on scroll at mobile viewport", () => {
     vi.stubGlobal("matchMedia", createMatchMedia({ desktop: false }));
 
     scrollY = 120;
     const { result } = renderHook(() => useNavMorph());
 
-    expect(result.current).toEqual({ progress: 0, phase: 0, isIsland: false });
-  });
-
-  it("reacts to desktop breakpoint changes", () => {
-    let desktopMatches = true;
-    const listeners = new Set<() => void>();
-
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      get matches() {
-        if (query === LG_MEDIA_QUERY) return desktopMatches;
-        return false;
-      },
-      media: query,
-      addEventListener: vi.fn((_: string, handler: () => void) => {
-        if (query === LG_MEDIA_QUERY) listeners.add(handler);
-      }),
-      removeEventListener: vi.fn((_: string, handler: () => void) => {
-        listeners.delete(handler);
-      }),
-    }));
-
-    scrollY = 120;
-    const { result } = renderHook(() => useNavMorph());
-
-    expect(result.current.isIsland).toBe(true);
-
-    desktopMatches = false;
-
-    act(() => {
-      listeners.forEach((handler) => {
-        handler();
-      });
-    });
-
-    expect(result.current).toEqual({ progress: 0, phase: 0, isIsland: false });
+    expect(result.current).toEqual(computeNavMorph(120));
   });
 
   it("snaps morph state when reduced motion is enabled", () => {

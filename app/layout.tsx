@@ -126,6 +126,13 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {`(function(){try{var c=localStorage.getItem('theme');var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`}
         </Script>
+        {/*
+          Must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts —
+          beforeInteractive scripts cannot import app modules.
+        */}
+        <Script id="scroll-init" strategy="beforeInteractive">
+          {`(function(){try{if('scrollRestoration' in history)history.scrollRestoration='manual';var h=location.hash;if(h.length<=1)window.scrollTo(0,0);}catch(e){}})();`}
+        </Script>
         <ThemeProvider>
           <ScrollRestoration />
           <a

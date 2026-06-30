@@ -1,0 +1,95 @@
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+import type * as ScrollingFeature from "@/features/scrolling";
+import HeaderNavigation from "@/widgets/header/ui/HeaderNavigation";
+
+const navigation = [
+  { name: "Главная", href: "#header" },
+  { name: "Проекты", href: "#projects" },
+  { name: "Контакты", href: "#contacts" },
+];
+
+const performanceSettings = vi.hoisted(() => ({
+  reducedMotion: false,
+  lowPerformance: false,
+}));
+
+vi.mock("@/features/performance", () => ({
+  usePerformanceSettings: () => ({
+    reducedMotion: performanceSettings.reducedMotion,
+    lowPerformance: performanceSettings.lowPerformance,
+  }),
+}));
+
+vi.mock("@/features/scrolling", async () => {
+  const actual = await vi.importActual<typeof ScrollingFeature>("@/features/scrolling");
+
+  return {
+    ...actual,
+    useNavMorph: () => ({ progress: 0, phase: 0, isIsland: false }),
+  };
+});
+
+vi.mock("@/features/theme", () => {
+  function themeToggleMock(): React.JSX.Element {
+    return <button type="button">Theme</button>;
+  }
+
+  return {
+    ThemeToggle: themeToggleMock,
+  };
+});
+
+describe("HeaderNavigation mobile menu", () => {
+  beforeEach(() => {
+    performanceSettings.reducedMotion = false;
+    performanceSettings.lowPerformance = false;
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("opens the dialog when the burger button is clicked", () => {
+    render(<HeaderNavigation navigation={navigation} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Проекты" })).toBeInTheDocument();
+  });
+
+  it("closes the dialog when a navigation link is clicked", async () => {
+    render(<HeaderNavigation navigation={navigation} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("link", { name: "Проекты" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it("closes the dialog when the contacts link is clicked", async () => {
+    render(<HeaderNavigation navigation={navigation} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    fireEvent.click(within(screen.getByRole("dialog")).getByRole("link", { name: /Связаться/i }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it("omits animated menu panel classes when reduced motion is enabled", () => {
+    performanceSettings.reducedMotion = true;
+
+    render(<HeaderNavigation navigation={navigation} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog.className).not.toContain("group/mobile-panel");
+  });
+});
