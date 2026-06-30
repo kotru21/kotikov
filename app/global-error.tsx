@@ -2,7 +2,9 @@
 
 import { useEffect } from "react";
 
-// Инлайн цвета для global-error (не можем импортировать из-за критичности)
+// Inline colors only — Next.js global-error cannot import app modules.
+// Values mirror src/shared/styles/colors.ts:
+// primary.500 = #00ffb9, primary.600 = #00d99d, neutral.900 = #111111
 const criticalColors = {
   background: "#000000",
   text: {
@@ -13,9 +15,9 @@ const criticalColors = {
   error: "#dc2626",
   errorLight: "#fee2e2",
   button: {
-    bg: "#00ffb9",
-    hover: "#00d99d",
-    text: "#111111",
+    bg: "#00ffb9", // colors.primary[500]
+    hover: "#00d99d", // colors.primary[600]
+    text: "#111111", // colors.neutral[900]
   },
 };
 
