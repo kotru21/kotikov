@@ -39,8 +39,28 @@ yarn-error.log*
 # superpowers brainstorm companion
 .superpowers/
 .cursor/
-docs/
+docs/*
+!docs/superpowers/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Agent / IDE skill vendor copies (local only; do not commit)
+.agent/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.gemini/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.windsurf/
+.github/prompts/
+
+# Python bytecode in vendored skill scripts
+**/__pycache__/
+*.pyc
