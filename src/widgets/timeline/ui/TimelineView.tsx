@@ -100,7 +100,7 @@ const TimelineView: React.FC = () => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchCancel}
-            className="grid w-full touch-pan-y pb-8 [&>*]:col-start-1 [&>*]:row-start-1"
+            className="grid w-full touch-pan-y pb-8 *:col-start-1 *:row-start-1"
           >
             {timelineData.map((item, index) => {
               const role = getLinearDeckCardRole(index, activeIndex);
@@ -145,7 +145,7 @@ const TimelineView: React.FC = () => {
             </button>
 
             <p
-              className="text-text-secondary min-w-[3rem] flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
+              className="text-text-secondary min-w-12 flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
               aria-live="polite"
             >
               {activeIndex + 1} / {timelineData.length}

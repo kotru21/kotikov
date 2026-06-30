@@ -74,7 +74,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       aria-label="Этапы опыта"
       tabIndex={onKeyDown === undefined ? undefined : 0}
       onKeyDown={onKeyDown}
-      className={`flex w-full snap-x snap-mandatory [scrollbar-width:none] gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden${
+      className={`flex w-full snap-x snap-mandatory scrollbar-none gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden${
         onKeyDown === undefined
           ? ""
           : "focus-visible:ring-primary-500 outline-none focus-visible:ring-2"

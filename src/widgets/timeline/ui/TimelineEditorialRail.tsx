@@ -138,7 +138,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
           ref={scrollerRef}
           role="region"
           aria-label="Лента этапов опыта. Прокрутите горизонтально или используйте стрелки."
-          className="snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain scroll-smooth px-6 pb-6 [-ms-overflow-style:none] motion-reduce:scroll-auto lg:px-8 [&::-webkit-scrollbar]:hidden"
+          className="snap-x snap-mandatory scrollbar-none overflow-x-auto overscroll-x-contain scroll-smooth px-6 pb-6 [-ms-overflow-style:none] motion-reduce:scroll-auto lg:px-8 [&::-webkit-scrollbar]:hidden"
         >
           <div className="relative flex items-start gap-10" role="list" aria-label="Этапы опыта">
             {items.map((item) => {
@@ -169,7 +169,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
 
         <div
           aria-hidden="true"
-          className="from-background-primary dark:from-background-tertiary pointer-events-none absolute top-12 right-0 z-10 h-[calc(100%-3rem)] w-10 bg-gradient-to-l to-transparent sm:w-16 lg:w-24"
+          className="from-background-primary dark:from-background-tertiary pointer-events-none absolute top-12 right-0 z-10 h-[calc(100%-3rem)] w-10 bg-linear-to-l to-transparent sm:w-16 lg:w-24"
         />
       </div>
     </div>
