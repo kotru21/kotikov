@@ -25,12 +25,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false })
 
       <div className="relative z-10 flex items-start justify-between gap-4">
         <div
-          className="flex size-11 shrink-0 items-center justify-center rounded-xl text-neutral-950"
+          className="flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-black text-neutral-950 dark:border-white"
           style={{ backgroundColor: project.accentColor }}
         >
           <CardIcon className="size-6" aria-hidden="true" />
         </div>
-        <p className="text-sm font-medium text-neutral-500 dark:text-neutral-500">{project.cardPeriod}</p>
+        <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">{project.cardPeriod}</p>
       </div>
 
       <div className="relative z-10 mt-auto pt-10">
@@ -54,7 +54,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false })
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-100 px-3 py-1.5 text-xs font-bold text-neutral-900 uppercase transition-colors hover:border-neutral-300 hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 dark:border-white/15 dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:hover:border-white/30 dark:hover:bg-white/15"
+            className="inline-flex items-center gap-1.5 rounded-none border-2 border-black bg-neutral-100 px-3 py-1.5 text-xs font-bold text-neutral-900 uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"
           >
             <FaGithub aria-hidden="true" /> Код
           </a>
@@ -63,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false })
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-neutral-950 uppercase transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
+              className="inline-flex items-center gap-1.5 rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold text-neutral-950 uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 dark:border-white"
               style={{ backgroundColor: project.accentColor }}
             >
               <FiExternalLink aria-hidden="true" /> Live
