@@ -12,3 +12,19 @@ public
 eslint-report.json
 .gitignore
 *.log
+
+# Agent / IDE skill vendor copies (match .gitignore)
+.agent/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.gemini/
+.kiro/
+.opencode/
+.qoder/
+.roo/
+.trae/
+.windsurf/
+
+**/__pycache__/
