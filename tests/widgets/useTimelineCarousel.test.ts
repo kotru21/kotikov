@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, TouchEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { useTimelineCarousel } from "@/widgets/timeline/hooks/useTimelineCarousel";
@@ -69,6 +69,87 @@ describe("useTimelineCarousel", () => {
         preventDefault: vi.fn(),
       } as KeyboardEvent);
     });
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("advances on horizontal swipe left", () => {
+    const { result } = renderHook(() => useTimelineCarousel({ itemCount: 4 }));
+
+    act(() => {
+      result.current.handleTouchStart({
+        touches: [{ clientX: 200, clientY: 100 }],
+        target: document.createElement("div"),
+      } as unknown as TouchEvent);
+    });
+
+    act(() => {
+      result.current.handleTouchEnd({
+        changedTouches: [{ clientX: 100, clientY: 110 }],
+      } as unknown as TouchEvent);
+    });
+
+    expect(result.current.activeIndex).toBe(1);
+  });
+
+  it("goes back on horizontal swipe right", () => {
+    const { result } = renderHook(() => useTimelineCarousel({ itemCount: 4 }));
+
+    act(() => {
+      result.current.goTo(2);
+    });
+
+    act(() => {
+      result.current.handleTouchStart({
+        touches: [{ clientX: 100, clientY: 100 }],
+        target: document.createElement("div"),
+      } as unknown as TouchEvent);
+    });
+
+    act(() => {
+      result.current.handleTouchEnd({
+        changedTouches: [{ clientX: 200, clientY: 110 }],
+      } as unknown as TouchEvent);
+    });
+
+    expect(result.current.activeIndex).toBe(1);
+  });
+
+  it("ignores vertical-dominant gestures", () => {
+    const { result } = renderHook(() => useTimelineCarousel({ itemCount: 4 }));
+
+    act(() => {
+      result.current.handleTouchStart({
+        touches: [{ clientX: 100, clientY: 100 }],
+        target: document.createElement("div"),
+      } as unknown as TouchEvent);
+    });
+
+    act(() => {
+      result.current.handleTouchEnd({
+        changedTouches: [{ clientX: 120, clientY: 220 }],
+      } as unknown as TouchEvent);
+    });
+
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("ignores swipes that start on buttons", () => {
+    const { result } = renderHook(() => useTimelineCarousel({ itemCount: 4 }));
+    const button = document.createElement("button");
+
+    act(() => {
+      result.current.handleTouchStart({
+        touches: [{ clientX: 200, clientY: 100 }],
+        target: button,
+      } as unknown as TouchEvent);
+    });
+
+    act(() => {
+      result.current.handleTouchEnd({
+        changedTouches: [{ clientX: 100, clientY: 100 }],
+      } as unknown as TouchEvent);
+    });
+
     expect(result.current.activeIndex).toBe(0);
   });
 });

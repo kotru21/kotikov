@@ -39,8 +39,13 @@ describe("content model", () => {
     expect(skillGroups.map((g) => g.title)).toEqual(["Frontend", "Backend", "Инструменты"]);
   });
 
-  it("defines an about block with three principles", () => {
+  it("defines an about block with three typed principles", () => {
     expect(aboutContent.principles).toHaveLength(3);
+    for (const principle of aboutContent.principles) {
+      expect(principle.type).toMatch(/^(feat|a11y|perf)$/);
+      expect(principle.text.length).toBeGreaterThan(0);
+    }
+    expect(aboutContent.principles.map((p) => p.type)).toEqual(["feat", "a11y", "perf"]);
   });
 });
 

@@ -15,10 +15,11 @@ const SkillsDesktopView: React.FC = () => {
       <Section
         ref={containerRef}
         id="skills"
-        spacing="compact"
+        spacing="dense"
         backgroundClassName="bg-background-primary dark:bg-background-tertiary"
         className="overflow-x-clip"
         innerClassName="relative z-10 max-w-full"
+        aria-labelledby="skills-heading"
       >
         <SkillsCursorNyancat containerRef={containerRef} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />

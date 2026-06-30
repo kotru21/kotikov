@@ -15,7 +15,7 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-text-primary dark:text-text-primary mb-4 text-xl font-bold uppercase">
+      <h3 className="text-text-primary dark:text-text-inverse mb-4 text-xl font-bold uppercase">
         {title}
       </h3>
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
@@ -25,8 +25,9 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative"
+            className="group relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none"
             title={link.name}
+            aria-label={link.name}
           >
             <div
               style={accentShadowStyle}

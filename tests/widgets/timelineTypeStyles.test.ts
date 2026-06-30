@@ -7,17 +7,17 @@ import {
 
 describe("timelineTypeStyles", () => {
   it("returns work eyebrow and active chip classes", () => {
-    expect(getTimelineTypeEyebrowClass("work")).toContain("border-primary-500");
+    expect(getTimelineTypeEyebrowClass("work")).toContain("text-primary-800");
     expect(getTimelineTypeChipClass("work", true)).toContain("bg-primary-500");
   });
 
   it("returns education eyebrow and active chip classes", () => {
-    expect(getTimelineTypeEyebrowClass("education")).toContain("bg-neutral-100");
+    expect(getTimelineTypeEyebrowClass("education")).toContain("text-neutral-600");
     expect(getTimelineTypeChipClass("education", true)).toContain("bg-neutral-200");
   });
 
   it("returns hackathon eyebrow and active chip classes", () => {
-    expect(getTimelineTypeEyebrowClass("hackathon")).toContain("bg-primary-100");
+    expect(getTimelineTypeEyebrowClass("hackathon")).toContain("text-primary-700");
     expect(getTimelineTypeChipClass("hackathon", true)).toContain("bg-primary-100");
   });
 

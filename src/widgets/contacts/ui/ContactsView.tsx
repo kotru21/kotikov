@@ -4,6 +4,7 @@ import React from "react";
 
 import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
+import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -48,7 +49,8 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   return (
     <Section
       id="contacts"
-      className="flex min-h-[70vh] items-center justify-center overflow-hidden md:min-h-[60vh]"
+      spacing="cta"
+      className="relative overflow-hidden"
       style={{
         cursor: isDrawing ? "none" : undefined,
         touchAction: isDrawing ? "none" : "pan-y",
@@ -92,14 +94,17 @@ const ContactsView: React.FC<ContactsViewProps> = ({
           }
           title={<InteractiveText text="Напишите мне" />}
           description={
-            <InteractiveElement
-              as="p"
-              data-draw-allow
-              data-interactive-color={colors.text.primary}
-              className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
-            >
-              <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
-            </InteractiveElement>
+            <div className="flex flex-col items-center gap-3">
+              <InteractiveElement
+                as="p"
+                data-draw-allow
+                data-interactive-color={colors.text.primary}
+                className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
+              >
+                <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
+              </InteractiveElement>
+              {enablePaint ? <PaintDrawHint tone="on-gradient" /> : null}
+            </div>
           }
         />
 
@@ -109,13 +114,13 @@ const ContactsView: React.FC<ContactsViewProps> = ({
             let variant: "auto" | "light" | "dark" = "auto";
 
             if (index === 0) {
-              gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
+              gridClasses = "md:col-span-2 md:row-span-2 min-h-[220px] md:min-h-[320px]";
               variant = "auto";
             } else if (index === 1) {
-              gridClasses = "md:col-span-2 min-h-[150px]";
+              gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
               variant = "light";
             } else if (index === 2) {
-              gridClasses = "md:col-span-2 min-h-[150px]";
+              gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
               variant = "dark";
             }
 
@@ -156,15 +161,8 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         </div>
 
         {enablePaint ? (
-          <div className="mt-12 text-center">
-            <button
-              type="button"
-              data-draw-allow
-              onClick={onClearCanvas}
-              className="text-xs font-bold tracking-wide text-neutral-300 uppercase underline decoration-dotted underline-offset-4 transition-colors hover:text-white"
-            >
-              Очистить рисунок
-            </button>
+          <div className="mt-8 flex justify-center md:mt-10">
+            <ClearPaintButton onClick={onClearCanvas} tone="on-gradient" />
           </div>
         ) : null}
       </div>

@@ -101,12 +101,17 @@ const ProjectCardDeck: React.FC = () => {
               onClick={() => {
                 goTo(index);
               }}
-              className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${motionClass} focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none ${
-                isSelected
-                  ? "bg-black dark:bg-white"
-                  : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"
-              }`}
-            />
+              className={`inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center p-3 ${motionClass} focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none`}
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2 w-6 rounded-none sm:w-7 ${
+                  isSelected
+                    ? "bg-black dark:bg-white"
+                    : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"
+                }`}
+              />
+            </button>
           );
         })}
       </div>

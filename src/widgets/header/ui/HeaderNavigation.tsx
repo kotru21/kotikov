@@ -77,7 +77,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
   };
 
   const linkBase =
-    "font-bold uppercase tracking-[0.12em] whitespace-nowrap transition-colors duration-100";
+    "font-bold uppercase tracking-[0.12em] whitespace-nowrap transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary dark:focus-visible:ring-offset-background-tertiary";
 
   const linkClassName = isPaintInteractive
     ? `${linkBase} text-text-secondary dark:text-text-muted hover:text-text-primary dark:hover:text-text-inverse`
@@ -122,7 +122,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 setMobileMenuOpen(true);
               }}
               data-draw-exclude
-              className="text-text-primary dark:text-text-inverse hover:bg-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
+              className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
             >
               <span className="sr-only">Open main menu</span>
               <Bars3Icon aria-hidden="true" className="size-6" />
@@ -224,7 +224,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
               onClick={() => {
                 setMobileMenuOpen(false);
               }}
-              className="hover:bg-primary-500 -m-2.5 rounded-none border-2 border-transparent p-2.5 text-black transition-all hover:border-black hover:text-black dark:text-white dark:hover:border-white"
+              className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all focus-visible:ring-2 focus-visible:outline-none hover:border-black hover:text-black dark:text-white dark:hover:border-white"
             >
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />
@@ -239,7 +239,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                     key={item.name}
                     href={item.href}
                     data-draw-exclude
-                    className="hover:bg-primary-500 hover:border-l-primary-500 dark:hover:border-l-primary-400 -mx-3 block rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all hover:text-black dark:text-white"
+                    className="hover:bg-primary-500 hover:border-l-primary-500 focus-visible:ring-primary-500 dark:hover:border-l-primary-400 -mx-3 block rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all focus-visible:ring-2 focus-visible:outline-none hover:text-black dark:text-white"
                   >
                     {item.name}
                   </InteractiveElement>
@@ -248,7 +248,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
               <div className="flex items-center justify-between py-6">
                 <a
                   href="#contacts"
-                  className="hover:bg-primary-500 -mx-3 inline-flex items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
+                  className="hover:bg-primary-500 focus-visible:ring-primary-500 -mx-3 inline-flex min-h-11 items-center gap-1 rounded-none border-2 border-black bg-white px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all focus-visible:ring-2 focus-visible:outline-none hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,1)]"
                 >
                   Связаться <span aria-hidden="true">&rarr;</span>
                 </a>

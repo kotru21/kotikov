@@ -9,15 +9,13 @@ import { timelineData as rawTimelineData } from "@/shared/config/content";
 import { BauhausGridPattern, Section, SectionHeader } from "@/shared/ui";
 
 import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
-import TimelineSlideContent from "./TimelineSlideContent";
+import TimelineEditorialCard from "./TimelineEditorialCard";
+import TimelineEditorialRail from "./TimelineEditorialRail";
 import TimelineStepChips from "./TimelineStepChips";
 import { parsePeriodStart } from "./timelineUtils";
-import TimelineYearDisplay from "./TimelineYearDisplay";
 
 const navButtonClass =
   "text-text-primary dark:text-text-inverse flex size-11 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black";
-
-const alignedContentBandClass = "mx-auto w-full max-w-5xl";
 
 const TimelineView: React.FC = () => {
   const { reducedMotion } = usePerformanceSettings();
@@ -39,23 +37,27 @@ const TimelineView: React.FC = () => {
     handleKeyDown,
     handleTouchStart,
     handleTouchEnd,
+    handleTouchCancel,
     canGoPrev,
     canGoNext,
   } = useTimelineCarousel({ itemCount: timelineData.length });
 
   const activeItem = timelineData[activeIndex] as TimelineItem;
-  const panelId = `timeline-panel-${String(activeItem.id)}`;
+  const panelId = "timeline-carousel-panel";
+  const progressPercent =
+    timelineData.length > 1 ? (activeIndex / (timelineData.length - 1)) * 100 : 100;
+  const slideMotionClass = reducedMotion ? "" : "motion-safe:animate-fade-in-up";
 
   return (
     <Section
       id="experience"
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="overflow-x-hidden"
+      className="lg:overflow-x-clip"
       innerClassName="relative z-10"
     >
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
 
-      <div className={`${alignedContentBandClass} flex flex-col gap-8`}>
+      <div className="flex w-full flex-col gap-8">
         <SectionHeader
           eyebrow="Опыт"
           title="Мой путь"
@@ -63,83 +65,94 @@ const TimelineView: React.FC = () => {
           description="Образование, работа и хакатоны"
         />
 
-        <div
-          className="flex flex-col gap-6 md:grid md:grid-cols-[18rem_minmax(0,1fr)] md:items-stretch md:gap-6"
-          aria-roledescription="carousel"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <aside className="flex flex-col items-center gap-4 md:items-stretch">
-            <div className="flex w-full justify-center md:justify-start">
-              <TimelineYearDisplay period={activeItem.period} />
+        <div className="flex flex-col gap-6 lg:hidden">
+          <div className="flex w-full flex-col gap-3">
+            <div
+              className="bg-black/10 h-1 w-full overflow-hidden dark:bg-white/15"
+              aria-hidden="true"
+            >
+              <div
+                className="bg-primary-500 h-full transition-[width] duration-300 ease-out motion-reduce:transition-none"
+                style={{ width: `${String(progressPercent)}%` }}
+              />
             </div>
 
             <TimelineStepChips
-                items={timelineData}
-                activeIndex={activeIndex}
-                panelId={panelId}
-                reducedMotion={reducedMotion}
-                onSelect={goTo}
-                onKeyDown={handleKeyDown}
-              />
+              items={timelineData}
+              activeIndex={activeIndex}
+              panelId={panelId}
+              reducedMotion={reducedMotion}
+              onSelect={goTo}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
 
-            <div className="flex w-full items-center justify-center gap-2 md:justify-start">
-              <button
-                type="button"
-                onClick={goPrev}
-                disabled={!canGoPrev}
-                aria-label="Предыдущий этап"
-                className={navButtonClass}
-              >
-                <FiChevronLeft className="size-5" aria-hidden="true" />
-              </button>
+          <div
+            id={panelId}
+            role="tabpanel"
+            aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
+            aria-label="Свайпните влево или вправо для переключения этапа"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchCancel}
+            className="grid w-full touch-pan-y [&>*]:col-start-1 [&>*]:row-start-1"
+          >
+            {timelineData.map((item, index) => {
+              const isActive = index === activeIndex;
 
-              <p
-                className="text-text-secondary min-w-[3rem] text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
-                aria-live="polite"
-              >
-                {activeIndex + 1} / {timelineData.length}
-              </p>
+              return (
+                <div
+                  key={item.id}
+                  aria-hidden={!isActive}
+                  {...(!isActive ? { inert: true } : {})}
+                  className={
+                    isActive ? slideMotionClass : "pointer-events-none invisible"
+                  }
+                >
+                  <TimelineEditorialCard
+                    item={item}
+                    titleId={`timeline-entry-${String(item.id)}`}
+                    layout="stacked"
+                    fillHeight
+                    hover={false}
+                  />
+                </div>
+              );
+            })}
+          </div>
 
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={!canGoNext}
-                aria-label="Следующий этап"
-                className={navButtonClass}
-              >
-                <FiChevronRight className="size-5" aria-hidden="true" />
-              </button>
-            </div>
-          </aside>
-
-          <main className="flex min-h-0 min-w-0 flex-col justify-center md:h-full">
-            <div
-              id={panelId}
-              role="tabpanel"
-              aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
-              className="grid w-full md:relative [&>*]:col-start-1 [&>*]:row-start-1"
+          <div className="flex w-full items-center gap-2">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canGoPrev}
+              aria-label="Предыдущий этап"
+              className={navButtonClass}
             >
-              {timelineData.map((entry, index) => {
-                const isActive = index === activeIndex;
+              <FiChevronLeft className="size-5" aria-hidden="true" />
+            </button>
 
-                return (
-                  <div
-                    key={entry.id}
-                    inert={isActive ? undefined : true}
-                    className={
-                      isActive
-                        ? "col-start-1 row-start-1"
-                        : "pointer-events-none invisible col-start-1 row-start-1 opacity-0"
-                    }
-                    aria-hidden={!isActive}
-                  >
-                    <TimelineSlideContent item={entry} />
-                  </div>
-                );
-              })}
-            </div>
-          </main>
+            <p
+              className="text-text-secondary min-w-[3rem] flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
+              aria-live="polite"
+            >
+              {activeIndex + 1} / {timelineData.length}
+            </p>
+
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canGoNext}
+              aria-label="Следующий этап"
+              className={navButtonClass}
+            >
+              <FiChevronRight className="size-5" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden lg:block">
+          <TimelineEditorialRail items={timelineData} />
         </div>
       </div>
     </Section>

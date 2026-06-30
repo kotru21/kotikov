@@ -4,6 +4,11 @@ import { useCallback, useRef, useState } from "react";
 
 import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
 
+interface TouchStartPoint {
+  x: number;
+  y: number;
+}
+
 interface UseTimelineCarouselOptions {
   itemCount: number;
 }
@@ -16,15 +21,26 @@ interface UseTimelineCarouselReturn {
   handleKeyDown: (event: React.KeyboardEvent) => void;
   handleTouchStart: (event: React.TouchEvent) => void;
   handleTouchEnd: (event: React.TouchEvent) => void;
+  handleTouchCancel: () => void;
   canGoPrev: boolean;
   canGoNext: boolean;
+}
+
+function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return true;
+
+  return Boolean(
+    target.closest(
+      "a,button,input,textarea,select,label,[role='button'],[role='link'],[role='tab']"
+    )
+  );
 }
 
 export function useTimelineCarousel({
   itemCount,
 }: UseTimelineCarouselOptions): UseTimelineCarouselReturn {
   const [activeIndex, setActiveIndex] = useState(0);
-  const touchStartXRef = useRef<number | null>(null);
+  const touchStartRef = useRef<TouchStartPoint | null>(null);
   const lastIndex = Math.max(0, itemCount - 1);
 
   const goTo = useCallback(
@@ -36,12 +52,12 @@ export function useTimelineCarousel({
   );
 
   const goPrev = useCallback((): void => {
-    goTo(activeIndex - 1);
-  }, [activeIndex, goTo]);
+    setActiveIndex((current) => Math.max(0, current - 1));
+  }, []);
 
   const goNext = useCallback((): void => {
-    goTo(activeIndex + 1);
-  }, [activeIndex, goTo]);
+    setActiveIndex((current) => Math.min(lastIndex, current + 1));
+  }, [lastIndex]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent): void => {
@@ -63,21 +79,29 @@ export function useTimelineCarousel({
   );
 
   const handleTouchStart = useCallback((event: React.TouchEvent): void => {
-    if (event.touches.length === 0) return;
-    touchStartXRef.current = event.touches[0].clientX;
+    if (event.touches.length !== 1) return;
+    if (shouldIgnoreSwipeTarget(event.target)) return;
+
+    touchStartRef.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    };
   }, []);
 
   const handleTouchEnd = useCallback(
     (event: React.TouchEvent): void => {
-      const startX = touchStartXRef.current;
-      touchStartXRef.current = null;
-      if (startX === null) return;
+      const start = touchStartRef.current;
+      touchStartRef.current = null;
+      if (start === null) return;
       if (event.changedTouches.length === 0) return;
 
-      const delta = event.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
+      const deltaX = event.changedTouches[0].clientX - start.x;
+      const deltaY = event.changedTouches[0].clientY - start.y;
 
-      if (delta > 0) {
+      if (Math.abs(deltaX) < SWIPE_THRESHOLD_PX) return;
+      if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+      if (deltaX > 0) {
         goPrev();
       } else {
         goNext();
@@ -85,6 +109,10 @@ export function useTimelineCarousel({
     },
     [goPrev, goNext]
   );
+
+  const handleTouchCancel = useCallback((): void => {
+    touchStartRef.current = null;
+  }, []);
 
   return {
     activeIndex,
@@ -94,6 +122,7 @@ export function useTimelineCarousel({
     handleKeyDown,
     handleTouchStart,
     handleTouchEnd,
+    handleTouchCancel,
     canGoPrev: activeIndex > 0,
     canGoNext: activeIndex < lastIndex,
   };

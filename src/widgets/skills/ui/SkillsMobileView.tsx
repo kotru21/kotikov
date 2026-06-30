@@ -42,7 +42,7 @@ const SkillsMobileView: React.FC = () => {
   return (
     <Section
       id="skills"
-      spacing="compact"
+      spacing="dense"
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
       className="overflow-x-hidden"
       innerClassName=""
@@ -55,7 +55,7 @@ const SkillsMobileView: React.FC = () => {
         titleId="skills-heading"
         description="Технологии и инструменты, которыми я владею"
       />
-      <p className="text-text-secondary mx-auto -mt-8 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
+      <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
         React, JavaScript, Node.js, фреймворк Next.js
       </p>
 
@@ -77,7 +77,7 @@ const SkillsMobileView: React.FC = () => {
       {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте; только при включённой анимации */}
       {showMarquee ? (
         <SkillsInteractionProvider>
-          <div ref={rowsRef} className="flex flex-col gap-2 px-2">
+          <div ref={rowsRef} className="-mx-6 flex flex-col gap-2">
             <div
               style={{
                 transform: visible ? "translateX(0)" : "translateX(-100%)",

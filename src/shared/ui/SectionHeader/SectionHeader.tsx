@@ -32,7 +32,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     tone === "on-gradient" ? "text-neutral-100/90" : "text-text-secondary dark:text-neutral-400";
 
   return (
-    <header className={`mb-12 lg:mb-16 ${alignClasses} ${className}`.trim()}>
+    <header className={`mb-8 lg:mb-12 ${alignClasses} ${className}`.trim()}>
       {typeof eyebrow === "string" ? <p className={eyebrowClasses}>{eyebrow}</p> : eyebrow}
       <h2 id={titleId} className={titleClasses}>
         {title}

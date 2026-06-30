@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { Section, SectionHeader } from "@/shared/ui";
 
 describe("Section", () => {
-  it("renders section with id and default spacing py-24", () => {
+  it("renders section with id and default standard spacing", () => {
     const { container } = render(
       <Section id="about">
         <p>Content</p>
@@ -13,18 +13,38 @@ describe("Section", () => {
 
     const section = container.querySelector("section#about");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-24");
+    expect(section).toHaveClass("py-20", "lg:py-24");
     expect(screen.getByText("Content")).toBeInTheDocument();
   });
 
-  it("applies compact spacing py-16", () => {
+  it("applies dense spacing py-16 lg:py-20", () => {
     const { container } = render(
-      <Section id="skills" spacing="compact">
+      <Section id="skills" spacing="dense">
         <p>Skills</p>
       </Section>
     );
 
-    expect(container.querySelector("section#skills")).toHaveClass("py-16");
+    expect(container.querySelector("section#skills")).toHaveClass("py-16", "lg:py-20");
+  });
+
+  it("applies cta spacing py-20 lg:py-28", () => {
+    const { container } = render(
+      <Section id="contacts" spacing="cta">
+        <p>Contacts</p>
+      </Section>
+    );
+
+    expect(container.querySelector("section#contacts")).toHaveClass("py-20", "lg:py-28");
+  });
+
+  it("applies footer spacing pt-12 pb-16", () => {
+    const { container } = render(
+      <Section as="footer" spacing="footer">
+        <p>Footer</p>
+      </Section>
+    );
+
+    expect(container.querySelector("footer")).toHaveClass("pt-12", "pb-16");
   });
 
   it("omits vertical padding when spacing=none", () => {
@@ -36,7 +56,7 @@ describe("Section", () => {
 
     const section = container.querySelector("section#footer");
     expect(section).toBeInTheDocument();
-    expect(section).not.toHaveClass("py-24");
+    expect(section).not.toHaveClass("py-20");
     expect(section).not.toHaveClass("py-16");
   });
 
@@ -72,10 +92,10 @@ describe("SectionHeader", () => {
     expect(screen.getByText("Описание секции")).toBeInTheDocument();
   });
 
-  it("applies header-gap mb-12 lg:mb-16", () => {
+  it("applies header-gap mb-8 lg:mb-12", () => {
     const { container } = render(<SectionHeader eyebrow="Проекты" title="Избранные работы" />);
 
-    expect(container.querySelector("header")).toHaveClass("mb-12", "lg:mb-16");
+    expect(container.querySelector("header")).toHaveClass("mb-8", "lg:mb-12");
   });
 
   it("centers content when align=center", () => {

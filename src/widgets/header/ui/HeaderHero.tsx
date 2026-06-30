@@ -14,13 +14,18 @@ interface HeaderHeroProps {
   };
 }
 
-const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, buttons }) => {
+const HeaderHero: React.FC<HeaderHeroProps> = ({
+  eyebrow,
+  title,
+  subtitle,
+  buttons,
+}) => {
   return (
     <div className="relative isolate mx-auto w-full max-w-2xl py-8 sm:py-12 lg:py-16">
       <div className="bg-primary-500 absolute top-0 right-0 -z-10 size-24 translate-x-1/3 -translate-y-1/3 rounded-full opacity-80 mix-blend-multiply blur-sm sm:size-32 sm:translate-x-1/2 sm:-translate-y-1/2 dark:mix-blend-screen" />
 
       <div className="relative z-10">
-        <p className="text-text-primary dark:text-text-inverse border-l-primary-500 bg-background-primary dark:border-l-primary-400 dark:bg-background-tertiary mb-3 inline-block max-w-full border-2 border-l-4 border-black px-2.5 py-1 text-[0.65rem] font-bold tracking-[0.14em] uppercase sm:px-3 sm:text-sm sm:tracking-[0.28em] dark:border-white">
+        <p className="text-text-primary dark:text-text-inverse border-l-primary-500 bg-background-primary dark:border-l-primary-400 dark:bg-background-tertiary mb-3 inline-block max-w-full border-2 border-l-4 border-black px-2.5 py-1 text-xs font-bold tracking-[0.14em] uppercase sm:px-3 sm:text-sm sm:tracking-[0.28em] dark:border-white">
           {eyebrow}
         </p>
 
@@ -55,7 +60,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
 
             <a
               href={buttons.secondary.href}
-              className="text-text-primary dark:text-text-inverse group inline-flex items-center justify-center gap-1 text-sm leading-6 font-semibold sm:justify-start"
+              className="text-text-primary dark:text-text-inverse group inline-flex min-h-11 items-center justify-center gap-1 rounded-none text-sm leading-6 font-semibold focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary focus-visible:outline-none sm:justify-start dark:focus-visible:ring-offset-background-tertiary"
             >
               <InteractiveText text={buttons.secondary.text} />{" "}
               <InteractiveElement

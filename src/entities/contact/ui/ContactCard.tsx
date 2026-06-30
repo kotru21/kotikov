@@ -33,7 +33,7 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({
     >
       <div className="flex flex-col items-center space-y-4 text-center">
         <div
-          className={`border-2 border-transparent p-4 transition-transform duration-200 hover:scale-110 ${iconContainerClasses}`}
+          className={`border-2 border-transparent p-4 transition-colors duration-200 ${iconContainerClasses}`}
         >
           <contact.icon className="text-2xl" />
         </div>

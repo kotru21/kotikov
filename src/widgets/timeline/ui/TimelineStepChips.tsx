@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 import type { TimelineItem } from "@/entities/timeline";
 
-import { getTimelineTypeChipClass } from "./timelineTypeStyles";
+import { getTimelineTypeChipBorderClass, getTimelineTypeChipClass } from "./timelineTypeStyles";
 import { extractYear, getTypeLabel } from "./timelineUtils";
 
 interface TimelineStepChipsProps {
@@ -17,14 +17,12 @@ interface TimelineStepChipsProps {
 }
 
 const baseChipClass =
-  "min-h-11 shrink-0 border-2 border-black bg-white px-3 py-2 text-xs font-bold text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black dark:text-text-inverse";
-
-const inactiveChipClass = "";
+  "min-h-11 w-full shrink-0 border-2 border-black bg-white px-3 py-2.5 text-left text-xs font-bold text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black dark:text-text-inverse lg:bg-background-primary lg:dark:bg-neutral-900";
 
 const activeChipShellClass =
-  "shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#fff]";
+  "shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]";
 
-const chipMotionClass = "transition-[box-shadow,background-color] duration-200";
+const chipMotionClass = "transition-[box-shadow,background-color,border-color] duration-200";
 
 const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   items,
@@ -47,6 +45,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
     if (activeTab !== null && typeof activeTab.scrollIntoView === "function") {
       activeTab.scrollIntoView({
         inline: "nearest",
+        block: "nearest",
         behavior: reducedMotion ? "auto" : "smooth",
       });
     }
@@ -59,7 +58,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       aria-label="Этапы опыта"
       tabIndex={onKeyDown === undefined ? undefined : 0}
       onKeyDown={onKeyDown}
-      className={`flex gap-2 overflow-x-auto [scrollbar-width:none] snap-x snap-mandatory [-ms-overflow-style:none] md:flex-col md:overflow-visible md:snap-none [&::-webkit-scrollbar]:hidden${
+      className={`flex w-full gap-2 overflow-x-auto [scrollbar-width:none] snap-x snap-mandatory [-ms-overflow-style:none] lg:flex-col lg:overflow-visible lg:snap-none lg:gap-2 [&::-webkit-scrollbar]:hidden${
         onKeyDown === undefined
           ? ""
           : " outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
@@ -68,8 +67,10 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       {items.map((entry, index) => {
         const isActive = index === activeIndex;
         const tabId = `timeline-tab-${String(entry.id)}`;
-        const label = `${extractYear(entry.period)} · ${getTypeLabel(entry.type)}`;
+        const label = getTypeLabel(entry.type);
+        const chipAriaLabel = `${extractYear(entry.period)} · ${label}`;
         const typeAccent = getTimelineTypeChipClass(entry.type, isActive);
+        const typeBorder = isActive ? "" : getTimelineTypeChipBorderClass(entry.type);
 
         return (
           <button
@@ -80,12 +81,12 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
             data-timeline-chip-index={index}
             aria-selected={isActive}
             aria-controls={panelId}
-            aria-label={label}
+            aria-label={chipAriaLabel}
             onClick={() => {
               onSelect(index);
             }}
-            className={`snap-center md:snap-align-none ${baseChipClass} ${motionClass} md:w-full ${
-              isActive ? `${activeChipShellClass} ${typeAccent}` : inactiveChipClass
+            className={`snap-center lg:snap-align-none ${baseChipClass} ${motionClass} lg:w-full ${
+              isActive ? `${activeChipShellClass} ${typeAccent}` : typeBorder
             }`}
           >
             {label}

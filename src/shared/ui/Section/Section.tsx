@@ -6,7 +6,7 @@ interface SectionProps extends Omit<
 > {
   id?: string;
   children: React.ReactNode;
-  spacing?: "default" | "compact" | "none";
+  spacing?: "standard" | "dense" | "cta" | "footer" | "none";
   backgroundClassName?: string;
   className?: string;
   innerClassName?: string;
@@ -14,8 +14,10 @@ interface SectionProps extends Omit<
 }
 
 const spacingClasses = {
-  default: "py-24",
-  compact: "py-16",
+  standard: "py-20 lg:py-24",
+  dense: "py-16 lg:py-20",
+  cta: "py-20 lg:py-28",
+  footer: "pt-12 pb-16",
   none: "",
 } as const;
 
@@ -26,7 +28,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
     {
       id,
       children,
-      spacing = "default",
+      spacing = "standard",
       backgroundClassName = "",
       className = "",
       innerClassName = "",

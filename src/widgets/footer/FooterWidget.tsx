@@ -11,9 +11,9 @@ const FooterWidget: React.FC = () => {
   return (
     <Section
       as="footer"
-      spacing="none"
+      spacing="footer"
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="border-t-4 border-black py-16 dark:border-white"
+      className="border-t-4 border-black dark:border-white"
     >
       <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-transparent via-black/20 to-transparent dark:via-white/20" />
 

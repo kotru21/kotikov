@@ -4,7 +4,7 @@ import { skillGroups } from "@/shared/config/content";
 
 const SkillsGroupedTags: React.FC = () => {
   return (
-    <div className="mx-auto mt-12 grid max-w-5xl gap-6 px-4 md:grid-cols-3">
+    <div className="mx-auto mt-8 grid w-full max-w-6xl gap-6 md:grid-cols-3">
       {skillGroups.map((group) => (
         <div
           key={group.title}

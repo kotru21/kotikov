@@ -49,7 +49,10 @@ const HeaderWidget: React.FC = () => {
     <div
       id="header"
       className="bg-background-primary dark:bg-background-tertiary relative flex min-h-screen flex-col overflow-hidden transition-colors duration-300"
-      style={{ touchAction: isDrawing ? "none" : "pan-y" }}
+      style={{
+        touchAction: isDrawing ? "none" : "pan-y",
+        cursor: isDrawing ? "none" : undefined,
+      }}
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -65,6 +68,11 @@ const HeaderWidget: React.FC = () => {
         <HeaderNavigation navigation={navigation} />
 
         <div className="relative isolate flex w-full grow items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 lg:px-8">
+          {enablePaint ? (
+            <p className="sr-only">
+              На фоне можно оставить след лапы, проводя мышью или удерживая палец.
+            </p>
+          ) : null}
           <HeaderHero
             eyebrow={headerContent.eyebrow}
             title={headerContent.title}
