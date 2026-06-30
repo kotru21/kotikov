@@ -101,7 +101,13 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
           />
         </div>
 
-        <div className="flex shrink-0 gap-2">
+        <div
+          role="toolbar"
+          aria-label="Навигация по ленте этапов"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          className="flex shrink-0 gap-2"
+        >
           <button
             type="button"
             onClick={() => {
@@ -130,10 +136,8 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
       <div className="relative">
         <div
           ref={scrollerRef}
-          tabIndex={0}
           role="region"
           aria-label="Лента этапов опыта. Прокрутите горизонтально или используйте стрелки."
-          onKeyDown={handleKeyDown}
           className="overflow-x-auto overscroll-x-contain px-6 pb-6 [scrollbar-width:none] snap-x snap-mandatory scroll-smooth [-ms-overflow-style:none] motion-reduce:scroll-auto lg:px-8 [&::-webkit-scrollbar]:hidden"
         >
           <div className="relative flex items-start gap-10" role="list" aria-label="Этапы опыта">

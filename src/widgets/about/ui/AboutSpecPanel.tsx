@@ -16,6 +16,8 @@ function toCommentLines(text: string): string[] {
     .filter((line) => line.length > 0);
 }
 
+const principlesCommentLine = "// principles";
+
 const AboutSpecPanel: React.FC = () => {
   const { body, spec, principles } = aboutContent;
   const commentLines = toCommentLines(body);
@@ -60,7 +62,7 @@ const AboutSpecPanel: React.FC = () => {
               </React.Fragment>
             ))}
             {"};\n\n"}
-            <span className={commentToneClass}>// principles</span>
+            <span className={commentToneClass}>{principlesCommentLine}</span>
             {"\n"}
             {principles.map((entry) => (
               <React.Fragment key={entry.type}>
