@@ -99,4 +99,21 @@ describe("TimelineStepChips", () => {
     fireEvent.click(screen.getByRole("tab", { name: "2026 · Хакатон" }));
     expect(onSelect).toHaveBeenCalledWith(3);
   });
+
+  it("does not scroll the page on initial mount", () => {
+    const scrollIntoView = vi.fn();
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+    render(
+      <TimelineStepChips
+        items={items}
+        activeIndex={0}
+        panelId="timeline-panel-1"
+        reducedMotion={false}
+        onSelect={vi.fn()}
+      />
+    );
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
 });

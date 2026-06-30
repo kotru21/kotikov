@@ -6,6 +6,11 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
+import {
+  DECK_MOTION_CLASS,
+  getDeckTransform,
+  getLinearDeckCardRole,
+} from "@/shared/lib/deckTransform";
 import { BauhausGridPattern, Section, SectionHeader } from "@/shared/ui";
 
 import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
@@ -46,9 +51,7 @@ const TimelineView: React.FC = () => {
   const panelId = "timeline-carousel-panel";
   const progressPercent =
     timelineData.length > 1 ? (activeIndex / (timelineData.length - 1)) * 100 : 100;
-  const slideTransitionClass = reducedMotion
-    ? ""
-    : "transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+  const deckMotionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
 
   return (
     <Section
@@ -74,7 +77,7 @@ const TimelineView: React.FC = () => {
               aria-hidden="true"
             >
               <div
-                className="bg-primary-500 h-full transition-[width] duration-300 ease-out motion-reduce:transition-none"
+                className="bg-primary-500 h-full transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
                 style={{ width: `${String(progressPercent)}%` }}
               />
             </div>
@@ -97,29 +100,34 @@ const TimelineView: React.FC = () => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchCancel}
-            className="grid w-full touch-pan-y overflow-hidden [&>*]:col-start-1 [&>*]:row-start-1"
+            className="grid w-full touch-pan-y pb-8 [&>*]:col-start-1 [&>*]:row-start-1"
           >
             {timelineData.map((item, index) => {
-              const isActive = index === activeIndex;
+              const role = getLinearDeckCardRole(index, activeIndex);
+              const deckStyle = getDeckTransform(role, reducedMotion);
+              const isActive = deckStyle.isActive;
 
               return (
                 <div
                   key={item.id}
                   aria-hidden={!isActive}
                   {...(!isActive ? { inert: true } : {})}
-                  className={`w-full ${slideTransitionClass} ${
-                    isActive
-                      ? "pointer-events-auto z-10 translate-y-0 opacity-100"
-                      : "pointer-events-none z-0 translate-y-1 opacity-0"
-                  }`}
+                  className={`col-start-1 row-start-1 w-full origin-center ${deckMotionClass}`}
+                  style={{
+                    zIndex: deckStyle.zIndex,
+                    transform: deckStyle.transform,
+                    opacity: deckStyle.opacity,
+                  }}
                 >
-                  <TimelineEditorialCard
-                    item={item}
-                    titleId={`timeline-entry-${String(item.id)}`}
-                    layout="stacked"
-                    fillHeight
-                    hover={false}
-                  />
+                  <div className={isActive ? undefined : "pointer-events-none"}>
+                    <TimelineEditorialCard
+                      item={item}
+                      titleId={`timeline-entry-${String(item.id)}`}
+                      layout="stacked"
+                      fillHeight
+                      hover={false}
+                    />
+                  </div>
                 </div>
               );
             })}

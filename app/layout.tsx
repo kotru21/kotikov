@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
+import { ScrollRestoration } from "@/features/scrolling";
 import { ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
 
@@ -126,6 +127,7 @@ export default function RootLayout({
           {`(function(){try{var c=localStorage.getItem('theme');var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`}
         </Script>
         <ThemeProvider>
+          <ScrollRestoration />
           <a
             href="#projects"
             className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:border-2 focus:border-black focus:bg-white focus:px-4 focus:py-2 focus:font-bold dark:focus:border-white dark:focus:bg-black dark:focus:text-white"

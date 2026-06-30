@@ -200,7 +200,6 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({ containerRef 
           width={50}
           height={33}
           className="drop-shadow-2xl"
-          priority
         />
       </div>
     </div>

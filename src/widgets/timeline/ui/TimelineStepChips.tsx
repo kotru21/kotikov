@@ -37,23 +37,37 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   onKeyDown,
 }) => {
   const tablistRef = useRef<HTMLDivElement>(null);
+  const prevActiveIndexRef = useRef<number | null>(null);
   const motionClass = reducedMotion ? "duration-0" : chipMotionClass;
 
   useEffect(() => {
     const tablist = tablistRef.current;
     if (tablist === null) return;
 
+    if (prevActiveIndexRef.current === null) {
+      prevActiveIndexRef.current = activeIndex;
+      return;
+    }
+
+    if (prevActiveIndexRef.current === activeIndex) return;
+    prevActiveIndexRef.current = activeIndex;
+
     const activeTab = tablist.querySelector<HTMLElement>(
       `[data-timeline-chip-index="${String(activeIndex)}"]`
     );
-    if (activeTab !== null && typeof activeTab.scrollIntoView === "function") {
-      activeTab.scrollIntoView({
-        inline: "nearest",
-        block: "nearest",
-        behavior: reducedMotion ? "auto" : "smooth",
-      });
+    if (activeTab === null) return;
+
+    const tablistRect = tablist.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
+    const overflowLeft = tabRect.left - tablistRect.left;
+    const overflowRight = tabRect.right - tablistRect.right;
+
+    if (overflowLeft < 0) {
+      tablist.scrollLeft += overflowLeft;
+    } else if (overflowRight > 0) {
+      tablist.scrollLeft += overflowRight;
     }
-  }, [activeIndex, reducedMotion]);
+  }, [activeIndex]);
 
   return (
     <div

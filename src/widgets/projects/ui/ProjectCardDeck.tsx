@@ -5,16 +5,15 @@ import React from "react";
 import { ProjectCard } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
 import { projectsData } from "@/shared/config/content";
+import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
 
 import { getDeckCardRole, getDeckTransform } from "./getDeckTransform";
 import { useProjectDeck } from "./useProjectDeck";
 
-const deckMotionClass = "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
-
 const ProjectCardDeck: React.FC = () => {
   const projects = projectsData;
   const { reducedMotion } = usePerformanceSettings();
-  const motionClass = reducedMotion ? "" : deckMotionClass;
+  const motionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
   const { activeIndex, goTo, handleKeyDown, handleTouchStart, handleTouchEnd } = useProjectDeck({
     count: projects.length,
   });

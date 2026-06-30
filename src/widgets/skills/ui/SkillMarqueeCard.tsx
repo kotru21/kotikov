@@ -18,8 +18,8 @@ const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
   return (
     <div
       ref={cardRef}
-      role="button"
-      tabIndex={0}
+      aria-hidden="true"
+      tabIndex={-1}
       onMouseEnter={() => {
         setActiveElement(cardRef.current);
       }}
@@ -27,21 +27,8 @@ const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
       onMouseLeave={() => {
         setActiveElement(null);
       }}
-      onFocus={() => {
-        setActiveElement(cardRef.current);
-      }}
-      onBlur={() => {
-        setActiveElement(null);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setActiveElement(cardRef.current);
-        }
-      }}
       className="flex min-w-fit items-center gap-4 border-2 border-black bg-white px-6 py-4 whitespace-nowrap shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]"
     >
-      {" "}
       {/* Логотип технологии */}
       <div className="shrink-0">
         <div
