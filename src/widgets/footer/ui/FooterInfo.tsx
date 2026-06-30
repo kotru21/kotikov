@@ -11,7 +11,7 @@ const FooterInfo: React.FC<FooterInfoProps> = ({ title, description }) => {
       <h3 className="text-text-primary dark:text-text-primary mb-4 text-2xl font-black uppercase">
         {title}
       </h3>
-      <p className="text-text-secondary text-sm leading-relaxed font-medium dark:text-gray-400">
+      <p className="text-text-secondary text-sm leading-relaxed font-medium dark:text-neutral-400">
         {description}
       </p>
     </div>
