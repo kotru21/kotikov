@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState } from "react";
 
 import { timelineDecadeCatSrc } from "./timelineDecadeCats";
@@ -61,9 +62,12 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({
 
             <span className={slotClass}>
               {showCat ? (
-                <img
+                <Image
                   src={catSrc}
                   alt=""
+                  width={24}
+                  height={24}
+                  unoptimized
                   onError={() => {
                     setMissingAssets((prev) => ({ ...prev, [decadeKey]: true }));
                   }}

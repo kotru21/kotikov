@@ -46,7 +46,9 @@ const TimelineView: React.FC = () => {
   const panelId = "timeline-carousel-panel";
   const progressPercent =
     timelineData.length > 1 ? (activeIndex / (timelineData.length - 1)) * 100 : 100;
-  const slideMotionClass = reducedMotion ? "" : "motion-safe:animate-fade-in-up";
+  const slideTransitionClass = reducedMotion
+    ? ""
+    : "transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
   return (
     <Section
@@ -95,7 +97,7 @@ const TimelineView: React.FC = () => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchCancel}
-            className="grid w-full touch-pan-y [&>*]:col-start-1 [&>*]:row-start-1"
+            className="grid w-full touch-pan-y overflow-hidden [&>*]:col-start-1 [&>*]:row-start-1"
           >
             {timelineData.map((item, index) => {
               const isActive = index === activeIndex;
@@ -105,9 +107,11 @@ const TimelineView: React.FC = () => {
                   key={item.id}
                   aria-hidden={!isActive}
                   {...(!isActive ? { inert: true } : {})}
-                  className={
-                    isActive ? slideMotionClass : "pointer-events-none invisible"
-                  }
+                  className={`w-full ${slideTransitionClass} ${
+                    isActive
+                      ? "pointer-events-auto z-10 translate-y-0 opacity-100"
+                      : "pointer-events-none z-0 translate-y-1 opacity-0"
+                  }`}
                 >
                   <TimelineEditorialCard
                     item={item}

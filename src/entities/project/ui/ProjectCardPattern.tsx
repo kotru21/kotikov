@@ -59,16 +59,21 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
 
       {pattern === "chevrons" ? (
         <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">
-          {[0, 1, 2, 3, 4, 5].map((index) => (
-            <path
-              key={index}
-              d={`M${String(120 + index * 14)} ${String(200 - index * 18)} L${String(170 + index * 10)} ${String(170 - index * 18)} L${String(220 + index * 6)} ${String(200 - index * 18)}`}
-              fill="none"
-              stroke={color}
-              strokeWidth="2.5"
-              opacity={1 - index * 0.12}
-            />
-          ))}
+          {[0, 1, 2, 3, 4, 5].map((index) => {
+            const startX = 120 + index * 14;
+            const startY = 200 - index * 18;
+
+            return (
+              <path
+                key={`chevron-${String(startX)}-${String(startY)}`}
+                d={`M${String(startX)} ${String(startY)} L${String(170 + index * 10)} ${String(170 - index * 18)} L${String(220 + index * 6)} ${String(200 - index * 18)}`}
+                fill="none"
+                stroke={color}
+                strokeWidth="2.5"
+                opacity={1 - index * 0.12}
+              />
+            );
+          })}
         </svg>
       ) : null}
 
@@ -83,19 +88,24 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
             strokeWidth="2"
             opacity="0.35"
           />
-          {[0, 1, 2, 3, 4].map((index) => (
-            <line
-              key={index}
-              x1={130 + index * 18}
-              y1={220}
-              x2={210 + index * 8}
-              y2={90}
-              stroke={color}
-              strokeWidth="8"
-              strokeLinecap="round"
-              opacity={0.45 + index * 0.1}
-            />
-          ))}
+          {[0, 1, 2, 3, 4].map((index) => {
+            const x1 = 130 + index * 18;
+            const x2 = 210 + index * 8;
+
+            return (
+              <line
+                key={`stripe-${String(x1)}-${String(x2)}`}
+                x1={x1}
+                y1={220}
+                x2={x2}
+                y2={90}
+                stroke={color}
+                strokeWidth="8"
+                strokeLinecap="round"
+                opacity={0.45 + index * 0.1}
+              />
+            );
+          })}
         </svg>
       ) : null}
 
@@ -109,9 +119,9 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
             [175, 180, 25, 3],
             [130, 190, -30, 2],
             [220, 200, 15, 3],
-          ].map(([x, y, angle, len], index) => (
+          ].map(([x, y, angle, len]) => (
             <line
-              key={index}
+              key={`scatter-${String(x)}-${String(y)}-${String(angle)}`}
               x1={x}
               y1={y}
               x2={x + len * Math.cos((angle * Math.PI) / 180)}

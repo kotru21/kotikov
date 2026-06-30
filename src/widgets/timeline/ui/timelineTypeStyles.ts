@@ -8,10 +8,10 @@ const eyebrowByType: Record<TimelineItem["type"], string> = {
 };
 
 const activeChipByType: Record<TimelineItem["type"], string> = {
-  work: "bg-primary-500 text-white",
-  education: "bg-neutral-200 text-text-primary dark:bg-neutral-700 dark:text-text-inverse",
-  hackathon: "bg-primary-100 text-primary-950 dark:bg-primary-900 dark:text-primary-100",
-  project: "bg-neutral-200 text-text-primary",
+  work: "bg-primary-500 text-black",
+  education: "bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white",
+  hackathon: "bg-primary-100 text-black dark:bg-primary-800 dark:text-white",
+  project: "bg-neutral-200 text-black dark:text-white",
 };
 
 const inactiveChipBorderByType: Record<TimelineItem["type"], string> = {

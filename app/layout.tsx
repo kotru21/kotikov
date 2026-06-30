@@ -121,14 +121,10 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var c=localStorage.getItem('theme');var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`,
-          }}
-        />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var c=localStorage.getItem('theme');var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`}
+        </Script>
         <ThemeProvider>
           <a
             href="#projects"
