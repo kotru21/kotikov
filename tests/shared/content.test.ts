@@ -6,6 +6,7 @@ import {
   projectsData,
   skillGroups,
   skillsData,
+  timelineData,
 } from "@/shared/config/content";
 
 describe("content model", () => {
@@ -40,5 +41,31 @@ describe("content model", () => {
 
   it("defines an about block with three principles", () => {
     expect(aboutContent.principles).toHaveLength(3);
+  });
+});
+
+describe("timeline data", () => {
+  it("contains exactly four non-project entries in chronological order", () => {
+    expect(timelineData).toHaveLength(4);
+    expect(timelineData.map((e) => e.id)).toEqual([1, 2, 4, 7]);
+    expect(timelineData.every((e) => e.type !== "project")).toBe(true);
+  });
+
+  it("uses unified period strings", () => {
+    expect(timelineData.map((e) => e.period)).toEqual([
+      "2023",
+      "2024 — н.в.",
+      "июн 2025 — ноя 2025",
+      "2026",
+    ]);
+  });
+
+  it("has required fields on every entry", () => {
+    for (const entry of timelineData) {
+      expect(entry.title).toBeTruthy();
+      expect(entry.company).toBeTruthy();
+      expect(entry.description).toBeTruthy();
+      expect(entry.technologies.length).toBeGreaterThanOrEqual(1);
+    }
   });
 });
