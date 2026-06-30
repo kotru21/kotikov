@@ -5,7 +5,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
-import { Button, Section } from "@/shared/ui";
+import { Button, Section, SectionHeader } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
@@ -46,22 +46,18 @@ const SkillsMobileView: React.FC = () => {
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
       className="overflow-x-hidden"
       innerClassName=""
+      aria-labelledby="skills-heading"
     >
-      {/* Заголовок */}
-      <div className="px-4 pb-8 text-center">
-        <h2
-          id="skills-heading"
-          className="mb-4 text-4xl font-bold tracking-tighter text-black uppercase dark:text-white"
-        >
-          Мои навыки
-          <span className="mt-3 block text-base font-semibold tracking-normal text-neutral-700 normal-case dark:text-neutral-300">
-            React, JavaScript, Node.js, фреймворк Next.js
-          </span>
-        </h2>
-        <p className="mx-auto max-w-sm text-lg font-medium text-neutral-600 dark:text-neutral-400">
-          Технологии и инструменты, которыми я владею
-        </p>
-      </div>
+      <SectionHeader
+        align="center"
+        eyebrow="Навыки"
+        title="Мои навыки"
+        titleId="skills-heading"
+        description="Технологии и инструменты, которыми я владею"
+      />
+      <p className="mx-auto -mt-8 mb-8 max-w-sm text-center text-base font-semibold text-text-secondary dark:text-neutral-300">
+        React, JavaScript, Node.js, фреймворк Next.js
+      </p>
 
       {/* Кнопка LinkedIn над скиллами */}
       <div className="flex justify-center pb-8">

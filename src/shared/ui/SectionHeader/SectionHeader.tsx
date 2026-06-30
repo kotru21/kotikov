@@ -3,6 +3,7 @@ import React from "react";
 interface SectionHeaderProps {
   eyebrow: React.ReactNode;
   title: React.ReactNode;
+  titleId?: string;
   description?: React.ReactNode;
   align?: "left" | "center";
   tone?: "default" | "on-gradient";
@@ -15,6 +16,7 @@ const eyebrowClasses =
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   eyebrow,
   title,
+  titleId,
   description,
   align = "left",
   tone = "default",
@@ -39,7 +41,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       ) : (
         eyebrow
       )}
-      <h2 className={titleClasses}>{title}</h2>
+      <h2 id={titleId} className={titleClasses}>
+        {title}
+      </h2>
       {description !== undefined && description !== null ? (
         <div
           className={`mt-4 max-w-2xl text-lg leading-8 font-medium ${descriptionToneClasses} ${descriptionAlignClasses}`}
