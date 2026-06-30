@@ -64,3 +64,6 @@ next-env.d.ts
 # Python bytecode in vendored skill scripts
 **/__pycache__/
 *.pyc
+
+# local git worktree checkouts
+.worktrees/
