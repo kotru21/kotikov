@@ -5,7 +5,6 @@ import React from "react";
 
 import { FlyingNyancat } from "@/features/nyancat";
 import { Button, Card } from "@/shared/ui";
-import { colors } from "@/styles/colors";
 
 const NotFound: React.FC = () => {
   return (
@@ -52,20 +51,17 @@ const NotFound: React.FC = () => {
       <div className="container mx-auto px-4 text-center">
         <Card variant="bgNone" padding="lg" className="mx-auto max-w-2xl">
           {/* 404 в большом размере */}
-          <div
-            className="mb-8 text-8xl font-bold md:text-9xl"
-            style={{ color: colors.primary[600] }}
-          >
+          <div className="mb-8 text-8xl font-bold text-primary-600 md:text-9xl dark:text-primary-400">
             404
           </div>
 
           {/* Заголовок */}
-          <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
+          <h1 className="mb-4 text-3xl font-bold text-text-primary md:text-4xl dark:text-text-inverse">
             Страница не найдена
           </h1>
 
           {/* Описание */}
-          <p className="mb-8 text-lg leading-relaxed text-gray-600 md:text-xl dark:text-gray-300">
+          <p className="mb-8 text-lg leading-relaxed text-text-secondary md:text-xl dark:text-neutral-300">
             К сожалению, запрашиваемая страница не существует или была перемещена.
             <br />
             Давайте вернем вас на правильный путь!
@@ -96,8 +92,8 @@ const NotFound: React.FC = () => {
           </div>
 
           {/* Дополнительные ссылки */}
-          <div className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700">
-            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="mt-12 border-t border-black/20 pt-8 dark:border-white/20">
+            <p className="mb-4 text-sm text-text-muted dark:text-neutral-400">
               Может быть, вас заинтересует:
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
