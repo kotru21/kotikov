@@ -15,7 +15,7 @@ export default function Error({ error, reset }: ErrorPageProps): React.JSX.Eleme
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background-primary">
+    <div className="bg-background-primary flex min-h-screen items-center justify-center">
       <Card variant="bgNone" padding="lg" className="mx-auto max-w-md text-center">
         <div className="mb-6 text-6xl">🚨</div>
         <h2 className="text-text-primary mb-4 text-2xl font-bold">Произошла ошибка</h2>

@@ -74,7 +74,15 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
 
       {pattern === "stripes" ? (
         <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">
-          <circle cx="190" cy="170" r="88" fill="none" stroke={color} strokeWidth="2" opacity="0.35" />
+          <circle
+            cx="190"
+            cy="170"
+            r="88"
+            fill="none"
+            stroke={color}
+            strokeWidth="2"
+            opacity="0.35"
+          />
           {[0, 1, 2, 3, 4].map((index) => (
             <line
               key={index}

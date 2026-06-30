@@ -15,9 +15,7 @@ export const useGridPainting = (
   brushRadius: number,
   alpha: number
 ): UseGridPaintingReturn => {
-  const paintedRef = useRef(
-    new Map<string, { color: string; intensity: number }>()
-  );
+  const paintedRef = useRef(new Map<string, { color: string; intensity: number }>());
 
   const drawOnCanvas = useCallback(
     (x: number, y: number, prevX: number, prevY: number): void => {

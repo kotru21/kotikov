@@ -11,14 +11,16 @@ interface TimelineSlideContentProps {
 
 const TimelineSlideContent: React.FC<TimelineSlideContentProps> = ({ item }) => {
   return (
-    <div className="w-full px-2 md:pl-8 md:pr-0" aria-live="polite">
+    <div className="w-full px-2 md:pr-0 md:pl-8" aria-live="polite">
       <p className="text-text-secondary text-xs font-bold tracking-[0.22em] uppercase">
         {getTypeLabel(item.type)} · {item.period}
       </p>
       <h3 className="text-text-primary dark:text-text-inverse mt-2 text-2xl font-black tracking-tight uppercase md:text-3xl">
         {item.title}
       </h3>
-      <p className="text-primary-950 dark:text-primary-300 mt-1 text-sm font-bold">{item.company}</p>
+      <p className="text-primary-950 dark:text-primary-300 mt-1 text-sm font-bold">
+        {item.company}
+      </p>
       <p className="text-text-secondary mt-4 text-sm leading-relaxed font-medium md:text-base dark:text-neutral-300">
         {item.description}
       </p>

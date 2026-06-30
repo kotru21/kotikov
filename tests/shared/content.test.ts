@@ -35,11 +35,7 @@ describe("content model", () => {
 
   it("drops percentage levels from skills and groups them", () => {
     expect(skillsData.every((s) => !("level" in s))).toBe(true);
-    expect(skillGroups.map((g) => g.title)).toEqual([
-      "Frontend",
-      "Backend",
-      "Инструменты",
-    ]);
+    expect(skillGroups.map((g) => g.title)).toEqual(["Frontend", "Backend", "Инструменты"]);
   });
 
   it("defines an about block with three principles", () => {

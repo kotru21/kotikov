@@ -121,11 +121,13 @@ describe("useNavMorph", () => {
       }
     });
 
-    removeEventListenerSpy = vi.spyOn(window, "removeEventListener").mockImplementation((type, listener) => {
-      if (type === "scroll") {
-        scrollHandlers.delete(listener);
-      }
-    });
+    removeEventListenerSpy = vi
+      .spyOn(window, "removeEventListener")
+      .mockImplementation((type, listener) => {
+        if (type === "scroll") {
+          scrollHandlers.delete(listener);
+        }
+      });
 
     vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => {
       rafCallbacks.push(callback);

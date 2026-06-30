@@ -1,7 +1,9 @@
 import React from "react";
 
-interface SectionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "children" | "className" | "id"> {
+interface SectionProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "children" | "className" | "id"
+> {
   id?: string;
   children: React.ReactNode;
   spacing?: "default" | "compact" | "none";
@@ -31,7 +33,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
       as: rootTag = "section",
       ...nativeProps
     },
-    ref,
+    ref
   ) => {
     const rootClasses = [
       "relative transition-colors duration-300",
@@ -49,7 +51,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
         <div className={`${containerClasses} ${innerClassName}`.trim()}>{children}</div>
       </RootTag>
     );
-  },
+  }
 );
 
 Section.displayName = "Section";

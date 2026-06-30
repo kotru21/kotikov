@@ -20,10 +20,7 @@ export interface NavMorphState {
 
 export const lerp = (from: number, to: number, t: number): number => from + (to - from) * t;
 
-export const computeNavMorph = (
-  scrollY: number,
-  snapMorph = false
-): NavMorphState => {
+export const computeNavMorph = (scrollY: number, snapMorph = false): NavMorphState => {
   if (scrollY <= 0) {
     return { progress: 0, phase: 0, isIsland: false };
   }
@@ -40,7 +37,8 @@ export const computeNavMorph = (
 
   if (scrollY <= PHASE2_END) {
     const progress =
-      PHASE1_PROGRESS + ((scrollY - PHASE1_END) / (PHASE2_END - PHASE1_END)) * (1 - PHASE1_PROGRESS);
+      PHASE1_PROGRESS +
+      ((scrollY - PHASE1_END) / (PHASE2_END - PHASE1_END)) * (1 - PHASE1_PROGRESS);
     return { progress, phase: 2, isIsland: progress >= 0.95 };
   }
 

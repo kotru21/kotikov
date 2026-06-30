@@ -14,5 +14,4 @@ describe("timelineUtils", () => {
     expect(parsePeriodStart("июнь 2025 - Ноябрь 2025")).toBe(2025 * 12 + 6);
     expect(parsePeriodStart("2025")).toBeLessThan(parsePeriodStart("июнь 2025 - Ноябрь 2025"));
   });
-
 });

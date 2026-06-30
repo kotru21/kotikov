@@ -65,13 +65,7 @@ describe("Section", () => {
 
 describe("SectionHeader", () => {
   it("renders eyebrow, title, optional description", () => {
-    render(
-      <SectionHeader
-        eyebrow="Обо мне"
-        title="Заголовок"
-        description="Описание секции"
-      />
-    );
+    render(<SectionHeader eyebrow="Обо мне" title="Заголовок" description="Описание секции" />);
 
     expect(screen.getByText("Обо мне")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2, name: "Заголовок" })).toBeInTheDocument();
@@ -79,9 +73,7 @@ describe("SectionHeader", () => {
   });
 
   it("applies header-gap mb-12 lg:mb-16", () => {
-    const { container } = render(
-      <SectionHeader eyebrow="Проекты" title="Избранные работы" />
-    );
+    const { container } = render(<SectionHeader eyebrow="Проекты" title="Избранные работы" />);
 
     expect(container.querySelector("header")).toHaveClass("mb-12", "lg:mb-16");
   });
@@ -105,10 +97,7 @@ describe("SectionHeader", () => {
 
   it("renders ReactNode eyebrow for custom badges", () => {
     render(
-      <SectionHeader
-        eyebrow={<span data-testid="custom-eyebrow">Badge</span>}
-        title="Контакты"
-      />
+      <SectionHeader eyebrow={<span data-testid="custom-eyebrow">Badge</span>} title="Контакты" />
     );
 
     expect(screen.getByTestId("custom-eyebrow")).toBeInTheDocument();

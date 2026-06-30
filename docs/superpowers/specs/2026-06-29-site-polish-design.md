@@ -26,14 +26,14 @@
 
 ### 1.3 Затрагиваемые области
 
-| Область | Файлы |
-|---------|-------|
-| Примитивы | `src/shared/ui/Section/`, `src/shared/ui/SectionHeader/`, `src/shared/ui/index.ts` |
-| Виджеты | `AboutView`, `ProjectsView`, `SkillsDesktopView`, `SkillsMobileView`, `TimelineView`, `ContactsView`, `FooterWidget` |
-| Сущности / UI | `ProjectCard`, `Button`, `Card` |
-| Страницы ошибок | `app/not-found.tsx`, `app/error.tsx`, `app/global-error.tsx` |
-| Конфиг (при необходимости) | `tailwind.config.ts`, `app/globals.css` |
-| Тесты | `tests/shared/section.test.tsx` (новый) |
+| Область                    | Файлы                                                                                                                |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Примитивы                  | `src/shared/ui/Section/`, `src/shared/ui/SectionHeader/`, `src/shared/ui/index.ts`                                   |
+| Виджеты                    | `AboutView`, `ProjectsView`, `SkillsDesktopView`, `SkillsMobileView`, `TimelineView`, `ContactsView`, `FooterWidget` |
+| Сущности / UI              | `ProjectCard`, `Button`, `Card`                                                                                      |
+| Страницы ошибок            | `app/not-found.tsx`, `app/error.tsx`, `app/global-error.tsx`                                                         |
+| Конфиг (при необходимости) | `tailwind.config.ts`, `app/globals.css`                                                                              |
+| Тесты                      | `tests/shared/section.test.tsx` (новый)                                                                              |
 
 **Hero и Header** остаются без изменений layout-контракта; они не оборачиваются в `Section`.
 
@@ -45,14 +45,14 @@
 
 Все значения — Tailwind-классы. Базовая единица: 8px (`1` = 4px, `2` = 8px, …).
 
-| Токен | Классы | px | Применение |
-|-------|--------|-----|------------|
-| `section-y` | `py-24` | 96 | About, Projects, Experience (`#experience`), Contacts |
-| `section-y-compact` | `py-16` | 64 | Skills |
-| `container-x` | `px-6 lg:px-8` | 24 / 32 | Горизонтальный padding всех секций и Footer |
-| `container-max` | `max-w-6xl mx-auto` | 1152 | Внутренний контейнер контента |
-| `section-gap` | `gap-12 lg:gap-16` | 48 / 64 | Межколоночные и межблочные gap внутри секции |
-| `header-gap` | `mb-12 lg:mb-16` | 48 / 64 | Отступ под `SectionHeader` до основного контента |
+| Токен               | Классы              | px      | Применение                                            |
+| ------------------- | ------------------- | ------- | ----------------------------------------------------- |
+| `section-y`         | `py-24`             | 96      | About, Projects, Experience (`#experience`), Contacts |
+| `section-y-compact` | `py-16`             | 64      | Skills                                                |
+| `container-x`       | `px-6 lg:px-8`      | 24 / 32 | Горизонтальный padding всех секций и Footer           |
+| `container-max`     | `max-w-6xl mx-auto` | 1152    | Внутренний контейнер контента                         |
+| `section-gap`       | `gap-12 lg:gap-16`  | 48 / 64 | Межколоночные и межблочные gap внутри секции          |
+| `header-gap`        | `mb-12 lg:mb-16`    | 48 / 64 | Отступ под `SectionHeader` до основного контента      |
 
 **Разрешение именования Experience / Timeline:** виджет `TimelineView` рендерит единственную секцию `<section id="experience">` (якорь навигации «Опыт»). В списке compact фигурирует «Timeline» как имя виджета, но padding секции определяется пунктом «Experience» → **`section-y` (`py-24`)**. Compact (`py-16`) применяется только к Skills. Внутренний carousel-band (`alignedContentBandClass`) сохраняет свою сетку; горизонтальный padding переносится на `Section` / `container-x`.
 
@@ -62,11 +62,11 @@
 
 ### 2.2 Брейкпоинты
 
-| Диапазон | Tailwind | Поведение |
-|----------|----------|-----------|
-| Mobile | `< md` (< 768px) | Одноколоночные layout; Projects — deck (`ProjectCardDeck`); Header — burger-меню |
-| Tablet+ | `md:` (≥ 768px) | Двухколоночные grid (About, Timeline); Projects — grid 2 col; Skills mobile/desktop переключение через `useIsMobile` (существующая логика) |
-| Desktop nav | `lg:` (≥ 1024px) | Island-навигация (`HeaderNavigation` fixed island) |
+| Диапазон    | Tailwind         | Поведение                                                                                                                                  |
+| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Mobile      | `< md` (< 768px) | Одноколоночные layout; Projects — deck (`ProjectCardDeck`); Header — burger-меню                                                           |
+| Tablet+     | `md:` (≥ 768px)  | Двухколоночные grid (About, Timeline); Projects — grid 2 col; Skills mobile/desktop переключение через `useIsMobile` (существующая логика) |
+| Desktop nav | `lg:` (≥ 1024px) | Island-навигация (`HeaderNavigation` fixed island)                                                                                         |
 
 **Исправление Projects:** заменить переключение deck/grid:
 
@@ -110,6 +110,7 @@ interface SectionProps {
 - Не добавляет `id` на внутренний div — `id` только на корне.
 
 **Экспорт:** добавить в `src/shared/ui/index.ts`:
+
 ```ts
 export { Section } from "./Section";
 export { SectionHeader } from "./SectionHeader";
@@ -146,15 +147,15 @@ interface SectionHeaderProps {
 
 ### 2.5 Таблица миграции виджетов
 
-| Виджет | Файл | `id` | spacing | background | Прочие изменения |
-|--------|------|------|---------|------------|------------------|
-| About | `src/widgets/about/ui/AboutView.tsx` | `about` | default | `bg-background-primary dark:bg-background-tertiary` | Grid: `section-gap`, `lg:grid-cols-[1.1fr_0.9fr]`; заголовок → `SectionHeader` |
-| Projects | `src/widgets/projects/ui/ProjectsView.tsx` | `projects` | default | `bg-neutral-100 dark:bg-background-tertiary` (замена `dark:bg-[#0a0a0a]`) | `max-w-7xl` → `container-max`; deck/grid `md`; заголовок → `SectionHeader` |
-| Skills (desktop) | `src/widgets/skills/ui/SkillsDesktopView.tsx` | `skills` | compact | `bg-background-primary dark:bg-background-tertiary` | Marquee без собственного заголовка — без `SectionHeader` |
-| Skills (mobile) | `src/widgets/skills/ui/SkillsMobileView.tsx` | `skills` | compact | то же | Заголовок внутри — в Phase 2 привести к `SectionHeader` или eyebrow+H2 паттерну |
-| Experience | `src/widgets/timeline/ui/TimelineView.tsx` | `experience` | default | `bg-background-primary dark:bg-background-tertiary` | Убрать `alignedContentBandClass` px-4 → padding от `Section`; H2 в Phase 2 |
-| Contacts | `src/widgets/contacts/ui/ContactsView.tsx` | `contacts` | default | без фона на Section (градиент/канвас — absolute children) | `Section` + `innerClassName` для z-index; `SectionHeader align="center"` |
-| Footer | `src/widgets/footer/FooterWidget.tsx` | — | — | `bg-background-primary dark:bg-background-tertiary` | `Section as="footer"`, `spacing` не используется, `className="py-16 border-t-4 …"` |
+| Виджет           | Файл                                          | `id`         | spacing | background                                                                | Прочие изменения                                                                   |
+| ---------------- | --------------------------------------------- | ------------ | ------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| About            | `src/widgets/about/ui/AboutView.tsx`          | `about`      | default | `bg-background-primary dark:bg-background-tertiary`                       | Grid: `section-gap`, `lg:grid-cols-[1.1fr_0.9fr]`; заголовок → `SectionHeader`     |
+| Projects         | `src/widgets/projects/ui/ProjectsView.tsx`    | `projects`   | default | `bg-neutral-100 dark:bg-background-tertiary` (замена `dark:bg-[#0a0a0a]`) | `max-w-7xl` → `container-max`; deck/grid `md`; заголовок → `SectionHeader`         |
+| Skills (desktop) | `src/widgets/skills/ui/SkillsDesktopView.tsx` | `skills`     | compact | `bg-background-primary dark:bg-background-tertiary`                       | Marquee без собственного заголовка — без `SectionHeader`                           |
+| Skills (mobile)  | `src/widgets/skills/ui/SkillsMobileView.tsx`  | `skills`     | compact | то же                                                                     | Заголовок внутри — в Phase 2 привести к `SectionHeader` или eyebrow+H2 паттерну    |
+| Experience       | `src/widgets/timeline/ui/TimelineView.tsx`    | `experience` | default | `bg-background-primary dark:bg-background-tertiary`                       | Убрать `alignedContentBandClass` px-4 → padding от `Section`; H2 в Phase 2         |
+| Contacts         | `src/widgets/contacts/ui/ContactsView.tsx`    | `contacts`   | default | без фона на Section (градиент/канвас — absolute children)                 | `Section` + `innerClassName` для z-index; `SectionHeader align="center"`           |
+| Footer           | `src/widgets/footer/FooterWidget.tsx`         | —            | —       | `bg-background-primary dark:bg-background-tertiary`                       | `Section as="footer"`, `spacing` не используется, `className="py-16 border-t-4 …"` |
 
 ### 2.6 Фоны секций (чередование)
 
@@ -175,15 +176,15 @@ interface SectionHeaderProps {
 
 ### 3.1 Типографическая шкала
 
-| Роль | Элемент | Классы | Где используется |
-|------|---------|--------|------------------|
-| H1 | `<h1>` | `text-[2.75rem] sm:text-6xl lg:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-none` | **Только** `HeaderHero` |
-| H2 | `<h2>` | `text-4xl sm:text-5xl font-black tracking-tight uppercase` | Все секции через `SectionHeader` |
-| Eyebrow | `<p>` | `text-sm font-bold tracking-[0.24em] uppercase text-primary-950 dark:text-primary-300` | `SectionHeader`; в hero — расширенный вариант с `border-2 border-l-4 border-l-primary-500` (hero не трогаем) |
-| Eyebrow (brutalist badge) | `<p>` | `inline-block border-2 border-black border-l-4 border-l-primary-500 bg-background-primary px-3 py-1 … dark:border-white dark:border-l-primary-400 dark:bg-background-tertiary` | Contacts (через `eyebrow` slot) |
-| Description | `<p>` | `mt-4 max-w-2xl text-lg leading-8 font-medium text-text-secondary dark:text-neutral-400` | `SectionHeader` |
-| Body | `<p>` | `text-base leading-7 font-medium text-text-secondary dark:text-neutral-300` | About body, карточки |
-| Label | `<p>` / `<span>` | `text-xs font-bold tracking-[0.14em] uppercase text-text-secondary` | Meta, счётчики, табы |
+| Роль                      | Элемент          | Классы                                                                                                                                                                         | Где используется                                                                                             |
+| ------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| H1                        | `<h1>`           | `text-[2.75rem] sm:text-6xl lg:text-8xl font-black tracking-tight uppercase leading-[0.95] sm:leading-none`                                                                    | **Только** `HeaderHero`                                                                                      |
+| H2                        | `<h2>`           | `text-4xl sm:text-5xl font-black tracking-tight uppercase`                                                                                                                     | Все секции через `SectionHeader`                                                                             |
+| Eyebrow                   | `<p>`            | `text-sm font-bold tracking-[0.24em] uppercase text-primary-950 dark:text-primary-300`                                                                                         | `SectionHeader`; в hero — расширенный вариант с `border-2 border-l-4 border-l-primary-500` (hero не трогаем) |
+| Eyebrow (brutalist badge) | `<p>`            | `inline-block border-2 border-black border-l-4 border-l-primary-500 bg-background-primary px-3 py-1 … dark:border-white dark:border-l-primary-400 dark:bg-background-tertiary` | Contacts (через `eyebrow` slot)                                                                              |
+| Description               | `<p>`            | `mt-4 max-w-2xl text-lg leading-8 font-medium text-text-secondary dark:text-neutral-400`                                                                                       | `SectionHeader`                                                                                              |
+| Body                      | `<p>`            | `text-base leading-7 font-medium text-text-secondary dark:text-neutral-300`                                                                                                    | About body, карточки                                                                                         |
+| Label                     | `<p>` / `<span>` | `text-xs font-bold tracking-[0.14em] uppercase text-text-secondary`                                                                                                            | Meta, счётчики, табы                                                                                         |
 
 **Исправления в Phase 2:**
 
@@ -193,13 +194,13 @@ interface SectionHeaderProps {
 
 ### 3.2 Правила neobrutalist
 
-| Правило | Значение | Примечание |
-|---------|----------|------------|
-| Скругления | `rounded-none` везде, кроме декоративного blur-круга в hero | ProjectCard icon container: `rounded-xl` → `rounded-none` |
-| Границы | `border-2 border-black dark:border-white` на карточках, кнопках, badge | Contacts gradient section — без border на корне |
-| Тени | Hard offset: `shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]` light; `dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]` dark | Hover: translate 2px + shadow 2px; active: translate 4px + shadow-none |
-| Mint-акцент | `primary-500` (`#00ffb9`), `border-l-primary-500`, `--accent-shadow` на кнопках | Не вводить новые accent-цвета |
-| Фоны карточек | `bg-white dark:bg-black` или `dark:bg-neutral-900` только для ProjectCard (контраст паттерна) | Унифицировать через `Card` variant |
+| Правило       | Значение                                                                                                              | Примечание                                                             |
+| ------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Скругления    | `rounded-none` везде, кроме декоративного blur-круга в hero                                                           | ProjectCard icon container: `rounded-xl` → `rounded-none`              |
+| Границы       | `border-2 border-black dark:border-white` на карточках, кнопках, badge                                                | Contacts gradient section — без border на корне                        |
+| Тени          | Hard offset: `shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]` light; `dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]` dark | Hover: translate 2px + shadow 2px; active: translate 4px + shadow-none |
+| Mint-акцент   | `primary-500` (`#00ffb9`), `border-l-primary-500`, `--accent-shadow` на кнопках                                       | Не вводить новые accent-цвета                                          |
+| Фоны карточек | `bg-white dark:bg-black` или `dark:bg-neutral-900` только для ProjectCard (контраст паттерна)                         | Унифицировать через `Card` variant                                     |
 
 ### 3.3 Компонентные правки
 
@@ -214,11 +215,11 @@ interface SectionHeaderProps {
 
 Сейчас `primary` и `secondary` идентичны. Дифференциация:
 
-| Variant | Фон | Текст | Тень |
-|---------|-----|-------|------|
-| `primary` | `bg-primary-500` | `text-black` | `shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]` / white в dark |
+| Variant     | Фон                      | Текст                        | Тень                                                                         |
+| ----------- | ------------------------ | ---------------------------- | ---------------------------------------------------------------------------- |
+| `primary`   | `bg-primary-500`         | `text-black`                 | `shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]` / white в dark                      |
 | `secondary` | `bg-white dark:bg-black` | `text-black dark:text-white` | `shadow-[4px_4px_0px_0px_var(--accent-shadow)]` (mint, как сейчас у primary) |
-| `outline` | без изменений | без изменений | без тени |
+| `outline`   | без изменений            | без изменений                | без тени                                                                     |
 
 Hover/active механика (translate + уменьшение тени) — общая для primary и secondary.
 
@@ -226,12 +227,12 @@ Hover/active механика (translate + уменьшение тени) — о
 
 Шкала padding (уже есть, зафиксировать как контракт):
 
-| Token | Класс | px |
-|-------|-------|-----|
-| `none` | — | 0 |
-| `sm` | `p-4` | 16 |
-| `md` | `p-6` | 24 |
-| `lg` | `p-8` | 32 |
+| Token  | Класс | px  |
+| ------ | ----- | --- |
+| `none` | —     | 0   |
+| `sm`   | `p-4` | 16  |
+| `md`   | `p-6` | 24  |
+| `lg`   | `p-8` | 32  |
 
 Новые использования: error/not-found — `padding="lg"`.
 
@@ -254,12 +255,12 @@ Hover/active механика (translate + уменьшение тени) — о
 
 ### 3.4 Визуальная иерархия
 
-| Зона | Контраст | Детали |
-|------|----------|--------|
-| Hero | Максимальный | Крупный H1, mint-блок, интерактивы — **без изменений** |
-| Контентные секции | Спокойный | H2 + description; muted body; тени только на интерактивных карточках |
-| Contacts | Высокий на градиенте | Белый H2, eyebrow-badge; не ослаблять |
-| Footer | Низкий | Мельче body, без теней на тексте |
+| Зона              | Контраст             | Детали                                                               |
+| ----------------- | -------------------- | -------------------------------------------------------------------- |
+| Hero              | Максимальный         | Крупный H1, mint-блок, интерактивы — **без изменений**               |
+| Контентные секции | Спокойный            | H2 + description; muted body; тени только на интерактивных карточках |
+| Contacts          | Высокий на градиенте | Белый H2, eyebrow-badge; не ослаблять                                |
+| Footer            | Низкий               | Мельче body, без теней на тексте                                     |
 
 **Запрет:** не добавлять новые кнопки, ссылки-CTA или интерактивные элементы в рамках полировки.
 
@@ -267,12 +268,12 @@ Hover/active механика (translate + уменьшение тени) — о
 
 Заменить ad-hoc вхождения:
 
-| Файл | Было | Станет |
-|------|------|--------|
-| `ProjectsView` | `dark:bg-[#0a0a0a]` | `dark:bg-background-tertiary` |
-| `not-found.tsx` | `text-gray-*`, `dark:text-gray-*` | `text-text-primary/secondary/muted` |
-| `ProjectCard` | `dark:text-neutral-500` на muted | `dark:text-neutral-400` для вторичного текста |
-| Разрозненные `neutral-*` | где нет семантики | `text-text-secondary`, `text-text-muted` |
+| Файл                     | Было                              | Станет                                        |
+| ------------------------ | --------------------------------- | --------------------------------------------- |
+| `ProjectsView`           | `dark:bg-[#0a0a0a]`               | `dark:bg-background-tertiary`                 |
+| `not-found.tsx`          | `text-gray-*`, `dark:text-gray-*` | `text-text-primary/secondary/muted`           |
+| `ProjectCard`            | `dark:text-neutral-500` на muted  | `dark:text-neutral-400` для вторичного текста |
+| Разрозненные `neutral-*` | где нет семантики                 | `text-text-secondary`, `text-text-muted`      |
 
 Проверить все файлы из §1.3 grep-ом по `gray-`, `#[0-9a-f]{3,6}`, `style={{`.
 
@@ -326,15 +327,15 @@ describe("SectionHeader", () => {
 
 Для каждой комбинации **брейкпоинт × тема** проверить секции About, Projects, Skills, Experience, Contacts, Footer:
 
-| # | Проверка |
-|---|----------|
-| 1 | Вертикальный padding соответствует `section-y` / `section-y-compact` |
-| 2 | Контент не шире `max-w-6xl`, горизонтальный padding `px-6` / `lg:px-8` |
-| 3 | Заголовок секции отстоит от контента на `mb-12` / `lg:mb-16` |
-| 4 | Projects: deck на <768px, grid на ≥768px |
-| 5 | Island nav появляется на ≥1024px |
-| 6 | Нет горизонтального скролла |
-| 7 | Dark mode: читаемый текст, границы видны, нет «сломанных» серых блоков |
+| #   | Проверка                                                               |
+| --- | ---------------------------------------------------------------------- |
+| 1   | Вертикальный padding соответствует `section-y` / `section-y-compact`   |
+| 2   | Контент не шире `max-w-6xl`, горизонтальный padding `px-6` / `lg:px-8` |
+| 3   | Заголовок секции отстоит от контента на `mb-12` / `lg:mb-16`           |
+| 4   | Projects: deck на <768px, grid на ≥768px                               |
+| 5   | Island nav появляется на ≥1024px                                       |
+| 6   | Нет горизонтального скролла                                            |
+| 7   | Dark mode: читаемый текст, границы видны, нет «сломанных» серых блоков |
 
 **Брейкпоинты для проверки:** 375px (mobile), 768px (tablet), 1280px (desktop).  
 **Темы:** light, dark (`.dark` на `<html>`).
@@ -362,12 +363,12 @@ describe("SectionHeader", () => {
 
 ## 7. Риски и смягчение
 
-| Риск | Смягчение |
-|------|-----------|
-| Contacts сломает canvas hit-area при смене padding | Сохранить `relative z-10` на inner; не менять pointer handlers |
-| Timeline carousel сужается | `innerClassName` для band; не уменьшать `max-w-5xl` внутри grid |
-| Skills desktop без заголовка — визуальный дисбаланс | Принято: marquee самодостаточен; mobile получает `SectionHeader` в Phase 2 |
-| Button primary меняет hero CTA | Hero использует `shadowColor` override — проверить контраст после смены variant styles |
+| Риск                                                | Смягчение                                                                              |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Contacts сломает canvas hit-area при смене padding  | Сохранить `relative z-10` на inner; не менять pointer handlers                         |
+| Timeline carousel сужается                          | `innerClassName` для band; не уменьшать `max-w-5xl` внутри grid                        |
+| Skills desktop без заголовка — визуальный дисбаланс | Принято: marquee самодостаточен; mobile получает `SectionHeader` в Phase 2             |
+| Button primary меняет hero CTA                      | Hero использует `shadowColor` override — проверить контраст после смены variant styles |
 
 ---
 

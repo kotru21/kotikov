@@ -20,7 +20,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
       <div className="bg-primary-500 absolute top-0 right-0 -z-10 size-24 translate-x-1/3 -translate-y-1/3 rounded-full opacity-80 mix-blend-multiply blur-sm sm:size-32 sm:translate-x-1/2 sm:-translate-y-1/2 dark:mix-blend-screen" />
 
       <div className="relative z-10">
-        <p className="text-text-primary dark:text-text-inverse mb-3 inline-block max-w-full border-2 border-black border-l-4 border-l-primary-500 bg-background-primary px-2.5 py-1 text-[0.65rem] font-bold tracking-[0.14em] uppercase sm:px-3 sm:text-sm sm:tracking-[0.28em] dark:border-white dark:border-l-primary-400 dark:bg-background-tertiary">
+        <p className="text-text-primary dark:text-text-inverse border-l-primary-500 bg-background-primary dark:border-l-primary-400 dark:bg-background-tertiary mb-3 inline-block max-w-full border-2 border-l-4 border-black px-2.5 py-1 text-[0.65rem] font-bold tracking-[0.14em] uppercase sm:px-3 sm:text-sm sm:tracking-[0.28em] dark:border-white">
           {eyebrow}
         </p>
 

@@ -79,7 +79,7 @@ const ProjectCardDeck: React.FC = () => {
       </p>
 
       <div
-        className="mt-3 flex items-center justify-center gap-1 px-1 py-2 outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+        className="focus-visible:ring-primary-500 mt-3 flex items-center justify-center gap-1 px-1 py-2 outline-none focus-visible:ring-2"
         role="tablist"
         aria-label="Избранные проекты"
         tabIndex={0}
@@ -101,7 +101,7 @@ const ProjectCardDeck: React.FC = () => {
               onClick={() => {
                 goTo(index);
               }}
-              className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${motionClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
+              className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${motionClass} focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none ${
                 isSelected
                   ? "bg-black dark:bg-white"
                   : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"

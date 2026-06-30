@@ -14,7 +14,12 @@ interface SkillMarqueeRowProps {
   arcHeight?: number;
 }
 
-function getArcLift(cardCenterX: number, containerLeft: number, containerWidth: number, maxLift: number): number {
+function getArcLift(
+  cardCenterX: number,
+  containerLeft: number,
+  containerWidth: number,
+  maxLift: number
+): number {
   if (containerWidth <= 0 || maxLift <= 0) return 0;
 
   const u = Math.max(0, Math.min(1, (cardCenterX - containerLeft) / containerWidth));

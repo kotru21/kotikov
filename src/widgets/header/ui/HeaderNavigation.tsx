@@ -122,7 +122,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 setMobileMenuOpen(true);
               }}
               data-draw-exclude
-              className="text-text-primary dark:text-text-inverse hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 hover:text-black dark:border-white dark:bg-black dark:hover:bg-primary-500 dark:hover:text-black"
+              className="text-text-primary dark:text-text-inverse hover:bg-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 hover:text-black dark:border-white dark:bg-black dark:hover:text-black"
             >
               <span className="sr-only">Open main menu</span>
               <Bars3Icon aria-hidden="true" className="size-6" />
@@ -133,7 +133,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         <div className="hidden w-full justify-center lg:flex">
           <div
             ref={islandRef}
-            className="origin-center flex items-center justify-between data-[island=true]:hover:translate-x-px data-[island=true]:hover:translate-y-px motion-safe:transition-[transform,box-shadow] motion-safe:duration-100 motion-safe:ease-out"
+            className="flex origin-center items-center justify-between data-[island=true]:hover:translate-x-px data-[island=true]:hover:translate-y-px motion-safe:transition-[transform,box-shadow] motion-safe:duration-100 motion-safe:ease-out"
             data-island={isIsland ? "true" : "false"}
             style={islandStyle}
           >
@@ -205,7 +205,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
 
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-50 bg-black/50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto border-l-4 border-l-primary-500 border-black bg-background-primary p-6 shadow-[8px_0_0_0_rgba(0,0,0,1)] sm:max-w-sm dark:border-white dark:border-l-primary-400 dark:bg-black dark:shadow-[8px_0_0_0_rgba(255,255,255,1)]">
+        <DialogPanel className="border-l-primary-500 bg-background-primary dark:border-l-primary-400 fixed inset-y-0 right-0 z-50 w-full overflow-y-auto border-l-4 border-black p-6 shadow-[8px_0_0_0_rgba(0,0,0,1)] sm:max-w-sm dark:border-white dark:bg-black dark:shadow-[8px_0_0_0_rgba(255,255,255,1)]">
           <div className="flex items-center justify-between">
             <InteractiveElement
               as={Link}
@@ -239,7 +239,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                     key={item.name}
                     href={item.href}
                     data-draw-exclude
-                    className="hover:bg-primary-500 -mx-3 block rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all hover:border-l-primary-500 hover:text-black dark:text-white dark:hover:border-l-primary-400"
+                    className="hover:bg-primary-500 hover:border-l-primary-500 dark:hover:border-l-primary-400 -mx-3 block rounded-none border-l-4 border-transparent px-3 py-2.5 text-base/7 font-bold tracking-[0.12em] text-black uppercase transition-all hover:text-black dark:text-white"
                   >
                     {item.name}
                   </InteractiveElement>

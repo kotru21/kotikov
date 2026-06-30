@@ -40,7 +40,7 @@ const TimelineView: React.FC = () => {
 
   const goTo = useCallback(
     (index: number): void => {
-      setActiveIndex((current) => Math.max(0, Math.min(lastIndex, index)));
+      setActiveIndex((_current) => Math.max(0, Math.min(lastIndex, index)));
     },
     [lastIndex]
   );
@@ -148,7 +148,7 @@ const TimelineView: React.FC = () => {
             </button>
 
             <div
-              className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-primary-500 [&::-webkit-scrollbar]:hidden"
+              className="focus-visible:ring-primary-500 flex min-w-0 flex-1 [scrollbar-width:none] items-center justify-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] focus-visible:ring-2 [&::-webkit-scrollbar]:hidden"
               role="tablist"
               aria-label="Этапы опыта"
               tabIndex={0}
@@ -170,7 +170,7 @@ const TimelineView: React.FC = () => {
                     onClick={() => {
                       goTo(index);
                     }}
-                    className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${tabMotionClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
+                    className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${tabMotionClass} focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none ${
                       isActive
                         ? "bg-black dark:bg-white"
                         : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"

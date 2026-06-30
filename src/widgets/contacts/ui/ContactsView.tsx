@@ -74,99 +74,99 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       ) : null}
 
       <div className="relative z-10">
-      <SectionHeader
-        align="center"
-        tone="on-gradient"
-        eyebrow={
-          <InteractiveElement
-            as="p"
-            data-draw-allow
-            data-interactive-mode="solid"
-            data-interactive-bg={colors.primary[500]}
-            data-interactive-text="black"
-            data-interactive-threshold="0.12"
-            className="text-text-primary dark:text-text-inverse mb-3 inline-block border-2 border-black border-l-4 border-l-primary-500 bg-background-primary px-3 py-1 text-sm font-bold tracking-[0.24em] uppercase dark:border-white dark:border-l-primary-400 dark:bg-background-tertiary"
-          >
-            <InteractiveText text="Контакты" />
-          </InteractiveElement>
-        }
-        title={<InteractiveText text="Напишите мне" />}
-        description={
-          <InteractiveElement
-            as="p"
-            data-draw-allow
-            data-interactive-color={colors.text.primary}
-            className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
-          >
-            <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
-          </InteractiveElement>
-        }
-      />
-
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
-        {contacts.map((contact, index) => {
-          let gridClasses = "col-span-1";
-          let variant: "auto" | "light" | "dark" = "auto";
-
-          if (index === 0) {
-            gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
-            variant = "auto";
-          } else if (index === 1) {
-            gridClasses = "md:col-span-2 min-h-[150px]";
-            variant = "light";
-          } else if (index === 2) {
-            gridClasses = "md:col-span-2 min-h-[150px]";
-            variant = "dark";
+        <SectionHeader
+          align="center"
+          tone="on-gradient"
+          eyebrow={
+            <InteractiveElement
+              as="p"
+              data-draw-allow
+              data-interactive-mode="solid"
+              data-interactive-bg={colors.primary[500]}
+              data-interactive-text="black"
+              data-interactive-threshold="0.12"
+              className="text-text-primary dark:text-text-inverse border-l-primary-500 bg-background-primary dark:border-l-primary-400 dark:bg-background-tertiary mb-3 inline-block border-2 border-l-4 border-black px-3 py-1 text-sm font-bold tracking-[0.24em] uppercase dark:border-white"
+            >
+              <InteractiveText text="Контакты" />
+            </InteractiveElement>
           }
+          title={<InteractiveText text="Напишите мне" />}
+          description={
+            <InteractiveElement
+              as="p"
+              data-draw-allow
+              data-interactive-color={colors.text.primary}
+              className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
+            >
+              <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
+            </InteractiveElement>
+          }
+        />
 
-          const interactiveMode = variant === "light" ? "border" : "solid";
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
+          {contacts.map((contact, index) => {
+            let gridClasses = "col-span-1";
+            let variant: "auto" | "light" | "dark" = "auto";
 
-          return (
-            <div key={contact.label} className={`${gridClasses} h-full`}>
-              <InteractiveElement
-                as={Button}
-                variant="primary"
-                fullWidth
-                fullHeight
-                href={contact.link ?? undefined}
-                target={contact.link !== undefined ? "_blank" : undefined}
-                rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
-                shadowColor={colors.primary[500]}
-                data-draw-allow
-                data-interactive-mode={interactiveMode}
-                data-interactive-bg={colors.primary[500]}
-                data-interactive-text={variant === "dark" ? "white" : "black"}
-                {...(interactiveMode === "solid"
-                  ? {
-                      "data-interactive-shadow": `2px 2px 0px 0px ${colors.primary[600]}`,
-                      "data-interactive-threshold": "0.1",
-                    }
-                  : { "data-interactive-color": colors.text.primary })}
-              >
-                <ContactCard
-                  contact={contact}
-                  variant={variant}
-                  label={<InteractiveText text={contact.label} />}
-                  value={<InteractiveText text={contact.value} />}
-                />
-              </InteractiveElement>
-            </div>
-          );
-        })}
-      </div>
+            if (index === 0) {
+              gridClasses = "md:col-span-2 md:row-span-2 min-h-[320px]";
+              variant = "auto";
+            } else if (index === 1) {
+              gridClasses = "md:col-span-2 min-h-[150px]";
+              variant = "light";
+            } else if (index === 2) {
+              gridClasses = "md:col-span-2 min-h-[150px]";
+              variant = "dark";
+            }
 
-      {enablePaint ? (
-        <div className="mt-12 text-center">
-          <button
-            type="button"
-            data-draw-allow
-            onClick={onClearCanvas}
-            className="text-xs font-bold tracking-wide text-neutral-300 uppercase underline decoration-dotted underline-offset-4 transition-colors hover:text-white"
-          >
-            Очистить рисунок
-          </button>
+            const interactiveMode = variant === "light" ? "border" : "solid";
+
+            return (
+              <div key={contact.label} className={`${gridClasses} h-full`}>
+                <InteractiveElement
+                  as={Button}
+                  variant="primary"
+                  fullWidth
+                  fullHeight
+                  href={contact.link ?? undefined}
+                  target={contact.link !== undefined ? "_blank" : undefined}
+                  rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
+                  shadowColor={colors.primary[500]}
+                  data-draw-allow
+                  data-interactive-mode={interactiveMode}
+                  data-interactive-bg={colors.primary[500]}
+                  data-interactive-text={variant === "dark" ? "white" : "black"}
+                  {...(interactiveMode === "solid"
+                    ? {
+                        "data-interactive-shadow": `2px 2px 0px 0px ${colors.primary[600]}`,
+                        "data-interactive-threshold": "0.1",
+                      }
+                    : { "data-interactive-color": colors.text.primary })}
+                >
+                  <ContactCard
+                    contact={contact}
+                    variant={variant}
+                    label={<InteractiveText text={contact.label} />}
+                    value={<InteractiveText text={contact.value} />}
+                  />
+                </InteractiveElement>
+              </div>
+            );
+          })}
         </div>
-      ) : null}
+
+        {enablePaint ? (
+          <div className="mt-12 text-center">
+            <button
+              type="button"
+              data-draw-allow
+              onClick={onClearCanvas}
+              className="text-xs font-bold tracking-wide text-neutral-300 uppercase underline decoration-dotted underline-offset-4 transition-colors hover:text-white"
+            >
+              Очистить рисунок
+            </button>
+          </div>
+        ) : null}
       </div>
     </Section>
   );

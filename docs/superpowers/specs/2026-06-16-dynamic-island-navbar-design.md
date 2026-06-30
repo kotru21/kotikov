@@ -10,12 +10,12 @@ On desktop, when the user scrolls the portfolio page, the full-width header navi
 
 ## Decisions Summary
 
-| Topic | Choice |
-|-------|--------|
+| Topic          | Choice                                                                                  |
+| -------------- | --------------------------------------------------------------------------------------- |
 | Island content | **B** — Mini-navbar: all links remain visible inside the capsule (compact font/spacing) |
-| Hover behavior | **C** — Slight expansion (padding/gap ×1.15), stays centered capsule |
-| Scroll morph | **C** — Two-phase: light compression immediately, full island after ~100px |
-| Implementation | **Approach 1** — CSS custom properties driven by `useNavMorph` scroll hook |
+| Hover behavior | **C** — Slight expansion (padding/gap ×1.15), stays centered capsule                    |
+| Scroll morph   | **C** — Two-phase: light compression immediately, full island after ~100px              |
+| Implementation | **Approach 1** — CSS custom properties driven by `useNavMorph` scroll hook              |
 
 ## Current State
 
@@ -49,20 +49,23 @@ Below `lg`, keep current `absolute` positioning and mobile burger menu.
 **Location:** `src/features/scrolling/useNavMorph.ts`
 
 **Returns:**
+
 ```ts
 {
-  progress: number;  // 0..1 continuous morph value
+  progress: number; // 0..1 continuous morph value
   phase: 0 | 1 | 2; // discrete phase for debugging/tests
   isIsland: boolean; // progress >= 1 (or threshold ~0.95)
 }
 ```
 
 **Scroll mapping:**
+
 - `0–40px` → progress `0 → 0.4` (phase 1)
 - `40–120px` → progress `0.4 → 1.0` (phase 2)
 - `> 120px` → progress `1.0`
 
 **Implementation:**
+
 - `window` scroll listener with `{ passive: true }`
 - Coalesce updates via `requestAnimationFrame` (same pattern as `useScrollParallax`)
 - Only active when `window.matchMedia('(min-width: 1024px)')` matches (Tailwind `lg`)
@@ -72,7 +75,7 @@ Below `lg`, keep current `absolute` positioning and mobile burger menu.
 Apply morph via CSS custom properties on the `<nav>` or a wrapper `<div>`:
 
 ```css
---nav-morph: 0..1;
+--nav-morph: 0.1;
 --nav-radius: interpolate(0px → 9999px);
 --nav-blur: interpolate(0px → 20px);
 --nav-bg-opacity: interpolate(0 → 0.7);
@@ -108,15 +111,15 @@ Export hook from `src/features/scrolling/index.ts`.
 
 ### Interpolation curve (phase 1 → 2)
 
-| Property | progress 0 | progress 0.4 | progress 1 |
-|----------|-----------|--------------|------------|
-| border-radius | 0 | 8px | 9999px |
-| backdrop-blur | 0 | 8px | 20px |
-| bg opacity | 0 | 0.4 | 0.7 |
-| padding-y | 24px | 16px | 8px |
-| padding-x | 32px | 20px | 16px |
-| top offset | 0 | 8px | 12px |
-| link gap | 48px | 16px | 8px |
+| Property      | progress 0 | progress 0.4 | progress 1 |
+| ------------- | ---------- | ------------ | ---------- |
+| border-radius | 0          | 8px          | 9999px     |
+| backdrop-blur | 0          | 8px          | 20px       |
+| bg opacity    | 0          | 0.4          | 0.7        |
+| padding-y     | 24px       | 16px         | 8px        |
+| padding-x     | 32px       | 20px         | 16px       |
+| top offset    | 0          | 8px          | 12px       |
+| link gap      | 48px       | 16px         | 8px        |
 
 Use `ease-out` feel via CSS `transition` on properties that change on hover only; scroll-driven properties update every frame without CSS transition (avoid lag).
 
@@ -155,12 +158,12 @@ Use `ease-out` feel via CSS `transition` on properties that change on hover only
 ### Unit tests (`useNavMorph.test.ts`)
 
 | scrollY | Expected progress | Expected phase |
-|---------|-------------------|----------------|
-| 0 | 0 | 0 |
-| 20 | 0.2 | 1 |
-| 60 | 0.6 | 2 |
-| 120 | 1.0 | 2 |
-| 200 | 1.0 | 2 |
+| ------- | ----------------- | -------------- |
+| 0       | 0                 | 0              |
+| 20      | 0.2               | 1              |
+| 60      | 0.6               | 2              |
+| 120     | 1.0               | 2              |
+| 200     | 1.0               | 2              |
 
 Mock `window.scrollY` and `matchMedia`.
 
@@ -177,13 +180,13 @@ Mock `window.scrollY` and `matchMedia`.
 
 ## Files to Change
 
-| File | Action |
-|------|--------|
-| `src/features/scrolling/useNavMorph.ts` | Create |
-| `src/features/scrolling/useNavMorph.test.ts` | Create |
-| `src/features/scrolling/index.ts` | Export new hook |
-| `src/widgets/header/ui/HeaderNavigation.tsx` | Morph styles, fixed positioning on lg+ |
-| `app/globals.css` | Reduced-motion fallback utilities (if needed) |
+| File                                         | Action                                        |
+| -------------------------------------------- | --------------------------------------------- |
+| `src/features/scrolling/useNavMorph.ts`      | Create                                        |
+| `src/features/scrolling/useNavMorph.test.ts` | Create                                        |
+| `src/features/scrolling/index.ts`            | Export new hook                               |
+| `src/widgets/header/ui/HeaderNavigation.tsx` | Morph styles, fixed positioning on lg+        |
+| `app/globals.css`                            | Reduced-motion fallback utilities (if needed) |
 
 ## Out of Scope
 

@@ -12,5 +12,5 @@ export default mergeConfig(
       css: true,
       exclude: [...configDefaults.exclude, ".worktrees/**"],
     },
-  }),
+  })
 );

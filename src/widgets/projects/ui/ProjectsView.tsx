@@ -8,10 +8,7 @@ import ProjectCardDeck from "./ProjectCardDeck";
 
 const ProjectsView: React.FC = () => {
   return (
-    <Section
-      id="projects"
-      backgroundClassName="bg-neutral-100 dark:bg-background-tertiary"
-    >
+    <Section id="projects" backgroundClassName="bg-neutral-100 dark:bg-background-tertiary">
       <SectionHeader
         eyebrow="Проекты"
         title="Избранные работы"

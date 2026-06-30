@@ -14,9 +14,14 @@ import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import tseslint from "typescript-eslint";
 
 /** Allowed import targets under `src/shared` (public API paths). */
-const boundariesSharedTo = ["index.ts", "index.tsx", "config/**", "lib/**", "ui/**", "styles/**"].map(
-  (internalPath) => ({ type: "shared", internalPath }),
-);
+const boundariesSharedTo = [
+  "index.ts",
+  "index.tsx",
+  "config/**",
+  "lib/**",
+  "ui/**",
+  "styles/**",
+].map((internalPath) => ({ type: "shared", internalPath }));
 
 /** Public slice entry paths for entities / features / widgets. */
 function boundariesSliceTo(/** @type {string} */ elementType) {
@@ -403,7 +408,11 @@ export default defineConfig(
             {
               from: { type: "features" },
               allow: {
-                to: [...boundariesSliceTo("features"), ...boundariesSliceTo("entities"), ...boundariesSharedTo],
+                to: [
+                  ...boundariesSliceTo("features"),
+                  ...boundariesSliceTo("entities"),
+                  ...boundariesSharedTo,
+                ],
               },
             },
             {

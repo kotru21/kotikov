@@ -55,7 +55,7 @@ const SkillsMobileView: React.FC = () => {
         titleId="skills-heading"
         description="Технологии и инструменты, которыми я владею"
       />
-      <p className="mx-auto -mt-8 mb-8 max-w-sm text-center text-base font-semibold text-text-secondary dark:text-neutral-300">
+      <p className="text-text-secondary mx-auto -mt-8 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
         React, JavaScript, Node.js, фреймворк Next.js
       </p>
 
@@ -85,7 +85,13 @@ const SkillsMobileView: React.FC = () => {
                 transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
               }}
             >
-              <SkillMarqueeRow curved arcHeight={44} skills={firstRow} speed={35} direction="left" />
+              <SkillMarqueeRow
+                curved
+                arcHeight={44}
+                skills={firstRow}
+                speed={35}
+                direction="left"
+              />
             </div>
             <div
               style={{

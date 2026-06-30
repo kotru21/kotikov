@@ -38,8 +38,8 @@ bun install
 
 ### Environment variables (optional)
 
-| Variable | Description |
-| -------- | ----------- |
+| Variable            | Description                                                                                                           |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics 4 measurement ID. If unset, GA is not loaded. On Vercel: Project → Settings → Environment Variables. |
 
 ---

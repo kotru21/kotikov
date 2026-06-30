@@ -5,10 +5,7 @@ import { Section, SectionHeader } from "@/shared/ui";
 
 const AboutView: React.FC = () => {
   return (
-    <Section
-      id="about"
-      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-    >
+    <Section id="about" backgroundClassName="bg-background-primary dark:bg-background-tertiary">
       <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
           <SectionHeader

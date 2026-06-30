@@ -15,10 +15,7 @@ export type ThemeChoice = "light" | "dark" | "system";
 const STORAGE_KEY = "theme";
 
 function systemPrefersDark(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
 function readChoice(): ThemeChoice {

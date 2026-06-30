@@ -36,25 +36,25 @@ bun install
 
 ### Переменные окружения (опционально)
 
-| Переменная | Описание |
-| ---------- | -------- |
+| Переменная          | Описание                                                                                                         |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_GA_ID` | ID Google Analytics 4. Если не задан, GA не подключается. На Vercel: Project → Settings → Environment Variables. |
 
 ---
 
 ## Витрина
 
-| Файл                                                                                        | Описание                                                 |
-| ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Файл                                                                                        | Описание                                                                  |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `app/page.tsx`                                                                              | Главная страница — Header, About, Projects, Skills, Experience, Contacts. |
-| `src/widgets/header/HeaderWidget.tsx`                                                       | Интерактивный header с Nyancat и canvas-эффектами.       |
-| `src/widgets/projects/ProjectsWidget.tsx`                                                   | Секция проектов.                                         |
-| `src/features/nyancat/*`                                                                    | Nyancat — анимация и эффект explosion.                   |
-| `src/widgets/skills/SkillsWidget.tsx`                                                       | Адаптивный блок навыков (desktop + mobile scroll).       |
-| `src/widgets/timeline/TimelineWidget.tsx`                                                   | Хронология опыта и проектов.                             |
-| `src/widgets/contacts/ContactsWidget.tsx`                                                   | Контакты с paw-анимацией.                                |
-| `package.json`                                                                              | Скрипты и Bun.                                           |
-| `vercel.json`, `next.config.ts`, `tailwind.config.ts`, `eslint.config.mjs`, `tsconfig.json` | Конфиги: деплой, изображения, тема, ESLint и TypeScript. |
+| `src/widgets/header/HeaderWidget.tsx`                                                       | Интерактивный header с Nyancat и canvas-эффектами.                        |
+| `src/widgets/projects/ProjectsWidget.tsx`                                                   | Секция проектов.                                                          |
+| `src/features/nyancat/*`                                                                    | Nyancat — анимация и эффект explosion.                                    |
+| `src/widgets/skills/SkillsWidget.tsx`                                                       | Адаптивный блок навыков (desktop + mobile scroll).                        |
+| `src/widgets/timeline/TimelineWidget.tsx`                                                   | Хронология опыта и проектов.                                              |
+| `src/widgets/contacts/ContactsWidget.tsx`                                                   | Контакты с paw-анимацией.                                                 |
+| `package.json`                                                                              | Скрипты и Bun.                                                            |
+| `vercel.json`, `next.config.ts`, `tailwind.config.ts`, `eslint.config.mjs`, `tsconfig.json` | Конфиги: деплой, изображения, тема, ESLint и TypeScript.                  |
 
 ---
 

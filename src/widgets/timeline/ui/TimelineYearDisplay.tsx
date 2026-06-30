@@ -3,11 +3,7 @@
 import React, { useState } from "react";
 
 import { timelineDecadeCatSrc } from "./timelineDecadeCats";
-import {
-  extractYear,
-  splitYearWithCatSlot,
-  type TimelineDecadeKey,
-} from "./timelineUtils";
+import { extractYear, splitYearWithCatSlot, type TimelineDecadeKey } from "./timelineUtils";
 
 interface TimelineYearDisplayProps {
   period: string;
@@ -21,8 +17,7 @@ const yearLayoutClass =
 
 const slotClass = "inline-flex h-[1em] w-full items-center justify-center";
 
-const catImgClass =
-  "h-[0.84em] w-[0.84em] object-contain object-center opacity-70 dark:opacity-60";
+const catImgClass = "h-[0.84em] w-[0.84em] object-contain object-center opacity-70 dark:opacity-60";
 
 const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => {
   const year = extractYear(period);
@@ -67,4 +62,3 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
 };
 
 export default TimelineYearDisplay;
-
