@@ -13,6 +13,7 @@ interface TimelineStepChipsProps {
   panelId: string;
   reducedMotion: boolean;
   onSelect: (index: number) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 const baseChipClass =
@@ -31,6 +32,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   panelId,
   reducedMotion,
   onSelect,
+  onKeyDown,
 }) => {
   const tablistRef = useRef<HTMLDivElement>(null);
   const motionClass = reducedMotion ? "duration-0" : chipMotionClass;
@@ -40,12 +42,14 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
     if (tablist === null) return;
 
     const activeTab = tablist.querySelector<HTMLElement>(
-      `[data-timeline-chip-index="${activeIndex}"]`
+      `[data-timeline-chip-index="${String(activeIndex)}"]`
     );
-    activeTab?.scrollIntoView?.({
-      inline: "nearest",
-      behavior: reducedMotion ? "auto" : "smooth",
-    });
+    if (activeTab !== null && typeof activeTab.scrollIntoView === "function") {
+      activeTab.scrollIntoView({
+        inline: "nearest",
+        behavior: reducedMotion ? "auto" : "smooth",
+      });
+    }
   }, [activeIndex, reducedMotion]);
 
   return (
@@ -53,7 +57,13 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       ref={tablistRef}
       role="tablist"
       aria-label="Этапы опыта"
-      className="flex gap-2 overflow-x-auto [scrollbar-width:none] snap-x snap-mandatory [-ms-overflow-style:none] md:flex-col md:overflow-visible md:snap-none [&::-webkit-scrollbar]:hidden"
+      tabIndex={onKeyDown === undefined ? undefined : 0}
+      onKeyDown={onKeyDown}
+      className={`flex gap-2 overflow-x-auto [scrollbar-width:none] snap-x snap-mandatory [-ms-overflow-style:none] md:flex-col md:overflow-visible md:snap-none [&::-webkit-scrollbar]:hidden${
+        onKeyDown === undefined
+          ? ""
+          : " outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+      }`}
     >
       {items.map((entry, index) => {
         const isActive = index === activeIndex;

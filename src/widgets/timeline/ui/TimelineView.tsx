@@ -1,29 +1,26 @@
 "use client";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
-import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
 import { BauhausGridPattern, Section, SectionHeader } from "@/shared/ui";
 
+import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
 import TimelineSlideContent from "./TimelineSlideContent";
-import { parsePeriodStart, timelineTabMotionClass } from "./timelineUtils";
+import TimelineStepChips from "./TimelineStepChips";
+import { parsePeriodStart } from "./timelineUtils";
 import TimelineYearDisplay from "./TimelineYearDisplay";
 
 const navButtonClass =
-  "text-text-primary dark:text-text-inverse flex size-9 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 dark:border-white dark:bg-black";
+  "text-text-primary dark:text-text-inverse flex size-11 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black";
 
-/** Matches SkillsGroupedTags horizontal band (3 cards grid). */
 const alignedContentBandClass = "mx-auto w-full max-w-5xl";
 
 const TimelineView: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const touchStartXRef = useRef<number | null>(null);
   const { reducedMotion } = usePerformanceSettings();
-  const tabMotionClass = reducedMotion ? "" : timelineTabMotionClass;
 
   const timelineData = useMemo(
     () =>
@@ -34,67 +31,20 @@ const TimelineView: React.FC = () => {
     []
   );
 
-  const lastIndex = timelineData.length - 1;
+  const {
+    activeIndex,
+    goTo,
+    goPrev,
+    goNext,
+    handleKeyDown,
+    handleTouchStart,
+    handleTouchEnd,
+    canGoPrev,
+    canGoNext,
+  } = useTimelineCarousel({ itemCount: timelineData.length });
+
   const activeItem = timelineData[activeIndex] as TimelineItem;
   const panelId = `timeline-panel-${String(activeItem.id)}`;
-
-  const goTo = useCallback(
-    (index: number): void => {
-      setActiveIndex((_current) => Math.max(0, Math.min(lastIndex, index)));
-    },
-    [lastIndex]
-  );
-
-  const goPrev = useCallback((): void => {
-    goTo(activeIndex - 1);
-  }, [activeIndex, goTo]);
-
-  const goNext = useCallback((): void => {
-    goTo(activeIndex + 1);
-  }, [activeIndex, goTo]);
-
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>): void => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        goPrev();
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        goNext();
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        goTo(0);
-      } else if (event.key === "End") {
-        event.preventDefault();
-        goTo(lastIndex);
-      }
-    },
-    [goPrev, goNext, goTo, lastIndex]
-  );
-
-  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>): void => {
-    if (event.touches.length === 0) return;
-    touchStartXRef.current = event.touches[0].clientX;
-  }, []);
-
-  const handleTouchEnd = useCallback(
-    (event: React.TouchEvent<HTMLDivElement>): void => {
-      const startX = touchStartXRef.current;
-      touchStartXRef.current = null;
-      if (startX === null) return;
-      if (event.changedTouches.length === 0) return;
-
-      const delta = event.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
-
-      if (delta > 0) {
-        goPrev();
-      } else {
-        goNext();
-      }
-    },
-    [goPrev, goNext]
-  );
 
   return (
     <Section
@@ -105,118 +55,91 @@ const TimelineView: React.FC = () => {
     >
       <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
 
-      <div
-        className={`${alignedContentBandClass} flex flex-col gap-8 md:grid md:grid-cols-[22rem_minmax(0,1fr)] md:items-stretch md:gap-6 lg:grid-cols-[26rem_minmax(0,1fr)] lg:gap-8`}
-        aria-roledescription="carousel"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <div className="flex w-full flex-col items-center gap-4 md:items-stretch">
-          <div className="w-full max-w-[26rem] md:max-w-none">
-            <SectionHeader
-              eyebrow="Опыт"
-              title="Мой путь"
-              description="Образование, работа, хакатоны и личные проекты."
-            />
-          </div>
+      <div className={`${alignedContentBandClass} flex flex-col gap-8`}>
+        <SectionHeader
+          eyebrow="Опыт"
+          title="Мой путь"
+          titleId="experience-heading"
+          description="Образование, работа и хакатоны"
+        />
 
-          <div className="flex w-full max-w-[26rem] justify-center md:max-w-none">
-            <div
-              className="flex h-[clamp(3.75rem,20vw,7.5rem)] w-full items-center justify-center"
-              aria-hidden="true"
-            >
+        <div
+          className="flex flex-col gap-6 md:grid md:grid-cols-[18rem_minmax(0,1fr)] md:items-stretch md:gap-6"
+          aria-roledescription="carousel"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <aside className="flex flex-col items-center gap-4 md:items-stretch">
+            <div className="flex w-full justify-center md:justify-start">
               <TimelineYearDisplay period={activeItem.period} />
             </div>
-          </div>
 
-          <p
-            className="text-text-secondary w-full max-w-[26rem] text-center text-xs font-bold tracking-[0.2em] uppercase md:text-left dark:text-neutral-400"
-            aria-live="polite"
-          >
-            {activeIndex + 1} / {timelineData.length}
-          </p>
+            <TimelineStepChips
+                items={timelineData}
+                activeIndex={activeIndex}
+                panelId={panelId}
+                reducedMotion={reducedMotion}
+                onSelect={goTo}
+                onKeyDown={handleKeyDown}
+              />
 
-          <div className="flex w-full max-w-[26rem] items-center justify-center gap-2 md:justify-start">
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={activeIndex === 0}
-              aria-label="Предыдущий этап"
-              className={navButtonClass}
-            >
-              <FiChevronLeft className="size-4" aria-hidden="true" />
-            </button>
+            <div className="flex w-full items-center justify-center gap-2 md:justify-start">
+              <button
+                type="button"
+                onClick={goPrev}
+                disabled={!canGoPrev}
+                aria-label="Предыдущий этап"
+                className={navButtonClass}
+              >
+                <FiChevronLeft className="size-5" aria-hidden="true" />
+              </button>
 
+              <p
+                className="text-text-secondary min-w-[3rem] text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
+                aria-live="polite"
+              >
+                {activeIndex + 1} / {timelineData.length}
+              </p>
+
+              <button
+                type="button"
+                onClick={goNext}
+                disabled={!canGoNext}
+                aria-label="Следующий этап"
+                className={navButtonClass}
+              >
+                <FiChevronRight className="size-5" aria-hidden="true" />
+              </button>
+            </div>
+          </aside>
+
+          <main className="flex min-h-0 min-w-0 flex-col justify-center md:h-full">
             <div
-              className="focus-visible:ring-primary-500 flex min-w-0 flex-1 [scrollbar-width:none] items-center justify-center gap-1 overflow-x-auto px-1 py-2 outline-none [-ms-overflow-style:none] focus-visible:ring-2 [&::-webkit-scrollbar]:hidden"
-              role="tablist"
-              aria-label="Этапы опыта"
-              tabIndex={0}
-              onKeyDown={handleKeyDown}
+              id={panelId}
+              role="tabpanel"
+              aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
+              className="grid w-full md:relative [&>*]:col-start-1 [&>*]:row-start-1"
             >
               {timelineData.map((entry, index) => {
-                const tabId = `timeline-tab-${String(entry.id)}`;
                 const isActive = index === activeIndex;
 
                 return (
-                  <button
+                  <div
                     key={entry.id}
-                    id={tabId}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={panelId}
-                    aria-label={`${entry.title}, ${entry.period}`}
-                    onClick={() => {
-                      goTo(index);
-                    }}
-                    className={`h-2 min-w-6 shrink-0 rounded-none sm:min-w-7 ${tabMotionClass} focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none ${
+                    inert={isActive ? undefined : true}
+                    className={
                       isActive
-                        ? "bg-black dark:bg-white"
-                        : "bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500"
-                    }`}
-                  />
+                        ? "col-start-1 row-start-1"
+                        : "pointer-events-none invisible col-start-1 row-start-1 opacity-0"
+                    }
+                    aria-hidden={!isActive}
+                  >
+                    <TimelineSlideContent item={entry} />
+                  </div>
                 );
               })}
             </div>
-
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={activeIndex === lastIndex}
-              aria-label="Следующий этап"
-              className={navButtonClass}
-            >
-              <FiChevronRight className="size-4" aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <div className="flex min-h-0 min-w-0 flex-col justify-center md:h-full">
-          <div
-            id={panelId}
-            role="tabpanel"
-            aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
-            className="grid w-full md:relative [&>*]:col-start-1 [&>*]:row-start-1"
-          >
-            {timelineData.map((entry, index) => {
-              const isActive = index === activeIndex;
-
-              return (
-                <div
-                  key={entry.id}
-                  className={
-                    isActive
-                      ? "col-start-1 row-start-1"
-                      : "pointer-events-none invisible col-start-1 row-start-1 opacity-0"
-                  }
-                  aria-hidden={!isActive}
-                >
-                  <TimelineSlideContent item={entry} />
-                </div>
-              );
-            })}
-          </div>
+          </main>
         </div>
       </div>
     </Section>

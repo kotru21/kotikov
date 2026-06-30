@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import type { KeyboardEvent } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { useTimelineCarousel } from "@/widgets/timeline/hooks/useTimelineCarousel";
 
@@ -58,7 +58,7 @@ describe("useTimelineCarousel", () => {
     act(() => {
       result.current.handleKeyDown({
         key: "ArrowRight",
-        preventDefault: () => {},
+        preventDefault: vi.fn(),
       } as KeyboardEvent);
     });
     expect(result.current.activeIndex).toBe(1);
@@ -66,7 +66,7 @@ describe("useTimelineCarousel", () => {
     act(() => {
       result.current.handleKeyDown({
         key: "Home",
-        preventDefault: () => {},
+        preventDefault: vi.fn(),
       } as KeyboardEvent);
     });
     expect(result.current.activeIndex).toBe(0);

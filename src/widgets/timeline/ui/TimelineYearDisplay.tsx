@@ -10,7 +10,7 @@ interface TimelineYearDisplayProps {
 }
 
 const digitClass =
-  "text-[clamp(3.75rem,20vw,7.5rem)] font-black leading-none text-black/10 tabular-nums select-none dark:text-white/10";
+  "text-[clamp(2.25rem,12vw,4.5rem)] font-black leading-none text-black/10 tabular-nums select-none dark:text-white/10";
 
 const yearLayoutClass =
   "inline-grid w-[2.72em] grid-cols-4 items-center justify-items-center gap-x-[0.1em] leading-none";
