@@ -34,6 +34,13 @@ const InteractiveChar = memo(
 
 InteractiveChar.displayName = "InteractiveChar";
 
+function clearPaintInlineStyles(el: HTMLElement): void {
+  el.style.removeProperty("color");
+  el.style.removeProperty("background-color");
+  el.style.removeProperty("border-color");
+  el.style.removeProperty("box-shadow");
+}
+
 export const InteractiveElement = <T extends React.ElementType = "div">({
   children,
   className,
@@ -49,18 +56,23 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
   const Component = as ?? "div";
   const registry = React.useContext(InteractiveTextContext);
   const ref = useRef<HTMLElement>(null);
+  const drawExclude = rest["data-draw-exclude"];
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (!registry) return;
-    if (el.hasAttribute("data-draw-exclude")) return;
+
+    if (drawExclude !== undefined) {
+      clearPaintInlineStyles(el);
+      return;
+    }
 
     registry.register(el);
     return (): void => {
       registry.unregister(el);
     };
-  }, [registry]);
+  }, [registry, drawExclude]);
 
   const classNameValue = className ?? "";
   const props: Record<string, unknown> = {

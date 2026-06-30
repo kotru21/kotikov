@@ -7,11 +7,20 @@
 :root {
   --background: #f5f5f3;
   --foreground: #111111;
+  --nav-island-bg: 245 245 243;
+  --nav-island-border-rgb: 0 0 0;
+  --nav-island-border-alpha: 1;
+  --nav-shadow-rgb: 0 0 0;
+  --nav-anchor-offset: 4.5rem;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --nav-island-bg: 10 10 10;
+  --nav-island-border-rgb: 255 255 255;
+  --nav-island-border-alpha: 1;
+  --nav-shadow-rgb: 255 255 255;
 }
 
 body {
@@ -155,6 +164,7 @@ button:disabled,
 /* Плавная прокрутка */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-anchor-offset);
 }
 
 /* Оптимизация производительности для анимированных элементов */
@@ -245,5 +255,10 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [style*="backdrop-filter"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
