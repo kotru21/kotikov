@@ -7,8 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
-import { ThemeProvider } from "@/features/theme";
-import { THEME_INIT_SCRIPT } from "@/features/theme/themeInitScript";
+import { THEME_INIT_SCRIPT,ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
 
 const geistSans = Geist({
