@@ -4,7 +4,7 @@ import {
   computeNavIslandStyle,
   DESKTOP_NAV_ISLAND_PRESET,
   MOBILE_NAV_ISLAND_PRESET,
-} from "@/features/scrolling/navIslandStyle";
+} from "@/features/scrolling";
 
 describe("computeNavIslandStyle", () => {
   it("returns full-width transparent island at progress 0", () => {

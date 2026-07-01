@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  getDeckCardRole,
-  getDeckTransform,
-  getWrappedIndex,
-} from "@/widgets/projects/ui/getDeckTransform";
+import { getDeckCardRole, getDeckTransform, getWrappedIndex } from "@/widgets/projects/ui";
 
 describe("project deck utils re-exports", () => {
   it("re-exports shared deck transform helpers", () => {

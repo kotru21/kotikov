@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type * as ScrollingFeature from "@/features/scrolling";
-import HeaderNavigation from "@/widgets/header/ui/HeaderNavigation";
+import { HeaderNavigation } from "@/widgets/header/ui";
 
 const navigation = [
   { name: "Главная", href: "#header" },

@@ -1,8 +1,7 @@
 import { act, render, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ThemeProvider, useTheme } from "@/features/theme/ThemeProvider";
-import ThemeToggle from "@/features/theme/ThemeToggle";
+import { ThemeProvider, ThemeToggle, useTheme } from "@/features/theme";
 
 const wrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
   <ThemeProvider>{children}</ThemeProvider>

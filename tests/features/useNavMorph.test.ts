@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { computeNavMorph, useNavMorph } from "@/features/scrolling/useNavMorph";
+import { computeNavMorph, useNavMorph } from "@/features/scrolling";
 
 const LG_MEDIA_QUERY = "(min-width: 1024px)";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";

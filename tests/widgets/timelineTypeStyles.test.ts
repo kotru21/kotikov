@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  getTimelineTypeChipClass,
-  getTimelineTypeEyebrowClass,
-} from "@/widgets/timeline/ui/timelineTypeStyles";
+import { getTimelineTypeChipClass, getTimelineTypeEyebrowClass } from "@/widgets/timeline/ui";
 
 describe("timelineTypeStyles", () => {
   it("returns work eyebrow and active chip classes", () => {

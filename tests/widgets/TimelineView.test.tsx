@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import TimelineView from "@/widgets/timeline/ui/TimelineView";
+import { TimelineView } from "@/widgets/timeline/ui";
 
 vi.mock("@/features/performance", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),

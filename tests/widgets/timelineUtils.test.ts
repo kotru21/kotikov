@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { extractYear, parsePeriodStart } from "@/widgets/timeline/ui/timelineUtils";
+import { extractYear, parsePeriodStart } from "@/widgets/timeline/ui";
 
 describe("timelineUtils", () => {
   it("extractYear returns the first 4-digit year from a period", () => {

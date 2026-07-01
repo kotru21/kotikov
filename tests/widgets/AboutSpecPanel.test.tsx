@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { aboutContent } from "@/shared/config/content";
-import AboutSpecPanel from "@/widgets/about/ui/AboutSpecPanel";
+import { AboutSpecPanel } from "@/widgets/about/ui";
 
 describe("AboutSpecPanel", () => {
   it("exposes body and principles in sr-only figcaption", () => {

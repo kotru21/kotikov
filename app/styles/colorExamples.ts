@@ -1,4 +1,4 @@
-import { colors, getColor, withOpacity } from "./colors";
+import { colors, getColor, withOpacity } from "@/styles/colors";
 
 // Примеры использования цветовой системы
 
