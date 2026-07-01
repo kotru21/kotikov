@@ -24,9 +24,23 @@ function readChoice(): ThemeChoice {
   return stored === "light" || stored === "dark" ? stored : "system";
 }
 
+function resolveIsDark(choice: ThemeChoice): boolean {
+  if (choice === "light") return false;
+  if (choice === "dark") return true;
+  return systemPrefersDark();
+}
+
 function applyChoice(choice: ThemeChoice): boolean {
-  const dark = choice === "dark" || (choice === "system" && systemPrefersDark());
-  document.documentElement.classList.toggle("dark", dark);
+  const root = document.documentElement;
+  root.classList.remove("dark", "light");
+
+  if (choice === "light") {
+    root.classList.add("light");
+    return false;
+  }
+
+  const dark = resolveIsDark(choice);
+  root.classList.toggle("dark", dark);
   return dark;
 }
 

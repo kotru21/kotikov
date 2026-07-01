@@ -38,8 +38,13 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
   curved = false,
   arcHeight = 72,
 }) => {
-  const animationDirection = direction === "left" ? "scroll-left" : "scroll-right";
   const containerRef = useRef<HTMLDivElement>(null);
+  const marqueeClassName =
+    direction === "left" ? "flex gap-6 animate-scroll-left" : "flex gap-6 animate-scroll-right";
+  const curvedMarqueeClassName =
+    direction === "left"
+      ? "flex items-end gap-5 md:gap-6 animate-scroll-left"
+      : "flex items-end gap-5 md:gap-6 animate-scroll-right";
 
   const totalCopies = 4;
   const skillsCopies = Array.from({ length: totalCopies }, (_, copyIndex) =>
@@ -80,7 +85,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
     return (
       <div className="relative overflow-hidden py-2">
         <div
-          className={`flex gap-6 animate-${animationDirection}`}
+          className={marqueeClassName}
           style={{
             animationDuration: `${String(speed)}s`,
             animationTimingFunction: "linear",
@@ -103,7 +108,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
       style={{ paddingTop: `calc(${String(arcHeight)}px + 1.25rem)` }}
     >
       <div
-        className={`flex items-end gap-5 md:gap-6 animate-${animationDirection}`}
+        className={curvedMarqueeClassName}
         style={{
           animationDuration: `${String(speed)}s`,
           animationTimingFunction: "linear",

@@ -29,46 +29,6 @@ const config: Config = {
         sans: ["var(--font-geist-sans)", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
-      animation: {
-        "fade-in-up": "fade-in-up 0.6s ease-out",
-        "fade-in": "fade-in 0.6s ease-out",
-        "slide-in-left": "slide-in-left 0.6s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-      },
-      keyframes: {
-        "fade-in-up": {
-          "0%": {
-            opacity: "0",
-            transform: "translate3d(0, 30px, 0)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate3d(0, 0, 0)",
-          },
-        },
-        "fade-in": {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        "slide-in-left": {
-          "0%": {
-            opacity: "0",
-            transform: "translate3d(-50px, 0, 0)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate3d(0, 0, 0)",
-          },
-        },
-        "pulse-glow": {
-          "0%, 100%": {
-            boxShadow: "0 0 20px rgba(0, 255, 185, 0.25)",
-          },
-          "50%": {
-            boxShadow: "0 0 40px rgba(0, 255, 185, 0.55)",
-          },
-        },
-      },
     },
   },
   plugins: [],

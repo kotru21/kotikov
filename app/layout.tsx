@@ -8,6 +8,7 @@ import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
 import { ThemeProvider } from "@/features/theme";
+import { THEME_INIT_SCRIPT } from "@/features/theme/themeInitScript";
 import { personData } from "@/shared/config/content";
 
 const geistSans = Geist({
@@ -122,9 +123,12 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="ru" suppressHydrationWarning>
+      <head>
+        <meta name="color-scheme" content="light dark" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Script id="theme-init" strategy="beforeInteractive">
-          {`(function(){try{var c=localStorage.getItem('theme');var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();`}
+          {THEME_INIT_SCRIPT}
         </Script>
         {/*
           Must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts —

@@ -1,0 +1,41 @@
+/* Tailwind v4: class-based dark + system preference before JS runs */
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:not(.light, .light *)) {
+      @slot;
+    }
+  }
+}
+
+:root {
+  --background: #f5f5f3;
+  --foreground: #111111;
+  --nav-island-bg: 245 245 243;
+  --nav-island-border-rgb: 0 0 0;
+  --nav-island-border-alpha: 1;
+  --nav-shadow-rgb: 0 0 0;
+  --nav-anchor-offset: 4.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --nav-island-bg: 10 10 10;
+    --nav-island-border-rgb: 255 255 255;
+    --nav-island-border-alpha: 1;
+    --nav-shadow-rgb: 255 255 255;
+  }
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --nav-island-bg: 10 10 10;
+  --nav-island-border-rgb: 255 255 255;
+  --nav-island-border-alpha: 1;
+  --nav-shadow-rgb: 255 255 255;
+}
