@@ -10,8 +10,6 @@ import { ScrollRestoration } from "@/features/scrolling";
 import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
 
-import { getServerThemeHtmlClass } from "./_lib/get-server-theme-class";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -117,15 +115,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): Promise<React.JSX.Element> {
-  const serverThemeClass = await getServerThemeHtmlClass();
-
+}>): React.JSX.Element {
   return (
-    <html lang="ru" className={serverThemeClass} suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
         <style dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
