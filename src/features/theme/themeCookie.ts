@@ -1,4 +1,8 @@
-import { THEME_COOKIE_MAX_AGE_SECONDS, THEME_COOKIE_NAME, type ThemeChoice } from "./themeConstants";
+import {
+  THEME_COOKIE_MAX_AGE_SECONDS,
+  THEME_COOKIE_NAME,
+  type ThemeChoice,
+} from "./themeConstants";
 
 export function readThemeCookie(): ThemeChoice | null {
   if (typeof document === "undefined") return null;
