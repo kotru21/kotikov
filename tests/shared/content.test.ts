@@ -34,6 +34,14 @@ describe("content model", () => {
     }
   });
 
+  it("includes project details for storytelling expand panels", () => {
+    for (const project of projectsData) {
+      expect(project.details.challenge.length).toBeGreaterThan(10);
+      expect(project.details.solution.length).toBeGreaterThan(10);
+      expect(project.details.outcome.length).toBeGreaterThan(10);
+    }
+  });
+
   it("drops percentage levels from skills and groups them", () => {
     expect(skillsData.every((s) => !("level" in s))).toBe(true);
     expect(skillGroups.map((g) => g.title)).toEqual(["Frontend", "Backend", "Инструменты"]);

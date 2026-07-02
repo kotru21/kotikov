@@ -4,6 +4,12 @@ import { SiTauri, SiTypescript } from "react-icons/si";
 
 export type ProjectCardPattern = "waves" | "dots" | "chevrons" | "stripes" | "scatter";
 
+export interface ProjectDetail {
+  challenge: string;
+  solution: string;
+  outcome: string;
+}
+
 export interface ProjectContent {
   slug: string;
   title: string;
@@ -20,6 +26,7 @@ export interface ProjectContent {
   cardPattern: ProjectCardPattern;
   accentColor: string;
   cardIcon: IconType;
+  details: ProjectDetail;
 }
 
 export const projectsData: ProjectContent[] = [
@@ -39,6 +46,11 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "waves",
     accentColor: "#2cffc7",
     cardIcon: SiTauri,
+    details: {
+      challenge: "Навигация по тысячам файлов без лагов UI",
+      solution: "Виртуализированные списки и кастомные контролы",
+      outcome: "Unit + Integration + E2E покрытие, open source",
+    },
   },
   {
     slug: "web-messenger",
@@ -56,6 +68,11 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "dots",
     accentColor: "#63ffd5",
     cardIcon: FaReact,
+    details: {
+      challenge: "Мгновенный обмен сообщениями между пользователями",
+      solution: "Socket.IO для realtime, JWT auth, MongoDB для истории",
+      outcome: "Full-stack продукт с авторизацией и историей чатов",
+    },
   },
   {
     slug: "tiktok-analyzer",
@@ -73,5 +90,10 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "chevrons",
     accentColor: "#00ffb9",
     cardIcon: SiTypescript,
+    details: {
+      challenge: "Быстрая интерпретация активности TikTok-аккаунтов",
+      solution: "Структурированные data views для чатов",
+      outcome: "Инструмент для анализа и визуализации чат-активности",
+    },
   },
 ];
