@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useId, useRef, useState } from "react";
-
-import { usePerformanceSettings } from "@/features/performance";
+import React, { useId, useState } from "react";
 
 import type { ProjectItem } from "../model/types";
 import ProjectCard from "./ProjectCard";
@@ -13,8 +11,9 @@ interface ProjectCardExpandableProps {
   project: ProjectItem;
   layout: "desktop" | "mobile";
   isExpanded: boolean;
-  onExpandedChange: (slug: string | null) => void;
+  onExpandedChange?: (slug: string | null) => void;
   isStacked?: boolean;
+  reducedMotion?: boolean;
 }
 
 const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
@@ -23,10 +22,9 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
   isExpanded,
   onExpandedChange,
   isStacked = false,
+  reducedMotion = false,
 }) => {
-  const { reducedMotion } = usePerformanceSettings();
   const detailsId = useId();
-  const toggleRef = useRef<HTMLButtonElement>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleToggle = (): void => {
@@ -35,12 +33,11 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
       return;
     }
 
-    onExpandedChange(isExpanded ? null : project.slug);
+    onExpandedChange?.(isExpanded ? null : project.slug);
   };
 
   const handleSheetClose = (): void => {
     setIsSheetOpen(false);
-    toggleRef.current?.focus();
   };
 
   const showInlineDetails = layout === "desktop" && isExpanded;

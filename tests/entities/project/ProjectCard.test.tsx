@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import ProjectCard from "@/entities/project/ui/ProjectCard";
+import { ProjectCard } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
 
 describe("ProjectCard details toggle", () => {

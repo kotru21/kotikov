@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useId, useRef } from "react";
-import { FiX } from "react-icons/fi";
 import { createPortal } from "react-dom";
+import { FiX } from "react-icons/fi";
 
 import type { ProjectItem } from "../model/types";
 import ProjectCardDetailGrid from "./ProjectCardDetailGrid";
@@ -25,12 +25,16 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
   const detailsId = `project-sheet-details-${project.slug}`;
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -43,7 +47,9 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || typeof document === "undefined") return null;
+  if (!isOpen || typeof document === "undefined") {
+    return null;
+  }
 
   const overlayMotion = reducedMotion ? "" : "transition-opacity duration-350 ease-out";
   const sheetMotion = reducedMotion
@@ -51,19 +57,19 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
     : "transition-transform duration-400 ease-out translate-y-0";
 
   return createPortal(
-    <div
-      className={`fixed inset-0 z-50 flex items-end bg-black/85 ${overlayMotion}`}
-      data-testid="project-detail-overlay"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-end">
+      <button
+        type="button"
+        aria-label="Закрыть подробности проекта"
+        data-testid="project-detail-overlay"
+        className={`absolute inset-0 cursor-pointer bg-black/85 ${overlayMotion}`}
+        onClick={onClose}
+      />
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className={`max-h-[90vh] w-full overflow-y-auto rounded-none border-2 border-black bg-white shadow-[4px_4px_0px_0px_#00ffb9] dark:border-white dark:bg-neutral-900 ${sheetMotion}`}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
+        className={`relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-none border-2 border-black bg-white shadow-[4px_4px_0px_0px_#00ffb9] dark:border-white dark:bg-neutral-900 ${sheetMotion}`}
       >
         <div className="flex items-center justify-between border-b-2 border-black bg-black px-4 py-3 dark:border-white">
           <h2 id={titleId} className="text-sm font-bold tracking-[0.08em] text-white uppercase">

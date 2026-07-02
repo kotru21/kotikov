@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { ProjectCardDetailGrid } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
-import { ProjectCardDetailGrid } from "@/entities/project/ui/ProjectCardDetailGrid";
 
 describe("ProjectCardDetailGrid", () => {
   const project = projectsData[0];

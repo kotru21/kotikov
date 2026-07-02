@@ -2,10 +2,12 @@
 
 import React, { useState } from "react";
 
-import { ProjectCardExpandable } from "@/entities/project/ui/ProjectCardExpandable";
+import { ProjectCardExpandable } from "@/entities/project";
+import { usePerformanceSettings } from "@/features/performance";
 import { projectsData } from "@/shared/config/content";
 
 const ProjectsGrid: React.FC = () => {
+  const { reducedMotion } = usePerformanceSettings();
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
 
   return (
@@ -17,6 +19,7 @@ const ProjectsGrid: React.FC = () => {
           layout="desktop"
           isExpanded={expandedSlug === project.slug}
           onExpandedChange={setExpandedSlug}
+          reducedMotion={reducedMotion}
         />
       ))}
     </div>

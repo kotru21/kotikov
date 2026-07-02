@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { ProjectCardExpandable } from "@/entities/project/ui/ProjectCardExpandable";
+import { ProjectCardExpandable } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
 import { projectsData } from "@/shared/config/content";
 import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
@@ -67,8 +67,8 @@ const ProjectCardDeck: React.FC = () => {
                   project={project}
                   layout="mobile"
                   isExpanded={false}
-                  onExpandedChange={() => {}}
                   isStacked={!isActive}
+                  reducedMotion={reducedMotion}
                 />
               </div>
             </div>

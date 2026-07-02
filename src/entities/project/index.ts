@@ -1,2 +1,7 @@
 export type { ProjectItem } from "./model/types";
-export { ProjectCard } from "./ui";
+export {
+  ProjectCard,
+  ProjectCardDetailGrid,
+  ProjectCardExpandable,
+  ProjectDetailSheet,
+} from "./ui";

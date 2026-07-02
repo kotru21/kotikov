@@ -1,24 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
+import { ProjectCardExpandable } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
-import { ProjectCardExpandable } from "@/entities/project/ui/ProjectCardExpandable";
-
-vi.mock("@/features/performance", () => ({
-  usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
-}));
 
 describe("ProjectCardExpandable", () => {
-  beforeEach(() => {
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      matches: query.includes("min-width: 768px") ? true : false,
-      media: query,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    }));
-  });
-
   it("toggles inline details on desktop", async () => {
     const user = userEvent.setup();
     const onExpandedChange = vi.fn();
@@ -29,6 +16,7 @@ describe("ProjectCardExpandable", () => {
         layout="desktop"
         isExpanded={false}
         onExpandedChange={onExpandedChange}
+        reducedMotion
       />,
     );
 
