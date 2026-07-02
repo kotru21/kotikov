@@ -10,9 +10,10 @@ import {
   useState,
 } from "react";
 
-export type ThemeChoice = "light" | "dark" | "system";
+import { THEME_STORAGE_KEY, type ThemeChoice } from "./themeConstants";
+import { readThemeCookie, writeThemeCookie } from "./themeCookie";
 
-const STORAGE_KEY = "theme";
+export type { ThemeChoice } from "./themeConstants";
 
 function systemPrefersDark(): boolean {
   return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -20,8 +21,11 @@ function systemPrefersDark(): boolean {
 
 function readChoice(): ThemeChoice {
   if (typeof window === "undefined") return "system";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  return stored === "light" || stored === "dark" ? stored : "system";
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (stored === "light" || stored === "dark") return stored;
+  const fromCookie = readThemeCookie();
+  if (fromCookie !== null) return fromCookie;
+  return "system";
 }
 
 function resolveIsDark(choice: ThemeChoice): boolean {
@@ -61,6 +65,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
     const initial = readChoice();
     setChoiceState(initial);
     setIsDark(applyChoice(initial));
+    writeThemeCookie(initial);
   }, []);
 
   useEffect(() => {
@@ -78,10 +83,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
   const setChoice = useCallback((c: ThemeChoice): void => {
     setChoiceState(c);
     if (c === "system") {
-      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(THEME_STORAGE_KEY);
     } else {
-      window.localStorage.setItem(STORAGE_KEY, c);
+      window.localStorage.setItem(THEME_STORAGE_KEY, c);
     }
+    writeThemeCookie(c);
     setIsDark(applyChoice(c));
   }, []);
 

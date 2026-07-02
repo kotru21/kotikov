@@ -7,8 +7,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
-import { THEME_INIT_SCRIPT, ThemeProvider } from "@/features/theme";
+import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
+
+import { getServerThemeHtmlClass } from "./_lib/get-server-theme-class";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,23 +117,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): React.JSX.Element {
+}>): Promise<React.JSX.Element> {
+  const serverThemeClass = await getServerThemeHtmlClass();
+
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="ru" className={serverThemeClass} suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
+        <style dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Script id="theme-init" strategy="beforeInteractive">
-          {THEME_INIT_SCRIPT}
-        </Script>
         {/*
-          Must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts —
-          beforeInteractive scripts cannot import app modules.
+          Theme init runs via blocking inline script in <head>.
+          Scroll reset must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts.
         */}
         <Script id="scroll-init" strategy="beforeInteractive">
           {`(function(){try{if('scrollRestoration' in history)history.scrollRestoration='manual';var h=location.hash;if(h.length<=1)window.scrollTo(0,0);}catch(e){}})();`}

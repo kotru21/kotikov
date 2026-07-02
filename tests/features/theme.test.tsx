@@ -9,7 +9,8 @@ const wrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element
 
 beforeEach(() => {
   localStorage.clear();
-  document.documentElement.classList.remove("dark");
+  document.cookie = "theme=; path=/; max-age=0; SameSite=Lax";
+  document.documentElement.classList.remove("dark", "light", "theme-ready");
   vi.stubGlobal("matchMedia", (query: string) => ({
     matches: false,
     media: query,
@@ -39,6 +40,17 @@ describe("useTheme", () => {
     expect(result.current.isDark).toBe(true);
     expect(document.documentElement.classList.contains("dark")).toBe(true);
     expect(localStorage.getItem("theme")).toBe("dark");
+    expect(document.cookie).toContain("theme=dark");
+  });
+
+  it("reads theme from cookie when localStorage is empty", () => {
+    document.cookie = "theme=dark; path=/; SameSite=Lax";
+
+    const { result } = renderHook(() => useTheme(), { wrapper });
+
+    expect(result.current.choice).toBe("dark");
+    expect(result.current.isDark).toBe(true);
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 
   it("keeps all ThemeToggle instances in sync", () => {
