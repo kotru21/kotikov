@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
@@ -5,17 +7,35 @@ import { FiExternalLink } from "react-icons/fi";
 import type { ProjectItem } from "../model/types";
 import ProjectCardPattern from "./ProjectCardPattern";
 
+interface ProjectCardDetailsToggle {
+  isExpanded: boolean;
+  controlsId: string;
+  onToggle: () => void;
+}
+
 interface ProjectCardProps {
   project: ProjectItem;
   isStacked?: boolean;
+  detailsToggle?: ProjectCardDetailsToggle;
+  disableHover?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false }) => {
+const pressButtonClassName =
+  "focus-visible:ring-primary-400 inline-flex items-center gap-1.5 rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
+
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  isStacked = false,
+  detailsToggle,
+  disableHover = false,
+}) => {
   const CardIcon = project.cardIcon;
 
   const shadowClass = isStacked
     ? "shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"
-    : "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
+    : disableHover
+      ? "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+      : "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
 
   return (
     <article
@@ -54,11 +74,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false })
         <p className="text-sm font-medium text-neutral-500">{project.cardMeta}</p>
 
         <div className="flex shrink-0 items-center gap-2">
+          {detailsToggle ? (
+            <button
+              type="button"
+              onClick={detailsToggle.onToggle}
+              aria-expanded={detailsToggle.isExpanded}
+              aria-controls={detailsToggle.controlsId}
+              className={`${pressButtonClassName} min-h-11 cursor-pointer ${
+                detailsToggle.isExpanded
+                  ? "bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+                  : "text-neutral-950 dark:text-neutral-950"
+              }`}
+              style={
+                detailsToggle.isExpanded ? undefined : { backgroundColor: project.accentColor }
+              }
+            >
+              {detailsToggle.isExpanded ? "Свернуть" : "Подробнее"}
+            </button>
+          ) : null}
           <a
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="focus-visible:ring-primary-400 inline-flex items-center gap-1.5 rounded-none border-2 border-black bg-neutral-100 px-3 py-1.5 text-xs font-bold text-neutral-900 uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"
+            className={`${pressButtonClassName} bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
           >
             <FaGithub aria-hidden="true" /> Код
           </a>
@@ -67,7 +105,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isStacked = false })
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-visible:ring-primary-400 inline-flex items-center gap-1.5 rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold text-neutral-950 uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] focus-visible:ring-2 focus-visible:outline-none dark:border-white"
+              className={`${pressButtonClassName} text-neutral-950 dark:text-neutral-950`}
               style={{ backgroundColor: project.accentColor }}
             >
               <FiExternalLink aria-hidden="true" /> Live
