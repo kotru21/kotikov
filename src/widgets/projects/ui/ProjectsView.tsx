@@ -1,10 +1,9 @@
 import React from "react";
 
-import { ProjectCard } from "@/entities/project";
-import { projectsData } from "@/shared/config/content";
 import { Section, SectionHeader } from "@/shared/ui";
 
 import ProjectCardDeck from "./ProjectCardDeck";
+import ProjectsGrid from "./ProjectsGrid";
 
 const ProjectsView: React.FC = () => {
   return (
@@ -19,11 +18,7 @@ const ProjectsView: React.FC = () => {
         <ProjectCardDeck />
       </div>
 
-      <div className="hidden gap-5 md:grid md:grid-cols-2 md:gap-6 xl:grid-cols-3">
-        {projectsData.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
+      <ProjectsGrid />
     </Section>
   );
 };
