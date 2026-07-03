@@ -17,13 +17,21 @@ interface ProjectDetailSheetProps {
 
 const SHEET_TRANSITION_MS = 400;
 
+function getFocusableElements(dialogElement: HTMLDivElement): HTMLElement[] {
+  return [...dialogElement.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  )].filter((element) => element.offsetParent !== null || element === document.activeElement);
+}
+
 function restoreFocus(
   dialogElement: HTMLDivElement | null,
   returnFocusRef?: React.RefObject<HTMLElement | null>,
 ): void {
   const returnTarget = returnFocusRef?.current;
   if (returnTarget) {
-    returnTarget.focus();
+    window.requestAnimationFrame(() => {
+      returnTarget.focus();
+    });
     return;
   }
 
@@ -121,6 +129,31 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
         onClose();
+        return;
+      }
+
+      if (event.key !== "Tab" || dialogRef.current === null) {
+        return;
+      }
+
+      const focusableElements = getFocusableElements(dialogRef.current);
+      if (focusableElements.length === 0) {
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+        return;
+      }
+
+      if (!event.shiftKey && activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 

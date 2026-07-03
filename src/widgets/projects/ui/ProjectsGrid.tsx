@@ -46,19 +46,16 @@ const ProjectsGrid: React.FC = () => {
 
     syncCardWidth();
 
-    if (typeof ResizeObserver === "undefined") {
-      return;
-    }
-
-    const observer = new ResizeObserver(syncCardWidth);
-    observer.observe(anchor);
-
     const mediaQuery = window.matchMedia(DESKTOP_XL_MEDIA);
     mediaQuery.addEventListener("change", syncCardWidth);
     window.addEventListener("resize", syncCardWidth);
 
+    const observer =
+      typeof ResizeObserver !== "undefined" ? new ResizeObserver(syncCardWidth) : null;
+    observer?.observe(anchor);
+
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       mediaQuery.removeEventListener("change", syncCardWidth);
       window.removeEventListener("resize", syncCardWidth);
     };

@@ -91,7 +91,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={detailsToggle.onToggle}
               aria-expanded={detailsToggle.isExpanded}
               aria-controls={detailsToggle.controlsId}
-              className={`${pressButtonClassName} min-h-11 cursor-pointer ${
+              className={`${pressButtonClassName} min-h-11 min-w-11 cursor-pointer ${
                 detailsToggle.isExpanded
                   ? "bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
                   : "text-neutral-950 dark:text-neutral-950"

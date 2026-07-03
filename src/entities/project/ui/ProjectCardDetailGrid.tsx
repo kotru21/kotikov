@@ -37,7 +37,7 @@ function getVisibilityClass(isHorizontal: boolean, isVisible: boolean): string {
       : "pointer-events-none invisible h-0 max-h-0 min-h-0 overflow-hidden opacity-0";
   }
 
-  return isVisible ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0";
+  return isVisible ? "max-h-[32rem] opacity-100" : "max-h-0 overflow-hidden opacity-0";
 }
 
 function getBorderClass(isHorizontal: boolean, isVisible: boolean): string {
@@ -76,9 +76,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
     >
       <div
         aria-hidden="true"
-        className={`absolute border-2 border-black dark:border-white ${
-          isHorizontal ? "top-3 right-3" : "top-3 right-3"
-        } size-12 rounded-full ${
+        className={`absolute top-3 right-3 border-2 border-black dark:border-white size-12 rounded-full ${
           reducedMotion ? "scale-100 opacity-60" : "transition-transform duration-[400ms] ease-out"
         } ${isVisible ? "scale-100 opacity-60" : "scale-0 opacity-0"}`}
         style={{ backgroundColor: project.accentColor }}

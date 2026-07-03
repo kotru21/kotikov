@@ -1,9 +1,32 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React, { useRef, useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { ProjectDetailSheet } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
+
+function FocusRestoreHarness(): React.JSX.Element {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <>
+      <button ref={triggerRef} type="button">
+        Подробнее
+      </button>
+      <ProjectDetailSheet
+        project={projectsData[1]}
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        returnFocusRef={triggerRef}
+        reducedMotion
+      />
+    </>
+  );
+}
 
 describe("ProjectDetailSheet", () => {
   it("calls onClose when escape is pressed", async () => {
@@ -40,5 +63,35 @@ describe("ProjectDetailSheet", () => {
     expect(screen.getByTestId("project-detail-overlay").className).toContain("transition-opacity");
     expect(screen.getByRole("dialog", { hidden: true }).className).toContain("transition-transform");
     expect(screen.getByRole("dialog", { hidden: true }).className).toContain("translate-y-full");
+  });
+
+  it("returns focus to the trigger on close", async () => {
+    const user = userEvent.setup();
+
+    render(<FocusRestoreHarness />);
+
+    const trigger = screen.getByRole("button", { name: /подробнее/i });
+    const dialogClose = screen.getAllByRole("button", { name: /закрыть подробности проекта/i })[1];
+
+    await user.click(dialogClose);
+
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
+  });
+
+  it("keeps tab focus inside the dialog", async () => {
+    const user = userEvent.setup({ pointerEventsCheck: 0 });
+
+    render(
+      <ProjectDetailSheet project={projectsData[1]} isOpen onClose={vi.fn()} reducedMotion />,
+    );
+
+    const dialogClose = screen.getAllByRole("button", { name: /закрыть подробности проекта/i })[1];
+    dialogClose.focus();
+
+    await user.tab();
+
+    expect(dialogClose).toHaveFocus();
   });
 });

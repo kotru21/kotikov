@@ -1,0 +1,55 @@
+import { render, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+import ProjectsGrid from "@/widgets/projects/ui/ProjectsGrid";
+
+vi.mock("@/features/performance", () => ({
+  usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
+}));
+
+describe("ProjectsGrid", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "ResizeObserver",
+      class {
+        observe = vi.fn();
+        disconnect = vi.fn();
+      },
+    );
+
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: query.includes("1280"),
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 1440,
+      writable: true,
+    });
+  });
+
+  it("keeps only one desktop card expanded in the accordion", async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectsGrid />);
+
+    const grid = document.querySelector(".projects-grid");
+    expect(grid).not.toBeNull();
+
+    const detailButtons = within(grid as HTMLElement).getAllByRole("button", {
+      name: /подробнее/i,
+    });
+
+    await user.click(detailButtons[0]);
+    expect(detailButtons[0]).toHaveAttribute("aria-expanded", "true");
+    expect(detailButtons[1]).toHaveAttribute("aria-expanded", "false");
+
+    await user.click(detailButtons[1]);
+    expect(detailButtons[0]).toHaveAttribute("aria-expanded", "false");
+    expect(detailButtons[1]).toHaveAttribute("aria-expanded", "true");
+  });
+});
