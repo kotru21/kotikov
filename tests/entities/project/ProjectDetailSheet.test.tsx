@@ -65,6 +65,29 @@ describe("ProjectDetailSheet", () => {
     expect(screen.getByRole("dialog", { hidden: true }).className).toContain("translate-y-full");
   });
 
+  it("does not focus the trigger on initial mount when closed", async () => {
+    const triggerRef = React.createRef<HTMLButtonElement>();
+
+    render(
+      <>
+        <button ref={triggerRef} type="button">
+          Подробнее
+        </button>
+        <ProjectDetailSheet
+          project={projectsData[1]}
+          isOpen={false}
+          onClose={vi.fn()}
+          returnFocusRef={triggerRef}
+          reducedMotion
+        />
+      </>,
+    );
+
+    await waitFor(() => {
+      expect(triggerRef.current).not.toHaveFocus();
+    });
+  });
+
   it("returns focus to the trigger on close", async () => {
     const user = userEvent.setup();
 

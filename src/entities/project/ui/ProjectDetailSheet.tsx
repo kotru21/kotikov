@@ -58,6 +58,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openFrameRef = useRef<number | null>(null);
   const closeTimerRef = useRef<number | null>(null);
+  const wasOpenRef = useRef(isOpen);
   const detailsId = `project-sheet-details-${project.slug}`;
 
   const [isPresent, setIsPresent] = useState(isOpen);
@@ -65,6 +66,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      wasOpenRef.current = true;
       setIsPresent(true);
 
       if (reducedMotion) {
@@ -86,7 +88,12 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
       };
     }
 
-    restoreFocus(dialogRef.current, returnFocusRef);
+    const shouldRestoreFocus = wasOpenRef.current;
+    wasOpenRef.current = false;
+
+    if (shouldRestoreFocus) {
+      restoreFocus(dialogRef.current, returnFocusRef);
+    }
 
     if (reducedMotion) {
       setIsShown(false);

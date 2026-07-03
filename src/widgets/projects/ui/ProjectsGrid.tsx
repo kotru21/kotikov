@@ -33,6 +33,10 @@ const ProjectsGrid: React.FC = () => {
     }
 
     const syncCardWidth = (): void => {
+      if (anchor.clientWidth <= 0) {
+        return;
+      }
+
       const styles = getComputedStyle(anchor);
       const gapValue = styles.getPropertyValue("--project-gap").trim();
       const gap = gapValue.endsWith("rem")
@@ -40,6 +44,10 @@ const ProjectsGrid: React.FC = () => {
         : Number.parseFloat(gapValue);
       const columns = getColumnCount(window.innerWidth);
       const cardWidth = (anchor.clientWidth - gap * (columns - 1)) / columns;
+
+      if (cardWidth <= 0) {
+        return;
+      }
 
       anchor.style.setProperty("--project-card-w", `${String(cardWidth)}px`);
     };
