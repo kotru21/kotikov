@@ -11,6 +11,7 @@ interface ProjectCardDetailsToggle {
   isExpanded: boolean;
   controlsId: string;
   onToggle: () => void;
+  triggerRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
 interface ProjectCardProps {
@@ -18,6 +19,7 @@ interface ProjectCardProps {
   isStacked?: boolean;
   detailsToggle?: ProjectCardDetailsToggle;
   disableHover?: boolean;
+  className?: string;
 }
 
 const pressButtonClassName =
@@ -40,13 +42,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   isStacked = false,
   detailsToggle,
   disableHover = false,
+  className = "",
 }) => {
   const CardIcon = project.cardIcon;
   const shadowClass = getShadowClass(isStacked, disableHover);
 
   return (
     <article
-      className={`group relative flex min-h-[22rem] flex-col overflow-hidden rounded-none border-2 border-black bg-white p-6 sm:min-h-[24rem] sm:p-7 dark:border-white dark:bg-neutral-900 ${shadowClass}`}
+      className={`group relative flex min-h-[22rem] flex-col overflow-visible rounded-none border-2 border-black bg-white p-6 sm:min-h-[24rem] sm:p-7 dark:border-white dark:bg-neutral-900 ${shadowClass} ${className}`}
     >
       <ProjectCardPattern pattern={project.cardPattern} color={project.accentColor} />
 
@@ -83,6 +86,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="flex shrink-0 items-center gap-2">
           {detailsToggle ? (
             <button
+              ref={detailsToggle.triggerRef}
               type="button"
               onClick={detailsToggle.onToggle}
               aria-expanded={detailsToggle.isExpanded}

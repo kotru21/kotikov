@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useRef } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiX } from "react-icons/fi";
 
@@ -12,6 +12,30 @@ interface ProjectDetailSheetProps {
   isOpen: boolean;
   onClose: () => void;
   reducedMotion?: boolean;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
+}
+
+const SHEET_TRANSITION_MS = 400;
+
+function restoreFocus(
+  dialogElement: HTMLDivElement | null,
+  returnFocusRef?: React.RefObject<HTMLElement | null>,
+): void {
+  const returnTarget = returnFocusRef?.current;
+  if (returnTarget) {
+    returnTarget.focus();
+    return;
+  }
+
+  const activeElement = document.activeElement;
+  const isFocusInsideDialog =
+    dialogElement !== null && activeElement instanceof HTMLElement
+      ? dialogElement.contains(activeElement)
+      : false;
+
+  if (activeElement instanceof HTMLElement && isFocusInsideDialog) {
+    activeElement.blur();
+  }
 }
 
 const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
@@ -19,13 +43,76 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
   isOpen,
   onClose,
   reducedMotion = false,
+  returnFocusRef,
 }) => {
   const titleId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openFrameRef = useRef<number | null>(null);
+  const closeTimerRef = useRef<number | null>(null);
   const detailsId = `project-sheet-details-${project.slug}`;
 
+  const [isPresent, setIsPresent] = useState(isOpen);
+  const [isShown, setIsShown] = useState(isOpen && reducedMotion);
+
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      setIsPresent(true);
+
+      if (reducedMotion) {
+        setIsShown(true);
+        return;
+      }
+
+      setIsShown(false);
+      openFrameRef.current = window.requestAnimationFrame(() => {
+        openFrameRef.current = window.requestAnimationFrame(() => {
+          setIsShown(true);
+        });
+      });
+
+      return () => {
+        if (openFrameRef.current !== null) {
+          window.cancelAnimationFrame(openFrameRef.current);
+        }
+      };
+    }
+
+    restoreFocus(dialogRef.current, returnFocusRef);
+
+    if (reducedMotion) {
+      setIsShown(false);
+      setIsPresent(false);
+      return;
+    }
+
+    setIsShown(false);
+    closeTimerRef.current = window.setTimeout(() => {
+      setIsPresent(false);
+    }, SHEET_TRANSITION_MS + 50);
+
+    return () => {
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, [isOpen, reducedMotion, returnFocusRef]);
+
+  useEffect(() => {
+    if (!isPresent) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isPresent]);
+
+  useEffect(() => {
+    if (!isShown) {
       return;
     }
 
@@ -38,23 +125,36 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen, onClose]);
+  }, [isShown, onClose]);
 
-  if (!isOpen || typeof document === "undefined") {
+  const handleSheetTransitionEnd = (event: React.TransitionEvent<HTMLDivElement>): void => {
+    if (reducedMotion || isOpen || event.propertyName !== "transform") {
+      return;
+    }
+
+    if (closeTimerRef.current !== null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+
+    setIsPresent(false);
+  };
+
+  if (!isPresent || typeof document === "undefined") {
     return null;
   }
 
-  const overlayMotion = reducedMotion ? "" : "transition-opacity duration-350 ease-out";
+  const overlayMotion = reducedMotion
+    ? "opacity-100"
+    : `transition-opacity duration-[350ms] ease-out ${isShown ? "opacity-100" : "opacity-0"}`;
+
   const sheetMotion = reducedMotion
     ? "translate-y-0"
-    : "transition-transform duration-400 ease-out translate-y-0";
+    : `transition-transform duration-[400ms] ease-out ${isShown ? "translate-y-0" : "translate-y-full"}`;
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-end">
@@ -66,13 +166,16 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
         onClick={onClose}
       />
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        inert={!isShown}
+        onTransitionEnd={handleSheetTransitionEnd}
         className={`relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-none border-2 border-black bg-white shadow-[4px_4px_0px_0px_#00ffb9] dark:border-white dark:bg-neutral-900 ${sheetMotion}`}
       >
         <div className="flex items-center justify-between border-b-2 border-black bg-black px-4 py-3 dark:border-white">
-          <h2 id={titleId} className="text-sm font-bold tracking-[0.08em] text-white uppercase">
+          <h2 id={titleId} className="text-sm font-bold tracking-[0.12em] text-white uppercase">
             {project.title}
           </h2>
           <button
@@ -89,7 +192,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
         <ProjectCardDetailGrid
           project={project}
           id={detailsId}
-          isVisible
+          isVisible={reducedMotion ? isPresent : isShown}
           reducedMotion={reducedMotion}
         />
       </div>

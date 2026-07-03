@@ -7,7 +7,11 @@ import ProjectsGrid from "./ProjectsGrid";
 
 const ProjectsView: React.FC = () => {
   return (
-    <Section id="projects" backgroundClassName="bg-neutral-100 dark:bg-background-tertiary">
+    <Section
+      id="projects"
+      backgroundClassName="bg-neutral-100 dark:bg-background-tertiary"
+      innerClassName="overflow-visible"
+    >
       <SectionHeader
         eyebrow="Проекты"
         title="Избранные работы"

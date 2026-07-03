@@ -27,4 +27,18 @@ describe("ProjectCardDetailGrid", () => {
     expect(screen.getByText("Стек")).toBeInTheDocument();
     expect(screen.getByText("Tauri")).toBeInTheDocument();
   });
+
+  it("renders horizontal 2x2 grid when orientation is horizontal", () => {
+    const { container } = render(
+      <ProjectCardDetailGrid
+        project={project}
+        id="project-details-horizontal"
+        isVisible
+        reducedMotion
+        orientation="horizontal"
+      />,
+    );
+
+    expect(container.querySelector("dl")?.className).toContain("grid-cols-2");
+  });
 });

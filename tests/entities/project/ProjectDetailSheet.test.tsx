@@ -31,4 +31,14 @@ describe("ProjectDetailSheet", () => {
     await user.click(screen.getByTestId("project-detail-overlay"));
     expect(onClose).toHaveBeenCalledOnce();
   });
+
+  it("applies motion transition classes when reducedMotion is disabled", () => {
+    render(
+      <ProjectDetailSheet project={projectsData[1]} isOpen onClose={vi.fn()} reducedMotion={false} />,
+    );
+
+    expect(screen.getByTestId("project-detail-overlay").className).toContain("transition-opacity");
+    expect(screen.getByRole("dialog", { hidden: true }).className).toContain("transition-transform");
+    expect(screen.getByRole("dialog", { hidden: true }).className).toContain("translate-y-full");
+  });
 });
