@@ -49,7 +49,8 @@ const ProjectCardDeck: React.FC = () => {
   return (
     <div role="region" aria-roledescription="карусель" aria-label="Избранные проекты">
       <div
-        className="relative mx-auto grid w-full max-w-md"
+        className="relative mx-auto w-full max-w-md"
+        style={{ minHeight: "calc(28rem + 1.5rem)" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -68,7 +69,7 @@ const ProjectCardDeck: React.FC = () => {
                   ? `${String(index + 1)} из ${String(projects.length)}: ${project.title}`
                   : undefined
               }
-              className={`col-start-1 row-start-1 origin-center ${motionClass}`}
+              className={`absolute inset-x-0 top-0 origin-center ${motionClass}`}
               style={{
                 zIndex: deckStyle.zIndex,
                 transform: deckStyle.transform,

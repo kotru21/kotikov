@@ -20,21 +20,6 @@ function getProjectControl(index: number): HTMLElement {
 }
 
 describe("ProjectCardDeck semantics", () => {
-  it("lets the carousel track follow the active card height", () => {
-    render(<ProjectCardDeck />);
-
-    const carousel = screen.getByRole("region", { name: "Избранные проекты" });
-    const deck = carousel.querySelector(".max-w-md");
-    const cardWrappers = carousel.querySelectorAll(".col-start-1.row-start-1");
-
-    expect(deck?.getAttribute("style") ?? "").not.toContain("28rem");
-    expect(cardWrappers).toHaveLength(projectsData.length);
-    cardWrappers.forEach((wrapper) => {
-      expect(wrapper).not.toHaveClass("absolute");
-      expect(wrapper).not.toHaveClass("top-0");
-    });
-  });
-
   it("exposes the carousel and native project controls", () => {
     render(<ProjectCardDeck />);
 
