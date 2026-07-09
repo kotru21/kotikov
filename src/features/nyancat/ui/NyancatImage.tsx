@@ -33,14 +33,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   return (
     <div
       ref={forwardRef}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+      aria-hidden="true"
       style={{
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
@@ -52,7 +45,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
     >
       <Image
         src="/nyancat.svg"
-        alt="Nyancat"
+        alt=""
         width={config.width}
         height={config.height}
         priority={priority}

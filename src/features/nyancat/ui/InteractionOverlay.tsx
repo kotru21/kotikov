@@ -30,9 +30,7 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
 
   return (
     <div
-      role="button"
-      aria-label="Nyancat interaction"
-      tabIndex={0}
+      aria-hidden="true"
       style={{
         position: "absolute",
         top: position.top,
@@ -45,9 +43,6 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
         pointerEvents: "auto",
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick();
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
