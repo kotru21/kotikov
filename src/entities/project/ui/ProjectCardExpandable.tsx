@@ -51,7 +51,7 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
       {layout === "desktop" ? (
         <div
           className={`grid min-w-0 overflow-visible ${innerGridTransition} ${
-            showInlineDetails ? "items-stretch" : ""
+            showInlineDetails ? "items-stretch md:col-span-2" : ""
           } ${
             showInlineDetails
               ? "border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-neutral-900 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
@@ -59,7 +59,7 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
           }`}
           style={{
             gridTemplateColumns: showInlineDetails
-              ? "var(--project-card-w) var(--project-detail-w)"
+              ? "minmax(0, 1fr) minmax(0, 1fr)"
               : "minmax(0, 1fr) minmax(0, 0fr)",
           }}
         >

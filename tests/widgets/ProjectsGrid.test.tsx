@@ -1,6 +1,6 @@
 import { render, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import ProjectsGrid from "@/widgets/projects/ui/ProjectsGrid";
 
@@ -9,27 +9,14 @@ vi.mock("@/features/performance", () => ({
 }));
 
 describe("ProjectsGrid", () => {
-  beforeEach(() => {
-    vi.stubGlobal(
-      "ResizeObserver",
-      class {
-        observe = vi.fn();
-        disconnect = vi.fn();
-      },
-    );
+  it("contains the desktop grid within its available width", () => {
+    render(<ProjectsGrid />);
 
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      matches: query.includes("1280"),
-      media: query,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    }));
+    const anchor = document.querySelector(".projects-grid-anchor");
+    const shell = document.querySelector(".projects-grid-shell");
 
-    Object.defineProperty(window, "innerWidth", {
-      configurable: true,
-      value: 1440,
-      writable: true,
-    });
+    expect(anchor).toHaveClass("min-w-0", "max-w-full");
+    expect(shell).toHaveClass("min-w-0", "max-w-full");
   });
 
   it("keeps only one desktop card expanded in the accordion", async () => {
@@ -47,9 +34,12 @@ describe("ProjectsGrid", () => {
     await user.click(detailButtons[0]);
     expect(detailButtons[0]).toHaveAttribute("aria-expanded", "true");
     expect(detailButtons[1]).toHaveAttribute("aria-expanded", "false");
+    expect(grid?.children[0]).toHaveClass("md:col-span-2");
 
     await user.click(detailButtons[1]);
     expect(detailButtons[0]).toHaveAttribute("aria-expanded", "false");
     expect(detailButtons[1]).toHaveAttribute("aria-expanded", "true");
+    expect(grid?.children[0]).not.toHaveClass("md:col-span-2");
+    expect(grid?.children[1]).toHaveClass("md:col-span-2");
   });
 });
