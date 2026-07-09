@@ -35,19 +35,9 @@ html {
 
 .projects-grid-shell {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow: visible;
-  transition:
-    width 450ms cubic-bezier(0.22, 1, 0.36, 1),
-    margin 450ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.projects-grid-shell[data-reduced-motion="true"] {
-  transition: none;
-}
-
-.projects-grid-shell:not([data-expanded="none"]) {
-  width: calc(100% + var(--project-detail-w));
-  margin-inline: calc(var(--project-detail-w) / -2);
 }
 
 .projects-grid {

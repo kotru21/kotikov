@@ -1,4 +1,4 @@
-import { render, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -51,5 +51,46 @@ describe("ProjectsGrid", () => {
     await user.click(detailButtons[1]);
     expect(detailButtons[0]).toHaveAttribute("aria-expanded", "false");
     expect(detailButtons[1]).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("contains the projects shell without page-width growth and keeps cards in one row", async () => {
+    const user = userEvent.setup();
+
+    render(<ProjectsGrid />);
+
+    const shell = screen.getByTestId("projects-grid-shell");
+    expect(shell).toHaveClass("max-w-full");
+    expect(shell).toHaveAttribute("data-expanded", "none");
+
+    const grid = document.querySelector(".projects-grid");
+    expect(grid).not.toBeNull();
+
+    const detailButtons = within(grid as HTMLElement).getAllByRole("button", {
+      name: /подробнее/i,
+    });
+    expect(detailButtons).toHaveLength(3);
+
+    await user.click(detailButtons[1]);
+
+    expect(shell).toHaveAttribute("data-expanded", "1");
+    expect(detailButtons[1]).toHaveAttribute("aria-expanded", "true");
+    expect(detailButtons[0]).toHaveAttribute("aria-expanded", "false");
+    expect(detailButtons[2]).toHaveAttribute("aria-expanded", "false");
+
+    const toggleButtons = within(grid as HTMLElement).getAllByRole("button", {
+      name: /подробнее|свернуть/i,
+    });
+    expect(toggleButtons).toHaveLength(3);
+    expect(toggleButtons[1]).toHaveAttribute("aria-expanded", "true");
+    expect(toggleButtons[1]).toHaveAccessibleName(/свернуть/i);
+
+    const cardRoots = Array.from(grid!.children);
+    expect(cardRoots).toHaveLength(3);
+    for (const card of cardRoots) {
+      expect(card.className).not.toMatch(/col-span-2/);
+    }
+
+    expect(shell).toHaveClass("max-w-full");
+    expect(shell.getAttribute("style") ?? "").not.toMatch(/calc\(100%/);
   });
 });

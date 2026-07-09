@@ -81,4 +81,16 @@ describe("ProjectCardDeck semantics", () => {
     fireEvent.keyDown(lastControl, { key: "Home" });
     expect(firstControl).toHaveFocus();
   });
+
+  it("sizes the deck from active card content instead of a fixed 28rem height", () => {
+    render(<ProjectCardDeck />);
+
+    const deck = screen.getByRole("region", { name: "Избранные проекты" });
+    const stack = deck.querySelector(".relative.mx-auto");
+
+    expect(stack).not.toBeNull();
+    expect(deck.querySelector('[style*="28rem"]')).toBeNull();
+    expect(stack).toHaveClass("grid", "w-full", "max-w-md");
+    expect(stack!.querySelectorAll(".col-start-1.row-start-1").length).toBe(projectsData.length);
+  });
 });

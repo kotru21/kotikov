@@ -42,8 +42,15 @@ const ProjectsGrid: React.FC = () => {
       const gap = gapValue.endsWith("rem")
         ? Number.parseFloat(gapValue) * Number.parseFloat(styles.fontSize)
         : Number.parseFloat(gapValue);
+      const detailValue = styles.getPropertyValue("--project-detail-w").trim();
+      const detailWidth = detailValue.endsWith("rem")
+        ? Number.parseFloat(detailValue) * Number.parseFloat(styles.fontSize)
+        : Number.parseFloat(detailValue);
       const columns = getColumnCount(window.innerWidth);
-      const cardWidth = (anchor.clientWidth - gap * (columns - 1)) / columns;
+      const isExpanded = expandedIndex !== null;
+      const cardWidth = isExpanded
+        ? (anchor.clientWidth - gap * (columns - 1) - detailWidth) / columns
+        : (anchor.clientWidth - gap * (columns - 1)) / columns;
 
       if (cardWidth <= 0) {
         return;
@@ -67,12 +74,13 @@ const ProjectsGrid: React.FC = () => {
       mediaQuery.removeEventListener("change", syncCardWidth);
       window.removeEventListener("resize", syncCardWidth);
     };
-  }, []);
+  }, [expandedIndex, expandedSlug]);
 
   return (
     <div ref={anchorRef} className="projects-grid-anchor hidden md:block">
       <div
-        className="projects-grid-shell"
+        className="projects-grid-shell max-w-full min-w-0"
+        data-testid="projects-grid-shell"
         data-expanded={expandedIndex ?? "none"}
         data-reduced-motion={reducedMotion ? "true" : "false"}
       >
