@@ -5,6 +5,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
+import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
@@ -67,7 +68,7 @@ const SkillsMobileView: React.FC = () => {
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
-          aria-label="Открыть мой профиль LinkedIn (откроется в новой вкладке)"
+          aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
         >
           <FaLinkedinIn className="text-xl" aria-hidden="true" />
           <span>Смотреть мой LinkedIn</span>

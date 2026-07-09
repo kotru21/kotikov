@@ -5,6 +5,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
+import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, SectionHeader } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
@@ -52,8 +53,9 @@ const SkillsMarquee: React.FC = () => {
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
+          aria-label={formatExternalLinkLabel("Мой профиль в LinkedIn")}
         >
-          <FaLinkedinIn className="text-xl" />
+          <FaLinkedinIn className="text-xl" aria-hidden="true" />
           <span>Мой профиль в LinkedIn</span>
         </Button>
       </div>

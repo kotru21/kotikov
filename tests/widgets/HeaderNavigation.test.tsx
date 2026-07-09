@@ -54,16 +54,19 @@ describe("HeaderNavigation mobile menu", () => {
   it("opens the dialog when the burger button is clicked", () => {
     render(<HeaderNavigation navigation={navigation} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    expect(screen.getByRole("navigation", { name: "Основная навигация" })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Открыть меню" }));
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Закрыть меню" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Проекты" })).toBeInTheDocument();
   });
 
   it("closes the dialog when a navigation link is clicked", async () => {
     render(<HeaderNavigation navigation={navigation} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    fireEvent.click(screen.getByRole("button", { name: "Открыть меню" }));
     fireEvent.click(within(screen.getByRole("dialog")).getByRole("link", { name: "Проекты" }));
 
     await waitFor(() => {
@@ -74,7 +77,7 @@ describe("HeaderNavigation mobile menu", () => {
   it("closes the dialog when the contacts link is clicked", async () => {
     render(<HeaderNavigation navigation={navigation} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    fireEvent.click(screen.getByRole("button", { name: "Открыть меню" }));
     fireEvent.click(within(screen.getByRole("dialog")).getByRole("link", { name: /Связаться/i }));
 
     await waitFor(() => {
@@ -87,7 +90,7 @@ describe("HeaderNavigation mobile menu", () => {
 
     render(<HeaderNavigation navigation={navigation} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open main menu" }));
+    fireEvent.click(screen.getByRole("button", { name: "Открыть меню" }));
 
     const dialog = screen.getByRole("dialog");
     expect(dialog.className).not.toContain("group/mobile-panel");

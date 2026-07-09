@@ -4,6 +4,8 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
+import { formatExternalLinkLabel } from "@/shared/lib";
+
 import type { ProjectItem } from "../model/types";
 import ProjectCardPattern from "./ProjectCardPattern";
 
@@ -113,6 +115,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={formatExternalLinkLabel("Код")}
             className={`${pressButtonClassName} bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
           >
             <FaGithub aria-hidden="true" /> Код
@@ -122,10 +125,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={formatExternalLinkLabel("Демо")}
               className={`${pressButtonClassName} text-neutral-950 dark:text-neutral-950`}
               style={{ backgroundColor: project.accentColor }}
             >
-              <FiExternalLink aria-hidden="true" /> Live
+              <FiExternalLink aria-hidden="true" /> Демо
             </a>
           ) : null}
         </div>

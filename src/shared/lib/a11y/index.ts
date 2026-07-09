@@ -1,0 +1,1 @@
+export { formatExternalLinkLabel } from "./externalLink";

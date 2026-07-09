@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { SocialLink } from "@/entities/navigation";
+import { formatExternalLinkLabel } from "@/shared/lib";
 import { colors } from "@/styles/colors";
 
 interface FooterSocialProps {
@@ -27,9 +28,12 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
             rel="noopener noreferrer"
             className="group focus-visible:ring-primary-500 relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
             title={link.name}
-            aria-label={link.name}
+            aria-label={
+              link.url.startsWith("http") ? formatExternalLinkLabel(link.name) : link.name
+            }
           >
             <div
+              aria-hidden="true"
               style={accentShadowStyle}
               className="flex h-12 w-12 items-center justify-center border-2 border-black bg-transparent transition-all duration-300 hover:bg-black hover:shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:border-white dark:hover:bg-white"
             >
