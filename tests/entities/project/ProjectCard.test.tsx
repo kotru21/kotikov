@@ -18,7 +18,7 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
     const button = screen.getByRole("button", { name: /подробнее/i });
@@ -35,11 +35,13 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
-    expect(screen.getByText("Результат")).toBeVisible();
-    expect(screen.getByText(project.details.outcome)).toBeVisible();
+    const outcomeParagraph = screen.getByText("Результат").closest("p");
+
+    expect(outcomeParagraph).toBeVisible();
+    expect(outcomeParagraph).toHaveTextContent(`Результат ${project.details.outcome}`);
   });
 
   it("calls onToggle when clicked", async () => {
@@ -54,7 +56,7 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle,
         }}
-      />,
+      />
     );
 
     await user.click(screen.getByRole("button", { name: /подробнее/i }));
@@ -70,7 +72,7 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
     const button = screen.getByRole("button", { name: /свернуть/i });
