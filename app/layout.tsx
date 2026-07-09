@@ -10,6 +10,8 @@ import { ScrollRestoration } from "@/features/scrolling";
 import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
 
+import { SkipLinks } from "./components/SkipLinks";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -137,12 +139,7 @@ export default function RootLayout({
         </Script>
         <ThemeProvider>
           <ScrollRestoration />
-          <a
-            href="#projects"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:border-2 focus:border-black focus:bg-white focus:px-4 focus:py-2 focus:font-bold dark:focus:border-white dark:focus:bg-black dark:focus:text-white"
-          >
-            К проектам
-          </a>
+          <SkipLinks />
           {children}
         </ThemeProvider>
         {gaId !== undefined && gaId !== "" ? (
