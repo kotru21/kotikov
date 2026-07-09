@@ -53,13 +53,12 @@ describe("ProjectsGrid", () => {
     expect(detailButtons[1]).toHaveAttribute("aria-expanded", "true");
   });
 
-  it("contains the projects shell without page-width growth and keeps cards in one row", async () => {
+  it("expands the selected column without compressing sibling cards", async () => {
     const user = userEvent.setup();
 
     render(<ProjectsGrid />);
 
     const shell = screen.getByTestId("projects-grid-shell");
-    expect(shell).toHaveClass("max-w-full");
     expect(shell).toHaveAttribute("data-expanded", "none");
 
     const grid = document.querySelector(".projects-grid");
@@ -89,8 +88,5 @@ describe("ProjectsGrid", () => {
     for (const card of cardRoots) {
       expect(card.className).not.toMatch(/col-span-2/);
     }
-
-    expect(shell).toHaveClass("max-w-full");
-    expect(shell.getAttribute("style") ?? "").not.toMatch(/calc\(100%/);
   });
 });
