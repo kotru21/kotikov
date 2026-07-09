@@ -48,7 +48,7 @@ describe("TimelineStepChips", () => {
     vi.restoreAllMocks();
   });
 
-  it("renders four chips with year and type labels", () => {
+  it("renders four native buttons in a labelled group", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -59,14 +59,17 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    expect(screen.getByRole("tablist")).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2023 · Хакатон" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2024 · Обучение" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2025 · Работа" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2026 · Хакатон" })).toBeInTheDocument();
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
+
+    expect(controls).not.toHaveAttribute("tabindex");
+    expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2023 · Хакатон" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2024 · Обучение" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2025 · Работа" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2026 · Хакатон" })).toBeInTheDocument();
   });
 
-  it("marks the active chip with aria-selected", () => {
+  it("marks the active chip with aria-pressed", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -77,12 +80,12 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    expect(screen.getByRole("tab", { name: "2025 · Работа" })).toHaveAttribute(
-      "aria-selected",
+    expect(screen.getByRole("button", { name: "2025 · Работа" })).toHaveAttribute(
+      "aria-pressed",
       "true"
     );
-    expect(screen.getByRole("tab", { name: "2023 · Хакатон" })).toHaveAttribute(
-      "aria-selected",
+    expect(screen.getByRole("button", { name: "2023 · Хакатон" })).toHaveAttribute(
+      "aria-pressed",
       "false"
     );
   });
@@ -100,11 +103,11 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    fireEvent.click(screen.getByRole("tab", { name: "2026 · Хакатон" }));
+    fireEvent.click(screen.getByRole("button", { name: "2026 · Хакатон" }));
     expect(onSelect).toHaveBeenCalledWith(3);
   });
 
-  it("does not adjust tablist scrollLeft on initial mount", () => {
+  it("does not adjust controls scrollLeft on initial mount", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -115,13 +118,13 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    const tablist = screen.getByRole("tablist");
-    tablist.scrollLeft = 0;
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
+    controls.scrollLeft = 0;
 
-    expect(tablist.scrollLeft).toBe(0);
+    expect(controls.scrollLeft).toBe(0);
   });
 
-  it("adjusts tablist scrollLeft when the active chip overflows to the right", () => {
+  it("adjusts controls scrollLeft when the active chip overflows to the right", () => {
     const { rerender } = render(
       <TimelineStepChips
         items={items}
@@ -132,10 +135,10 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    const tablist = screen.getByRole("tablist");
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
     let scrollLeft = 0;
 
-    Object.defineProperty(tablist, "scrollLeft", {
+    Object.defineProperty(controls, "scrollLeft", {
       configurable: true,
       get: () => scrollLeft,
       set: (value: number) => {
@@ -146,7 +149,7 @@ describe("TimelineStepChips", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(function (
       this: Element
     ) {
-      if (this.getAttribute("role") === "tablist") {
+      if (this.getAttribute("role") === "group") {
         return {
           left: 0,
           right: 200,

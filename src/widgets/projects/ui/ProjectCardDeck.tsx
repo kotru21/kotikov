@@ -20,11 +20,8 @@ const ProjectCardDeck: React.FC = () => {
 
   if (projects.length === 0) return null;
 
-  const activeProject = projects[activeIndex];
-  const panelId = `project-panel-${activeProject.slug}`;
-
   return (
-    <div aria-roledescription="carousel" aria-label="Избранные проекты">
+    <div role="region" aria-roledescription="carousel" aria-label="Избранные проекты">
       <div
         className="relative mx-auto w-full max-w-md"
         style={{ minHeight: "calc(28rem + 1.5rem)" }}
@@ -35,14 +32,17 @@ const ProjectCardDeck: React.FC = () => {
           const role = getDeckCardRole(index, activeIndex, projects.length);
           const deckStyle = getDeckTransform(role, reducedMotion);
           const isActive = deckStyle.isActive;
-          const tabId = `project-tab-${project.slug}`;
 
           return (
             <div
               key={project.slug}
-              id={isActive ? panelId : undefined}
-              role={isActive ? "tabpanel" : undefined}
-              aria-labelledby={isActive ? tabId : undefined}
+              role={isActive ? "group" : undefined}
+              aria-roledescription={isActive ? "слайд" : undefined}
+              aria-label={
+                isActive
+                  ? `${String(index + 1)} из ${String(projects.length)}: ${project.title}`
+                  : undefined
+              }
               className={`absolute inset-x-0 top-0 origin-center ${motionClass}`}
               style={{
                 zIndex: deckStyle.zIndex,
@@ -83,26 +83,22 @@ const ProjectCardDeck: React.FC = () => {
         {activeIndex + 1} / {projects.length}
       </p>
 
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- handles keyboard events bubbled from the native project buttons */}
       <div
-        className="focus-visible:ring-primary-500 mt-3 flex items-center justify-center gap-1 px-1 py-2 outline-none focus-visible:ring-2"
-        role="tablist"
-        aria-label="Избранные проекты"
-        tabIndex={0}
+        className="mt-3 flex items-center justify-center gap-1 px-1 py-2"
+        role="group"
+        aria-label="Выбор проекта"
         onKeyDown={handleKeyDown}
       >
         {projects.map((project, index) => {
-          const tabId = `project-tab-${project.slug}`;
           const isSelected = index === activeIndex;
 
           return (
             <button
               key={project.slug}
-              id={tabId}
               type="button"
-              role="tab"
-              aria-selected={isSelected}
-              aria-controls={panelId}
-              aria-label={project.title}
+              aria-pressed={isSelected}
+              aria-label={`Выбрать проект ${project.title}`}
               onClick={() => {
                 goTo(index);
               }}

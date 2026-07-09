@@ -34,13 +34,13 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   onSelect,
   onKeyDown,
 }) => {
-  const tablistRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<HTMLDivElement>(null);
   const prevActiveIndexRef = useRef<number | null>(null);
   const motionClass = reducedMotion ? "duration-0" : chipMotionClass;
 
   useEffect(() => {
-    const tablist = tablistRef.current;
-    if (tablist === null) return;
+    const controls = controlsRef.current;
+    if (controls === null) return;
 
     if (prevActiveIndexRef.current === null) {
       prevActiveIndexRef.current = activeIndex;
@@ -50,39 +50,34 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
     if (prevActiveIndexRef.current === activeIndex) return;
     prevActiveIndexRef.current = activeIndex;
 
-    const activeTab = tablist.querySelector<HTMLElement>(
+    const activeChip = controls.querySelector<HTMLElement>(
       `[data-timeline-chip-index="${String(activeIndex)}"]`
     );
-    if (activeTab === null) return;
+    if (activeChip === null) return;
 
-    const tablistRect = tablist.getBoundingClientRect();
-    const tabRect = activeTab.getBoundingClientRect();
-    const overflowLeft = tabRect.left - tablistRect.left;
-    const overflowRight = tabRect.right - tablistRect.right;
+    const controlsRect = controls.getBoundingClientRect();
+    const chipRect = activeChip.getBoundingClientRect();
+    const overflowLeft = chipRect.left - controlsRect.left;
+    const overflowRight = chipRect.right - controlsRect.right;
 
     if (overflowLeft < 0) {
-      tablist.scrollLeft += overflowLeft;
+      controls.scrollLeft += overflowLeft;
     } else if (overflowRight > 0) {
-      tablist.scrollLeft += overflowRight;
+      controls.scrollLeft += overflowRight;
     }
   }, [activeIndex]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- handles keyboard events bubbled from the native timeline buttons
     <div
-      ref={tablistRef}
-      role="tablist"
+      ref={controlsRef}
+      role="group"
       aria-label="Этапы опыта"
-      tabIndex={onKeyDown === undefined ? undefined : 0}
       onKeyDown={onKeyDown}
-      className={`flex w-full snap-x snap-mandatory scrollbar-none gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden${
-        onKeyDown === undefined
-          ? ""
-          : "focus-visible:ring-primary-500 outline-none focus-visible:ring-2"
-      }`}
+      className="flex w-full snap-x snap-mandatory scrollbar-none gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
     >
       {items.map((entry, index) => {
         const isActive = index === activeIndex;
-        const tabId = `timeline-tab-${String(entry.id)}`;
         const label = getTypeLabel(entry.type);
         const chipAriaLabel = `${extractYear(entry.period)} · ${label}`;
         const typeAccent = getTimelineTypeChipClass(entry.type, isActive);
@@ -91,11 +86,9 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
         return (
           <button
             key={entry.id}
-            id={tabId}
             type="button"
-            role="tab"
             data-timeline-chip-index={index}
-            aria-selected={isActive}
+            aria-pressed={isActive}
             aria-controls={panelId}
             aria-label={chipAriaLabel}
             onClick={() => {
