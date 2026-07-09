@@ -26,6 +26,22 @@ describe("ProjectCard details toggle", () => {
     expect(button).toHaveAttribute("aria-controls", controlsId);
   });
 
+  it("shows the project outcome while collapsed", () => {
+    render(
+      <ProjectCard
+        project={project}
+        detailsToggle={{
+          isExpanded: false,
+          controlsId,
+          onToggle: vi.fn(),
+        }}
+      />,
+    );
+
+    expect(screen.getByText("Результат")).toBeVisible();
+    expect(screen.getByText(project.details.outcome)).toBeVisible();
+  });
+
   it("calls onToggle when clicked", async () => {
     const onToggle = vi.fn();
     const user = userEvent.setup();

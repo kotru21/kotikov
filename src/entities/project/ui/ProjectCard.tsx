@@ -78,6 +78,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <p className="mt-4 max-w-[16rem] text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
           {project.summary}
         </p>
+        <p className="mt-3 max-w-[18rem] text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <span className="mr-2 font-mono text-xs font-bold tracking-[0.12em] uppercase">
+            Результат
+          </span>
+          {project.details.outcome}
+        </p>
       </div>
 
       <div className="relative z-10 mt-6 flex items-end justify-between gap-4">
