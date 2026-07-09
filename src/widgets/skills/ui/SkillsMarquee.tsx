@@ -10,7 +10,11 @@ import { Button, SectionHeader } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
-const SkillsMarquee: React.FC = () => {
+interface SkillsMarqueeProps {
+  headingId: string;
+}
+
+const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId }) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const showMarquee = !reducedMotion && !lowPerformance;
 
@@ -21,7 +25,7 @@ const SkillsMarquee: React.FC = () => {
           align="center"
           eyebrow="Навыки"
           title="Мои навыки"
-          titleId="skills-heading"
+          titleId={headingId}
           description="Технологии и инструменты, которыми я владею"
         />
         <p className="text-text-secondary mx-auto -mt-4 max-w-sm text-center text-base font-semibold dark:text-neutral-300">

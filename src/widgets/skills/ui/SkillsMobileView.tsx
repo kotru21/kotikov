@@ -6,12 +6,16 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
-import { Button, Section, SectionHeader } from "@/shared/ui";
+import { Button, SectionHeader } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
-const SkillsMobileView: React.FC = () => {
+interface SkillsMobileViewProps {
+  headingId: string;
+}
+
+const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const showMarquee = !reducedMotion && !lowPerformance;
 
@@ -41,19 +45,12 @@ const SkillsMobileView: React.FC = () => {
   }, []);
 
   return (
-    <Section
-      id="skills"
-      spacing="dense"
-      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="overflow-x-hidden"
-      innerClassName=""
-      aria-labelledby="skills-heading"
-    >
+    <div role="group" aria-labelledby={headingId}>
       <SectionHeader
         align="center"
         eyebrow="Навыки"
         title="Мои навыки"
-        titleId="skills-heading"
+        titleId={headingId}
         description="Технологии и инструменты, которыми я владею"
       />
       <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
@@ -116,7 +113,7 @@ const SkillsMobileView: React.FC = () => {
 
       {/* Сгруппированные теги навыков — всегда видны */}
       <SkillsGroupedTags />
-    </Section>
+    </div>
   );
 };
 

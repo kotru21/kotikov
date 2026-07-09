@@ -2,29 +2,25 @@
 
 import React, { useRef } from "react";
 
-import { BauhausGridPattern, Section } from "@/shared/ui";
+import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillsCursorNyancat, SkillsMarquee } from ".";
 
-const SkillsDesktopView: React.FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
+interface SkillsDesktopViewProps {
+  headingId: string;
+}
+
+const SkillsDesktopView: React.FC<SkillsDesktopViewProps> = ({ headingId }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <SkillsInteractionProvider>
-      <Section
-        ref={containerRef}
-        id="skills"
-        spacing="dense"
-        backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-        className="overflow-x-clip"
-        innerClassName="relative z-10 max-w-full"
-        aria-labelledby="skills-heading"
-      >
+      <div ref={containerRef} role="group" aria-labelledby={headingId} className="relative">
         <SkillsCursorNyancat containerRef={containerRef} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-        <SkillsMarquee />
-      </Section>
+        <SkillsMarquee headingId={headingId} />
+      </div>
     </SkillsInteractionProvider>
   );
 };
