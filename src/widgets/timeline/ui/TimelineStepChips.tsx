@@ -26,6 +26,15 @@ const activeChipShellClass = "shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0
 
 const chipMotionClass = "transition-[box-shadow,background-color,border-color,color] duration-200";
 
+const NAVIGATION_KEYS = new Set(["ArrowLeft", "ArrowRight", "Home", "End"]);
+
+function willTimelineIndexChange(key: string, activeIndex: number, itemCount: number): boolean {
+  const lastIndex = itemCount - 1;
+  if (key === "ArrowLeft" || key === "Home") return activeIndex > 0;
+  if (key === "ArrowRight" || key === "End") return activeIndex < lastIndex;
+  return false;
+}
+
 const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
   items,
   activeIndex,
@@ -36,6 +45,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
 }) => {
   const controlsRef = useRef<HTMLDivElement>(null);
   const prevActiveIndexRef = useRef<number | null>(null);
+  const shouldFocusActiveControlRef = useRef(false);
   const motionClass = reducedMotion ? "duration-0" : chipMotionClass;
 
   useEffect(() => {
@@ -55,6 +65,11 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
     );
     if (activeChip === null) return;
 
+    if (shouldFocusActiveControlRef.current) {
+      shouldFocusActiveControlRef.current = false;
+      activeChip.focus();
+    }
+
     const controlsRect = controls.getBoundingClientRect();
     const chipRect = activeChip.getBoundingClientRect();
     const overflowLeft = chipRect.left - controlsRect.left;
@@ -67,13 +82,22 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
     }
   }, [activeIndex]);
 
+  const handleControlsKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    const isNavigationKey = onKeyDown !== undefined && NAVIGATION_KEYS.has(event.key);
+    if (isNavigationKey) shouldFocusActiveControlRef.current = true;
+    onKeyDown?.(event);
+    if (isNavigationKey && !willTimelineIndexChange(event.key, activeIndex, items.length)) {
+      shouldFocusActiveControlRef.current = false;
+    }
+  };
+
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- handles keyboard events bubbled from the native timeline buttons
     <div
       ref={controlsRef}
       role="group"
       aria-label="Этапы опыта"
-      onKeyDown={onKeyDown}
+      onKeyDown={handleControlsKeyDown}
       className="flex w-full snap-x snap-mandatory scrollbar-none gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
     >
       {items.map((entry, index) => {

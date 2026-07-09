@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { timelineData } from "@/shared/config/content";
@@ -50,5 +50,20 @@ describe("TimelineView mobile a11y", () => {
     for (const slide of inactiveSlides) {
       expect(slide).toHaveAttribute("inert");
     }
+  });
+
+  it("updates keyboard focus, panel label, and live counter together", () => {
+    render(<TimelineView />);
+    const firstChip = screen.getByRole("button", { name: "2023 · Хакатон" });
+    const secondChip = screen.getByRole("button", { name: "2024 · Обучение" });
+
+    firstChip.focus();
+    fireEvent.keyDown(firstChip, { key: "ArrowRight" });
+
+    expect(secondChip).toHaveFocus();
+    expect(
+      screen.getByRole("group", { name: `2 из ${String(timelineData.length)}` })
+    ).toBeInTheDocument();
+    expect(screen.getByText(`2 / ${String(timelineData.length)}`)).toBeInTheDocument();
   });
 });

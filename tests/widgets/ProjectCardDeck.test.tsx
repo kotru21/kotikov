@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention -- vi.mock factory keys must match named exports */
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { projectsData } from "@/shared/config/content";
@@ -13,6 +13,12 @@ vi.mock("@/features/performance", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
 
+function getProjectControl(index: number): HTMLElement {
+  return screen.getByRole("button", {
+    name: `Выбрать проект ${projectsData[index].title}`,
+  });
+}
+
 describe("ProjectCardDeck semantics", () => {
   it("exposes the carousel and native project controls", () => {
     render(<ProjectCardDeck />);
@@ -23,7 +29,7 @@ describe("ProjectCardDeck semantics", () => {
       name: /Выбрать проект/,
     });
 
-    expect(carousel).toHaveAttribute("aria-roledescription", "carousel");
+    expect(carousel).toHaveAttribute("aria-roledescription", "карусель");
     expect(controls).not.toHaveAttribute("tabindex");
     expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
     expect(projectButtons).toHaveLength(projectsData.length);
@@ -42,5 +48,37 @@ describe("ProjectCardDeck semantics", () => {
     });
 
     expect(activeSlide).toHaveAttribute("aria-roledescription", "слайд");
+  });
+
+  it("synchronizes focus, state, slide, and counter for keyboard navigation", () => {
+    render(<ProjectCardDeck />);
+    const firstControl = getProjectControl(0);
+    const secondControl = getProjectControl(1);
+
+    firstControl.focus();
+    fireEvent.keyDown(firstControl, { key: "ArrowRight" });
+
+    expect(secondControl).toHaveFocus();
+    expect(firstControl).toHaveAttribute("aria-pressed", "false");
+    expect(secondControl).toHaveAttribute("aria-pressed", "true");
+    expect(
+      screen.getByRole("group", {
+        name: `2 из ${String(projectsData.length)}: ${projectsData[1].title}`,
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByText(`2 / ${String(projectsData.length)}`)).toBeInTheDocument();
+  });
+
+  it("moves focus to the Home and End destinations", () => {
+    render(<ProjectCardDeck />);
+    const firstControl = getProjectControl(0);
+    const secondControl = getProjectControl(1);
+    const lastControl = getProjectControl(projectsData.length - 1);
+
+    secondControl.focus();
+    fireEvent.keyDown(secondControl, { key: "End" });
+    expect(lastControl).toHaveFocus();
+    fireEvent.keyDown(lastControl, { key: "Home" });
+    expect(firstControl).toHaveFocus();
   });
 });

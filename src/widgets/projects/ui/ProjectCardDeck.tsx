@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { ProjectCardExpandable } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
@@ -10,18 +10,44 @@ import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
 import { getDeckCardRole, getDeckTransform } from "./getDeckTransform";
 import { useProjectDeck } from "./useProjectDeck";
 
+const NAVIGATION_KEYS = new Set(["ArrowLeft", "ArrowRight", "Home", "End"]);
+
+function willProjectIndexChange(key: string, activeIndex: number, count: number): boolean {
+  if (count <= 1) return false;
+  if (key === "Home") return activeIndex !== 0;
+  if (key === "End") return activeIndex !== count - 1;
+  return key === "ArrowLeft" || key === "ArrowRight";
+}
+
 const ProjectCardDeck: React.FC = () => {
   const projects = projectsData;
   const { reducedMotion } = usePerformanceSettings();
   const motionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
+  const controlRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const shouldFocusActiveControlRef = useRef(false);
   const { activeIndex, goTo, handleKeyDown, handleTouchStart, handleTouchEnd } = useProjectDeck({
     count: projects.length,
   });
 
+  useEffect(() => {
+    if (!shouldFocusActiveControlRef.current) return;
+    shouldFocusActiveControlRef.current = false;
+    controlRefs.current[activeIndex]?.focus();
+  }, [activeIndex]);
+
+  const handleControlsKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    const isNavigationKey = NAVIGATION_KEYS.has(event.key);
+    if (isNavigationKey) shouldFocusActiveControlRef.current = true;
+    handleKeyDown(event);
+    if (isNavigationKey && !willProjectIndexChange(event.key, activeIndex, projects.length)) {
+      shouldFocusActiveControlRef.current = false;
+    }
+  };
+
   if (projects.length === 0) return null;
 
   return (
-    <div role="region" aria-roledescription="carousel" aria-label="Избранные проекты">
+    <div role="region" aria-roledescription="карусель" aria-label="Избранные проекты">
       <div
         className="relative mx-auto w-full max-w-md"
         style={{ minHeight: "calc(28rem + 1.5rem)" }}
@@ -88,7 +114,7 @@ const ProjectCardDeck: React.FC = () => {
         className="mt-3 flex items-center justify-center gap-1 px-1 py-2"
         role="group"
         aria-label="Выбор проекта"
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleControlsKeyDown}
       >
         {projects.map((project, index) => {
           const isSelected = index === activeIndex;
@@ -96,6 +122,9 @@ const ProjectCardDeck: React.FC = () => {
           return (
             <button
               key={project.slug}
+              ref={(control) => {
+                controlRefs.current[index] = control;
+              }}
               type="button"
               aria-pressed={isSelected}
               aria-label={`Выбрать проект ${project.title}`}

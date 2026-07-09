@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { TimelineItem } from "@/entities/timeline";
+import { useTimelineCarousel } from "@/widgets/timeline";
 import { TimelineStepChips } from "@/widgets/timeline/ui";
 
 const items: TimelineItem[] = [
@@ -42,6 +43,32 @@ const items: TimelineItem[] = [
     type: "hackathon",
   },
 ];
+
+function TimelineStepChipsHarness(): React.JSX.Element {
+  const { activeIndex, goTo, handleKeyDown } = useTimelineCarousel({
+    itemCount: items.length,
+  });
+
+  return (
+    <>
+      <button type="button">Внешний элемент</button>
+      <TimelineStepChips
+        items={items}
+        activeIndex={activeIndex}
+        panelId="timeline-panel-test"
+        reducedMotion
+        onSelect={goTo}
+        onKeyDown={handleKeyDown}
+      />
+      <div id="timeline-panel-test" />
+    </>
+  );
+}
+
+function getTimelineChip(index: number): HTMLElement {
+  const labels = ["2023 · Хакатон", "2024 · Обучение", "2025 · Работа", "2026 · Хакатон"];
+  return screen.getByRole("button", { name: labels[index] });
+}
 
 describe("TimelineStepChips", () => {
   afterEach(() => {
@@ -201,5 +228,44 @@ describe("TimelineStepChips", () => {
     );
 
     expect(scrollLeft).toBe(150);
+  });
+
+  it("synchronizes focus and pressed state for keyboard navigation", () => {
+    render(<TimelineStepChipsHarness />);
+    const firstChip = getTimelineChip(0);
+    const secondChip = getTimelineChip(1);
+
+    firstChip.focus();
+    fireEvent.keyDown(firstChip, { key: "ArrowRight" });
+
+    expect(secondChip).toHaveFocus();
+    expect(firstChip).toHaveAttribute("aria-pressed", "false");
+    expect(secondChip).toHaveAttribute("aria-pressed", "true");
+    expect(secondChip).toHaveAttribute("aria-controls", "timeline-panel-test");
+    expect(document.getElementById("timeline-panel-test")).toBeInTheDocument();
+  });
+
+  it("moves focus to the Home and End chip destinations", () => {
+    render(<TimelineStepChipsHarness />);
+    const firstChip = getTimelineChip(0);
+    const secondChip = getTimelineChip(1);
+    const lastChip = getTimelineChip(items.length - 1);
+
+    secondChip.focus();
+    fireEvent.keyDown(secondChip, { key: "End" });
+    expect(lastChip).toHaveFocus();
+    fireEvent.keyDown(lastChip, { key: "Home" });
+    expect(firstChip).toHaveFocus();
+  });
+
+  it("does not move focus after pointer selection", () => {
+    render(<TimelineStepChipsHarness />);
+    const outsideButton = screen.getByRole("button", { name: "Внешний элемент" });
+
+    outsideButton.focus();
+    fireEvent.click(getTimelineChip(1));
+
+    expect(outsideButton).toHaveFocus();
+    expect(getTimelineChip(1)).toHaveAttribute("aria-pressed", "true");
   });
 });
