@@ -5,7 +5,7 @@ import React from "react";
 import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
-import { formatExternalLinkLabel } from "@/shared/lib";
+import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -126,7 +126,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
             }
 
             const interactiveMode = variant === "light" ? "border" : "solid";
-            const opensNewTab = contact.link?.startsWith("http") ?? false;
+            const opensNewTab = contact.link !== undefined && isHttpUrl(contact.link);
 
             return (
               <div key={contact.label} className={`${gridClasses} h-full`}>

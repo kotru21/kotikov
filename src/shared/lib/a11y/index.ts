@@ -1,1 +1,1 @@
-export { formatExternalLinkLabel } from "./externalLink";
+export { formatExternalLinkLabel, isHttpUrl } from "./externalLink";

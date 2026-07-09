@@ -1,12 +1,19 @@
 import React from "react";
 
 import type { SocialLink } from "@/entities/navigation";
-import { formatExternalLinkLabel } from "@/shared/lib";
+import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { colors } from "@/styles/colors";
 
 interface FooterSocialProps {
   title: string;
   socialLinks: SocialLink[];
+}
+
+function getSocialLinkAccessibleName(link: SocialLink, opensNewTab: boolean): string {
+  if (opensNewTab) return formatExternalLinkLabel(link.name);
+  if (/^mailto:/i.test(link.url)) return "Написать по электронной почте";
+
+  return link.name;
 }
 
 const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
@@ -20,27 +27,30 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
         {title}
       </h3>
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
-        {socialLinks.map((link) => (
-          <a
-            key={link.url}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group focus-visible:ring-primary-500 relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
-            title={link.name}
-            aria-label={
-              link.url.startsWith("http") ? formatExternalLinkLabel(link.name) : link.name
-            }
-          >
-            <div
-              aria-hidden="true"
-              style={accentShadowStyle}
-              className="flex h-12 w-12 items-center justify-center border-2 border-black bg-transparent transition-all duration-300 hover:bg-black hover:shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:border-white dark:hover:bg-white"
+        {socialLinks.map((link) => {
+          const opensNewTab = isHttpUrl(link.url);
+          const accessibleName = getSocialLinkAccessibleName(link, opensNewTab);
+
+          return (
+            <a
+              key={link.url}
+              href={link.url}
+              target={opensNewTab ? "_blank" : undefined}
+              rel={opensNewTab ? "noopener noreferrer" : undefined}
+              className="group focus-visible:ring-primary-500 relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
+              title={link.name}
+              aria-label={accessibleName}
             >
-              <link.icon className="h-5 w-5 text-black transition-colors group-hover:text-white dark:text-white dark:group-hover:text-black" />
-            </div>
-          </a>
-        ))}
+              <div
+                aria-hidden="true"
+                style={accentShadowStyle}
+                className="flex h-12 w-12 items-center justify-center border-2 border-black bg-transparent transition-all duration-300 hover:bg-black hover:shadow-[4px_4px_0px_0px_var(--accent-shadow)] dark:border-white dark:hover:bg-white"
+              >
+                <link.icon className="h-5 w-5 text-black transition-colors group-hover:text-white dark:text-white dark:group-hover:text-black" />
+              </div>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
