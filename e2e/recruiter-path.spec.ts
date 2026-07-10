@@ -1,0 +1,18 @@
+import { expect, test } from "@playwright/test";
+
+test("recruiter can understand the profile and reach contact", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Kotikov" })).toBeVisible();
+  const contactAction = page.getByRole("link", { name: /^Связаться/ }).first();
+  await expect(contactAction).toHaveAttribute("href", "#contacts");
+
+  await page.locator("#projects").scrollIntoViewIfNeeded();
+  await expect(page.locator("#projects")).toBeVisible();
+
+  await contactAction.click();
+  await expect(page).toHaveURL(/#contacts$/);
+  await expect(page.locator("#contacts")).toBeVisible();
+  await expect(page.locator("#contacts").getByRole("link", { name: /Написать:/ })).toBeVisible();
+  await expect(page.locator("#contacts").getByRole("link", { name: /Telegram/ })).toBeVisible();
+});
