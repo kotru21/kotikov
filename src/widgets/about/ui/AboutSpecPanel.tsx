@@ -10,7 +10,6 @@ const commentToneClass = "text-text-secondary dark:text-neutral-400";
 const keywordClass = "text-text-primary font-bold dark:text-text-inverse";
 const stringClass = "text-primary-900 dark:text-primary-300";
 const keyClass = "text-text-primary dark:text-text-inverse";
-const commitTypeClass = "text-primary-800 font-bold dark:text-primary-400";
 
 const TAB_ORDER: AboutPanelTab[] = ["spec", "principles"];
 
@@ -60,36 +59,28 @@ function AboutSpecCode(): React.ReactElement {
 }
 
 function AboutPrinciplesList(): React.ReactElement {
-  const { principles } = aboutContent;
-
   return (
-    <ul className="flex list-none flex-col gap-3 p-4 sm:gap-4 sm:p-6">
-      {principles.map((entry) => (
+    <ul className="flex list-none flex-col justify-center gap-4 p-4 sm:gap-5 sm:p-6">
+      {aboutContent.principles.map((line) => (
         <li
-          key={entry.type}
-          className="border-2 border-black bg-white dark:border-white dark:bg-black"
+          key={line}
+          className="text-text-primary dark:text-text-inverse text-sm leading-relaxed sm:text-base"
         >
-          <div className="flex flex-col gap-2 p-3 sm:flex-row sm:items-baseline sm:gap-4 sm:p-4">
-            <span
-              className={`${commitTypeClass} bg-primary-500 inline-flex shrink-0 border-2 border-black px-2 py-0.5 font-mono text-xs tracking-wide uppercase dark:border-white`}
-            >
-              {entry.type}
-            </span>
-            <p className="text-text-primary dark:text-text-inverse text-sm leading-relaxed sm:text-base">
-              {entry.text}
-            </p>
-          </div>
+          {line}
         </li>
       ))}
     </ul>
   );
 }
 
+function panelVisibilityClass(isActive: boolean): string {
+  return isActive ? "visible z-10" : "invisible pointer-events-none z-0";
+}
+
 const AboutSpecPanel: React.FC = () => {
   const { body, spec, principles } = aboutContent;
   const [activeTab, setActiveTab] = useState<AboutPanelTab>("spec");
   const baseId = useId();
-  const accessiblePrinciples = principles.map((entry) => `${entry.type}: ${entry.text}`).join(". ");
 
   function handleTabKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
     const currentIndex = TAB_ORDER.indexOf(activeTab);
@@ -101,12 +92,10 @@ const AboutSpecPanel: React.FC = () => {
     }
   }
 
-  const panelTitle = activeTab === "spec" ? spec.fileName : TAB_LABELS.principles;
-
   return (
     <figure className="w-full max-w-[75ch]">
       <figcaption className="sr-only">
-        {body} Принципы: {accessiblePrinciples}
+        {body} Принципы: {principles.join(". ")}
       </figcaption>
 
       <div className="border-l-primary-500 dark:border-l-primary-400 border-y-2 border-r-2 border-l-4 border-black bg-white dark:border-white dark:bg-black">
@@ -115,7 +104,7 @@ const AboutSpecPanel: React.FC = () => {
             aria-hidden="true"
             className="bg-primary-500 inline-flex items-center border-r-2 border-black px-4 py-2 text-xs font-bold tracking-wide text-black uppercase dark:border-white"
           >
-            {panelTitle}
+            {spec.fileName}
           </span>
 
           <div role="tablist" aria-label="Вид блока Обо мне" className="ml-auto flex">
@@ -146,24 +135,27 @@ const AboutSpecPanel: React.FC = () => {
           </div>
         </div>
 
-        <div
-          role="tabpanel"
-          id={`${baseId}-spec-panel`}
-          aria-labelledby={`${baseId}-spec-tab`}
-          hidden={activeTab !== "spec"}
-          aria-hidden="true"
-        >
-          <AboutSpecCode />
-        </div>
+        {/* Stack both faces in one grid cell: height = max(Spec, Principles), no CLS on switch */}
+        <div data-about-tab-stack className="grid">
+          <div
+            role="tabpanel"
+            id={`${baseId}-spec-panel`}
+            aria-labelledby={`${baseId}-spec-tab`}
+            aria-hidden={activeTab !== "spec"}
+            className={`col-start-1 row-start-1 ${panelVisibilityClass(activeTab === "spec")}`}
+          >
+            <AboutSpecCode />
+          </div>
 
-        <div
-          role="tabpanel"
-          id={`${baseId}-principles-panel`}
-          aria-labelledby={`${baseId}-principles-tab`}
-          hidden={activeTab !== "principles"}
-          aria-hidden="true"
-        >
-          <AboutPrinciplesList />
+          <div
+            role="tabpanel"
+            id={`${baseId}-principles-panel`}
+            aria-labelledby={`${baseId}-principles-tab`}
+            aria-hidden={activeTab !== "principles"}
+            className={`col-start-1 row-start-1 ${panelVisibilityClass(activeTab === "principles")}`}
+          >
+            <AboutPrinciplesList />
+          </div>
         </div>
       </div>
     </figure>

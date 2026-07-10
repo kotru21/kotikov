@@ -83,13 +83,16 @@ describe("content model", () => {
     expect(skillsStackLine.toLowerCase()).not.toContain("next.js");
   });
 
-  it("defines an about block with three typed principles", () => {
+  it("defines an about block with three plain InfoSec principles", () => {
     expect(aboutContent.principles).toHaveLength(3);
     for (const principle of aboutContent.principles) {
-      expect(principle.type).toMatch(/^(feat|a11y|perf)$/);
-      expect(principle.text.length).toBeGreaterThan(0);
+      expect(typeof principle).toBe("string");
+      expect(principle.length).toBeGreaterThan(0);
+      expect(principle).not.toMatch(/^(feat|a11y|perf):/);
+      expect(principle).not.toMatch(/^>/);
     }
-    expect(aboutContent.principles.map((p) => p.type)).toEqual(["feat", "a11y", "perf"]);
+    expect(aboutContent.principles.some((p) => /SOC/i.test(p))).toBe(true);
+    expect(aboutContent.principles.some((p) => /AppSec/i.test(p))).toBe(true);
     expect(aboutContent.spec.fields.find((f) => f.key === "role")?.value).not.toBe("frontend");
   });
 
