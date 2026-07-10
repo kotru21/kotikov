@@ -91,6 +91,9 @@ describe("ProjectCardDeck semantics", () => {
     expect(stack).not.toBeNull();
     expect(deck.querySelector('[style*="28rem"]')).toBeNull();
     expect(stack).toHaveClass("grid", "w-full", "max-w-md");
-    expect(stack!.querySelectorAll(".col-start-1.row-start-1").length).toBe(projectsData.length);
+    if (!(stack instanceof HTMLElement)) {
+      throw new Error("Expected deck stack element");
+    }
+    expect(stack.querySelectorAll(".col-start-1.row-start-1").length).toBe(projectsData.length);
   });
 });

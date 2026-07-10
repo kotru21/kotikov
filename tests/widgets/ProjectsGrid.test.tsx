@@ -15,7 +15,7 @@ describe("ProjectsGrid", () => {
       class {
         observe = vi.fn();
         disconnect = vi.fn();
-      },
+      }
     );
 
     vi.stubGlobal("matchMedia", (query: string) => ({
@@ -83,7 +83,10 @@ describe("ProjectsGrid", () => {
     expect(toggleButtons[1]).toHaveAttribute("aria-expanded", "true");
     expect(toggleButtons[1]).toHaveAccessibleName(/свернуть/i);
 
-    const cardRoots = Array.from(grid!.children);
+    if (!(grid instanceof HTMLElement)) {
+      throw new Error("Expected projects grid element");
+    }
+    const cardRoots = Array.from(grid.children);
     expect(cardRoots).toHaveLength(3);
     for (const card of cardRoots) {
       expect(card.className).not.toMatch(/col-span-2/);

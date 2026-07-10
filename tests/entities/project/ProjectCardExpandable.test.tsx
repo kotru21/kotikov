@@ -17,7 +17,7 @@ describe("ProjectCardExpandable", () => {
         isExpanded={false}
         onExpandedChange={onExpandedChange}
         reducedMotion
-      />,
+      />
     );
 
     await user.click(screen.getByRole("button", { name: /подробнее/i }));

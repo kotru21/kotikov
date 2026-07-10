@@ -34,9 +34,7 @@ describe("ProjectDetailSheet", () => {
     const onClose = vi.fn();
     const project = projectsData[1];
 
-    render(
-      <ProjectDetailSheet project={project} isOpen onClose={onClose} reducedMotion />,
-    );
+    render(<ProjectDetailSheet project={project} isOpen onClose={onClose} reducedMotion />);
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     await user.keyboard("{Escape}");
@@ -47,9 +45,7 @@ describe("ProjectDetailSheet", () => {
     const user = userEvent.setup();
     const onClose = vi.fn();
 
-    render(
-      <ProjectDetailSheet project={projectsData[1]} isOpen onClose={onClose} reducedMotion />,
-    );
+    render(<ProjectDetailSheet project={projectsData[1]} isOpen onClose={onClose} reducedMotion />);
 
     await user.click(screen.getByTestId("project-detail-overlay"));
     expect(onClose).toHaveBeenCalledOnce();
@@ -57,11 +53,18 @@ describe("ProjectDetailSheet", () => {
 
   it("applies motion transition classes when reducedMotion is disabled", () => {
     render(
-      <ProjectDetailSheet project={projectsData[1]} isOpen onClose={vi.fn()} reducedMotion={false} />,
+      <ProjectDetailSheet
+        project={projectsData[1]}
+        isOpen
+        onClose={vi.fn()}
+        reducedMotion={false}
+      />
     );
 
     expect(screen.getByTestId("project-detail-overlay").className).toContain("transition-opacity");
-    expect(screen.getByRole("dialog", { hidden: true }).className).toContain("transition-transform");
+    expect(screen.getByRole("dialog", { hidden: true }).className).toContain(
+      "transition-transform"
+    );
     expect(screen.getByRole("dialog", { hidden: true }).className).toContain("translate-y-full");
   });
 
@@ -80,7 +83,7 @@ describe("ProjectDetailSheet", () => {
           returnFocusRef={triggerRef}
           reducedMotion
         />
-      </>,
+      </>
     );
 
     await waitFor(() => {
@@ -106,9 +109,7 @@ describe("ProjectDetailSheet", () => {
   it("keeps tab focus inside the dialog", async () => {
     const user = userEvent.setup({ pointerEventsCheck: 0 });
 
-    render(
-      <ProjectDetailSheet project={projectsData[1]} isOpen onClose={vi.fn()} reducedMotion />,
-    );
+    render(<ProjectDetailSheet project={projectsData[1]} isOpen onClose={vi.fn()} reducedMotion />);
 
     const dialogClose = screen.getAllByRole("button", { name: /закрыть подробности проекта/i })[1];
     dialogClose.focus();

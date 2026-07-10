@@ -18,14 +18,16 @@ interface ProjectDetailSheetProps {
 const SHEET_TRANSITION_MS = 400;
 
 function getFocusableElements(dialogElement: HTMLDivElement): HTMLElement[] {
-  return [...dialogElement.querySelectorAll<HTMLElement>(
-    'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-  )].filter((element) => element.offsetParent !== null || element === document.activeElement);
+  return [
+    ...dialogElement.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ),
+  ].filter((element) => element.offsetParent !== null || element === document.activeElement);
 }
 
 function restoreFocus(
   dialogElement: HTMLDivElement | null,
-  returnFocusRef?: React.RefObject<HTMLElement | null>,
+  returnFocusRef?: React.RefObject<HTMLElement | null>
 ): void {
   const returnTarget = returnFocusRef?.current;
   if (returnTarget) {
@@ -237,7 +239,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
         />
       </div>
     </div>,
-    document.body,
+    document.body
   );
 };
 
