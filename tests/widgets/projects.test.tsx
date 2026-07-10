@@ -18,6 +18,6 @@ describe("ProjectsWidget", () => {
     expect(screen.getByRole("heading", { name: /избранные/i })).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /код/i })).toHaveLength(4);
     expect(screen.getAllByRole("button", { name: /подробнее/i }).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("File Manager")).toHaveLength(2);
+    expect(screen.getAllByText("CodeAnalyzer")).toHaveLength(2);
   });
 });

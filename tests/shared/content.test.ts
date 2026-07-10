@@ -3,8 +3,10 @@ import { describe, expect, it } from "vitest";
 import {
   aboutContent,
   contactsData,
+  footerInfo,
   headerContent,
   navigation,
+  personData,
   projectsData,
   skillGroups,
   skillsData,
@@ -38,8 +40,20 @@ describe("content model", () => {
     });
   });
 
-  it("surfaces three featured projects with required fields", () => {
+  it("positions the hero as SOC, not frontend", () => {
+    expect(headerContent.eyebrow).toBe("Арсений Котиков · SOC");
+    expect(headerContent.title).toBe("Kotikov");
+    expect(headerContent.subtitle.toLowerCase()).not.toContain("frontend");
+    expect(headerContent.subtitle.length).toBeGreaterThan(40);
+  });
+
+  it("surfaces three featured projects with CodeAnalyzer first", () => {
     expect(projectsData).toHaveLength(3);
+    expect(projectsData.map((p) => p.slug)).toEqual([
+      "code-analyzer",
+      "bsuir-iis-api",
+      "web-messenger",
+    ]);
     for (const p of projectsData) {
       expect(p.title).toBeTruthy();
       expect(p.repoUrl).toMatch(/^https:\/\/github\.com\//);
@@ -55,9 +69,18 @@ describe("content model", () => {
     }
   });
 
-  it("drops percentage levels from skills and groups them", () => {
+  it("drops percentage levels from skills and groups them for IB", () => {
     expect(skillsData.every((s) => !("level" in s))).toBe(true);
-    expect(skillGroups.map((g) => g.title)).toEqual(["Frontend", "Backend", "Инструменты"]);
+    expect(skillGroups.map((g) => g.title)).toEqual([
+      "Security & DFIR",
+      "Offensive / практика",
+      "Development",
+    ]);
+    expect(
+      skillsData.every((s) =>
+        s.category === "security" || s.category === "offensive" || s.category === "development"
+      )
+    ).toBe(true);
   });
 
   it("defines an about block with three typed principles", () => {
@@ -67,6 +90,13 @@ describe("content model", () => {
       expect(principle.text.length).toBeGreaterThan(0);
     }
     expect(aboutContent.principles.map((p) => p.type)).toEqual(["feat", "a11y", "perf"]);
+    expect(aboutContent.spec.fields.find((f) => f.key === "role")?.value).not.toBe("frontend");
+  });
+
+  it("keeps person SEO on SOC / AppSec", () => {
+    expect(personData.jobTitle).toBe("SOC / AppSec");
+    expect(personData.description.toLowerCase()).not.toMatch(/frontend разработчик/);
+    expect(footerInfo.description.toLowerCase()).not.toContain("frontend-разработчик");
   });
 
   it("orders contacts Email then Telegram then GitHub", () => {
@@ -75,18 +105,18 @@ describe("content model", () => {
 });
 
 describe("timeline data", () => {
-  it("contains exactly four non-project entries in chronological order", () => {
-    expect(timelineData).toHaveLength(4);
-    expect(timelineData.map((e) => e.id)).toEqual([1, 2, 4, 7]);
+  it("contains exactly three non-project entries without hackathons", () => {
+    expect(timelineData).toHaveLength(3);
     expect(timelineData.every((e) => e.type !== "project")).toBe(true);
+    expect(timelineData.every((e) => e.type !== "hackathon")).toBe(true);
+    expect(timelineData.map((e) => e.company)).toEqual(["hoster.by", "Innowise", "БГУИР"]);
   });
 
   it("uses unified period strings", () => {
     expect(timelineData.map((e) => e.period)).toEqual([
-      "2023",
-      "2024 — н.в.",
+      "2026 — н.в.",
       "июн 2025 — ноя 2025",
-      "2026",
+      "2024 — н.в.",
     ]);
   });
 
@@ -97,5 +127,12 @@ describe("timeline data", () => {
       expect(entry.description).toBeTruthy();
       expect(entry.technologies.length).toBeGreaterThanOrEqual(1);
     }
+  });
+
+  it("keeps SOC copy careful (no incident narrative keywords)", () => {
+    const soc = timelineData.find((e) => e.company === "hoster.by");
+    expect(soc).toBeDefined();
+    const text = `${soc!.title} ${soc!.description}`.toLowerCase();
+    expect(text).not.toMatch(/ransomware|anydesk|ioc|payload/);
   });
 });
