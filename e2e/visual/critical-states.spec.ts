@@ -1,8 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 import { prepareStableVisual } from "../helpers/prepareStableVisual";
 
-async function stabilizeAfterNavigate(page: import("@playwright/test").Page): Promise<void> {
+async function stabilizeAfterNavigate(page: Page): Promise<void> {
   await page.evaluate(() => document.fonts.ready);
   await page.addStyleTag({
     content: `
@@ -16,18 +16,23 @@ async function stabilizeAfterNavigate(page: import("@playwright/test").Page): Pr
   });
 }
 
+const heroWidths = [375, 1440] as const;
+const timelineWidths = [375, 1024] as const;
+
 for (const theme of ["light", "dark"] as const) {
-  for (const width of [375, 1440] as const) {
-    test(`hero ${theme} ${width}`, async ({ page }) => {
+  for (const width of heroWidths) {
+    const widthLabel = String(width);
+    test(`hero ${theme} ${widthLabel}`, async ({ page }) => {
       await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
       await prepareStableVisual(page, theme);
-      await expect(page.locator("#header")).toHaveScreenshot(`hero-${theme}-${width}.png`);
+      await expect(page.locator("#header")).toHaveScreenshot(`hero-${theme}-${widthLabel}.png`);
     });
   }
 }
 
-for (const width of [375, 1440] as const) {
-  test(`expanded project light ${width}`, async ({ page }) => {
+for (const width of heroWidths) {
+  const widthLabel = String(width);
+  test(`expanded project light ${widthLabel}`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
     await prepareStableVisual(page, "light");
     await page.locator("#projects").scrollIntoViewIfNeeded();
@@ -35,7 +40,9 @@ for (const width of [375, 1440] as const) {
 
     const projectDetails = page.getByRole("region", { name: "Подробности проекта" });
     await expect(projectDetails).toBeVisible();
-    await expect(page.locator("#projects")).toHaveScreenshot(`project-expanded-light-${width}.png`);
+    await expect(page.locator("#projects")).toHaveScreenshot(
+      `project-expanded-light-${widthLabel}.png`
+    );
   });
 }
 
@@ -46,21 +53,23 @@ test("skills reduced-motion 1440", async ({ page }) => {
   await expect(page.locator("#skills")).toHaveScreenshot("skills-reduced-motion-1440.png");
 });
 
-for (const width of [375, 1024] as const) {
-  test(`timeline ${width}`, async ({ page }) => {
+for (const width of timelineWidths) {
+  const widthLabel = String(width);
+  test(`timeline ${widthLabel}`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
     await prepareStableVisual(page, "light");
     await page.locator("#experience").scrollIntoViewIfNeeded();
-    await expect(page.locator("#experience")).toHaveScreenshot(`timeline-light-${width}.png`);
+    await expect(page.locator("#experience")).toHaveScreenshot(`timeline-light-${widthLabel}.png`);
   });
 }
 
-for (const width of [375, 1440] as const) {
-  test(`contacts ${width}`, async ({ page }) => {
+for (const width of heroWidths) {
+  const widthLabel = String(width);
+  test(`contacts ${widthLabel}`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
     await prepareStableVisual(page, "light");
     await page.locator("#contacts").scrollIntoViewIfNeeded();
-    await expect(page.locator("#contacts")).toHaveScreenshot(`contacts-light-${width}.png`);
+    await expect(page.locator("#contacts")).toHaveScreenshot(`contacts-light-${widthLabel}.png`);
   });
 }
 
@@ -72,8 +81,9 @@ test("mobile menu 375", async ({ page }) => {
   await expect(page.getByRole("dialog")).toHaveScreenshot("mobile-menu-light-375.png");
 });
 
-for (const width of [375, 1440] as const) {
-  test(`404 ${width}`, async ({ page }) => {
+for (const width of heroWidths) {
+  const widthLabel = String(width);
+  test(`404 ${widthLabel}`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
     await page.addInitScript(() => {
       localStorage.setItem("theme", "light");
@@ -84,6 +94,6 @@ for (const width of [375, 1440] as const) {
     await stabilizeAfterNavigate(page);
     const recovery = page.getByRole("heading", { name: "Страница не найдена" }).locator("..");
     await expect(recovery).toBeVisible();
-    await expect(recovery).toHaveScreenshot(`not-found-light-${width}.png`);
+    await expect(recovery).toHaveScreenshot(`not-found-light-${widthLabel}.png`);
   });
 }
