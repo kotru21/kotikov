@@ -14,6 +14,7 @@ interface InteractionOverlayProps {
   isMobile: boolean;
   onMouseEnter: () => void;
   onClick: () => void;
+  isMotionActive?: boolean;
 }
 
 export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
@@ -25,12 +26,14 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
   isMobile,
   onMouseEnter,
   onClick,
+  isMotionActive = true,
 }) => {
   const config = SIZE_CONFIG[size];
 
   return (
     <div
       aria-hidden="true"
+      data-motion-active={isMotionActive}
       style={{
         position: "absolute",
         top: position.top,
@@ -42,6 +45,7 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
         cursor: isMobile ? "pointer" : "default",
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
+        animationPlayState: isMotionActive ? "running" : "paused",
         pointerEvents: "auto",
       }}
       onMouseEnter={onMouseEnter}

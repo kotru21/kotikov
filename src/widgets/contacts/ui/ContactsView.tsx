@@ -21,6 +21,7 @@ interface ContactsViewProps {
   enablePaint: boolean;
   onClearCanvas: () => void;
   canvasRef: React.RefObject<ContactCanvasRef | null>;
+  sectionRef?: React.RefObject<HTMLElement | null>;
   onPointerEnter: React.PointerEventHandler<HTMLElement>;
   onPointerMove: React.PointerEventHandler<HTMLElement>;
   onPointerLeave: React.PointerEventHandler<HTMLElement>;
@@ -40,6 +41,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   enablePaint,
   onClearCanvas,
   canvasRef,
+  sectionRef,
   onPointerEnter,
   onPointerMove,
   onPointerLeave,
@@ -49,6 +51,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
 }) => {
   return (
     <Section
+      ref={sectionRef}
       id="contacts"
       spacing="cta"
       className="relative overflow-hidden"

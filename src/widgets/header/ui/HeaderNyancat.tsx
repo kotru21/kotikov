@@ -4,7 +4,11 @@ import React from "react";
 
 import { FlyingNyancat } from "@/features/nyancat";
 
-const HeaderNyancat: React.FC = () => {
+interface HeaderNyancatProps {
+  isMotionActive: boolean;
+}
+
+const HeaderNyancat: React.FC<HeaderNyancatProps> = ({ isMotionActive }) => {
   return (
     <>
       <FlyingNyancat
@@ -13,6 +17,8 @@ const HeaderNyancat: React.FC = () => {
         animationName="nyancat-fly"
         animationDuration="15s"
         zIndex={1}
+        isMotionActive={isMotionActive}
+        testId="header-nyancat"
       />
 
       {/* Стили анимации */}

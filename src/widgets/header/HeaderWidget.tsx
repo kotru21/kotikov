@@ -8,18 +8,22 @@ import {
   useInteractiveRegistry,
 } from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
 import { headerContent, navigation } from "@/shared/config/content";
 import type { GridPaintOverlayRef } from "@/shared/ui";
 
 import { HeaderBackground, HeaderHero, HeaderNavigation, HeaderNyancat } from "./ui";
 
 const HeaderWidget: React.FC = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
   const paintRef = useRef<GridPaintOverlayRef | null>(null);
 
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const enablePaint = !reducedMotion;
   const showDecorations = enablePaint && !lowPerformance;
+  const motion = useSceneMotionPolicy(headerRef, {
+    dominantEffect: showDecorations ? "flying-nyancat" : "paint",
+  });
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
@@ -47,6 +51,7 @@ const HeaderWidget: React.FC = () => {
 
   return (
     <div
+      ref={headerRef}
       id="header"
       className="bg-background-primary dark:bg-background-tertiary relative flex min-h-screen flex-col overflow-hidden transition-colors duration-300"
       style={{
@@ -62,7 +67,7 @@ const HeaderWidget: React.FC = () => {
     >
       <HeaderBackground paintRef={enablePaint ? paintRef : undefined} />
 
-      {showDecorations ? <HeaderNyancat /> : null}
+      {showDecorations ? <HeaderNyancat isMotionActive={motion.canRunContinuous} /> : null}
 
       <InteractiveTextContext value={registry}>
         <HeaderNavigation navigation={navigation} />

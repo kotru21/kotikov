@@ -92,7 +92,6 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           className="relative z-10 w-full lg:hidden"
           style={{
             transform: `translate3d(0, ${px(mobileIsland.topOffset)}, 0)`,
-            willChange: "transform",
           }}
         >
           <div
@@ -152,7 +151,6 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           className="hidden w-full justify-center lg:flex"
           style={{
             transform: `translate3d(0, ${px(desktopIsland.topOffset)}, 0)`,
-            willChange: "transform",
           }}
         >
           <div
