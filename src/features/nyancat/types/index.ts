@@ -14,6 +14,7 @@ export interface Pixel {
   shape: "square" | "circle" | "triangle";
   rotation: number;
   rotationSpeed: number;
+  opacity: number;
 }
 
 export interface FlyingNyancatProps {

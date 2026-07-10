@@ -45,6 +45,8 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
         animationDelay,
         animationPlayState: isMotionActive ? "running" : "paused",
         cursor: isMobile ? "pointer" : "default",
+        willChange: isMotionActive ? "transform" : "auto",
+        backfaceVisibility: "hidden",
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}

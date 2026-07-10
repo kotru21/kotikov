@@ -137,4 +137,20 @@ describe("ContactsWidget paint-enabled path", () => {
     fireEvent.click(screen.getByRole("button", { name: "Очистить рисунок" }));
     expect(initCanvas).toHaveBeenCalled();
   });
+
+  it("keeps the canvas mounted when the section leaves the viewport", () => {
+    motionState.reducedMotion = false;
+    motionState.lowPerformance = false;
+    motionState.isInView = true;
+    motionState.isDocumentVisible = true;
+
+    const { rerender } = render(<ContactsWidget />);
+    expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
+
+    motionState.isInView = false;
+    rerender(<ContactsWidget />);
+
+    expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Очистить рисунок" })).not.toBeInTheDocument();
+  });
 });

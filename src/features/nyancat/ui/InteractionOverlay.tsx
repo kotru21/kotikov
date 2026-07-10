@@ -47,6 +47,8 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
         animationDelay,
         animationPlayState: isMotionActive ? "running" : "paused",
         pointerEvents: "auto",
+        willChange: isMotionActive ? "transform" : "auto",
+        backfaceVisibility: "hidden",
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}

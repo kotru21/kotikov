@@ -15,41 +15,47 @@ const HeaderNyancat: React.FC<HeaderNyancatProps> = ({ isMotionActive }) => {
         size="xlarge"
         position={{ top: "20%", left: "-150px" }}
         animationName="nyancat-fly"
-        animationDuration="15s"
+        animationDuration="18s"
         zIndex={1}
         isMotionActive={isMotionActive}
         testId="header-nyancat"
       />
 
-      {/* Стили анимации */}
+      {/* Стили анимации — только transform; плавная синусоида по Y */}
       <style jsx>{`
         @keyframes nyancat-fly {
           0% {
-            transform: translateX(-150px) translateY(0px);
+            transform: translate3d(-150px, 0, 0);
           }
-          12.5% {
-            transform: translateX(12.5vw) translateY(-40px);
+          10% {
+            transform: translate3d(10vw, -28px, 0);
           }
-          25% {
-            transform: translateX(25vw) translateY(0px);
+          20% {
+            transform: translate3d(20vw, -8px, 0);
           }
-          37.5% {
-            transform: translateX(37.5vw) translateY(40px);
+          30% {
+            transform: translate3d(30vw, 24px, 0);
+          }
+          40% {
+            transform: translate3d(40vw, 6px, 0);
           }
           50% {
-            transform: translateX(50vw) translateY(0px);
+            transform: translate3d(50vw, -24px, 0);
           }
-          62.5% {
-            transform: translateX(62.5vw) translateY(-40px);
+          60% {
+            transform: translate3d(60vw, -4px, 0);
           }
-          75% {
-            transform: translateX(75vw) translateY(0px);
+          70% {
+            transform: translate3d(70vw, 28px, 0);
           }
-          87.5% {
-            transform: translateX(87.5vw) translateY(40px);
+          80% {
+            transform: translate3d(80vw, 4px, 0);
+          }
+          90% {
+            transform: translate3d(90vw, -20px, 0);
           }
           100% {
-            transform: translateX(calc(100vw + 150px)) translateY(0px);
+            transform: translate3d(calc(100vw + 150px), 0, 0);
           }
         }
       `}</style>

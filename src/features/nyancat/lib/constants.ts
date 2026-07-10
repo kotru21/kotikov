@@ -8,9 +8,11 @@ export const EXPLOSION_COLORS = [
   colors.neutral[900],
 ] as const;
 
-export const EXPLOSION_DURATION = 3000;
+export const EXPLOSION_DURATION = 2200;
 export const ANIMATION_FPS = 60;
 export const ANIMATION_INTERVAL = 1000 / ANIMATION_FPS;
+/** React state flush cadence for explosion pixels (~45 FPS). */
+export const EXPLOSION_RENDER_INTERVAL_MS = 22;
 
 export const SIZE_CONFIG = {
   small: {

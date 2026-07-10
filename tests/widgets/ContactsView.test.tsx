@@ -23,6 +23,7 @@ const viewProps = {
   pawVelocity: { x: 0, y: 0 },
   isDrawing: false,
   showPaw: false,
+  mountPaint: false,
   enablePaint: false,
   onClearCanvas: vi.fn(),
   canvasRef: createRef<ContactCanvasRef>(),

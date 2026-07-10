@@ -18,6 +18,9 @@ interface ContactsViewProps {
   pawVelocity: { x: number; y: number };
   isDrawing: boolean;
   showPaw: boolean;
+  /** Keep canvas mounted (preserves paint state). Independent of in-view gating. */
+  mountPaint: boolean;
+  /** Active paint interaction (in view + visible + not reduced motion). */
   enablePaint: boolean;
   onClearCanvas: () => void;
   canvasRef: React.RefObject<ContactCanvasRef | null>;
@@ -38,6 +41,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   pawVelocity,
   isDrawing,
   showPaw,
+  mountPaint,
   enablePaint,
   onClearCanvas,
   canvasRef,
@@ -66,7 +70,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
     >
-      {enablePaint ? (
+      {mountPaint ? (
         <ContactCanvas ref={canvasRef} />
       ) : (
         <div

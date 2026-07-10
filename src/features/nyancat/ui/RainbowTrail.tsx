@@ -48,6 +48,8 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
             animationDelay: `${String(parseFloat(animationDelay) + i * config.trailDelay)}s`,
             animationPlayState: isMotionActive ? "running" : "paused",
             opacity: calculateTrailOpacity(i, size),
+            willChange: isMotionActive ? "transform" : "auto",
+            backfaceVisibility: "hidden",
           }}
         >
           <div

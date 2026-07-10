@@ -18,7 +18,10 @@ const ContactsWidget: React.FC = () => {
   const canvasRef = useRef<ContactCanvasRef>(null);
 
   const motion = useSceneMotionPolicy(sectionRef, { dominantEffect: "paint" });
-  const enablePaint = !motion.reducedMotion && motion.isInView && motion.isDocumentVisible;
+  // Mount canvas whenever paint is allowed by a11y settings — do NOT tie mount to
+  // isInView/visibility, or the canvas remounts (and loses paint state) on every flip.
+  const mountPaint = !motion.reducedMotion;
+  const enablePaint = mountPaint && motion.isInView && motion.isDocumentVisible;
   const showPaw = enablePaint && !motion.lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
@@ -61,6 +64,7 @@ const ContactsWidget: React.FC = () => {
         pawVelocity={pawVelocity}
         isDrawing={isDrawing}
         showPaw={showPaw}
+        mountPaint={mountPaint}
         enablePaint={enablePaint}
         onClearCanvas={handleClearCanvas}
         canvasRef={canvasRef}

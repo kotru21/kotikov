@@ -4,7 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { usePerformanceSettings } from "@/features/performance";
 
-import { ANIMATION_INTERVAL, EXPLOSION_DURATION, type NyancatSize } from "../lib/constants";
+import {
+  EXPLOSION_DURATION,
+  EXPLOSION_RENDER_INTERVAL_MS,
+  type NyancatSize,
+} from "../lib/constants";
 import { generateExplosionPixels, getElementCenter, updatePixelPhysics } from "../lib/utils";
 import type { Pixel, Position } from "../types";
 
@@ -27,6 +31,7 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
   const pixelsRef = useRef<Pixel[]>([]);
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef(0);
+  const lastRenderRef = useRef(0);
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
 
   const explode = useCallback(() => {
@@ -37,17 +42,18 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
     setIsExploded(true);
 
     const initial = generateExplosionPixels(size);
-    // деградация для low perf / reduced motion
     const pruned =
       reducedMotion || lowPerformance ? initial.slice(0, Math.ceil(initial.length * 0.4)) : initial;
     pixelsRef.current = pruned;
     setPixels(pruned);
 
     startTimeRef.current = performance.now();
+    lastRenderRef.current = 0;
 
-    const tick = (): void => {
-      const now = performance.now();
+    const tick = (now: number): void => {
       const elapsed = now - startTimeRef.current;
+      const progress = Math.min(1, elapsed / EXPLOSION_DURATION);
+
       if (elapsed >= EXPLOSION_DURATION || reducedMotion) {
         setIsExploded(false);
         setPixels([]);
@@ -57,11 +63,10 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
         return;
       }
 
-      // обновляем физику в ref, чтобы не триггерить React на каждый кадр
-      pixelsRef.current = pixelsRef.current.map(updatePixelPhysics);
+      pixelsRef.current = pixelsRef.current.map((pixel) => updatePixelPhysics(pixel, progress));
 
-      // ограничиваем частоту React-обновлений до ~30 FPS для уменьшения reconcile
-      if (Math.floor(elapsed / 33) !== Math.floor((elapsed - ANIMATION_INTERVAL) / 33)) {
+      if (now - lastRenderRef.current >= EXPLOSION_RENDER_INTERVAL_MS) {
+        lastRenderRef.current = now;
         setPixels(pixelsRef.current);
       }
 
