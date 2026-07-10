@@ -15,6 +15,12 @@ const performanceSettings = vi.hoisted(() => ({
   lowPerformance: false,
 }));
 
+const navMorphState = vi.hoisted(() => ({
+  progress: 0,
+  phase: 0,
+  isIsland: false,
+}));
+
 vi.mock("@/features/performance", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
@@ -27,7 +33,11 @@ vi.mock("@/features/scrolling", async () => {
 
   return {
     ...actual,
-    useNavMorph: () => ({ progress: 0, phase: 0, isIsland: false }),
+    useNavMorph: () => ({
+      progress: navMorphState.progress,
+      phase: navMorphState.phase,
+      isIsland: navMorphState.isIsland,
+    }),
   };
 });
 
@@ -45,6 +55,9 @@ describe("HeaderNavigation mobile menu", () => {
   beforeEach(() => {
     performanceSettings.reducedMotion = false;
     performanceSettings.lowPerformance = false;
+    navMorphState.progress = 0;
+    navMorphState.phase = 0;
+    navMorphState.isIsland = false;
   });
 
   afterEach(() => {
@@ -94,5 +107,17 @@ describe("HeaderNavigation mobile menu", () => {
 
     const dialog = screen.getByRole("dialog");
     expect(dialog.className).not.toContain("group/mobile-panel");
+  });
+
+  it("switches to island chrome when morph progress leaves paint mode", () => {
+    navMorphState.progress = 0.8;
+    navMorphState.isIsland = true;
+
+    render(<HeaderNavigation navigation={navigation} />);
+
+    const nav = screen.getByRole("navigation", { name: "Основная навигация" });
+    expect(nav.querySelectorAll('[data-island="true"]').length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: "Главная" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Связаться/i })).toBeInTheDocument();
   });
 });
