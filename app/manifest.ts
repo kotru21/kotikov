@@ -4,7 +4,7 @@ import { personData } from "@/shared/config/content";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${personData.name} — Frontend Developer`,
+    name: `${personData.name} — SOC / AppSec`,
     short_name: personData.nickname,
     description: personData.description,
     start_url: "/",

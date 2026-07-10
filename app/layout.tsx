@@ -24,8 +24,8 @@ const geistMono = Geist_Mono({
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
-const siteTitle = `${personData.nameRu} (${personData.nickname}) — Frontend разработка на React/Next.js | Портфолио`;
-const siteDescription = `Frontend разработчик ${personData.nameRu} (${personData.nickname}). Frontend разработка на React, JavaScript, Node.js и фреймворк Next.js: создаю быстрые веб-приложения, интерфейсы и пользовательский опыт.`;
+const siteTitle = `${personData.nameRu} (${personData.nickname}) — SOC / AppSec | Портфолио`;
+const siteDescription = `${personData.description}. БГУИР, hoster.by, SAST и безопасная разработка.`;
 
 export const metadata: Metadata = {
   title: {
@@ -34,28 +34,22 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
-    "frontend developer",
-    "frontend разработка",
-    "веб-разработчик",
-    "React",
-    "Next.js",
-    "Node.js",
+    "SOC",
+    "AppSec",
+    "information security",
+    "информационная безопасность",
+    "DFIR",
+    "SAST",
+    "OWASP",
+    "Python",
     "TypeScript",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "фреймворк Next.js",
-    "Tailwind CSS",
-    "UI/UX",
-    "responsive design",
     "portfolio",
     "котиков",
     "kotikov",
     "Arsenij Kotikov",
     "Арсений Котиков",
-    "arsenij kotikov",
-    "фронтенд разработчик",
-    "портфолио разработчика",
+    "hoster.by",
+    "БГУИР",
   ],
   authors: [{ name: personData.name }],
   creator: personData.name,
@@ -83,7 +77,7 @@ export const metadata: Metadata = {
         url: "/og_image.png",
         width: 1200,
         height: 630,
-        alt: `${personData.nameRu} — Frontend разработка на React/Next.js`,
+        alt: `${personData.nameRu} — SOC / AppSec`,
         type: "image/png",
       },
     ],
