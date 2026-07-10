@@ -4,7 +4,7 @@ import React from "react";
 
 import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
-import { ClearPaintButton } from "@/features/paw";
+import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
 import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
@@ -167,9 +167,15 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         </div>
 
         {enablePaint ? (
-          <div className="mt-8 flex justify-center md:mt-10">
-            <ClearPaintButton onClick={onClearCanvas} tone="on-gradient" />
-          </div>
+          <>
+            <p className="sr-only">
+              На фоне можно оставить след лапы, проводя мышью или удерживая палец.
+            </p>
+            <div className="mt-8 flex flex-col items-center gap-3 md:mt-10">
+              <PaintDrawHint tone="on-gradient" />
+              <ClearPaintButton onClick={onClearCanvas} tone="on-gradient" />
+            </div>
+          </>
         ) : null}
       </div>
     </Section>

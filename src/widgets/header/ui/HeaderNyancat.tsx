@@ -8,6 +8,56 @@ interface HeaderNyancatProps {
   isMotionActive: boolean;
 }
 
+const WAVE_CYCLES = 2.5;
+const Y_AMPLITUDE = 26;
+const BANK_DEG = 7;
+const SCALE_AMPLITUDE = 0.02;
+const KEYFRAME_STEP = 5;
+
+function roundCss(value: number, digits = 3): string {
+  const factor = 10 ** digits;
+  const rounded = Math.round(value * factor) / factor;
+  return String(rounded);
+}
+
+function buildNyancatKeyframes(): string {
+  const flyFrames: string[] = [];
+  const bankFrames: string[] = [];
+
+  for (let percent = 0; percent <= 100; percent += KEYFRAME_STEP) {
+    const t = percent / 100;
+    const phase = t * WAVE_CYCLES * Math.PI * 2;
+    const y = -Y_AMPLITUDE * Math.sin(phase);
+    const rotate = -BANK_DEG * Math.cos(phase);
+    const scale = 1 - SCALE_AMPLITUDE * Math.sin(phase);
+    const x =
+      percent === 0
+        ? "-150px"
+        : percent === 100
+          ? "calc(100vw + 150px)"
+          : `${String(percent)}vw`;
+
+    flyFrames.push(`
+          ${String(percent)}% {
+            transform: translate3d(${x}, ${roundCss(y, 0)}px, 0);
+          }`);
+    bankFrames.push(`
+          ${String(percent)}% {
+            transform: rotate(${roundCss(rotate, 0)}deg) scale(${roundCss(scale)});
+          }`);
+  }
+
+  return `
+        @keyframes nyancat-fly {${flyFrames.join("")}
+        }
+
+        @keyframes nyancat-bank {${bankFrames.join("")}
+        }
+  `;
+}
+
+const nyancatKeyframesCss = buildNyancatKeyframes();
+
 const HeaderNyancat: React.FC<HeaderNyancatProps> = ({ isMotionActive }) => {
   return (
     <>
@@ -30,139 +80,7 @@ const HeaderNyancat: React.FC<HeaderNyancatProps> = ({ isMotionActive }) => {
           нос вверх на подъёме, вниз на спуске, ровно на пиках (совпадает по фазе с Y).
         Обе анимации 18s linear, поэтому кадрируются синхронно.
       */}
-      <style jsx>{`
-        @keyframes nyancat-fly {
-          0% {
-            transform: translate3d(-150px, 0, 0);
-          }
-          5% {
-            transform: translate3d(5vw, -18px, 0);
-          }
-          10% {
-            transform: translate3d(10vw, -26px, 0);
-          }
-          15% {
-            transform: translate3d(15vw, -18px, 0);
-          }
-          20% {
-            transform: translate3d(20vw, 0, 0);
-          }
-          25% {
-            transform: translate3d(25vw, 18px, 0);
-          }
-          30% {
-            transform: translate3d(30vw, 26px, 0);
-          }
-          35% {
-            transform: translate3d(35vw, 18px, 0);
-          }
-          40% {
-            transform: translate3d(40vw, 0, 0);
-          }
-          45% {
-            transform: translate3d(45vw, -18px, 0);
-          }
-          50% {
-            transform: translate3d(50vw, -26px, 0);
-          }
-          55% {
-            transform: translate3d(55vw, -18px, 0);
-          }
-          60% {
-            transform: translate3d(60vw, 0, 0);
-          }
-          65% {
-            transform: translate3d(65vw, 18px, 0);
-          }
-          70% {
-            transform: translate3d(70vw, 26px, 0);
-          }
-          75% {
-            transform: translate3d(75vw, 18px, 0);
-          }
-          80% {
-            transform: translate3d(80vw, 0, 0);
-          }
-          85% {
-            transform: translate3d(85vw, -18px, 0);
-          }
-          90% {
-            transform: translate3d(90vw, -26px, 0);
-          }
-          95% {
-            transform: translate3d(95vw, -18px, 0);
-          }
-          100% {
-            transform: translate3d(calc(100vw + 150px), 0, 0);
-          }
-        }
-
-        @keyframes nyancat-bank {
-          0% {
-            transform: rotate(-7deg) scale(1);
-          }
-          5% {
-            transform: rotate(-5deg) scale(0.986);
-          }
-          10% {
-            transform: rotate(0deg) scale(0.98);
-          }
-          15% {
-            transform: rotate(5deg) scale(0.986);
-          }
-          20% {
-            transform: rotate(7deg) scale(1);
-          }
-          25% {
-            transform: rotate(5deg) scale(1.014);
-          }
-          30% {
-            transform: rotate(0deg) scale(1.02);
-          }
-          35% {
-            transform: rotate(-5deg) scale(1.014);
-          }
-          40% {
-            transform: rotate(-7deg) scale(1);
-          }
-          45% {
-            transform: rotate(-5deg) scale(0.986);
-          }
-          50% {
-            transform: rotate(0deg) scale(0.98);
-          }
-          55% {
-            transform: rotate(5deg) scale(0.986);
-          }
-          60% {
-            transform: rotate(7deg) scale(1);
-          }
-          65% {
-            transform: rotate(5deg) scale(1.014);
-          }
-          70% {
-            transform: rotate(0deg) scale(1.02);
-          }
-          75% {
-            transform: rotate(-5deg) scale(1.014);
-          }
-          80% {
-            transform: rotate(-7deg) scale(1);
-          }
-          85% {
-            transform: rotate(-5deg) scale(0.986);
-          }
-          90% {
-            transform: rotate(0deg) scale(0.98);
-          }
-          95% {
-            transform: rotate(5deg) scale(0.986);
-          }
-          100% {
-            transform: rotate(7deg) scale(1);
-          }
-        }
-      `}</style>
+      <style dangerouslySetInnerHTML={{ __html: nyancatKeyframesCss }} />
     </>
   );
 };

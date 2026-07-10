@@ -18,7 +18,7 @@ test("theme persists after reload", async ({ page }) => {
 });
 
 test.describe("reduced motion", () => {
-  test.use({ reducedMotion: "reduce" });
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
 
   test("renders static skills content when motion is reduced", async ({ page }) => {
     await page.goto("/#skills");

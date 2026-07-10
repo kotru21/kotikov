@@ -38,7 +38,7 @@ function mockCanvasElement(ctx: CanvasRenderingContext2D): HTMLCanvasElement {
       toJSON: () => ({}),
     }),
   });
-  canvas.getContext = vi.fn(() => ctx) as typeof canvas.getContext;
+  canvas.getContext = vi.fn(() => ctx) as unknown as typeof canvas.getContext;
   return canvas;
 }
 
@@ -103,16 +103,17 @@ describe("useContactDrawing", () => {
 
     const firstKeyResult = revealedMapRef.current.keys().next();
     expect(firstKeyResult.done).toBe(false);
+    if (firstKeyResult.done) throw new Error("expected revealed map key");
     const firstKey = firstKeyResult.value;
-    expect(typeof firstKey).toBe("string");
     const firstEntry = revealedMapRef.current.get(firstKey);
     expect(firstEntry).toBeDefined();
+    if (!firstEntry) throw new Error("expected revealed map entry");
 
     act(() => {
       result.current.drawOnCanvas(16, 16, 8, 8);
     });
     expect(revealedMapRef.current.get(firstKey)?.intensity).toBeGreaterThanOrEqual(
-      firstEntry?.intensity ?? 0
+      firstEntry.intensity
     );
   });
 
@@ -196,7 +197,7 @@ describe("ContactCanvas", () => {
     const ctx = createMockContext();
     const getContext = vi.fn(() => ctx);
     HTMLCanvasElement.prototype.getContext =
-      getContext as typeof HTMLCanvasElement.prototype.getContext;
+      getContext as unknown as typeof HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getBoundingClientRect = () => ({
       left: 0,
       top: 0,

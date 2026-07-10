@@ -11,7 +11,7 @@ vi.mock("@/features/performance", () => ({
 describe("TimelineView mobile a11y", () => {
   it("renders native controls before the labelled active panel", () => {
     const { container } = render(<TimelineView />);
-    const mobileSection = container.querySelector(".lg\\:hidden");
+    const mobileSection = container.querySelector('[data-testid="timeline-mobile"]');
 
     expect(mobileSection).toBeTruthy();
     expect(
@@ -57,8 +57,9 @@ describe("TimelineView mobile a11y", () => {
 
   it("updates keyboard focus, panel label, and live counter together", () => {
     render(<TimelineView />);
-    const firstChip = screen.getByRole("button", { name: "2026 · Работа" });
-    const secondChip = screen.getByRole("button", { name: "2025 · Работа" });
+    const chips = screen.getAllByRole("button", { name: /\d{4} · / });
+    const firstChip = chips[0];
+    const secondChip = chips[1];
 
     firstChip.focus();
     fireEvent.keyDown(firstChip, { key: "ArrowRight" });

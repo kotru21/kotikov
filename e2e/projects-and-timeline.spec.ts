@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+import { timelineData } from "../src/shared/config/content/timeline";
+
+const timelineCount = String(timelineData.length);
+
 test.describe("desktop projects", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -44,9 +48,9 @@ test.describe("mobile projects and timeline", () => {
     await page.goto("/#experience");
 
     const counter = page.locator("#experience").locator("[aria-live='polite']");
-    await expect(counter).toHaveText("1 / 4");
+    await expect(counter).toHaveText(`1 / ${timelineCount}`);
 
     await page.getByRole("button", { name: "Следующий этап" }).click();
-    await expect(counter).toHaveText("2 / 4");
+    await expect(counter).toHaveText(`2 / ${timelineCount}`);
   });
 });

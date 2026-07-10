@@ -38,8 +38,7 @@ describe("branch coverage gaps", () => {
     });
 
     it("logs unknown digest and shows stack in development", () => {
-      const previous = process.env.NODE_ENV;
-      process.env.NODE_ENV = "development";
+      vi.stubEnv("NODE_ENV", "development");
 
       const error = new Error("boom");
       error.stack = "stack-trace";
@@ -49,7 +48,7 @@ describe("branch coverage gaps", () => {
       expect(screen.getByText(/Подробности ошибки/)).toBeInTheDocument();
       expect(screen.getByText(/stack-trace/)).toBeInTheDocument();
 
-      process.env.NODE_ENV = previous;
+      vi.unstubAllEnvs();
     });
   });
 

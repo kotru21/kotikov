@@ -15,8 +15,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "stableTypeOrdering": true,
     "erasableSyntaxOnly": true,
+    "libReplacement": false,
+    "noUncheckedSideEffectImports": true,
+    "types": ["bun"],
     "plugins": [
       {
         "name": "next"

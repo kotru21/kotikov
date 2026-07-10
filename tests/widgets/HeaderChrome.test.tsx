@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { headerContent } from "@/shared/config/content";
 import type * as SharedUi from "@/shared/ui";
+import type { GridPaintOverlayRef } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
@@ -67,7 +68,7 @@ describe("HeaderBackground", () => {
   });
 
   it("mounts paint overlay when paintRef is provided", () => {
-    const paintRef = createRef<{ drawOnCanvas: () => void }>();
+    const paintRef = createRef<GridPaintOverlayRef>();
     render(<HeaderBackground paintRef={paintRef} />);
     expect(screen.getByTestId("paint-overlay")).toBeInTheDocument();
   });

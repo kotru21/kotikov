@@ -59,7 +59,7 @@ describe("useTimelineCarousel", () => {
       result.current.handleKeyDown({
         key: "ArrowRight",
         preventDefault: vi.fn(),
-      } as KeyboardEvent);
+      } as unknown as KeyboardEvent);
     });
     expect(result.current.activeIndex).toBe(1);
 
@@ -67,7 +67,7 @@ describe("useTimelineCarousel", () => {
       result.current.handleKeyDown({
         key: "Home",
         preventDefault: vi.fn(),
-      } as KeyboardEvent);
+      } as unknown as KeyboardEvent);
     });
     expect(result.current.activeIndex).toBe(0);
   });

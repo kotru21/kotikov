@@ -9,10 +9,7 @@ export interface ProjectContent {
   title: string;
   eyebrow: string;
   summary: string;
-  stack: string[];
   role: string;
-  imageSrc?: string;
-  imageAlt: string;
   repoUrl: string;
   liveUrl?: string;
   cardPeriod: string;
@@ -29,9 +26,7 @@ export const projectsData: ProjectContent[] = [
     eyebrow: "AppSec · SAST",
     summary:
       "Статический анализатор для JS/TS: 13 правил по классам OWASP Top 10, taint analysis, вывод SARIF 2.1.0, сравнение с Semgrep на реальных корпусах. Полностью в Docker.",
-    stack: ["Python", "FastAPI", "tree-sitter", "Celery", "Redis", "PostgreSQL", "Docker"],
     role: "AppSec Tooling",
-    imageAlt: "CodeAnalyzer — SAST для JS/TS",
     repoUrl: "https://github.com/kotru21/CodeAnalyzerPython",
     cardPeriod: "2025–26",
     cardMeta: "SAST · Open Source",
@@ -45,9 +40,7 @@ export const projectsData: ProjectContent[] = [
     eyebrow: "Typed public API client",
     summary:
       "Опубликованный TypeScript ESM SDK для IIS API БГУИР и небольшой Next.js-клиент: расписание, экзамены, справочники. Акцент на контрактах и сопровождении пакета.",
-    stack: ["TypeScript", "ESM", "npm", "Next.js"],
     role: "Library Author",
-    imageAlt: "BSUIR IIS API — TypeScript SDK",
     repoUrl: "https://github.com/kotru21/bsuir-iis-api",
     cardPeriod: "2025–26",
     cardMeta: "SDK · Maintained",
@@ -61,10 +54,7 @@ export const projectsData: ProjectContent[] = [
     eyebrow: "Auth · trust boundaries",
     summary:
       "Full-stack чат с JWT, публичными и приватными диалогами, медиа и realtime. В витрине — про authn/authz и границы доверия, а не про «приятный UX».",
-    stack: ["React", "Node.js", "Express", "MongoDB", "Socket.IO", "JWT"],
     role: "Full-Stack Developer",
-    imageSrc: "/projects/web-messenger.png",
-    imageAlt: "Web Messenger — JWT и realtime",
     repoUrl: "https://github.com/kotru21/webchat",
     cardPeriod: "2025",
     cardMeta: "Auth · Realtime",

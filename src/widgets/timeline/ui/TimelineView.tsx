@@ -65,7 +65,7 @@ const TimelineView: React.FC = () => {
         description="Образование и опыт работы"
       />
 
-      <div className="flex flex-col gap-5 md:hidden">
+      <div className="flex flex-col gap-5 md:hidden" data-testid="timeline-mobile">
         <div className="flex w-full flex-col gap-3">
           <div
             className="h-1 w-full overflow-hidden bg-black/10 dark:bg-white/15"

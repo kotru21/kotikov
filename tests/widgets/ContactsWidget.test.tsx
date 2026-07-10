@@ -37,6 +37,7 @@ vi.mock("@/features/paw", () => ({
       Очистить рисунок
     </button>
   ),
+  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   usePawAnimation: () => ({
     pawPos: { x: 0, y: 0 },
     pawVelocity: { x: 0, y: 0 },

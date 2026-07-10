@@ -16,7 +16,7 @@ interface ProjectCardProps {
 }
 
 const pressButtonClassName =
-  "focus-visible:ring-primary-400 inline-flex items-center gap-1.5 rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
+  "focus-visible:ring-primary-400 inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-none border-2 border-black px-4 text-xs font-bold uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
 
 function getShadowClass(isStacked: boolean): string {
   if (isStacked) {

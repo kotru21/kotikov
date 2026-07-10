@@ -59,6 +59,7 @@ vi.mock("@/features/paw", () => ({
       Очистить рисунок
     </button>
   ),
+  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   PawCursorIcon: ({ className }: { className?: string }) => (
     <svg data-testid="paw-icon" className={className} />
   ),
@@ -127,6 +128,7 @@ describe("ContactsWidget paint-enabled path", () => {
     render(<ContactsWidget />);
 
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
+    expect(screen.getByText(/проведи мышью/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeInTheDocument();
     expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
 

@@ -57,8 +57,9 @@ describe("content model", () => {
     ]);
     for (const p of projectsData) {
       expect(p.title).toBeTruthy();
+      expect(p.summary.length).toBeGreaterThan(20);
       expect(p.repoUrl).toMatch(/^https:\/\/github\.com\//);
-      expect(p.stack.length).toBeGreaterThan(0);
+      expect(p.cardMeta).toBeTruthy();
     }
   });
 
@@ -102,7 +103,9 @@ describe("content model", () => {
 describe("timeline data", () => {
   it("contains work, education, and IB-framed hackathons without projects", () => {
     expect(timelineData).toHaveLength(5);
-    expect(timelineData.every((e) => e.type !== "project")).toBe(true);
+    expect(
+      timelineData.every((e) => e.type === "work" || e.type === "education" || e.type === "hackathon")
+    ).toBe(true);
     expect(timelineData.filter((e) => e.type === "hackathon").map((e) => e.company)).toEqual([
       "MTS",
       "ByChange",
