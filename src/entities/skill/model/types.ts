@@ -4,5 +4,5 @@ export interface SkillData {
   description: string;
   color: string;
   icon: React.ComponentType<{ className?: string }>;
-  category: "frontend" | "backend" | "tools";
+  category: "security" | "offensive" | "development";
 }
