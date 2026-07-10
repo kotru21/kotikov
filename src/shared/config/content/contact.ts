@@ -11,15 +11,15 @@ export const contactsData = [
     icon: MdEmail,
   },
   {
-    label: "GitHub",
-    value: social.github.display,
-    link: social.github.url,
-    icon: FaGithub,
-  },
-  {
     label: "Telegram",
     value: social.telegram.display,
     link: social.telegram.url,
     icon: FaTelegram,
+  },
+  {
+    label: "GitHub",
+    value: social.github.display,
+    link: social.github.url,
+    icon: FaGithub,
   },
 ];

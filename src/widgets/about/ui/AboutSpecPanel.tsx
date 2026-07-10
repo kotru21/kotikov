@@ -24,7 +24,7 @@ const AboutSpecPanel: React.FC = () => {
   const accessiblePrinciples = principles.map((entry) => `${entry.type}: ${entry.text}`).join(". ");
 
   return (
-    <figure className="w-full">
+    <figure className="w-full max-w-[75ch]">
       <figcaption className="sr-only">
         {body} Принципы: {accessiblePrinciples}
       </figcaption>

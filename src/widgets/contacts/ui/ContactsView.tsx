@@ -79,7 +79,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         <CatPaw x={pawPos.x} y={pawPos.y} isActive={isDrawing} velocity={pawVelocity} />
       ) : null}
 
-      <div className="relative z-10">
+      <div className="relative z-[calc(var(--z-content)+10)]">
         <SectionHeader
           align="center"
           tone="on-gradient"
@@ -103,7 +103,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                 as="p"
                 data-draw-allow
                 data-interactive-color={colors.text.primary}
-                className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
+                className="text-lg font-medium text-neutral-100 drop-shadow-sm"
               >
                 <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
               </InteractiveElement>
@@ -153,7 +153,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                   data-interactive-text={variant === "dark" ? "white" : "black"}
                   {...(interactiveMode === "solid"
                     ? {
-                        "data-interactive-shadow": `2px 2px 0px 0px ${colors.primary[600]}`,
+                        "data-interactive-shadow": `var(--shadow-hard-pressed)`,
                         "data-interactive-threshold": "0.1",
                       }
                     : { "data-interactive-color": colors.text.primary })}

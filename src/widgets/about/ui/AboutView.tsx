@@ -9,6 +9,7 @@ const AboutView: React.FC = () => {
   return (
     <Section
       id="about"
+      spacing="dense"
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
       innerClassName="relative z-10"
     >

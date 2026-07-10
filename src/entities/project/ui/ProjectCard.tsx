@@ -1,8 +1,8 @@
 "use client";
 
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
 
 import { formatExternalLinkLabel } from "@/shared/lib";
 
@@ -77,10 +77,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <p className="mt-1 text-lg font-medium text-neutral-800 dark:text-white/85">
           {project.role}
         </p>
-        <p className="mt-4 max-w-[16rem] text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p className="mt-4 max-w-[70ch] text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
           {project.summary}
         </p>
-        <p className="mt-3 max-w-[18rem] text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p className="mt-3 max-w-[70ch] text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
           <span className="mr-2 font-mono text-xs font-bold tracking-[0.12em] uppercase">
             Результат
           </span>{" "}
@@ -129,7 +129,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               className={`${pressButtonClassName} text-neutral-950 dark:text-neutral-950`}
               style={{ backgroundColor: project.accentColor }}
             >
-              <FiExternalLink aria-hidden="true" /> Демо
+              <ArrowTopRightOnSquareIcon className="size-3.5" aria-hidden="true" /> Демо
             </a>
           ) : null}
         </div>

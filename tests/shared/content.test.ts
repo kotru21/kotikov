@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   aboutContent,
+  contactsData,
   headerContent,
   navigation,
   projectsData,
@@ -66,6 +67,10 @@ describe("content model", () => {
       expect(principle.text.length).toBeGreaterThan(0);
     }
     expect(aboutContent.principles.map((p) => p.type)).toEqual(["feat", "a11y", "perf"]);
+  });
+
+  it("orders contacts Email then Telegram then GitHub", () => {
+    expect(contactsData.map(({ label }) => label)).toEqual(["Email", "Telegram", "GitHub"]);
   });
 });
 
