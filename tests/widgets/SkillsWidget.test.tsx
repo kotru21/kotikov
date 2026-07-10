@@ -9,6 +9,7 @@ vi.mock("@/features/device", () => ({
 
 vi.mock("@/features/performance", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
+  useSceneMotionPolicy: () => ({ canRunContinuous: false }),
 }));
 
 class IntersectionObserverMock {

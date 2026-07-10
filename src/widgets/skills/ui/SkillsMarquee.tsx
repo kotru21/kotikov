@@ -12,9 +12,10 @@ import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
 interface SkillsMarqueeProps {
   headingId: string;
+  isMotionActive: boolean;
 }
 
-const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId }) => {
+const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive }) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const showMarquee = !reducedMotion && !lowPerformance;
 
@@ -42,6 +43,7 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId }) => {
             skills={[...skillsData, ...skillsData]}
             speed={60}
             direction="left"
+            isMotionActive={isMotionActive}
           />
         </div>
       ) : null}

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, SectionHeader } from "@/shared/ui";
@@ -24,6 +24,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
   const secondRow = skillsData.slice(mid);
 
   const rowsRef = useRef<HTMLDivElement | null>(null);
+  const motion = useSceneMotionPolicy(rowsRef, { dominantEffect: "marquee" });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -89,6 +90,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
                 skills={firstRow}
                 speed={35}
                 direction="left"
+                isMotionActive={motion.canRunContinuous}
               />
             </div>
             <div
@@ -105,6 +107,7 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
                 skills={secondRow}
                 speed={45}
                 direction="right"
+                isMotionActive={motion.canRunContinuous}
               />
             </div>
           </div>

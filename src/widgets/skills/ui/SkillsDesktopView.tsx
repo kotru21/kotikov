@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 
+import { useSceneMotionPolicy } from "@/features/performance";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
@@ -13,13 +14,14 @@ interface SkillsDesktopViewProps {
 
 const SkillsDesktopView: React.FC<SkillsDesktopViewProps> = ({ headingId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const motion = useSceneMotionPolicy(containerRef, { dominantEffect: "marquee" });
 
   return (
     <SkillsInteractionProvider>
       <div ref={containerRef} role="group" aria-labelledby={headingId} className="relative">
         <SkillsCursorNyancat containerRef={containerRef} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-        <SkillsMarquee headingId={headingId} />
+        <SkillsMarquee headingId={headingId} isMotionActive={motion.canRunContinuous} />
       </div>
     </SkillsInteractionProvider>
   );
