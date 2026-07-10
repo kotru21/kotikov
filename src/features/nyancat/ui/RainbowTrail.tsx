@@ -19,6 +19,7 @@ interface RainbowTrailProps {
   animationDuration: string;
   animationDelay: string;
   zIndex: number;
+  isMotionActive?: boolean;
 }
 
 export const RainbowTrail: React.FC<RainbowTrailProps> = ({
@@ -28,6 +29,7 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
   animationDuration,
   animationDelay,
   zIndex,
+  isMotionActive = true,
 }) => {
   const config = SIZE_CONFIG[size];
 
@@ -36,6 +38,7 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
       {Array.from({ length: config.trailSegments }, (_, i) => (
         <div
           key={`trail-${String(i)}`}
+          data-motion-active={isMotionActive}
           style={{
             position: "absolute",
             top: position.top,
@@ -43,6 +46,7 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
             zIndex: zIndex - 1,
             animation: `${animationName} ${animationDuration} linear infinite`,
             animationDelay: `${String(parseFloat(animationDelay) + i * config.trailDelay)}s`,
+            animationPlayState: isMotionActive ? "running" : "paused",
             opacity: calculateTrailOpacity(i, size),
           }}
         >

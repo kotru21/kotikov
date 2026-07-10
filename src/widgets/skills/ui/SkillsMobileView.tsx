@@ -3,14 +3,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
-import { Button, Section, SectionHeader } from "@/shared/ui";
+import { formatExternalLinkLabel } from "@/shared/lib";
+import { Button, SectionHeader } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
-const SkillsMobileView: React.FC = () => {
+interface SkillsMobileViewProps {
+  headingId: string;
+}
+
+const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const showMarquee = !reducedMotion && !lowPerformance;
 
@@ -19,6 +24,7 @@ const SkillsMobileView: React.FC = () => {
   const secondRow = skillsData.slice(mid);
 
   const rowsRef = useRef<HTMLDivElement | null>(null);
+  const motion = useSceneMotionPolicy(rowsRef, { dominantEffect: "marquee" });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -40,19 +46,12 @@ const SkillsMobileView: React.FC = () => {
   }, []);
 
   return (
-    <Section
-      id="skills"
-      spacing="dense"
-      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="overflow-x-hidden"
-      innerClassName=""
-      aria-labelledby="skills-heading"
-    >
+    <div role="group" aria-labelledby={headingId}>
       <SectionHeader
         align="center"
         eyebrow="Навыки"
         title="Мои навыки"
-        titleId="skills-heading"
+        titleId={headingId}
         description="Технологии и инструменты, которыми я владею"
       />
       <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
@@ -67,7 +66,7 @@ const SkillsMobileView: React.FC = () => {
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
-          aria-label="Открыть мой профиль LinkedIn (откроется в новой вкладке)"
+          aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
         >
           <FaLinkedinIn className="text-xl" aria-hidden="true" />
           <span>Смотреть мой LinkedIn</span>
@@ -91,6 +90,7 @@ const SkillsMobileView: React.FC = () => {
                 skills={firstRow}
                 speed={35}
                 direction="left"
+                isMotionActive={motion.canRunContinuous}
               />
             </div>
             <div
@@ -107,6 +107,7 @@ const SkillsMobileView: React.FC = () => {
                 skills={secondRow}
                 speed={45}
                 direction="right"
+                isMotionActive={motion.canRunContinuous}
               />
             </div>
           </div>
@@ -115,7 +116,7 @@ const SkillsMobileView: React.FC = () => {
 
       {/* Сгруппированные теги навыков — всегда видны */}
       <SkillsGroupedTags />
-    </Section>
+    </div>
   );
 };
 

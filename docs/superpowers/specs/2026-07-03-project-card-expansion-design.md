@@ -12,12 +12,12 @@
 
 ### Decisions (brainstorming)
 
-| Вопрос | Выбор |
-|--------|-------|
-| Тип раскрытия (desktop) | **C — Модульная Bauhaus-сетка** |
-| Контент ячеек | **C — Задача → решение → результат + стек** |
-| Поведение desktop | **C — Accordion в grid, карточка «выталкивает» соседние** |
-| Поведение mobile | **B — Overlay + bottom sheet** |
+| Вопрос                  | Выбор                                                     |
+| ----------------------- | --------------------------------------------------------- |
+| Тип раскрытия (desktop) | **C — Модульная Bauhaus-сетка**                           |
+| Контент ячеек           | **C — Задача → решение → результат + стек**               |
+| Поведение desktop       | **C — Accordion в grid, карточка «выталкивает» соседние** |
+| Поведение mobile        | **B — Overlay + bottom sheet**                            |
 
 ---
 
@@ -71,11 +71,11 @@ interface ProjectContent {
 
 ### Content (draft copy)
 
-| Slug | challenge | solution | outcome |
-|------|-----------|----------|---------|
-| `file-manager-tauri` | Навигация по тысячам файлов без лагов UI | Виртуализированные списки и кастомные контролы | Unit + Integration + E2E покрытие, open source |
-| `web-messenger` | Мгновенный обмен сообщениями между пользователями | Socket.IO для realtime, JWT auth, MongoDB для истории | Full-stack продукт с авторизацией и историей чатов |
-| `tiktok-analyzer` | Быстрая интерпретация активности TikTok-аккаунтов | Структурированные data views для чатов | Инструмент для анализа и визуализации чат-активности |
+| Slug                 | challenge                                         | solution                                              | outcome                                              |
+| -------------------- | ------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------- |
+| `file-manager-tauri` | Навигация по тысячам файлов без лагов UI          | Виртуализированные списки и кастомные контролы        | Unit + Integration + E2E покрытие, open source       |
+| `web-messenger`      | Мгновенный обмен сообщениями между пользователями | Socket.IO для realtime, JWT auth, MongoDB для истории | Full-stack продукт с авторизацией и историей чатов   |
+| `tiktok-analyzer`    | Быстрая интерпретация активности TikTok-аккаунтов | Структурированные data views для чатов                | Инструмент для анализа и визуализации чат-активности |
 
 ---
 
@@ -88,12 +88,12 @@ interface ProjectContent {
 
 ### Expanded grid — 4 cells
 
-| # | Label | Background | Text |
-|---|-------|------------|------|
-| 1 | Задача | `project.accentColor` | `details.challenge` — `text-neutral-950` |
-| 2 | Решение | `bg-white` / `dark:bg-neutral-900` | `details.solution` |
-| 3 | Результат | `bg-black` / `dark:bg-white` | `text-white` / `dark:text-black` — `details.outcome` |
-| 4 | Стек | `bg-neutral-100` / `dark:bg-neutral-800` | Badge-теги из `stack[]` |
+| #   | Label     | Background                               | Text                                                 |
+| --- | --------- | ---------------------------------------- | ---------------------------------------------------- |
+| 1   | Задача    | `project.accentColor`                    | `details.challenge` — `text-neutral-950`             |
+| 2   | Решение   | `bg-white` / `dark:bg-neutral-900`       | `details.solution`                                   |
+| 3   | Результат | `bg-black` / `dark:bg-white`             | `text-white` / `dark:text-black` — `details.outcome` |
+| 4   | Стек      | `bg-neutral-100` / `dark:bg-neutral-800` | Badge-теги из `stack[]`                              |
 
 **Cell label:** `text-xs font-bold uppercase tracking-[0.12em]`
 
@@ -105,10 +105,10 @@ interface ProjectContent {
 
 ### Button states
 
-| State | Label | Style |
-|-------|-------|-------|
+| State     | Label     | Style                           |
+| --------- | --------- | ------------------------------- |
 | Collapsed | Подробнее | mint bg, border-2, shadow press |
-| Expanded | Свернуть | neutral bg, same press pattern |
+| Expanded  | Свернуть  | neutral bg, same press pattern  |
 
 ---
 
@@ -136,13 +136,13 @@ interface ProjectContent {
 
 ### Animation timing
 
-| Element | Property | Duration | Easing |
-|---------|----------|----------|--------|
-| Grid cells | opacity, transform | 300ms | ease-out, stagger 80ms |
-| Card row span | grid-row | 450ms | cubic-bezier(0.22, 1, 0.36, 1) |
-| Decorative circle | transform scale | 400ms | cubic-bezier(0.34, 1.56, 0.64, 1), delay 150ms |
-| Overlay | opacity | 350ms | ease-out |
-| Sheet | translateY | 400ms | ease-out |
+| Element           | Property           | Duration | Easing                                         |
+| ----------------- | ------------------ | -------- | ---------------------------------------------- |
+| Grid cells        | opacity, transform | 300ms    | ease-out, stagger 80ms                         |
+| Card row span     | grid-row           | 450ms    | cubic-bezier(0.22, 1, 0.36, 1)                 |
+| Decorative circle | transform scale    | 400ms    | cubic-bezier(0.34, 1.56, 0.64, 1), delay 150ms |
+| Overlay           | opacity            | 350ms    | ease-out                                       |
+| Sheet             | translateY         | 400ms    | ease-out                                       |
 
 **Reduced motion:** `usePerformanceSettings().reducedMotion` → instant show/hide, no transform/scale.
 
@@ -150,39 +150,39 @@ interface ProjectContent {
 
 ## Accessibility (UI/UX Pro Max + web guidelines)
 
-| Rule | Implementation |
-|------|----------------|
-| `focus-visible` rings | `focus-visible:ring-2 focus-visible:ring-primary-400` на всех кнопках |
-| Never `outline-none` alone | Всегда с ring replacement |
-| Touch targets ≥ 44px | `min-h-11 min-w-11` на «Подробнее» и close |
-| `cursor-pointer` | На всех clickable |
-| Keyboard | Escape закрывает sheet; Tab trap внутри dialog |
-| ARIA | `aria-expanded`, `aria-controls` на toggle; sheet: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` |
-| Focus restore | Return focus to «Подробнее» on close |
-| Semantic content | `<dl>` / `<dt>`/`<dd>` или headings + paragraphs в ячейках |
-| Contrast | Black text on mint (#2cffc7) — проверить WCAG; при fail использовать `text-neutral-950` bold |
-| Reduced motion | HIGH severity — обязательно через hook + CSS |
-| Transform perf | Animate `transform`/`opacity`, not `width`/`height`/`top` |
-| Max 1–2 animated elements | Cells stagger + один circle — в пределах нормы |
+| Rule                       | Implementation                                                                                             |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `focus-visible` rings      | `focus-visible:ring-2 focus-visible:ring-primary-400` на всех кнопках                                      |
+| Never `outline-none` alone | Всегда с ring replacement                                                                                  |
+| Touch targets ≥ 44px       | `min-h-11 min-w-11` на «Подробнее» и close                                                                 |
+| `cursor-pointer`           | На всех clickable                                                                                          |
+| Keyboard                   | Escape закрывает sheet; Tab trap внутри dialog                                                             |
+| ARIA                       | `aria-expanded`, `aria-controls` на toggle; sheet: `role="dialog"`, `aria-modal="true"`, `aria-labelledby` |
+| Focus restore              | Return focus to «Подробнее» on close                                                                       |
+| Semantic content           | `<dl>` / `<dt>`/`<dd>` или headings + paragraphs в ячейках                                                 |
+| Contrast                   | Black text on mint (#2cffc7) — проверить WCAG; при fail использовать `text-neutral-950` bold               |
+| Reduced motion             | HIGH severity — обязательно через hook + CSS                                                               |
+| Transform perf             | Animate `transform`/`opacity`, not `width`/`height`/`top`                                                  |
+| Max 1–2 animated elements  | Cells stagger + один circle — в пределах нормы                                                             |
 
 ---
 
 ## File Changes
 
-| File | Action |
-|------|--------|
-| `src/shared/config/content/projects.ts` | Add `ProjectDetail`, `details` field + copy |
-| `src/entities/project/model/types.ts` | Re-export if needed |
-| `src/entities/project/ui/ProjectCard.tsx` | Add «Подробнее» slot/props |
-| `src/entities/project/ui/ProjectCardDetailGrid.tsx` | **Create** — 4 cells |
-| `src/entities/project/ui/ProjectCardExpandable.tsx` | **Create** — client wrapper |
-| `src/entities/project/ui/ProjectDetailSheet.tsx` | **Create** — mobile modal |
-| `src/widgets/projects/ui/ProjectsGrid.tsx` | **Create** — desktop accordion |
-| `src/widgets/projects/ui/ProjectsView.tsx` | Use ProjectsGrid + deck update |
-| `src/entities/project/index.ts` | Export new components |
-| `tests/shared/content.test.ts` | Assert `details` fields |
-| `tests/entities/project/ProjectCardDetailGrid.test.tsx` | **Create** |
-| `tests/entities/project/ProjectCardExpandable.test.tsx` | **Create** |
+| File                                                    | Action                                      |
+| ------------------------------------------------------- | ------------------------------------------- |
+| `src/shared/config/content/projects.ts`                 | Add `ProjectDetail`, `details` field + copy |
+| `src/entities/project/model/types.ts`                   | Re-export if needed                         |
+| `src/entities/project/ui/ProjectCard.tsx`               | Add «Подробнее» slot/props                  |
+| `src/entities/project/ui/ProjectCardDetailGrid.tsx`     | **Create** — 4 cells                        |
+| `src/entities/project/ui/ProjectCardExpandable.tsx`     | **Create** — client wrapper                 |
+| `src/entities/project/ui/ProjectDetailSheet.tsx`        | **Create** — mobile modal                   |
+| `src/widgets/projects/ui/ProjectsGrid.tsx`              | **Create** — desktop accordion              |
+| `src/widgets/projects/ui/ProjectsView.tsx`              | Use ProjectsGrid + deck update              |
+| `src/entities/project/index.ts`                         | Export new components                       |
+| `tests/shared/content.test.ts`                          | Assert `details` fields                     |
+| `tests/entities/project/ProjectCardDetailGrid.test.tsx` | **Create**                                  |
+| `tests/entities/project/ProjectCardExpandable.test.tsx` | **Create**                                  |
 
 ---
 
@@ -213,12 +213,12 @@ interface ProjectContent {
 
 ## Risks & Mitigations
 
-| Risk | Mitigation |
-|------|------------|
+| Risk                             | Mitigation                                                                   |
+| -------------------------------- | ---------------------------------------------------------------------------- |
 | Grid accordion layout jump (CLS) | Reserve min-height on expanded row; use `grid-row span` not height animation |
-| Mint text contrast | Bold dark text; test with contrast checker |
-| Client bundle size | Single small client wrapper; sheet lazy if needed |
-| Deck + sheet z-index conflict | Sheet z-50; deck max z-30 |
+| Mint text contrast               | Bold dark text; test with contrast checker                                   |
+| Client bundle size               | Single small client wrapper; sheet lazy if needed                            |
+| Deck + sheet z-index conflict    | Sheet z-50; deck max z-30                                                    |
 
 ---
 

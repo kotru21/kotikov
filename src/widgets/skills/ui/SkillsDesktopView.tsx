@@ -1,30 +1,43 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
-import { BauhausGridPattern, Section } from "@/shared/ui";
+import { useSceneMotionPolicy } from "@/features/performance";
+import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillsCursorNyancat, SkillsMarquee } from ".";
 
-const SkillsDesktopView: React.FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
+interface SkillsDesktopViewProps {
+  headingId: string;
+}
+
+const SkillsDesktopView: React.FC<SkillsDesktopViewProps> = ({ headingId }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const motion = useSceneMotionPolicy(containerRef, { dominantEffect: "marquee" });
+  const [isPointerInside, setIsPointerInside] = useState(false);
 
   return (
     <SkillsInteractionProvider>
-      <Section
+      <div
         ref={containerRef}
-        id="skills"
-        spacing="dense"
-        backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-        className="overflow-x-clip"
-        innerClassName="relative z-10 max-w-full"
-        aria-labelledby="skills-heading"
+        role="group"
+        aria-labelledby={headingId}
+        className="relative"
+        onPointerEnter={() => {
+          setIsPointerInside(true);
+        }}
+        onPointerLeave={() => {
+          setIsPointerInside(false);
+        }}
       >
-        <SkillsCursorNyancat containerRef={containerRef} />
+        <SkillsCursorNyancat containerRef={containerRef} isMotionActive={motion.canRunContinuous} />
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-        <SkillsMarquee />
-      </Section>
+        <SkillsMarquee
+          headingId={headingId}
+          isMotionActive={motion.canRunContinuous ? !isPointerInside : false}
+        />
+      </div>
     </SkillsInteractionProvider>
   );
 };

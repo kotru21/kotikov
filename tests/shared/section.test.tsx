@@ -13,28 +13,32 @@ describe("Section", () => {
 
     const section = container.querySelector("section#about");
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass("py-20", "lg:py-24");
+    expect(section).toHaveClass("py-[var(--section-space-standard)]");
     expect(screen.getByText("Content")).toBeInTheDocument();
   });
 
-  it("applies dense spacing py-16 lg:py-20", () => {
+  it("applies dense spacing via section-space-dense token", () => {
     const { container } = render(
       <Section id="skills" spacing="dense">
         <p>Skills</p>
       </Section>
     );
 
-    expect(container.querySelector("section#skills")).toHaveClass("py-16", "lg:py-20");
+    expect(container.querySelector("section#skills")).toHaveClass(
+      "py-[var(--section-space-dense)]"
+    );
   });
 
-  it("applies cta spacing py-20 lg:py-28", () => {
+  it("applies cta spacing via section-space-cta token", () => {
     const { container } = render(
       <Section id="contacts" spacing="cta">
         <p>Contacts</p>
       </Section>
     );
 
-    expect(container.querySelector("section#contacts")).toHaveClass("py-20", "lg:py-28");
+    expect(container.querySelector("section#contacts")).toHaveClass(
+      "py-[var(--section-space-cta)]"
+    );
   });
 
   it("applies footer spacing pt-12 pb-16", () => {
@@ -56,8 +60,8 @@ describe("Section", () => {
 
     const section = container.querySelector("section#footer");
     expect(section).toBeInTheDocument();
-    expect(section).not.toHaveClass("py-20");
-    expect(section).not.toHaveClass("py-16");
+    expect(section).not.toHaveClass("py-[var(--section-space-standard)]");
+    expect(section).not.toHaveClass("py-[var(--section-space-dense)]");
   });
 
   it("applies container-x and container-max on inner wrapper", () => {
@@ -126,6 +130,12 @@ describe("SectionHeader", () => {
   it("applies H2 typography scale from design spec", () => {
     render(<SectionHeader eyebrow="Test" title="Title" />);
     const h2 = screen.getByRole("heading", { level: 2 });
-    expect(h2).toHaveClass("text-4xl", "sm:text-5xl", "font-black", "tracking-tight", "uppercase");
+    expect(h2).toHaveClass(
+      "text-[clamp(2.25rem,5vw,3rem)]",
+      "text-balance",
+      "font-black",
+      "tracking-tight",
+      "uppercase"
+    );
   });
 });

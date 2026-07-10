@@ -73,6 +73,7 @@ const ProjectsGrid: React.FC = () => {
     <div ref={anchorRef} className="projects-grid-anchor hidden md:block">
       <div
         className="projects-grid-shell"
+        data-testid="projects-grid-shell"
         data-expanded={expandedIndex ?? "none"}
         data-reduced-motion={reducedMotion ? "true" : "false"}
       >

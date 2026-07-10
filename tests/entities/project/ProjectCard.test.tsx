@@ -18,12 +18,30 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
     const button = screen.getByRole("button", { name: /подробнее/i });
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(button).toHaveAttribute("aria-controls", controlsId);
+  });
+
+  it("shows the project outcome while collapsed", () => {
+    render(
+      <ProjectCard
+        project={project}
+        detailsToggle={{
+          isExpanded: false,
+          controlsId,
+          onToggle: vi.fn(),
+        }}
+      />
+    );
+
+    const outcomeParagraph = screen.getByText("Результат").closest("p");
+
+    expect(outcomeParagraph).toBeVisible();
+    expect(outcomeParagraph).toHaveTextContent(`Результат ${project.details.outcome}`);
   });
 
   it("calls onToggle when clicked", async () => {
@@ -38,7 +56,7 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle,
         }}
-      />,
+      />
     );
 
     await user.click(screen.getByRole("button", { name: /подробнее/i }));
@@ -54,11 +72,23 @@ describe("ProjectCard details toggle", () => {
           controlsId,
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
     const button = screen.getByRole("button", { name: /свернуть/i });
     expect(button).toHaveAttribute("aria-expanded", "true");
     expect(button).toHaveAttribute("aria-controls", controlsId);
+  });
+
+  it("uses Russian accessible names for external project links", () => {
+    render(<ProjectCard project={{ ...project, liveUrl: "https://example.com" }} />);
+
+    expect(
+      screen.getByRole("link", { name: "Код (откроется в новой вкладке)" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Демо (откроется в новой вкладке)" })
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Live")).not.toBeInTheDocument();
   });
 });

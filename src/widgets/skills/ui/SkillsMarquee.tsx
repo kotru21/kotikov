@@ -5,11 +5,17 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
+import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, SectionHeader } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
 
-const SkillsMarquee: React.FC = () => {
+interface SkillsMarqueeProps {
+  headingId: string;
+  isMotionActive: boolean;
+}
+
+const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive }) => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const showMarquee = !reducedMotion && !lowPerformance;
 
@@ -20,7 +26,7 @@ const SkillsMarquee: React.FC = () => {
           align="center"
           eyebrow="Навыки"
           title="Мои навыки"
-          titleId="skills-heading"
+          titleId={headingId}
           description="Технологии и инструменты, которыми я владею"
         />
         <p className="text-text-secondary mx-auto -mt-4 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
@@ -37,6 +43,7 @@ const SkillsMarquee: React.FC = () => {
             skills={[...skillsData, ...skillsData]}
             speed={60}
             direction="left"
+            isMotionActive={isMotionActive}
           />
         </div>
       ) : null}
@@ -52,8 +59,9 @@ const SkillsMarquee: React.FC = () => {
           rel="noopener noreferrer"
           variant="primary"
           size="lg"
+          aria-label={formatExternalLinkLabel("Мой профиль в LinkedIn")}
         >
-          <FaLinkedinIn className="text-xl" />
+          <FaLinkedinIn className="text-xl" aria-hidden="true" />
           <span>Мой профиль в LinkedIn</span>
         </Button>
       </div>

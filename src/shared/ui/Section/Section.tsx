@@ -14,9 +14,9 @@ interface SectionProps extends Omit<
 }
 
 const spacingClasses = {
-  standard: "py-20 lg:py-24",
-  dense: "py-16 lg:py-20",
-  cta: "py-20 lg:py-28",
+  standard: "py-[var(--section-space-standard)]",
+  dense: "py-[var(--section-space-dense)]",
+  cta: "py-[var(--section-space-cta)]",
   footer: "pt-12 pb-16",
   none: "",
 } as const;

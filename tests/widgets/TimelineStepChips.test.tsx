@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { TimelineItem } from "@/entities/timeline";
+import { useTimelineCarousel } from "@/widgets/timeline";
 import { TimelineStepChips } from "@/widgets/timeline/ui";
 
 const items: TimelineItem[] = [
@@ -43,12 +44,38 @@ const items: TimelineItem[] = [
   },
 ];
 
+function TimelineStepChipsHarness(): React.JSX.Element {
+  const { activeIndex, goTo, handleKeyDown } = useTimelineCarousel({
+    itemCount: items.length,
+  });
+
+  return (
+    <>
+      <button type="button">Внешний элемент</button>
+      <TimelineStepChips
+        items={items}
+        activeIndex={activeIndex}
+        panelId="timeline-panel-test"
+        reducedMotion
+        onSelect={goTo}
+        onKeyDown={handleKeyDown}
+      />
+      <div id="timeline-panel-test" />
+    </>
+  );
+}
+
+function getTimelineChip(index: number): HTMLElement {
+  const labels = ["2023 · Хакатон", "2024 · Обучение", "2025 · Работа", "2026 · Хакатон"];
+  return screen.getByRole("button", { name: labels[index] });
+}
+
 describe("TimelineStepChips", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  it("renders four chips with year and type labels", () => {
+  it("renders four native buttons in a labelled group", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -59,14 +86,17 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    expect(screen.getByRole("tablist")).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2023 · Хакатон" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2024 · Обучение" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2025 · Работа" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "2026 · Хакатон" })).toBeInTheDocument();
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
+
+    expect(controls).not.toHaveAttribute("tabindex");
+    expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2023 · Хакатон" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2024 · Обучение" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2025 · Работа" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "2026 · Хакатон" })).toBeInTheDocument();
   });
 
-  it("marks the active chip with aria-selected", () => {
+  it("marks the active chip with aria-pressed", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -77,12 +107,12 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    expect(screen.getByRole("tab", { name: "2025 · Работа" })).toHaveAttribute(
-      "aria-selected",
+    expect(screen.getByRole("button", { name: "2025 · Работа" })).toHaveAttribute(
+      "aria-pressed",
       "true"
     );
-    expect(screen.getByRole("tab", { name: "2023 · Хакатон" })).toHaveAttribute(
-      "aria-selected",
+    expect(screen.getByRole("button", { name: "2023 · Хакатон" })).toHaveAttribute(
+      "aria-pressed",
       "false"
     );
   });
@@ -100,11 +130,11 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    fireEvent.click(screen.getByRole("tab", { name: "2026 · Хакатон" }));
+    fireEvent.click(screen.getByRole("button", { name: "2026 · Хакатон" }));
     expect(onSelect).toHaveBeenCalledWith(3);
   });
 
-  it("does not adjust tablist scrollLeft on initial mount", () => {
+  it("does not adjust controls scrollLeft on initial mount", () => {
     render(
       <TimelineStepChips
         items={items}
@@ -115,13 +145,13 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    const tablist = screen.getByRole("tablist");
-    tablist.scrollLeft = 0;
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
+    controls.scrollLeft = 0;
 
-    expect(tablist.scrollLeft).toBe(0);
+    expect(controls.scrollLeft).toBe(0);
   });
 
-  it("adjusts tablist scrollLeft when the active chip overflows to the right", () => {
+  it("adjusts controls scrollLeft when the active chip overflows to the right", () => {
     const { rerender } = render(
       <TimelineStepChips
         items={items}
@@ -132,10 +162,10 @@ describe("TimelineStepChips", () => {
       />
     );
 
-    const tablist = screen.getByRole("tablist");
+    const controls = screen.getByRole("group", { name: "Этапы опыта" });
     let scrollLeft = 0;
 
-    Object.defineProperty(tablist, "scrollLeft", {
+    Object.defineProperty(controls, "scrollLeft", {
       configurable: true,
       get: () => scrollLeft,
       set: (value: number) => {
@@ -146,7 +176,7 @@ describe("TimelineStepChips", () => {
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(function (
       this: Element
     ) {
-      if (this.getAttribute("role") === "tablist") {
+      if (this.getAttribute("role") === "group") {
         return {
           left: 0,
           right: 200,
@@ -198,5 +228,44 @@ describe("TimelineStepChips", () => {
     );
 
     expect(scrollLeft).toBe(150);
+  });
+
+  it("synchronizes focus and pressed state for keyboard navigation", () => {
+    render(<TimelineStepChipsHarness />);
+    const firstChip = getTimelineChip(0);
+    const secondChip = getTimelineChip(1);
+
+    firstChip.focus();
+    fireEvent.keyDown(firstChip, { key: "ArrowRight" });
+
+    expect(secondChip).toHaveFocus();
+    expect(firstChip).toHaveAttribute("aria-pressed", "false");
+    expect(secondChip).toHaveAttribute("aria-pressed", "true");
+    expect(secondChip).toHaveAttribute("aria-controls", "timeline-panel-test");
+    expect(document.getElementById("timeline-panel-test")).toBeInTheDocument();
+  });
+
+  it("moves focus to the Home and End chip destinations", () => {
+    render(<TimelineStepChipsHarness />);
+    const firstChip = getTimelineChip(0);
+    const secondChip = getTimelineChip(1);
+    const lastChip = getTimelineChip(items.length - 1);
+
+    secondChip.focus();
+    fireEvent.keyDown(secondChip, { key: "End" });
+    expect(lastChip).toHaveFocus();
+    fireEvent.keyDown(lastChip, { key: "Home" });
+    expect(firstChip).toHaveFocus();
+  });
+
+  it("does not move focus after pointer selection", () => {
+    render(<TimelineStepChipsHarness />);
+    const outsideButton = screen.getByRole("button", { name: "Внешний элемент" });
+
+    outsideButton.focus();
+    fireEvent.click(getTimelineChip(1));
+
+    expect(outsideButton).toHaveFocus();
+    expect(getTimelineChip(1)).toHaveAttribute("aria-pressed", "true");
   });
 });

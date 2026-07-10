@@ -1,12 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import React from "react";
 
-import { FlyingNyancat } from "@/features/nyancat";
+import BackButton from "@/app/components/BackButton";
+import BauhausErrorMark from "@/app/components/BauhausErrorMark";
 import { Button, Card } from "@/shared/ui";
 
-const NotFound: React.FC = () => {
+export default function NotFound(): React.JSX.Element {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <div
@@ -47,51 +45,32 @@ const NotFound: React.FC = () => {
         />
       </div>
 
-      {/* Основной контент */}
       <div className="container mx-auto px-4 text-center">
         <Card variant="bgNone" padding="lg" className="mx-auto max-w-2xl">
-          {/* 404 в большом размере */}
-          <div className="text-primary-600 dark:text-primary-400 mb-8 text-8xl font-bold md:text-9xl">
-            404
-          </div>
+          <BauhausErrorMark code="404" />
 
-          {/* Заголовок */}
           <h1 className="text-text-primary dark:text-text-inverse mb-4 text-3xl font-bold md:text-4xl">
             Страница не найдена
           </h1>
 
-          {/* Описание */}
           <p className="text-text-secondary mb-8 text-lg leading-relaxed md:text-xl dark:text-neutral-300">
             К сожалению, запрашиваемая страница не существует или была перемещена.
             <br />
             Давайте вернем вас на правильный путь!
           </p>
 
-          {/* Кнопки действий */}
           <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center gap-4 sm:max-w-none sm:flex-row">
             <div className="w-full sm:w-auto">
-              <Link href="/">
-                <Button variant="primary" size="lg" fullWidth>
-                  На главную
-                </Button>
-              </Link>
+              <Button href="/" variant="primary" size="lg" fullWidth>
+                На главную
+              </Button>
             </div>
 
             <div className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                fullWidth
-                onClick={() => {
-                  window.history.back();
-                }}
-              >
-                ← Назад
-              </Button>
+              <BackButton />
             </div>
           </div>
 
-          {/* Дополнительные ссылки */}
           <div className="mt-12 border-t border-black/20 pt-8 dark:border-white/20">
             <p className="text-text-muted mb-4 text-sm dark:text-neutral-400">
               Может быть, вас заинтересует:
@@ -119,117 +98,6 @@ const NotFound: React.FC = () => {
           </div>
         </Card>
       </div>
-
-      {/* Летающие нянкэты */}
-      <FlyingNyancat
-        size="large"
-        position={{ top: "15%", left: "-120px" }}
-        animationName="nyancat-fly-404-1"
-        animationDuration="20s"
-        animationDelay="0s"
-        zIndex={-5}
-      />
-
-      <FlyingNyancat
-        size="medium"
-        position={{ top: "60%", left: "-80px" }}
-        animationName="nyancat-fly-404-2"
-        animationDuration="25s"
-        animationDelay="8s"
-        zIndex={-5}
-      />
-
-      <FlyingNyancat
-        size="small"
-        position={{ top: "80%", left: "-60px" }}
-        animationName="nyancat-fly-404-3"
-        animationDuration="18s"
-        animationDelay="12s"
-        zIndex={-5}
-      />
-
-      <FlyingNyancat
-        size="small"
-        position={{ top: "35%", left: "-40px" }}
-        animationName="nyancat-fly-404-4"
-        animationDuration="22s"
-        animationDelay="5s"
-        zIndex={-5}
-      />
-
-      {/* Стили анимации для летающих нянкэтов */}
-      <style jsx>{`
-        @keyframes nyancat-fly-404-1 {
-          0% {
-            transform: translateX(-120px) translateY(0px) rotate(0deg);
-          }
-          25% {
-            transform: translateX(25vw) translateY(-60px) rotate(5deg);
-          }
-          50% {
-            transform: translateX(50vw) translateY(40px) rotate(-3deg);
-          }
-          75% {
-            transform: translateX(75vw) translateY(-30px) rotate(7deg);
-          }
-          100% {
-            transform: translateX(calc(100vw + 120px)) translateY(0px) rotate(0deg);
-          }
-        }
-
-        @keyframes nyancat-fly-404-2 {
-          0% {
-            transform: translateX(-80px) translateY(0px) rotate(0deg);
-          }
-          20% {
-            transform: translateX(20vw) translateY(50px) rotate(-8deg);
-          }
-          40% {
-            transform: translateX(40vw) translateY(-40px) rotate(5deg);
-          }
-          60% {
-            transform: translateX(60vw) translateY(30px) rotate(-4deg);
-          }
-          80% {
-            transform: translateX(80vw) translateY(-50px) rotate(6deg);
-          }
-          100% {
-            transform: translateX(calc(100vw + 80px)) translateY(0px) rotate(0deg);
-          }
-        }
-
-        @keyframes nyancat-fly-404-3 {
-          0% {
-            transform: translateX(-60px) translateY(0px) rotate(0deg);
-          }
-          30% {
-            transform: translateX(30vw) translateY(-70px) rotate(10deg);
-          }
-          60% {
-            transform: translateX(60vw) translateY(20px) rotate(-5deg);
-          }
-          100% {
-            transform: translateX(calc(100vw + 60px)) translateY(0px) rotate(0deg);
-          }
-        }
-
-        @keyframes nyancat-fly-404-4 {
-          0% {
-            transform: translateX(-40px) translateY(0px) rotate(0deg);
-          }
-          33% {
-            transform: translateX(33vw) translateY(80px) rotate(-12deg);
-          }
-          66% {
-            transform: translateX(66vw) translateY(-45px) rotate(8deg);
-          }
-          100% {
-            transform: translateX(calc(100vw + 40px)) translateY(0px) rotate(0deg);
-          }
-        }
-      `}</style>
     </div>
   );
-};
-
-export default NotFound;
+}

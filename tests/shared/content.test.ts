@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import {
   aboutContent,
+  contactsData,
+  headerContent,
   navigation,
   projectsData,
   skillGroups,
@@ -23,6 +25,17 @@ describe("content model", () => {
 
   it("has no placeholder nav labels", () => {
     expect(navigation.some((n) => n.name === "Туда")).toBe(false);
+  });
+
+  it("prioritizes contact as the primary recruiter action", () => {
+    expect(headerContent.buttons.primary).toEqual({
+      text: "Связаться",
+      href: "#contacts",
+    });
+    expect(headerContent.buttons.secondary).toEqual({
+      text: "Смотреть проекты",
+      href: "#projects",
+    });
   });
 
   it("surfaces three featured projects with required fields", () => {
@@ -54,6 +67,10 @@ describe("content model", () => {
       expect(principle.text.length).toBeGreaterThan(0);
     }
     expect(aboutContent.principles.map((p) => p.type)).toEqual(["feat", "a11y", "perf"]);
+  });
+
+  it("orders contacts Email then Telegram then GitHub", () => {
+    expect(contactsData.map(({ label }) => label)).toEqual(["Email", "Telegram", "GitHub"]);
   });
 });
 

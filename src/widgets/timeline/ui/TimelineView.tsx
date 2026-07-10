@@ -3,7 +3,6 @@
 import React, { useMemo } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-import type { TimelineItem } from "@/entities/timeline";
 import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
 import {
@@ -47,7 +46,6 @@ const TimelineView: React.FC = () => {
     canGoNext,
   } = useTimelineCarousel({ itemCount: timelineData.length });
 
-  const activeItem = timelineData[activeIndex] as TimelineItem;
   const panelId = "timeline-carousel-panel";
   const progressPercent =
     timelineData.length > 1 ? (activeIndex / (timelineData.length - 1)) * 100 : 100;
@@ -94,9 +92,9 @@ const TimelineView: React.FC = () => {
 
           <div
             id={panelId}
-            role="tabpanel"
-            aria-labelledby={`timeline-tab-${String(activeItem.id)}`}
-            aria-label="Свайпните влево или вправо для переключения этапа"
+            role="group"
+            aria-roledescription="этап карьеры"
+            aria-label={`${String(activeIndex + 1)} из ${String(timelineData.length)}`}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchCancel}

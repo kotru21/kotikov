@@ -95,27 +95,31 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, classNam
   const words = text.split(" ");
   return (
     <span className={className}>
-      {words.map((word, wordIndex) => (
-        <React.Fragment key={`word-${word}-${String(wordIndex)}`}>
-          <span className="inline-block whitespace-nowrap">
-            {word.split("").map((char, charIndex) => (
+      {/* inline-block glyphs split the a11y name; keep a single readable string for AT */}
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {words.map((word, wordIndex) => (
+          <React.Fragment key={`word-${word}-${String(wordIndex)}`}>
+            <span className="inline-block whitespace-nowrap">
+              {word.split("").map((char, charIndex) => (
+                <InteractiveChar
+                  key={`char-${word}-${String(charIndex)}`}
+                  char={char}
+                  register={registry.register}
+                  unregister={registry.unregister}
+                />
+              ))}
+            </span>
+            {wordIndex < words.length - 1 && (
               <InteractiveChar
-                key={`char-${word}-${String(charIndex)}`}
-                char={char}
+                char=" "
                 register={registry.register}
                 unregister={registry.unregister}
               />
-            ))}
-          </span>
-          {wordIndex < words.length - 1 && (
-            <InteractiveChar
-              char=" "
-              register={registry.register}
-              unregister={registry.unregister}
-            />
-          )}
-        </React.Fragment>
-      ))}
+            )}
+          </React.Fragment>
+        ))}
+      </span>
     </span>
   );
 };

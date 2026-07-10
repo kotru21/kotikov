@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
@@ -25,7 +26,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
         </p>
 
         <div className="flex flex-col items-start">
-          <h1 className="text-text-primary dark:text-text-inverse text-[2.75rem] leading-[0.95] font-black tracking-tight uppercase sm:text-6xl sm:leading-none lg:text-8xl">
+          <h1 className="text-text-primary dark:text-text-inverse text-[clamp(3rem,10vw,7rem)] leading-[0.88] font-black tracking-[-0.06em] uppercase">
             <InteractiveText text={title} />
           </h1>
           <InteractiveElement
@@ -63,7 +64,7 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
                 aria-hidden="true"
                 className="inline-block transition-transform group-hover:translate-x-1"
               >
-                →
+                <ArrowRightIcon className="size-4" />
               </InteractiveElement>
             </a>
           </div>

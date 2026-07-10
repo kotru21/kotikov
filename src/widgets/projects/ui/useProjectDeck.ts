@@ -15,7 +15,7 @@ interface UseProjectDeckReturn {
   goTo: (index: number) => void;
   goNext: () => void;
   goPrev: () => void;
-  handleKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  handleKeyDown: (event: React.KeyboardEvent) => void;
   handleTouchStart: (event: React.TouchEvent<HTMLDivElement>) => void;
   handleTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
 }
@@ -42,7 +42,7 @@ export const useProjectDeck = ({ count }: UseProjectDeckOptions): UseProjectDeck
   }, [count]);
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    (event: React.KeyboardEvent): void => {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
         goPrev();

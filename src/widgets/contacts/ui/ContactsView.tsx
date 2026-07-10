@@ -5,6 +5,7 @@ import React from "react";
 import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
+import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -20,6 +21,7 @@ interface ContactsViewProps {
   enablePaint: boolean;
   onClearCanvas: () => void;
   canvasRef: React.RefObject<ContactCanvasRef | null>;
+  sectionRef?: React.RefObject<HTMLElement | null>;
   onPointerEnter: React.PointerEventHandler<HTMLElement>;
   onPointerMove: React.PointerEventHandler<HTMLElement>;
   onPointerLeave: React.PointerEventHandler<HTMLElement>;
@@ -39,6 +41,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
   enablePaint,
   onClearCanvas,
   canvasRef,
+  sectionRef,
   onPointerEnter,
   onPointerMove,
   onPointerLeave,
@@ -48,6 +51,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
 }) => {
   return (
     <Section
+      ref={sectionRef}
       id="contacts"
       spacing="cta"
       className="relative overflow-hidden"
@@ -75,7 +79,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         <CatPaw x={pawPos.x} y={pawPos.y} isActive={isDrawing} velocity={pawVelocity} />
       ) : null}
 
-      <div className="relative z-10">
+      <div className="relative z-[calc(var(--z-content)+10)]">
         <SectionHeader
           align="center"
           tone="on-gradient"
@@ -99,7 +103,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                 as="p"
                 data-draw-allow
                 data-interactive-color={colors.text.primary}
-                className="text-lg font-medium text-neutral-100/90 drop-shadow-sm"
+                className="text-lg font-medium text-neutral-100 drop-shadow-sm"
               >
                 <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
               </InteractiveElement>
@@ -125,6 +129,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
             }
 
             const interactiveMode = variant === "light" ? "border" : "solid";
+            const opensNewTab = contact.link !== undefined && isHttpUrl(contact.link);
 
             return (
               <div key={contact.label} className={`${gridClasses} h-full`}>
@@ -134,8 +139,13 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                   fullWidth
                   fullHeight
                   href={contact.link ?? undefined}
-                  target={contact.link !== undefined ? "_blank" : undefined}
-                  rel={contact.link !== undefined ? "noopener noreferrer" : undefined}
+                  target={opensNewTab ? "_blank" : undefined}
+                  rel={opensNewTab ? "noopener noreferrer" : undefined}
+                  aria-label={
+                    opensNewTab
+                      ? formatExternalLinkLabel(contact.label)
+                      : `Написать: ${contact.value}`
+                  }
                   shadowColor={colors.primary[500]}
                   data-draw-allow
                   data-interactive-mode={interactiveMode}
@@ -143,7 +153,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                   data-interactive-text={variant === "dark" ? "white" : "black"}
                   {...(interactiveMode === "solid"
                     ? {
-                        "data-interactive-shadow": `2px 2px 0px 0px ${colors.primary[600]}`,
+                        "data-interactive-shadow": `var(--shadow-hard-pressed)`,
                         "data-interactive-threshold": "0.1",
                       }
                     : { "data-interactive-color": colors.text.primary })}

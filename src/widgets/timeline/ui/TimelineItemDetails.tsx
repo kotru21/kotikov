@@ -40,8 +40,8 @@ const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({
         {item.company}
       </p>
       <p
-        className={`text-text-secondary font-medium dark:text-neutral-300 ${
-          compact ? "mt-2 line-clamp-4 text-sm leading-relaxed" : "mt-3 text-sm leading-relaxed"
+        className={`text-text-secondary max-w-[70ch] text-base leading-relaxed font-medium dark:text-neutral-300 ${
+          compact ? "mt-2 line-clamp-4" : "mt-3"
         }`}
       >
         {item.description}

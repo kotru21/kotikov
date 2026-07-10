@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { ProjectCardExpandable } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
@@ -10,24 +10,46 @@ import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
 import { getDeckCardRole, getDeckTransform } from "./getDeckTransform";
 import { useProjectDeck } from "./useProjectDeck";
 
+const NAVIGATION_KEYS = new Set(["ArrowLeft", "ArrowRight", "Home", "End"]);
+
+function willProjectIndexChange(key: string, activeIndex: number, count: number): boolean {
+  if (count <= 1) return false;
+  if (key === "Home") return activeIndex !== 0;
+  if (key === "End") return activeIndex !== count - 1;
+  return key === "ArrowLeft" || key === "ArrowRight";
+}
+
 const ProjectCardDeck: React.FC = () => {
   const projects = projectsData;
   const { reducedMotion } = usePerformanceSettings();
   const motionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
+  const controlRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const shouldFocusActiveControlRef = useRef(false);
   const { activeIndex, goTo, handleKeyDown, handleTouchStart, handleTouchEnd } = useProjectDeck({
     count: projects.length,
   });
 
+  useEffect(() => {
+    if (!shouldFocusActiveControlRef.current) return;
+    shouldFocusActiveControlRef.current = false;
+    controlRefs.current[activeIndex]?.focus();
+  }, [activeIndex]);
+
+  const handleControlsKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    const isNavigationKey = NAVIGATION_KEYS.has(event.key);
+    if (isNavigationKey) shouldFocusActiveControlRef.current = true;
+    handleKeyDown(event);
+    if (isNavigationKey && !willProjectIndexChange(event.key, activeIndex, projects.length)) {
+      shouldFocusActiveControlRef.current = false;
+    }
+  };
+
   if (projects.length === 0) return null;
 
-  const activeProject = projects[activeIndex];
-  const panelId = `project-panel-${activeProject.slug}`;
-
   return (
-    <div aria-roledescription="carousel" aria-label="Избранные проекты">
+    <div role="region" aria-roledescription="карусель" aria-label="Избранные проекты">
       <div
-        className="relative mx-auto w-full max-w-md"
-        style={{ minHeight: "calc(28rem + 1.5rem)" }}
+        className="relative mx-auto grid w-full max-w-md"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -35,15 +57,18 @@ const ProjectCardDeck: React.FC = () => {
           const role = getDeckCardRole(index, activeIndex, projects.length);
           const deckStyle = getDeckTransform(role, reducedMotion);
           const isActive = deckStyle.isActive;
-          const tabId = `project-tab-${project.slug}`;
 
           return (
             <div
               key={project.slug}
-              id={isActive ? panelId : undefined}
-              role={isActive ? "tabpanel" : undefined}
-              aria-labelledby={isActive ? tabId : undefined}
-              className={`absolute inset-x-0 top-0 origin-center ${motionClass}`}
+              role={isActive ? "group" : undefined}
+              aria-roledescription={isActive ? "слайд" : undefined}
+              aria-label={
+                isActive
+                  ? `${String(index + 1)} из ${String(projects.length)}: ${project.title}`
+                  : undefined
+              }
+              className={`col-start-1 row-start-1 origin-center ${motionClass}`}
               style={{
                 zIndex: deckStyle.zIndex,
                 transform: deckStyle.transform,
@@ -83,26 +108,25 @@ const ProjectCardDeck: React.FC = () => {
         {activeIndex + 1} / {projects.length}
       </p>
 
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- handles keyboard events bubbled from the native project buttons */}
       <div
-        className="focus-visible:ring-primary-500 mt-3 flex items-center justify-center gap-1 px-1 py-2 outline-none focus-visible:ring-2"
-        role="tablist"
-        aria-label="Избранные проекты"
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
+        className="mt-3 flex items-center justify-center gap-1 px-1 py-2"
+        role="group"
+        aria-label="Выбор проекта"
+        onKeyDown={handleControlsKeyDown}
       >
         {projects.map((project, index) => {
-          const tabId = `project-tab-${project.slug}`;
           const isSelected = index === activeIndex;
 
           return (
             <button
               key={project.slug}
-              id={tabId}
+              ref={(control) => {
+                controlRefs.current[index] = control;
+              }}
               type="button"
-              role="tab"
-              aria-selected={isSelected}
-              aria-controls={panelId}
-              aria-label={project.title}
+              aria-pressed={isSelected}
+              aria-label={`Выбрать проект ${project.title}`}
               onClick={() => {
                 goTo(index);
               }}

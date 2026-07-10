@@ -15,6 +15,8 @@ interface NyancatImageProps {
   onClick: () => void;
   forwardRef?: React.RefObject<HTMLDivElement | null>;
   priority?: boolean;
+  isMotionActive?: boolean;
+  testId?: string;
 }
 
 export const NyancatImage: React.FC<NyancatImageProps> = ({
@@ -27,23 +29,21 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   onClick,
   forwardRef,
   priority = false,
+  isMotionActive = true,
+  testId,
 }) => {
   const config = SIZE_CONFIG[size];
 
   return (
     <div
       ref={forwardRef}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+      aria-hidden="true"
+      data-testid={testId}
+      data-motion-active={isMotionActive}
       style={{
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
+        animationPlayState: isMotionActive ? "running" : "paused",
         cursor: isMobile ? "pointer" : "default",
       }}
       onMouseEnter={onMouseEnter}
@@ -52,7 +52,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
     >
       <Image
         src="/nyancat.svg"
-        alt="Nyancat"
+        alt=""
         width={config.width}
         height={config.height}
         priority={priority}

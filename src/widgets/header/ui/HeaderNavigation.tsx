@@ -87,12 +87,11 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
 
   return (
     <header className="fixed inset-x-0 z-50">
-      <nav aria-label="Global" className="px-6 pt-6 pb-2 lg:p-0">
+      <nav aria-label="Основная навигация" className="px-6 pt-6 pb-2 lg:p-0">
         <div
           className="relative z-10 w-full lg:hidden"
           style={{
             transform: `translate3d(0, ${px(mobileIsland.topOffset)}, 0)`,
-            willChange: "transform",
           }}
         >
           <div
@@ -141,7 +140,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 data-draw-exclude
                 className="text-text-primary dark:text-text-inverse hover:bg-primary-500 focus-visible:ring-primary-500 dark:hover:bg-primary-500 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white transition-all duration-100 hover:text-black focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:bg-black dark:hover:text-black"
               >
-                <span className="sr-only">Open main menu</span>
+                <span className="sr-only">Открыть меню</span>
                 <Bars3Icon aria-hidden="true" className="size-6" />
               </InteractiveElement>
             </div>
@@ -152,7 +151,6 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
           className="hidden w-full justify-center lg:flex"
           style={{
             transform: `translate3d(0, ${px(desktopIsland.topOffset)}, 0)`,
-            willChange: "transform",
           }}
         >
           <div
@@ -227,10 +225,14 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         </div>
       </nav>
 
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+      <Dialog
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+        className="fixed inset-0 z-50 lg:hidden"
+      >
         <DialogBackdrop
           transition={!snapMenuMotion}
-          className={`fixed inset-0 z-50 bg-black/50 ${snapMenuMotion ? "" : menuBackdropMotionClass}`}
+          className={`fixed inset-0 bg-black/50 ${snapMenuMotion ? "" : menuBackdropMotionClass}`}
         />
         <DialogPanel
           transition={!snapMenuMotion}
@@ -262,7 +264,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
                 onClick={closeMobileMenu}
                 className="hover:bg-primary-500 focus-visible:ring-primary-500 inline-flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-transparent transition-all hover:border-black hover:text-black focus-visible:ring-2 focus-visible:outline-none dark:text-white dark:hover:border-white"
               >
-                <span className="sr-only">Close menu</span>
+                <span className="sr-only">Закрыть меню</span>
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </InteractiveElement>
             </div>

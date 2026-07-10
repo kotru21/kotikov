@@ -8,17 +8,18 @@ import {
   useInteractiveRegistry,
 } from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
-import { usePerformanceSettings } from "@/features/performance";
+import { useSceneMotionPolicy } from "@/features/performance";
 import { contactsData } from "@/shared/config/content";
 
 import { type ContactCanvasRef, ContactsView } from "./ui";
 
 const ContactsWidget: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<ContactCanvasRef>(null);
 
-  const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  const enablePaint = !reducedMotion;
-  const showPaw = enablePaint && !lowPerformance;
+  const motion = useSceneMotionPolicy(sectionRef, { dominantEffect: "paint" });
+  const enablePaint = !motion.reducedMotion && motion.isInView && motion.isDocumentVisible;
+  const showPaw = enablePaint && !motion.lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
@@ -54,6 +55,7 @@ const ContactsWidget: React.FC = () => {
   return (
     <InteractiveTextContext value={registry}>
       <ContactsView
+        sectionRef={sectionRef}
         contacts={contactsData}
         pawPos={pawPos}
         pawVelocity={pawVelocity}

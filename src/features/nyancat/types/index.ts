@@ -26,4 +26,7 @@ export interface FlyingNyancatProps {
   animationDuration: string;
   animationDelay?: string;
   zIndex?: number;
+  /** Defaults to true for finite / one-shot consumers. */
+  isMotionActive?: boolean;
+  testId?: string;
 }

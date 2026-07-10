@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 
 import type { SkillData } from "@/entities/skill";
+import { useRafWhile } from "@/features/performance";
 
 import { SkillMarqueeCard } from ".";
 
@@ -12,6 +13,7 @@ interface SkillMarqueeRowProps {
   skills: SkillData[];
   curved?: boolean;
   arcHeight?: number;
+  isMotionActive: boolean;
 }
 
 function getArcLift(
@@ -37,6 +39,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
   skills,
   curved = false,
   arcHeight = 72,
+  isMotionActive,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeClassName =
@@ -54,44 +57,38 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
     }))
   ).flat();
 
-  useEffect(() => {
-    if (!curved) return;
-
+  const updateArc = useCallback((): void => {
     const container = containerRef.current;
     if (container === null) return;
 
-    let frame = 0;
+    const rect = container.getBoundingClientRect();
 
-    const updateArc = (): void => {
-      const rect = container.getBoundingClientRect();
+    container.querySelectorAll<HTMLElement>("[data-skill-arc-item]").forEach((item) => {
+      const itemRect = item.getBoundingClientRect();
+      const itemCenterX = itemRect.left + itemRect.width / 2;
+      const lift = getArcLift(itemCenterX, rect.left, rect.width, arcHeight);
+      item.style.transform = `translate3d(0, ${String(-lift)}px, 0)`;
+    });
+  }, [arcHeight]);
 
-      container.querySelectorAll<HTMLElement>("[data-skill-arc-item]").forEach((item) => {
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterX = itemRect.left + itemRect.width / 2;
-        const lift = getArcLift(itemCenterX, rect.left, rect.width, arcHeight);
-        item.style.transform = `translate3d(0, ${String(-lift)}px, 0)`;
-      });
+  useRafWhile(curved && isMotionActive, updateArc);
 
-      frame = window.requestAnimationFrame(updateArc);
-    };
-
-    frame = window.requestAnimationFrame(updateArc);
-    return () => {
-      window.cancelAnimationFrame(frame);
-    };
-  }, [arcHeight, curved, skillsCopies.length]);
+  const trackStyle: React.CSSProperties = {
+    animationDuration: `${String(speed)}s`,
+    animationTimingFunction: "linear",
+    animationIterationCount: "infinite",
+    animationPlayState: isMotionActive ? "running" : "paused",
+    width: "max-content",
+  };
 
   if (!curved) {
     return (
       <div className="relative overflow-hidden py-2">
         <div
+          data-testid="skill-marquee-track"
+          data-motion-active={isMotionActive}
           className={marqueeClassName}
-          style={{
-            animationDuration: `${String(speed)}s`,
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-            width: "max-content",
-          }}
+          style={trackStyle}
         >
           {skillsCopies.map((skill) => (
             <SkillMarqueeCard key={skill.uniqueKey} skill={skill} />
@@ -108,16 +105,17 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
       style={{ paddingTop: `calc(${String(arcHeight)}px + 1.25rem)` }}
     >
       <div
+        data-testid="skill-marquee-track"
+        data-motion-active={isMotionActive}
         className={curvedMarqueeClassName}
-        style={{
-          animationDuration: `${String(speed)}s`,
-          animationTimingFunction: "linear",
-          animationIterationCount: "infinite",
-          width: "max-content",
-        }}
+        style={trackStyle}
       >
         {skillsCopies.map((skill) => (
-          <div key={skill.uniqueKey} data-skill-arc-item className="will-change-transform">
+          <div
+            key={skill.uniqueKey}
+            data-skill-arc-item
+            className={isMotionActive ? "will-change-transform" : undefined}
+          >
             <SkillMarqueeCard skill={skill} />
           </div>
         ))}

@@ -14,6 +14,7 @@ interface InteractionOverlayProps {
   isMobile: boolean;
   onMouseEnter: () => void;
   onClick: () => void;
+  isMotionActive?: boolean;
 }
 
 export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
@@ -25,14 +26,14 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
   isMobile,
   onMouseEnter,
   onClick,
+  isMotionActive = true,
 }) => {
   const config = SIZE_CONFIG[size];
 
   return (
     <div
-      role="button"
-      aria-label="Nyancat interaction"
-      tabIndex={0}
+      aria-hidden="true"
+      data-motion-active={isMotionActive}
       style={{
         position: "absolute",
         top: position.top,
@@ -44,10 +45,8 @@ export const InteractionOverlay: React.FC<InteractionOverlayProps> = ({
         cursor: isMobile ? "pointer" : "default",
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
+        animationPlayState: isMotionActive ? "running" : "paused",
         pointerEvents: "auto",
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick();
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}

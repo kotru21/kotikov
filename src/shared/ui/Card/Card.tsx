@@ -21,15 +21,15 @@ const Card: React.FC<CardProps> = ({
   style,
   ...props
 }) => {
-  const baseClasses = "rounded-none transition-all duration-200";
+  const baseClasses = "rounded-none transition-all duration-[var(--motion-component)]";
 
   const variantClasses = {
     default:
-      "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]",
+      "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white shadow-[var(--shadow-hard-sm)]",
     outlined:
       "bg-white dark:bg-black border-2 border-black dark:border-white text-black dark:text-white",
     elevated:
-      "bg-white dark:bg-black border-2 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] text-black dark:text-white",
+      "bg-white dark:bg-black border-2 border-black dark:border-white shadow-[var(--shadow-hard-lg)] text-black dark:text-white",
     bgNone: "bg-transparent border-none shadow-none",
   } as const;
 
@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({
   } as const;
 
   const hoverClasses = hover
-    ? "hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] cursor-pointer active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
+    ? "hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[var(--shadow-hard-pressed)] cursor-pointer active:translate-x-[4px] active:translate-y-[4px] active:shadow-none"
     : "";
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${paddingClasses[padding]} ${hoverClasses} ${className}`;

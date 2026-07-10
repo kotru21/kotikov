@@ -12,7 +12,16 @@ import { NyancatImage } from "./NyancatImage";
 import { RainbowTrail } from "./RainbowTrail";
 
 const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
-  ({ size, position, animationName, animationDuration, animationDelay = "0s", zIndex = -5 }) => {
+  ({
+    size,
+    position,
+    animationName,
+    animationDuration,
+    animationDelay = "0s",
+    zIndex = -5,
+    isMotionActive = true,
+    testId,
+  }) => {
     const isMobile = useIsMobile();
     const { isExploded, pixels, explosionPosition, nyancatRef, explode } = useExplosion(size);
 
@@ -46,6 +55,8 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
               onMouseEnter={handleMouseEnter}
               onClick={handleClick}
               forwardRef={nyancatRef}
+              isMotionActive={isMotionActive}
+              testId={testId}
             />
           )}
         </div>
@@ -60,6 +71,7 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
             isMobile={isMobile}
             onMouseEnter={handleMouseEnter}
             onClick={handleClick}
+            isMotionActive={isMotionActive}
           />
         )}
 
@@ -75,6 +87,7 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
             animationDuration={animationDuration}
             animationDelay={animationDelay}
             zIndex={zIndex}
+            isMotionActive={isMotionActive}
           />
         )}
       </>

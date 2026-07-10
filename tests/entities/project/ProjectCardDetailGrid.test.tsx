@@ -14,7 +14,7 @@ describe("ProjectCardDetailGrid", () => {
         id="project-details-file-manager-tauri"
         isVisible
         reducedMotion
-      />,
+      />
     );
 
     expect(screen.getByRole("region", { name: /подробности проекта/i })).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe("ProjectCardDetailGrid", () => {
         isVisible
         reducedMotion
         orientation="horizontal"
-      />,
+      />
     );
 
     expect(container.querySelector("dl")?.className).toContain("grid-cols-2");

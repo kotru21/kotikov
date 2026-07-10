@@ -16,7 +16,7 @@ const motionCellClass = (
   index: number,
   isVisible: boolean,
   reducedMotion: boolean,
-  orientation: ProjectCardDetailOrientation,
+  orientation: ProjectCardDetailOrientation
 ): string => {
   if (reducedMotion) {
     return "opacity-100 translate-x-0 translate-y-0";
@@ -42,9 +42,7 @@ function getVisibilityClass(isHorizontal: boolean, isVisible: boolean): string {
 
 function getBorderClass(isHorizontal: boolean, isVisible: boolean): string {
   if (isHorizontal) {
-    return isVisible
-      ? "border-l-2 border-black dark:border-white"
-      : "border-l-0";
+    return isVisible ? "border-l-2 border-black dark:border-white" : "border-l-0";
   }
 
   return "border-t-2 border-black dark:border-white";
@@ -76,7 +74,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
     >
       <div
         aria-hidden="true"
-        className={`absolute top-3 right-3 border-2 border-black dark:border-white size-12 rounded-full ${
+        className={`absolute top-3 right-3 size-12 rounded-full border-2 border-black dark:border-white ${
           reducedMotion ? "scale-100 opacity-60" : "transition-transform duration-[400ms] ease-out"
         } ${isVisible ? "scale-100 opacity-60" : "scale-0 opacity-0"}`}
         style={{ backgroundColor: project.accentColor }}
