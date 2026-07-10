@@ -26,8 +26,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   const descriptionAlignClasses = align === "center" ? "mx-auto max-w-xl" : "max-w-2xl";
   const titleClasses =
     tone === "on-gradient"
-      ? "text-4xl sm:text-5xl font-black tracking-tight uppercase text-white drop-shadow-sm"
-      : "text-4xl sm:text-5xl font-black tracking-tight uppercase text-text-primary dark:text-text-inverse";
+      ? "text-[clamp(2.25rem,5vw,3rem)] text-balance font-black tracking-tight uppercase text-white drop-shadow-sm"
+      : "text-[clamp(2.25rem,5vw,3rem)] text-balance font-black tracking-tight uppercase text-text-primary dark:text-text-inverse";
   const descriptionToneClasses =
     tone === "on-gradient" ? "text-neutral-100/90" : "text-text-secondary dark:text-neutral-400";
 
@@ -39,7 +39,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </h2>
       {description !== undefined && description !== null ? (
         <div
-          className={`mt-4 max-w-2xl text-lg leading-8 font-medium ${descriptionToneClasses} ${descriptionAlignClasses}`}
+          className={`mt-4 max-w-2xl text-base sm:text-lg leading-8 font-medium ${descriptionToneClasses} ${descriptionAlignClasses}`}
         >
           {description}
         </div>
