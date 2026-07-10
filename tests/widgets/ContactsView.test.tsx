@@ -19,10 +19,7 @@ const contacts: ContactInfo[] = [
 const inertPointerHandler = vi.fn();
 const viewProps = {
   contacts,
-  pawPos: { x: 0, y: 0 },
-  pawVelocity: { x: 0, y: 0 },
   isDrawing: false,
-  showPaw: false,
   mountPaint: false,
   enablePaint: false,
   onClearCanvas: vi.fn(),
@@ -64,5 +61,18 @@ describe("ContactsView", () => {
     expect(httpxLink).not.toHaveAttribute("target");
     expect(httpxLink).not.toHaveAttribute("rel");
     expect(httpxLink).not.toHaveAccessibleName(/откроется в новой вкладке/i);
+  });
+
+  it("does not render the paw cursor while paint is enabled", () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+
+    render(<ContactsView {...viewProps} isDrawing mountPaint enablePaint />);
+
+    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 });

@@ -119,7 +119,7 @@ class IntersectionObserverMock {
 vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
 describe("ContactsWidget paint-enabled path", () => {
-  it("draws, clears, and shows paw when paint is enabled", () => {
+  it("draws and clears without showing a paw cursor when paint is enabled", () => {
     motionState.reducedMotion = false;
     motionState.lowPerformance = false;
     motionState.isInView = true;
@@ -129,6 +129,7 @@ describe("ContactsWidget paint-enabled path", () => {
 
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeInTheDocument();
+    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
 
     latestDraw?.(10, 10, 0, 0);
     expect(drawOnCanvas).toHaveBeenCalled();

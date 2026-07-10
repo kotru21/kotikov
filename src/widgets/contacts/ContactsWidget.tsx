@@ -22,7 +22,6 @@ const ContactsWidget: React.FC = () => {
   // isInView/visibility, or the canvas remounts (and loses paint state) on every flip.
   const mountPaint = !motion.reducedMotion;
   const enablePaint = mountPaint && motion.isInView && motion.isDocumentVisible;
-  const showPaw = enablePaint && !motion.lowPerformance;
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
   const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
@@ -37,8 +36,6 @@ const ContactsWidget: React.FC = () => {
   );
 
   const {
-    pawPos,
-    pawVelocity,
     isDrawing,
     handlers: {
       handlePointerEnter,
@@ -60,10 +57,7 @@ const ContactsWidget: React.FC = () => {
       <ContactsView
         sectionRef={sectionRef}
         contacts={contactsData}
-        pawPos={pawPos}
-        pawVelocity={pawVelocity}
         isDrawing={isDrawing}
-        showPaw={showPaw}
         mountPaint={mountPaint}
         enablePaint={enablePaint}
         onClearCanvas={handleClearCanvas}

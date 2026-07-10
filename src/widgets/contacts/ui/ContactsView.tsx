@@ -9,15 +9,12 @@ import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
-import { CatPaw, ContactCanvas } from ".";
+import { ContactCanvas } from ".";
 import type { ContactCanvasRef } from "./ContactCanvas";
 
 interface ContactsViewProps {
   contacts: ContactInfo[];
-  pawPos: { x: number; y: number };
-  pawVelocity: { x: number; y: number };
   isDrawing: boolean;
-  showPaw: boolean;
   /** Keep canvas mounted (preserves paint state). Independent of in-view gating. */
   mountPaint: boolean;
   /** Active paint interaction (in view + visible + not reduced motion). */
@@ -37,10 +34,7 @@ const CONTACTS_GRADIENT = `linear-gradient(135deg, ${colors.primary[900]}, ${col
 
 const ContactsView: React.FC<ContactsViewProps> = ({
   contacts,
-  pawPos,
-  pawVelocity,
   isDrawing,
-  showPaw,
   mountPaint,
   enablePaint,
   onClearCanvas,
@@ -60,7 +54,6 @@ const ContactsView: React.FC<ContactsViewProps> = ({
       spacing="cta"
       className="relative overflow-hidden"
       style={{
-        cursor: isDrawing ? "none" : undefined,
         touchAction: isDrawing ? "none" : "pan-y",
       }}
       onPointerEnter={onPointerEnter}
@@ -78,10 +71,6 @@ const ContactsView: React.FC<ContactsViewProps> = ({
           style={{ background: CONTACTS_GRADIENT }}
         />
       )}
-
-      {showPaw && isDrawing ? (
-        <CatPaw x={pawPos.x} y={pawPos.y} isActive={isDrawing} velocity={pawVelocity} />
-      ) : null}
 
       <div className="relative z-[calc(var(--z-content)+10)]">
         <SectionHeader

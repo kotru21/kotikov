@@ -89,8 +89,10 @@ describe("ContactsWidget", () => {
       screen.getByRole("link", { name: "Telegram (откроется в новой вкладке)" })
     ).toBeInTheDocument();
 
+    // Canvas stays mounted to preserve paint state; interaction chrome is gated off.
+    expect(document.querySelector("canvas")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Очистить рисунок" })).not.toBeInTheDocument();
     expect(screen.queryByText("Проведи мышью — оставь след лапы")).not.toBeInTheDocument();
-    expect(document.querySelector("canvas")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 });
