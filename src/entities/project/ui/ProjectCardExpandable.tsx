@@ -82,7 +82,7 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
 
           <div
             data-testid="project-card-details-column"
-            className="h-0 min-h-full min-w-0 overflow-hidden"
+            className="h-0 min-h-full min-w-0 overflow-x-hidden overflow-y-hidden"
           >
             <ProjectCardDetailGrid
               project={project}

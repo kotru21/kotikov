@@ -71,7 +71,8 @@ describe("ProjectCardExpandable", () => {
     const detailsColumn = screen.getByTestId("project-card-details-column");
     expect(detailsColumn.className).toMatch(/h-0/);
     expect(detailsColumn.className).toMatch(/min-h-full/);
-    expect(detailsColumn.className).toMatch(/overflow-hidden/);
+    expect(detailsColumn.className).toMatch(/overflow-x-hidden/);
+    expect(detailsColumn.className).toMatch(/overflow-y-hidden/);
 
     rerender(
       <ProjectCardExpandable
@@ -84,6 +85,7 @@ describe("ProjectCardExpandable", () => {
 
     expect(detailsColumn.className).toMatch(/h-0/);
     expect(detailsColumn.className).toMatch(/min-h-full/);
+    expect(detailsColumn.className).toMatch(/overflow-x-hidden/);
     expect(screen.getByLabelText("Подробности проекта")).toHaveAttribute("aria-hidden", "false");
   });
 

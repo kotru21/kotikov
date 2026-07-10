@@ -49,7 +49,10 @@ function getBorderClass(isHorizontal: boolean, isVisible: boolean): string {
 }
 
 function getCellLayoutClass(isHorizontal: boolean, borders: string): string {
-  const scrollClass = isHorizontal ? "min-h-0 overflow-y-auto" : "";
+  // Keep overflow for long copy under height containment, but hide scroll affordances.
+  const scrollClass = isHorizontal
+    ? "min-h-0 min-w-0 overflow-x-hidden overflow-y-auto break-words scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    : "";
   return `${borders} px-4 py-3 ${scrollClass}`;
 }
 
@@ -85,7 +88,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
 
       <dl
         className={`relative z-10 ${
-          isHorizontal ? "grid h-full min-h-0 grid-cols-2 grid-rows-2" : ""
+          isHorizontal ? "grid h-full min-h-0 min-w-0 grid-cols-2 grid-rows-2" : ""
         }`}
       >
         <div
