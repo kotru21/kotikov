@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import BauhausErrorMark from "@/app/components/BauhausErrorMark";
 import { Button, Card } from "@/shared/ui";
 
 interface ErrorPageProps {
@@ -11,13 +12,13 @@ interface ErrorPageProps {
 
 export default function Error({ error, reset }: ErrorPageProps): React.JSX.Element {
   useEffect(() => {
-    console.error("App Router Error:", error);
-  }, [error]);
+    console.error("App Router error", { digest: error.digest ?? "unknown" });
+  }, [error.digest]);
 
   return (
     <div className="bg-background-primary flex min-h-screen items-center justify-center">
       <Card variant="bgNone" padding="lg" className="mx-auto max-w-md text-center">
-        <div className="mb-6 text-6xl">🚨</div>
+        <BauhausErrorMark code="error" />
         <h2 className="text-text-primary mb-4 text-2xl font-bold">Произошла ошибка</h2>
         <p className="text-text-secondary mb-6">
           Что-то пошло не так при загрузке страницы. Попробуйте еще раз.
@@ -26,12 +27,7 @@ export default function Error({ error, reset }: ErrorPageProps): React.JSX.Eleme
           <Button onClick={reset} variant="primary">
             Попробовать снова
           </Button>
-          <Button
-            onClick={() => {
-              window.location.href = "/";
-            }}
-            variant="secondary"
-          >
+          <Button href="/" variant="secondary">
             На главную
           </Button>
           {process.env.NODE_ENV === "development" && (
