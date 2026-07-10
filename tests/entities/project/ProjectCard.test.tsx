@@ -26,7 +26,7 @@ describe("ProjectCard details toggle", () => {
     expect(button).toHaveAttribute("aria-controls", controlsId);
   });
 
-  it("shows the project outcome while collapsed", () => {
+  it("does not show the project outcome on the collapsed card face", () => {
     render(
       <ProjectCard
         project={project}
@@ -38,13 +38,11 @@ describe("ProjectCard details toggle", () => {
       />
     );
 
-    const outcomeParagraph = screen.getByText("Результат").closest("p");
-
-    expect(outcomeParagraph).toBeVisible();
-    expect(outcomeParagraph).toHaveTextContent(`Результат ${project.details.outcome}`);
+    expect(screen.queryByText("Результат")).not.toBeInTheDocument();
+    expect(screen.queryByText(project.details.outcome)).not.toBeInTheDocument();
   });
 
-  it("hides the card outcome while expanded to avoid duplicating the detail grid", () => {
+  it("does not show the project outcome on the expanded card face", () => {
     render(
       <ProjectCard
         project={project}
