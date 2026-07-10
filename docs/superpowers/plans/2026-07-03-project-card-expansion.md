@@ -14,24 +14,25 @@
 
 ## File Map
 
-| File | Responsibility |
-|------|----------------|
-| `src/shared/config/content/projects.ts` | `ProjectDetail` type + `details` copy for 3 projects |
-| `src/entities/project/ui/ProjectCardDetailGrid.tsx` | 4 Bauhaus cells (presentational, server-safe) |
-| `src/entities/project/ui/ProjectCard.tsx` | Add «Подробнее»/«Свернуть» button via props |
-| `src/entities/project/ui/ProjectDetailSheet.tsx` | Mobile overlay + bottom sheet (client) |
-| `src/entities/project/ui/ProjectCardExpandable.tsx` | Orchestrates card + grid + sheet (client) |
-| `src/widgets/projects/ui/ProjectsGrid.tsx` | Desktop grid + `expandedSlug` accordion (client) |
-| `src/widgets/projects/ui/ProjectsView.tsx` | Wire `ProjectsGrid` + deck |
-| `src/widgets/projects/ui/ProjectCardDeck.tsx` | Use `ProjectCardExpandable` instead of `ProjectCard` |
-| `src/entities/project/ui/index.ts` | Export new components |
-| `src/entities/project/index.ts` | Re-export if needed |
+| File                                                | Responsibility                                       |
+| --------------------------------------------------- | ---------------------------------------------------- |
+| `src/shared/config/content/projects.ts`             | `ProjectDetail` type + `details` copy for 3 projects |
+| `src/entities/project/ui/ProjectCardDetailGrid.tsx` | 4 Bauhaus cells (presentational, server-safe)        |
+| `src/entities/project/ui/ProjectCard.tsx`           | Add «Подробнее»/«Свернуть» button via props          |
+| `src/entities/project/ui/ProjectDetailSheet.tsx`    | Mobile overlay + bottom sheet (client)               |
+| `src/entities/project/ui/ProjectCardExpandable.tsx` | Orchestrates card + grid + sheet (client)            |
+| `src/widgets/projects/ui/ProjectsGrid.tsx`          | Desktop grid + `expandedSlug` accordion (client)     |
+| `src/widgets/projects/ui/ProjectsView.tsx`          | Wire `ProjectsGrid` + deck                           |
+| `src/widgets/projects/ui/ProjectCardDeck.tsx`       | Use `ProjectCardExpandable` instead of `ProjectCard` |
+| `src/entities/project/ui/index.ts`                  | Export new components                                |
+| `src/entities/project/index.ts`                     | Re-export if needed                                  |
 
 ---
 
 ### Task 1: Extend project data model
 
 **Files:**
+
 - Modify: `src/shared/config/content/projects.ts`
 - Test: `tests/shared/content.test.ts`
 
@@ -40,13 +41,13 @@
 Add inside the existing `"content model"` describe block in `tests/shared/content.test.ts`:
 
 ```typescript
-  it("includes project details for storytelling expand panels", () => {
-    for (const project of projectsData) {
-      expect(project.details.challenge.length).toBeGreaterThan(10);
-      expect(project.details.solution.length).toBeGreaterThan(10);
-      expect(project.details.outcome.length).toBeGreaterThan(10);
-    }
-  });
+it("includes project details for storytelling expand panels", () => {
+  for (const project of projectsData) {
+    expect(project.details.challenge.length).toBeGreaterThan(10);
+    expect(project.details.solution.length).toBeGreaterThan(10);
+    expect(project.details.outcome.length).toBeGreaterThan(10);
+  }
+});
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
@@ -110,6 +111,7 @@ git commit -m "feat(projects): add details field for expandable card content"
 ### Task 2: ProjectCardDetailGrid component
 
 **Files:**
+
 - Create: `src/entities/project/ui/ProjectCardDetailGrid.tsx`
 - Modify: `src/entities/project/ui/index.ts`
 - Test: `tests/entities/project/ProjectCardDetailGrid.test.tsx`
@@ -135,7 +137,7 @@ describe("ProjectCardDetailGrid", () => {
         id="project-details-file-manager-tauri"
         isVisible
         reducedMotion
-      />,
+      />
     );
 
     expect(screen.getByRole("region", { name: /подробности проекта/i })).toBeInTheDocument();
@@ -185,7 +187,9 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
   isVisible,
   reducedMotion = false,
 }) => {
-  const transitionClass = reducedMotion ? "" : "transition-[opacity,transform] duration-300 ease-out";
+  const transitionClass = reducedMotion
+    ? ""
+    : "transition-[opacity,transform] duration-300 ease-out";
 
   return (
     <section
@@ -198,8 +202,8 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
     >
       <div
         aria-hidden="true"
-        className={`absolute top-3 right-3 size-12 rounded-full border-2 border-black dark:border-white ${
-          reducedMotion ? "scale-100 opacity-60" : "transition-transform duration-400 ease-out"
+        className={`absolute right-3 top-3 size-12 rounded-full border-2 border-black dark:border-white ${
+          reducedMotion ? "scale-100 opacity-60" : "duration-400 transition-transform ease-out"
         } ${isVisible ? "scale-100 opacity-60" : "scale-0 opacity-0"}`}
         style={{ backgroundColor: project.accentColor }}
       />
@@ -209,8 +213,8 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
           className={`border-b-2 border-black px-4 py-3 dark:border-white ${motionCellClass(0, isVisible, reducedMotion)}`}
           style={{ backgroundColor: project.accentColor }}
         >
-          <dt className="text-xs font-bold tracking-[0.12em] text-neutral-950 uppercase">Задача</dt>
-          <dd className="mt-1 text-sm leading-relaxed font-medium text-neutral-950">
+          <dt className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-950">Задача</dt>
+          <dd className="mt-1 text-sm font-medium leading-relaxed text-neutral-950">
             {project.details.challenge}
           </dd>
         </div>
@@ -218,7 +222,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         <div
           className={`border-b-2 border-black bg-white px-4 py-3 dark:border-white dark:bg-neutral-900 ${motionCellClass(1, isVisible, reducedMotion)}`}
         >
-          <dt className="text-xs font-bold tracking-[0.12em] text-neutral-700 uppercase dark:text-neutral-300">
+          <dt className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-700 dark:text-neutral-300">
             Решение
           </dt>
           <dd className="mt-1 text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
@@ -229,7 +233,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         <div
           className={`border-b-2 border-black bg-black px-4 py-3 dark:border-white dark:bg-white ${motionCellClass(2, isVisible, reducedMotion)}`}
         >
-          <dt className="text-xs font-bold tracking-[0.12em] text-white uppercase dark:text-black">
+          <dt className="text-xs font-bold uppercase tracking-[0.12em] text-white dark:text-black">
             Результат
           </dt>
           <dd className="mt-1 text-sm leading-relaxed text-white dark:text-black">
@@ -240,14 +244,14 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         <div
           className={`bg-neutral-100 px-4 py-3 dark:bg-neutral-800 ${motionCellClass(3, isVisible, reducedMotion)}`}
         >
-          <dt className="text-xs font-bold tracking-[0.12em] text-neutral-700 uppercase dark:text-neutral-300">
+          <dt className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-700 dark:text-neutral-300">
             Стек
           </dt>
           <dd className="mt-2 flex flex-wrap gap-1.5">
             {project.stack.map((item) => (
               <span
                 key={item}
-                className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-xs font-bold text-neutral-900 uppercase dark:border-white dark:bg-neutral-900 dark:text-white"
+                className="rounded-none border-2 border-black bg-white px-2 py-0.5 text-xs font-bold uppercase text-neutral-900 dark:border-white dark:bg-neutral-900 dark:text-white"
               >
                 {item}
               </span>
@@ -287,6 +291,7 @@ git commit -m "feat(projects): add Bauhaus detail grid component"
 ### Task 3: Add expand toggle to ProjectCard
 
 **Files:**
+
 - Modify: `src/entities/project/ui/ProjectCard.tsx`
 - Test: `tests/entities/project/ProjectCard.test.tsx`
 
@@ -315,7 +320,7 @@ describe("ProjectCard", () => {
           controlsId: "details-panel-test",
           onToggle: onToggleDetails,
         }}
-      />,
+      />
     );
 
     const toggle = screen.getByRole("button", { name: /подробнее/i });
@@ -335,10 +340,13 @@ describe("ProjectCard", () => {
           controlsId: "details-panel-test",
           onToggle: vi.fn(),
         }}
-      />,
+      />
     );
 
-    expect(screen.getByRole("button", { name: /свернуть/i })).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("button", { name: /свернуть/i })).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
   });
 });
 ```
@@ -374,22 +382,20 @@ Update shadow/hover: when `disableHover` is true, skip hover translate classes.
 In footer actions div, before GitHub link:
 
 ```tsx
-{detailsToggle ? (
-  <button
-    type="button"
-    onClick={detailsToggle.onToggle}
-    aria-expanded={detailsToggle.isExpanded}
-    aria-controls={detailsToggle.controlsId}
-    className="focus-visible:ring-primary-400 inline-flex min-h-11 cursor-pointer items-center rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold text-neutral-950 uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:text-white"
-    style={
-      detailsToggle.isExpanded
-        ? undefined
-        : { backgroundColor: project.accentColor }
-    }
-  >
-    {detailsToggle.isExpanded ? "Свернуть" : "Подробнее"}
-  </button>
-) : null}
+{
+  detailsToggle ? (
+    <button
+      type="button"
+      onClick={detailsToggle.onToggle}
+      aria-expanded={detailsToggle.isExpanded}
+      aria-controls={detailsToggle.controlsId}
+      className="inline-flex min-h-11 cursor-pointer items-center rounded-none border-2 border-black px-3 py-1.5 text-xs font-bold uppercase text-neutral-950 transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 dark:border-white dark:text-white"
+      style={detailsToggle.isExpanded ? undefined : { backgroundColor: project.accentColor }}
+    >
+      {detailsToggle.isExpanded ? "Свернуть" : "Подробнее"}
+    </button>
+  ) : null;
+}
 ```
 
 Place toggle inside the flex gap with GitHub link; order: «Подробнее» then «Код».
@@ -411,6 +417,7 @@ git commit -m "feat(projects): add expandable details toggle to project card"
 ### Task 4: ProjectDetailSheet (mobile overlay)
 
 **Files:**
+
 - Create: `src/entities/project/ui/ProjectDetailSheet.tsx`
 - Modify: `src/entities/project/ui/index.ts`
 - Test: `tests/entities/project/ProjectDetailSheet.test.tsx`
@@ -433,14 +440,7 @@ describe("ProjectDetailSheet", () => {
     const onClose = vi.fn();
     const project = projectsData[1];
 
-    render(
-      <ProjectDetailSheet
-        project={project}
-        isOpen
-        onClose={onClose}
-        reducedMotion
-      />,
-    );
+    render(<ProjectDetailSheet project={project} isOpen onClose={onClose} reducedMotion />);
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     await user.keyboard("{Escape}");
@@ -451,14 +451,7 @@ describe("ProjectDetailSheet", () => {
     const user = userEvent.setup();
     const onClose = vi.fn();
 
-    render(
-      <ProjectDetailSheet
-        project={projectsData[1]}
-        isOpen
-        onClose={onClose}
-        reducedMotion
-      />,
-    );
+    render(<ProjectDetailSheet project={projectsData[1]} isOpen onClose={onClose} reducedMotion />);
 
     await user.click(screen.getByTestId("project-detail-overlay"));
     expect(onClose).toHaveBeenCalledOnce();
@@ -544,7 +537,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
         }}
       >
         <div className="flex items-center justify-between border-b-2 border-black bg-black px-4 py-3 dark:border-white">
-          <h2 id={titleId} className="text-sm font-bold tracking-[0.08em] text-white uppercase">
+          <h2 id={titleId} className="text-sm font-bold uppercase tracking-[0.08em] text-white">
             {project.title}
           </h2>
           <button
@@ -552,7 +545,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
             type="button"
             aria-label="Закрыть подробности проекта"
             onClick={onClose}
-            className="focus-visible:ring-primary-400 inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-none border-2 border-white text-white transition-colors duration-200 hover:bg-white hover:text-black focus-visible:ring-2 focus-visible:outline-none"
+            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-none border-2 border-white text-white transition-colors duration-200 hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400"
           >
             <FiX className="size-5" aria-hidden="true" />
           </button>
@@ -566,7 +559,7 @@ const ProjectDetailSheet: React.FC<ProjectDetailSheetProps> = ({
         />
       </div>
     </div>,
-    document.body,
+    document.body
   );
 };
 
@@ -593,6 +586,7 @@ git commit -m "feat(projects): add mobile detail sheet overlay"
 ### Task 5: ProjectCardExpandable wrapper
 
 **Files:**
+
 - Create: `src/entities/project/ui/ProjectCardExpandable.tsx`
 - Test: `tests/entities/project/ProjectCardExpandable.test.tsx`
 
@@ -632,7 +626,7 @@ describe("ProjectCardExpandable", () => {
         layout="desktop"
         isExpanded={false}
         onExpandedChange={onExpandedChange}
-      />,
+      />
     );
 
     await user.click(screen.getByRole("button", { name: /подробнее/i }));
@@ -700,9 +694,7 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
 
   return (
     <>
-      <div
-        className={`flex flex-col ${showInlineDetails ? "row-span-2" : ""}`}
-      >
+      <div className={`flex flex-col ${showInlineDetails ? "row-span-2" : ""}`}>
         <ProjectCard
           project={project}
           isStacked={isStacked}
@@ -760,6 +752,7 @@ git commit -m "feat(projects): add expandable project card wrapper"
 ### Task 6: ProjectsGrid with accordion state
 
 **Files:**
+
 - Create: `src/widgets/projects/ui/ProjectsGrid.tsx`
 - Modify: `src/widgets/projects/ui/ProjectsView.tsx`
 
@@ -831,6 +824,7 @@ git commit -m "feat(projects): add desktop accordion grid for expanded cards"
 ### Task 7: Wire mobile deck
 
 **Files:**
+
 - Modify: `src/widgets/projects/ui/ProjectCardDeck.tsx`
 - Test: `tests/widgets/projects.test.tsx`
 
@@ -855,13 +849,13 @@ Add import for `ProjectCardExpandable`.
 In `tests/widgets/projects.test.tsx`, update expectations:
 
 ```tsx
-  it("renders the heading and action buttons per project", () => {
-    render(<ProjectsWidget />);
-    expect(screen.getByRole("heading", { name: /избранные/i })).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /код/i })).toHaveLength(4);
-    expect(screen.getAllByRole("button", { name: /подробнее/i }).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("File Manager")).toHaveLength(2);
-  });
+it("renders the heading and action buttons per project", () => {
+  render(<ProjectsWidget />);
+  expect(screen.getByRole("heading", { name: /избранные/i })).toBeInTheDocument();
+  expect(screen.getAllByRole("link", { name: /код/i })).toHaveLength(4);
+  expect(screen.getAllByRole("button", { name: /подробнее/i }).length).toBeGreaterThanOrEqual(1);
+  expect(screen.getAllByText("File Manager")).toHaveLength(2);
+});
 ```
 
 - [ ] **Step 3: Run all tests**
@@ -885,6 +879,7 @@ git commit -m "feat(projects): wire mobile deck to detail sheet"
 Run: `bun run dev`
 
 Check at `http://localhost:3000/#projects`:
+
 - Click «Подробнее» on File Manager → 4 cells appear, accordion closes others
 - Click «Свернуть» → cells hide
 - Hover press works on collapsed cards only
@@ -893,6 +888,7 @@ Check at `http://localhost:3000/#projects`:
 - [ ] **Step 2: Verify mobile (375px)**
 
 In DevTools responsive mode:
+
 - Swipe deck works when sheet closed
 - «Подробнее» opens bottom sheet overlay
 - Escape / overlay click / ✕ closes sheet
@@ -918,17 +914,17 @@ git commit -m "fix(projects): address review findings from manual QA"
 
 ## Spec Coverage Check
 
-| Spec requirement | Task |
-|------------------|------|
-| `ProjectDetail` data model | Task 1 |
-| 4 Bauhaus cells | Task 2 |
-| «Подробнее» button | Task 3 |
-| Mobile overlay sheet | Task 4 |
-| Desktop accordion | Tasks 5–6 |
-| Mobile deck integration | Task 7 |
-| a11y (aria-expanded, dialog, Escape) | Tasks 3–4 |
-| reduced motion | Tasks 2, 4, 5 |
-| Pre-delivery checklist | Task 8 |
+| Spec requirement                     | Task          |
+| ------------------------------------ | ------------- |
+| `ProjectDetail` data model           | Task 1        |
+| 4 Bauhaus cells                      | Task 2        |
+| «Подробнее» button                   | Task 3        |
+| Mobile overlay sheet                 | Task 4        |
+| Desktop accordion                    | Tasks 5–6     |
+| Mobile deck integration              | Task 7        |
+| a11y (aria-expanded, dialog, Escape) | Tasks 3–4     |
+| reduced motion                       | Tasks 2, 4, 5 |
+| Pre-delivery checklist               | Task 8        |
 
 ## Self-Review Notes
 

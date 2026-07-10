@@ -172,9 +172,7 @@ describe("useContactLifecycle", () => {
     expect(revealedMapRef.current.has("99,99")).toBe(false);
     expect(revealedMapRef.current.has("1,1")).toBe(true);
 
-    const coverage = result.current.checkCoverage(
-      new DOMRect(0, 0, 40, 40)
-    );
+    const coverage = result.current.checkCoverage(new DOMRect(0, 0, 40, 40));
     expect(coverage).toBeGreaterThanOrEqual(0);
   });
 
@@ -197,19 +195,19 @@ describe("ContactCanvas", () => {
   it("exposes imperative canvas helpers through the ref", () => {
     const ctx = createMockContext();
     const getContext = vi.fn(() => ctx);
-    HTMLCanvasElement.prototype.getContext = getContext as typeof HTMLCanvasElement.prototype.getContext;
-    HTMLCanvasElement.prototype.getBoundingClientRect = () =>
-      ({
-        left: 0,
-        top: 0,
-        right: 200,
-        bottom: 160,
-        width: 200,
-        height: 160,
-        x: 0,
-        y: 0,
-        toJSON: () => ({}),
-      });
+    HTMLCanvasElement.prototype.getContext =
+      getContext as typeof HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getBoundingClientRect = () => ({
+      left: 0,
+      top: 0,
+      right: 200,
+      bottom: 160,
+      width: 200,
+      height: 160,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
 
     const ref = createRef<{
       drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;

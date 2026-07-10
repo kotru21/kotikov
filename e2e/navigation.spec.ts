@@ -6,10 +6,9 @@ test.describe("desktop navigation", () => {
   test("keeps contact CTA available after scroll", async ({ page }) => {
     await page.goto("/");
 
-    const contactCta = page.getByRole("navigation", { name: "Основная навигация" }).getByRole(
-      "link",
-      { name: /^Связаться/ }
-    );
+    const contactCta = page
+      .getByRole("navigation", { name: "Основная навигация" })
+      .getByRole("link", { name: /^Связаться/ });
     await expect(contactCta).toBeVisible();
 
     await page.locator("#projects").scrollIntoViewIfNeeded();

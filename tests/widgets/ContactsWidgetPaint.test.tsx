@@ -24,9 +24,7 @@ const pawHandlers = vi.hoisted(() => ({
 const drawOnCanvas = vi.fn();
 const initCanvas = vi.fn();
 const checkCollisions = vi.fn();
-let latestDraw:
-  | ((x: number, y: number, prevX: number, prevY: number) => void)
-  | undefined;
+let latestDraw: ((x: number, y: number, prevX: number, prevY: number) => void) | undefined;
 
 vi.mock("@/features/interactive-elements", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,

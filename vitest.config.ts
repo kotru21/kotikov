@@ -10,7 +10,7 @@ export default mergeConfig(
       globals: true,
       setupFiles: ["./tests/setup.ts"],
       css: true,
-      exclude: [...configDefaults.exclude, ".worktrees/**"],
+      exclude: [...configDefaults.exclude, ".worktrees/**", "e2e/**"],
       coverage: {
         provider: "v8",
         reporter: ["text", "lcov"],

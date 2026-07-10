@@ -3,7 +3,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { skillsData } from "@/shared/config/content";
 import { SkillsInteractionProvider } from "@/widgets/skills/model/SkillsInteractionContext";
-import { SkillMarqueeCard, SkillMarqueeRow, SkillsDesktopView, SkillsMobileView } from "@/widgets/skills/ui";
+import {
+  SkillMarqueeCard,
+  SkillMarqueeRow,
+  SkillsDesktopView,
+  SkillsMobileView,
+} from "@/widgets/skills/ui";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
 
 vi.mock("next/image", () => ({

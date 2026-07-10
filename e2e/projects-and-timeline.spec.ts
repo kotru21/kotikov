@@ -19,7 +19,9 @@ test.describe("desktop projects", () => {
     await expect(nextStep).toBeEnabled();
     await nextStep.click();
 
-    await expect(page.getByRole("button", { name: "Прокрутить к предыдущему этапу" })).toBeEnabled();
+    await expect(
+      page.getByRole("button", { name: "Прокрутить к предыдущему этапу" })
+    ).toBeEnabled();
   });
 });
 

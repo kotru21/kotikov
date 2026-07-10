@@ -85,9 +85,10 @@ describe("HeaderHero", () => {
     expect(screen.getByText(headerContent.eyebrow)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: headerContent.title })).toBeInTheDocument();
     expect(screen.getByText(headerContent.subtitle)).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: headerContent.buttons.primary.text })
-    ).toHaveAttribute("href", headerContent.buttons.primary.href);
+    expect(screen.getByRole("link", { name: headerContent.buttons.primary.text })).toHaveAttribute(
+      "href",
+      headerContent.buttons.primary.href
+    );
     expect(
       screen.getByRole("link", { name: new RegExp(headerContent.buttons.secondary.text) })
     ).toHaveAttribute("href", headerContent.buttons.secondary.href);

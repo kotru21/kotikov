@@ -3,7 +3,10 @@ import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { timelineData } from "@/shared/config/content";
-import { SkillsInteractionProvider, useSkillsInteraction } from "@/widgets/skills/model/SkillsInteractionContext";
+import {
+  SkillsInteractionProvider,
+  useSkillsInteraction,
+} from "@/widgets/skills/model/SkillsInteractionContext";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
 import TimelineItemDetails from "@/widgets/timeline/ui/TimelineItemDetails";
 import TimelineYearDisplay from "@/widgets/timeline/ui/TimelineYearDisplay";
@@ -20,12 +23,7 @@ vi.mock("next/image", () => ({
     onError?: () => void;
   } & Record<string, unknown>) => (
     /* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- test stub triggers onError */
-    <img
-      alt={alt}
-      data-testid="year-cat"
-      onClick={() => onError?.()}
-      {...rest}
-    />
+    <img alt={alt} data-testid="year-cat" onClick={() => onError?.()} {...rest} />
   ),
 }));
 
@@ -66,9 +64,7 @@ describe("branch coverage gaps", () => {
 
   describe("TimelineYearDisplay", () => {
     it("covers row/sidebar layouts, detailed periods, and missing cat assets", () => {
-      const { rerender } = render(
-        <TimelineYearDisplay period="2024 · Хакатон" layout="row" />
-      );
+      const { rerender } = render(<TimelineYearDisplay period="2024 · Хакатон" layout="row" />);
       expect(screen.getByText("2024 · Хакатон")).toBeInTheDocument();
 
       rerender(<TimelineYearDisplay period="2019" layout="sidebar" />);
