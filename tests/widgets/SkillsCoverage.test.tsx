@@ -138,12 +138,22 @@ describe("Skills coverage gaps", () => {
     const { rerender } = render(<SkillsDesktopView headingId="skills-heading-desktop" />);
     const desktopGroup = screen.getByRole("group", { name: "Мои навыки" });
     expect(desktopGroup).toBeInTheDocument();
+    expect(screen.getByText("SOC, AppSec, DFIR, Python, TypeScript")).toBeInTheDocument();
+
+    const track = screen.getByTestId("skill-marquee-track");
+    expect(track).toHaveAttribute("data-motion-active", "true");
+    expect(track).toHaveStyle({ animationPlayState: "running" });
 
     fireEvent.pointerEnter(desktopGroup);
+    expect(track).toHaveAttribute("data-motion-active", "true");
+    expect(track).toHaveStyle({ animationPlayState: "running" });
+
     fireEvent.pointerLeave(desktopGroup);
+    expect(track).toHaveAttribute("data-motion-active", "true");
 
     rerender(<SkillsMobileView headingId="skills-heading-mobile" />);
     expect(screen.getByRole("heading", { name: "Мои навыки" })).toBeInTheDocument();
+    expect(screen.getByText("SOC, AppSec, DFIR, Python, TypeScript")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /LinkedIn/i })).toBeInTheDocument();
   });
 });

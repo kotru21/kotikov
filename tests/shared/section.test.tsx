@@ -75,6 +75,19 @@ describe("Section", () => {
     expect(inner).toHaveClass("px-6", "lg:px-8", "max-w-6xl", "mx-auto");
   });
 
+  it("skips horizontal padding and max-width when contained=false", () => {
+    const { container } = render(
+      <Section id="skills" contained={false}>
+        <p>Skills</p>
+      </Section>
+    );
+
+    const inner = container.querySelector("section#skills > div");
+    expect(inner).toHaveClass("w-full", "max-w-none");
+    expect(inner).not.toHaveClass("px-6");
+    expect(inner).not.toHaveClass("max-w-6xl");
+  });
+
   it("renders as footer when as=footer", () => {
     const { container } = render(
       <Section as="footer" backgroundClassName="bg-background-primary">

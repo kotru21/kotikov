@@ -10,6 +10,8 @@ interface SectionProps extends Omit<
   backgroundClassName?: string;
   className?: string;
   innerClassName?: string;
+  /** When false, skips default horizontal padding and max-width (full-bleed sections). */
+  contained?: boolean;
   as?: "section" | "footer";
 }
 
@@ -21,7 +23,8 @@ const spacingClasses = {
   none: "",
 } as const;
 
-const containerClasses = "px-6 lg:px-8 max-w-6xl mx-auto";
+const containedClasses = "px-6 lg:px-8 max-w-6xl mx-auto";
+const bleedClasses = "w-full max-w-none";
 
 const Section = React.forwardRef<HTMLElement, SectionProps>(
   (
@@ -32,6 +35,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
       backgroundClassName = "",
       className = "",
       innerClassName = "",
+      contained = true,
       as: rootTag = "section",
       ...nativeProps
     },
@@ -46,6 +50,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
       .filter(Boolean)
       .join(" ");
 
+    const containerClasses = contained ? containedClasses : bleedClasses;
     const RootTag = rootTag;
 
     return (

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
-import { skillsData, social } from "@/shared/config/content";
+import { skillsData, skillsStackLine, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, SectionHeader } from "@/shared/ui";
 
@@ -47,36 +47,38 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
 
   return (
     <div role="group" aria-labelledby={headingId}>
-      <SectionHeader
-        align="center"
-        eyebrow="Навыки"
-        title="Мои навыки"
-        titleId={headingId}
-        description="Технологии и инструменты, которыми я владею"
-      />
-      <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
-        React, JavaScript, Node.js, фреймворк Next.js
-      </p>
+      <div className="px-6">
+        <SectionHeader
+          align="center"
+          eyebrow="Навыки"
+          title="Мои навыки"
+          titleId={headingId}
+          description="Технологии и инструменты, которыми я владею"
+        />
+        <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
+          {skillsStackLine}
+        </p>
 
-      {/* Кнопка LinkedIn над скиллами */}
-      <div className="flex justify-center pb-8">
-        <Button
-          href={social.linkedin.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="primary"
-          size="lg"
-          aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
-        >
-          <FaLinkedinIn className="text-xl" aria-hidden="true" />
-          <span>Смотреть мой LinkedIn</span>
-        </Button>
+        {/* Кнопка LinkedIn над скиллами */}
+        <div className="flex justify-center pb-8">
+          <Button
+            href={social.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            size="lg"
+            aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
+          >
+            <FaLinkedinIn className="text-xl" aria-hidden="true" />
+            <span>Смотреть мой LinkedIn</span>
+          </Button>
+        </div>
       </div>
 
       {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте; только при включённой анимации */}
       {showMarquee ? (
         <SkillsInteractionProvider>
-          <div ref={rowsRef} className="-mx-6 flex flex-col gap-2">
+          <div ref={rowsRef} className="flex flex-col gap-2">
             <div
               style={{
                 transform: visible ? "translateX(0)" : "translateX(-100%)",
@@ -115,7 +117,9 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
       ) : null}
 
       {/* Сгруппированные теги навыков — всегда видны */}
-      <SkillsGroupedTags />
+      <div className="px-6">
+        <SkillsGroupedTags />
+      </div>
     </div>
   );
 };

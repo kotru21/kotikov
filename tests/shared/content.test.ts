@@ -10,6 +10,7 @@ import {
   projectsData,
   skillGroups,
   skillsData,
+  skillsStackLine,
   timelineData,
 } from "@/shared/config/content";
 
@@ -76,11 +77,10 @@ describe("content model", () => {
       "Offensive / практика",
       "Development",
     ]);
-    expect(
-      skillsData.every((s) =>
-        s.category === "security" || s.category === "offensive" || s.category === "development"
-      )
-    ).toBe(true);
+    const skillCategories = new Set(skillsData.map((s) => s.category));
+    expect(skillCategories).toEqual(new Set(["security", "offensive", "development"]));
+    expect(skillsStackLine).toBe("SOC, AppSec, DFIR, Python, TypeScript");
+    expect(skillsStackLine.toLowerCase()).not.toContain("next.js");
   });
 
   it("defines an about block with three typed principles", () => {
@@ -132,7 +132,8 @@ describe("timeline data", () => {
   it("keeps SOC copy careful (no incident narrative keywords)", () => {
     const soc = timelineData.find((e) => e.company === "hoster.by");
     expect(soc).toBeDefined();
-    const text = `${soc!.title} ${soc!.description}`.toLowerCase();
+    if (soc === undefined) return;
+    const text = `${soc.title} ${soc.description}`.toLowerCase();
     expect(text).not.toMatch(/ransomware|anydesk|ioc|payload/);
   });
 });

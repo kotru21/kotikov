@@ -14,6 +14,9 @@ describe("TimelineView mobile a11y", () => {
     const mobileSection = container.querySelector(".lg\\:hidden");
 
     expect(mobileSection).toBeTruthy();
+    expect(
+      container.querySelector('#experience [style*="linear-gradient(to right"]')
+    ).toBeNull();
 
     const controls = mobileSection?.querySelector('[role="group"][aria-label="Этапы опыта"]');
     const activePanel = mobileSection?.querySelector(

@@ -3,6 +3,9 @@ import { SiBurpsuite, SiFastapi, SiTypescript, SiWireshark } from "react-icons/s
 
 import { colors } from "@/styles/colors";
 
+/** Subtitle under the Skills heading — InfoSec stack, not frontend marketing. */
+export const skillsStackLine = "SOC, AppSec, DFIR, Python, TypeScript";
+
 export const skillsData = [
   {
     id: 1,

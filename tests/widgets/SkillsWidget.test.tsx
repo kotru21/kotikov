@@ -45,6 +45,8 @@ describe("SkillsWidget responsive rendering", () => {
     );
 
     expect(container.querySelectorAll("#skills")).toHaveLength(1);
+    expect(container.querySelector("#skills > div")).toHaveClass("w-full", "max-w-none");
+    expect(container.querySelector("#skills > div")).not.toHaveClass("px-6");
     expect(mobileView).toHaveClass("md:hidden");
     expect(desktopView).toHaveClass("hidden", "md:block");
 

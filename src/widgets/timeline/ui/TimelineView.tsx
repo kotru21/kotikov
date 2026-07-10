@@ -10,7 +10,7 @@ import {
   getDeckTransform,
   getLinearDeckCardRole,
 } from "@/shared/lib/deckTransform";
-import { BauhausGridPattern, Section, SectionHeader } from "@/shared/ui";
+import { Section, SectionHeader } from "@/shared/ui";
 
 import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
 import TimelineEditorialCard from "./TimelineEditorialCard";
@@ -58,14 +58,12 @@ const TimelineView: React.FC = () => {
       className="lg:overflow-x-clip"
       innerClassName="relative z-10"
     >
-      <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
-
       <div className="flex w-full flex-col gap-8">
         <SectionHeader
           eyebrow="Опыт"
           title="Мой путь"
           titleId="experience-heading"
-          description="Образование, работа и хакатоны"
+          description="Образование и опыт работы"
         />
 
         <div className="flex flex-col gap-6 lg:hidden">

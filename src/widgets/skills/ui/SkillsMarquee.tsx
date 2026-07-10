@@ -4,7 +4,7 @@ import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import { usePerformanceSettings } from "@/features/performance";
-import { skillsData, social } from "@/shared/config/content";
+import { skillsData, skillsStackLine, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
 import { Button, SectionHeader } from "@/shared/ui";
 
@@ -21,7 +21,7 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
 
   return (
     <div className="flex w-full flex-col items-center gap-8 overflow-visible">
-      <div className="relative z-20 w-full px-4">
+      <div className="relative z-20 w-full px-6 lg:px-8">
         <SectionHeader
           align="center"
           eyebrow="Навыки"
@@ -30,7 +30,7 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
           description="Технологии и инструменты, которыми я владею"
         />
         <p className="text-text-secondary mx-auto -mt-4 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
-          React, JavaScript, Node.js, фреймворк Next.js
+          {skillsStackLine}
         </p>
       </div>
 
@@ -49,10 +49,12 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
       ) : null}
 
       {/* Сгруппированные теги навыков — всегда видны */}
-      <SkillsGroupedTags />
+      <div className="w-full px-6 lg:px-8">
+        <SkillsGroupedTags />
+      </div>
 
       {/* Кнопка LinkedIn */}
-      <div className="z-20 pt-2">
+      <div className="z-20 px-6 pt-2 lg:px-8">
         <Button
           href={social.linkedin.url}
           target="_blank"

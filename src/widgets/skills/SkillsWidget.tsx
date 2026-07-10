@@ -9,9 +9,10 @@ const SkillsWidget: React.FC = () => {
     <Section
       id="skills"
       spacing="dense"
+      contained={false}
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
       className="overflow-x-clip"
-      innerClassName="relative z-10 max-w-full"
+      innerClassName="relative z-10"
       aria-label="Навыки"
     >
       <div data-skills-view="mobile" className="md:hidden">
