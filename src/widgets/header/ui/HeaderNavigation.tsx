@@ -225,10 +225,14 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
         </div>
       </nav>
 
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+      <Dialog
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+        className="fixed inset-0 z-50 lg:hidden"
+      >
         <DialogBackdrop
           transition={!snapMenuMotion}
-          className={`fixed inset-0 z-50 bg-black/50 ${snapMenuMotion ? "" : menuBackdropMotionClass}`}
+          className={`fixed inset-0 bg-black/50 ${snapMenuMotion ? "" : menuBackdropMotionClass}`}
         />
         <DialogPanel
           transition={!snapMenuMotion}
