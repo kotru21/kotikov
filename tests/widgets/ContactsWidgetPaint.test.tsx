@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention -- vi.mock keys match component exports */
 import { fireEvent, render, screen } from "@testing-library/react";
+import { forwardRef, useImperativeHandle } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import ContactsWidget from "@/widgets/contacts/ContactsWidget";
@@ -91,9 +92,7 @@ vi.mock("@/features/performance", () => ({
 }));
 
 vi.mock("@/widgets/contacts/ui/ContactCanvas", () => {
-  const { forwardRef, useImperativeHandle } = require("react") as typeof import("react");
-
-  const MockContactCanvas = forwardRef(function MockContactCanvas(_props, ref) {
+  const MockContactCanvas = forwardRef((_props, ref) => {
     useImperativeHandle(ref, () => ({
       drawOnCanvas,
       initCanvas,
@@ -101,6 +100,7 @@ vi.mock("@/widgets/contacts/ui/ContactCanvas", () => {
     }));
     return <canvas data-testid="contact-canvas" />;
   });
+  MockContactCanvas.displayName = "MockContactCanvas";
 
   return {
     __esModule: true,

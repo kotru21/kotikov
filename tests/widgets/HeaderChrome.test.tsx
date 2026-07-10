@@ -1,21 +1,23 @@
-import { createRef } from "react";
+/* eslint-disable @typescript-eslint/naming-convention -- vi.mock keys match component exports */
 import { render, screen } from "@testing-library/react";
+import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { headerContent } from "@/shared/config/content";
+import type * as SharedUi from "@/shared/ui";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
-vi.mock("@/features/interactive-elements", () => ({
-  InteractiveElement: ({
+vi.mock("@/features/interactive-elements", () => {
+  function InteractiveElement({
     children,
     href,
-    as: As = "div",
+    as: Component = "div",
     ...props
   }: {
     children?: React.ReactNode;
     href?: string;
     as?: React.ElementType;
-  } & Record<string, unknown>) => {
+  } & Record<string, unknown>) {
     if (typeof href === "string") {
       return (
         <a href={href} {...props}>
@@ -23,23 +25,35 @@ vi.mock("@/features/interactive-elements", () => ({
         </a>
       );
     }
-    return <As {...props}>{children}</As>;
-  },
-  InteractiveText: ({ text }: { text: string }) => text,
-}));
+    return <Component {...props}>{children}</Component>;
+  }
+
+  function InteractiveText({ text }: { text: string }) {
+    return text;
+  }
+
+  return { InteractiveElement, InteractiveText };
+});
 
 vi.mock("@/shared/ui", async () => {
-  const actual = await vi.importActual<typeof import("@/shared/ui")>("@/shared/ui");
+  const actual = await vi.importActual<typeof SharedUi>("@/shared/ui");
+
+  function BauhausGridPattern() {
+    return <div data-testid="grid-pattern" />;
+  }
+
+  function GridPaintOverlay({ ref }: { ref?: React.Ref<unknown> }) {
+    if (typeof ref === "function") ref({ drawOnCanvas: vi.fn() });
+    else if (ref && typeof ref === "object") {
+      (ref as { current: unknown }).current = { drawOnCanvas: vi.fn() };
+    }
+    return <canvas data-testid="paint-overlay" />;
+  }
+
   return {
     ...actual,
-    BauhausGridPattern: () => <div data-testid="grid-pattern" />,
-    GridPaintOverlay: ({ ref }: { ref?: React.Ref<unknown> }) => {
-      if (typeof ref === "function") ref({ drawOnCanvas: vi.fn() });
-      else if (ref && typeof ref === "object") {
-        (ref as { current: unknown }).current = { drawOnCanvas: vi.fn() };
-      }
-      return <canvas data-testid="paint-overlay" />;
-    },
+    BauhausGridPattern,
+    GridPaintOverlay,
   };
 });
 

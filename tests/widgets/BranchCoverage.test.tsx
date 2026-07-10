@@ -2,12 +2,13 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import ErrorPage from "../../app/error";
 import { timelineData } from "@/shared/config/content";
 import { SkillsInteractionProvider, useSkillsInteraction } from "@/widgets/skills/model/SkillsInteractionContext";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
 import TimelineItemDetails from "@/widgets/timeline/ui/TimelineItemDetails";
 import TimelineYearDisplay from "@/widgets/timeline/ui/TimelineYearDisplay";
+
+import ErrorPage from "../../app/error";
 
 vi.mock("next/image", () => ({
   default: ({
@@ -18,7 +19,7 @@ vi.mock("next/image", () => ({
     alt?: string;
     onError?: () => void;
   } & Record<string, unknown>) => (
-    // eslint-disable-next-line @next/next/no-img-element -- test stub
+    /* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- test stub triggers onError */
     <img
       alt={alt}
       data-testid="year-cat"

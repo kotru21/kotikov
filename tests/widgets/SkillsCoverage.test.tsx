@@ -67,8 +67,9 @@ describe("Skills coverage gaps", () => {
 
     const card = screen.getByText(skillsData[0].name).closest("[aria-hidden='true']");
     expect(card).toBeTruthy();
-    fireEvent.mouseEnter(card!);
-    fireEvent.mouseLeave(card!);
+    if (!(card instanceof HTMLElement)) throw new Error("expected skill card element");
+    fireEvent.mouseEnter(card);
+    fireEvent.mouseLeave(card);
   });
 
   it("runs curved marquee arc updates while motion is active", () => {

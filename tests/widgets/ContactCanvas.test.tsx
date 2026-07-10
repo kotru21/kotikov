@@ -91,7 +91,9 @@ describe("useContactDrawing", () => {
     act(() => {
       result.current.drawBackground();
     });
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- vitest mock fn assertion
     expect(ctx.clearRect).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/unbound-method -- vitest mock fn assertion
     expect(ctx.fillRect).toHaveBeenCalled();
 
     act(() => {
@@ -99,7 +101,10 @@ describe("useContactDrawing", () => {
     });
     expect(revealedMapRef.current.size).toBeGreaterThan(0);
 
-    const firstKey = revealedMapRef.current.keys().next().value as string;
+    const firstKeyResult = revealedMapRef.current.keys().next();
+    expect(firstKeyResult.done).toBe(false);
+    const firstKey = firstKeyResult.value;
+    expect(typeof firstKey).toBe("string");
     const firstEntry = revealedMapRef.current.get(firstKey);
     expect(firstEntry).toBeDefined();
 
@@ -204,7 +209,7 @@ describe("ContactCanvas", () => {
         x: 0,
         y: 0,
         toJSON: () => ({}),
-      }) as DOMRect;
+      });
 
     const ref = createRef<{
       drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
