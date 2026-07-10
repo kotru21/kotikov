@@ -10,7 +10,6 @@ const ProjectsView: React.FC = () => {
     <Section
       id="projects"
       backgroundClassName="bg-neutral-100 dark:bg-background-tertiary"
-      innerClassName="overflow-visible"
     >
       <SectionHeader
         eyebrow="Проекты"

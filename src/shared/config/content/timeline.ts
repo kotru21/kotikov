@@ -11,6 +11,16 @@ export const timelineData = [
   },
   {
     id: 2,
+    title: "MTS Hackathon",
+    company: "MTS",
+    period: "2026",
+    description:
+      "IaaS-платформа за сжатые сроки: модель доступа к ресурсам, границы доверия между API и UI, безопасные дашборды управления инфраструктурой.",
+    technologies: ["IAM", "API Security", "Access Control", "React"],
+    type: "hackathon" as const,
+  },
+  {
+    id: 3,
     title: "Frontend Developer Intern",
     company: "Innowise",
     period: "июн 2025 — ноя 2025",
@@ -20,12 +30,22 @@ export const timelineData = [
     type: "work" as const,
   },
   {
-    id: 3,
+    id: 4,
     title: "Информационная безопасность",
     company: "БГУИР",
     period: "2024 — н.в.",
     description: "Бакалавриат по информационной безопасности (3 курс, выпуск 2028).",
     technologies: ["InfoSec", "Cryptography"],
     type: "education" as const,
+  },
+  {
+    id: 5,
+    title: "ByChange Hackathon",
+    company: "ByChange",
+    period: "2023",
+    description:
+      "Приложение мониторинга здоровья: защита персональных данных, authn/authz на API, минимизация чувствительных полей на клиенте и в ответах бэкенда.",
+    technologies: ["AuthN/Z", "Data Privacy", "API Security", "React"],
+    type: "hackathon" as const,
   },
 ];

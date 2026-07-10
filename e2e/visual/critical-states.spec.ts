@@ -32,17 +32,11 @@ for (const theme of ["light", "dark"] as const) {
 
 for (const width of heroWidths) {
   const widthLabel = String(width);
-  test(`expanded project light ${widthLabel}`, async ({ page }) => {
+  test(`projects light ${widthLabel}`, async ({ page }) => {
     await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
     await prepareStableVisual(page, "light");
     await page.locator("#projects").scrollIntoViewIfNeeded();
-    await page.locator("#projects").getByRole("button", { name: "Подробнее" }).first().click();
-
-    const projectDetails = page.getByRole("region", { name: "Подробности проекта" });
-    await expect(projectDetails).toBeVisible();
-    await expect(page.locator("#projects")).toHaveScreenshot(
-      `project-expanded-light-${widthLabel}.png`
-    );
+    await expect(page.locator("#projects")).toHaveScreenshot(`projects-light-${widthLabel}.png`);
   });
 }
 

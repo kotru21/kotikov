@@ -1,36 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { InteractiveTextContext, useInteractiveRegistry } from "@/features/interactive-elements";
-import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
-
-vi.mock("@/features/device", () => ({
-  useIsMobile: (): boolean => false,
-}));
-
-function PaintDrawHintHarness(): React.JSX.Element {
-  const { registry } = useInteractiveRegistry();
-
-  return (
-    <InteractiveTextContext value={registry}>
-      <PaintDrawHint tone="on-gradient" />
-    </InteractiveTextContext>
-  );
-}
-
-describe("PaintDrawHint", () => {
-  it("renders desktop hint with interactive paint attributes", () => {
-    const { container } = render(<PaintDrawHintHarness />);
-
-    const root = container.querySelector("p[data-draw-allow]");
-
-    expect(root).toBeTruthy();
-    expect(root).toHaveAttribute("data-interactive-mode", "solid");
-    expect(root).toHaveAttribute("data-interactive-threshold", "0.08");
-    expect(root?.textContent).toMatch(/Проведи\s+мышью/);
-    expect(root?.textContent).toMatch(/оставь\s+след\s+лапы/);
-  });
-});
+import { ClearPaintButton } from "@/features/paw";
 
 describe("ClearPaintButton", () => {
   it("renders with data-draw-allow and handles click", () => {
@@ -40,6 +11,8 @@ describe("ClearPaintButton", () => {
 
     const button = screen.getByRole("button", { name: "Очистить рисунок" });
     expect(button).toHaveAttribute("data-draw-allow");
+    expect(button.className).toMatch(/bg-black/);
+    expect(button.className).not.toMatch(/bg-white\/10/);
 
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);

@@ -37,7 +37,6 @@ vi.mock("@/features/paw", () => ({
       Очистить рисунок
     </button>
   ),
-  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   usePawAnimation: () => ({
     pawPos: { x: 0, y: 0 },
     pawVelocity: { x: 0, y: 0 },
@@ -92,7 +91,6 @@ describe("ContactsWidget", () => {
     // Canvas stays mounted to preserve paint state; interaction chrome is gated off.
     expect(document.querySelector("canvas")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Очистить рисунок" })).not.toBeInTheDocument();
-    expect(screen.queryByText("Проведи мышью — оставь след лапы")).not.toBeInTheDocument();
     expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 });

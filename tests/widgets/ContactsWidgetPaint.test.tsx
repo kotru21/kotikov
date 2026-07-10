@@ -59,7 +59,6 @@ vi.mock("@/features/paw", () => ({
       Очистить рисунок
     </button>
   ),
-  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   PawCursorIcon: ({ className }: { className?: string }) => (
     <svg data-testid="paw-icon" className={className} />
   ),

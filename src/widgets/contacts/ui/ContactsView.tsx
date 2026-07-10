@@ -4,7 +4,7 @@ import React from "react";
 
 import { ContactCard, type ContactInfo } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
-import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
+import { ClearPaintButton } from "@/features/paw";
 import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
@@ -100,7 +100,6 @@ const ContactsView: React.FC<ContactsViewProps> = ({
               >
                 <InteractiveText text="Открыт к интересным задачам и сотрудничеству. Лучший способ — почта или Telegram." />
               </InteractiveElement>
-              {enablePaint ? <PaintDrawHint tone="on-gradient" /> : null}
             </div>
           }
         />
@@ -109,26 +108,34 @@ const ContactsView: React.FC<ContactsViewProps> = ({
           {contacts.map((contact, index) => {
             let gridClasses = "col-span-1";
             let variant: "auto" | "light" | "dark" = "auto";
+            let buttonVariant: "primary" | "secondary" = "primary";
+            let buttonClassName = "";
 
             if (index === 0) {
               gridClasses = "md:col-span-2 md:row-span-2 min-h-[220px] md:min-h-[320px]";
               variant = "auto";
+              buttonVariant = "primary";
             } else if (index === 1) {
               gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
               variant = "light";
+              buttonVariant = "secondary";
             } else if (index === 2) {
               gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
               variant = "dark";
+              buttonVariant = "secondary";
+              // Ink surface (secondary is paper by default). ! beats variant utilities.
+              buttonClassName =
+                "!bg-neutral-950 !text-neutral-50 hover:!bg-neutral-950 dark:!bg-neutral-50 dark:!text-neutral-950 dark:hover:!bg-neutral-50";
             }
 
-            const interactiveMode = variant === "light" ? "border" : "solid";
             const opensNewTab = contact.link !== undefined && isHttpUrl(contact.link);
 
             return (
               <div key={contact.label} className={`${gridClasses} h-full`}>
                 <InteractiveElement
                   as={Button}
-                  variant="primary"
+                  variant={buttonVariant}
+                  className={buttonClassName}
                   fullWidth
                   fullHeight
                   href={contact.link ?? undefined}
@@ -141,15 +148,11 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                   }
                   shadowColor={colors.primary[500]}
                   data-draw-allow
-                  data-interactive-mode={interactiveMode}
+                  data-interactive-mode="solid"
                   data-interactive-bg={colors.primary[500]}
-                  data-interactive-text={variant === "dark" ? "white" : "black"}
-                  {...(interactiveMode === "solid"
-                    ? {
-                        "data-interactive-shadow": `var(--shadow-hard-pressed)`,
-                        "data-interactive-threshold": "0.1",
-                      }
-                    : { "data-interactive-color": colors.text.primary })}
+                  data-interactive-text="black"
+                  data-interactive-shadow="var(--shadow-hard-pressed)"
+                  data-interactive-threshold="0.1"
                 >
                   <ContactCard
                     contact={contact}

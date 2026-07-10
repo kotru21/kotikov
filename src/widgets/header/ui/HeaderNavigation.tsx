@@ -87,7 +87,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({ navigation }) => {
 
   return (
     <header className="fixed inset-x-0 z-50">
-      <nav aria-label="Основная навигация" className="px-6 pt-6 pb-2 lg:p-0">
+      <nav aria-label="Основная навигация" className="px-6 pt-6 pb-2 md:px-8 lg:p-0">
         <div
           className="relative z-10 w-full lg:hidden"
           style={{

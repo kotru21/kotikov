@@ -39,11 +39,8 @@ export const useContactDrawing = (
         const progress = (row + col) / (rows + cols);
         const colorIndex = Math.floor(progress * (baseColors.length - 1));
 
-        ctx.fillStyle = isCat ? colors.accent[950] : baseColors[colorIndex];
-
-        if (isCat) {
-          ctx.fillStyle = colors.primary[950];
-        }
+        // Ячейки котов чуть темнее фона — едва заметная подсказка под покрытием.
+        ctx.fillStyle = isCat ? colors.primary[950] : baseColors[colorIndex];
 
         ctx.fillRect(x, y, pixelSize, pixelSize);
 
@@ -90,13 +87,15 @@ export const useContactDrawing = (
         } else if (catColor !== undefined && catColor !== "") {
           fillColor = catColor;
         } else {
+          // Яркий закрашенный след: светлые «искры» на ровном акцентном фоне,
+          // чтобы тёмные силуэты котов читались контрастно.
           const variation = Math.random();
-          if (variation > 0.92) {
+          if (variation > 0.9) {
             fillColor = colors.accent[200];
-          } else if (variation > 0.85) {
-            fillColor = colors.accent[600];
-          } else {
+          } else if (variation > 0.72) {
             fillColor = colors.accent[300];
+          } else {
+            fillColor = colors.accent[400];
           }
         }
 

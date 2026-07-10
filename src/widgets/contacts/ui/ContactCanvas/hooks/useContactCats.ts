@@ -18,16 +18,15 @@ export const useContactCats = (): UseContactCatsReturn => {
     catMapRef.current.clear();
     revealedMapRef.current.clear();
 
-    const catColors = [
-      colors.accent[200],
-      colors.accent[300],
-      colors.accent[400],
-      colors.accent[500],
-      colors.accent[600],
-      colors.accent[700],
-      colors.accent[800],
-      colors.neutral[50],
+    // Тело кота — тёмный силуэт (несколько оттенков для лёгкого разнообразия),
+    // глаза — яркие, чтобы силуэт читался на ярком закрашенном фоне.
+    const catBodyColors = [
+      colors.neutral[950],
+      colors.neutral[900],
+      colors.primary[950],
+      colors.accent[950],
     ];
+    const catEyeColors = [colors.neutral[50], colors.accent[300], colors.accent[200]];
 
     const centerX = cols / 2;
     const centerY = rows / 2;
@@ -36,7 +35,8 @@ export const useContactCats = (): UseContactCatsReturn => {
       pose: number[][];
       startC: number;
       startR: number;
-      color: string;
+      bodyColor: string;
+      eyeColor: string;
     }
     const placements: CatPlacement[] = [];
 
@@ -69,22 +69,22 @@ export const useContactCats = (): UseContactCatsReturn => {
 
           const startC = gx * cellWidth + offsetX;
           const startR = gy * cellHeight + offsetY;
-          const color = catColors[Math.floor(Math.random() * catColors.length)];
+          const bodyColor = catBodyColors[Math.floor(Math.random() * catBodyColors.length)];
+          const eyeColor = catEyeColors[Math.floor(Math.random() * catEyeColors.length)];
 
-          placements.push({ pose, startC, startR, color });
+          placements.push({ pose, startC, startR, bodyColor, eyeColor });
         }
       }
     }
 
-    for (const { pose, startC, startR, color } of placements) {
+    for (const { pose, startC, startR, bodyColor, eyeColor } of placements) {
       pose.forEach((rowArr, rIdx) => {
         rowArr.forEach((cell, cIdx) => {
-          if (cell === 1) {
-            const key = `${String(startC + cIdx)},${String(startR + rIdx)}`;
-            if (!catMapRef.current.has(key)) {
-              catMapRef.current.set(key, color);
-            }
-          }
+          if (cell === 0) return;
+          const key = `${String(startC + cIdx)},${String(startR + rIdx)}`;
+          if (catMapRef.current.has(key)) return;
+          // 2 — глаз/деталь, всё остальное ненулевое — тело.
+          catMapRef.current.set(key, cell === 2 ? eyeColor : bodyColor);
         });
       });
     }

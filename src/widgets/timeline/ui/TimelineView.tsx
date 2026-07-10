@@ -55,113 +55,111 @@ const TimelineView: React.FC = () => {
     <Section
       id="experience"
       backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="lg:overflow-x-clip"
+      className="md:overflow-x-clip"
       innerClassName="relative z-10"
     >
-      <div className="flex w-full flex-col gap-8">
-        <SectionHeader
-          eyebrow="Опыт"
-          title="Мой путь"
-          titleId="experience-heading"
-          description="Образование и опыт работы"
-        />
+      <SectionHeader
+        eyebrow="Опыт"
+        title="Мой путь"
+        titleId="experience-heading"
+        description="Образование и опыт работы"
+      />
 
-        <div className="flex flex-col gap-6 lg:hidden">
-          <div className="flex w-full flex-col gap-3">
+      <div className="flex flex-col gap-5 md:hidden">
+        <div className="flex w-full flex-col gap-3">
+          <div
+            className="h-1 w-full overflow-hidden bg-black/10 dark:bg-white/15"
+            aria-hidden="true"
+          >
             <div
-              className="h-1 w-full overflow-hidden bg-black/10 dark:bg-white/15"
-              aria-hidden="true"
-            >
-              <div
-                className="bg-primary-500 h-full transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-                style={{ width: `${String(progressPercent)}%` }}
-              />
-            </div>
-
-            <TimelineStepChips
-              items={timelineData}
-              activeIndex={activeIndex}
-              panelId={panelId}
-              reducedMotion={reducedMotion}
-              onSelect={goTo}
-              onKeyDown={handleKeyDown}
+              className="bg-primary-500 h-full transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              style={{ width: `${String(progressPercent)}%` }}
             />
           </div>
 
-          <div
-            id={panelId}
-            role="group"
-            aria-roledescription="этап карьеры"
-            aria-label={`${String(activeIndex + 1)} из ${String(timelineData.length)}`}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            onTouchCancel={handleTouchCancel}
-            className="grid w-full touch-pan-y pb-8 *:col-start-1 *:row-start-1"
-          >
-            {timelineData.map((item, index) => {
-              const role = getLinearDeckCardRole(index, activeIndex);
-              const deckStyle = getDeckTransform(role, reducedMotion);
-              const isActive = deckStyle.isActive;
+          <TimelineStepChips
+            items={timelineData}
+            activeIndex={activeIndex}
+            panelId={panelId}
+            reducedMotion={reducedMotion}
+            onSelect={goTo}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
 
-              return (
-                <div
-                  key={item.id}
-                  aria-hidden={!isActive}
-                  {...(!isActive ? { inert: true } : {})}
-                  className={`col-start-1 row-start-1 w-full origin-center ${deckMotionClass}`}
-                  style={{
-                    zIndex: deckStyle.zIndex,
-                    transform: deckStyle.transform,
-                    opacity: deckStyle.opacity,
-                  }}
-                >
-                  <div className={isActive ? undefined : "pointer-events-none"}>
-                    <TimelineEditorialCard
-                      item={item}
-                      titleId={`timeline-entry-${String(item.id)}`}
-                      layout="stacked"
-                      fillHeight
-                      hover={false}
-                    />
-                  </div>
+        <div
+          id={panelId}
+          role="group"
+          aria-roledescription="этап карьеры"
+          aria-label={`${String(activeIndex + 1)} из ${String(timelineData.length)}`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
+          className="grid w-full touch-pan-y pb-4 *:col-start-1 *:row-start-1"
+        >
+          {timelineData.map((item, index) => {
+            const role = getLinearDeckCardRole(index, activeIndex);
+            const deckStyle = getDeckTransform(role, reducedMotion);
+            const isActive = deckStyle.isActive;
+
+            return (
+              <div
+                key={item.id}
+                aria-hidden={!isActive}
+                {...(!isActive ? { inert: true } : {})}
+                className={`col-start-1 row-start-1 w-full origin-center ${deckMotionClass}`}
+                style={{
+                  zIndex: deckStyle.zIndex,
+                  transform: deckStyle.transform,
+                  opacity: deckStyle.opacity,
+                }}
+              >
+                <div className={isActive ? undefined : "pointer-events-none"}>
+                  <TimelineEditorialCard
+                    item={item}
+                    titleId={`timeline-entry-${String(item.id)}`}
+                    layout="stacked"
+                    fillHeight
+                    hover={false}
+                  />
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="flex w-full items-center gap-2">
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={!canGoPrev}
-              aria-label="Предыдущий этап"
-              className={navButtonClass}
-            >
-              <FiChevronLeft className="size-5" aria-hidden="true" />
-            </button>
-
-            <p
-              className="text-text-secondary min-w-12 flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
-              aria-live="polite"
-            >
-              {activeIndex + 1} / {timelineData.length}
-            </p>
-
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={!canGoNext}
-              aria-label="Следующий этап"
-              className={navButtonClass}
-            >
-              <FiChevronRight className="size-5" aria-hidden="true" />
-            </button>
-          </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="hidden lg:block">
-          <TimelineEditorialRail items={timelineData} />
+        <div className="flex w-full items-center gap-2">
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={!canGoPrev}
+            aria-label="Предыдущий этап"
+            className={navButtonClass}
+          >
+            <FiChevronLeft className="size-5" aria-hidden="true" />
+          </button>
+
+          <p
+            className="text-text-secondary min-w-12 flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
+            aria-live="polite"
+          >
+            {activeIndex + 1} / {timelineData.length}
+          </p>
+
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={!canGoNext}
+            aria-label="Следующий этап"
+            className={navButtonClass}
+          >
+            <FiChevronRight className="size-5" aria-hidden="true" />
+          </button>
         </div>
+      </div>
+
+      <div className="hidden md:block">
+        <TimelineEditorialRail items={timelineData} />
       </div>
     </Section>
   );

@@ -74,7 +74,7 @@ const HeaderWidget: React.FC = () => {
 
         <div
           id="main-content"
-          className="relative isolate flex w-full grow items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 lg:px-8"
+          className="relative isolate flex w-full grow items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 md:px-8"
           tabIndex={-1}
         >
           {enablePaint ? (

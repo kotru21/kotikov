@@ -20,6 +20,7 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
     animationDelay = "0s",
     zIndex = -5,
     isMotionActive = true,
+    bankAnimationName,
     testId,
   }) => {
     const isMobile = useIsMobile();
@@ -56,6 +57,7 @@ const FlyingNyancat: React.FC<FlyingNyancatProps> = memo(
               onClick={handleClick}
               forwardRef={nyancatRef}
               isMotionActive={isMotionActive}
+              bankAnimationName={bankAnimationName}
               testId={testId}
             />
           )}

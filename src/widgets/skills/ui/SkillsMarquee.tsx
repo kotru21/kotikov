@@ -21,7 +21,7 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
 
   return (
     <div className="flex w-full flex-col items-center gap-8 overflow-visible">
-      <div className="relative z-20 w-full px-6 lg:px-8">
+      <div className="relative z-20 w-full px-6 md:px-8">
         <SectionHeader
           align="center"
           eyebrow="Навыки"
@@ -49,7 +49,7 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
       ) : null}
 
       {/* Сгруппированные теги навыков — всегда видны */}
-      <div className="w-full px-6 lg:px-8">
+      <div className="w-full px-6 md:px-8">
         <SkillsGroupedTags />
       </div>
 

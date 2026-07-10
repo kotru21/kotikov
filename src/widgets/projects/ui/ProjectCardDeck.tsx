@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 
-import { ProjectCardExpandable } from "@/entities/project";
+import { ProjectCard } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
 import { projectsData } from "@/shared/config/content";
 import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
@@ -88,13 +88,7 @@ const ProjectCardDeck: React.FC = () => {
                 />
               ) : null}
               <div className={isActive ? undefined : "pointer-events-none"}>
-                <ProjectCardExpandable
-                  project={project}
-                  layout="mobile"
-                  isExpanded={false}
-                  isStacked={!isActive}
-                  reducedMotion={reducedMotion}
-                />
+                <ProjectCard project={project} isStacked={!isActive} />
               </div>
             </div>
           );

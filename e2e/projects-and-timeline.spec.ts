@@ -3,13 +3,13 @@ import { expect, test } from "@playwright/test";
 test.describe("desktop projects", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test("expands project details from the grid", async ({ page }) => {
+  test("shows project cards with code links", async ({ page }) => {
     await page.goto("/#projects");
 
-    await page.locator("#projects").getByRole("button", { name: "Подробнее" }).first().click();
-    const projectDetails = page.getByRole("region", { name: "Подробности проекта" });
-    await expect(projectDetails).toBeVisible();
-    await expect(projectDetails.getByText("Задача", { exact: true })).toBeVisible();
+    const projects = page.locator("#projects");
+    await expect(projects.getByRole("article")).toHaveCount(3);
+    await expect(projects.getByRole("link", { name: /код/i })).toHaveCount(3);
+    await expect(projects.getByRole("button", { name: "Подробнее" })).toHaveCount(0);
   });
 
   test("advances the editorial timeline rail", async ({ page }) => {

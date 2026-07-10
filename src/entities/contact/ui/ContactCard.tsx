@@ -9,42 +9,56 @@ export interface ContactCardProps {
   value?: React.ReactNode;
 }
 
+/**
+ * Icon wells stay on-brand: mint badge on paper/black cards,
+ * inverted black badge on the mint hero card (contrast).
+ */
+function getIconWellClasses(variant: "auto" | "light" | "dark"): string {
+  if (variant === "auto") return "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+  if (variant === "light") return "border-black bg-primary-500 text-black";
+  return "border-black bg-primary-500 text-black dark:border-white";
+}
+
 const ContactCardComponent: React.FC<ContactCardProps> = ({
   contact,
   variant = "auto",
   label,
   value,
 }) => {
-  let iconContainerClasses: string;
-  if (variant === "auto") {
-    iconContainerClasses = "bg-black dark:bg-white text-white dark:text-black";
-  } else if (variant === "light") {
-    iconContainerClasses = "bg-black text-white"; // For light backgrounds (Yellow/White)
-  } else {
-    iconContainerClasses = "bg-white text-black"; // For dark backgrounds (Blue/Red/Black)
-  }
+  const isHero = variant === "auto";
 
   return (
-    <div
-      className="border-2 border-transparent p-6 transition-all duration-300"
-      style={{
-        background: "transparent",
-      }}
-    >
-      <div className="flex flex-col items-center space-y-4 text-center">
+    <div className="h-full border-2 border-transparent p-5 sm:p-6">
+      <div
+        className={`flex h-full flex-col text-center ${
+          isHero
+            ? "items-center justify-center gap-5 sm:gap-6"
+            : "items-center justify-center gap-3 sm:flex-row sm:justify-start sm:gap-4 sm:text-left"
+        }`}
+      >
         <div
-          className={`border-2 border-transparent p-4 transition-colors duration-200 ${iconContainerClasses}`}
+          className={`flex shrink-0 items-center justify-center border-2 shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff] ${getIconWellClasses(variant)} ${
+            isHero ? "size-16 sm:size-20" : "size-12 sm:size-14"
+          }`}
         >
-          <contact.icon className="text-2xl" />
+          <contact.icon className={isHero ? "size-8 sm:size-10" : "size-6 sm:size-7"} aria-hidden />
         </div>
-        <div>
+
+        <div className={isHero ? undefined : "min-w-0 sm:flex-1"}>
           <h3
-            className="mb-2 text-xl font-black tracking-wider uppercase"
+            className={`mb-1 font-black tracking-wider uppercase ${
+              isHero ? "text-xl sm:text-2xl" : "text-base sm:text-lg"
+            }`}
             style={{ color: "currentColor" }}
           >
             {label ?? contact.label}
           </h3>
-          <p className="font-mono text-sm font-bold opacity-90" style={{ color: "currentColor" }}>
+          <p
+            className={`font-mono font-bold opacity-90 ${
+              isHero ? "text-sm sm:text-base" : "truncate text-xs sm:text-sm"
+            }`}
+            style={{ color: "currentColor" }}
+          >
             {value ?? contact.value}
           </p>
         </div>

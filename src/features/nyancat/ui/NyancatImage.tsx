@@ -16,6 +16,7 @@ interface NyancatImageProps {
   forwardRef?: React.RefObject<HTMLDivElement | null>;
   priority?: boolean;
   isMotionActive?: boolean;
+  bankAnimationName?: string;
   testId?: string;
 }
 
@@ -30,9 +31,24 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   forwardRef,
   priority = false,
   isMotionActive = true,
+  bankAnimationName,
   testId,
 }) => {
   const config = SIZE_CONFIG[size];
+
+  const image = (
+    <Image
+      src="/nyancat.svg"
+      alt=""
+      width={config.width}
+      height={config.height}
+      priority={priority}
+      style={{
+        width: `${String(config.width)}px`,
+        height: "auto",
+      }}
+    />
+  );
 
   return (
     <div
@@ -52,17 +68,23 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
       onClick={onClick}
       onTouchStart={onClick}
     >
-      <Image
-        src="/nyancat.svg"
-        alt=""
-        width={config.width}
-        height={config.height}
-        priority={priority}
-        style={{
-          width: `${String(config.width)}px`,
-          height: "auto",
-        }}
-      />
+      {bankAnimationName ? (
+        // Banking/tilt lives on its own layer so the rainbow trail stays level.
+        <div
+          style={{
+            animation: `${bankAnimationName} ${animationDuration} linear infinite`,
+            animationDelay,
+            animationPlayState: isMotionActive ? "running" : "paused",
+            transformOrigin: "center",
+            willChange: isMotionActive ? "transform" : "auto",
+            backfaceVisibility: "hidden",
+          }}
+        >
+          {image}
+        </div>
+      ) : (
+        image
+      )}
     </div>
   );
 };

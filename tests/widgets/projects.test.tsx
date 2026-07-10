@@ -13,11 +13,11 @@ describe("ProjectsWidget", () => {
     }));
   });
 
-  it("renders the heading and action buttons per project", () => {
+  it("renders the heading and action links per project", () => {
     render(<ProjectsWidget />);
     expect(screen.getByRole("heading", { name: /избранные/i })).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /код/i })).toHaveLength(4);
-    expect(screen.getAllByRole("button", { name: /подробнее/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
     expect(screen.getAllByText("CodeAnalyzer")).toHaveLength(2);
   });
 });

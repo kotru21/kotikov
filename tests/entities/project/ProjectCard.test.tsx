@@ -1,97 +1,21 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { ProjectCard } from "@/entities/project";
 import { projectsData } from "@/shared/config/content";
 
-describe("ProjectCard details toggle", () => {
+describe("ProjectCard", () => {
   const project = projectsData[0];
-  const controlsId = "project-details-code-analyzer";
 
-  it("renders toggle with aria-expanded false and aria-controls", () => {
-    render(
-      <ProjectCard
-        project={project}
-        detailsToggle={{
-          isExpanded: false,
-          controlsId,
-          onToggle: vi.fn(),
-        }}
-      />
-    );
+  it("renders title, summary and code link", () => {
+    render(<ProjectCard project={project} />);
 
-    const button = screen.getByRole("button", { name: /подробнее/i });
-    expect(button).toHaveAttribute("aria-expanded", "false");
-    expect(button).toHaveAttribute("aria-controls", controlsId);
-  });
-
-  it("does not show the project outcome on the collapsed card face", () => {
-    render(
-      <ProjectCard
-        project={project}
-        detailsToggle={{
-          isExpanded: false,
-          controlsId,
-          onToggle: vi.fn(),
-        }}
-      />
-    );
-
-    expect(screen.queryByText("Результат")).not.toBeInTheDocument();
-    expect(screen.queryByText(project.details.outcome)).not.toBeInTheDocument();
-  });
-
-  it("does not show the project outcome on the expanded card face", () => {
-    render(
-      <ProjectCard
-        project={project}
-        detailsToggle={{
-          isExpanded: true,
-          controlsId,
-          onToggle: vi.fn(),
-        }}
-      />
-    );
-
-    expect(screen.queryByText("Результат")).not.toBeInTheDocument();
-    expect(screen.queryByText(project.details.outcome)).not.toBeInTheDocument();
-  });
-
-  it("calls onToggle when clicked", async () => {
-    const onToggle = vi.fn();
-    const user = userEvent.setup();
-
-    render(
-      <ProjectCard
-        project={project}
-        detailsToggle={{
-          isExpanded: false,
-          controlsId,
-          onToggle,
-        }}
-      />
-    );
-
-    await user.click(screen.getByRole("button", { name: /подробнее/i }));
-    expect(onToggle).toHaveBeenCalledTimes(1);
-  });
-
-  it("shows Свернуть with aria-expanded true when expanded", () => {
-    render(
-      <ProjectCard
-        project={project}
-        detailsToggle={{
-          isExpanded: true,
-          controlsId,
-          onToggle: vi.fn(),
-        }}
-      />
-    );
-
-    const button = screen.getByRole("button", { name: /свернуть/i });
-    expect(button).toHaveAttribute("aria-expanded", "true");
-    expect(button).toHaveAttribute("aria-controls", controlsId);
+    expect(screen.getByRole("heading", { name: project.title })).toBeInTheDocument();
+    expect(screen.getByText(project.summary)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Код (откроется в новой вкладке)" })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
   });
 
   it("uses Russian accessible names for external project links", () => {
@@ -104,5 +28,14 @@ describe("ProjectCard details toggle", () => {
       screen.getByRole("link", { name: "Демо (откроется в новой вкладке)" })
     ).toBeInTheDocument();
     expect(screen.queryByText("Live")).not.toBeInTheDocument();
+  });
+
+  it("renders a short horizontal layout when wideOnTablet", () => {
+    const { container } = render(<ProjectCard project={project} wideOnTablet />);
+
+    const card = container.querySelector("article");
+    expect(card?.className).toMatch(/flex-row/);
+    expect(card?.className).toMatch(/min-h-56/);
+    expect(card?.className).toMatch(/xl:flex-col/);
   });
 });

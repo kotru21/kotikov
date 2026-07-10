@@ -29,5 +29,10 @@ export interface FlyingNyancatProps {
   zIndex?: number;
   /** Defaults to true for finite / one-shot consumers. */
   isMotionActive?: boolean;
+  /**
+   * Optional secondary keyframe applied to the cat only (not the trail) for
+   * banking/tilt. Shares duration + delay with the flight path to stay in sync.
+   */
+  bankAnimationName?: string;
   testId?: string;
 }

@@ -62,14 +62,6 @@ describe("content model", () => {
     }
   });
 
-  it("includes project details for storytelling expand panels", () => {
-    for (const project of projectsData) {
-      expect(project.details.challenge.length).toBeGreaterThan(10);
-      expect(project.details.solution.length).toBeGreaterThan(10);
-      expect(project.details.outcome.length).toBeGreaterThan(10);
-    }
-  });
-
   it("drops percentage levels from skills and groups them for IB", () => {
     expect(skillsData.every((s) => !("level" in s))).toBe(true);
     expect(skillGroups.map((g) => g.title)).toEqual([
@@ -108,18 +100,38 @@ describe("content model", () => {
 });
 
 describe("timeline data", () => {
-  it("contains exactly three non-project entries without hackathons", () => {
-    expect(timelineData).toHaveLength(3);
+  it("contains work, education, and IB-framed hackathons without projects", () => {
+    expect(timelineData).toHaveLength(5);
     expect(timelineData.every((e) => e.type !== "project")).toBe(true);
-    expect(timelineData.every((e) => e.type !== "hackathon")).toBe(true);
-    expect(timelineData.map((e) => e.company)).toEqual(["hoster.by", "Innowise", "БГУИР"]);
+    expect(timelineData.filter((e) => e.type === "hackathon").map((e) => e.company)).toEqual([
+      "MTS",
+      "ByChange",
+    ]);
+    expect(timelineData.map((e) => e.company)).toEqual([
+      "hoster.by",
+      "MTS",
+      "Innowise",
+      "БГУИР",
+      "ByChange",
+    ]);
+  });
+
+  it("frames hackathons through security concerns", () => {
+    const hackathons = timelineData.filter((e) => e.type === "hackathon");
+    expect(hackathons).toHaveLength(2);
+    for (const entry of hackathons) {
+      const text = `${entry.description} ${entry.technologies.join(" ")}`.toLowerCase();
+      expect(text).toMatch(/auth|access|privacy|iam|security|довер|защит|доступ|данн/);
+    }
   });
 
   it("uses unified period strings", () => {
     expect(timelineData.map((e) => e.period)).toEqual([
       "2026 — н.в.",
+      "2026",
       "июн 2025 — ноя 2025",
       "2024 — н.в.",
+      "2023",
     ]);
   });
 

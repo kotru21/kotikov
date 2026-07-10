@@ -6,7 +6,7 @@ import { projectsData } from "@/shared/config/content";
 import ProjectCardDeck from "@/widgets/projects/ui/ProjectCardDeck";
 
 vi.mock("@/entities/project", () => ({
-  ProjectCardExpandable: () => <div />,
+  ProjectCard: () => <div />,
 }));
 
 vi.mock("@/features/performance", () => ({

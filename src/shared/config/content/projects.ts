@@ -4,12 +4,6 @@ import { SiTypescript } from "react-icons/si";
 
 export type ProjectCardPattern = "waves" | "dots" | "chevrons" | "stripes" | "scatter";
 
-export interface ProjectDetail {
-  challenge: string;
-  solution: string;
-  outcome: string;
-}
-
 export interface ProjectContent {
   slug: string;
   title: string;
@@ -26,7 +20,6 @@ export interface ProjectContent {
   cardPattern: ProjectCardPattern;
   accentColor: string;
   cardIcon: IconType;
-  details: ProjectDetail;
 }
 
 export const projectsData: ProjectContent[] = [
@@ -45,18 +38,13 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "chevrons",
     accentColor: "#2cffc7",
     cardIcon: FaPython,
-    details: {
-      challenge: "Находить injection-классы в JS/TS без ручного просмотра всего репозитория",
-      solution: "Taint analysis на tree-sitter, правила под OWASP/CWE, SARIF для CI",
-      outcome: "13 классов уязвимостей, бенчмарк против Semgrep, Docker-поставка",
-    },
   },
   {
     slug: "bsuir-iis-api",
     title: "BSUIR IIS API",
     eyebrow: "Typed public API client",
     summary:
-      "Опубликованный TypeScript ESM SDK для IIS API БГУИР и небольшой Next.js-клиент: расписание, экзамены, справочники. Акцент на контрактах и сопровождении пакета, не на «красивом UI».",
+      "Опубликованный TypeScript ESM SDK для IIS API БГУИР и небольшой Next.js-клиент: расписание, экзамены, справочники. Акцент на контрактах и сопровождении пакета.",
     stack: ["TypeScript", "ESM", "npm", "Next.js"],
     role: "Library Author",
     imageAlt: "BSUIR IIS API — TypeScript SDK",
@@ -66,11 +54,6 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "stripes",
     accentColor: "#63ffd5",
     cardIcon: SiTypescript,
-    details: {
-      challenge: "Стабильный типизированный доступ к университетскому API без ad-hoc fetch-обёрток",
-      solution: "ESM-пакет с явными контрактами и showcase-приложение на App Router",
-      outcome: "Публичный SDK и поддерживаемый consumer для расписаний и справочников",
-    },
   },
   {
     slug: "web-messenger",
@@ -88,10 +71,5 @@ export const projectsData: ProjectContent[] = [
     cardPattern: "dots",
     accentColor: "#00ffb9",
     cardIcon: FaReact,
-    details: {
-      challenge: "Разделить публичные и приватные каналы и не протечь сессию через realtime-слой",
-      solution: "JWT auth, явные границы для Socket.IO-событий, контроль доступа к диалогам",
-      outcome: "Рабочий мессенджер с auth, историей и присутствием — полезный кейс для secure review",
-    },
   },
 ];
