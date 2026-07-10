@@ -57,4 +57,69 @@ describe("ProjectCardExpandable", () => {
     expect(screen.getByText(project.details.outcome)).toBeInTheDocument();
     expect(screen.getByLabelText("Подробности проекта")).toHaveAttribute("aria-hidden", "false");
   });
+
+  it("contains detail column height so expand cannot grow the card row", () => {
+    const { rerender } = render(
+      <ProjectCardExpandable
+        project={project}
+        layout="desktop"
+        isExpanded={false}
+        reducedMotion
+      />
+    );
+
+    const detailsColumn = screen.getByTestId("project-card-details-column");
+    expect(detailsColumn.className).toMatch(/h-0/);
+    expect(detailsColumn.className).toMatch(/min-h-full/);
+    expect(detailsColumn.className).toMatch(/overflow-hidden/);
+
+    rerender(
+      <ProjectCardExpandable
+        project={project}
+        layout="desktop"
+        isExpanded
+        reducedMotion
+      />
+    );
+
+    expect(detailsColumn.className).toMatch(/h-0/);
+    expect(detailsColumn.className).toMatch(/min-h-full/);
+    expect(screen.getByLabelText("Подробности проекта")).toHaveAttribute("aria-hidden", "false");
+  });
+
+  it("keeps aria-expanded in sync on the details toggle", async () => {
+    const user = userEvent.setup();
+    const onExpandedChange = vi.fn();
+
+    const { rerender } = render(
+      <ProjectCardExpandable
+        project={project}
+        layout="desktop"
+        isExpanded={false}
+        onExpandedChange={onExpandedChange}
+        reducedMotion
+      />
+    );
+
+    const toggle = screen.getByRole("button", { name: /подробнее/i });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+    await user.click(toggle);
+    expect(onExpandedChange).toHaveBeenCalledWith(project.slug);
+
+    rerender(
+      <ProjectCardExpandable
+        project={project}
+        layout="desktop"
+        isExpanded
+        onExpandedChange={onExpandedChange}
+        reducedMotion
+      />
+    );
+
+    expect(screen.getByRole("button", { name: /свернуть/i })).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
+  });
 });

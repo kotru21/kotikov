@@ -39,6 +39,28 @@ describe("ProjectCardDetailGrid", () => {
       />
     );
 
-    expect(container.querySelector("dl")?.className).toContain("grid-cols-2");
+    const list = container.querySelector("dl");
+    expect(list?.className).toContain("grid-cols-2");
+    expect(list?.className).toContain("min-h-0");
+    expect(list?.className).not.toContain("min-h-[22rem]");
+  });
+
+  it("scrolls horizontal cells instead of growing past the card height", () => {
+    const { container } = render(
+      <ProjectCardDetailGrid
+        project={project}
+        id="project-details-scroll"
+        isVisible
+        reducedMotion
+        orientation="horizontal"
+      />
+    );
+
+    const cells = container.querySelectorAll("dl > div");
+    expect(cells.length).toBe(4);
+    for (const cell of cells) {
+      expect(cell.className).toMatch(/min-h-0/);
+      expect(cell.className).toMatch(/overflow-y-auto/);
+    }
   });
 });

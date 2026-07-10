@@ -42,17 +42,16 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
   };
 
   const showInlineDetails = layout === "desktop" && isExpanded;
+  // Width-only expand: detail column uses h-0/min-h-full so it cannot grow the row (CLS).
   const innerGridTransition = reducedMotion
     ? ""
-    : "transition-[grid-template-columns] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+    : "transition-[grid-template-columns] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   return (
     <>
       {layout === "desktop" ? (
         <div
-          className={`grid min-w-0 overflow-visible ${innerGridTransition} ${
-            showInlineDetails ? "items-stretch" : ""
-          } ${
+          className={`grid min-w-0 items-stretch overflow-visible ${innerGridTransition} ${
             showInlineDetails
               ? "border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-neutral-900 dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
               : ""
@@ -63,7 +62,7 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
               : "minmax(0, 1fr) minmax(0, 0fr)",
           }}
         >
-          <div className={showInlineDetails ? "h-full min-w-0 shrink-0" : "min-w-0"}>
+          <div className="min-w-0">
             <ProjectCard
               project={project}
               isStacked={isStacked}
@@ -81,13 +80,18 @@ const ProjectCardExpandable: React.FC<ProjectCardExpandableProps> = ({
             />
           </div>
 
-          <ProjectCardDetailGrid
-            project={project}
-            id={detailsId}
-            isVisible={showInlineDetails}
-            reducedMotion={reducedMotion}
-            orientation="horizontal"
-          />
+          <div
+            data-testid="project-card-details-column"
+            className="h-0 min-h-full min-w-0 overflow-hidden"
+          >
+            <ProjectCardDetailGrid
+              project={project}
+              id={detailsId}
+              isVisible={showInlineDetails}
+              reducedMotion={reducedMotion}
+              orientation="horizontal"
+            />
+          </div>
         </div>
       ) : (
         <ProjectCard

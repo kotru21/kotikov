@@ -37,8 +37,8 @@ html {
   width: 100%;
   overflow: visible;
   transition:
-    width 450ms cubic-bezier(0.22, 1, 0.36, 1),
-    margin 450ms cubic-bezier(0.22, 1, 0.36, 1);
+    width 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    margin 250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .projects-grid-shell[data-reduced-motion="true"] {
@@ -57,7 +57,7 @@ html {
   padding-right: 4px;
   padding-bottom: 4px;
   grid-template-columns: repeat(2, var(--project-card-w));
-  transition: grid-template-columns 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: grid-template-columns 250ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .projects-grid-shell[data-reduced-motion="true"] .projects-grid {

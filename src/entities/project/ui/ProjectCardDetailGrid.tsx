@@ -33,7 +33,7 @@ const motionCellClass = (
 function getVisibilityClass(isHorizontal: boolean, isVisible: boolean): string {
   if (isHorizontal) {
     return isVisible
-      ? "min-h-0 self-stretch opacity-100"
+      ? "h-full min-h-0 opacity-100"
       : "pointer-events-none invisible h-0 max-h-0 min-h-0 overflow-hidden opacity-0";
   }
 
@@ -48,6 +48,11 @@ function getBorderClass(isHorizontal: boolean, isVisible: boolean): string {
   return "border-t-2 border-black dark:border-white";
 }
 
+function getCellLayoutClass(isHorizontal: boolean, borders: string): string {
+  const scrollClass = isHorizontal ? "min-h-0 overflow-y-auto" : "";
+  return `${borders} px-4 py-3 ${scrollClass}`;
+}
+
 const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
   project,
   id,
@@ -58,7 +63,7 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
   const isHorizontal = orientation === "horizontal";
   const transitionClass = reducedMotion
     ? ""
-    : "transition-[opacity,border-color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+    : "transition-[opacity,border-color] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   const visibilityClass = getVisibilityClass(isHorizontal, isVisible);
   const borderClass = getBorderClass(isHorizontal, isVisible);
@@ -68,27 +73,28 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
       id={id}
       aria-label="Подробности проекта"
       aria-hidden={!isVisible}
-      className={`relative overflow-hidden ${borderClass} ${transitionClass} ${visibilityClass} ${
-        isHorizontal && isVisible ? "h-full" : ""
-      }`}
+      className={`relative overflow-hidden ${borderClass} ${transitionClass} ${visibilityClass}`}
     >
       <div
         aria-hidden="true"
         className={`absolute top-3 right-3 size-12 rounded-full border-2 border-black dark:border-white ${
-          reducedMotion ? "scale-100 opacity-60" : "transition-transform duration-[400ms] ease-out"
+          reducedMotion ? "scale-100 opacity-60" : "transition-transform duration-250 ease-out"
         } ${isVisible ? "scale-100 opacity-60" : "scale-0 opacity-0"}`}
         style={{ backgroundColor: project.accentColor }}
       />
 
       <dl
-        className={`relative z-10 h-full ${isHorizontal ? "grid h-full min-h-[22rem] grid-cols-2 grid-rows-2 sm:min-h-[24rem]" : ""}`}
+        className={`relative z-10 ${
+          isHorizontal ? "grid h-full min-h-0 grid-cols-2 grid-rows-2" : ""
+        }`}
       >
         <div
-          className={`${
+          className={`${getCellLayoutClass(
+            isHorizontal,
             isHorizontal
               ? "border-r-2 border-b-2 border-black dark:border-white"
               : "border-b-2 border-black dark:border-white"
-          } px-4 py-3 ${motionCellClass(0, isVisible, reducedMotion, orientation)}`}
+          )} ${motionCellClass(0, isVisible, reducedMotion, orientation)}`}
           style={{ backgroundColor: project.accentColor }}
         >
           <dt className="text-xs font-bold tracking-[0.12em] text-neutral-950 uppercase">Задача</dt>
@@ -98,11 +104,12 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         </div>
 
         <div
-          className={`${
+          className={`${getCellLayoutClass(
+            isHorizontal,
             isHorizontal
               ? "border-b-2 border-black bg-white dark:border-white dark:bg-neutral-900"
               : "border-b-2 border-black bg-white dark:border-white dark:bg-neutral-900"
-          } px-4 py-3 ${motionCellClass(1, isVisible, reducedMotion, orientation)}`}
+          )} ${motionCellClass(1, isVisible, reducedMotion, orientation)}`}
         >
           <dt className="text-xs font-bold tracking-[0.12em] text-neutral-700 uppercase dark:text-neutral-300">
             Решение
@@ -113,11 +120,12 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         </div>
 
         <div
-          className={`${
+          className={`${getCellLayoutClass(
+            isHorizontal,
             isHorizontal
               ? "border-r-2 border-black bg-black dark:border-white dark:bg-white"
               : "border-b-2 border-black bg-black dark:border-white dark:bg-white"
-          } px-4 py-3 ${motionCellClass(2, isVisible, reducedMotion, orientation)}`}
+          )} ${motionCellClass(2, isVisible, reducedMotion, orientation)}`}
         >
           <dt className="text-xs font-bold tracking-[0.12em] text-white uppercase dark:text-black">
             Результат
@@ -128,7 +136,10 @@ const ProjectCardDetailGrid: React.FC<ProjectCardDetailGridProps> = ({
         </div>
 
         <div
-          className={`bg-neutral-100 px-4 py-3 dark:bg-neutral-800 ${motionCellClass(3, isVisible, reducedMotion, orientation)}`}
+          className={`${getCellLayoutClass(
+            isHorizontal,
+            "bg-neutral-100 dark:bg-neutral-800"
+          )} ${motionCellClass(3, isVisible, reducedMotion, orientation)}`}
         >
           <dt className="text-xs font-bold tracking-[0.12em] text-neutral-700 uppercase dark:text-neutral-300">
             Стек
