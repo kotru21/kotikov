@@ -27,7 +27,7 @@ const TimelineView: React.FC = () => {
   const timelineData = useMemo(
     () =>
       [...rawTimelineData].sort((a, b) => {
-        const byPeriod = parsePeriodStart(a.period) - parsePeriodStart(b.period);
+        const byPeriod = parsePeriodStart(b.period) - parsePeriodStart(a.period);
         return byPeriod !== 0 ? byPeriod : a.id - b.id;
       }),
     []
