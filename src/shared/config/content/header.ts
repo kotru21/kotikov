@@ -1,8 +1,8 @@
 export const headerContent = {
-  eyebrow: "Арсений Котиков · Frontend-разработчик",
+  eyebrow: "Арсений Котиков · SOC",
   title: "Kotikov",
   subtitle:
-    "Делаю интерфейсы с характером: React, Next.js и TypeScript на фронте, Node.js по необходимости. Чисто, быстро, с вниманием к деталям.",
+    "ИБ-практик: DFIR и мониторинг в SOC, уязвимости приложений и безопасная разработка. Проекты и опыт — ниже.",
   buttons: {
     primary: {
       text: "Связаться",
