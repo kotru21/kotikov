@@ -54,8 +54,8 @@ describe("TimelineView mobile a11y", () => {
 
   it("updates keyboard focus, panel label, and live counter together", () => {
     render(<TimelineView />);
-    const firstChip = screen.getByRole("button", { name: "2023 · Хакатон" });
-    const secondChip = screen.getByRole("button", { name: "2024 · Обучение" });
+    const firstChip = screen.getByRole("button", { name: "2026 · Работа" });
+    const secondChip = screen.getByRole("button", { name: "2025 · Работа" });
 
     firstChip.focus();
     fireEvent.keyDown(firstChip, { key: "ArrowRight" });
