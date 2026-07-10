@@ -1,6 +1,6 @@
 import type { IconType } from "react-icons";
-import { FaReact } from "react-icons/fa";
-import { SiTauri, SiTypescript } from "react-icons/si";
+import { FaPython, FaReact } from "react-icons/fa";
+import { SiTypescript } from "react-icons/si";
 
 export type ProjectCardPattern = "waves" | "dots" | "chevrons" | "stripes" | "scatter";
 
@@ -17,7 +17,7 @@ export interface ProjectContent {
   summary: string;
   stack: string[];
   role: string;
-  imageSrc?: string; // slot for a future screenshot
+  imageSrc?: string;
   imageAlt: string;
   repoUrl: string;
   liveUrl?: string;
@@ -31,69 +31,67 @@ export interface ProjectContent {
 
 export const projectsData: ProjectContent[] = [
   {
-    slug: "file-manager-tauri",
-    title: "File Manager",
-    eyebrow: "Desktop-приложение",
+    slug: "code-analyzer",
+    title: "CodeAnalyzer",
+    eyebrow: "AppSec · SAST",
     summary:
-      "Файловый менеджер на Tauri: виртуализированные списки, глубокая кастомизация UI и покрытие тестами (Unit / Integration / E2E).",
-    stack: ["TypeScript", "Tauri", "Tailwind CSS", "Vitest"],
-    role: "Frontend Engineer",
-    imageSrc: "/projects/file-manager-tauri.png",
-    imageAlt: "Превью интерфейса File Manager",
-    repoUrl: "https://github.com/kotru21/FileManagerTauri",
+      "Статический анализатор для JS/TS: 13 правил по классам OWASP Top 10, taint analysis, вывод SARIF 2.1.0, сравнение с Semgrep на реальных корпусах. Полностью в Docker.",
+    stack: ["Python", "FastAPI", "tree-sitter", "Celery", "Redis", "PostgreSQL", "Docker"],
+    role: "AppSec Tooling",
+    imageAlt: "CodeAnalyzer — SAST для JS/TS",
+    repoUrl: "https://github.com/kotru21/CodeAnalyzerPython",
     cardPeriod: "2025–26",
-    cardMeta: "Desktop · Open Source",
-    cardPattern: "waves",
+    cardMeta: "SAST · Open Source",
+    cardPattern: "chevrons",
     accentColor: "#2cffc7",
-    cardIcon: SiTauri,
+    cardIcon: FaPython,
     details: {
-      challenge: "Навигация по тысячам файлов без лагов UI",
-      solution: "Виртуализированные списки и кастомные контролы",
-      outcome: "Unit + Integration + E2E покрытие, open source",
+      challenge: "Находить injection-классы в JS/TS без ручного просмотра всего репозитория",
+      solution: "Taint analysis на tree-sitter, правила под OWASP/CWE, SARIF для CI",
+      outcome: "13 классов уязвимостей, бенчмарк против Semgrep, Docker-поставка",
+    },
+  },
+  {
+    slug: "bsuir-iis-api",
+    title: "BSUIR IIS API",
+    eyebrow: "Typed public API client",
+    summary:
+      "Опубликованный TypeScript ESM SDK для IIS API БГУИР и небольшой Next.js-клиент: расписание, экзамены, справочники. Акцент на контрактах и сопровождении пакета, не на «красивом UI».",
+    stack: ["TypeScript", "ESM", "npm", "Next.js"],
+    role: "Library Author",
+    imageAlt: "BSUIR IIS API — TypeScript SDK",
+    repoUrl: "https://github.com/kotru21/bsuir-iis-api",
+    cardPeriod: "2025–26",
+    cardMeta: "SDK · Maintained",
+    cardPattern: "stripes",
+    accentColor: "#63ffd5",
+    cardIcon: SiTypescript,
+    details: {
+      challenge: "Стабильный типизированный доступ к университетскому API без ad-hoc fetch-обёрток",
+      solution: "ESM-пакет с явными контрактами и showcase-приложение на App Router",
+      outcome: "Публичный SDK и поддерживаемый consumer для расписаний и справочников",
     },
   },
   {
     slug: "web-messenger",
     title: "Web Messenger",
-    eyebrow: "Реалтайм-продукт",
+    eyebrow: "Auth · trust boundaries",
     summary:
-      "Веб-мессенджер с чатами, авторизацией и реал-тайм состоянием на JavaScript full-stack.",
-    stack: ["React", "Node.js", "Socket.IO", "MongoDB", "JWT"],
+      "Full-stack чат с JWT, публичными и приватными диалогами, медиа и realtime. В витрине — про authn/authz и границы доверия, а не про «приятный UX».",
+    stack: ["React", "Node.js", "Express", "MongoDB", "Socket.IO", "JWT"],
     role: "Full-Stack Developer",
     imageSrc: "/projects/web-messenger.png",
-    imageAlt: "Превью приложения Web Messenger",
+    imageAlt: "Web Messenger — JWT и realtime",
     repoUrl: "https://github.com/kotru21/webchat",
     cardPeriod: "2025",
-    cardMeta: "Full-Stack · Realtime",
+    cardMeta: "Auth · Realtime",
     cardPattern: "dots",
-    accentColor: "#63ffd5",
+    accentColor: "#00ffb9",
     cardIcon: FaReact,
     details: {
-      challenge: "Мгновенный обмен сообщениями между пользователями",
-      solution: "Socket.IO для realtime, JWT auth, MongoDB для истории",
-      outcome: "Full-stack продукт с авторизацией и историей чатов",
-    },
-  },
-  {
-    slug: "tiktok-analyzer",
-    title: "TikTok Analyzer",
-    eyebrow: "Интерфейс для данных",
-    summary:
-      "Анализ чатов и активности TikTok-аккаунтов: структурированные представления для быстрой интерпретации.",
-    stack: ["TypeScript", "React", "Node.js", "Git"],
-    role: "Frontend Engineer",
-    imageSrc: "/projects/tiktok-analyzer.png",
-    imageAlt: "Превью интерфейса TikTok Analyzer",
-    repoUrl: "https://github.com/kotru21/tiktok-chats-visualizer",
-    cardPeriod: "2025",
-    cardMeta: "Data UI · Analytics",
-    cardPattern: "chevrons",
-    accentColor: "#00ffb9",
-    cardIcon: SiTypescript,
-    details: {
-      challenge: "Быстрая интерпретация активности TikTok-аккаунтов",
-      solution: "Структурированные data views для чатов",
-      outcome: "Инструмент для анализа и визуализации чат-активности",
+      challenge: "Разделить публичные и приватные каналы и не протечь сессию через realtime-слой",
+      solution: "JWT auth, явные границы для Socket.IO-событий, контроль доступа к диалогам",
+      outcome: "Рабочий мессенджер с auth, историей и присутствием — полезный кейс для secure review",
     },
   },
 ];
