@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { headerContent } from "@/shared/config/content";
 import type * as SharedUi from "@/shared/ui";
+import { colors } from "@/styles/colors";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
 vi.mock("@/features/interactive-elements", () => {
@@ -85,10 +86,12 @@ describe("HeaderHero", () => {
     expect(screen.getByText(headerContent.eyebrow)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: headerContent.title })).toBeInTheDocument();
     expect(screen.getByText(headerContent.subtitle)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: headerContent.buttons.primary.text })).toHaveAttribute(
-      "href",
-      headerContent.buttons.primary.href
-    );
+    const primaryCta = screen.getByRole("link", { name: headerContent.buttons.primary.text });
+    expect(primaryCta).toHaveAttribute("href", headerContent.buttons.primary.href);
+    expect(primaryCta).toHaveAttribute("data-interactive-mode", "solid");
+    expect(primaryCta).toHaveAttribute("data-interactive-bg", colors.primary[500]);
+    expect(primaryCta).toHaveAttribute("data-interactive-text", "black");
+    expect(primaryCta).toHaveAttribute("data-interactive-shadow", "var(--shadow-hard-sm)");
     expect(
       screen.getByRole("link", { name: new RegExp(headerContent.buttons.secondary.text) })
     ).toHaveAttribute("href", headerContent.buttons.secondary.href);

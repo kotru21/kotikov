@@ -44,6 +44,9 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
             <InteractiveElement
               as={Button}
               data-interactive-mode="solid"
+              data-interactive-bg={colors.primary[500]}
+              data-interactive-text="black"
+              data-interactive-shadow="var(--shadow-hard-sm)"
               href={buttons.primary.href}
               variant="primary"
               size="lg"
