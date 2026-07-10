@@ -38,14 +38,14 @@ export default function StructuredData(): JSX.Element {
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Kotikov Frontend Development",
+    name: `${personData.nickname} — ${personData.jobTitle}`,
     url: "https://ktkv.me",
-    description: "Профессиональная разработка фронтенд приложений",
+    description: personData.description,
     founder: {
       "@type": "Person",
       name: personData.name,
     },
-    serviceType: ["Frontend Development", "Web Development", "UI/UX Design"],
+    serviceType: ["Information Security", "Application Security"],
     areaServed: "Worldwide",
   } as const;
 
