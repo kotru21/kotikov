@@ -31,11 +31,7 @@ function buildNyancatKeyframes(): string {
     const rotate = -BANK_DEG * Math.cos(phase);
     const scale = 1 - SCALE_AMPLITUDE * Math.sin(phase);
     const x =
-      percent === 0
-        ? "-150px"
-        : percent === 100
-          ? "calc(100vw + 150px)"
-          : `${String(percent)}vw`;
+      percent === 0 ? "-150px" : percent === 100 ? "calc(100vw + 150px)" : `${String(percent)}vw`;
 
     flyFrames.push(`
           ${String(percent)}% {

@@ -14,7 +14,8 @@ export interface ContactCardProps {
  * inverted black badge on the mint hero card (contrast).
  */
 function getIconWellClasses(variant: "auto" | "light" | "dark"): string {
-  if (variant === "auto") return "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+  if (variant === "auto")
+    return "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
   if (variant === "light") return "border-black bg-primary-500 text-black";
   return "border-black bg-primary-500 text-black dark:border-white";
 }

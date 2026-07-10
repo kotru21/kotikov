@@ -104,7 +104,9 @@ describe("timeline data", () => {
   it("contains work, education, and IB-framed hackathons without projects", () => {
     expect(timelineData).toHaveLength(5);
     expect(
-      timelineData.every((e) => e.type === "work" || e.type === "education" || e.type === "hackathon")
+      timelineData.every(
+        (e) => e.type === "work" || e.type === "education" || e.type === "hackathon"
+      )
     ).toBe(true);
     expect(timelineData.filter((e) => e.type === "hackathon").map((e) => e.company)).toEqual([
       "MTS",

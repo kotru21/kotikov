@@ -75,11 +75,7 @@ export const calculateTrailHeight = (_index: number, size: NyancatSize): number 
 };
 
 export const generateTrailGradient = (index: number, _size: NyancatSize): string => {
-  const colors = [
-    EXPLOSION_COLORS[0],
-    EXPLOSION_COLORS[1],
-    EXPLOSION_COLORS[2],
-  ];
+  const colors = [EXPLOSION_COLORS[0], EXPLOSION_COLORS[1], EXPLOSION_COLORS[2]];
   return colors[index % 3];
 };
 
