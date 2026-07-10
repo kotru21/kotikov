@@ -60,9 +60,10 @@ vi.mock("@/shared/ui", async () => {
 
 describe("HeaderBackground", () => {
   it("renders grid guides without paint overlay by default", () => {
-    render(<HeaderBackground />);
+    const { container } = render(<HeaderBackground />);
     expect(screen.getByTestId("grid-pattern")).toBeInTheDocument();
     expect(screen.queryByTestId("paint-overlay")).not.toBeInTheDocument();
+    expect(container.querySelectorAll("[data-draw-allow]")).toHaveLength(0);
   });
 
   it("mounts paint overlay when paintRef is provided", () => {
@@ -74,7 +75,7 @@ describe("HeaderBackground", () => {
 
 describe("HeaderHero", () => {
   it("renders eyebrow, title, subtitle, and CTAs", () => {
-    render(
+    const { container } = render(
       <HeaderHero
         eyebrow={headerContent.eyebrow}
         title={headerContent.title}
@@ -95,5 +96,7 @@ describe("HeaderHero", () => {
     expect(
       screen.getByRole("link", { name: new RegExp(headerContent.buttons.secondary.text) })
     ).toHaveAttribute("href", headerContent.buttons.secondary.href);
+    expect(container.querySelector(".blur-sm")).toBeNull();
+    expect(container.querySelector(".mix-blend-multiply")).toBeNull();
   });
 });
