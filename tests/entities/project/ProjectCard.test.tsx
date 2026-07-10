@@ -44,6 +44,22 @@ describe("ProjectCard details toggle", () => {
     expect(outcomeParagraph).toHaveTextContent(`Результат ${project.details.outcome}`);
   });
 
+  it("hides the card outcome while expanded to avoid duplicating the detail grid", () => {
+    render(
+      <ProjectCard
+        project={project}
+        detailsToggle={{
+          isExpanded: true,
+          controlsId,
+          onToggle: vi.fn(),
+        }}
+      />
+    );
+
+    expect(screen.queryByText("Результат")).not.toBeInTheDocument();
+    expect(screen.queryByText(project.details.outcome)).not.toBeInTheDocument();
+  });
+
   it("calls onToggle when clicked", async () => {
     const onToggle = vi.fn();
     const user = userEvent.setup();
