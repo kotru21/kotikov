@@ -11,7 +11,7 @@ describe("ProjectCardDetailGrid", () => {
     render(
       <ProjectCardDetailGrid
         project={project}
-        id="project-details-file-manager-tauri"
+        id="project-details-code-analyzer"
         isVisible
         reducedMotion
       />
@@ -25,7 +25,7 @@ describe("ProjectCardDetailGrid", () => {
     expect(screen.getByText("Результат")).toBeInTheDocument();
     expect(screen.getByText(project.details.outcome)).toBeInTheDocument();
     expect(screen.getByText("Стек")).toBeInTheDocument();
-    expect(screen.getByText("Tauri")).toBeInTheDocument();
+    expect(screen.getByText("Python")).toBeInTheDocument();
   });
 
   it("renders horizontal 2x2 grid when orientation is horizontal", () => {

@@ -7,7 +7,7 @@ import { projectsData } from "@/shared/config/content";
 
 describe("ProjectCard details toggle", () => {
   const project = projectsData[0];
-  const controlsId = "project-details-file-manager-tauri";
+  const controlsId = "project-details-code-analyzer";
 
   it("renders toggle with aria-expanded false and aria-controls", () => {
     render(
