@@ -20,6 +20,8 @@ const TimelineView: React.FC = () => {
   const [mode, setMode] = useState<TimelineViewMode>("both");
 
   useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+
     const mediaQuery = window.matchMedia("(max-width: 767px)");
     const sync = (): void => {
       setMode(mediaQuery.matches ? "mobile" : "desktop");
