@@ -3,7 +3,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { projectsData } from "@/shared/config/content";
-import ProjectCardDeck from "@/widgets/projects/ui/ProjectCardDeck";
+import { ProjectCardDeck } from "@/widgets/projects/ui/ProjectCardDeck";
 
 vi.mock("@/entities/project", () => ({
   ProjectCard: () => <div />,

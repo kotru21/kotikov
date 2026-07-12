@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { ProjectCard } from "@/entities/project";
 import { usePerformanceSettings } from "@/features/performance";
 import { projectsData } from "@/shared/config/content";
-import { DECK_MOTION_CLASS } from "@/shared/lib/deckTransform";
+import {
+  DECK_MOTION_CLASS,
+  getCyclicDeckCardRole,
+  getDeckTransform,
+} from "@/shared/lib/deckTransform";
 
-import { getDeckCardRole, getDeckTransform } from "./getDeckTransform";
 import { useProjectDeck } from "./useProjectDeck";
 
 const NAVIGATION_KEYS = new Set(["ArrowLeft", "ArrowRight", "Home", "End"]);
@@ -19,7 +22,7 @@ function willProjectIndexChange(key: string, activeIndex: number, count: number)
   return key === "ArrowLeft" || key === "ArrowRight";
 }
 
-const ProjectCardDeck: React.FC = () => {
+export function ProjectCardDeck(): React.JSX.Element | null {
   const projects = projectsData;
   const { reducedMotion } = usePerformanceSettings();
   const motionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
@@ -54,7 +57,7 @@ const ProjectCardDeck: React.FC = () => {
         onTouchEnd={handleTouchEnd}
       >
         {projects.map((project, index) => {
-          const role = getDeckCardRole(index, activeIndex, projects.length);
+          const role = getCyclicDeckCardRole(index, activeIndex, projects.length);
           const deckStyle = getDeckTransform(role, reducedMotion);
           const isActive = deckStyle.isActive;
 
@@ -140,6 +143,4 @@ const ProjectCardDeck: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default ProjectCardDeck;
+}

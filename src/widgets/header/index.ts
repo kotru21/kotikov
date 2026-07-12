@@ -1,1 +1,1 @@
-export { default as HeaderWidget } from "./HeaderWidget";
+export { HeaderWidget } from "./HeaderWidget";

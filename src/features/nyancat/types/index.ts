@@ -1,3 +1,5 @@
+import type { NyancatSize } from "../lib/constants";
+
 export interface Position {
   x: number;
   y: number;
@@ -18,7 +20,7 @@ export interface Pixel {
 }
 
 export interface FlyingNyancatProps {
-  size: "small" | "medium" | "large" | "xlarge";
+  size: NyancatSize;
   position: {
     top: string;
     left: string;

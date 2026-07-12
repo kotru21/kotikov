@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import ProjectsGrid from "@/widgets/projects/ui/ProjectsGrid";
+import { ProjectsGrid } from "@/widgets/projects/ui/ProjectsGrid";
 
 describe("ProjectsGrid", () => {
   it("renders project cards with code links and no details toggle", () => {

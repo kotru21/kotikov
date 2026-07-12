@@ -1,7 +1,27 @@
-import React from "react";
+import { projectsSection } from "@/shared/config/content";
+import { Section, SectionHeader } from "@/shared/ui";
 
-import { ProjectsView } from "./ui";
+import { ProjectCardDeck, ProjectsGrid } from "./ui";
 
-const ProjectsWidget: React.FC = () => <ProjectsView />;
+/**
+ * Projects section composition root (Server Component).
+ * Intentionally dual-mounts mobile deck + desktop grid; visibility is CSS-only
+ * (`md:hidden` / `hidden md:grid`) so breakpoints stay layout-stable.
+ */
+export function ProjectsWidget(): React.JSX.Element {
+  return (
+    <Section id="projects" backgroundClassName="bg-neutral-100 dark:bg-background-tertiary">
+      <SectionHeader
+        eyebrow={projectsSection.eyebrow}
+        title={projectsSection.title}
+        description={projectsSection.description}
+      />
 
-export default ProjectsWidget;
+      <div className="md:hidden">
+        <ProjectCardDeck />
+      </div>
+
+      <ProjectsGrid />
+    </Section>
+  );
+}

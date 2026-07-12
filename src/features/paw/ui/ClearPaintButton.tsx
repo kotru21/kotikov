@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ClearPaintButtonProps {
   onClick: () => void;
   tone?: "default" | "on-gradient";
@@ -13,11 +11,11 @@ const toneClasses = {
     "border-white bg-black text-white hover:bg-primary-500 hover:text-black focus-visible:ring-white",
 } as const;
 
-const ClearPaintButton: React.FC<ClearPaintButtonProps> = ({
+export function ClearPaintButton({
   onClick,
   tone = "default",
   className = "",
-}) => {
+}: ClearPaintButtonProps): React.JSX.Element {
   return (
     <button
       type="button"
@@ -28,6 +26,4 @@ const ClearPaintButton: React.FC<ClearPaintButtonProps> = ({
       Очистить рисунок
     </button>
   );
-};
-
-export default ClearPaintButton;
+}

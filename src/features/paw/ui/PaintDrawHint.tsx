@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { useIsMobile } from "@/features/device";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { colors } from "@/styles/colors";
@@ -16,7 +14,10 @@ const toneClasses = {
   "on-gradient": "text-neutral-100/90",
 } as const;
 
-const PaintDrawHint: React.FC<PaintDrawHintProps> = ({ tone = "default", className = "" }) => {
+export function PaintDrawHint({
+  tone = "default",
+  className = "",
+}: PaintDrawHintProps): React.JSX.Element {
   const isMobile = useIsMobile();
   const message = isMobile
     ? "Зажми палец и веди — оставь след лапы"
@@ -46,6 +47,4 @@ const PaintDrawHint: React.FC<PaintDrawHintProps> = ({ tone = "default", classNa
       <InteractiveText text={message} />
     </InteractiveElement>
   );
-};
-
-export default PaintDrawHint;
+}

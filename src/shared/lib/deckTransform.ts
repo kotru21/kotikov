@@ -9,17 +9,26 @@ export interface DeckTransform {
 
 export const DECK_MOTION_CLASS = "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
+/**
+ * Cyclic deck roles for the projects carousel.
+ * With `count === 3` this yields one active, one next, one prev (unchanged UX).
+ * With `count > 3`, non-adjacent cards are `hidden` so they do not stack as `prev`.
+ */
 export function getCyclicDeckCardRole(
   cardIndex: number,
   activeIndex: number,
   count: number
 ): DeckCardRole {
+  if (count <= 0) return "hidden";
   if (cardIndex === activeIndex) return "active";
 
   const nextIndex = (activeIndex + 1) % count;
   if (cardIndex === nextIndex) return "next";
 
-  return "prev";
+  const prevIndex = (activeIndex - 1 + count) % count;
+  if (cardIndex === prevIndex) return "prev";
+
+  return "hidden";
 }
 
 export function getLinearDeckCardRole(cardIndex: number, activeIndex: number): DeckCardRole {
@@ -30,6 +39,7 @@ export function getLinearDeckCardRole(cardIndex: number, activeIndex: number): D
 }
 
 export function getWrappedIndex(current: number, delta: number, count: number): number {
+  if (count <= 0) return 0;
   return (current + delta + count) % count;
 }
 

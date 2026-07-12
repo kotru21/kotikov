@@ -9,8 +9,6 @@ export const EXPLOSION_COLORS = [
 ] as const;
 
 export const EXPLOSION_DURATION = 2200;
-export const ANIMATION_FPS = 60;
-export const ANIMATION_INTERVAL = 1000 / ANIMATION_FPS;
 /** React state flush cadence for explosion pixels (~45 FPS). */
 export const EXPLOSION_RENDER_INTERVAL_MS = 22;
 
@@ -24,13 +22,8 @@ export const SIZE_CONFIG = {
     pixelCount: 15,
     trailDelay: 0.06,
     opacityStep: 0.18,
-    trailWidthStep: 2,
     trailSpacing: 5,
     trailOffset: 8,
-    hueStep: 72,
-    hueOffset: 144,
-    lightness: 75,
-    borderRadius: 1,
   },
   medium: {
     width: 50,
@@ -41,13 +34,8 @@ export const SIZE_CONFIG = {
     pixelCount: 25,
     trailDelay: 0.08,
     opacityStep: 0.15,
-    trailWidthStep: 3,
     trailSpacing: 6,
     trailOffset: 12,
-    hueStep: 60,
-    hueOffset: 120,
-    lightness: 70,
-    borderRadius: 2,
   },
   large: {
     width: 70,
@@ -58,13 +46,8 @@ export const SIZE_CONFIG = {
     pixelCount: 35,
     trailDelay: 0.1,
     opacityStep: 0.12,
-    trailWidthStep: 3,
     trailSpacing: 8,
     trailOffset: 15,
-    hueStep: 45,
-    hueOffset: 90,
-    lightness: 65,
-    borderRadius: 2,
   },
   xlarge: {
     width: 120,
@@ -75,13 +58,8 @@ export const SIZE_CONFIG = {
     pixelCount: 50,
     trailDelay: 0.15,
     opacityStep: 0.1,
-    trailWidthStep: 3,
     trailSpacing: 12,
     trailOffset: 25,
-    hueStep: 30,
-    hueOffset: 60,
-    lightness: 60,
-    borderRadius: 3,
   },
 } as const;
 

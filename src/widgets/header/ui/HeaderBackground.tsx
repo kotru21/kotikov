@@ -1,12 +1,10 @@
-import React from "react";
-
 import { BauhausGridPattern, GridPaintOverlay, type GridPaintOverlayRef } from "@/shared/ui";
 
 interface HeaderBackgroundProps {
   paintRef?: React.Ref<GridPaintOverlayRef>;
 }
 
-const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ paintRef }) => {
+export function HeaderBackground({ paintRef }: HeaderBackgroundProps): React.JSX.Element {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       {/* 1. Сетка (Grid Paper) */}
@@ -23,6 +21,4 @@ const HeaderBackground: React.FC<HeaderBackgroundProps> = ({ paintRef }) => {
       ) : null}
     </div>
   );
-};
-
-export default HeaderBackground;
+}

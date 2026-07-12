@@ -1,5 +1,4 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import React from "react";
 
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { Button } from "@/shared/ui";
@@ -15,7 +14,12 @@ interface HeaderHeroProps {
   };
 }
 
-const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, buttons }) => {
+export function HeaderHero({
+  eyebrow,
+  title,
+  subtitle,
+  buttons,
+}: HeaderHeroProps): React.JSX.Element {
   return (
     <div className="relative isolate mx-auto w-full max-w-2xl py-8 sm:py-12 lg:py-16">
       <p className="text-text-primary dark:text-text-inverse border-l-primary-500 bg-background-primary dark:border-l-primary-400 dark:bg-background-tertiary mb-3 inline-block max-w-full border-2 border-l-4 border-black px-2.5 py-1 text-xs font-bold tracking-[0.14em] uppercase sm:px-3 sm:text-sm sm:tracking-[0.28em] dark:border-white">
@@ -71,6 +75,4 @@ const HeaderHero: React.FC<HeaderHeroProps> = ({ eyebrow, title, subtitle, butto
       </div>
     </div>
   );
-};
-
-export default HeaderHero;
+}

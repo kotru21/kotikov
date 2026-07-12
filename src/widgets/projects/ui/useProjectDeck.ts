@@ -2,9 +2,8 @@
 
 import { useCallback, useRef, useState } from "react";
 
+import { getWrappedIndex } from "@/shared/lib/deckTransform";
 import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
-
-import { getWrappedIndex } from "./getDeckTransform";
 
 interface UseProjectDeckOptions {
   count: number;
@@ -20,7 +19,7 @@ interface UseProjectDeckReturn {
   handleTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
 }
 
-export const useProjectDeck = ({ count }: UseProjectDeckOptions): UseProjectDeckReturn => {
+export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeckReturn {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartXRef = useRef<number | null>(null);
   const lastIndex = count - 1;
@@ -34,10 +33,12 @@ export const useProjectDeck = ({ count }: UseProjectDeckOptions): UseProjectDeck
   );
 
   const goNext = useCallback((): void => {
+    if (count <= 0) return;
     setActiveIndex((current) => getWrappedIndex(current, 1, count));
   }, [count]);
 
   const goPrev = useCallback((): void => {
+    if (count <= 0) return;
     setActiveIndex((current) => getWrappedIndex(current, -1, count));
   }, [count]);
 
@@ -93,4 +94,4 @@ export const useProjectDeck = ({ count }: UseProjectDeckOptions): UseProjectDeck
     handleTouchStart,
     handleTouchEnd,
   };
-};
+}

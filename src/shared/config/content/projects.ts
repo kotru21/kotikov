@@ -2,7 +2,11 @@ import type { IconType } from "react-icons";
 import { FaPython, FaReact } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
 
-export type ProjectCardPattern = "waves" | "dots" | "chevrons" | "stripes" | "scatter";
+/**
+ * Featured projects content. Canonical data lives in shared/config; entity
+ * `ProjectCard` renders it. Stage 9 may reconsider moving data beside the entity.
+ */
+export type ProjectCardPattern = "dots" | "chevrons" | "stripes";
 
 export interface ProjectContent {
   slug: string;
@@ -18,6 +22,19 @@ export interface ProjectContent {
   accentColor: string;
   cardIcon: IconType;
 }
+
+export interface ProjectsSectionContent {
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+export const projectsSection = {
+  eyebrow: "Проекты",
+  title: "Избранные работы",
+  description:
+    "Несколько проектов, которые показывают, как я думаю о продукте, интерфейсе и реализации.",
+} as const satisfies ProjectsSectionContent;
 
 export const projectsData: ProjectContent[] = [
   {

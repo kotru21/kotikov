@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { ProjectCardPattern as PatternType } from "@/shared/config/content";
 
 interface ProjectCardPatternProps {
@@ -7,36 +5,13 @@ interface ProjectCardPatternProps {
   color: string;
 }
 
-const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color }) => {
+/** Decorative corner pattern for project cards (live patterns: dots, chevrons, stripes). */
+export function ProjectCardPattern({ pattern, color }: ProjectCardPatternProps): React.JSX.Element {
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute right-0 bottom-0 h-[62%] w-[58%] overflow-hidden opacity-50 dark:opacity-90"
     >
-      {pattern === "waves" ? (
-        <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">
-          <path
-            d="M20 180c40-30 80-10 120-40s80-20 100 10"
-            fill="none"
-            stroke={color}
-            strokeWidth="3"
-          />
-          <path
-            d="M0 210c50-35 95-15 140-45s85-25 110 5"
-            fill="none"
-            stroke={color}
-            strokeWidth="3"
-          />
-          <path
-            d="M35 150c35-25 70-8 105-30s65-18 85 8"
-            fill="none"
-            stroke={color}
-            strokeWidth="2.5"
-            opacity="0.65"
-          />
-        </svg>
-      ) : null}
-
       {pattern === "dots" ? (
         <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">
           {[
@@ -108,33 +83,6 @@ const ProjectCardPattern: React.FC<ProjectCardPatternProps> = ({ pattern, color 
           })}
         </svg>
       ) : null}
-
-      {pattern === "scatter" ? (
-        <svg viewBox="0 0 240 220" className="h-full w-full" preserveAspectRatio="xMaxYMax meet">
-          {[
-            [160, 60, 12, 4],
-            [200, 90, -20, 3],
-            [140, 120, 35, 3],
-            [210, 150, -10, 4],
-            [175, 180, 25, 3],
-            [130, 190, -30, 2],
-            [220, 200, 15, 3],
-          ].map(([x, y, angle, len]) => (
-            <line
-              key={`scatter-${String(x)}-${String(y)}-${String(angle)}`}
-              x1={x}
-              y1={y}
-              x2={x + len * Math.cos((angle * Math.PI) / 180)}
-              y2={y + len * Math.sin((angle * Math.PI) / 180)}
-              stroke={color}
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-          ))}
-        </svg>
-      ) : null}
     </div>
   );
-};
-
-export default ProjectCardPattern;
+}

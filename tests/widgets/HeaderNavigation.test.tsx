@@ -41,7 +41,7 @@ vi.mock("@/features/scrolling", async () => {
   };
 });
 
-vi.mock("@/features/theme", () => {
+vi.mock("@/features/theme/client", () => {
   function themeToggleMock(): React.JSX.Element {
     return <button type="button">Theme</button>;
   }

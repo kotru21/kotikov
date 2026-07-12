@@ -44,6 +44,18 @@ test.describe("mobile projects and timeline", () => {
     await expect(projectControls.first()).toHaveAttribute("aria-pressed", "false");
   });
 
+  test("advances the deck with keyboard from a project control", async ({ page }) => {
+    await page.goto("/#projects");
+
+    const projectControls = page.getByRole("group", { name: "Выбор проекта" }).getByRole("button");
+    await projectControls.first().focus();
+    await page.keyboard.press("ArrowRight");
+
+    await expect(projectControls.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await expect(projectControls.first()).toHaveAttribute("aria-pressed", "false");
+    await expect(page.getByText("2 / 3")).toBeVisible();
+  });
+
   test("advances timeline and updates the live counter", async ({ page }) => {
     await page.goto("/#experience");
 

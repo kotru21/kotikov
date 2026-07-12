@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import type { RefObject } from "react";
 
 import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 
@@ -13,14 +13,14 @@ interface NyancatImageProps {
   isMobile: boolean;
   onMouseEnter: () => void;
   onClick: () => void;
-  forwardRef?: React.RefObject<HTMLDivElement | null>;
+  forwardRef?: RefObject<HTMLDivElement | null>;
   priority?: boolean;
   isMotionActive?: boolean;
   bankAnimationName?: string;
   testId?: string;
 }
 
-export const NyancatImage: React.FC<NyancatImageProps> = ({
+export function NyancatImage({
   size,
   animationName,
   animationDuration,
@@ -33,7 +33,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
   isMotionActive = true,
   bankAnimationName,
   testId,
-}) => {
+}: NyancatImageProps): React.JSX.Element {
   const config = SIZE_CONFIG[size];
 
   const image = (
@@ -69,7 +69,6 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
       onTouchStart={onClick}
     >
       {bankAnimationName !== undefined && bankAnimationName !== "" ? (
-        // Banking/tilt lives on its own layer so the rainbow trail stays level.
         <div
           style={{
             animation: `${bankAnimationName} ${animationDuration} linear infinite`,
@@ -87,4 +86,4 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
       )}
     </div>
   );
-};
+}

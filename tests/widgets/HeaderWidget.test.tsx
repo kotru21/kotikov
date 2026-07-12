@@ -2,7 +2,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import HeaderWidget from "@/widgets/header/HeaderWidget";
+import { HeaderWidget } from "@/widgets/header/HeaderWidget";
+
+const performanceSettings = vi.hoisted(() => ({
+  reducedMotion: false,
+  lowPerformance: false,
+}));
 
 vi.mock("@/features/device", () => ({
   useIsMobile: () => false,
@@ -32,10 +37,13 @@ vi.mock("@/features/paw", () => ({
 }));
 
 vi.mock("@/features/performance", () => ({
-  usePerformanceSettings: () => ({ reducedMotion: false, lowPerformance: false }),
+  usePerformanceSettings: () => ({
+    reducedMotion: performanceSettings.reducedMotion,
+    lowPerformance: performanceSettings.lowPerformance,
+  }),
   useSceneMotionPolicy: () => ({
-    reducedMotion: false,
-    lowPerformance: false,
+    reducedMotion: performanceSettings.reducedMotion,
+    lowPerformance: performanceSettings.lowPerformance,
     isInView: false,
     isDocumentVisible: true,
     dominantEffect: "flying-nyancat",
@@ -43,15 +51,26 @@ vi.mock("@/features/performance", () => ({
   }),
 }));
 
-vi.mock("@/widgets/header/ui", async () => {
-  const actual = await vi.importActual<Record<string, unknown>>("@/widgets/header/ui");
-  return {
-    ...actual,
-    HeaderBackground: () => null,
-    HeaderHero: () => <section aria-label="Hero content" />,
-    HeaderNavigation: () => <nav aria-label="Global navigation" />,
-  };
-});
+vi.mock("@/widgets/header/ui/HeaderBackground", () => ({
+  HeaderBackground: () => null,
+}));
+
+vi.mock("@/widgets/header/ui/HeaderNyancat", () => ({
+  HeaderNyancat: ({ isMotionActive }: { isMotionActive: boolean }) => (
+    <div
+      data-testid="header-nyancat"
+      style={{ animationPlayState: isMotionActive ? "running" : "paused" }}
+    />
+  ),
+}));
+
+vi.mock("@/widgets/header/ui/HeaderNavigation", () => ({
+  HeaderNavigation: () => <nav aria-label="Global navigation" />,
+}));
+
+vi.mock("@/widgets/header/ui/HeaderHero", () => ({
+  HeaderHero: () => <section aria-label="Hero content" />,
+}));
 
 describe("HeaderWidget", () => {
   it("places the main content target after global navigation around the hero", () => {
@@ -76,5 +95,18 @@ describe("HeaderWidget", () => {
     expect(screen.queryByTestId("header-nyancat")).not.toHaveStyle({
       animationPlayState: "running",
     });
+  });
+
+  it("does not apply drawing cursor or touch-action none when reduced motion is on", () => {
+    performanceSettings.reducedMotion = true;
+
+    const { container } = render(<HeaderWidget />);
+    const main = container.querySelector("#main-content");
+
+    expect(main).toHaveStyle({ touchAction: "pan-y" });
+    expect(main).not.toHaveStyle({ cursor: "none" });
+    expect(screen.queryByTestId("header-nyancat")).not.toBeInTheDocument();
+
+    performanceSettings.reducedMotion = false;
   });
 });

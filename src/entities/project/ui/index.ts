@@ -1,1 +1,2 @@
-export { default as ProjectCard } from "./ProjectCard";
+export { ProjectCard } from "./ProjectCard";
+export { ProjectCardPattern } from "./ProjectCardPattern";

@@ -1,3 +1,26 @@
+import { personData } from "./person";
+
+/**
+ * About section copy. Kept in shared/config (no `entities/about`); Stage 9 may
+ * reconsider entity placement for structured domain content.
+ */
+export interface AboutSpecField {
+  key: string;
+  value: string;
+}
+
+export interface AboutContent {
+  title: string;
+  body: string;
+  spec: {
+    fileName: string;
+    exportName: string;
+    fields: readonly AboutSpecField[];
+  };
+  /** Screen-reader enrichment only — not rendered in the visible code panel. */
+  principles: readonly string[];
+}
+
 export const aboutContent = {
   title: "Коротко обо мне",
   body: "Меня зовут Арсений Котиков (Kotikov). Студент информационной безопасности в БГУИР, Intern SOC в hoster.by. Параллельно углубляюсь в AppSec: SAST, разбор уязвимостей и secure code review. Фронтенд-опыт помогает видеть, как дыры появляются в реальном коде.",
@@ -5,9 +28,9 @@ export const aboutContent = {
     fileName: "about.ts",
     exportName: "kotikov",
     fields: [
-      { key: "name", value: "Арсений Котиков" },
-      { key: "handle", value: "Kotikov" },
-      { key: "role", value: "SOC / AppSec" },
+      { key: "name", value: personData.nameRu },
+      { key: "handle", value: personData.nickname },
+      { key: "role", value: personData.jobTitle },
       { key: "location", value: "Беларусь" },
       { key: "education", value: "БГУИР · ИБ" },
       { key: "experience", value: "hoster.by" },
@@ -18,4 +41,4 @@ export const aboutContent = {
     "В AppSec опираюсь на SAST, разбор уязвимостей и secure code review в живом коде.",
     "Публично делюсь навыками и инструментами; чужие инциденты и чувствительные детали остаются закрытыми.",
   ],
-} as const;
+} as const satisfies AboutContent;

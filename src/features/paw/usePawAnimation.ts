@@ -26,25 +26,41 @@ interface PawAnimationHandlers {
   handlePointerCancel: (e: PointerEvent<HTMLElement>) => void;
 }
 
+interface UsePawAnimationOptions {
+  /** When false, handlers no-op and drawing state stays off (e.g. reduced motion). */
+  enabled?: boolean;
+}
+
 interface UsePawAnimationReturn extends PawAnimationState {
   handlers: PawAnimationHandlers;
 }
 
-export const usePawAnimation = (
-  onDraw: (x: number, y: number, prevX: number, prevY: number) => void
-): UsePawAnimationReturn => {
-  const [state, setState] = useState<PawAnimationState>({
-    mousePos: { x: 0, y: 0 },
-    smoothMousePos: { x: 0, y: 0 },
-    pawPos: { x: 0, y: 0 },
-    pawVelocity: { x: 0, y: 0 },
-    isDrawing: false,
-  });
+const INITIAL_STATE: PawAnimationState = {
+  mousePos: { x: 0, y: 0 },
+  smoothMousePos: { x: 0, y: 0 },
+  pawPos: { x: 0, y: 0 },
+  pawVelocity: { x: 0, y: 0 },
+  isDrawing: false,
+};
+
+export function usePawAnimation(
+  onDraw: (x: number, y: number, prevX: number, prevY: number) => void,
+  options: UsePawAnimationOptions = {}
+): UsePawAnimationReturn {
+  const enabled = options.enabled ?? true;
+  const enabledRef = useRef(enabled);
+  enabledRef.current = enabled;
+
+  const [state, setState] = useState<PawAnimationState>(INITIAL_STATE);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+
+  const onDrawRef = useRef(onDraw);
+  onDrawRef.current = onDraw;
 
   const animationFrameRef = useRef<number | null>(null);
   const lastUpdateTimeRef = useRef(0);
   const mouseVelocityRef = useRef({ x: 0, y: 0 });
-
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
 
@@ -71,14 +87,18 @@ export const usePawAnimation = (
     }
   }, []);
 
+  useEffect(() => {
+    if (!enabled) stopDrawing();
+  }, [enabled, stopDrawing]);
+
   const handlePointerEnter = useCallback(
     (e: PointerEvent<HTMLElement>) => {
+      if (!enabledRef.current) return;
       if (isInteractiveTarget(e.target)) {
         if (e.pointerType === "mouse") stopDrawing();
         return;
       }
 
-      // Мышь рисует по hover
       if (e.pointerType === "mouse") {
         setState((prev) => ({ ...prev, isDrawing: true }));
         updatePointerPos(e.clientX, e.clientY);
@@ -89,42 +109,39 @@ export const usePawAnimation = (
 
   const handlePointerMove = useCallback(
     (e: PointerEvent<HTMLElement>) => {
+      if (!enabledRef.current) return;
       if (isInteractiveTarget(e.target)) {
         if (e.pointerType === "mouse") stopDrawing();
         return;
       }
 
-      // Мышь: рисуем только пока isDrawing (hover внутри зоны)
       if (e.pointerType === "mouse") {
-        if (!state.isDrawing) {
+        if (!stateRef.current.isDrawing) {
           setState((prev) => ({ ...prev, isDrawing: true }));
         }
         updatePointerPos(e.clientX, e.clientY);
         return;
       }
 
-      // Touch/Pen: только при зажатии
       if (!pointerDownRef.current) return;
       updatePointerPos(e.clientX, e.clientY);
     },
-    [state.isDrawing, stopDrawing, updatePointerPos]
+    [stopDrawing, updatePointerPos]
   );
 
   const handlePointerLeave = useCallback(
     (e: PointerEvent<HTMLElement>) => {
-      // Мышь: ушли из зоны — прекращаем
-      if (e.pointerType === "mouse") {
-        stopDrawing();
-      }
+      if (!enabledRef.current) return;
+      if (e.pointerType === "mouse") stopDrawing();
     },
     [stopDrawing]
   );
 
   const handlePointerDown = useCallback(
     (e: PointerEvent<HTMLElement>) => {
+      if (!enabledRef.current) return;
       if (isInteractiveTarget(e.target)) return;
 
-      // Touch/Pen: начинаем рисовать только по зажатию
       if (e.pointerType !== "mouse") {
         e.preventDefault();
         pointerDownRef.current = true;
@@ -144,6 +161,7 @@ export const usePawAnimation = (
 
   const handlePointerUp = useCallback(
     (e: PointerEvent<HTMLElement>) => {
+      if (!enabledRef.current) return;
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;
@@ -161,6 +179,7 @@ export const usePawAnimation = (
 
   const handlePointerCancel = useCallback(
     (e: PointerEvent<HTMLElement>) => {
+      if (!enabledRef.current) return;
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;
@@ -171,14 +190,14 @@ export const usePawAnimation = (
   );
 
   useEffect(() => {
-    if (!state.isDrawing) return;
+    if (!state.isDrawing || !enabled) return;
 
     const animate = (currentTime: number): void => {
+      if (!stateRef.current.isDrawing || !enabledRef.current) return;
+
       const deltaTime = currentTime - lastUpdateTimeRef.current;
       if (deltaTime < 16) {
-        if (state.isDrawing) {
-          animationFrameRef.current = requestAnimationFrame(animate);
-        }
+        animationFrameRef.current = requestAnimationFrame(animate);
         return;
       }
       lastUpdateTimeRef.current = currentTime;
@@ -225,10 +244,9 @@ export const usePawAnimation = (
         const velocityY = (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
 
         if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
-          onDraw(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
+          onDrawRef.current(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
         }
 
-        // Минимальные пороги, чтобы не вызывать лишние рендеры
         const posDeltaSmall =
           Math.abs(newPawPos.x - prev.pawPos.x) < 0.25 &&
           Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
@@ -236,10 +254,7 @@ export const usePawAnimation = (
           Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
         const velDeltaSmall = Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
 
-        if (posDeltaSmall && velDeltaSmall) {
-          // возвращаем предыдущее состояние без изменений — React не перерендерит
-          return prev;
-        }
+        if (posDeltaSmall && velDeltaSmall) return prev;
 
         return {
           ...prev,
@@ -249,12 +264,11 @@ export const usePawAnimation = (
         };
       });
 
-      if (state.isDrawing) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      }
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    if (state.pawPos.x === 0 && state.pawPos.y === 0) {
+    const current = stateRef.current;
+    if (current.pawPos.x === 0 && current.pawPos.y === 0) {
       setState((prev) => ({
         ...prev,
         pawPos: prev.mousePos,
@@ -268,16 +282,10 @@ export const usePawAnimation = (
     return () => {
       if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
     };
-  }, [
-    state.isDrawing,
-    state.mousePos,
-    state.smoothMousePos,
-    state.pawPos.x,
-    state.pawPos.y,
-    onDraw,
-  ]);
+  }, [state.isDrawing, enabled]);
 
   return {
     ...state,
@@ -290,4 +298,4 @@ export const usePawAnimation = (
       handlePointerCancel,
     },
   };
-};
+}

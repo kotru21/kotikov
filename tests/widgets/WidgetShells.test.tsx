@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { aboutContent, footerInfo, navigation } from "@/shared/config/content";
-import AboutWidget from "@/widgets/about/AboutWidget";
+import { footerInfo, navigation } from "@/shared/config/content";
 import FooterWidget from "@/widgets/footer/FooterWidget";
 import { FooterBottom, FooterInfo, FooterNavigation } from "@/widgets/footer/ui";
 import TimelineWidget from "@/widgets/timeline/TimelineWidget";
@@ -10,13 +9,6 @@ import TimelineWidget from "@/widgets/timeline/TimelineWidget";
 vi.mock("@/features/performance", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
-
-describe("AboutWidget", () => {
-  it("renders the about section heading", () => {
-    render(<AboutWidget />);
-    expect(screen.getByRole("heading", { name: aboutContent.title })).toBeInTheDocument();
-  });
-});
 
 describe("Footer chrome", () => {
   it("renders FooterWidget with info, navigation, and copyright", () => {

@@ -1,4 +1,5 @@
-export { default as HeaderBackground } from "./HeaderBackground";
-export { default as HeaderHero } from "./HeaderHero";
-export { default as HeaderNavigation } from "./HeaderNavigation";
-export { default as HeaderNyancat } from "./HeaderNyancat";
+export { HeaderBackground } from "./HeaderBackground";
+export { HeaderHero } from "./HeaderHero";
+export { HeaderNavigation } from "./HeaderNavigation";
+export { HeaderNyancat } from "./HeaderNyancat";
+export { HeaderPaintSurface } from "./HeaderPaintSurface";

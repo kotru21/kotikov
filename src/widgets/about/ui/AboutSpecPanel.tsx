@@ -1,20 +1,19 @@
-import React from "react";
+import { Fragment } from "react";
 
 import { aboutContent } from "@/shared/config/content";
+
+import { toCommentLines } from "../lib/toCommentLines";
 
 const commentToneClass = "text-text-secondary dark:text-neutral-400";
 const keywordClass = "text-text-primary font-bold dark:text-text-inverse";
 const stringClass = "text-primary-900 dark:text-primary-300";
 const keyClass = "text-text-primary dark:text-text-inverse";
 
-function toCommentLines(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])\s+/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-}
-
-const AboutSpecPanel: React.FC = () => {
+/**
+ * Decorative “source file” card. `principles` are intentional sr-only enrichment
+ * for assistive tech and must not appear in the visible code panel (UX freeze).
+ */
+export function AboutSpecPanel(): React.JSX.Element {
   const { body, spec, principles } = aboutContent;
   const commentLines = toCommentLines(body);
   const accessiblePrinciples = principles.join(". ");
@@ -40,22 +39,22 @@ const AboutSpecPanel: React.FC = () => {
             <span className={commentToneClass}>{"/**"}</span>
             {"\n"}
             {commentLines.map((line) => (
-              <React.Fragment key={line}>
+              <Fragment key={line}>
                 <span className={commentToneClass}>{` * ${line}`}</span>
                 {"\n"}
-              </React.Fragment>
+              </Fragment>
             ))}
             <span className={commentToneClass}>{" */"}</span>
             {"\n\n"}
             <span className={keywordClass}>export const</span> {spec.exportName} = {"{\n"}
             {spec.fields.map((field, index) => (
-              <React.Fragment key={field.key}>
+              <Fragment key={field.key}>
                 {"  "}
                 <span className={keyClass}>{field.key}</span>
                 {": "}
                 <span className={stringClass}>&quot;{field.value}&quot;</span>
                 {index < spec.fields.length - 1 ? ",\n" : "\n"}
-              </React.Fragment>
+              </Fragment>
             ))}
             {"};\n"}
           </code>
@@ -63,6 +62,4 @@ const AboutSpecPanel: React.FC = () => {
       </div>
     </figure>
   );
-};
-
-export default AboutSpecPanel;
+}

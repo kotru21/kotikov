@@ -7,6 +7,11 @@ test("recruiter can understand the profile and reach contact", async ({ page }) 
   const contactAction = page.getByRole("link", { name: /^Связаться/ }).first();
   await expect(contactAction).toHaveAttribute("href", "#contacts");
 
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  await expect(page.locator("#about")).toBeVisible();
+  await expect(page.locator("#about-heading")).toHaveText("Коротко обо мне");
+  await expect(page.locator("#about pre code")).toContainText("export const kotikov");
+
   await page.locator("#projects").scrollIntoViewIfNeeded();
   await expect(page.locator("#projects")).toBeVisible();
 

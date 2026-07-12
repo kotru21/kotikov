@@ -8,11 +8,16 @@ import {
   navigation,
   personData,
   projectsData,
+  projectsSection,
   skillGroups,
   skillsData,
   skillsStackLine,
   timelineData,
 } from "@/shared/config/content";
+
+function aboutField(key: string): string | undefined {
+  return aboutContent.spec.fields.find((f) => f.key === key)?.value;
+}
 
 describe("content model", () => {
   it("exposes the polished navigation anchors", () => {
@@ -50,6 +55,12 @@ describe("content model", () => {
 
   it("surfaces three featured projects with CodeAnalyzer first", () => {
     expect(projectsData).toHaveLength(3);
+    expect(projectsSection).toEqual({
+      eyebrow: "Проекты",
+      title: "Избранные работы",
+      description:
+        "Несколько проектов, которые показывают, как я думаю о продукте, интерфейсе и реализации.",
+    });
     expect(projectsData.map((p) => p.slug)).toEqual([
       "code-analyzer",
       "bsuir-iis-api",
@@ -60,6 +71,7 @@ describe("content model", () => {
       expect(p.summary.length).toBeGreaterThan(20);
       expect(p.repoUrl).toMatch(/^https:\/\/github\.com\//);
       expect(p.cardMeta).toBeTruthy();
+      expect(["dots", "chevrons", "stripes"]).toContain(p.cardPattern);
     }
   });
 
@@ -86,7 +98,13 @@ describe("content model", () => {
     }
     expect(aboutContent.principles.some((p) => /SOC/i.test(p))).toBe(true);
     expect(aboutContent.principles.some((p) => /AppSec/i.test(p))).toBe(true);
-    expect(aboutContent.spec.fields.find((f) => f.key === "role")?.value).not.toBe("frontend");
+    expect(aboutField("role")).not.toBe("frontend");
+  });
+
+  it("derives about spec identity fields from personData", () => {
+    expect(aboutField("name")).toBe(personData.nameRu);
+    expect(aboutField("handle")).toBe(personData.nickname);
+    expect(aboutField("role")).toBe(personData.jobTitle);
   });
 
   it("keeps person SEO on SOC / AppSec", () => {

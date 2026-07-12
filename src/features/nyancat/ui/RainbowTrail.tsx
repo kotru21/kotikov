@@ -22,7 +22,7 @@ interface RainbowTrailProps {
   isMotionActive?: boolean;
 }
 
-export const RainbowTrail: React.FC<RainbowTrailProps> = ({
+export function RainbowTrail({
   size,
   position,
   animationName,
@@ -30,7 +30,7 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
   animationDelay,
   zIndex,
   isMotionActive = true,
-}) => {
+}: RainbowTrailProps): React.JSX.Element {
   const config = SIZE_CONFIG[size];
 
   return (
@@ -54,9 +54,9 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
         >
           <div
             style={{
-              width: `${String(calculateTrailWidth(i, size))}px`,
-              height: `${String(calculateTrailHeight(i, size))}px`,
-              background: generateTrailGradient(i, size),
+              width: `${String(calculateTrailWidth(size))}px`,
+              height: `${String(calculateTrailHeight(size))}px`,
+              background: generateTrailGradient(i),
               transform: calculateTrailTransform(i, size),
             }}
           />
@@ -64,4 +64,4 @@ export const RainbowTrail: React.FC<RainbowTrailProps> = ({
       ))}
     </>
   );
-};
+}

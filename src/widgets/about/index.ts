@@ -1,1 +1,1 @@
-export { default as AboutWidget } from "./AboutWidget";
+export { AboutWidget } from "./AboutWidget";

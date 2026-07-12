@@ -43,11 +43,13 @@ describe("useProjectDeck", () => {
     expect(result.current.activeIndex).toBe(0);
   });
 
-  it("ignores goTo when count is zero", () => {
+  it("ignores navigation when count is zero", () => {
     const { result } = renderHook(() => useProjectDeck({ count: 0 }));
 
     act(() => {
       result.current.goTo(2);
+      result.current.goNext();
+      result.current.goPrev();
     });
     expect(result.current.activeIndex).toBe(0);
   });

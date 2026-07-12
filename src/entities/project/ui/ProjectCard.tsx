@@ -1,17 +1,23 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import React from "react";
 import { FaGithub } from "react-icons/fa";
 
 import { formatExternalLinkLabel } from "@/shared/lib";
 
 import type { ProjectItem } from "../model/types";
-import ProjectCardPattern from "./ProjectCardPattern";
+import { ProjectCardPattern } from "./ProjectCardPattern";
 
 interface ProjectCardProps {
   project: ProjectItem;
+  /**
+   * Widget layout mode: inactive deck stack uses a lighter shadow.
+   * Kept on the entity so `ProjectCardDeck` can match current visuals without class drift.
+   */
   isStacked?: boolean;
   className?: string;
-  /** Below xl: short horizontal row; from xl: tall vertical card. */
+  /**
+   * Widget layout mode: last grid card is short/horizontal below xl.
+   * Owned by `ProjectsGrid`; prop stays here to preserve identical class output.
+   */
   wideOnTablet?: boolean;
 }
 
@@ -26,12 +32,12 @@ function getShadowClass(isStacked: boolean): string {
   return "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+export function ProjectCard({
   project,
   isStacked = false,
   className = "",
   wideOnTablet = false,
-}) => {
+}: ProjectCardProps): React.JSX.Element {
   const CardIcon = project.cardIcon;
   const shadowClass = getShadowClass(isStacked);
 
@@ -127,6 +133,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
     </article>
   );
-};
-
-export default ProjectCard;
+}
