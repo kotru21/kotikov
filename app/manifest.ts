@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
+import { THEME_SURFACE } from "@/features/theme";
 import { personData } from "@/shared/config/content";
+import { colors } from "@/styles/colors";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -9,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: personData.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#00ffb9",
+    background_color: THEME_SURFACE.light.background,
+    theme_color: colors.primary[500],
     icons: [
       {
         src: "/logo_mobile.svg",

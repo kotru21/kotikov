@@ -2,12 +2,12 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
-import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, ThemeProvider } from "@/features/theme";
+import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE, ThemeProvider } from "@/features/theme";
 import { personData } from "@/shared/config/content";
 
 import { SkipLinks } from "./components/SkipLinks";
@@ -26,6 +26,14 @@ const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 const siteTitle = `${personData.nameRu} (${personData.nickname}) — SOC / AppSec | Портфолио`;
 const siteDescription = `${personData.description}. БГУИР, hoster.by, SAST и безопасная разработка.`;
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: THEME_SURFACE.light.background },
+    { media: "(prefers-color-scheme: dark)", color: THEME_SURFACE.dark.background },
+  ],
+};
 
 export const metadata: Metadata = {
   title: {
@@ -119,7 +127,6 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
-        <meta name="color-scheme" content="light dark" />
         <style dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>

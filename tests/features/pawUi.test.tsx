@@ -8,12 +8,14 @@ vi.mock("@/features/device", () => ({
 }));
 
 vi.mock("@/features/interactive-elements", () => ({
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- mock mirrors real PascalCase exports
   InteractiveElement: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
   } & Record<string, unknown>) => <p {...props}>{children}</p>,
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- mock mirrors real PascalCase exports
   InteractiveText: ({ text }: { text: string }) => text,
 }));
 

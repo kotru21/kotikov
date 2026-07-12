@@ -6,47 +6,23 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
+  useSyncExternalStore,
 } from "react";
 
-import { THEME_STORAGE_KEY, type ThemeChoice } from "./themeConstants";
-import { readThemeCookie, writeThemeCookie } from "./themeCookie";
+import type { ThemeChoice } from "./themeConstants";
+import { writeThemeCookie } from "./themeCookie";
+import {
+  commitThemeChoice,
+  getServerThemeIsDarkSnapshot,
+  getThemeIsDarkSnapshot,
+  subscribeThemeDom,
+} from "./themeDomStore";
+import { persistChoice, readChoice } from "./themeLogic";
 
 export type { ThemeChoice } from "./themeConstants";
-
-function systemPrefersDark(): boolean {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
-
-function readChoice(): ThemeChoice {
-  if (typeof window === "undefined") return "system";
-  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-  if (stored === "light" || stored === "dark") return stored;
-  const fromCookie = readThemeCookie();
-  if (fromCookie !== null) return fromCookie;
-  return "system";
-}
-
-function resolveIsDark(choice: ThemeChoice): boolean {
-  if (choice === "light") return false;
-  if (choice === "dark") return true;
-  return systemPrefersDark();
-}
-
-function applyChoice(choice: ThemeChoice): boolean {
-  const root = document.documentElement;
-  root.classList.remove("dark", "light");
-
-  if (choice === "light") {
-    root.classList.add("light");
-    return false;
-  }
-
-  const dark = resolveIsDark(choice);
-  root.classList.toggle("dark", dark);
-  return dark;
-}
 
 interface ThemeContextValue {
   choice: ThemeChoice;
@@ -57,14 +33,29 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
+const emptyUnsubscribe = (): void => {
+  /* useSyncExternalStore requires a subscribe; mount flag never changes */
+};
+const emptySubscribe = (): (() => void) => emptyUnsubscribe;
+
+/** false during SSR/hydration; true on the client after hydration (no useEffect lag). */
+export function useHasMounted(): boolean {
+  return useSyncExternalStore(emptySubscribe, () => true, () => false);
+}
+
 export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.Element => {
   const [choiceState, setChoiceState] = useState<ThemeChoice>("system");
-  const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
+  const isDark = useSyncExternalStore(
+    subscribeThemeDom,
+    getThemeIsDarkSnapshot,
+    getServerThemeIsDarkSnapshot
+  );
+
+  useLayoutEffect(() => {
     const initial = readChoice();
     setChoiceState(initial);
-    setIsDark(applyChoice(initial));
+    commitThemeChoice(initial);
     writeThemeCookie(initial);
   }, []);
 
@@ -73,7 +64,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleSystemThemeChange = (): void => {
-      setIsDark(applyChoice("system"));
+      commitThemeChoice("system");
     };
 
     mediaQuery.addEventListener("change", handleSystemThemeChange);
@@ -82,13 +73,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
 
   const setChoice = useCallback((c: ThemeChoice): void => {
     setChoiceState(c);
-    if (c === "system") {
-      window.localStorage.removeItem(THEME_STORAGE_KEY);
-    } else {
-      window.localStorage.setItem(THEME_STORAGE_KEY, c);
-    }
+    persistChoice(c);
     writeThemeCookie(c);
-    setIsDark(applyChoice(c));
+    commitThemeChoice(c);
   }, []);
 
   const toggle = useCallback((): void => {

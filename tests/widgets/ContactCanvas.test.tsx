@@ -103,7 +103,7 @@ describe("useContactDrawing", () => {
 
     const firstKeyResult = revealedMapRef.current.keys().next();
     expect(firstKeyResult.done).toBe(false);
-    if (firstKeyResult.done) throw new Error("expected revealed map key");
+    if (firstKeyResult.done === true) throw new Error("expected revealed map key");
     const firstKey = firstKeyResult.value;
     const firstEntry = revealedMapRef.current.get(firstKey);
     expect(firstEntry).toBeDefined();

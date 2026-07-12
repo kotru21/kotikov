@@ -68,7 +68,7 @@ export const NyancatImage: React.FC<NyancatImageProps> = ({
       onClick={onClick}
       onTouchStart={onClick}
     >
-      {bankAnimationName ? (
+      {bankAnimationName !== undefined && bankAnimationName !== "" ? (
         // Banking/tilt lives on its own layer so the rainbow trail stays level.
         <div
           style={{

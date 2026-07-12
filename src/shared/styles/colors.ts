@@ -89,6 +89,8 @@ export const colors = {
     primary: "#f5f5f3", // Paper White
     secondary: "#ffffff",
     tertiary: "#111111",
+    /** Dark theme canvas — keep in sync with dark-mode.css `--background` */
+    dark: "#0a0a0a",
     accent: "#9effe4",
     light: "#ffffff",
     gray: "#eeeeee",
@@ -101,6 +103,8 @@ export const colors = {
     tertiary: "#616161",
     muted: "#757575",
     inverse: "#f5f5f3",
+    /** Dark theme foreground — keep in sync with dark-mode.css `--foreground` */
+    onDark: "#ededed",
     accent: "#006a4d",
   },
 

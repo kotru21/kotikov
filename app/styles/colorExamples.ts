@@ -119,6 +119,7 @@ export const createCSSVariables = (): Record<string, string> => {
 };
 
 // 7. Функция для применения темы
+/** @deprecated Dead path — use `@/features/theme` (`ThemeProvider` / `setChoice`) instead. */
 export const applyTheme = (theme: "dark" | "light"): void => {
   const selectedTheme = themes[theme];
   const root = document.documentElement;
@@ -146,7 +147,6 @@ const colorSystem = {
   componentStyles,
   gradientStyles,
   createCSSVariables,
-  applyTheme,
   responsiveColors,
 };
 
