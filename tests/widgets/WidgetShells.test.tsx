@@ -35,6 +35,26 @@ describe("Footer chrome", () => {
 });
 
 describe("TimelineWidget", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }))
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it("renders the experience section", () => {
     const { container } = render(<TimelineWidget />);
     expect(container.querySelector("#experience")).toBeTruthy();
