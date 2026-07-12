@@ -79,8 +79,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
   }, []);
 
   const toggle = useCallback((): void => {
-    setChoice(document.documentElement.classList.contains("dark") ? "light" : "dark");
-  }, [setChoice]);
+    setChoice(isDark ? "light" : "dark");
+  }, [isDark, setChoice]);
 
   const value = useMemo(
     () => ({ choice: choiceState, isDark, setChoice, toggle }),

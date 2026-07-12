@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 
+// Intentional feature→feature use: InteractiveElement owns paint-collision /
+// data-draw-exclude behavior shared with header chrome. Do not swap for a
+// plain button without preserving paint exclusion (Stage 9 if extracting shared).
 import { InteractiveElement } from "@/features/interactive-elements";
 
 import { useHasMounted, useTheme } from "./ThemeProvider";
 
-const ThemeToggle: React.FC = () => {
+export function ThemeToggle(): React.JSX.Element {
   const { isDark, toggle } = useTheme();
   const hasMounted = useHasMounted();
 
@@ -33,6 +35,4 @@ const ThemeToggle: React.FC = () => {
       )}
     </InteractiveElement>
   );
-};
-
-export default ThemeToggle;
+}

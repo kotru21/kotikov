@@ -25,7 +25,15 @@ const boundariesSharedTo = [
 
 /** Public slice entry paths for entities / features / widgets. */
 function boundariesSliceTo(/** @type {string} */ elementType) {
-  return ["index.ts", "index.tsx", "*/index.ts", "*/index.tsx"].map((internalPath) => ({
+  return [
+    "index.ts",
+    "index.tsx",
+    "*/index.ts",
+    "*/index.tsx",
+    // Optional client-only public entry (keeps Server/Client barrels split)
+    "*/client.ts",
+    "*/client.tsx",
+  ].map((internalPath) => ({
     type: elementType,
     internalPath,
   }));

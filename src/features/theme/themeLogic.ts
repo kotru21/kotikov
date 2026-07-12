@@ -20,16 +20,19 @@ export function resolveIsDark(choice: ThemeChoice, prefersDark = systemPrefersDa
   return prefersDark;
 }
 
-export function applyChoice(choice: ThemeChoice, root: HTMLElement = document.documentElement): boolean {
-  root.classList.remove("dark", "light");
+export function applyChoice(choice: ThemeChoice, root?: HTMLElement): boolean {
+  if (typeof document === "undefined") return false;
+
+  const target = root ?? document.documentElement;
+  target.classList.remove("dark", "light");
 
   if (choice === "light") {
-    root.classList.add("light");
+    target.classList.add("light");
     return false;
   }
 
   const dark = resolveIsDark(choice);
-  root.classList.toggle("dark", dark);
+  target.classList.toggle("dark", dark);
   return dark;
 }
 
@@ -54,6 +57,8 @@ export function readChoice(): ThemeChoice {
 }
 
 export function persistChoice(choice: ThemeChoice): void {
+  if (typeof window === "undefined") return;
+
   try {
     if (choice === "system") {
       window.localStorage.removeItem(THEME_STORAGE_KEY);

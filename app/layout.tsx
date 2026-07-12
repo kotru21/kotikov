@@ -7,7 +7,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
-import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE, ThemeProvider } from "@/features/theme";
+import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE } from "@/features/theme";
+import { ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
 import { SkipLinks } from "./components/SkipLinks";

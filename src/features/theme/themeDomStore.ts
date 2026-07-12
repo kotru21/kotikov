@@ -17,16 +17,16 @@ function emitThemeDom(): void {
 }
 
 /** Apply theme classes and notify useSyncExternalStore subscribers synchronously. */
-export function commitThemeChoice(
-  choice: ThemeChoice,
-  root: HTMLElement = document.documentElement
-): boolean {
-  const isDark = applyChoice(choice, root);
+export function commitThemeChoice(choice: ThemeChoice, root?: HTMLElement): boolean {
+  if (typeof document === "undefined") return false;
+
+  const isDark = applyChoice(choice, root ?? document.documentElement);
   emitThemeDom();
   return isDark;
 }
 
 export function getThemeIsDarkSnapshot(): boolean {
+  if (typeof document === "undefined") return false;
   return document.documentElement.classList.contains("dark");
 }
 

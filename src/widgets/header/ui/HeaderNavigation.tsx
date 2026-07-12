@@ -14,7 +14,7 @@ import {
   MOBILE_NAV_ISLAND_PRESET,
   useNavMorph,
 } from "@/features/scrolling";
-import { ThemeToggle } from "@/features/theme";
+import { ThemeToggle } from "@/features/theme/client";
 import { Logo } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 

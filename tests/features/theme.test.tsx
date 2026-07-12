@@ -12,10 +12,8 @@ import {
   THEME_INIT_SCRIPT,
   THEME_STORAGE_KEY,
   THEME_SURFACE,
-  ThemeProvider,
-  ThemeToggle,
-  useTheme,
 } from "@/features/theme";
+import { ThemeProvider, ThemeToggle, useTheme } from "@/features/theme/client";
 
 const wrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
   <ThemeProvider>{children}</ThemeProvider>
@@ -232,5 +230,32 @@ describe("theme surface tokens", () => {
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.dark.background);
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.light.foreground);
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.dark.foreground);
+  });
+
+  it("keeps dark-mode.css canvas vars aligned with THEME_SURFACE", async () => {
+    const { readFile } = await import("node:fs/promises");
+    const css = await readFile("src/shared/styles/tailwind/dark-mode.css", "utf8");
+
+    function firstHex(pattern: RegExp): string | undefined {
+      return pattern.exec(css)?.[1];
+    }
+
+    const rootBackground = firstHex(/:root\s*\{[^}]*--background:\s*(#[0-9a-fA-F]{6})/);
+    const rootForeground = firstHex(/:root\s*\{[^}]*--foreground:\s*(#[0-9a-fA-F]{6})/);
+    const darkBackground = firstHex(/\.dark\s*\{[^}]*--background:\s*(#[0-9a-fA-F]{6})/);
+    const darkForeground = firstHex(/\.dark\s*\{[^}]*--foreground:\s*(#[0-9a-fA-F]{6})/);
+    const systemDarkBackground = firstHex(
+      /@media\s*\(\s*prefers-color-scheme:\s*dark\s*\)\s*\{\s*:root:not\(\.light\)\s*\{[^}]*--background:\s*(#[0-9a-fA-F]{6})/
+    );
+    const systemDarkForeground = firstHex(
+      /@media\s*\(\s*prefers-color-scheme:\s*dark\s*\)\s*\{\s*:root:not\(\.light\)\s*\{[^}]*--foreground:\s*(#[0-9a-fA-F]{6})/
+    );
+
+    expect(rootBackground).toBe(THEME_SURFACE.light.background);
+    expect(rootForeground).toBe(THEME_SURFACE.light.foreground);
+    expect(darkBackground).toBe(THEME_SURFACE.dark.background);
+    expect(darkForeground).toBe(THEME_SURFACE.dark.foreground);
+    expect(systemDarkBackground).toBe(THEME_SURFACE.dark.background);
+    expect(systemDarkForeground).toBe(THEME_SURFACE.dark.foreground);
   });
 });
