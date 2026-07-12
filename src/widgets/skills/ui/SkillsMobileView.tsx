@@ -3,21 +3,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
-import { skillsData, skillsStackLine, social } from "@/shared/config/content";
+import { useSceneMotionPolicy } from "@/features/performance";
+import { skillsData, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
-import { Button, SectionHeader } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
-import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
+import { SkillsSectionIntro, useShowSkillsMarquee } from "./SkillsSectionIntro";
 
 interface SkillsMobileViewProps {
   headingId: string;
 }
 
 const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
-  const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  const showMarquee = !reducedMotion && !lowPerformance;
+  const showMarquee = useShowSkillsMarquee();
 
   const mid = Math.ceil(skillsData.length / 2);
   const firstRow = skillsData.slice(0, mid);
@@ -27,96 +26,76 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
   const motion = useSceneMotionPolicy(rowsRef, { dominantEffect: "marquee" });
   const [visible, setVisible] = useState(false);
 
+  // One-shot latch from scene intersection (no second IntersectionObserver).
   useEffect(() => {
-    const el = rowsRef.current;
-    if (el === null) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    if (motion.isInView) setVisible(true);
+  }, [motion.isInView]);
 
   return (
     <div role="group" aria-labelledby={headingId}>
-      <div className="px-6">
-        <SectionHeader
-          align="center"
-          eyebrow="Навыки"
-          title="Мои навыки"
-          titleId={headingId}
-          description="Технологии и инструменты, которыми я владею"
-        />
-        <p className="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
-          {skillsStackLine}
-        </p>
+      <SkillsSectionIntro
+        headingId={headingId}
+        className="px-6"
+        stackClassName="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300"
+      />
 
-        {/* Кнопка LinkedIn над скиллами */}
-        <div className="flex justify-center pb-8">
-          <Button
-            href={social.linkedin.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="primary"
-            size="lg"
-            aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
-          >
-            <FaLinkedinIn className="text-xl" aria-hidden="true" />
-            <span>Смотреть мой LinkedIn</span>
-          </Button>
-        </div>
+      <div className="flex justify-center px-6 pb-8">
+        <Button
+          href={social.linkedin.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="primary"
+          size="lg"
+          aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
+        >
+          <FaLinkedinIn className="text-xl" aria-hidden="true" />
+          <span>Смотреть мой LinkedIn</span>
+        </Button>
       </div>
 
       {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте; только при включённой анимации */}
       {showMarquee ? (
-        <SkillsInteractionProvider>
-          <div ref={rowsRef} className="flex flex-col gap-2">
-            <div
-              style={{
-                transform: visible ? "translateX(0)" : "translateX(-100%)",
-                opacity: visible ? 1 : 0,
-                transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
-              }}
-            >
-              <SkillMarqueeRow
-                curved
-                arcHeight={44}
-                skills={firstRow}
-                speed={35}
-                direction="left"
-                isMotionActive={motion.canRunContinuous}
-              />
-            </div>
-            <div
-              style={{
-                transform: visible ? "translateX(0)" : "translateX(100%)",
-                opacity: visible ? 1 : 0,
-                transition:
-                  "transform 0.7s 0.1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s 0.1s ease",
-              }}
-            >
-              <SkillMarqueeRow
-                curved
-                arcHeight={44}
-                skills={secondRow}
-                speed={45}
-                direction="right"
-                isMotionActive={motion.canRunContinuous}
-              />
-            </div>
+        <div
+          ref={rowsRef}
+          data-skills-decorative-motion
+          className="flex flex-col gap-2"
+        >
+          <div
+            style={{
+              transform: visible ? "translateX(0)" : "translateX(-100%)",
+              opacity: visible ? 1 : 0,
+              transition: "transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s ease",
+            }}
+          >
+            <SkillMarqueeRow
+              curved
+              arcHeight={44}
+              skills={firstRow}
+              speed={35}
+              direction="left"
+              isMotionActive={motion.canRunContinuous}
+            />
           </div>
-        </SkillsInteractionProvider>
+          <div
+            style={{
+              transform: visible ? "translateX(0)" : "translateX(100%)",
+              opacity: visible ? 1 : 0,
+              transition:
+                "transform 0.7s 0.1s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s 0.1s ease",
+            }}
+          >
+            <SkillMarqueeRow
+              curved
+              arcHeight={44}
+              skills={secondRow}
+              speed={45}
+              direction="right"
+              isMotionActive={motion.canRunContinuous}
+            />
+          </div>
+        </div>
       ) : null}
 
-      {/* Сгруппированные теги навыков — всегда видны */}
       <div className="px-6">
         <SkillsGroupedTags />
       </div>

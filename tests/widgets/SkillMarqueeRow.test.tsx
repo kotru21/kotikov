@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { skillsData } from "@/shared/config/content";
-import { SkillsInteractionProvider } from "@/widgets/skills/model/SkillsInteractionContext";
 import { SkillMarqueeRow } from "@/widgets/skills/ui";
 
 describe("SkillMarqueeRow", () => {
@@ -24,11 +23,7 @@ describe("SkillMarqueeRow", () => {
   });
 
   it("pauses CSS and rAF motion while inactive", () => {
-    render(
-      <SkillsInteractionProvider>
-        <SkillMarqueeRow skills={skillsData.slice(0, 2)} curved isMotionActive={false} />
-      </SkillsInteractionProvider>
-    );
+    render(<SkillMarqueeRow skills={skillsData.slice(0, 2)} curved isMotionActive={false} />);
 
     expect(screen.getByTestId("skill-marquee-track")).toHaveStyle({
       animationPlayState: "paused",

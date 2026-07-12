@@ -2,7 +2,7 @@ import React from "react";
 
 import { Section } from "@/shared/ui";
 
-import { SkillsDesktopView, SkillsMobileView } from "./ui";
+import { SkillsViews } from "./ui";
 
 const SkillsWidget: React.FC = () => {
   return (
@@ -15,12 +15,7 @@ const SkillsWidget: React.FC = () => {
       innerClassName="relative z-10"
       aria-label="Навыки"
     >
-      <div data-skills-view="mobile" className="md:hidden">
-        <SkillsMobileView headingId="skills-heading-mobile" />
-      </div>
-      <div data-skills-view="desktop" className="hidden md:block">
-        <SkillsDesktopView headingId="skills-heading-desktop" />
-      </div>
+      <SkillsViews />
     </Section>
   );
 };

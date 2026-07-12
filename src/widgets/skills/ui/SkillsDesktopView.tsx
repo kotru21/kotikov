@@ -7,6 +7,7 @@ import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
 import { SkillsCursorNyancat, SkillsMarquee } from ".";
+import { useShowSkillsMarquee } from "./SkillsSectionIntro";
 
 interface SkillsDesktopViewProps {
   headingId: string;
@@ -14,7 +15,9 @@ interface SkillsDesktopViewProps {
 
 const SkillsDesktopView: React.FC<SkillsDesktopViewProps> = ({ headingId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  // Single scene policy for marquee + cursor (DominantEffect labels are not independent gates).
   const motion = useSceneMotionPolicy(containerRef, { dominantEffect: "marquee" });
+  const showDecorativeMotion = useShowSkillsMarquee();
 
   return (
     <SkillsInteractionProvider>
@@ -24,7 +27,12 @@ const SkillsDesktopView: React.FC<SkillsDesktopViewProps> = ({ headingId }) => {
         aria-labelledby={headingId}
         className="relative -my-[var(--section-space-dense)] py-[var(--section-space-dense)]"
       >
-        <SkillsCursorNyancat containerRef={containerRef} isMotionActive={motion.canRunContinuous} />
+        {showDecorativeMotion ? (
+          <SkillsCursorNyancat
+            containerRef={containerRef}
+            isMotionActive={motion.canRunContinuous}
+          />
+        ) : null}
         <BauhausGridPattern className="text-black dark:text-white" opacity={0.03} />
         <SkillsMarquee headingId={headingId} isMotionActive={motion.canRunContinuous} />
       </div>

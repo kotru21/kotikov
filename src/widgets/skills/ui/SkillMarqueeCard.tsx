@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 
 import type { SkillData } from "@/entities/skill";
 
-import { useSkillsInteraction } from "../model/SkillsInteractionContext";
+import { useSkillsInteractionOptional } from "../model/SkillsInteractionContext";
 
 interface SkillMarqueeCardProps {
   skill: SkillData;
@@ -13,7 +13,7 @@ interface SkillMarqueeCardProps {
 const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
   const IconComponent = skill.icon;
   const cardRef = useRef<HTMLDivElement>(null);
-  const { setActiveElement } = useSkillsInteraction();
+  const interaction = useSkillsInteractionOptional();
 
   return (
     <div
@@ -21,11 +21,11 @@ const SkillMarqueeCard: React.FC<SkillMarqueeCardProps> = ({ skill }) => {
       aria-hidden="true"
       tabIndex={-1}
       onMouseEnter={() => {
-        setActiveElement(cardRef.current);
+        interaction?.setActiveElement(cardRef.current);
       }}
-      // Мы не зануляем элемент при выходе, чтобы кот "помнил" последнюю карту, пока мы не перейдем на другую или не уйдем в пустоту
+      // Clear on leave so the cursor follows the pointer in gaps; next card enter re-targets.
       onMouseLeave={() => {
-        setActiveElement(null);
+        interaction?.setActiveElement(null);
       }}
       className="flex min-w-fit items-center gap-4 border-2 border-black bg-white px-6 py-4 whitespace-nowrap shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:border-white dark:bg-black dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]"
     >

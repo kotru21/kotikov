@@ -4,7 +4,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 
 interface SkillsInteractionContextType {
   activeElement: HTMLElement | null;
-  setActiveElement: (video: HTMLElement | null) => void;
+  setActiveElement: (element: HTMLElement | null) => void;
   mousePos: { x: number; y: number };
   setMousePos: (pos: { x: number; y: number }) => void;
 }
@@ -32,3 +32,8 @@ export const useSkillsInteraction = (): SkillsInteractionContextType => {
   }
   return context;
 };
+
+/** Optional for marquee cards on mobile where no cursor consumer exists. */
+export function useSkillsInteractionOptional(): SkillsInteractionContextType | undefined {
+  return useContext(SkillsInteractionContext);
+}

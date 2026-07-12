@@ -7,6 +7,11 @@
     animation-play-state: paused !important;
   }
 
+  /* Hide skills decorative motion before JS settings settle (avoids RM flash; SSR stays hydrate-safe). */
+  [data-skills-decorative-motion] {
+    display: none !important;
+  }
+
   [style*="backdrop-filter"] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;

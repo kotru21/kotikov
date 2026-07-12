@@ -157,6 +157,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
   return (
     <div
       ref={catRef}
+      data-skills-decorative-motion
       className={`pointer-events-none absolute top-0 left-0 z-50 transition-opacity duration-300 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}

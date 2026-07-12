@@ -7,24 +7,26 @@ interface PerformanceSettings {
   lowPerformance: boolean;
 }
 
+function readPerformanceSettings(): PerformanceSettings {
+  if (typeof window === "undefined") {
+    // SSR: keep the animated default so non–reduced-motion HTML matches first paint.
+    return { reducedMotion: false, lowPerformance: false };
+  }
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
+  const lowPerformance =
+    navigator.hardwareConcurrency <= 2 || (deviceMemory !== undefined && deviceMemory <= 4);
+
+  return { reducedMotion, lowPerformance };
+}
+
 export const usePerformanceSettings = (): PerformanceSettings => {
-  const [settings, setSettings] = useState<PerformanceSettings>({
-    reducedMotion: false,
-    lowPerformance: false,
-  });
+  const [settings, setSettings] = useState<PerformanceSettings>(readPerformanceSettings);
 
   useEffect(() => {
     const detectSettings = (): void => {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
-      const lowPerformance =
-        navigator.hardwareConcurrency <= 2 || (deviceMemory !== undefined && deviceMemory <= 4);
-
-      setSettings({
-        reducedMotion,
-        lowPerformance,
-      });
+      setSettings(readPerformanceSettings());
     };
 
     detectSettings();

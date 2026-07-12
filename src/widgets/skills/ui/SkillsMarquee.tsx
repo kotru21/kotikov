@@ -3,12 +3,12 @@
 import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import { usePerformanceSettings } from "@/features/performance";
-import { skillsData, skillsStackLine, social } from "@/shared/config/content";
+import { skillsData, social } from "@/shared/config/content";
 import { formatExternalLinkLabel } from "@/shared/lib";
-import { Button, SectionHeader } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
+import { SkillsSectionIntro, useShowSkillsMarquee } from "./SkillsSectionIntro";
 
 interface SkillsMarqueeProps {
   headingId: string;
@@ -16,44 +16,36 @@ interface SkillsMarqueeProps {
 }
 
 const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive }) => {
-  const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  const showMarquee = !reducedMotion && !lowPerformance;
+  const showMarquee = useShowSkillsMarquee();
+  // CSS keyframes move -25% with 4 row copies ⇒ one base set per loop.
+  // speed 30s with one base set ≈ prior 60s with a doubled base (same visual velocity).
+  const marqueeSpeedSeconds = 30;
 
   return (
     <div className="flex w-full flex-col items-center gap-8 overflow-visible">
-      <div className="relative z-20 w-full px-6 md:px-8">
-        <SectionHeader
-          align="center"
-          eyebrow="Навыки"
-          title="Мои навыки"
-          titleId={headingId}
-          description="Технологии и инструменты, которыми я владею"
-        />
-        <p className="text-text-secondary mx-auto -mt-4 max-w-sm text-center text-base font-semibold dark:text-neutral-300">
-          {skillsStackLine}
-        </p>
-      </div>
+      <SkillsSectionIntro
+        headingId={headingId}
+        className="relative z-20 w-full px-6 md:px-8"
+        stackClassName="text-text-secondary mx-auto -mt-4 max-w-sm text-center text-base font-semibold dark:text-neutral-300"
+      />
 
-      {/* Единственная строка со всеми скиллами — только при включённой анимации */}
       {showMarquee ? (
-        <div className="relative w-full overflow-x-clip">
+        <div data-skills-decorative-motion className="relative w-full overflow-x-clip">
           <SkillMarqueeRow
             curved
             arcHeight={64}
-            skills={[...skillsData, ...skillsData]}
-            speed={60}
+            skills={skillsData}
+            speed={marqueeSpeedSeconds}
             direction="left"
             isMotionActive={isMotionActive}
           />
         </div>
       ) : null}
 
-      {/* Сгруппированные теги навыков — всегда видны */}
       <div className="w-full px-6 md:px-8">
         <SkillsGroupedTags />
       </div>
 
-      {/* Кнопка LinkedIn */}
       <div className="z-20 px-6 pt-2 lg:px-8">
         <Button
           href={social.linkedin.url}
