@@ -3,6 +3,7 @@ import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import type { ContactInfo } from "@/entities/contact";
+import { contactsData } from "@/shared/config/content";
 import { type ContactCanvasRef, ContactsView } from "@/widgets/contacts/ui";
 
 function DummyIcon(): React.JSX.Element {
@@ -10,10 +11,34 @@ function DummyIcon(): React.JSX.Element {
 }
 
 const contacts: ContactInfo[] = [
-  { label: "HTTPS", value: "secure.example", link: "https://secure.example", icon: DummyIcon },
-  { label: "HTTP", value: "uppercase.example", link: "HTTP://uppercase.example", icon: DummyIcon },
-  { label: "Email", value: "test@example.com", link: "mailto:test@example.com", icon: DummyIcon },
-  { label: "HTTPX", value: "invalid.example", link: "httpx://invalid.example", icon: DummyIcon },
+  {
+    label: "HTTPS",
+    value: "secure.example",
+    link: "https://secure.example",
+    icon: DummyIcon,
+    layout: "hero",
+  },
+  {
+    label: "HTTP",
+    value: "uppercase.example",
+    link: "HTTP://uppercase.example",
+    icon: DummyIcon,
+    layout: "secondary-light",
+  },
+  {
+    label: "Email",
+    value: "test@example.com",
+    link: "mailto:test@example.com",
+    icon: DummyIcon,
+    layout: "secondary-dark",
+  },
+  {
+    label: "HTTPX",
+    value: "invalid.example",
+    link: "httpx://invalid.example",
+    icon: DummyIcon,
+    layout: "secondary-light",
+  },
 ];
 
 const inertPointerHandler = vi.fn();
@@ -74,5 +99,30 @@ describe("ContactsView", () => {
     render(<ContactsView {...viewProps} isDrawing mountPaint enablePaint />);
 
     expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
+  });
+
+  it("locks production contact layouts by label identity (S7-07)", () => {
+    const { container } = render(
+      <ContactsView {...viewProps} contacts={[...contactsData]} />
+    );
+
+    const emailCell = container.querySelector("#contacts")?.querySelector(".md\\:row-span-2");
+    expect(emailCell).toBeTruthy();
+    expect(emailCell?.textContent).toContain("Email");
+
+    const telegramLink = screen.getByRole("link", {
+      name: "Telegram (откроется в новой вкладке)",
+    });
+    expect(telegramLink.className).not.toMatch(/bg-neutral-950/);
+
+    const githubLink = screen.getByRole("link", {
+      name: "GitHub (откроется в новой вкладке)",
+    });
+    expect(githubLink.className).toMatch(/bg-neutral-950/);
+  });
+
+  it("keeps touchAction pan-y when not drawing", () => {
+    render(<ContactsView {...viewProps} isDrawing={false} />);
+    expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "pan-y" });
   });
 });

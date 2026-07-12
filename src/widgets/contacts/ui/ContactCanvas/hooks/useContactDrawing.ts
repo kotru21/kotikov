@@ -1,7 +1,14 @@
-import { type RefObject, useCallback } from "react";
+import { type RefObject, useCallback, useRef } from "react";
 
 import { sampleBrushStroke } from "@/shared/ui";
 import { colors } from "@/styles/colors";
+
+import type { RevealedPaintEntry } from "./useContactPaintState";
+
+interface UseContactDrawingOptions {
+  /** Injectable RNG for sparkle fill colors in tests; production defaults to Math.random. */
+  random?: () => number;
+}
 
 interface UseContactDrawingReturn {
   drawBackground: () => void;
@@ -12,10 +19,14 @@ export const useContactDrawing = (
   canvasRef: RefObject<HTMLCanvasElement | null>,
   ctxRef: RefObject<CanvasRenderingContext2D | null>,
   catMapRef: RefObject<Map<string, string>>,
-  revealedMapRef: RefObject<Map<string, { color: string; intensity: number }>>,
+  revealedMapRef: RefObject<Map<string, RevealedPaintEntry>>,
   pixelSize: number,
-  brushRadius: number
+  brushRadius: number,
+  options: UseContactDrawingOptions = {}
 ): UseContactDrawingReturn => {
+  const randomRef = useRef(options.random ?? Math.random);
+  randomRef.current = options.random ?? Math.random;
+
   const drawBackground = useCallback((): void => {
     const ctx = ctxRef.current;
     const canvas = canvasRef.current;
@@ -73,6 +84,7 @@ export const useContactDrawing = (
       );
 
       const newDrawn: Array<{ x: number; y: number }> = [];
+      const random = randomRef.current;
 
       for (const [key, { x: px, y: py, intensity }] of pixelsToDraw) {
         const existing = revealedMapRef.current.get(key);
@@ -89,7 +101,7 @@ export const useContactDrawing = (
         } else {
           // Яркий закрашенный след: светлые «искры» на ровном акцентном фоне,
           // чтобы тёмные силуэты котов читались контрастно.
-          const variation = Math.random();
+          const variation = random();
           if (variation > 0.9) {
             fillColor = colors.accent[200];
           } else if (variation > 0.72) {

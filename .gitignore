@@ -40,11 +40,10 @@ yarn-error.log*
 # vercel
 .vercel
 
-# superpowers brainstorm companion
+# superpowers brainstorm companion + staged review artifacts (local only)
 .superpowers/
 .cursor/
-docs/*
-!docs/superpowers/
+docs/
 
 # typescript
 *.tsbuildinfo

@@ -45,11 +45,11 @@ const ContactsWidget: React.FC = () => {
       handlePointerUp,
       handlePointerCancel,
     },
-  } = usePawAnimation(handleDraw);
+  } = usePawAnimation(handleDraw, { enabled: enablePaint });
 
   const handleClearCanvas = (): void => {
     if (!enablePaint) return;
-    canvasRef.current?.initCanvas();
+    canvasRef.current?.initCanvas({ clearPaint: true });
   };
 
   return (

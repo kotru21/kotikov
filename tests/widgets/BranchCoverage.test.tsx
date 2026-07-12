@@ -53,20 +53,20 @@ describe("branch coverage gaps", () => {
   });
 
   describe("TimelineItemDetails", () => {
-    it("supports compact layout and empty technologies", () => {
+    it("renders title id and omits tech list when empty", () => {
       const item = { ...timelineData[0], technologies: [] as string[] };
-      render(<TimelineItemDetails item={item} compact titleId="t1" />);
+      render(<TimelineItemDetails item={item} titleId="t1" />);
       expect(screen.getByRole("heading", { name: item.title })).toHaveAttribute("id", "t1");
       expect(screen.queryByRole("list")).not.toBeInTheDocument();
     });
   });
 
   describe("TimelineYearDisplay", () => {
-    it("covers row/sidebar layouts, detailed periods, and missing cat assets", () => {
-      const { rerender } = render(<TimelineYearDisplay period="2024 · Хакатон" layout="row" />);
+    it("covers detailed periods, cat onError fallback, and non-year periods", () => {
+      const { rerender } = render(<TimelineYearDisplay period="2024 · Хакатон" />);
       expect(screen.getByText("2024 · Хакатон")).toBeInTheDocument();
 
-      rerender(<TimelineYearDisplay period="2019" layout="sidebar" />);
+      rerender(<TimelineYearDisplay period="2019" />);
       fireEvent.click(screen.getByTestId("year-cat"));
       expect(screen.getByText("1")).toBeInTheDocument();
 

@@ -17,10 +17,9 @@ interface TimelineStepChipsProps {
 }
 
 const baseChipClass =
-  "min-h-11 w-full shrink-0 border-2 border-black bg-white px-3 py-2.5 text-left text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white lg:bg-background-primary lg:dark:bg-neutral-900";
+  "min-h-11 w-full shrink-0 border-2 border-black bg-white px-3 py-2.5 text-left text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white";
 
-const inactiveChipClass =
-  "bg-white text-text-primary dark:bg-black dark:text-text-inverse lg:bg-background-primary lg:dark:bg-neutral-900";
+const inactiveChipClass = "bg-white text-text-primary dark:bg-black dark:text-text-inverse";
 
 const activeChipShellClass = "shadow-[2px_2px_0_0_#000] dark:shadow-[2px_2px_0_0_#fff]";
 
@@ -98,7 +97,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
       role="group"
       aria-label="Этапы опыта"
       onKeyDown={handleControlsKeyDown}
-      className="flex w-full snap-x snap-mandatory scrollbar-none gap-2 overflow-x-auto [-ms-overflow-style:none] lg:snap-none lg:flex-col lg:gap-2 lg:overflow-visible [&::-webkit-scrollbar]:hidden"
+      className="scrollbar-none flex w-full snap-x snap-mandatory gap-2 overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     >
       {items.map((entry, index) => {
         const isActive = index === activeIndex;
@@ -118,7 +117,7 @@ const TimelineStepChips: React.FC<TimelineStepChipsProps> = ({
             onClick={() => {
               onSelect(index);
             }}
-            className={`snap-center lg:snap-align-none ${baseChipClass} ${motionClass} lg:w-full ${
+            className={`snap-center ${baseChipClass} ${motionClass} ${
               isActive
                 ? `${activeChipShellClass} ${typeAccent}`
                 : `${inactiveChipClass} ${typeBorder}`

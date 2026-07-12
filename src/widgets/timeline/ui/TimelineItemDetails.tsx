@@ -8,17 +8,12 @@ import { getTypeLabel } from "./timelineUtils";
 interface TimelineItemDetailsProps {
   item: TimelineItem;
   titleId?: string;
-  compact?: boolean;
 }
 
 const techPillClass =
   "text-text-secondary border border-black/15 bg-transparent px-2 py-0.5 text-[0.6875rem] font-bold tracking-wide uppercase dark:border-white/20 dark:text-neutral-400";
 
-const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({
-  item,
-  titleId,
-  compact = false,
-}) => {
+const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({ item, titleId }) => {
   return (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col">
       <p
@@ -28,22 +23,14 @@ const TimelineItemDetails: React.FC<TimelineItemDetailsProps> = ({
       </p>
       <h3
         id={titleId}
-        className={`text-text-primary dark:text-text-inverse mt-1.5 font-black tracking-tight uppercase ${
-          compact
-            ? "text-xl leading-tight sm:text-[1.35rem]"
-            : "text-xl leading-tight sm:text-2xl sm:leading-tight"
-        }`}
+        className="text-text-primary dark:text-text-inverse mt-1.5 text-xl leading-tight font-black tracking-tight uppercase sm:text-2xl sm:leading-tight"
       >
         {item.title}
       </h3>
       <p className="text-primary-950 dark:text-primary-300 mt-1 text-sm font-bold">
         {item.company}
       </p>
-      <p
-        className={`text-text-secondary max-w-[70ch] text-base leading-relaxed font-medium dark:text-neutral-300 ${
-          compact ? "mt-2 line-clamp-4" : "mt-3"
-        }`}
-      >
+      <p className="text-text-secondary mt-3 max-w-[70ch] text-base leading-relaxed font-medium dark:text-neutral-300">
         {item.description}
       </p>
 

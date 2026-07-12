@@ -1,4 +1,10 @@
+import { colors } from "@/styles/colors";
+
 export const CONTACT_CANVAS_PIXEL_SIZE = 8;
+export const CONTACT_BRUSH_RADIUS = 20;
+
+/** Shared gradient for canvas CSS background and reduced-motion fallback. */
+export const CONTACTS_GRADIENT = `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`;
 
 // Схема значений в спрайтах: 0 — пусто, 1 — тело (силуэт), 2 — глаз/деталь (яркая).
 // Коты рисуются тёмным силуэтом с контрастными глазами, чтобы чётко читаться

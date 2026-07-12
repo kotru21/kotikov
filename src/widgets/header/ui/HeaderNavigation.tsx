@@ -169,17 +169,17 @@ export function HeaderNavigation({ navigation }: HeaderNavigationProps): React.J
             </div>
 
             <div
-              className="flex items-center justify-end"
+              className="flex shrink-0 items-center justify-end"
               style={{ gap: px(desktopIsland.actionGap) }}
             >
               {desktopIsland.borderAlpha > 0.5 ? (
                 <div
                   aria-hidden="true"
-                  className="hidden h-6 w-0.5 bg-black lg:block dark:bg-white"
+                  className="hidden h-6 w-0.5 shrink-0 bg-black lg:block dark:bg-white"
                   style={{ opacity: desktopIsland.borderAlpha }}
                 />
               ) : null}
-              <a href="#contacts" className={ctaClassName}>
+              <a href="#contacts" className={`shrink-0 ${ctaClassName}`}>
                 Связаться <span aria-hidden="true">&rarr;</span>
               </a>
               <ThemeToggle />

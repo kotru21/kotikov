@@ -4,19 +4,27 @@ import { colors } from "@/styles/colors";
 
 import { CAT_POSES } from "../../constants";
 
+interface UseContactCatsOptions {
+  /** Injectable RNG for tests; production defaults to Math.random. */
+  random?: () => number;
+}
+
 interface UseContactCatsReturn {
   catMapRef: RefObject<Map<string, string>>;
-  revealedMapRef: RefObject<Map<string, { color: string; intensity: number }>>;
   generateCats: (rows: number, cols: number) => void;
 }
 
-export const useContactCats = (): UseContactCatsReturn => {
+export const useContactCats = (options: UseContactCatsOptions = {}): UseContactCatsReturn => {
+  const randomRef = useRef(options.random ?? Math.random);
+  randomRef.current = options.random ?? Math.random;
+
   const catMapRef = useRef(new Map<string, string>()); // "col,row" -> color
-  const revealedMapRef = useRef(new Map<string, { color: string; intensity: number }>()); // Уже закрашенные пиксели (key -> color+intensity)
 
   const generateCats = useCallback((rows: number, cols: number): void => {
+    // Only regenerate silhouettes — never clear revealed paint (S7-02).
     catMapRef.current.clear();
-    revealedMapRef.current.clear();
+
+    const random = randomRef.current;
 
     // Тело кота — тёмный силуэт (несколько оттенков для лёгкого разнообразия),
     // глаза — яркие, чтобы силуэт читался на ярком закрашенном фоне.
@@ -59,18 +67,18 @@ export const useContactCats = (): UseContactCatsReturn => {
         // Вероятность размещения кота: больше по краям
         const probability = 0.2 + normalizedDist * 0.3;
 
-        if (Math.random() < probability) {
-          const pose = CAT_POSES[Math.floor(Math.random() * CAT_POSES.length)];
+        if (random() < probability) {
+          const pose = CAT_POSES[Math.floor(random() * CAT_POSES.length)];
           const catW = pose[0]?.length ?? 0;
           const catH = pose.length;
 
-          const offsetX = Math.floor(Math.random() * (cellWidth - catW));
-          const offsetY = Math.floor(Math.random() * (cellHeight - catH));
+          const offsetX = Math.floor(random() * (cellWidth - catW));
+          const offsetY = Math.floor(random() * (cellHeight - catH));
 
           const startC = gx * cellWidth + offsetX;
           const startR = gy * cellHeight + offsetY;
-          const bodyColor = catBodyColors[Math.floor(Math.random() * catBodyColors.length)];
-          const eyeColor = catEyeColors[Math.floor(Math.random() * catEyeColors.length)];
+          const bodyColor = catBodyColors[Math.floor(random() * catBodyColors.length)];
+          const eyeColor = catEyeColors[Math.floor(random() * catEyeColors.length)];
 
           placements.push({ pose, startC, startR, bodyColor, eyeColor });
         }
@@ -90,5 +98,5 @@ export const useContactCats = (): UseContactCatsReturn => {
     }
   }, []);
 
-  return { catMapRef, revealedMapRef, generateCats };
+  return { catMapRef, generateCats };
 };

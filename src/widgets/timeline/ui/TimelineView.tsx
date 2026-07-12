@@ -1,55 +1,37 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { usePerformanceSettings } from "@/features/performance";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
-import {
-  DECK_MOTION_CLASS,
-  getDeckTransform,
-  getLinearDeckCardRole,
-} from "@/shared/lib/deckTransform";
 import { Section, SectionHeader } from "@/shared/ui";
 
-import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
-import TimelineEditorialCard from "./TimelineEditorialCard";
 import TimelineEditorialRail from "./TimelineEditorialRail";
-import TimelineStepChips from "./TimelineStepChips";
-import { parsePeriodStart } from "./timelineUtils";
+import TimelineMobileView from "./TimelineMobileView";
+import { sortTimelineItems } from "./timelineUtils";
 
-const navButtonClass =
-  "text-text-primary dark:text-text-inverse flex size-11 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black";
+type TimelineViewMode = "both" | "mobile" | "desktop";
 
+/**
+ * Keeps CSS dual shells for layout, then mounts only the active breakpoint tree after
+ * matchMedia sync (S6-04: first paint still dual-mounts to avoid CLS/hydration skew).
+ */
 const TimelineView: React.FC = () => {
-  const { reducedMotion } = usePerformanceSettings();
+  const timelineData = useMemo(() => sortTimelineItems(rawTimelineData), []);
+  const [mode, setMode] = useState<TimelineViewMode>("both");
 
-  const timelineData = useMemo(
-    () =>
-      [...rawTimelineData].sort((a, b) => {
-        const byPeriod = parsePeriodStart(b.period) - parsePeriodStart(a.period);
-        return byPeriod !== 0 ? byPeriod : a.id - b.id;
-      }),
-    []
-  );
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const sync = (): void => {
+      setMode(mediaQuery.matches ? "mobile" : "desktop");
+    };
 
-  const {
-    activeIndex,
-    goTo,
-    goPrev,
-    goNext,
-    handleKeyDown,
-    handleTouchStart,
-    handleTouchEnd,
-    handleTouchCancel,
-    canGoPrev,
-    canGoNext,
-  } = useTimelineCarousel({ itemCount: timelineData.length });
+    sync();
+    mediaQuery.addEventListener("change", sync);
+    return () => mediaQuery.removeEventListener("change", sync);
+  }, []);
 
-  const panelId = "timeline-carousel-panel";
-  const progressPercent =
-    timelineData.length > 1 ? (activeIndex / (timelineData.length - 1)) * 100 : 100;
-  const deckMotionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
+  const showMobile = mode === "both" || mode === "mobile";
+  const showDesktop = mode === "both" || mode === "desktop";
 
   return (
     <Section
@@ -65,101 +47,12 @@ const TimelineView: React.FC = () => {
         description="Образование и опыт работы"
       />
 
-      <div className="flex flex-col gap-5 md:hidden" data-testid="timeline-mobile">
-        <div className="flex w-full flex-col gap-3">
-          <div
-            className="h-1 w-full overflow-hidden bg-black/10 dark:bg-white/15"
-            aria-hidden="true"
-          >
-            <div
-              className="bg-primary-500 h-full transition-[width] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-              style={{ width: `${String(progressPercent)}%` }}
-            />
-          </div>
-
-          <TimelineStepChips
-            items={timelineData}
-            activeIndex={activeIndex}
-            panelId={panelId}
-            reducedMotion={reducedMotion}
-            onSelect={goTo}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
-
-        <div
-          id={panelId}
-          role="group"
-          aria-roledescription="этап карьеры"
-          aria-label={`${String(activeIndex + 1)} из ${String(timelineData.length)}`}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchCancel}
-          className="grid w-full touch-pan-y pb-4 *:col-start-1 *:row-start-1"
-        >
-          {timelineData.map((item, index) => {
-            const role = getLinearDeckCardRole(index, activeIndex);
-            const deckStyle = getDeckTransform(role, reducedMotion);
-            const isActive = deckStyle.isActive;
-
-            return (
-              <div
-                key={item.id}
-                aria-hidden={!isActive}
-                {...(!isActive ? { inert: true } : {})}
-                className={`col-start-1 row-start-1 w-full origin-center ${deckMotionClass}`}
-                style={{
-                  zIndex: deckStyle.zIndex,
-                  transform: deckStyle.transform,
-                  opacity: deckStyle.opacity,
-                }}
-              >
-                <div className={isActive ? undefined : "pointer-events-none"}>
-                  <TimelineEditorialCard
-                    item={item}
-                    titleId={`timeline-entry-${String(item.id)}`}
-                    layout="stacked"
-                    fillHeight
-                    hover={false}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex w-full items-center gap-2">
-          <button
-            type="button"
-            onClick={goPrev}
-            disabled={!canGoPrev}
-            aria-label="Предыдущий этап"
-            className={navButtonClass}
-          >
-            <FiChevronLeft className="size-5" aria-hidden="true" />
-          </button>
-
-          <p
-            className="text-text-secondary min-w-12 flex-1 text-center text-xs font-bold tracking-[0.2em] uppercase dark:text-neutral-400"
-            aria-live="polite"
-          >
-            {activeIndex + 1} / {timelineData.length}
-          </p>
-
-          <button
-            type="button"
-            onClick={goNext}
-            disabled={!canGoNext}
-            aria-label="Следующий этап"
-            className={navButtonClass}
-          >
-            <FiChevronRight className="size-5" aria-hidden="true" />
-          </button>
-        </div>
+      <div data-timeline-view="mobile" className="md:hidden">
+        {showMobile ? <TimelineMobileView items={timelineData} /> : null}
       </div>
 
-      <div className="hidden md:block">
-        <TimelineEditorialRail items={timelineData} />
+      <div data-timeline-view="desktop" className="hidden md:block">
+        {showDesktop ? <TimelineEditorialRail items={timelineData} /> : null}
       </div>
     </Section>
   );

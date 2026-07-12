@@ -2,7 +2,7 @@ import { act, renderHook } from "@testing-library/react";
 import type { KeyboardEvent, TouchEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { useTimelineCarousel } from "@/widgets/timeline";
+import { useTimelineCarousel } from "@/widgets/timeline/hooks/useTimelineCarousel";
 
 describe("useTimelineCarousel", () => {
   it("starts at index 0 with correct canGo flags", () => {

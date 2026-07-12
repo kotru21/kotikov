@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { TimelineItem } from "@/entities/timeline";
-import { useTimelineCarousel } from "@/widgets/timeline";
+import { useTimelineCarousel } from "@/widgets/timeline/hooks/useTimelineCarousel";
 import { TimelineStepChips } from "@/widgets/timeline/ui";
 
 const items: TimelineItem[] = [

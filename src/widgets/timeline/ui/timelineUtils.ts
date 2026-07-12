@@ -11,8 +11,6 @@ export function getTypeLabel(type: TimelineItem["type"]): string {
       return "Работа";
     case "education":
       return "Обучение";
-    case "project":
-      return "Проект";
     case "hackathon":
       return "Хакатон";
   }
@@ -48,8 +46,13 @@ export function parsePeriodStart(period: string): number {
   return year * 12;
 }
 
-/** Tab indicator color transition. */
-export const timelineTabMotionClass = "transition-colors duration-300 ease-in-out";
+/** Newest period first; stable `id` ascending on ties. */
+export function sortTimelineItems(items: readonly TimelineItem[]): TimelineItem[] {
+  return [...items].sort((a, b) => {
+    const byPeriod = parsePeriodStart(b.period) - parsePeriodStart(a.period);
+    return byPeriod !== 0 ? byPeriod : a.id - b.id;
+  });
+}
 
 export type TimelineDecadeKey = "2020s" | "2030s";
 

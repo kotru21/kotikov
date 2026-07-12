@@ -11,7 +11,7 @@ describe("computeNavIslandStyle", () => {
     const desktop = computeNavIslandStyle(DESKTOP_NAV_ISLAND_PRESET, 0);
     const mobile = computeNavIslandStyle(MOBILE_NAV_ISLAND_PRESET, 0);
 
-    expect(desktop.islandStyle.width).toBe("100vw");
+    expect(desktop.islandStyle.width).toBe("max(100vw, max-content)");
     expect(desktop.islandStyle.backgroundColor).toBe("transparent");
     expect(desktop.islandStyle.borderWidth).toBe(0);
     expect(desktop.topOffset).toBe(0);
@@ -26,7 +26,7 @@ describe("computeNavIslandStyle", () => {
   it("desktop preset reaches 58vw island at progress 1", () => {
     const desktop = computeNavIslandStyle(DESKTOP_NAV_ISLAND_PRESET, 1);
 
-    expect(desktop.islandStyle.width).toBe("58vw");
+    expect(desktop.islandStyle.width).toBe("max(58vw, max-content)");
     expect(desktop.islandStyle.paddingInline).toBe("16px");
     expect(desktop.islandStyle.paddingBlock).toBe("10px");
     expect(desktop.topOffset).toBe(12);
@@ -36,7 +36,7 @@ describe("computeNavIslandStyle", () => {
   it("mobile preset reaches 85vw island at progress 1", () => {
     const mobile = computeNavIslandStyle(MOBILE_NAV_ISLAND_PRESET, 1);
 
-    expect(mobile.islandStyle.width).toBe("85vw");
+    expect(mobile.islandStyle.width).toBe("max(85vw, max-content)");
     expect(mobile.islandStyle.paddingInline).toBe("12px");
     expect(mobile.islandStyle.paddingBlock).toBe("8px");
     expect(mobile.topOffset).toBe(8);

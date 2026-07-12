@@ -2,12 +2,18 @@
 
 import React, { useImperativeHandle } from "react";
 
-import { colors } from "@/styles/colors";
-
-import { CONTACT_CANVAS_PIXEL_SIZE } from "../constants";
+import {
+  CONTACT_BRUSH_RADIUS,
+  CONTACT_CANVAS_PIXEL_SIZE,
+  CONTACTS_GRADIENT,
+} from "../constants";
 import { useContactCats } from "./hooks/useContactCats";
 import { useContactDrawing } from "./hooks/useContactDrawing";
-import { useContactLifecycle } from "./hooks/useContactLifecycle";
+import {
+  type InitCanvasOptions,
+  useContactLifecycle,
+} from "./hooks/useContactLifecycle";
+import { useContactPaintState } from "./hooks/useContactPaintState";
 
 interface ContactCanvasProps {
   ref?: React.Ref<ContactCanvasRef>;
@@ -15,15 +21,16 @@ interface ContactCanvasProps {
 
 export interface ContactCanvasRef {
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
-  initCanvas: () => void;
+  initCanvas: (options?: InitCanvasOptions) => void;
   checkCoverage: (rect: DOMRect) => number;
 }
 
 const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
   const pixelSize = CONTACT_CANVAS_PIXEL_SIZE;
-  const brushRadius = 20;
+  const brushRadius = CONTACT_BRUSH_RADIUS;
 
-  const { catMapRef, revealedMapRef, generateCats } = useContactCats();
+  const { catMapRef, generateCats } = useContactCats();
+  const { revealedMapRef, clearPaint } = useContactPaintState();
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
@@ -43,7 +50,8 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
     pixelSize,
     generateCats,
     drawBackground,
-    revealedMapRef
+    revealedMapRef,
+    clearPaint
   );
 
   useImperativeHandle(
@@ -61,7 +69,7 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
       ref={canvasRef}
       className="absolute inset-0 h-full w-full"
       style={{
-        background: `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`,
+        background: CONTACTS_GRADIENT,
         pointerEvents: "none",
       }}
     />

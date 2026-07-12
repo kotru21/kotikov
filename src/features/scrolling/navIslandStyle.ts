@@ -80,10 +80,12 @@ export function computeNavIslandStyle(
   const borderAlpha = lerp(0, 1, scrollBlend);
   const shadowOffset = lerp(0, 4, scrollBlend);
   const accentBarHeight = lerp(preset.accentBarHeightFrom, preset.accentBarHeightTo, scrollBlend);
+  // Floor with max-content so logo + nowrap links + CTA stay inside the bordered
+  // island when the lerped vw target is narrower than intrinsic content width.
   const islandWidth =
     progress === 0 && preset.startWidth !== undefined
       ? preset.startWidth
-      : `${String(lerp(preset.widthFrom, preset.widthTo, progress))}vw`;
+      : `max(${String(lerp(preset.widthFrom, preset.widthTo, progress))}vw, max-content)`;
   const linkGap = lerp(preset.linkGapFrom ?? 0, preset.linkGapTo ?? 0, progress);
   const fontSize = lerp(preset.fontSizeFrom ?? 14, preset.fontSizeTo ?? 14, progress);
   const actionGap = lerp(preset.actionGapFrom ?? 16, preset.actionGapTo ?? 10, progress);

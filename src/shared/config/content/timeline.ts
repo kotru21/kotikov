@@ -1,4 +1,20 @@
-export const timelineData = [
+/**
+ * Timeline section content. Canonical data lives in shared/config; entity
+ * re-exports `TimelineItem` for consumers. Stage 9 may reconsider co-location.
+ */
+export type TimelineItemType = "work" | "education" | "hackathon";
+
+export interface TimelineItem {
+  id: number;
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  technologies: string[];
+  type: TimelineItemType;
+}
+
+export const timelineData: TimelineItem[] = [
   {
     id: 1,
     title: "SOC Analyst Intern",
@@ -7,7 +23,7 @@ export const timelineData = [
     description:
       "Практика в SOC: triage и DFIR на Windows/Linux, разбор логов и сетевого трафика, ведение кейсов. Стек на уровне категорий — timeline analysis, network forensics, IR-платформа. Без публичных деталей клиентских инцидентов.",
     technologies: ["DFIR", "IR", "MITRE ATT&CK", "Wireshark"],
-    type: "work" as const,
+    type: "work",
   },
   {
     id: 2,
@@ -17,7 +33,7 @@ export const timelineData = [
     description:
       "IaaS-платформа за сжатые сроки: модель доступа к ресурсам, границы доверия между API и UI, безопасные дашборды управления инфраструктурой.",
     technologies: ["IAM", "API Security", "Access Control", "React"],
-    type: "hackathon" as const,
+    type: "hackathon",
   },
   {
     id: 3,
@@ -27,7 +43,7 @@ export const timelineData = [
     description:
       "Инженерный бэкграунд: React/TypeScript-приложения, качество кода и командная поставка. Опыт чтения и сборки UI помогает в AppSec и code review.",
     technologies: ["React", "TypeScript", "GraphQL"],
-    type: "work" as const,
+    type: "work",
   },
   {
     id: 4,
@@ -36,7 +52,7 @@ export const timelineData = [
     period: "2024 — н.в.",
     description: "Бакалавриат по информационной безопасности (3 курс, выпуск 2028).",
     technologies: ["InfoSec", "Cryptography"],
-    type: "education" as const,
+    type: "education",
   },
   {
     id: 5,
@@ -46,6 +62,6 @@ export const timelineData = [
     description:
       "Приложение мониторинга здоровья: защита персональных данных, authn/authz на API, минимизация чувствительных полей на клиенте и в ответах бэкенда.",
     technologies: ["AuthN/Z", "Data Privacy", "API Security", "React"],
-    type: "hackathon" as const,
+    type: "hackathon",
   },
 ];

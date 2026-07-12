@@ -2,18 +2,18 @@
 
 import React from "react";
 
-import { ContactCard, type ContactInfo } from "@/entities/contact";
+import { ContactCard, type ContactInfo, type ContactLayout } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
 import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
-import { ContactCanvas } from ".";
-import type { ContactCanvasRef } from "./ContactCanvas";
+import { CONTACTS_GRADIENT } from "./constants";
+import ContactCanvas, { type ContactCanvasRef } from "./ContactCanvas";
 
 interface ContactsViewProps {
-  contacts: ContactInfo[];
+  contacts: readonly ContactInfo[];
   isDrawing: boolean;
   /** Keep canvas mounted (preserves paint state). Independent of in-view gating. */
   mountPaint: boolean;
@@ -30,7 +30,35 @@ interface ContactsViewProps {
   onPointerCancel: React.PointerEventHandler<HTMLElement>;
 }
 
-const CONTACTS_GRADIENT = `linear-gradient(135deg, ${colors.primary[900]}, ${colors.primary[800]} 50%, ${colors.primary[700]})`;
+interface ContactLayoutStyles {
+  gridClasses: string;
+  variant: "auto" | "light" | "dark";
+  buttonVariant: "primary" | "secondary";
+  buttonClassName: string;
+}
+
+const LAYOUT_STYLES: Record<ContactLayout, ContactLayoutStyles> = {
+  hero: {
+    gridClasses: "md:col-span-2 md:row-span-2 min-h-[220px] md:min-h-[320px]",
+    variant: "auto",
+    buttonVariant: "primary",
+    buttonClassName: "",
+  },
+  "secondary-light": {
+    gridClasses: "md:col-span-2 min-h-[112px] md:min-h-[150px]",
+    variant: "light",
+    buttonVariant: "secondary",
+    buttonClassName: "",
+  },
+  "secondary-dark": {
+    gridClasses: "md:col-span-2 min-h-[112px] md:min-h-[150px]",
+    variant: "dark",
+    buttonVariant: "secondary",
+    // Ink surface (secondary is paper by default). ! beats variant utilities.
+    buttonClassName:
+      "!bg-neutral-950 !text-neutral-50 hover:!bg-neutral-950 dark:!bg-neutral-50 dark:!text-neutral-950 dark:hover:!bg-neutral-50",
+  },
+};
 
 const ContactsView: React.FC<ContactsViewProps> = ({
   contacts,
@@ -105,37 +133,16 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         />
 
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
-          {contacts.map((contact, index) => {
-            let gridClasses = "col-span-1";
-            let variant: "auto" | "light" | "dark" = "auto";
-            let buttonVariant: "primary" | "secondary" = "primary";
-            let buttonClassName = "";
-
-            if (index === 0) {
-              gridClasses = "md:col-span-2 md:row-span-2 min-h-[220px] md:min-h-[320px]";
-              variant = "auto";
-              buttonVariant = "primary";
-            } else if (index === 1) {
-              gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
-              variant = "light";
-              buttonVariant = "secondary";
-            } else if (index === 2) {
-              gridClasses = "md:col-span-2 min-h-[112px] md:min-h-[150px]";
-              variant = "dark";
-              buttonVariant = "secondary";
-              // Ink surface (secondary is paper by default). ! beats variant utilities.
-              buttonClassName =
-                "!bg-neutral-950 !text-neutral-50 hover:!bg-neutral-950 dark:!bg-neutral-50 dark:!text-neutral-950 dark:hover:!bg-neutral-50";
-            }
-
+          {contacts.map((contact) => {
+            const layout = LAYOUT_STYLES[contact.layout];
             const opensNewTab = contact.link !== undefined && isHttpUrl(contact.link);
 
             return (
-              <div key={contact.label} className={`${gridClasses} h-full`}>
+              <div key={contact.label} className={`${layout.gridClasses} h-full`}>
                 <InteractiveElement
                   as={Button}
-                  variant={buttonVariant}
-                  className={buttonClassName}
+                  variant={layout.buttonVariant}
+                  className={layout.buttonClassName}
                   fullWidth
                   fullHeight
                   href={contact.link ?? undefined}
@@ -156,7 +163,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                 >
                   <ContactCard
                     contact={contact}
-                    variant={variant}
+                    variant={layout.variant}
                     label={<InteractiveText text={contact.label} />}
                     value={<InteractiveText text={contact.value} />}
                   />

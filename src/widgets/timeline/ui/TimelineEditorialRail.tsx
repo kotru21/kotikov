@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import type { TimelineItem } from "@/entities/timeline";
-import { usePerformanceSettings } from "@/features/performance";
 
+import { useTimelineEditorialRail } from "../hooks/useTimelineEditorialRail";
+import { timelineNavButtonClass } from "./timelineChrome";
 import TimelineEditorialCard from "./TimelineEditorialCard";
 import { getTimelineTypeNodeClass } from "./timelineTypeStyles";
 
@@ -13,73 +14,18 @@ interface TimelineEditorialRailProps {
   items: TimelineItem[];
 }
 
-const navButtonClass =
-  "text-text-primary dark:text-text-inverse flex size-11 shrink-0 items-center justify-center border-2 border-black bg-white transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:border-white dark:bg-black";
-
 const cardSlotClass =
   "flex w-[min(72vw,24rem)] shrink-0 snap-start flex-col sm:w-[24rem] lg:w-[26rem]";
 
-const SCROLL_GAP_PX = 40;
-
 const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(items.length > 1);
-  const { reducedMotion } = usePerformanceSettings();
-
-  const updateScrollState = useCallback(() => {
-    const scroller = scrollerRef.current;
-    if (scroller === null) return;
-
-    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-    setProgress(maxScroll > 0 ? (scroller.scrollLeft / maxScroll) * 100 : 100);
-    setCanScrollLeft(scroller.scrollLeft > 8);
-    setCanScrollRight(scroller.scrollLeft < maxScroll - 8);
-  }, []);
-
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (scroller === null) return;
-
-    updateScrollState();
-    scroller.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-
-    return () => {
-      scroller.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    };
-  }, [updateScrollState]);
-
-  const scrollByCard = useCallback(
-    (direction: -1 | 1) => {
-      const scroller = scrollerRef.current;
-      if (scroller === null) return;
-
-      const card = scroller.querySelector<HTMLElement>("[data-timeline-card]");
-      const delta = (card?.offsetWidth ?? 416) + SCROLL_GAP_PX;
-
-      scroller.scrollBy({
-        left: direction * delta,
-        behavior: reducedMotion ? "auto" : "smooth",
-      });
-    },
-    [reducedMotion]
-  );
-
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "ArrowRight") {
-        event.preventDefault();
-        scrollByCard(1);
-      } else if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        scrollByCard(-1);
-      }
-    },
-    [scrollByCard]
-  );
+  const {
+    scrollerRef,
+    progress,
+    canScrollLeft,
+    canScrollRight,
+    scrollByCard,
+    handleKeyDown,
+  } = useTimelineEditorialRail(items.length);
 
   return (
     <div className="relative md:px-2 lg:-mx-8 lg:px-0">
@@ -115,7 +61,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
             }}
             disabled={!canScrollLeft}
             aria-label="Прокрутить к предыдущему этапу"
-            className={navButtonClass}
+            className={timelineNavButtonClass}
           >
             <FiChevronLeft className="size-5" aria-hidden="true" />
           </button>
@@ -126,7 +72,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
             }}
             disabled={!canScrollRight}
             aria-label="Прокрутить к следующему этапу"
-            className={navButtonClass}
+            className={timelineNavButtonClass}
           >
             <FiChevronRight className="size-5" aria-hidden="true" />
           </button>
@@ -153,12 +99,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
                     />
                   </div>
 
-                  <TimelineEditorialCard
-                    item={item}
-                    titleId={titleId}
-                    layout="stacked"
-                    hover={false}
-                  />
+                  <TimelineEditorialCard item={item} titleId={titleId} hover={false} />
                 </div>
               );
             })}
