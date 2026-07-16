@@ -49,7 +49,7 @@ const ContactsWidget: React.FC = () => {
 
   const handleClearCanvas = (): void => {
     if (!enablePaint) return;
-    canvasRef.current?.initCanvas({ clearPaint: true });
+    canvasRef.current?.clearDrawing();
   };
 
   return (

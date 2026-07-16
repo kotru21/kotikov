@@ -31,6 +31,7 @@ const pawMock = vi.hoisted(() => ({
 
 const drawOnCanvas = vi.fn();
 const initCanvas = vi.fn();
+const clearDrawing = vi.fn();
 const checkCollisions = vi.fn();
 
 vi.mock("@/features/interactive-elements", () => ({
@@ -61,8 +62,14 @@ vi.mock("@/features/interactive-elements", () => ({
 }));
 
 vi.mock("@/features/paw", () => ({
-  ClearPaintButton: ({ onClick }: { onClick: () => void }) => (
-    <button type="button" onClick={onClick}>
+  ClearPaintButton: ({
+    onClick,
+    disabled,
+  }: {
+    onClick: () => void;
+    disabled?: boolean;
+  }) => (
+    <button type="button" onClick={onClick} disabled={disabled}>
       Очистить рисунок
     </button>
   ),
@@ -105,6 +112,7 @@ vi.mock("@/widgets/contacts/ui/ContactCanvas", () => {
     useImperativeHandle(ref, () => ({
       drawOnCanvas,
       initCanvas,
+      clearDrawing,
       checkCoverage: () => 0,
     }));
     return <canvas data-testid="contact-canvas" />;
@@ -151,7 +159,8 @@ describe("ContactsWidget paint-enabled path", () => {
     expect(checkCollisions).toHaveBeenCalled();
 
     fireEvent.click(screen.getByRole("button", { name: "Очистить рисунок" }));
-    expect(initCanvas).toHaveBeenCalledWith({ clearPaint: true });
+    expect(clearDrawing).toHaveBeenCalled();
+    expect(initCanvas).not.toHaveBeenCalled();
   });
 
   it("disables paw animation under reduced motion so touchAction stays pan-y", () => {
@@ -184,6 +193,6 @@ describe("ContactsWidget paint-enabled path", () => {
 
     expect(pawMock.latestEnabled).toBe(false);
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Очистить рисунок" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeDisabled();
   });
 });

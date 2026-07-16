@@ -173,14 +173,20 @@ const ContactsView: React.FC<ContactsViewProps> = ({
           })}
         </div>
 
-        {enablePaint ? (
+        {mountPaint ? (
           <>
             <p className="sr-only">
               На фоне можно оставить след лапы, проводя мышью или удерживая палец.
             </p>
+            {/* Keep chrome in layout whenever paint can mount — gating on enablePaint
+                changed section height (~120px) and caused mobile scroll teleport near footer. */}
             <div className="mt-8 flex flex-col items-center gap-3 md:mt-10">
               <PaintDrawHint tone="on-gradient" />
-              <ClearPaintButton onClick={onClearCanvas} tone="on-gradient" />
+              <ClearPaintButton
+                onClick={onClearCanvas}
+                tone="on-gradient"
+                disabled={!enablePaint}
+              />
             </div>
           </>
         ) : null}

@@ -125,4 +125,17 @@ describe("ContactsView", () => {
     render(<ContactsView {...viewProps} isDrawing={false} />);
     expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "pan-y" });
   });
+
+  it("keeps paint chrome mounted when paint is inactive to avoid layout thrash", () => {
+    const { rerender } = render(
+      <ContactsView {...viewProps} mountPaint enablePaint={false} />
+    );
+
+    expect(screen.getByText(/проведи мышью|проведи пальцем/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeDisabled();
+
+    rerender(<ContactsView {...viewProps} mountPaint enablePaint />);
+    expect(screen.getByText(/проведи мышью|проведи пальцем/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeEnabled();
+  });
 });

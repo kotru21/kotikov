@@ -32,8 +32,14 @@ vi.mock("@/features/interactive-elements", () => ({
 }));
 
 vi.mock("@/features/paw", () => ({
-  ClearPaintButton: ({ onClick }: { onClick: () => void }) => (
-    <button type="button" onClick={onClick}>
+  ClearPaintButton: ({
+    onClick,
+    disabled,
+  }: {
+    onClick: () => void;
+    disabled?: boolean;
+  }) => (
+    <button type="button" onClick={onClick} disabled={disabled}>
       Очистить рисунок
     </button>
   ),
@@ -89,9 +95,10 @@ describe("ContactsWidget", () => {
       screen.getByRole("link", { name: "Telegram (откроется в новой вкладке)" })
     ).toBeInTheDocument();
 
-    // Canvas stays mounted to preserve paint state; interaction chrome is gated off.
+    // Canvas + paint chrome stay mounted for stable section height (avoids scroll teleport);
+    // paw interaction is gated via enablePaint / disabled clear button.
     expect(document.querySelector("canvas")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Очистить рисунок" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeDisabled();
     expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 });

@@ -9,10 +9,7 @@ import {
 } from "../constants";
 import { useContactCats } from "./hooks/useContactCats";
 import { useContactDrawing } from "./hooks/useContactDrawing";
-import {
-  type InitCanvasOptions,
-  useContactLifecycle,
-} from "./hooks/useContactLifecycle";
+import { useContactLifecycle } from "./hooks/useContactLifecycle";
 import { useContactPaintState } from "./hooks/useContactPaintState";
 
 interface ContactCanvasProps {
@@ -21,7 +18,8 @@ interface ContactCanvasProps {
 
 export interface ContactCanvasRef {
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
-  initCanvas: (options?: InitCanvasOptions) => void;
+  initCanvas: () => void;
+  clearDrawing: () => void;
   checkCoverage: (rect: DOMRect) => number;
 }
 
@@ -44,7 +42,7 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
     brushRadius
   );
 
-  const { initCanvas, checkCoverage } = useContactLifecycle(
+  const { initCanvas, clearDrawing, checkCoverage } = useContactLifecycle(
     canvasRef,
     ctxRef,
     pixelSize,
@@ -59,9 +57,10 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
     () => ({
       drawOnCanvas,
       initCanvas,
+      clearDrawing,
       checkCoverage,
     }),
-    [drawOnCanvas, initCanvas, checkCoverage]
+    [drawOnCanvas, initCanvas, clearDrawing, checkCoverage]
   );
 
   return (

@@ -220,11 +220,13 @@ describe("useContactLifecycle", () => {
     expect(coverage).toBeGreaterThanOrEqual(0);
   });
 
-  it("clears paint only when clearPaint option is set", () => {
+  it("clears drawing without regenerating cats", () => {
     const ctx = createMockContext();
     const canvas = mockCanvasElement(ctx);
     const canvasRef = { current: canvas };
     const ctxRef: RefObject<CanvasRenderingContext2D | null> = { current: null };
+    const generateCats = vi.fn();
+    const drawBackground = vi.fn();
     const clearPaint = vi.fn(() => {
       revealedMapRef.current.clear();
     });
@@ -237,19 +239,59 @@ describe("useContactLifecycle", () => {
         canvasRef,
         ctxRef,
         CONTACT_CANVAS_PIXEL_SIZE,
-        vi.fn(),
-        vi.fn(),
+        generateCats,
+        drawBackground,
         revealedMapRef,
         clearPaint
       )
     );
 
+    // Lifecycle mounts with initCanvas once — ignore that for the clear assertion.
+    generateCats.mockClear();
+    drawBackground.mockClear();
+    clearPaint.mockClear();
+
     act(() => {
-      result.current.initCanvas({ clearPaint: true });
+      result.current.clearDrawing();
     });
 
     expect(clearPaint).toHaveBeenCalled();
+    expect(drawBackground).toHaveBeenCalled();
+    expect(generateCats).not.toHaveBeenCalled();
     expect(revealedMapRef.current.size).toBe(0);
+  });
+
+  it("does not regenerate cats when the hook re-renders with stable deps", () => {
+    const ctx = createMockContext();
+    const canvas = mockCanvasElement(ctx);
+    const canvasRef = { current: canvas };
+    const ctxRef: RefObject<CanvasRenderingContext2D | null> = { current: null };
+    const generateCats = vi.fn();
+    const drawBackground = vi.fn();
+    const clearPaint = vi.fn();
+    const revealedMapRef = {
+      current: new Map<string, { color: string; intensity: number }>(),
+    };
+
+    const { rerender } = renderHook(() =>
+      useContactLifecycle(
+        canvasRef,
+        ctxRef,
+        CONTACT_CANVAS_PIXEL_SIZE,
+        generateCats,
+        drawBackground,
+        revealedMapRef,
+        clearPaint
+      )
+    );
+
+    const callsAfterMount = generateCats.mock.calls.length;
+    expect(callsAfterMount).toBeGreaterThan(0);
+
+    rerender();
+    rerender();
+
+    expect(generateCats).toHaveBeenCalledTimes(callsAfterMount);
   });
 
   it("returns zero coverage without a canvas", () => {
@@ -276,7 +318,7 @@ describe("ContactCanvas paint preservation (S7-02 / S7-08)", () => {
     vi.unstubAllGlobals();
   });
 
-  it("preserves revealed paint across resize init and clears on clearPaint", () => {
+  it("preserves revealed paint across resize init and clears drawing without regenerating cats", () => {
     const ctx = createMockContext();
     const getContext = vi.fn(() => ctx);
     HTMLCanvasElement.prototype.getContext =
@@ -295,7 +337,8 @@ describe("ContactCanvas paint preservation (S7-02 / S7-08)", () => {
 
     const ref = createRef<{
       drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
-      initCanvas: (options?: { clearPaint?: boolean }) => void;
+      initCanvas: () => void;
+      clearDrawing: () => void;
       checkCoverage: (rect: DOMRect) => number;
     }>();
 
@@ -350,19 +393,23 @@ describe("ContactCanvas paint preservation (S7-02 / S7-08)", () => {
     expect(paint.result.current.revealedMapRef.current.has(inBoundsKey)).toBe(true);
     expect(paint.result.current.revealedMapRef.current.size).toBeGreaterThan(0);
 
+    const catSnapshot = new Map(cats.result.current.catMapRef.current);
+
     act(() => {
-      lifecycle.result.current.initCanvas({ clearPaint: true });
+      lifecycle.result.current.clearDrawing();
     });
     expect(paint.result.current.revealedMapRef.current.size).toBe(0);
     expect(paint.result.current.revealedMapRef.current.has(inBoundsKey)).toBe(false);
+    // Clear must keep the same cat silhouettes (no regenerate).
+    expect(cats.result.current.catMapRef.current).toEqual(catSnapshot);
 
-    // Imperative ContactCanvas ref still exposes the same API shape
+    // Imperative ContactCanvas ref exposes initCanvas / clearDrawing / draw / coverage
     render(<ContactCanvas ref={ref} />);
     expect(ref.current).toBeTruthy();
     act(() => {
       ref.current?.initCanvas();
       ref.current?.drawOnCanvas(20, 20, 10, 10);
-      ref.current?.initCanvas({ clearPaint: true });
+      ref.current?.clearDrawing();
     });
     expect(typeof ref.current?.checkCoverage(new DOMRect(0, 0, 20, 20))).toBe("number");
   });
