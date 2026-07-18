@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import { useSceneMotionPolicy } from "@/features/performance";
@@ -26,10 +26,10 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
   const motion = useSceneMotionPolicy(rowsRef, { dominantEffect: "marquee" });
   const [visible, setVisible] = useState(false);
 
-  // One-shot latch from scene intersection (no second IntersectionObserver).
-  useEffect(() => {
-    if (motion.isInView) setVisible(true);
-  }, [motion.isInView]);
+  // One-shot latch: adjust state during render (not in an effect).
+  if (motion.isInView && !visible) {
+    setVisible(true);
+  }
 
   return (
     <div role="group" aria-labelledby={headingId}>

@@ -15,16 +15,13 @@ interface UseContactCatsReturn {
 }
 
 export const useContactCats = (options: UseContactCatsOptions = {}): UseContactCatsReturn => {
-  const randomRef = useRef(options.random ?? Math.random);
-  randomRef.current = options.random ?? Math.random;
-
+  const random = options.random ?? Math.random;
   const catMapRef = useRef(new Map<string, string>()); // "col,row" -> color
 
   const generateCats = useCallback((rows: number, cols: number): void => {
     // Only regenerate silhouettes — never clear revealed paint (S7-02).
     catMapRef.current.clear();
 
-    const random = randomRef.current;
 
     // Тело кота — тёмный силуэт (несколько оттенков для лёгкого разнообразия),
     // глаза — яркие, чтобы силуэт читался на ярком закрашенном фоне.
@@ -96,7 +93,7 @@ export const useContactCats = (options: UseContactCatsOptions = {}): UseContactC
         });
       });
     }
-  }, []);
+  }, [random]);
 
   return { catMapRef, generateCats };
 };

@@ -4,19 +4,11 @@ export function relativeLuminanceFromCssColor(color: string): number | null {
   const match = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(hex);
   if (match === null) return null;
 
-  let r = 0;
-  let g = 0;
-  let b = 0;
   const raw = match[1];
-  if (raw.length === 3) {
-    r = Number.parseInt(raw[0] + raw[0], 16);
-    g = Number.parseInt(raw[1] + raw[1], 16);
-    b = Number.parseInt(raw[2] + raw[2], 16);
-  } else {
-    r = Number.parseInt(raw.slice(0, 2), 16);
-    g = Number.parseInt(raw.slice(2, 4), 16);
-    b = Number.parseInt(raw.slice(4, 6), 16);
-  }
+  const isShort = raw.length === 3;
+  const r = Number.parseInt(isShort ? raw[0] + raw[0] : raw.slice(0, 2), 16);
+  const g = Number.parseInt(isShort ? raw[1] + raw[1] : raw.slice(2, 4), 16);
+  const b = Number.parseInt(isShort ? raw[2] + raw[2] : raw.slice(4, 6), 16);
 
   const toLinear = (c: number): number => {
     const s = c / 255;

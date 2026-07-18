@@ -54,6 +54,8 @@ function resetPaintStyles(root: HTMLElement | null): void {
 }
 
 export function HeaderNavigation({ navigation }: HeaderNavigationProps): React.JSX.Element {
+  "use no memo";
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const snapMenuMotion = reducedMotion || lowPerformance;
@@ -188,7 +190,9 @@ export function HeaderNavigation({ navigation }: HeaderNavigationProps): React.J
 
       <Dialog
         open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
+        onClose={() => {
+          setMobileMenuOpen(false);
+        }}
         className="fixed inset-0 z-50 lg:hidden"
       >
         <DialogBackdrop

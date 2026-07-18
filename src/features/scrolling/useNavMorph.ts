@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import { usePerformanceSettings } from "@/features/performance";
 
@@ -16,6 +16,15 @@ export interface NavMorphState {
   phase: NavMorphPhase;
   isIsland: boolean;
 }
+
+const SERVER_SNAPSHOT: NavMorphState = { progress: 0, phase: 0, isIsland: false };
+
+/** Module cache so useSyncExternalStore getSnapshot stays Object.is-stable. */
+let navMorphCache: { scrollY: number; snapMorph: boolean; state: NavMorphState } = {
+  scrollY: Number.NaN,
+  snapMorph: false,
+  state: SERVER_SNAPSHOT,
+};
 
 export const lerp = (from: number, to: number, t: number): number => from + (to - from) * t;
 
@@ -44,46 +53,41 @@ export const computeNavMorph = (scrollY: number, snapMorph = false): NavMorphSta
   return { progress: 1, phase: 2, isIsland: true };
 };
 
+function getNavMorphSnapshot(snapMorph: boolean): NavMorphState {
+  const scrollY = window.scrollY;
+  if (scrollY === navMorphCache.scrollY && snapMorph === navMorphCache.snapMorph) {
+    return navMorphCache.state;
+  }
+  const state = computeNavMorph(scrollY, snapMorph);
+  navMorphCache = { scrollY, snapMorph, state };
+  return state;
+}
+
+function subscribeNavMorph(onStoreChange: () => void): () => void {
+  let raf: number | null = null;
+  const onScroll = (): void => {
+    if (raf !== null) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      onStoreChange();
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    if (raf !== null) {
+      cancelAnimationFrame(raf);
+    }
+  };
+}
+
 export const useNavMorph = (): NavMorphState => {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
   const snapMorph = reducedMotion || lowPerformance;
 
-  const [state, setState] = useState<NavMorphState>({
-    progress: 0,
-    phase: 0,
-    isIsland: false,
-  });
-  const rafRef = useRef<number | null>(null);
-  const snapMorphRef = useRef(snapMorph);
-  snapMorphRef.current = snapMorph;
-
-  useLayoutEffect(() => {
-    setState(computeNavMorph(window.scrollY, snapMorphRef.current));
-  }, []);
-
-  useEffect(() => {
-    const update = (): void => {
-      setState(computeNavMorph(window.scrollY, snapMorphRef.current));
-    };
-
-    const onScroll = (): void => {
-      if (rafRef.current !== null) return;
-      rafRef.current = requestAnimationFrame(() => {
-        update();
-        rafRef.current = null;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    update();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [snapMorph]);
-
-  return state;
+  return useSyncExternalStore(
+    subscribeNavMorph,
+    () => getNavMorphSnapshot(snapMorph),
+    () => SERVER_SNAPSHOT
+  );
 };

@@ -1,6 +1,6 @@
-export { computeCoverage } from "./computeCoverage";
-export { computeContrastSample } from "./computeContrastSample";
 export type { ContrastSample } from "./computeContrastSample";
+export { computeContrastSample } from "./computeContrastSample";
+export { computeCoverage } from "./computeCoverage";
 export {
   preferDarkTextFromLuminance,
   relativeLuminanceFromCssColor,

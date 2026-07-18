@@ -14,6 +14,7 @@ import {
   THEME_SURFACE,
 } from "@/features/theme";
 import { ThemeProvider, ThemeToggle, useTheme } from "@/features/theme/client";
+import { resetThemeChoiceStore } from "@/features/theme/themeChoiceStore";
 
 const wrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
   <ThemeProvider>{children}</ThemeProvider>
@@ -36,6 +37,7 @@ beforeEach(() => {
   localStorage.clear();
   document.cookie = `${THEME_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
   document.documentElement.classList.remove("dark", "light", "theme-ready");
+  resetThemeChoiceStore();
   stubMatchMedia(false);
 });
 
@@ -89,6 +91,17 @@ describe("useTheme", () => {
     expect(getAllByRole("button", { name: "Включить светлую тему" })).toHaveLength(3);
   });
 
+  it("follows system dark preference when nothing is persisted", () => {
+    stubMatchMedia(true);
+
+    const { result } = renderHook(() => useTheme(), { wrapper });
+
+    expect(result.current.choice).toBe("system");
+    expect(result.current.isDark).toBe(true);
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
+  });
+
   it("reacts to system theme changes while choice is system", () => {
     let changeHandler: (() => void) | undefined;
     vi.stubGlobal("matchMedia", (query: string) => ({
@@ -140,7 +153,7 @@ describe("useTheme", () => {
 
 describe("theme init script parity with applyChoice/readChoice", () => {
   function runInitScript(script: string = THEME_INIT_SCRIPT): void {
-    // eslint-disable-next-line no-new-func, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-implied-eval -- intentional: exercise generated init script
+    // eslint-disable-next-line no-new-func, @typescript-eslint/no-implied-eval -- intentional: exercise generated init script
     new Function(script)();
   }
 

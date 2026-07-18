@@ -138,7 +138,7 @@ export default defineConfig(
       // React rules
       // ─────────────────────────────────────────────────────────────────────────
       ...reactPlugin.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off", // Not needed in Next.js
+      ...reactPlugin.configs.flat["jsx-runtime"].rules, // React 17+ JSX transform
       "react/prop-types": "off", // Using TypeScript
       "react/jsx-no-target-blank": "error",
       "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }],
@@ -157,10 +157,9 @@ export default defineConfig(
       "react/jsx-key": ["error", { checkFragmentShorthand: true, warnOnDuplicates: true }],
 
       // ─────────────────────────────────────────────────────────────────────────
-      // React Hooks rules (critical for correctness)
+      // React Hooks (Rules of React — plugin recommended preset)
       // ─────────────────────────────────────────────────────────────────────────
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      ...reactHooksPlugin.configs.flat.recommended.rules,
 
       // ─────────────────────────────────────────────────────────────────────────
       // Accessibility rules
@@ -534,6 +533,26 @@ export default defineConfig(
           ],
         },
       ],
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // TESTS (relax typed-safety noise common in Vitest / Playwright)
+  // ═══════════════════════════════════════════════════════════════════════════
+  {
+    name: "tests",
+    files: ["tests/**/*.{ts,tsx}", "e2e/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/strict-boolean-expressions": "off",
+      "@typescript-eslint/no-confusing-void-expression": "off",
     },
   },
 

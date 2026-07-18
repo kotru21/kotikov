@@ -43,26 +43,67 @@ const INITIAL_STATE: PawAnimationState = {
   isDrawing: false,
 };
 
+function withDrawingStart(prev: PawAnimationState, x: number, y: number): PawAnimationState {
+  const needsOrigin = prev.pawPos.x === 0 && prev.pawPos.y === 0;
+  return {
+    ...prev,
+    isDrawing: true,
+    mousePos: { x, y },
+    ...(needsOrigin
+      ? {
+          pawPos: { x, y },
+          smoothMousePos: { x, y },
+        }
+      : {}),
+  };
+}
+
 export function usePawAnimation(
   onDraw: (x: number, y: number, prevX: number, prevY: number) => void,
   options: UsePawAnimationOptions = {}
 ): UsePawAnimationReturn {
   const enabled = options.enabled ?? true;
-  const enabledRef = useRef(enabled);
-  enabledRef.current = enabled;
 
   const [state, setState] = useState<PawAnimationState>(INITIAL_STATE);
+  const enabledRef = useRef(enabled);
   const stateRef = useRef(state);
-  stateRef.current = state;
-
   const onDrawRef = useRef(onDraw);
-  onDrawRef.current = onDraw;
+
+  useEffect(() => {
+    enabledRef.current = enabled;
+  }, [enabled]);
+
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
+  useEffect(() => {
+    onDrawRef.current = onDraw;
+  }, [onDraw]);
 
   const animationFrameRef = useRef<number | null>(null);
   const lastUpdateTimeRef = useRef(0);
   const mouseVelocityRef = useRef({ x: 0, y: 0 });
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
+
+  // Adjust state during render when drawing is disabled (not in an effect).
+  if (!enabled && state.isDrawing) {
+    setState((prev) => ({
+      ...prev,
+      isDrawing: false,
+      pawVelocity: { x: 0, y: 0 },
+    }));
+  }
+
+  useEffect(() => {
+    if (enabled) return;
+    mouseVelocityRef.current = { x: 0, y: 0 };
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+  }, [enabled]);
 
   const updatePointerPos = useCallback((x: number, y: number): void => {
     setState((prev) => {
@@ -87,10 +128,6 @@ export function usePawAnimation(
     }
   }, []);
 
-  useEffect(() => {
-    if (!enabled) stopDrawing();
-  }, [enabled, stopDrawing]);
-
   const handlePointerEnter = useCallback(
     (e: PointerEvent<HTMLElement>) => {
       if (!enabledRef.current) return;
@@ -100,7 +137,7 @@ export function usePawAnimation(
       }
 
       if (e.pointerType === "mouse") {
-        setState((prev) => ({ ...prev, isDrawing: true }));
+        setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
         updatePointerPos(e.clientX, e.clientY);
       }
     },
@@ -117,7 +154,7 @@ export function usePawAnimation(
 
       if (e.pointerType === "mouse") {
         if (!stateRef.current.isDrawing) {
-          setState((prev) => ({ ...prev, isDrawing: true }));
+          setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
         }
         updatePointerPos(e.clientX, e.clientY);
         return;
@@ -146,7 +183,7 @@ export function usePawAnimation(
         e.preventDefault();
         pointerDownRef.current = true;
         pointerIdRef.current = e.pointerId;
-        setState((prev) => ({ ...prev, isDrawing: true }));
+        setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
         updatePointerPos(e.clientX, e.clientY);
 
         try {
@@ -267,16 +304,7 @@ export function usePawAnimation(
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    const current = stateRef.current;
-    if (current.pawPos.x === 0 && current.pawPos.y === 0) {
-      setState((prev) => ({
-        ...prev,
-        pawPos: prev.mousePos,
-        smoothMousePos: prev.mousePos,
-      }));
-      lastUpdateTimeRef.current = performance.now();
-    }
-
+    lastUpdateTimeRef.current = performance.now();
     animationFrameRef.current = requestAnimationFrame(animate);
 
     return () => {

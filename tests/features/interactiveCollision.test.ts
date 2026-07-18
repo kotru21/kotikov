@@ -1,10 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { useInteractiveCollision } from "@/features/interactive-elements";
 import type { ContrastSample } from "@/shared/lib";
 import { colors } from "@/styles/colors";
-
-import { useInteractiveCollision } from "@/features/interactive-elements";
 
 interface MockPaintSurface {
   checkCoverage: (rect: DOMRect) => number;

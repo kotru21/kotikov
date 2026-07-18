@@ -32,9 +32,8 @@
     "react-icons": "^5.7.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^10.0.1",
-    "@next/eslint-plugin-next": "16.2.9",
+    "@next/eslint-plugin-next": "16.2.10",
     "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^6.9.1",
@@ -46,9 +45,9 @@
     "@typescript/native": "npm:typescript@^7.0.2",
     "@vitejs/plugin-react": "^6.0.3",
     "@vitest/coverage-v8": "^4.1.10",
+    "babel-plugin-react-compiler": "^1.0.0",
     "cross-env": "^10.1.0",
     "eslint": "^10.7.0",
-    "eslint-config-next": "16.2.9",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-boundaries": "^6.0.2",

@@ -8,10 +8,15 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
-  useState,
   useSyncExternalStore,
 } from "react";
 
+import {
+  getServerThemeChoiceSnapshot,
+  getThemeChoiceSnapshot,
+  subscribeThemeChoice,
+  writeThemeChoice,
+} from "./themeChoiceStore";
 import type { ThemeChoice } from "./themeConstants";
 import { writeThemeCookie } from "./themeCookie";
 import {
@@ -20,7 +25,6 @@ import {
   getThemeIsDarkSnapshot,
   subscribeThemeDom,
 } from "./themeDomStore";
-import { persistChoice, readChoice } from "./themeLogic";
 
 export type { ThemeChoice } from "./themeConstants";
 
@@ -33,34 +37,32 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const emptyUnsubscribe = (): void => {
-  /* useSyncExternalStore requires a subscribe; mount flag never changes */
-};
-const emptySubscribe = (): (() => void) => emptyUnsubscribe;
-
-/** false during SSR/hydration; true on the client after hydration (no useEffect lag). */
-export function useHasMounted(): boolean {
-  return useSyncExternalStore(emptySubscribe, () => true, () => false);
-}
-
 export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.Element => {
-  const [choiceState, setChoiceState] = useState<ThemeChoice>("system");
+  "use no memo";
 
+  const choice = useSyncExternalStore(
+    subscribeThemeChoice,
+    getThemeChoiceSnapshot,
+    getServerThemeChoiceSnapshot
+  );
+
+  // Follow the DOM class set by the blocking init script (and later commits).
+  // Do not derive from matchMedia alone — that fights FOUC and can stick on the
+  // SSR getServerSnapshot(false) path under the React Compiler.
   const isDark = useSyncExternalStore(
     subscribeThemeDom,
     getThemeIsDarkSnapshot,
     getServerThemeIsDarkSnapshot
   );
 
+  // Single owner for DOM class + cookie; store only persists choice + notifies.
   useLayoutEffect(() => {
-    const initial = readChoice();
-    setChoiceState(initial);
-    commitThemeChoice(initial);
-    writeThemeCookie(initial);
-  }, []);
+    commitThemeChoice(choice);
+    writeThemeCookie(choice);
+  }, [choice]);
 
   useEffect(() => {
-    if (choiceState !== "system") return;
+    if (choice !== "system") return;
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleSystemThemeChange = (): void => {
@@ -69,22 +71,19 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): React.JSX.
 
     mediaQuery.addEventListener("change", handleSystemThemeChange);
     return () => mediaQuery.removeEventListener("change", handleSystemThemeChange);
-  }, [choiceState]);
+  }, [choice]);
 
-  const setChoice = useCallback((c: ThemeChoice): void => {
-    setChoiceState(c);
-    persistChoice(c);
-    writeThemeCookie(c);
-    commitThemeChoice(c);
+  const setChoice = useCallback((next: ThemeChoice): void => {
+    writeThemeChoice(next);
   }, []);
 
   const toggle = useCallback((): void => {
-    setChoice(isDark ? "light" : "dark");
-  }, [isDark, setChoice]);
+    writeThemeChoice(isDark ? "light" : "dark");
+  }, [isDark]);
 
   const value = useMemo(
-    () => ({ choice: choiceState, isDark, setChoice, toggle }),
-    [choiceState, isDark, setChoice, toggle]
+    () => ({ choice, isDark, setChoice, toggle }),
+    [choice, isDark, setChoice, toggle]
   );
 
   return <ThemeContext value={value}>{children}</ThemeContext>;

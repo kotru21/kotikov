@@ -1,4 +1,4 @@
-import { type RefObject, useCallback, useRef } from "react";
+import { type RefObject, useCallback } from "react";
 
 import { sampleBrushStroke } from "@/shared/lib";
 import { colors } from "@/styles/colors";
@@ -24,8 +24,7 @@ export const useContactDrawing = (
   brushRadius: number,
   options: UseContactDrawingOptions = {}
 ): UseContactDrawingReturn => {
-  const randomRef = useRef(options.random ?? Math.random);
-  randomRef.current = options.random ?? Math.random;
+  const random = options.random ?? Math.random;
 
   const drawBackground = useCallback((): void => {
     const ctx = ctxRef.current;
@@ -84,7 +83,6 @@ export const useContactDrawing = (
       );
 
       const newDrawn: Array<{ x: number; y: number }> = [];
-      const random = randomRef.current;
 
       for (const [key, { x: px, y: py, intensity }] of pixelsToDraw) {
         const existing = revealedMapRef.current.get(key);
@@ -126,7 +124,7 @@ export const useContactDrawing = (
         ctx.strokeRect(p.x, p.y, pixelSize, pixelSize);
       }
     },
-    [brushRadius, pixelSize, canvasRef, ctxRef, catMapRef, revealedMapRef]
+    [brushRadius, pixelSize, canvasRef, ctxRef, catMapRef, revealedMapRef, random]
   );
 
   return { drawBackground, drawOnCanvas };

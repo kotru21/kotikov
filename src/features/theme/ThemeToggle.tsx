@@ -7,16 +7,13 @@ import { FiMoon, FiSun } from "react-icons/fi";
 // plain button without preserving paint exclusion (Stage 9 if extracting shared).
 import { InteractiveElement } from "@/features/interactive-elements";
 
-import { useHasMounted, useTheme } from "./ThemeProvider";
+import { useTheme } from "./ThemeProvider";
 
 export function ThemeToggle(): React.JSX.Element {
-  const { isDark, toggle } = useTheme();
-  const hasMounted = useHasMounted();
+  "use no memo";
 
-  let ariaLabel = "Переключить тему";
-  if (hasMounted) {
-    ariaLabel = isDark ? "Включить светлую тему" : "Включить тёмную тему";
-  }
+  const { isDark, toggle } = useTheme();
+  const ariaLabel = isDark ? "Включить светлую тему" : "Включить тёмную тему";
 
   return (
     <InteractiveElement
@@ -25,10 +22,10 @@ export function ThemeToggle(): React.JSX.Element {
       onClick={toggle}
       data-draw-exclude
       aria-label={ariaLabel}
-      aria-pressed={hasMounted ? isDark : undefined}
+      aria-pressed={isDark}
       className="hover:bg-primary-500 focus-visible:ring-accent-700 inline-flex size-11 shrink-0 touch-manipulation items-center justify-center rounded-none border-2 border-black bg-white text-black transition-colors focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:bg-black dark:text-white"
     >
-      {hasMounted && isDark ? (
+      {isDark ? (
         <FiSun className="size-5" aria-hidden="true" />
       ) : (
         <FiMoon className="size-5" aria-hidden="true" />
