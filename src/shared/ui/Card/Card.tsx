@@ -1,18 +1,15 @@
-import React from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
-interface BaseComponentProps {
+interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, "className" | "children" | "style"> {
   className?: string;
-  children?: React.ReactNode;
-}
-
-interface CardProps extends BaseComponentProps {
+  children?: ReactNode;
   variant?: "default" | "outlined" | "elevated" | "bgNone";
   padding?: "none" | "sm" | "md" | "lg";
   hover?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
-const Card: React.FC<CardProps> = ({
+export function Card({
   children,
   className = "",
   variant = "default",
@@ -20,7 +17,7 @@ const Card: React.FC<CardProps> = ({
   hover = false,
   style,
   ...props
-}) => {
+}: CardProps): React.JSX.Element {
   const baseClasses = "rounded-none transition-all duration-[var(--motion-component)]";
 
   const variantClasses = {
@@ -51,6 +48,6 @@ const Card: React.FC<CardProps> = ({
       {children}
     </div>
   );
-};
+}
 
 export default Card;

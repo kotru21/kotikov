@@ -1,6 +1,6 @@
 import { type RefObject, useCallback } from "react";
 
-import { useCanvasLifecycle } from "@/shared/ui";
+import { useCanvasLifecycle } from "../../hooks/useCanvasLifecycle";
 
 interface UseGridCanvasReturn {
   initCanvas: () => void;

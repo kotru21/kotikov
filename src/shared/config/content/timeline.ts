@@ -1,6 +1,6 @@
 /**
- * Timeline section content. Canonical data lives in shared/config; entity
- * re-exports `TimelineItem` for consumers. Stage 9 may reconsider co-location.
+ * Timeline section content. Canonical in `@/shared/config/content`; entity
+ * re-exports `TimelineItem` for consumers (type facade only).
  */
 export type TimelineItemType = "work" | "education" | "hackathon";
 

@@ -1,11 +1,9 @@
-import React from "react";
-
 interface FooterInfoProps {
   title: string;
   description: string;
 }
 
-const FooterInfo: React.FC<FooterInfoProps> = ({ title, description }) => {
+export function FooterInfo({ title, description }: FooterInfoProps): React.JSX.Element {
   return (
     <div className="space-y-4">
       <h3 className="text-text-primary dark:text-text-inverse mb-4 text-2xl font-black uppercase">
@@ -16,6 +14,4 @@ const FooterInfo: React.FC<FooterInfoProps> = ({ title, description }) => {
       </p>
     </div>
   );
-};
-
-export default FooterInfo;
+}

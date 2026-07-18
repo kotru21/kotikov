@@ -19,7 +19,7 @@ vi.mock("@/features/interactive-elements", () => {
     children?: React.ReactNode;
     href?: string;
     as?: React.ElementType;
-  } & Record<string, unknown>) {
+  } & Record<string, unknown>): React.JSX.Element {
     if (typeof href === "string") {
       return (
         <a href={href} {...props}>
@@ -30,7 +30,7 @@ vi.mock("@/features/interactive-elements", () => {
     return <Component {...props}>{children}</Component>;
   }
 
-  function InteractiveText({ text }: { text: string }) {
+  function InteractiveText({ text }: { text: string }): string {
     return text;
   }
 
@@ -40,11 +40,11 @@ vi.mock("@/features/interactive-elements", () => {
 vi.mock("@/shared/ui", async () => {
   const actual = await vi.importActual<typeof SharedUi>("@/shared/ui");
 
-  function BauhausGridPattern() {
+  function BauhausGridPattern(): React.JSX.Element {
     return <div data-testid="grid-pattern" />;
   }
 
-  function GridPaintOverlay({ ref }: { ref?: React.Ref<unknown> }) {
+  function GridPaintOverlay({ ref }: { ref?: React.Ref<unknown> }): React.JSX.Element {
     if (typeof ref === "function") ref({ drawOnCanvas: vi.fn() });
     else if (ref && typeof ref === "object") {
       (ref as { current: unknown }).current = { drawOnCanvas: vi.fn() };

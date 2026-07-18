@@ -46,4 +46,18 @@ describe("FooterSocial", () => {
     expect(httpxLink).not.toHaveAttribute("rel");
     expect(httpxLink).not.toHaveAccessibleName(/откроется в новой вкладке/i);
   });
+
+  it("aligns title with the accessible name", () => {
+    render(<FooterSocial title="Соцсети" socialLinks={socialLinks} />);
+
+    const httpLink = screen.getByRole("link", {
+      name: "GitHub (откроется в новой вкладке)",
+    });
+    const emailLink = screen.getByRole("link", {
+      name: "Написать по электронной почте",
+    });
+
+    expect(httpLink).toHaveAttribute("title", "GitHub (откроется в новой вкладке)");
+    expect(emailLink).toHaveAttribute("title", "Написать по электронной почте");
+  });
 });

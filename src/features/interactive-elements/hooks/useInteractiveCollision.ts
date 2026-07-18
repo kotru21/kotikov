@@ -1,80 +1,82 @@
 import { useCallback } from "react";
 
+import type { ContrastSample } from "@/shared/lib";
+
+import { applyPaintContrast } from "../lib/applyPaintContrast";
+
 interface CheckCollisionsResult {
   checkCollisions: (
     x: number,
     y: number,
     prevX: number,
     prevY: number,
-    paintRef: React.RefObject<{ checkCoverage: (rect: DOMRect) => number } | null>
+    paintRef: React.RefObject<PaintContrastSurface | null>
   ) => void;
+  resyncAll: (paintRef: React.RefObject<PaintContrastSurface | null>) => void;
 }
+
+export interface PaintContrastSurface {
+  checkCoverage?: (rect: DOMRect) => number;
+  sampleContrast: (rect: DOMRect) => ContrastSample;
+}
+
+export const DEFAULT_PAINT_COVERAGE_THRESHOLD = 0.7;
+
+const COLLISION_BUFFER = 60;
 
 export const useInteractiveCollision = (
   interactiveElementsRef: React.RefObject<Set<HTMLElement>>,
-  coverageThreshold = 0.3
+  coverageThreshold = DEFAULT_PAINT_COVERAGE_THRESHOLD
 ): CheckCollisionsResult => {
+  const syncElementContrast = useCallback(
+    (el: HTMLElement, paint: PaintContrastSurface, rect = el.getBoundingClientRect()): void => {
+      applyPaintContrast(el, paint.sampleContrast(rect), coverageThreshold);
+    },
+    [coverageThreshold]
+  );
+
   const checkCollisions = useCallback(
     (
       x: number,
       y: number,
       prevX: number,
       prevY: number,
-      paintRef: React.RefObject<{ checkCoverage: (rect: DOMRect) => number } | null>
+      paintRef: React.RefObject<PaintContrastSurface | null>
     ): void => {
-      if (paintRef.current === null) return;
-
       const paint = paintRef.current;
-      const buffer = 60;
-      const minX = Math.min(x, prevX) - buffer;
-      const maxX = Math.max(x, prevX) + buffer;
-      const minY = Math.min(y, prevY) - buffer;
-      const maxY = Math.max(y, prevY) + buffer;
+      if (paint === null) return;
+
+      const minX = Math.min(x, prevX) - COLLISION_BUFFER;
+      const maxX = Math.max(x, prevX) + COLLISION_BUFFER;
+      const minY = Math.min(y, prevY) - COLLISION_BUFFER;
+      const maxY = Math.max(y, prevY) + COLLISION_BUFFER;
 
       interactiveElementsRef.current.forEach((el) => {
-        // Skip elements that explicitly opt-out of paint reactions (e.g., mobile menu items)
         if (el.dataset.drawExclude !== undefined) return;
 
-        const targetColor = el.dataset.interactiveColor ?? "black";
-
-        const isSolid = el.dataset.interactiveMode === "solid";
-        if (!isSolid && el.style.color === targetColor) return;
-
-        const targetBg = el.dataset.interactiveBg ?? "black";
-        if (isSolid && el.style.backgroundColor === targetBg) return;
-
         const rect = el.getBoundingClientRect();
-
         if (rect.right < minX || rect.left > maxX || rect.bottom < minY || rect.top > maxY) {
           return;
         }
 
-        const coverage = paint.checkCoverage(rect);
-        const elementThreshold =
-          el.dataset.interactiveThreshold !== undefined
-            ? Number(el.dataset.interactiveThreshold)
-            : coverageThreshold;
-        if (coverage > elementThreshold) {
-          const mode = el.dataset.interactiveMode;
-
-          if (mode === "solid") {
-            el.style.backgroundColor = targetBg;
-            el.style.borderColor = targetBg;
-            el.style.color = el.dataset.interactiveText ?? "white";
-            const shadow = el.dataset.interactiveShadow;
-            if (shadow !== undefined && shadow !== "") {
-              el.style.boxShadow = shadow;
-            }
-          } else if (mode === "border") {
-            el.style.borderColor = targetColor;
-          } else {
-            el.style.color = targetColor;
-          }
-        }
+        syncElementContrast(el, paint, rect);
       });
     },
-    [interactiveElementsRef, coverageThreshold]
+    [interactiveElementsRef, syncElementContrast]
   );
 
-  return { checkCollisions };
+  const resyncAll = useCallback(
+    (paintRef: React.RefObject<PaintContrastSurface | null>): void => {
+      const paint = paintRef.current;
+      if (paint === null) return;
+
+      interactiveElementsRef.current.forEach((el) => {
+        if (el.dataset.drawExclude !== undefined) return;
+        syncElementContrast(el, paint);
+      });
+    },
+    [interactiveElementsRef, syncElementContrast]
+  );
+
+  return { checkCollisions, resyncAll };
 };

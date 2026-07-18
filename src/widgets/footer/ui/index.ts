@@ -1,4 +1,4 @@
-export { default as FooterBottom } from "./FooterBottom";
-export { default as FooterInfo } from "./FooterInfo";
-export { default as FooterNavigation } from "./FooterNavigation";
-export { default as FooterSocial } from "./FooterSocial";
+export { FooterBottom } from "./FooterBottom";
+export { FooterInfo } from "./FooterInfo";
+export { FooterNavigation } from "./FooterNavigation";
+export { FooterSocial } from "./FooterSocial";

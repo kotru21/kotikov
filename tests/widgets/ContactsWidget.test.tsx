@@ -4,6 +4,10 @@ import { describe, expect, it, vi } from "vitest";
 
 import ContactsWidget from "@/widgets/contacts/ContactsWidget";
 
+const themeState = vi.hoisted(() => ({
+  isDark: false,
+}));
+
 vi.mock("@/features/interactive-elements", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
   InteractiveElement: ({
@@ -24,7 +28,7 @@ vi.mock("@/features/interactive-elements", () => ({
     return <div {...props}>{children}</div>;
   },
   InteractiveText: ({ text }: { text: string }) => text,
-  useInteractiveCollision: () => ({ checkCollisions: vi.fn() }),
+  useInteractiveCollision: () => ({ checkCollisions: vi.fn(), resyncAll: vi.fn() }),
   useInteractiveRegistry: () => ({
     registry: {},
     interactiveElementsRef: { current: [] },
@@ -57,6 +61,10 @@ vi.mock("@/features/paw", () => ({
       handlePointerCancel: vi.fn(),
     },
   }),
+}));
+
+vi.mock("@/features/theme/client", () => ({
+  useTheme: () => ({ isDark: themeState.isDark }),
 }));
 
 vi.mock("@/features/performance", () => ({

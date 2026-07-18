@@ -15,7 +15,7 @@ vi.mock("@/features/device", () => ({
 
 vi.mock("@/features/interactive-elements", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
-  useInteractiveCollision: () => ({ checkCollisions: vi.fn() }),
+  useInteractiveCollision: () => ({ checkCollisions: vi.fn(), resyncAll: vi.fn() }),
   useInteractiveRegistry: () => ({
     registry: {},
     interactiveElementsRef: { current: [] },
@@ -49,6 +49,18 @@ vi.mock("@/features/performance", () => ({
     dominantEffect: "flying-nyancat",
     canRunContinuous: false,
   }),
+}));
+
+vi.mock("@/features/scrolling", () => ({
+  useNavMorph: () => ({
+    progress: 0,
+    phase: 0,
+    isIsland: false,
+  }),
+}));
+
+vi.mock("@/features/theme/client", () => ({
+  useTheme: () => ({ isDark: false }),
 }));
 
 vi.mock("@/widgets/header/ui/HeaderBackground", () => ({

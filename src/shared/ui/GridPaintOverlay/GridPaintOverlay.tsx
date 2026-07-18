@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useImperativeHandle } from "react";
+import { type Ref, useImperativeHandle, useRef } from "react";
+
+import type { ContrastSample } from "@/shared/lib";
 
 import { useGridCanvas } from "./hooks/useGridCanvas";
 import { useGridCoverage } from "./hooks/useGridCoverage";
@@ -10,6 +12,7 @@ export interface GridPaintOverlayRef {
   drawOnCanvas: (x: number, y: number, prevX: number, prevY: number) => void;
   initCanvas: () => void;
   checkCoverage: (rect: DOMRect) => number;
+  sampleContrast: (rect: DOMRect) => ContrastSample;
 }
 
 interface GridPaintOverlayProps {
@@ -17,18 +20,18 @@ interface GridPaintOverlayProps {
   brushRadius?: number;
   alpha?: number;
   className?: string;
-  ref?: React.Ref<GridPaintOverlayRef>;
+  ref?: Ref<GridPaintOverlayRef>;
 }
 
-const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
+export function GridPaintOverlay({
   pixelSize = 14,
   brushRadius = 22,
   alpha = 0.95,
   className,
   ref,
-}) => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const ctxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+}: GridPaintOverlayProps): React.JSX.Element {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   // 1. Painting Logic (owns the painted data)
   const { paintedRef, drawOnCanvas } = useGridPainting(
@@ -43,7 +46,7 @@ const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
   const { initCanvas } = useGridCanvas(canvasRef, ctxRef, alpha, pixelSize, paintedRef);
 
   // 3. Coverage Logic
-  const { checkCoverage } = useGridCoverage(canvasRef, paintedRef, pixelSize);
+  const { checkCoverage, sampleContrast } = useGridCoverage(canvasRef, paintedRef, pixelSize);
 
   useImperativeHandle(
     ref,
@@ -51,8 +54,9 @@ const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
       drawOnCanvas,
       initCanvas,
       checkCoverage,
+      sampleContrast,
     }),
-    [drawOnCanvas, initCanvas, checkCoverage]
+    [drawOnCanvas, initCanvas, checkCoverage, sampleContrast]
   );
 
   return (
@@ -65,6 +69,6 @@ const GridPaintOverlay: React.FC<GridPaintOverlayProps> = ({
       style={{ pointerEvents: "none" }}
     />
   );
-};
+}
 
 export default GridPaintOverlay;

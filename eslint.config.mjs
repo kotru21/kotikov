@@ -44,7 +44,17 @@ export default defineConfig(
   // IGNORES
   // ═══════════════════════════════════════════════════════════════════════════
   {
-    ignores: ["node_modules/**", ".next/**", "out/**", "dist/**", "coverage/**", "scripts/**"],
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "dist/**",
+      "coverage/**",
+      "scripts/**",
+      ".agents/**",
+      ".claude/**",
+      ".cursor/skills/**",
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -468,21 +478,7 @@ export default defineConfig(
               message:
                 "Public API only: импортируй из '@/entities/<slice>' (например '@/entities/skill').",
             },
-            {
-              name: "@/entities/header",
-              message:
-                "Контент переехал в shared: импортируй из '@/shared/config/content' (headerContent).",
-            },
-            {
-              name: "@/entities/footer",
-              message:
-                "Контент переехал в shared: импортируй из '@/shared/config/content' (footerInfo/footerConfig).",
-            },
-            {
-              name: "@/entities/person",
-              message:
-                "Контент переехал в shared: импортируй из '@/shared/config/content' (personData).",
-            },
+            // header/person/footer content lives only in @/shared/config/content (no entity shells)
             {
               name: "@/features",
               message:

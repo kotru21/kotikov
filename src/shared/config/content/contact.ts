@@ -1,6 +1,6 @@
 /**
- * Contact section content. Canonical data lives in shared/config; entity
- * re-exports `ContactInfo` for consumers. Stage 9 may reconsider co-location.
+ * Contact section content. Canonical in `@/shared/config/content`; entity
+ * re-exports `ContactInfo` for consumers (type facade only).
  */
 import type { ComponentType } from "react";
 import { FaGithub, FaTelegram } from "react-icons/fa";

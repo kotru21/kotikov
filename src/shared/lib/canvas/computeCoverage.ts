@@ -1,9 +1,9 @@
-export const computeCoverage = (
+export function computeCoverage(
   targetRect: DOMRect,
   canvasRect: DOMRect,
   hasCell: (col: number, row: number) => boolean,
   pixelSize: number
-): number => {
+): number {
   const intersectionLeft = Math.max(targetRect.left, canvasRect.left);
   const intersectionTop = Math.max(targetRect.top, canvasRect.top);
   const intersectionRight = Math.min(targetRect.right, canvasRect.right);
@@ -45,4 +45,4 @@ export const computeCoverage = (
   }
 
   return totalCells === 0 ? 0 : paintedCells / totalCells;
-};
+}

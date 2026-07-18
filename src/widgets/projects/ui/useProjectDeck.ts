@@ -2,8 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 
-import { getWrappedIndex } from "@/shared/lib/deckTransform";
-import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
+import { getWrappedIndex, SWIPE_THRESHOLD_PX } from "@/shared/lib";
 
 interface UseProjectDeckOptions {
   count: number;

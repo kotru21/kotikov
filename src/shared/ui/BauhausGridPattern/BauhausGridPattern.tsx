@@ -1,16 +1,14 @@
-import React from "react";
-
 interface BauhausGridPatternProps {
   className?: string;
   size?: number;
   opacity?: number;
 }
 
-const BauhausGridPattern: React.FC<BauhausGridPatternProps> = ({
+export function BauhausGridPattern({
   className = "",
   size = 40,
   opacity = 0.05,
-}) => {
+}: BauhausGridPatternProps): React.JSX.Element {
   return (
     <div
       aria-hidden="true"
@@ -23,6 +21,6 @@ const BauhausGridPattern: React.FC<BauhausGridPatternProps> = ({
       }}
     />
   );
-};
+}
 
 export default BauhausGridPattern;

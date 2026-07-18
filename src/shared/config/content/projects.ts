@@ -3,8 +3,8 @@ import { FaPython, FaReact } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
 
 /**
- * Featured projects content. Canonical data lives in shared/config; entity
- * `ProjectCard` renders it. Stage 9 may reconsider moving data beside the entity.
+ * Featured projects content. Canonical in `@/shared/config/content`; entity
+ * `ProjectCard` renders it. Domain copy stays shared — entities are type/UI facades.
  */
 export type ProjectCardPattern = "dots" | "chevrons" | "stripes";
 

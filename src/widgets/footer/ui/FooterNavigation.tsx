@@ -1,13 +1,11 @@
-import React from "react";
-
 import type { NavigationItem } from "@/entities/navigation";
 
 interface FooterNavigationProps {
   title: string;
-  links: NavigationItem[];
+  links: readonly NavigationItem[];
 }
 
-const FooterNavigation: React.FC<FooterNavigationProps> = ({ title, links }) => {
+export function FooterNavigation({ title, links }: FooterNavigationProps): React.JSX.Element {
   return (
     <div className="space-y-4">
       <h3 className="text-text-primary dark:text-text-inverse mb-4 text-xl font-bold uppercase">
@@ -26,6 +24,4 @@ const FooterNavigation: React.FC<FooterNavigationProps> = ({ title, links }) => 
       </div>
     </div>
   );
-};
-
-export default FooterNavigation;
+}

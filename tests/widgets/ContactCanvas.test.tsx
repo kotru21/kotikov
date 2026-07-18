@@ -340,6 +340,11 @@ describe("ContactCanvas paint preservation (S7-02 / S7-08)", () => {
       initCanvas: () => void;
       clearDrawing: () => void;
       checkCoverage: (rect: DOMRect) => number;
+      sampleContrast: (rect: DOMRect) => {
+        coverage: number;
+        luminance: number | null;
+        preferDarkText: boolean;
+      };
     }>();
 
     // Wire real triad without React mount: cats + paint + drawing + lifecycle
@@ -409,6 +414,17 @@ describe("ContactCanvas paint preservation (S7-02 / S7-08)", () => {
     act(() => {
       ref.current?.initCanvas();
       ref.current?.drawOnCanvas(20, 20, 10, 10);
+    });
+
+    const sample = ref.current?.sampleContrast(new DOMRect(0, 0, 20, 20));
+    expect(sample).toEqual(
+      expect.objectContaining({
+        coverage: expect.any(Number),
+        preferDarkText: expect.any(Boolean),
+      })
+    );
+
+    act(() => {
       ref.current?.clearDrawing();
     });
     expect(typeof ref.current?.checkCoverage(new DOMRect(0, 0, 20, 20))).toBe("number");

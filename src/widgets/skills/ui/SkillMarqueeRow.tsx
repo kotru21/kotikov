@@ -10,7 +10,7 @@ import { SkillMarqueeCard } from ".";
 interface SkillMarqueeRowProps {
   speed?: number;
   direction?: "left" | "right";
-  skills: SkillData[];
+  skills: readonly SkillData[];
   curved?: boolean;
   arcHeight?: number;
   isMotionActive: boolean;

@@ -28,6 +28,7 @@ export function HeaderNyancat({ isMotionActive }: HeaderNyancatProps): React.JSX
         bankAnimationName="nyancat-bank"
         testId="header-nyancat"
       />
+      {/* eslint-disable-next-line react/no-danger -- trusted static keyframe CSS from feature lib */}
       <style dangerouslySetInnerHTML={{ __html: NYANCAT_KEYFRAMES_CSS }} />
     </>
   );

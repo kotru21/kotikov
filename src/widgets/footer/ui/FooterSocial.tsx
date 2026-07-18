@@ -1,12 +1,10 @@
-import React from "react";
-
 import type { SocialLink } from "@/entities/navigation";
 import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
 import { colors } from "@/styles/colors";
 
 interface FooterSocialProps {
   title: string;
-  socialLinks: SocialLink[];
+  socialLinks: readonly SocialLink[];
 }
 
 function getSocialLinkAccessibleName(link: SocialLink, opensNewTab: boolean): string {
@@ -16,7 +14,7 @@ function getSocialLinkAccessibleName(link: SocialLink, opensNewTab: boolean): st
   return link.name;
 }
 
-const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
+export function FooterSocial({ title, socialLinks }: FooterSocialProps): React.JSX.Element {
   const accentShadowStyle = {
     "--accent-shadow": colors.primary[500],
   } as React.CSSProperties & Record<"--accent-shadow", string>;
@@ -38,7 +36,7 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
               target={opensNewTab ? "_blank" : undefined}
               rel={opensNewTab ? "noopener noreferrer" : undefined}
               className="group focus-visible:ring-primary-500 relative inline-flex min-h-11 min-w-11 items-center justify-center focus-visible:ring-2 focus-visible:outline-none"
-              title={link.name}
+              title={accessibleName}
               aria-label={accessibleName}
             >
               <div
@@ -54,6 +52,4 @@ const FooterSocial: React.FC<FooterSocialProps> = ({ title, socialLinks }) => {
       </div>
     </div>
   );
-};
-
-export default FooterSocial;
+}

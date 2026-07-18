@@ -128,7 +128,9 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
+        {/* eslint-disable-next-line react/no-danger -- trusted static theme CSS for FOUC prevention */}
         <style dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
+        {/* eslint-disable-next-line react/no-danger -- trusted blocking theme init before hydration */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

@@ -44,6 +44,7 @@ yarn-error.log*
 .superpowers/
 .cursor/
 docs/
+.agents/
 
 # typescript
 *.tsbuildinfo
@@ -51,6 +52,7 @@ next-env.d.ts
 
 # Agent / IDE skill vendor copies (local only; do not commit)
 .agent/
+.agents/
 .claude/
 .codebuddy/
 .codex/
@@ -63,6 +65,7 @@ next-env.d.ts
 .trae/
 .windsurf/
 .github/prompts/
+skills-lock.json
 
 # Python bytecode in vendored skill scripts
 **/__pycache__/

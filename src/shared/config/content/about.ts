@@ -1,8 +1,9 @@
 import { personData } from "./person";
 
 /**
- * About section copy. Kept in shared/config (no `entities/about`); Stage 9 may
- * reconsider entity placement for structured domain content.
+ * About section copy. Canonical in `@/shared/config/content` (no `entities/about`).
+ * Entities are type/UI facades only — do not move domain copy into entities without
+ * an explicit architecture change.
  */
 export interface AboutSpecField {
   key: string;

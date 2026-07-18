@@ -13,6 +13,7 @@ import type { GridPaintOverlayRef } from "@/shared/ui";
 
 import { HeaderBackground } from "./HeaderBackground";
 import { HeaderNyancat } from "./HeaderNyancat";
+import { HeaderPaintResync } from "./HeaderPaintResync";
 
 interface HeaderPaintSurfaceProps {
   navigation: ReactNode;
@@ -39,7 +40,7 @@ export function HeaderPaintSurface({
   });
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
-  const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
+  const { checkCollisions, resyncAll } = useInteractiveCollision(interactiveElementsRef);
 
   const handleDraw = useCallback(
     (x: number, y: number, prevX: number, prevY: number) => {
@@ -97,6 +98,7 @@ export function HeaderPaintSurface({
           ) : null}
           {hero}
         </div>
+        <HeaderPaintResync paintRef={paintRef} resyncAll={resyncAll} enabled={enablePaint} />
       </InteractiveTextContext>
     </div>
   );

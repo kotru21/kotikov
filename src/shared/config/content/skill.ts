@@ -1,7 +1,23 @@
+import type { ComponentType } from "react";
 import { FaBug, FaGitAlt, FaPython, FaReact, FaShieldAlt } from "react-icons/fa";
 import { SiBurpsuite, SiFastapi, SiTypescript, SiWireshark } from "react-icons/si";
 
 import { colors } from "@/styles/colors";
+
+/**
+ * Skills content. Canonical data lives in shared/config; `entities/skill` re-exports
+ * `SkillData` for widget consumers (type facade only).
+ */
+export type SkillCategory = "security" | "offensive" | "development";
+
+export interface SkillData {
+  id: number;
+  name: string;
+  description: string;
+  color: string;
+  icon: ComponentType<{ className?: string }>;
+  category: SkillCategory;
+}
 
 /** Subtitle under the Skills heading — InfoSec stack, not frontend marketing. */
 export const skillsStackLine = "SOC, AppSec, DFIR, Python, TypeScript";
@@ -13,7 +29,7 @@ export const skillsData = [
     description: "Классы уязвимостей и статический анализ",
     icon: FaShieldAlt,
     color: colors.accent[600],
-    category: "security" as const,
+    category: "security",
   },
   {
     id: 2,
@@ -21,7 +37,7 @@ export const skillsData = [
     description: "Triage, логи, timeline analysis",
     icon: SiWireshark,
     color: colors.accent[700],
-    category: "security" as const,
+    category: "security",
   },
   {
     id: 3,
@@ -29,7 +45,7 @@ export const skillsData = [
     description: "Карта техник для разбора атак",
     icon: FaBug,
     color: colors.accent[800],
-    category: "security" as const,
+    category: "security",
   },
   {
     id: 4,
@@ -37,7 +53,7 @@ export const skillsData = [
     description: "Web exploitation и проверка контролей",
     icon: SiBurpsuite,
     color: colors.accent[500],
-    category: "offensive" as const,
+    category: "offensive",
   },
   {
     id: 5,
@@ -45,7 +61,7 @@ export const skillsData = [
     description: "Автоматизация и AppSec-инструменты",
     icon: FaPython,
     color: colors.semantic.success.DEFAULT,
-    category: "development" as const,
+    category: "development",
   },
   {
     id: 6,
@@ -53,7 +69,7 @@ export const skillsData = [
     description: "Типобезопасный код и SDK",
     icon: SiTypescript,
     color: colors.accent[700],
-    category: "development" as const,
+    category: "development",
   },
   {
     id: 7,
@@ -61,7 +77,7 @@ export const skillsData = [
     description: "API для security-tooling",
     icon: SiFastapi,
     color: colors.accent[600],
-    category: "development" as const,
+    category: "development",
   },
   {
     id: 8,
@@ -69,7 +85,7 @@ export const skillsData = [
     description: "UI-бэкграунд для secure review",
     icon: FaReact,
     color: colors.accent[600],
-    category: "development" as const,
+    category: "development",
   },
   {
     id: 9,
@@ -77,9 +93,9 @@ export const skillsData = [
     description: "Контроль версий и ревью",
     icon: FaGitAlt,
     color: colors.accent[600],
-    category: "development" as const,
+    category: "development",
   },
-];
+] as const satisfies readonly SkillData[];
 
 export const skillGroups = [
   {

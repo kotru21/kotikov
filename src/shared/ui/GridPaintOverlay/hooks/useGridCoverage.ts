@@ -1,9 +1,14 @@
 import { type RefObject, useCallback } from "react";
 
-import { computeCoverage } from "@/shared/ui";
+import {
+  computeContrastSample,
+  computeCoverage,
+  type ContrastSample,
+} from "@/shared/lib";
 
 interface UseGridCoverageReturn {
   checkCoverage: (targetRect: DOMRect) => number;
+  sampleContrast: (targetRect: DOMRect) => ContrastSample;
 }
 
 export const useGridCoverage = (
@@ -26,5 +31,22 @@ export const useGridCoverage = (
     [pixelSize, canvasRef, paintedRef]
   );
 
-  return { checkCoverage };
+  const sampleContrast = useCallback(
+    (targetRect: DOMRect): ContrastSample => {
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        return { coverage: 0, luminance: null, preferDarkText: false };
+      }
+      const canvasRect = canvas.getBoundingClientRect();
+      return computeContrastSample(
+        targetRect,
+        canvasRect,
+        (c, r) => paintedRef.current.get(`${String(c)},${String(r)}`),
+        pixelSize
+      );
+    },
+    [pixelSize, canvasRef, paintedRef]
+  );
+
+  return { checkCoverage, sampleContrast };
 };

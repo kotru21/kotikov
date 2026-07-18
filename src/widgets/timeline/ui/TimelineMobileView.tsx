@@ -9,7 +9,7 @@ import {
   DECK_MOTION_CLASS,
   getDeckTransform,
   getLinearDeckCardRole,
-} from "@/shared/lib/deckTransform";
+} from "@/shared/lib";
 
 import { useTimelineCarousel } from "../hooks/useTimelineCarousel";
 import { timelineNavButtonClass } from "./timelineChrome";

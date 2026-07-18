@@ -29,10 +29,15 @@ const pawMock = vi.hoisted(() => ({
   isDrawing: true,
 }));
 
+const themeState = vi.hoisted(() => ({
+  isDark: false,
+}));
+
 const drawOnCanvas = vi.fn();
 const initCanvas = vi.fn();
 const clearDrawing = vi.fn();
 const checkCollisions = vi.fn();
+const resyncAll = vi.fn();
 
 vi.mock("@/features/interactive-elements", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
@@ -54,7 +59,7 @@ vi.mock("@/features/interactive-elements", () => ({
     return <div {...props}>{children}</div>;
   },
   InteractiveText: ({ text }: { text: string }) => text,
-  useInteractiveCollision: () => ({ checkCollisions }),
+  useInteractiveCollision: () => ({ checkCollisions, resyncAll }),
   useInteractiveRegistry: () => ({
     registry: {},
     interactiveElementsRef: { current: [] },
@@ -107,6 +112,12 @@ vi.mock("@/features/performance", () => ({
   }),
 }));
 
+vi.mock("@/features/theme/client", () => ({
+  useTheme: () => ({
+    isDark: themeState.isDark,
+  }),
+}));
+
 vi.mock("@/widgets/contacts/ui/ContactCanvas", () => {
   const MockContactCanvas = forwardRef((_props, ref) => {
     useImperativeHandle(ref, () => ({
@@ -114,6 +125,11 @@ vi.mock("@/widgets/contacts/ui/ContactCanvas", () => {
       initCanvas,
       clearDrawing,
       checkCoverage: () => 0,
+      sampleContrast: () => ({
+        coverage: 0,
+        luminance: null,
+        preferDarkText: false,
+      }),
     }));
     return <canvas data-testid="contact-canvas" />;
   });
@@ -138,14 +154,15 @@ class IntersectionObserverMock {
 vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
 describe("ContactsWidget paint-enabled path", () => {
-  it("draws and clears without showing a paw cursor when paint is enabled", () => {
+  it("draws and resyncs on theme change and clear when paint is enabled", () => {
     motionState.reducedMotion = false;
     motionState.lowPerformance = false;
     motionState.isInView = true;
     motionState.isDocumentVisible = true;
     pawMock.isDrawing = true;
+    themeState.isDark = false;
 
-    render(<ContactsWidget />);
+    const { rerender } = render(<ContactsWidget />);
 
     expect(pawMock.latestEnabled).toBe(true);
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
@@ -153,13 +170,19 @@ describe("ContactsWidget paint-enabled path", () => {
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeInTheDocument();
     expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
     expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "none" });
+    expect(resyncAll).toHaveBeenCalledTimes(1);
 
     pawMock.latestDraw?.(10, 10, 0, 0);
     expect(drawOnCanvas).toHaveBeenCalled();
     expect(checkCollisions).toHaveBeenCalled();
 
+    themeState.isDark = true;
+    rerender(<ContactsWidget />);
+    expect(resyncAll).toHaveBeenCalledTimes(2);
+
     fireEvent.click(screen.getByRole("button", { name: "Очистить рисунок" }));
     expect(clearDrawing).toHaveBeenCalled();
+    expect(resyncAll).toHaveBeenCalledTimes(3);
     expect(initCanvas).not.toHaveBeenCalled();
   });
 

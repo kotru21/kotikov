@@ -22,7 +22,7 @@ import {
 } from "./headerNavParts";
 
 interface HeaderNavigationProps {
-  navigation: NavigationItem[];
+  navigation: readonly NavigationItem[];
 }
 
 const PAINT_INTERACTIVE_THRESHOLD = 0.02;
@@ -46,8 +46,6 @@ function resetPaintStyles(root: HTMLElement | null): void {
   if (root === null) return;
 
   root.querySelectorAll<HTMLElement>("a, button").forEach((el) => {
-    if (el.hasAttribute("data-draw-allow")) return;
-
     el.style.removeProperty("color");
     el.style.removeProperty("background-color");
     el.style.removeProperty("border-color");

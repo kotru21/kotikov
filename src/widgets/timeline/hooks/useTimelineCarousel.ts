@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 
-import { SWIPE_THRESHOLD_PX } from "@/shared/lib/gestures";
+import { SWIPE_THRESHOLD_PX } from "@/shared/lib";
 
 interface TouchStartPoint {
   x: number;

@@ -5,7 +5,7 @@ import {
   getDeckTransform,
   getLinearDeckCardRole,
   getWrappedIndex,
-} from "@/shared/lib/deckTransform";
+} from "@/shared/lib";
 
 describe("deckTransform", () => {
   it("getCyclicDeckCardRole identifies active, next, and prev in a 3-card deck", () => {

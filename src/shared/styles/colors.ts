@@ -1,20 +1,26 @@
+/**
+ * Brand teal scale — shared by `primary` and `accent` (intentional Bauhaus mono-accent).
+ * Keep hex values in sync; do not split into unrelated palettes without a design pass.
+ */
+const brandScale = {
+  50: "#eafff8",
+  100: "#c9fff0",
+  200: "#9effe4",
+  300: "#63ffd5",
+  400: "#2cffc7",
+  500: "#00ffb9",
+  600: "#00d99d",
+  700: "#00b583",
+  800: "#008f67",
+  900: "#006a4d",
+  950: "#003829",
+} as const;
+
 // Цветовая палитра для портфолио (Bauhaus Style)
 export const colors = {
   // Основные цвета (акцентный scale бренда)
   // Базовый акцент: #00ffb9
-  primary: {
-    50: "#eafff8",
-    100: "#c9fff0",
-    200: "#9effe4",
-    300: "#63ffd5",
-    400: "#2cffc7",
-    500: "#00ffb9",
-    600: "#00d99d",
-    700: "#00b583",
-    800: "#008f67",
-    900: "#006a4d",
-    950: "#003829",
-  },
+  primary: brandScale,
 
   // Нейтральные цвета
   neutral: {
@@ -31,27 +37,20 @@ export const colors = {
     950: "#050505",
   },
 
-  // Акцентные цвета (единая система оттенков #00ffb9)
-  // Используйте этот раздел для всего, что раньше было "красным/жёлтым/синим" акцентом.
+  /**
+   * Accent mirrors `primary` plus contrast helpers.
+   * Semantic tokens below are intentionally brand-tinted (not traffic-light red/amber).
+   * Do not recolor without an explicit design pass — visual freeze.
+   */
   accent: {
-    50: "#eafff8",
-    100: "#c9fff0",
-    200: "#9effe4",
-    300: "#63ffd5",
-    400: "#2cffc7",
-    500: "#00ffb9",
-    600: "#00d99d",
-    700: "#00b583",
-    800: "#008f67",
-    900: "#006a4d",
-    950: "#003829",
+    ...brandScale,
     // Пары для контраста (WCAG-friendly дефолты)
     fg: "#111111", // текст/иконки на светлом accent фоне
     fgInverse: "#f5f5f3", // текст/иконки на очень тёмном accent фоне
     glow: "#00ffb9",
   },
 
-  // Семантические цвета
+  // Семантические цвета (brand-tinted — names are roles, not Material status hues)
   semantic: {
     success: {
       light: "#eafff8",
@@ -137,64 +136,5 @@ export type PrimaryColors = keyof typeof colors.primary;
 export type NeutralColors = keyof typeof colors.neutral;
 export type AccentColors = keyof typeof colors.accent;
 export type SemanticColors = keyof typeof colors.semantic;
-
-// Утилитарные функции для работы с цветами
-export const getColor = (path: string): string => {
-  const keys = path.split(".");
-  let result: unknown = colors;
-
-  for (const key of keys) {
-    if (result !== null && typeof result === "object" && key in result) {
-      result = (result as Record<string, unknown>)[key];
-    } else {
-      console.warn(`Color path "${path}" not found`);
-      return "#000000";
-    }
-  }
-
-  if (typeof result === "string") {
-    return result;
-  }
-
-  console.warn(`Color path "${path}" is not a string`);
-  return "#000000";
-};
-
-// Функция для получения контрастного цвета
-export const getContrastColor = (backgroundColor: string): string => {
-  // Простая логика для определения контрастного цвета
-  const darkColors: string[] = [
-    colors.background.primary,
-    colors.background.secondary,
-    colors.background.tertiary,
-    colors.neutral[800],
-    colors.neutral[900],
-    colors.neutral[950],
-  ];
-
-  if (darkColors.includes(backgroundColor)) {
-    return colors.text.primary;
-  }
-
-  return colors.text.inverse;
-};
-
-// Функция для создания rgba цвета с прозрачностью
-export const withOpacity = (color: string, opacity: number): string => {
-  // Если цвет в hex формате
-  if (color.startsWith("#")) {
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
-    return `rgba(${String(r)}, ${String(g)}, ${String(b)}, ${String(opacity)})`;
-  }
-
-  // Если цвет уже в rgb/rgba формате
-  if (color.startsWith("rgb")) {
-    return color.replace("rgb(", "rgba(").replace(")", `, ${String(opacity)})`);
-  }
-
-  return color;
-};
 
 export default colors;

@@ -1,10 +1,10 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 interface SectionHeaderProps {
-  eyebrow: React.ReactNode;
-  title: React.ReactNode;
+  eyebrow: ReactNode;
+  title: ReactNode;
   titleId?: string;
-  description?: React.ReactNode;
+  description?: ReactNode;
   align?: "left" | "center";
   tone?: "default" | "on-gradient";
   className?: string;
@@ -13,7 +13,7 @@ interface SectionHeaderProps {
 const eyebrowClasses =
   "text-sm font-bold tracking-[0.24em] uppercase text-primary-950 dark:text-primary-300 mb-3";
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({
+export function SectionHeader({
   eyebrow,
   title,
   titleId,
@@ -21,7 +21,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   align = "left",
   tone = "default",
   className = "",
-}) => {
+}: SectionHeaderProps): React.JSX.Element {
   const alignClasses = align === "center" ? "text-center" : "text-left";
   const descriptionAlignClasses = align === "center" ? "mx-auto max-w-xl" : "max-w-2xl";
   const titleClasses =
@@ -46,6 +46,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       ) : null}
     </header>
   );
-};
+}
 
 export default SectionHeader;

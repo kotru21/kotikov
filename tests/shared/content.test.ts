@@ -32,7 +32,7 @@ describe("content model", () => {
   });
 
   it("has no placeholder nav labels", () => {
-    expect(navigation.some((n) => n.name === "Туда")).toBe(false);
+    expect(navigation.map((n) => n.name)).not.toContain("Туда");
   });
 
   it("prioritizes contact as the primary recruiter action", () => {

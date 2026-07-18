@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useLayoutEffect, useRef } from "react";
 
 import { InteractiveTextContext } from "../model/context";
 import type { InteractiveTextRegistry } from "../model/types";
@@ -16,7 +16,7 @@ const InteractiveChar = memo(
   }: { char: string } & InteractiveTextRegistry): React.JSX.Element => {
     const ref = useRef<HTMLSpanElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       const el = ref.current;
       if (el !== null) register(el);
       return (): void => {
@@ -58,7 +58,7 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
   const ref = useRef<HTMLElement>(null);
   const drawExclude = rest["data-draw-exclude"];
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (!registry) return;

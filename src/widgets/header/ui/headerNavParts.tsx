@@ -4,7 +4,6 @@ import type { CSSProperties, ReactNode, RefObject } from "react";
 import type { NavigationItem } from "@/entities/navigation";
 import { InteractiveElement } from "@/features/interactive-elements";
 import { Logo } from "@/shared/ui";
-import { colors } from "@/styles/colors";
 
 interface NavLogoProps {
   variant: "mobile" | "pc";
@@ -31,7 +30,6 @@ export function NavLogo({
         as={Link}
         href="/"
         data-draw-allow=""
-        data-interactive-color={colors.text.primary}
         className={className}
       >
         {label}
@@ -65,7 +63,7 @@ export function NavLogo({
 }
 
 interface DesktopNavLinksProps {
-  navigation: NavigationItem[];
+  navigation: readonly NavigationItem[];
   isPaintInteractive: boolean;
   linkClassName: string;
 }
@@ -84,7 +82,6 @@ export function DesktopNavLinks({
             key={item.name}
             href={item.href}
             data-draw-allow=""
-            data-interactive-color={colors.text.primary}
             className={linkClassName}
           >
             {item.name}
@@ -100,7 +97,7 @@ export function DesktopNavLinks({
 }
 
 interface MobileMenuLinksProps {
-  navigation: NavigationItem[];
+  navigation: readonly NavigationItem[];
   onItemClick: () => void;
   className: string;
 }

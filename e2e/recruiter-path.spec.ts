@@ -20,4 +20,13 @@ test("recruiter can understand the profile and reach contact", async ({ page }) 
   await expect(page.locator("#contacts")).toBeVisible();
   await expect(page.locator("#contacts").getByRole("link", { name: /Написать:/ })).toBeVisible();
   await expect(page.locator("#contacts").getByRole("link", { name: /Telegram/ })).toBeVisible();
+
+  const footer = page.getByRole("contentinfo");
+  await footer.scrollIntoViewIfNeeded();
+  await expect(footer.getByRole("heading", { name: "Kotikov", exact: true })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "Контакты" })).toHaveAttribute("href", "#contacts");
+  await expect(
+    footer.getByRole("link", { name: "GitHub (откроется в новой вкладке)" })
+  ).toBeVisible();
+  await expect(footer.getByText(/© 2026 Kotikov\./)).toBeVisible();
 });

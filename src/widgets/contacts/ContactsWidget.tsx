@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useLayoutEffect, useRef } from "react";
 
 import {
   InteractiveTextContext,
@@ -9,6 +9,7 @@ import {
 } from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
 import { useSceneMotionPolicy } from "@/features/performance";
+import { useTheme } from "@/features/theme/client";
 import { contactsData } from "@/shared/config/content";
 
 import { type ContactCanvasRef, ContactsView } from "./ui";
@@ -22,9 +23,15 @@ const ContactsWidget: React.FC = () => {
   // isInView/visibility, or the canvas remounts (and loses paint state) on every flip.
   const mountPaint = !motion.reducedMotion;
   const enablePaint = mountPaint && motion.isInView && motion.isDocumentVisible;
+  const { isDark } = useTheme();
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
-  const { checkCollisions } = useInteractiveCollision(interactiveElementsRef);
+  const { checkCollisions, resyncAll } = useInteractiveCollision(interactiveElementsRef);
+
+  useLayoutEffect(() => {
+    if (!enablePaint) return;
+    resyncAll(canvasRef);
+  }, [enablePaint, isDark, resyncAll]);
 
   const handleDraw = useCallback(
     (x: number, y: number, prevX: number, prevY: number) => {
@@ -50,6 +57,7 @@ const ContactsWidget: React.FC = () => {
   const handleClearCanvas = (): void => {
     if (!enablePaint) return;
     canvasRef.current?.clearDrawing();
+    resyncAll(canvasRef);
   };
 
   return (

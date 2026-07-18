@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { isInteractiveTarget } from "@/shared/lib/dom/isInteractiveTarget";
+import { isInteractiveTarget } from "@/shared/lib";
 
 describe("isInteractiveTarget", () => {
   it("allows paw drawing on buttons with data-draw-allow", () => {

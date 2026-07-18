@@ -1,13 +1,9 @@
-import React from "react";
-
 import { footerInfo, footerSocialLinks, navigation } from "@/shared/config/content";
 import { Section } from "@/shared/ui";
 
 import { FooterBottom, FooterInfo, FooterNavigation, FooterSocial } from "./ui";
 
-const FooterWidget: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
+export function FooterWidget(): React.JSX.Element {
   return (
     <Section
       as="footer"
@@ -19,13 +15,11 @@ const FooterWidget: React.FC = () => {
 
       <div className="grid gap-8 text-center md:grid-cols-3 md:text-left">
         <FooterInfo title={footerInfo.title} description={footerInfo.description} />
-        <FooterNavigation title="Быстрые ссылки" links={navigation} />
-        <FooterSocial title="Связаться со мной" socialLinks={footerSocialLinks} />
+        <FooterNavigation title={footerInfo.navTitle} links={navigation} />
+        <FooterSocial title={footerInfo.socialTitle} socialLinks={footerSocialLinks} />
       </div>
 
-      <FooterBottom year={currentYear} />
+      <FooterBottom year={footerInfo.copyrightYear} brand={footerInfo.title} />
     </Section>
   );
-};
-
-export default FooterWidget;
+}

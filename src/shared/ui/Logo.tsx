@@ -1,11 +1,9 @@
-import React from "react";
-
 interface LogoProps {
   variant?: "pc" | "mobile";
   className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ variant = "pc", className = "" }) => {
+export function Logo({ variant = "pc", className = "" }: LogoProps): React.JSX.Element {
   if (variant === "mobile") {
     return (
       <svg
@@ -66,6 +64,6 @@ const Logo: React.FC<LogoProps> = ({ variant = "pc", className = "" }) => {
       <circle cx="809" cy="112" r="67" fill="#2cffc7" />
     </svg>
   );
-};
+}
 
 export default Logo;

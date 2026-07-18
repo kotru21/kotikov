@@ -6,13 +6,13 @@ export interface SampledPixel {
   intensity: number;
 }
 
-// Sample pixels affected by a single brush center point
-export const sampleBrushAtPoint = (
+/** Sample pixels affected by a single brush center point. */
+export function sampleBrushAtPoint(
   interpX: number,
   interpY: number,
   pixelSize: number,
   brushRadius: number
-): Map<string, SampledPixel> => {
+): Map<string, SampledPixel> {
   const result = new Map<string, SampledPixel>();
 
   const brushRadPx = Math.ceil(brushRadius / pixelSize);
@@ -47,17 +47,17 @@ export const sampleBrushAtPoint = (
   }
 
   return result;
-};
+}
 
-// Sample pixels along a stroke from prev -> current, merging intensities (keep max)
-export const sampleBrushStroke = (
+/** Sample pixels along a stroke from prev → current, merging intensities (keep max). */
+export function sampleBrushStroke(
   x: number,
   y: number,
   prevX: number,
   prevY: number,
   pixelSize: number,
   brushRadius: number
-): Map<string, SampledPixel> => {
+): Map<string, SampledPixel> {
   const pixels = new Map<string, SampledPixel>();
 
   const distance = Math.hypot(x - prevX, y - prevY);
@@ -78,4 +78,4 @@ export const sampleBrushStroke = (
   }
 
   return pixels;
-};
+}

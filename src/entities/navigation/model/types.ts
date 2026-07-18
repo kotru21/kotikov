@@ -1,10 +1,5 @@
-export interface NavigationItem {
-  name: string;
-  href: string;
-}
-
-export interface SocialLink {
-  name: string;
-  url: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
+/**
+ * Re-export of shared navigation types for entity consumers.
+ * Canonical data remains in `@/shared/config/content`.
+ */
+export type { NavigationItem, SocialLink } from "@/shared/config/content";

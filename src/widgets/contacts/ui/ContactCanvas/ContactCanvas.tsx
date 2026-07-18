@@ -2,6 +2,8 @@
 
 import React, { useImperativeHandle } from "react";
 
+import type { ContrastSample } from "@/shared/lib";
+
 import {
   CONTACT_BRUSH_RADIUS,
   CONTACT_CANVAS_PIXEL_SIZE,
@@ -21,6 +23,7 @@ export interface ContactCanvasRef {
   initCanvas: () => void;
   clearDrawing: () => void;
   checkCoverage: (rect: DOMRect) => number;
+  sampleContrast: (rect: DOMRect) => ContrastSample;
 }
 
 const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
@@ -42,7 +45,7 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
     brushRadius
   );
 
-  const { initCanvas, clearDrawing, checkCoverage } = useContactLifecycle(
+  const { initCanvas, clearDrawing, checkCoverage, sampleContrast } = useContactLifecycle(
     canvasRef,
     ctxRef,
     pixelSize,
@@ -59,8 +62,9 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
       initCanvas,
       clearDrawing,
       checkCoverage,
+      sampleContrast,
     }),
-    [drawOnCanvas, initCanvas, clearDrawing, checkCoverage]
+    [drawOnCanvas, initCanvas, clearDrawing, checkCoverage, sampleContrast]
   );
 
   return (

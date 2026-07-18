@@ -120,4 +120,39 @@ describe("HeaderNavigation mobile menu", () => {
     expect(screen.getByRole("link", { name: "Главная" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Связаться/i })).toBeInTheDocument();
   });
+
+  it("does not force a fixed interactive color in paint mode", () => {
+    render(<HeaderNavigation navigation={navigation} />);
+
+    const homeLink = screen.getByRole("link", { name: "Главная" });
+    expect(homeLink).toHaveAttribute("data-draw-allow", "");
+    expect(homeLink).not.toHaveAttribute("data-interactive-color");
+
+    const homeLogo = screen.getAllByRole("link", { name: "ktkv" }).at(0);
+    expect(homeLogo).toHaveAttribute("data-draw-allow", "");
+    expect(homeLogo).not.toHaveAttribute("data-interactive-color");
+  });
+
+  it("clears stale inline paint styles when leaving paint mode", async () => {
+    const { rerender } = render(<HeaderNavigation navigation={navigation} />);
+
+    const homeLink = screen.getByRole("link", { name: "Главная" });
+    homeLink.style.color = "rgb(255, 0, 0)";
+    homeLink.style.backgroundColor = "rgb(0, 0, 0)";
+    homeLink.style.borderColor = "rgb(255, 255, 255)";
+    homeLink.style.boxShadow = "rgb(0, 0, 0) 1px 1px 0px";
+
+    navMorphState.progress = 0.5;
+    navMorphState.phase = 2;
+    navMorphState.isIsland = false;
+    rerender(<HeaderNavigation navigation={navigation} />);
+
+    await waitFor(() => {
+      const updatedHomeLink = screen.getByRole("link", { name: "Главная" });
+      expect(updatedHomeLink.style.color).toBe("");
+      expect(updatedHomeLink.style.backgroundColor).toBe("");
+      expect(updatedHomeLink.style.borderColor).toBe("");
+      expect(updatedHomeLink.style.boxShadow).toBe("");
+    });
+  });
 });

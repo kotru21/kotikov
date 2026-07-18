@@ -1,14 +1,14 @@
-import React from "react";
+import type { CSSProperties, ReactNode, Ref } from "react";
 
 interface ButtonStyleProps {
-  className?: string; // Остается для возможных исключений, но мы будем избегать использования
-  children?: React.ReactNode;
+  className?: string;
+  children?: ReactNode;
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   fullHeight?: boolean;
   shadowColor?: string;
-  ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+  ref?: Ref<HTMLButtonElement | HTMLAnchorElement>;
 }
 
 type ButtonAsButtonProps = ButtonStyleProps &
@@ -23,7 +23,7 @@ type ButtonAsAnchorProps = ButtonStyleProps &
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
 
-const Button: React.FC<ButtonProps> = ({
+export function Button({
   children,
   className = "",
   variant = "primary",
@@ -33,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
   shadowColor,
   ref,
   ...rest
-}) => {
+}: ButtonProps): React.JSX.Element {
   const baseClasses =
     "inline-flex items-center justify-center gap-2 font-bold uppercase tracking-wide rounded-none border-2 border-black dark:border-white transition-all duration-[var(--motion-micro)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-600 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed";
 
@@ -57,16 +57,16 @@ const Button: React.FC<ButtonProps> = ({
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${heightClass} ${className}`;
 
-  const style =
+  const style: CSSProperties | undefined =
     shadowColor !== undefined && shadowColor !== ""
-      ? ({ "--accent-shadow": shadowColor } as React.CSSProperties)
+      ? ({ "--accent-shadow": shadowColor } as CSSProperties)
       : undefined;
 
   if ("href" in rest && typeof rest.href === "string") {
     const { href, ...anchorProps } = rest;
     return (
       <a
-        ref={ref as React.Ref<HTMLAnchorElement>}
+        ref={ref as Ref<HTMLAnchorElement>}
         href={href}
         className={combinedClasses}
         style={style}
@@ -79,7 +79,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      ref={ref as React.Ref<HTMLButtonElement>}
+      ref={ref as Ref<HTMLButtonElement>}
       className={combinedClasses}
       style={style}
       {...rest}
@@ -87,6 +87,6 @@ const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+}
 
 export default Button;

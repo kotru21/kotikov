@@ -1,6 +1,11 @@
 import { type RefObject, useCallback } from "react";
 
-import { computeCoverage, useCanvasLifecycle } from "@/shared/ui";
+import {
+  computeContrastSample,
+  computeCoverage,
+  type ContrastSample,
+} from "@/shared/lib";
+import { useCanvasLifecycle } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
 import type { RevealedPaintEntry } from "./useContactPaintState";
@@ -10,6 +15,7 @@ interface UseContactLifecycleReturn {
   /** Wipe brush strokes and redraw the existing cat field (no regenerate). */
   clearDrawing: () => void;
   checkCoverage: (rect: DOMRect) => number;
+  sampleContrast: (rect: DOMRect) => ContrastSample;
 }
 
 export const useContactLifecycle = (
@@ -99,5 +105,22 @@ export const useContactLifecycle = (
     [pixelSize, canvasRef, revealedMapRef]
   );
 
-  return { initCanvas, clearDrawing, checkCoverage };
+  const sampleContrast = useCallback(
+    (targetRect: DOMRect): ContrastSample => {
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        return { coverage: 0, luminance: null, preferDarkText: false };
+      }
+      const canvasRect = canvas.getBoundingClientRect();
+      return computeContrastSample(
+        targetRect,
+        canvasRect,
+        (c, r) => revealedMapRef.current.get(`${String(c)},${String(r)}`),
+        pixelSize
+      );
+    },
+    [pixelSize, canvasRef, revealedMapRef]
+  );
+
+  return { initCanvas, clearDrawing, checkCoverage, sampleContrast };
 };

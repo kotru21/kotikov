@@ -9,7 +9,7 @@ import {
   DECK_MOTION_CLASS,
   getCyclicDeckCardRole,
   getDeckTransform,
-} from "@/shared/lib/deckTransform";
+} from "@/shared/lib";
 
 import { useProjectDeck } from "./useProjectDeck";
 
