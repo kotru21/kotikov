@@ -10,7 +10,11 @@ import { ProjectCardDeck, ProjectsGrid } from "./ui";
  */
 export function ProjectsWidget(): React.JSX.Element {
   return (
-    <Section id="projects" backgroundClassName="bg-neutral-100 dark:bg-background-tertiary">
+    <Section
+      id="projects"
+      tabIndex={-1}
+      backgroundClassName="bg-neutral-100 dark:bg-background-tertiary"
+    >
       <SectionHeader
         eyebrow={projectsSection.eyebrow}
         title={projectsSection.title}

@@ -102,7 +102,7 @@ export function HeaderNavigation({ navigation }: HeaderNavigationProps): React.J
           <IslandShell
             islandRef={mobileIslandRef}
             isIsland={isIsland}
-            className={`${islandShellClass}${isIsland ? "" : "gap-4"}`}
+            className={`${islandShellClass}${isIsland ? "" : " gap-4"}`}
             style={mobileIsland.islandStyle}
           >
             <div className="flex min-w-0 flex-1 items-center gap-3">

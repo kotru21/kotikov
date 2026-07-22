@@ -77,8 +77,6 @@ export function ProjectCardDeck(): React.JSX.Element | null {
                 transform: deckStyle.transform,
                 opacity: deckStyle.opacity,
               }}
-              aria-hidden={!isActive}
-              {...(!isActive ? { inert: true } : {})}
             >
               {!isActive ? (
                 <button
@@ -90,7 +88,11 @@ export function ProjectCardDeck(): React.JSX.Element | null {
                   }}
                 />
               ) : null}
-              <div className={isActive ? undefined : "pointer-events-none"}>
+              <div
+                aria-hidden={!isActive}
+                {...(!isActive ? { inert: true } : {})}
+                className={isActive ? undefined : "pointer-events-none"}
+              >
                 <ProjectCard project={project} isStacked={!isActive} />
               </div>
             </div>

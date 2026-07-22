@@ -66,11 +66,13 @@ describe("Section", () => {
 
   it("applies container-x and container-max on inner wrapper", () => {
     const { container } = render(
-      <Section id="projects">
+      <Section id="projects" tabIndex={-1}>
         <p>Projects</p>
       </Section>
     );
 
+    const section = container.querySelector("section#projects");
+    expect(section).toHaveAttribute("tabindex", "-1");
     const inner = container.querySelector("section#projects > div");
     expect(inner).toHaveClass("px-6", "lg:px-8", "max-w-6xl", "mx-auto");
   });

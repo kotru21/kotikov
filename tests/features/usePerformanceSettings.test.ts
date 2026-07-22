@@ -1,10 +1,10 @@
-import { renderHook } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { usePerformanceSettings } from "@/features/performance/usePerformanceSettings";
 
 describe("usePerformanceSettings", () => {
-  it("reads reduced-motion from matchMedia on the first client render", () => {
+  it("reads reduced-motion from matchMedia after mount (SSR-safe defaults until then)", async () => {
     vi.stubGlobal(
       "matchMedia",
       vi.fn((query: string) => ({
@@ -24,7 +24,10 @@ describe("usePerformanceSettings", () => {
     });
 
     const { result } = renderHook(() => usePerformanceSettings());
-    expect(result.current.reducedMotion).toBe(true);
+
+    await waitFor(() => {
+      expect(result.current.reducedMotion).toBe(true);
+    });
     expect(result.current.lowPerformance).toBe(false);
 
     vi.unstubAllGlobals();

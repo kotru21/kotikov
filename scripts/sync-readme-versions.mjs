@@ -47,11 +47,21 @@ function vercelBunRange(bunSemver) {
   return "1.x";
 }
 
+/** Prefer `@typescript/native` (TS 7) over the TS 6 JS-API package used by eslint. */
+function resolveTypeScriptVersion() {
+  const native = pkg.devDependencies?.["@typescript/native"];
+  if (typeof native === "string") {
+    const fromAlias = native.match(/npm:typescript@(.+)$/);
+    if (fromAlias) return cleanVersion(fromAlias[1]);
+  }
+  return cleanVersion(pkg.devDependencies?.typescript);
+}
+
 const nextFull = cleanVersion(pkg.dependencies?.next);
 const reactMM = majorMinor(pkg.dependencies?.react);
-const tsMM = majorMinor(pkg.devDependencies?.typescript);
+const tsFull = resolveTypeScriptVersion();
+const tsMM = majorMinor(tsFull);
 const tailwindMM = majorMinor(pkg.devDependencies?.tailwindcss);
-const tsFull = cleanVersion(pkg.devDependencies?.typescript);
 const tailwindFull = cleanVersion(pkg.devDependencies?.tailwindcss);
 
 const bunSemver = resolveBunVersion();
@@ -103,13 +113,19 @@ function patchReadme(filePath) {
   } else {
     s = s.replace(BADGE_LINE_RE, badgeLine);
   }
-  if (STACK_LINE_RE.test(s)) {
+  if (!STACK_LINE_RE.test(s)) {
+    console.warn(`skip stack line (no match): ${relative(root, filePath)}`);
+  } else {
     s = s.replace(STACK_LINE_RE, stackLine);
   }
-  if (BUN_STACK_LINE_RE.test(s)) {
+  if (!BUN_STACK_LINE_RE.test(s)) {
+    console.warn(`skip bun stack line (no match): ${relative(root, filePath)}`);
+  } else {
     s = s.replace(BUN_STACK_LINE_RE, bunStackLine);
   }
-  if (REQUIREMENTS_LINE_RE.test(s)) {
+  if (!REQUIREMENTS_LINE_RE.test(s)) {
+    console.warn(`skip requirements line (no match): ${relative(root, filePath)}`);
+  } else {
     s = s.replace(REQUIREMENTS_LINE_RE, requirementsLine);
   }
   s = s.replace(VERCEL_BUN_IN_BACKTICKS_RE, `\`bunVersion: ${vercelBun}\``);

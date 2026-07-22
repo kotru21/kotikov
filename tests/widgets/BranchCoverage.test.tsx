@@ -140,11 +140,10 @@ describe("branch coverage gaps", () => {
       host.appendChild(card);
 
       function SeedActive(): null {
-        const { setActiveElement, setMousePos } = useSkillsInteraction();
+        const { setActiveElement } = useSkillsInteraction();
         React.useEffect(() => {
           setActiveElement(card);
-          setMousePos({ x: 10, y: 10 });
-        }, [setActiveElement, setMousePos]);
+        }, [setActiveElement]);
         return null;
       }
 
@@ -157,6 +156,9 @@ describe("branch coverage gaps", () => {
 
       act(() => {
         host.dispatchEvent(new Event("mouseenter"));
+        host.dispatchEvent(
+          new MouseEvent("mousemove", { clientX: 10, clientY: 10, bubbles: true })
+        );
       });
 
       act(() => {

@@ -69,6 +69,9 @@ describe("HeaderNavigation mobile menu", () => {
 
     expect(screen.getByRole("navigation", { name: "Основная навигация" })).toBeInTheDocument();
 
+    const mobileShell = document.querySelector(".lg\\:hidden [class*='ease-out']");
+    expect(mobileShell?.className).toMatch(/\bgap-4\b/);
+
     fireEvent.click(screen.getByRole("button", { name: "Открыть меню" }));
 
     expect(screen.getByRole("dialog")).toBeInTheDocument();

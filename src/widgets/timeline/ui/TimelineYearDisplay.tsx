@@ -46,30 +46,33 @@ const TimelineYearDisplay: React.FC<TimelineYearDisplayProps> = ({ period }) => 
         const showCat = missingAssets[decadeKey] !== true;
 
         return (
-          <div className={`${layoutClass} ${rowDigitClass}`}>
-            <span className={slotClass}>{year[0]}</span>
+          <>
+            <span className="sr-only">{year}</span>
+            <div aria-hidden="true" className={`${layoutClass} ${rowDigitClass}`}>
+              <span className={slotClass}>{year[0]}</span>
 
-            <span className={slotClass}>
-              {showCat ? (
-                <Image
-                  src={catSrc}
-                  alt=""
-                  width={24}
-                  height={24}
-                  unoptimized
-                  onError={() => {
-                    setMissingAssets((prev) => ({ ...prev, [decadeKey]: true }));
-                  }}
-                  className={catImgClass}
-                />
-              ) : (
-                <span className="leading-none">{year[1]}</span>
-              )}
-            </span>
+              <span className={slotClass}>
+                {showCat ? (
+                  <Image
+                    src={catSrc}
+                    alt=""
+                    width={24}
+                    height={24}
+                    unoptimized
+                    onError={() => {
+                      setMissingAssets((prev) => ({ ...prev, [decadeKey]: true }));
+                    }}
+                    className={catImgClass}
+                  />
+                ) : (
+                  <span className="leading-none">{year[1]}</span>
+                )}
+              </span>
 
-            <span className={slotClass}>{year[2]}</span>
-            <span className={slotClass}>{year[3]}</span>
-          </div>
+              <span className={slotClass}>{year[2]}</span>
+              <span className={slotClass}>{year[3]}</span>
+            </div>
+          </>
         );
       })()
     );

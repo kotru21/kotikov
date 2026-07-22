@@ -86,6 +86,7 @@ export function usePawAnimation(
   const mouseVelocityRef = useRef({ x: 0, y: 0 });
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
+  const kickAnimationRef = useRef<() => void>(() => undefined);
 
   // Adjust state during render when drawing is disabled (not in an effect).
   if (!enabled && state.isDrawing) {
@@ -99,6 +100,8 @@ export function usePawAnimation(
   useEffect(() => {
     if (enabled) return;
     mouseVelocityRef.current = { x: 0, y: 0 };
+    pointerDownRef.current = false;
+    pointerIdRef.current = null;
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
@@ -110,16 +113,23 @@ export function usePawAnimation(
       const deltaX = x - prev.mousePos.x;
       const deltaY = y - prev.mousePos.y;
       mouseVelocityRef.current = { x: deltaX, y: deltaY };
-      return { ...prev, mousePos: { x, y } };
+      const next = { ...prev, mousePos: { x, y } };
+      stateRef.current = next;
+      return next;
     });
+    kickAnimationRef.current();
   }, []);
 
   const stopDrawing = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      isDrawing: false,
-      pawVelocity: { x: 0, y: 0 },
-    }));
+    setState((prev) => {
+      const next = {
+        ...prev,
+        isDrawing: false,
+        pawVelocity: { x: 0, y: 0 },
+      };
+      stateRef.current = next;
+      return next;
+    });
     mouseVelocityRef.current = { x: 0, y: 0 };
 
     if (animationFrameRef.current !== null) {
@@ -137,7 +147,11 @@ export function usePawAnimation(
       }
 
       if (e.pointerType === "mouse") {
-        setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
+        setState((prev) => {
+          const next = withDrawingStart(prev, e.clientX, e.clientY);
+          stateRef.current = next;
+          return next;
+        });
         updatePointerPos(e.clientX, e.clientY);
       }
     },
@@ -154,7 +168,11 @@ export function usePawAnimation(
 
       if (e.pointerType === "mouse") {
         if (!stateRef.current.isDrawing) {
-          setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
+          setState((prev) => {
+            const next = withDrawingStart(prev, e.clientX, e.clientY);
+            stateRef.current = next;
+            return next;
+          });
         }
         updatePointerPos(e.clientX, e.clientY);
         return;
@@ -183,7 +201,11 @@ export function usePawAnimation(
         e.preventDefault();
         pointerDownRef.current = true;
         pointerIdRef.current = e.pointerId;
-        setState((prev) => withDrawingStart(prev, e.clientX, e.clientY));
+        setState((prev) => {
+          const next = withDrawingStart(prev, e.clientX, e.clientY);
+          stateRef.current = next;
+          return next;
+        });
         updatePointerPos(e.clientX, e.clientY);
 
         try {
@@ -198,39 +220,42 @@ export function usePawAnimation(
 
   const handlePointerUp = useCallback(
     (e: PointerEvent<HTMLElement>) => {
-      if (!enabledRef.current) return;
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;
       pointerIdRef.current = null;
-      stopDrawing();
 
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
       } catch {
         // ignore
       }
+
+      if (!enabledRef.current) return;
+      stopDrawing();
     },
     [stopDrawing]
   );
 
   const handlePointerCancel = useCallback(
     (e: PointerEvent<HTMLElement>) => {
-      if (!enabledRef.current) return;
       if (e.pointerType === "mouse") return;
 
       pointerDownRef.current = false;
       pointerIdRef.current = null;
+
+      if (!enabledRef.current) return;
       stopDrawing();
     },
     [stopDrawing]
   );
 
   useEffect(() => {
-    if (!state.isDrawing || !enabled) return;
-
     const animate = (currentTime: number): void => {
-      if (!stateRef.current.isDrawing || !enabledRef.current) return;
+      if (!stateRef.current.isDrawing || !enabledRef.current) {
+        animationFrameRef.current = null;
+        return;
+      }
 
       const deltaTime = currentTime - lastUpdateTimeRef.current;
       if (deltaTime < 16) {
@@ -239,73 +264,84 @@ export function usePawAnimation(
       }
       lastUpdateTimeRef.current = currentTime;
 
-      setState((prev) => {
-        const deltaX = prev.mousePos.x - prev.smoothMousePos.x;
-        const deltaY = prev.mousePos.y - prev.smoothMousePos.y;
-        const mouseSmoothness = 0.25;
-        const newSmoothMousePos = {
-          x: prev.smoothMousePos.x + deltaX * mouseSmoothness,
-          y: prev.smoothMousePos.y + deltaY * mouseSmoothness,
-        };
+      const prev = stateRef.current;
+      const deltaX = prev.mousePos.x - prev.smoothMousePos.x;
+      const deltaY = prev.mousePos.y - prev.smoothMousePos.y;
+      const mouseSmoothness = 0.25;
+      const newSmoothMousePos = {
+        x: prev.smoothMousePos.x + deltaX * mouseSmoothness,
+        y: prev.smoothMousePos.y + deltaY * mouseSmoothness,
+      };
 
-        const pawDeltaX = newSmoothMousePos.x - prev.pawPos.x;
-        const pawDeltaY = newSmoothMousePos.y - prev.pawPos.y;
-        const distance = Math.sqrt(pawDeltaX * pawDeltaX + pawDeltaY * pawDeltaY);
+      const pawDeltaX = newSmoothMousePos.x - prev.pawPos.x;
+      const pawDeltaY = newSmoothMousePos.y - prev.pawPos.y;
+      const distance = Math.sqrt(pawDeltaX * pawDeltaX + pawDeltaY * pawDeltaY);
 
-        const mouseSpeed = Math.sqrt(
-          mouseVelocityRef.current.x ** 2 + mouseVelocityRef.current.y ** 2
-        );
+      const mouseSpeed = Math.sqrt(
+        mouseVelocityRef.current.x ** 2 + mouseVelocityRef.current.y ** 2
+      );
 
-        let smoothness = 0.06;
-        if (distance > 100) {
-          smoothness = 0.15;
-        } else if (distance > 50) {
-          smoothness = 0.1;
-        } else if (distance < 5) {
-          smoothness = 0.03;
-        }
+      let smoothness = 0.06;
+      if (distance > 100) {
+        smoothness = 0.15;
+      } else if (distance > 50) {
+        smoothness = 0.1;
+      } else if (distance < 5) {
+        smoothness = 0.03;
+      }
 
-        if (mouseSpeed > 10) {
-          smoothness *= 1.5;
-        }
+      if (mouseSpeed > 10) {
+        smoothness *= 1.5;
+      }
 
-        const ease = (t: number): number => 1 - Math.pow(1 - t, 3);
-        const easedSmoothness = ease(smoothness);
+      const ease = (t: number): number => 1 - Math.pow(1 - t, 3);
+      const easedSmoothness = ease(smoothness);
 
-        const newPawPos = {
-          x: prev.pawPos.x + pawDeltaX * easedSmoothness,
-          y: prev.pawPos.y + pawDeltaY * easedSmoothness,
-        };
+      const newPawPos = {
+        x: prev.pawPos.x + pawDeltaX * easedSmoothness,
+        y: prev.pawPos.y + pawDeltaY * easedSmoothness,
+      };
 
-        const velocityX = (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
-        const velocityY = (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+      const velocityX = (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+      const velocityY = (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
 
-        if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
-          onDrawRef.current(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
-        }
+      if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
+        onDrawRef.current(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
+      }
 
-        const posDeltaSmall =
-          Math.abs(newPawPos.x - prev.pawPos.x) < 0.25 &&
-          Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
-          Math.abs(newSmoothMousePos.x - prev.smoothMousePos.x) < 0.25 &&
-          Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
-        const velDeltaSmall = Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
+      const posDeltaSmall =
+        Math.abs(newPawPos.x - prev.pawPos.x) < 0.25 &&
+        Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
+        Math.abs(newSmoothMousePos.x - prev.smoothMousePos.x) < 0.25 &&
+        Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
+      const velDeltaSmall = Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
 
-        if (posDeltaSmall && velDeltaSmall) return prev;
+      if (posDeltaSmall && velDeltaSmall) {
+        animationFrameRef.current = null;
+        return;
+      }
 
-        return {
-          ...prev,
-          smoothMousePos: newSmoothMousePos,
-          pawPos: newPawPos,
-          pawVelocity: { x: velocityX, y: velocityY },
-        };
-      });
-
+      const next: PawAnimationState = {
+        ...prev,
+        smoothMousePos: newSmoothMousePos,
+        pawPos: newPawPos,
+        pawVelocity: { x: velocityX, y: velocityY },
+      };
+      stateRef.current = next;
+      setState(next);
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    lastUpdateTimeRef.current = performance.now();
-    animationFrameRef.current = requestAnimationFrame(animate);
+    kickAnimationRef.current = (): void => {
+      if (animationFrameRef.current !== null) return;
+      if (!stateRef.current.isDrawing || !enabledRef.current) return;
+      lastUpdateTimeRef.current = performance.now();
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    if (state.isDrawing && enabled) {
+      kickAnimationRef.current();
+    }
 
     return () => {
       if (animationFrameRef.current !== null) {

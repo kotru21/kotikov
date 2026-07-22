@@ -69,8 +69,9 @@ export default defineConfig(
   {
     languageOptions: {
       parserOptions: {
-        // TODO(tech-debt): typescript-eslint@8.x peer range is `typescript <6.0.0`; remove when a
-        // release supports TypeScript 6+ (see https://github.com/typescript-eslint/typescript-eslint).
+        // Side-by-side: `typescript` stays on 6.x for the JS API (typescript-eslint);
+        // `@typescript/native` is TypeScript 7 (no stable programmatic API yet).
+        // See https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/
         warnOnUnsupportedTypeScriptVersion: false,
         projectService: {
           allowDefaultProject: ["*.mjs", "eslint.config.mjs"],

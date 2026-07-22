@@ -24,6 +24,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
 
   const currentPos = useRef({ x: 0, y: 0 });
   const startPos = useRef({ x: 0, y: 0 });
+  const mousePosRef = useRef({ x: 0, y: 0 });
 
   const jumpStartTime = useRef(0);
   const isJumping = useRef(false);
@@ -33,7 +34,12 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [isFacingRight, setIsFacingRight] = useState(true);
 
-  const { activeElement, mousePos, setMousePos } = useSkillsInteraction();
+  const { activeElement } = useSkillsInteraction();
+  const activeElementRef = useRef(activeElement);
+
+  useEffect(() => {
+    activeElementRef.current = activeElement;
+  }, [activeElement]);
 
   const shouldAnimate = isMotionActive && isVisible;
 
@@ -43,9 +49,10 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
 
     const handleMouseMove = (e: MouseEvent): void => {
       const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      setMousePos({ x, y });
+      mousePosRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
     };
 
     const handleMouseEnter = (): void => {
@@ -65,18 +72,14 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
       container.removeEventListener("mouseenter", handleMouseEnter);
       container.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [containerRef, setMousePos]);
-
-  const targetState = useRef({ activeElement, mousePos });
-  useEffect(() => {
-    targetState.current = { activeElement, mousePos };
-  }, [activeElement, mousePos]);
+  }, [containerRef]);
 
   const animate = useCallback(
     (time: number): void => {
       if (!catRef.current || !containerRef.current) return;
 
-      const { activeElement: active, mousePos: pos } = targetState.current;
+      const active = activeElementRef.current;
+      const pos = mousePosRef.current;
       const targetX = pos.x;
       const targetY = pos.y;
 

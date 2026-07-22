@@ -54,19 +54,19 @@ export default function StructuredData(): JSX.Element {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personStructuredData).replace(/</g, "\u003c"),
+          __html: JSON.stringify(personStructuredData).replace(/</g, "\\u003c"),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(websiteStructuredData).replace(/</g, "\u003c"),
+          __html: JSON.stringify(websiteStructuredData).replace(/</g, "\\u003c"),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationStructuredData).replace(/</g, "\u003c"),
+          __html: JSON.stringify(organizationStructuredData).replace(/</g, "\\u003c"),
         }}
       />
     </>

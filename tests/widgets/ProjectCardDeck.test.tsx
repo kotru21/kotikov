@@ -96,4 +96,20 @@ describe("ProjectCardDeck semantics", () => {
     }
     expect(stack.querySelectorAll(".col-start-1.row-start-1").length).toBe(projectsData.length);
   });
+
+  it("activates a peeking card when its overlay control is clicked", () => {
+    render(<ProjectCardDeck />);
+
+    const activateSecond = screen.getByRole("button", {
+      name: `Показать проект ${projectsData[1].title}`,
+    });
+    fireEvent.click(activateSecond);
+
+    expect(
+      screen.getByRole("group", {
+        name: `2 из ${String(projectsData.length)}: ${projectsData[1].title}`,
+      })
+    ).toBeInTheDocument();
+    expect(getProjectControl(1)).toHaveAttribute("aria-pressed", "true");
+  });
 });

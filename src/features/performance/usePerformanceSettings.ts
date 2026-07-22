@@ -7,10 +7,14 @@ interface PerformanceSettings {
   lowPerformance: boolean;
 }
 
+const DEFAULT_SETTINGS: PerformanceSettings = {
+  reducedMotion: false,
+  lowPerformance: false,
+};
+
 function readPerformanceSettings(): PerformanceSettings {
   if (typeof window === "undefined") {
-    // SSR: keep the animated default so non–reduced-motion HTML matches first paint.
-    return { reducedMotion: false, lowPerformance: false };
+    return DEFAULT_SETTINGS;
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -22,7 +26,7 @@ function readPerformanceSettings(): PerformanceSettings {
 }
 
 export const usePerformanceSettings = (): PerformanceSettings => {
-  const [settings, setSettings] = useState<PerformanceSettings>(readPerformanceSettings);
+  const [settings, setSettings] = useState<PerformanceSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => {
     const detectSettings = (): void => {

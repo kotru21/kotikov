@@ -68,10 +68,23 @@ export default function GlobalError({ error, reset }: GlobalErrorProps): React.J
           }
         `}</style>
         <div
-          className="flex min-h-screen items-center justify-center"
-          style={{ backgroundColor: criticalColors.background }}
+          style={{
+            display: "flex",
+            minHeight: "100vh",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: criticalColors.background,
+          }}
         >
-          <div className="mx-auto max-w-md p-8 text-center">
+          <div
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              maxWidth: "28rem",
+              padding: "2rem",
+              textAlign: "center",
+            }}
+          >
             <div
               aria-hidden="true"
               style={{
@@ -117,10 +130,17 @@ export default function GlobalError({ error, reset }: GlobalErrorProps): React.J
                 error
               </span>
             </div>
-            <h2 className="mb-4 text-2xl font-bold" style={{ color: criticalColors.text.primary }}>
+            <h2
+              style={{
+                marginBottom: "1rem",
+                fontSize: "1.5rem",
+                fontWeight: 700,
+                color: criticalColors.text.primary,
+              }}
+            >
               Критическая ошибка
             </h2>
-            <p className="mb-6" style={{ color: criticalColors.text.secondary }}>
+            <p style={{ marginBottom: "1.5rem", color: criticalColors.text.secondary }}>
               Произошла серьезная ошибка в приложении. Пожалуйста, перезагрузите страницу.
             </p>
             <button type="button" onClick={reset} className="global-error-btn">
