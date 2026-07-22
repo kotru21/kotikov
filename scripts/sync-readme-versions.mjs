@@ -103,31 +103,39 @@ const BUN_STACK_LINE_RE = /^- Bun \(`bun@[^`]+\`\)$/m;
 const REQUIREMENTS_LINE_RE = /^- Bun v[^\n]+$/m;
 const VERCEL_BUN_IN_BACKTICKS_RE = /`bunVersion: [^`]+`/g;
 
+const STACK_README_NAMES = new Set(["README.ru.md", "README.en.md"]);
+
 /** @param {string} filePath */
 function patchReadme(filePath) {
   let s = readFileSync(filePath, "utf8");
   const before = s;
+  const baseName = relative(root, filePath).replace(/\\/g, "/");
+  const expectsStackLines = STACK_README_NAMES.has(baseName);
 
   if (!BADGE_LINE_RE.test(s)) {
-    console.warn(`skip badges (no Next.js badge line): ${relative(root, filePath)}`);
+    console.warn(`skip badges (no Next.js badge line): ${baseName}`);
   } else {
     s = s.replace(BADGE_LINE_RE, badgeLine);
   }
-  if (!STACK_LINE_RE.test(s)) {
-    console.warn(`skip stack line (no match): ${relative(root, filePath)}`);
-  } else {
-    s = s.replace(STACK_LINE_RE, stackLine);
+
+  if (expectsStackLines) {
+    if (!STACK_LINE_RE.test(s)) {
+      console.warn(`skip stack line (no match): ${baseName}`);
+    } else {
+      s = s.replace(STACK_LINE_RE, stackLine);
+    }
+    if (!BUN_STACK_LINE_RE.test(s)) {
+      console.warn(`skip bun stack line (no match): ${baseName}`);
+    } else {
+      s = s.replace(BUN_STACK_LINE_RE, bunStackLine);
+    }
+    if (!REQUIREMENTS_LINE_RE.test(s)) {
+      console.warn(`skip requirements line (no match): ${baseName}`);
+    } else {
+      s = s.replace(REQUIREMENTS_LINE_RE, requirementsLine);
+    }
   }
-  if (!BUN_STACK_LINE_RE.test(s)) {
-    console.warn(`skip bun stack line (no match): ${relative(root, filePath)}`);
-  } else {
-    s = s.replace(BUN_STACK_LINE_RE, bunStackLine);
-  }
-  if (!REQUIREMENTS_LINE_RE.test(s)) {
-    console.warn(`skip requirements line (no match): ${relative(root, filePath)}`);
-  } else {
-    s = s.replace(REQUIREMENTS_LINE_RE, requirementsLine);
-  }
+
   s = s.replace(VERCEL_BUN_IN_BACKTICKS_RE, `\`bunVersion: ${vercelBun}\``);
 
   if (bunMM) {
@@ -136,7 +144,7 @@ function patchReadme(filePath) {
 
   if (s !== before) {
     writeFileSync(filePath, s, "utf8");
-    console.log(`updated ${relative(root, filePath)}`);
+    console.log(`updated ${baseName}`);
   }
 }
 
