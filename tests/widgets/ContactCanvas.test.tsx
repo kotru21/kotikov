@@ -294,6 +294,43 @@ describe("useContactLifecycle", () => {
     expect(generateCats).toHaveBeenCalledTimes(callsAfterMount);
   });
 
+  it("skips redraw when initCanvas repeats with the same CSS size and DPR", () => {
+    vi.stubGlobal("devicePixelRatio", 1);
+    const ctx = createMockContext();
+    const canvas = mockCanvasElement(ctx, { width: 160, height: 120 });
+    const canvasRef = { current: canvas };
+    const ctxRef: RefObject<CanvasRenderingContext2D | null> = { current: null };
+    const generateCats = vi.fn();
+    const drawBackground = vi.fn();
+    const revealedMapRef = {
+      current: new Map<string, { color: string; intensity: number }>(),
+    };
+
+    const { result } = renderHook(() =>
+      useContactLifecycle(
+        canvasRef,
+        ctxRef,
+        CONTACT_CANVAS_PIXEL_SIZE,
+        generateCats,
+        drawBackground,
+        revealedMapRef,
+        vi.fn()
+      )
+    );
+
+    const catsAfterMount = generateCats.mock.calls.length;
+    const bgAfterMount = drawBackground.mock.calls.length;
+    expect(catsAfterMount).toBeGreaterThan(0);
+
+    act(() => {
+      result.current.initCanvas();
+      result.current.initCanvas();
+    });
+
+    expect(generateCats).toHaveBeenCalledTimes(catsAfterMount);
+    expect(drawBackground).toHaveBeenCalledTimes(bgAfterMount);
+  });
+
   it("returns zero coverage without a canvas", () => {
     const canvasRef = { current: null };
     const ctxRef = { current: null };

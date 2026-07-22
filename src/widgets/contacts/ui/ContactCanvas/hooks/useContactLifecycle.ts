@@ -38,12 +38,21 @@ export const useContactLifecycle = (
 
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio, 2);
+    const nextWidth = Math.max(1, Math.floor(rect.width * dpr));
+    const nextHeight = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Window resize fires on mobile URL-bar show/hide while scrolling into
+    // contacts even when this canvas's CSS box is unchanged. Re-init would
+    // clear the bitmap, regenerate cats, and freeze the main thread.
+    if (canvas.width === nextWidth && canvas.height === nextHeight) {
+      return;
+    }
 
     // Reset transform before resize to avoid compounding
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
     ctx.scale(dpr, dpr);
 
     ctx.imageSmoothingEnabled = false;
