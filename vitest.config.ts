@@ -40,6 +40,7 @@ export default mergeConfig(
           "**/types.ts",
           "**/model/types.ts",
           "src/shared/ui/GridPaintOverlay/**",
+          // Paint/effect RAF paths stay unit-tested outside the gated include list.
           "src/features/paw/**",
           "src/features/nyancat/**",
         ],

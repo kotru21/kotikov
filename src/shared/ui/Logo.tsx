@@ -13,7 +13,6 @@ export function Logo({ variant = "pc", className = "" }: LogoProps): React.JSX.E
         fill="none"
         viewBox="0 0 120 120"
         className={className}
-        role="img"
         aria-hidden="true"
       >
         {/* Mobile logo (uses currentColor so it responds to painting) */}
@@ -46,7 +45,6 @@ export function Logo({ variant = "pc", className = "" }: LogoProps): React.JSX.E
       height="223"
       viewBox="0 0 1057 223"
       className={className}
-      role="img"
       aria-hidden="true"
     >
       {/* Основной текст логотипа — перекрашивается через currentColor */}

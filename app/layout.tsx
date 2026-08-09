@@ -11,6 +11,7 @@ import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE } from "@/features
 import { ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 import { SkipLinks } from "./components/SkipLinks";
 import { resolveGaMeasurementId } from "./gaMeasurementId";
 
@@ -148,17 +149,7 @@ export default function RootLayout({
           <SkipLinks />
           {children}
         </ThemeProvider>
-        {gaId !== null ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config','${gaId}',{anonymize_ip:true});`}
-            </Script>
-          </>
-        ) : null}
+        {gaId !== null ? <GoogleAnalytics measurementId={gaId} /> : null}
         <Analytics />
         <SpeedInsights />
       </body>

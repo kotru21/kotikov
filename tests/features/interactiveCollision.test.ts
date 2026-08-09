@@ -19,6 +19,7 @@ interface CollisionHookResult {
     paintRef: React.RefObject<MockPaintSurface | null>
   ) => void;
   resyncAll: (paintRef: React.RefObject<MockPaintSurface | null>) => void;
+  clearAllContrast: () => void;
 }
 
 function createInteractiveElement(
@@ -240,5 +241,23 @@ describe("useInteractiveCollision", () => {
     expect(el.style.borderColor).toBe("");
     expect(el.style.color).toBe("");
     expect(el.style.boxShadow).toBe("");
+  });
+
+  it("clearAllContrast strips inline paint styles from registered elements", () => {
+    const el = createInteractiveElement(new DOMRect(0, 0, 40, 20), {
+      interactiveMode: "solid",
+    });
+    el.style.color = colors.text.inverse;
+    el.style.backgroundColor = colors.text.primary;
+
+    const interactiveElementsRef = { current: new Set<HTMLElement>([el]) };
+    const { result } = renderHook(() => useInteractiveCollision(interactiveElementsRef));
+
+    act(() => {
+      result.current.clearAllContrast();
+    });
+
+    expect(el.style.color).toBe("");
+    expect(el.style.backgroundColor).toBe("");
   });
 });

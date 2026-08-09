@@ -1,30 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+import { useResponsiveViewMode } from "@/features/device";
 
 import SkillsDesktopView from "./SkillsDesktopView";
 import SkillsMobileView from "./SkillsMobileView";
 
-type SkillsViewMode = "both" | "mobile" | "desktop";
-
 /**
  * Keeps CSS dual shells for layout, then mounts only the active breakpoint tree after
- * matchMedia sync (S5-02 partial: first paint still dual-mounts to avoid CLS/hydration skew).
+ * matchMedia sync (S5-02: SSR dual-mounts; layout effect prunes before paint).
  */
 const SkillsViews: React.FC = () => {
-  const [mode, setMode] = useState<SkillsViewMode>("both");
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-    const sync = (): void => {
-      setMode(mediaQuery.matches ? "mobile" : "desktop");
-    };
-
-    sync();
-    mediaQuery.addEventListener("change", sync);
-    return () => mediaQuery.removeEventListener("change", sync);
-  }, []);
-
+  const mode = useResponsiveViewMode();
   const showMobile = mode === "both" || mode === "mobile";
   const showDesktop = mode === "both" || mode === "desktop";
 

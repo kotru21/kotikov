@@ -1,5 +1,5 @@
 import type { SocialLink } from "@/entities/navigation";
-import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
+import { formatExternalLinkLabel, isHttpUrl, isSafeHref } from "@/shared/lib";
 import { colors } from "@/styles/colors";
 
 interface FooterSocialProps {
@@ -26,6 +26,8 @@ export function FooterSocial({ title, socialLinks }: FooterSocialProps): React.J
       </h3>
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
         {socialLinks.map((link) => {
+          if (!isSafeHref(link.url)) return null;
+
           const opensNewTab = isHttpUrl(link.url);
           const accessibleName = getSocialLinkAccessibleName(link, opensNewTab);
 

@@ -5,7 +5,7 @@ import React from "react";
 import { ContactCard, type ContactInfo, type ContactLayout } from "@/entities/contact";
 import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
 import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
-import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
+import { formatExternalLinkLabel, isHttpUrl, isSafeHref } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 
@@ -135,7 +135,9 @@ const ContactsView: React.FC<ContactsViewProps> = ({
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 bg-transparent md:grid-cols-4">
           {contacts.map((contact) => {
             const layout = LAYOUT_STYLES[contact.layout];
-            const opensNewTab = contact.link !== undefined && isHttpUrl(contact.link);
+            const safeLink =
+              contact.link !== undefined && isSafeHref(contact.link) ? contact.link : undefined;
+            const opensNewTab = safeLink !== undefined && isHttpUrl(safeLink);
 
             return (
               <div key={contact.label} className={`${layout.gridClasses} h-full`}>
@@ -145,7 +147,7 @@ const ContactsView: React.FC<ContactsViewProps> = ({
                   className={layout.buttonClassName}
                   fullWidth
                   fullHeight
-                  href={contact.link ?? undefined}
+                  href={safeLink}
                   target={opensNewTab ? "_blank" : undefined}
                   rel={opensNewTab ? "noopener noreferrer" : undefined}
                   aria-label={

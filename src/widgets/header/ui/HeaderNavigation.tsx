@@ -201,6 +201,7 @@ export function HeaderNavigation({ navigation }: HeaderNavigationProps): React.J
         />
         <DialogPanel
           transition={!snapMenuMotion}
+          aria-label="Мобильное меню"
           className={`border-l-primary-500 bg-background-primary dark:border-l-primary-400 fixed inset-y-0 right-0 z-50 w-full sm:max-w-sm dark:border-white dark:bg-black ${
             snapMenuMotion ? "flex" : menuPanelMotionClass
           }`}

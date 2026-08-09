@@ -32,19 +32,16 @@ describe("FooterSocial", () => {
     expect(httpsLink).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("keeps mailto and unsupported protocols in the current context", () => {
+  it("keeps mailto in-context and omits unsupported protocol links", () => {
     render(<FooterSocial title="Соцсети" socialLinks={socialLinks} />);
 
     const emailLink = screen.getByRole("link", {
       name: "Написать по электронной почте",
     });
-    const httpxLink = screen.getByRole("link", { name: "HTTPX" });
 
     expect(emailLink).not.toHaveAttribute("target");
     expect(emailLink).not.toHaveAttribute("rel");
-    expect(httpxLink).not.toHaveAttribute("target");
-    expect(httpxLink).not.toHaveAttribute("rel");
-    expect(httpxLink).not.toHaveAccessibleName(/откроется в новой вкладке/i);
+    expect(screen.queryByRole("link", { name: "HTTPX" })).not.toBeInTheDocument();
   });
 
   it("aligns title with the accessible name", () => {

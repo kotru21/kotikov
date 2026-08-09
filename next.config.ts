@@ -22,11 +22,20 @@ const connectSrc = [
   ...(isDev ? ["ws:", "wss:"] : []),
 ].join(" ");
 
+const imgSrc = [
+  "'self'",
+  "data:",
+  "blob:",
+  // GA / gtag image beacons when NEXT_PUBLIC_GA_ID is set.
+  "https://www.google-analytics.com",
+  "https://www.googletagmanager.com",
+].join(" ");
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src ${scriptSrc}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src ${imgSrc}`,
   "font-src 'self' data:",
   `connect-src ${connectSrc}`,
   "frame-ancestors 'none'",
@@ -42,6 +51,15 @@ const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  // Explicit HSTS for non-Vercel / self-hosted deploys (browsers ignore on HTTP).
+  ...(isDev
+    ? []
+    : [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=63072000; includeSubDomains; preload",
+        },
+      ]),
 ];
 
 const nextConfig: NextConfig = {

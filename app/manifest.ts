@@ -18,16 +18,13 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/logo_mobile.svg",
         sizes: "any",
         type: "image/svg+xml",
-      },
-      {
-        src: "/logo_mobile.svg",
-        sizes: "192x192",
-        type: "image/svg+xml",
+        purpose: "any",
       },
       {
         src: "/logo_pc.svg",
-        sizes: "512x512",
+        sizes: "any",
         type: "image/svg+xml",
+        purpose: "any",
       },
     ],
   };

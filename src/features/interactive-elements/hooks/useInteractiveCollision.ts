@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 import type { ContrastSample } from "@/shared/lib";
 
-import { applyPaintContrast } from "../lib/applyPaintContrast";
+import { applyPaintContrast, clearPaintInlineStyles } from "../lib/applyPaintContrast";
 
 interface CheckCollisionsResult {
   checkCollisions: (
@@ -15,6 +15,7 @@ interface CheckCollisionsResult {
     paintRef: React.RefObject<PaintContrastSurface | null>
   ) => void;
   resyncAll: (paintRef: React.RefObject<PaintContrastSurface | null>) => void;
+  clearAllContrast: () => void;
 }
 
 export interface PaintContrastSurface {
@@ -80,5 +81,11 @@ export const useInteractiveCollision = (
     [interactiveElementsRef, syncElementContrast]
   );
 
-  return { checkCollisions, resyncAll };
+  const clearAllContrast = useCallback((): void => {
+    interactiveElementsRef.current.forEach((el) => {
+      clearPaintInlineStyles(el);
+    });
+  }, [interactiveElementsRef]);
+
+  return { checkCollisions, resyncAll, clearAllContrast };
 };

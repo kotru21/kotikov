@@ -26,6 +26,39 @@ let navMorphCache: { scrollY: number; snapMorph: boolean; state: NavMorphState }
   state: SERVER_SNAPSHOT,
 };
 
+/** Singleton scroll→RAF fan-out — one window listener for all useNavMorph subscribers. */
+const navMorphListeners = new Set<() => void>();
+let navMorphRaf: number | null = null;
+let navMorphScrollAttached = false;
+
+function notifyNavMorphListeners(): void {
+  navMorphRaf = null;
+  for (const listener of navMorphListeners) {
+    listener();
+  }
+}
+
+function onNavMorphScroll(): void {
+  if (navMorphRaf !== null) return;
+  navMorphRaf = requestAnimationFrame(notifyNavMorphListeners);
+}
+
+function ensureNavMorphScrollSubscription(): void {
+  if (navMorphScrollAttached) return;
+  window.addEventListener("scroll", onNavMorphScroll, { passive: true });
+  navMorphScrollAttached = true;
+}
+
+function teardownNavMorphScrollSubscription(): void {
+  if (!navMorphScrollAttached) return;
+  window.removeEventListener("scroll", onNavMorphScroll);
+  navMorphScrollAttached = false;
+  if (navMorphRaf !== null) {
+    cancelAnimationFrame(navMorphRaf);
+    navMorphRaf = null;
+  }
+}
+
 export const lerp = (from: number, to: number, t: number): number => from + (to - from) * t;
 
 export const computeNavMorph = (scrollY: number, snapMorph = false): NavMorphState => {
@@ -64,19 +97,12 @@ function getNavMorphSnapshot(snapMorph: boolean): NavMorphState {
 }
 
 function subscribeNavMorph(onStoreChange: () => void): () => void {
-  let raf: number | null = null;
-  const onScroll = (): void => {
-    if (raf !== null) return;
-    raf = requestAnimationFrame(() => {
-      raf = null;
-      onStoreChange();
-    });
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
+  navMorphListeners.add(onStoreChange);
+  ensureNavMorphScrollSubscription();
   return () => {
-    window.removeEventListener("scroll", onScroll);
-    if (raf !== null) {
-      cancelAnimationFrame(raf);
+    navMorphListeners.delete(onStoreChange);
+    if (navMorphListeners.size === 0) {
+      teardownNavMorphScrollSubscription();
     }
   };
 }

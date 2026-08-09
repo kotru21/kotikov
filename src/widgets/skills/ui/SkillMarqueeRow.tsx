@@ -42,6 +42,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
   isMotionActive,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const marqueeClassName =
     direction === "left" ? "flex gap-6 animate-scroll-left" : "flex gap-6 animate-scroll-right";
   const curvedMarqueeClassName =
@@ -59,16 +60,19 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
 
   const updateArc = useCallback((): void => {
     const container = containerRef.current;
-    if (container === null) return;
+    const track = trackRef.current;
+    if (container === null || track === null) return;
 
-    const rect = container.getBoundingClientRect();
+    // One layout read for the viewport + track; item centers use offset* (no per-card GBC).
+    const containerRect = container.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
 
-    container.querySelectorAll<HTMLElement>("[data-skill-arc-item]").forEach((item) => {
-      const itemRect = item.getBoundingClientRect();
-      const itemCenterX = itemRect.left + itemRect.width / 2;
-      const lift = getArcLift(itemCenterX, rect.left, rect.width, arcHeight);
+    const items = track.querySelectorAll<HTMLElement>("[data-skill-arc-item]");
+    for (const item of items) {
+      const itemCenterX = trackRect.left + item.offsetLeft + item.offsetWidth / 2;
+      const lift = getArcLift(itemCenterX, containerRect.left, containerRect.width, arcHeight);
       item.style.transform = `translate3d(0, ${String(-lift)}px, 0)`;
-    });
+    }
   }, [arcHeight]);
 
   useRafWhile(curved && isMotionActive, updateArc);
@@ -105,6 +109,7 @@ const SkillMarqueeRow: React.FC<SkillMarqueeRowProps> = ({
       style={{ paddingTop: `calc(${String(arcHeight)}px + 1.25rem)` }}
     >
       <div
+        ref={trackRef}
         data-testid="skill-marquee-track"
         data-motion-active={isMotionActive}
         className={curvedMarqueeClassName}

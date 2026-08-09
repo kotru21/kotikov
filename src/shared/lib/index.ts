@@ -1,4 +1,4 @@
-export { formatExternalLinkLabel, isHttpUrl } from "./a11y";
+export { formatExternalLinkLabel, isHttpUrl, isSafeHref } from "./a11y";
 export type { ContrastSample, SampledPixel } from "./canvas";
 export {
   computeContrastSample,

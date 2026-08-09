@@ -8,4 +8,3 @@ export { ScrollRestoration } from "./ScrollRestoration";
 export { shouldResetScrollOnLoad } from "./scrollUtils";
 export type { NavMorphPhase, NavMorphState } from "./useNavMorph";
 export { computeNavMorph, lerp, useNavMorph } from "./useNavMorph";
-export { useScrollParallax } from "./useScrollParallax";

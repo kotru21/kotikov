@@ -21,6 +21,8 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
   isMotionActive,
 }) => {
   const catRef = useRef<HTMLDivElement>(null);
+  const faceRef = useRef<HTMLDivElement>(null);
+  const facingRightRef = useRef(true);
 
   const currentPos = useRef({ x: 0, y: 0 });
   const startPos = useRef({ x: 0, y: 0 });
@@ -32,7 +34,6 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
   const jumpTargetPos = useRef<{ x: number; y: number } | null>(null);
 
   const [isVisible, setIsVisible] = useState(false);
-  const [isFacingRight, setIsFacingRight] = useState(true);
 
   const { activeElement } = useSkillsInteraction();
   const activeElementRef = useRef(activeElement);
@@ -42,6 +43,14 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
   }, [activeElement]);
 
   const shouldAnimate = isMotionActive && isVisible;
+
+  const setFacingRight = (next: boolean): void => {
+    if (facingRightRef.current === next) return;
+    facingRightRef.current = next;
+    if (faceRef.current !== null) {
+      faceRef.current.style.transform = next ? "scaleX(1)" : "scaleX(-1)";
+    }
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -120,14 +129,14 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
           jumpTargetPos.current = { x: pos.x, y: pos.y };
         }
 
-        setIsFacingRight(effectiveTargetX > currentPos.current.x);
+        setFacingRight(effectiveTargetX > currentPos.current.x);
       } else if (!isJumping.current) {
         const lerpFactor = 0.15;
         currentPos.current.x += (effectiveTargetX - currentPos.current.x) * lerpFactor;
         currentPos.current.y += (effectiveTargetY - currentPos.current.y) * lerpFactor;
 
         if (Math.abs(dx) > 2) {
-          setIsFacingRight(dx > 0);
+          setFacingRight(dx > 0);
         }
       } else {
         const timeElapsed = time - jumpStartTime.current;
@@ -169,10 +178,9 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
       }}
     >
       <div
+        ref={faceRef}
         className="relative transition-transform duration-200"
-        style={{
-          transform: isFacingRight ? "scaleX(1)" : "scaleX(-1)",
-        }}
+        style={{ transform: "scaleX(1)" }}
       >
         <Image src="/nyancat.svg" alt="" width={50} height={33} className="drop-shadow-2xl" />
       </div>

@@ -19,7 +19,11 @@ vi.mock("@/features/device", () => ({
 
 vi.mock("@/features/interactive-elements", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
-  useInteractiveCollision: () => ({ checkCollisions: vi.fn(), resyncAll: vi.fn() }),
+  useInteractiveCollision: () => ({
+    checkCollisions: vi.fn(),
+    resyncAll: vi.fn(),
+    clearAllContrast: vi.fn(),
+  }),
   useInteractiveRegistry: () => ({
     registry: {},
     interactiveElementsRef: { current: [] },

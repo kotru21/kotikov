@@ -8,9 +8,11 @@ describe("Logo", () => {
     const { rerender, container } = render(<Logo variant="pc" />);
     const pc = container.querySelector("svg");
     expect(pc).toHaveAttribute("aria-hidden", "true");
+    expect(pc).not.toHaveAttribute("role");
 
     rerender(<Logo variant="mobile" />);
     const mobile = container.querySelector("svg");
     expect(mobile).toHaveAttribute("aria-hidden", "true");
+    expect(mobile).not.toHaveAttribute("role");
   });
 });

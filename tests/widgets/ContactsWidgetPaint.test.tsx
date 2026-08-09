@@ -59,7 +59,11 @@ vi.mock("@/features/interactive-elements", () => ({
     return <div {...props}>{children}</div>;
   },
   InteractiveText: ({ text }: { text: string }) => text,
-  useInteractiveCollision: () => ({ checkCollisions, resyncAll }),
+  useInteractiveCollision: () => ({
+    checkCollisions,
+    resyncAll,
+    clearAllContrast: vi.fn(),
+  }),
   useInteractiveRegistry: () => ({
     registry: {},
     interactiveElementsRef: { current: [] },

@@ -1,7 +1,7 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { FaGithub } from "react-icons/fa";
 
-import { formatExternalLinkLabel } from "@/shared/lib";
+import { formatExternalLinkLabel, isSafeHref } from "@/shared/lib";
 
 import type { ProjectItem } from "../model/types";
 import { ProjectCardPattern } from "./ProjectCardPattern";
@@ -108,16 +108,18 @@ export function ProjectCard({
         <p className="text-sm font-medium text-neutral-500">{project.cardMeta}</p>
 
         <div className="flex shrink-0 items-center gap-2">
-          <a
-            href={project.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={formatExternalLinkLabel("Код")}
-            className={`${pressButtonClassName} bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
-          >
-            <FaGithub aria-hidden="true" /> Код
-          </a>
-          {project.liveUrl !== undefined ? (
+          {isSafeHref(project.repoUrl) ? (
+            <a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={formatExternalLinkLabel("Код")}
+              className={`${pressButtonClassName} bg-neutral-100 text-neutral-900 dark:bg-black dark:text-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]`}
+            >
+              <FaGithub aria-hidden="true" /> Код
+            </a>
+          ) : null}
+          {project.liveUrl !== undefined && isSafeHref(project.liveUrl) ? (
             <a
               href={project.liveUrl}
               target="_blank"

@@ -1,4 +1,4 @@
-import { type RefObject, useCallback } from "react";
+import { type RefObject, useCallback, useRef } from "react";
 
 import {
   computeContrastSample,
@@ -27,6 +27,8 @@ export const useContactLifecycle = (
   revealedMapRef: RefObject<Map<string, RevealedPaintEntry>>,
   clearPaint: () => void
 ): UseContactLifecycleReturn => {
+  const gridSizeRef = useRef({ rows: 0, cols: 0 });
+
   const initCanvas = useCallback((): void => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -69,7 +71,14 @@ export const useContactLifecycle = (
       }
     }
 
-    generateCats(rows, cols);
+    // Keep cat silhouettes stable across resizes that preserve the cell grid.
+    const gridChanged =
+      gridSizeRef.current.rows !== rows || gridSizeRef.current.cols !== cols;
+    if (gridChanged) {
+      generateCats(rows, cols);
+      gridSizeRef.current = { rows, cols };
+    }
+
     drawBackground();
 
     // Repaint revealed pixels (preserve colors + intensity)

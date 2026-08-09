@@ -12,7 +12,7 @@ interface MovingWrapperCallbacks {
 
 function expectPointerInteraction(wrapper: Element, callbacks: MovingWrapperCallbacks): void {
   fireEvent.click(wrapper);
-  fireEvent.touchStart(wrapper);
+  fireEvent.touchEnd(wrapper);
   fireEvent.mouseEnter(wrapper);
 
   expect(callbacks.onClick).toHaveBeenCalledTimes(2);
@@ -135,5 +135,30 @@ describe("useExplosion", () => {
 
     expect(result.current.isExploded).toBe(false);
     expect(result.current.pixels).toHaveLength(0);
+  });
+
+  it("ignores overlapping explode() until the current loop finishes", () => {
+    let rafId = 0;
+    const requestAnimationFrame = vi.fn((): number => {
+      rafId += 1;
+      return rafId;
+    });
+    const cancelAnimationFrame = vi.fn();
+    vi.stubGlobal("requestAnimationFrame", requestAnimationFrame);
+    vi.stubGlobal("cancelAnimationFrame", cancelAnimationFrame);
+
+    const { result } = renderHook(() => useExplosion("small"));
+    const node = document.createElement("div");
+    stubElementCenter(node);
+
+    act(() => {
+      (result.current.nyancatRef as { current: HTMLDivElement | null }).current = node;
+      result.current.explode();
+      result.current.explode();
+      result.current.explode();
+    });
+
+    expect(requestAnimationFrame).toHaveBeenCalledTimes(1);
+    expect(result.current.isExploded).toBe(true);
   });
 });

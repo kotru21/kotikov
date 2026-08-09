@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { RefObject } from "react";
+import type { RefObject, TouchEvent } from "react";
 
 import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 
@@ -50,6 +50,12 @@ export function NyancatImage({
     />
   );
 
+  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>): void => {
+    // Prevent the following synthetic click so explode() runs once per tap.
+    e.preventDefault();
+    onClick();
+  };
+
   return (
     <div
       ref={forwardRef}
@@ -66,7 +72,7 @@ export function NyancatImage({
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
-      onTouchStart={onClick}
+      onTouchEnd={handleTouchEnd}
     >
       {bankAnimationName !== undefined && bankAnimationName !== "" ? (
         <div

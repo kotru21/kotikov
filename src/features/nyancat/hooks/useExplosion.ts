@@ -30,12 +30,19 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
   const nyancatRef = useRef<HTMLDivElement>(null);
   const pixelsRef = useRef<Pixel[]>([]);
   const rafRef = useRef<number | null>(null);
+  const explodingRef = useRef(false);
   const startTimeRef = useRef(0);
   const lastRenderRef = useRef(0);
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
 
   const explode = useCallback(() => {
-    if (isExploded || nyancatRef.current === null) return;
+    if (explodingRef.current || nyancatRef.current === null) return;
+
+    explodingRef.current = true;
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
 
     const center = getElementCenter(nyancatRef.current);
     setExplosionPosition(center);
@@ -55,6 +62,7 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
       const progress = Math.min(1, elapsed / EXPLOSION_DURATION);
 
       if (elapsed >= EXPLOSION_DURATION || reducedMotion) {
+        explodingRef.current = false;
         setIsExploded(false);
         setPixels([]);
         pixelsRef.current = [];
@@ -74,10 +82,11 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
     };
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [isExploded, size, reducedMotion, lowPerformance]);
+  }, [size, reducedMotion, lowPerformance]);
 
   useEffect(() => {
     return () => {
+      explodingRef.current = false;
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);

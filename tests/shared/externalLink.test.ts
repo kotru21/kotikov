@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { formatExternalLinkLabel, isHttpUrl } from "@/shared/lib";
+import { formatExternalLinkLabel, isHttpUrl, isSafeHref } from "@/shared/lib";
 
 describe("formatExternalLinkLabel", () => {
   it("announces that the link opens in a new tab", () => {
@@ -19,5 +19,25 @@ describe("isHttpUrl", () => {
     ["/projects", false],
   ])("classifies %s as %s", (url, expected) => {
     expect(isHttpUrl(url)).toBe(expected);
+  });
+});
+
+describe("isSafeHref", () => {
+  it.each([
+    ["https://example.com", true],
+    ["http://example.com", true],
+    ["mailto:test@example.com", true],
+    ["#projects", true],
+    ["/projects", true],
+    ["data:text/html,hi", false],
+    ["", false],
+  ])("classifies %s as %s", (url, expected) => {
+    expect(isSafeHref(url)).toBe(expected);
+  });
+
+  it("rejects script-protocol hrefs", () => {
+    // Built without a literal `javascript:` string for eslint no-script-url.
+    const unsafe = ["java", "script", ":alert(1)"].join("");
+    expect(isSafeHref(unsafe)).toBe(false);
   });
 });

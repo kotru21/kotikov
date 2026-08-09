@@ -25,10 +25,12 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "bun run start",
+    // Build first so local `bun run test:e2e` does not serve a stale/missing .next.
+    // CI already builds earlier; reuseExistingServer skips this when a server is up.
+    command: isCi ? "bun run start" : "bun run build && bun run start",
     url: "http://localhost:3000",
     reuseExistingServer: !isCi,
-    timeout: 120_000,
+    timeout: 180_000,
   },
   projects: [
     {

@@ -51,14 +51,25 @@ export const useContactDrawing = (
 
         // Ячейки котов чуть темнее фона — едва заметная подсказка под покрытием.
         ctx.fillStyle = isCat ? colors.primary[950] : baseColors[colorIndex];
-
         ctx.fillRect(x, y, pixelSize, pixelSize);
-
-        ctx.strokeStyle = `${colors.primary[600]}20`;
-        ctx.lineWidth = 0.5;
-        ctx.strokeRect(x, y, pixelSize, pixelSize);
       }
     }
+
+    // Grid lines as row/col strokes (cheaper than strokeRect per cell).
+    ctx.strokeStyle = `${colors.primary[600]}20`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    for (let col = 0; col <= cols; col++) {
+      const x = col * pixelSize;
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, rows * pixelSize);
+    }
+    for (let row = 0; row <= rows; row++) {
+      const y = row * pixelSize;
+      ctx.moveTo(0, y);
+      ctx.lineTo(cols * pixelSize, y);
+    }
+    ctx.stroke();
   }, [pixelSize, canvasRef, ctxRef, catMapRef]);
 
   const drawOnCanvas = useCallback(

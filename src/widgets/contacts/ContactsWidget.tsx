@@ -26,12 +26,16 @@ const ContactsWidget: React.FC = () => {
   const { isDark } = useTheme();
 
   const { registry, interactiveElementsRef } = useInteractiveRegistry();
-  const { checkCollisions, resyncAll } = useInteractiveCollision(interactiveElementsRef);
+  const { checkCollisions, resyncAll, clearAllContrast } =
+    useInteractiveCollision(interactiveElementsRef);
 
   useLayoutEffect(() => {
-    if (!enablePaint) return;
+    if (!enablePaint) {
+      clearAllContrast();
+      return;
+    }
     resyncAll(canvasRef);
-  }, [enablePaint, isDark, resyncAll]);
+  }, [enablePaint, isDark, resyncAll, clearAllContrast]);
 
   const handleDraw = useCallback(
     (x: number, y: number, prevX: number, prevY: number) => {

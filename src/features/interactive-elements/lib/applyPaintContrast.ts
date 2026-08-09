@@ -32,10 +32,11 @@ export function applyPaintContrast(
 ): void {
   if (el.dataset.drawExclude !== undefined) return;
 
-  const threshold =
+  const parsedThreshold =
     el.dataset.interactiveThreshold !== undefined
       ? Number(el.dataset.interactiveThreshold)
       : defaultThreshold;
+  const threshold = Number.isFinite(parsedThreshold) ? parsedThreshold : defaultThreshold;
 
   if (sample.coverage <= threshold || sample.luminance === null) {
     clearPaintInlineStyles(el);

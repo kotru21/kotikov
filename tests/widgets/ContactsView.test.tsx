@@ -74,18 +74,14 @@ describe("ContactsView", () => {
     expect(httpLink).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("does not announce a new tab for mailto or unsupported protocols", () => {
+  it("keeps mailto in-context and drops unsupported protocol hrefs", () => {
     const { container } = render(<ContactsView {...viewProps} />);
 
     const emailLink = screen.getByRole("link", { name: "Написать: test@example.com" });
-    const httpxLink = container.querySelector('a[href="httpx://invalid.example"]');
 
     expect(emailLink).not.toHaveAttribute("target");
     expect(emailLink).not.toHaveAttribute("rel");
-    expect(httpxLink).toBeInTheDocument();
-    expect(httpxLink).not.toHaveAttribute("target");
-    expect(httpxLink).not.toHaveAttribute("rel");
-    expect(httpxLink).not.toHaveAccessibleName(/откроется в новой вкладке/i);
+    expect(container.querySelector('a[href="httpx://invalid.example"]')).toBeNull();
   });
 
   it("does not hide the system cursor while paint drawing is active", () => {
