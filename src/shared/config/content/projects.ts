@@ -38,6 +38,20 @@ export const projectsSection = {
 
 export const projectsData: ProjectContent[] = [
   {
+    slug: "evtx-viewer",
+    title: "evtxview",
+    eyebrow: "DFIR · Windows EVTX",
+    summary:
+      "CLI для триажа журналов .evtx: --verify полноты чтения (chunk-заголовки + дыры EventRecordID), сводка, единый таймлайн и пресеты process-tree / logon / network / RDP. Родился из инцидента, где другой парсер молча отдал 94 из 2309 записей.",
+    role: "DFIR Tooling",
+    repoUrl: "https://github.com/kotru21/evtx-viewer",
+    cardPeriod: "2026",
+    cardMeta: "DFIR · Open Source",
+    cardPattern: "stripes",
+    accentColor: "#1ae6b0",
+    cardIcon: FaPython,
+  },
+  {
     slug: "code-analyzer",
     title: "CodeAnalyzer",
     eyebrow: "AppSec · SAST",

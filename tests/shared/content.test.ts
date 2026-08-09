@@ -53,8 +53,8 @@ describe("content model", () => {
     expect(headerContent.subtitle.length).toBeGreaterThan(40);
   });
 
-  it("surfaces three featured projects with CodeAnalyzer first", () => {
-    expect(projectsData).toHaveLength(3);
+  it("surfaces featured projects with evtxview first", () => {
+    expect(projectsData).toHaveLength(4);
     expect(projectsSection).toEqual({
       eyebrow: "Проекты",
       title: "Избранные работы",
@@ -62,6 +62,7 @@ describe("content model", () => {
         "Несколько проектов, которые показывают, как я думаю о продукте, интерфейсе и реализации.",
     });
     expect(projectsData.map((p) => p.slug)).toEqual([
+      "evtx-viewer",
       "code-analyzer",
       "bsuir-iis-api",
       "web-messenger",
