@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { projectsData } from "@/shared/config/content";
 import { ProjectsGrid } from "@/widgets/projects/ui/ProjectsGrid";
 
 describe("ProjectsGrid", () => {
@@ -8,8 +9,8 @@ describe("ProjectsGrid", () => {
     render(<ProjectsGrid />);
 
     const grid = screen.getByTestId("projects-grid");
-    expect(within(grid).getAllByRole("article")).toHaveLength(3);
-    expect(within(grid).getAllByRole("link", { name: /код/i })).toHaveLength(3);
+    expect(within(grid).getAllByRole("article")).toHaveLength(projectsData.length);
+    expect(within(grid).getAllByRole("link", { name: /код/i })).toHaveLength(projectsData.length);
     expect(within(grid).queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
   });
 
@@ -18,9 +19,14 @@ describe("ProjectsGrid", () => {
 
     const grid = screen.getByTestId("projects-grid");
     const cardRoots = Array.from(grid.children);
-    expect(cardRoots).toHaveLength(3);
-    expect(cardRoots[0]?.className).not.toMatch(/col-span-2/);
-    expect(cardRoots[1]?.className).not.toMatch(/col-span-2/);
-    expect(cardRoots[2]?.className).toMatch(/col-span-2/);
+    expect(cardRoots).toHaveLength(projectsData.length);
+
+    for (const [index, root] of cardRoots.entries()) {
+      if (index === projectsData.length - 1) {
+        expect(root.className).toMatch(/col-span-2/);
+      } else {
+        expect(root.className).not.toMatch(/col-span-2/);
+      }
+    }
   });
 });
