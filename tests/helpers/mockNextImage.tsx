@@ -18,7 +18,7 @@ interface MockNextImageProps {
   className?: string;
   width?: number | string;
   height?: number | string;
-  "data-testid"?: string;
+  testId?: string;
   [key: string]: unknown;
 }
 
@@ -31,26 +31,28 @@ export function MockNextImage({
   className,
   width,
   height,
-  "data-testid": testId,
+  testId,
   ...rest
 }: MockNextImageProps): React.JSX.Element {
   const resolvedSrc = typeof src === "string" ? src : src?.src;
   const domProps: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(rest)) {
-    if (!NEXT_ONLY_PROPS.has(key)) {
+    if (!NEXT_ONLY_PROPS.has(key) && key !== "data-testid") {
       domProps[key] = value;
     }
   }
+  const dataTestId =
+    testId ?? (typeof rest["data-testid"] === "string" ? rest["data-testid"] : undefined);
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- test stub for next/image
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- test stub for next/image
     <img
       alt={alt}
       src={resolvedSrc}
       className={className}
       width={width}
       height={height}
-      data-testid={testId}
+      data-testid={dataTestId}
       onError={onError}
       onClick={onClick}
       {...domProps}

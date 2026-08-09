@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import { createElement, type ElementType, type ReactNode } from "react";
 
 interface MockInteractiveElementProps {
   children?: ReactNode;
@@ -12,10 +12,10 @@ interface MockInteractiveElementProps {
  */
 export function MockInteractiveElement({
   children,
-  as: Component = "div",
+  as,
   ...props
-}: MockInteractiveElementProps): React.JSX.Element {
-  return <Component {...props}>{children}</Component>;
+}: MockInteractiveElementProps): React.ReactElement {
+  return createElement(as ?? "div", props, children);
 }
 
 export function MockInteractiveText({ text }: { text: string }): string {

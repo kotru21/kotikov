@@ -1,6 +1,7 @@
-import "@testing-library/jest-dom/vitest";
 import { mockAnimationsApi } from "jsdom-testing-mocks";
 import { vi } from "vitest";
+
+import "@testing-library/jest-dom/vitest";
 
 mockAnimationsApi();
 
@@ -64,7 +65,7 @@ class MemoryStorage {
   }
 
   setItem(key: string, value: string): void {
-    this.store.set(key, String(value));
+    this.store.set(key, value);
   }
 }
 

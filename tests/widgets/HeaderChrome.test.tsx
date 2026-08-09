@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention -- vi.mock keys match component exports */
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";

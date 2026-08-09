@@ -19,7 +19,7 @@ vi.mock("next/image", async () => {
     default: (props: React.ComponentProps<typeof MockNextImage>) => (
       <MockNextImage
         {...props}
-        data-testid="year-cat"
+        testId="year-cat"
         onClick={() => {
           props.onError?.();
         }}
