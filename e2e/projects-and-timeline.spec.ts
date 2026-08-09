@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
+import { projectsData } from "../src/shared/config/content/projects";
 import { timelineData } from "../src/shared/config/content/timeline";
 
+const projectCount = projectsData.length;
 const timelineCount = String(timelineData.length);
 
 test.describe("desktop projects", () => {
@@ -11,8 +13,8 @@ test.describe("desktop projects", () => {
     await page.goto("/#projects");
 
     const projects = page.locator("#projects");
-    await expect(projects.getByRole("article")).toHaveCount(3);
-    await expect(projects.getByRole("link", { name: /код/i })).toHaveCount(3);
+    await expect(projects.getByRole("article")).toHaveCount(projectCount);
+    await expect(projects.getByRole("link", { name: /код/i })).toHaveCount(projectCount);
     await expect(projects.getByRole("button", { name: "Подробнее" })).toHaveCount(0);
   });
 
@@ -53,7 +55,7 @@ test.describe("mobile projects and timeline", () => {
 
     await expect(projectControls.nth(1)).toHaveAttribute("aria-pressed", "true");
     await expect(projectControls.first()).toHaveAttribute("aria-pressed", "false");
-    await expect(page.getByText("2 / 3")).toBeVisible();
+    await expect(page.getByText(`2 / ${String(projectCount)}`)).toBeVisible();
   });
 
   test("advances timeline and updates the live counter", async ({ page }) => {
