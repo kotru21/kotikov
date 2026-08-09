@@ -2,7 +2,7 @@
 
 import React, { memo, useCallback } from "react";
 
-import { useIsMobile } from "@/features/device";
+import { useIsMobile } from "@/features/device/client";
 
 import { useExplosion } from "../hooks/useExplosion";
 import type { FlyingNyancatProps } from "../types";

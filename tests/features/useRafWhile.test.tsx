@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useRafWhile } from "@/features/performance";
+import { useRafWhile } from "@/features/performance/client";
 
 function RafProbe({ active, onFrame }: { active: boolean; onFrame: (time: number) => void }): null {
   useRafWhile(active, onFrame);

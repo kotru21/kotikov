@@ -8,7 +8,7 @@ const themeState = vi.hoisted(() => ({
   isDark: false,
 }));
 
-vi.mock("@/features/interactive-elements", async () => {
+vi.mock("@/features/interactive-elements/client", async () => {
   const { MockInteractiveElement, MockInteractiveText } = await import(
     "../helpers/mockInteractiveElement"
   );
@@ -28,7 +28,7 @@ vi.mock("@/features/interactive-elements", async () => {
   };
 });
 
-vi.mock("@/features/paw", () => ({
+vi.mock("@/features/paw/client", () => ({
   ClearPaintButton: ({
     onClick,
     disabled,
@@ -58,7 +58,7 @@ vi.mock("@/features/theme/client", () => ({
   useTheme: () => ({ isDark: themeState.isDark }),
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({ reducedMotion: false, lowPerformance: false }),
   useSceneMotionPolicy: () => ({
     reducedMotion: false,

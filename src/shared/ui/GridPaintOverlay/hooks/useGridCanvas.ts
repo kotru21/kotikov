@@ -52,7 +52,7 @@ export const useGridCanvas = (
     ctx.globalAlpha = 1;
   }, [alpha, pixelSize, paintedRef, canvasRef, ctxRef]);
 
-  useCanvasLifecycle(initCanvas);
+  useCanvasLifecycle(initCanvas, canvasRef);
 
   return { initCanvas };
 };

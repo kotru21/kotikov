@@ -21,6 +21,7 @@ export default mergeConfig(
           "src/features/interactive-elements/**/*.{ts,tsx}",
           "src/features/device/**/*.{ts,tsx}",
           "src/features/nyancat/**/*.{ts,tsx}",
+          "src/features/paw/**/*.{ts,tsx}",
           "src/widgets/**/*.{ts,tsx}",
           "src/shared/lib/**/*.{ts,tsx}",
           "src/shared/ui/Card/**/*.{ts,tsx}",
@@ -42,11 +43,9 @@ export default mergeConfig(
           "**/client.ts",
           "**/types.ts",
           "**/model/types.ts",
-          // Heavy RAF/canvas UI shells stay unit-tested outside the gated include list.
-          "src/features/nyancat/ui/ExplosionPixels.tsx",
-          "src/features/nyancat/ui/RainbowTrail.tsx",
           "src/features/nyancat/ui/FlyingNyancat.tsx",
-          "src/features/nyancat/lib/utils.ts",
+          // Paw RAF settle loop is exercised via pawUi tests; keep UI chrome gated.
+          "src/features/paw/usePawAnimation.ts",
         ],
         thresholds: {
           lines: 80,

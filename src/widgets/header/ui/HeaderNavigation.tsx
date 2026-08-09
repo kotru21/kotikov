@@ -5,13 +5,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLayoutEffect, useRef, useState } from "react";
 
 import type { NavigationItem } from "@/entities/navigation";
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 import {
   computeNavIslandStyle,
   DESKTOP_NAV_ISLAND_PRESET,
   MOBILE_NAV_ISLAND_PRESET,
-  useNavMorph,
 } from "@/features/scrolling";
+import { useNavMorph } from "@/features/scrolling/client";
 import { ThemeToggle } from "@/features/theme/client";
 
 import {

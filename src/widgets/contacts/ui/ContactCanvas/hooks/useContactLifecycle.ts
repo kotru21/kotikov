@@ -106,7 +106,7 @@ export const useContactLifecycle = (
 
   // Pass stable initCanvas — inline wrappers re-run this effect on every parent render
   // and regenerate cats (visible paint-field "rerender" while scrolling into contacts).
-  useCanvasLifecycle(initCanvas);
+  useCanvasLifecycle(initCanvas, canvasRef);
 
   const checkCoverage = useCallback(
     (targetRect: DOMRect): number => {

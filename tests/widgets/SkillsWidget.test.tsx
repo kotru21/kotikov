@@ -9,7 +9,7 @@ const performanceSettings = {
   lowPerformance: false,
 };
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,

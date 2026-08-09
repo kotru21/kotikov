@@ -1,8 +1,8 @@
 "use client";
 
-import { type RefObject,useCallback, useEffect, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 
 export const TIMELINE_RAIL_SCROLL_GAP_PX = 40;
 
@@ -12,7 +12,7 @@ interface UseTimelineEditorialRailReturn {
   canScrollLeft: boolean;
   canScrollRight: boolean;
   scrollByCard: (direction: -1 | 1) => void;
-  handleKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  handleKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export function useTimelineEditorialRail(itemCount: number): UseTimelineEditorialRailReturn {
@@ -40,11 +40,16 @@ export function useTimelineEditorialRail(itemCount: number): UseTimelineEditoria
     scroller.addEventListener("scroll", updateScrollState, { passive: true });
     window.addEventListener("resize", updateScrollState);
 
+    const resizeObserver =
+      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(updateScrollState);
+    resizeObserver?.observe(scroller);
+
     return () => {
       scroller.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
+      resizeObserver?.disconnect();
     };
-  }, [updateScrollState]);
+  }, [itemCount, updateScrollState]);
 
   const scrollByCard = useCallback(
     (direction: -1 | 1) => {
@@ -63,7 +68,7 @@ export function useTimelineEditorialRail(itemCount: number): UseTimelineEditoria
   );
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (event: React.KeyboardEvent<HTMLElement>) => {
       if (event.key === "ArrowRight") {
         event.preventDefault();
         scrollByCard(1);

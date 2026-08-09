@@ -46,14 +46,14 @@ const ContactCardComponent: React.FC<ContactCardProps> = ({
         </div>
 
         <div className={isHero ? undefined : "min-w-0 sm:flex-1"}>
-          <h3
+          <p
             className={`mb-1 font-black tracking-wider uppercase ${
               isHero ? "text-xl sm:text-2xl" : "text-base sm:text-lg"
             }`}
             style={{ color: "currentColor" }}
           >
             {label ?? contact.label}
-          </h3>
+          </p>
           <p
             className={`font-mono font-bold opacity-90 ${
               isHero ? "text-sm sm:text-base" : "truncate text-xs sm:text-sm"

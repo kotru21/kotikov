@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useResponsiveViewMode } from "@/features/device";
+import { useResponsiveViewMode } from "@/features/device/client";
 
 import SkillsDesktopView from "./SkillsDesktopView";
 import SkillsMobileView from "./SkillsMobileView";

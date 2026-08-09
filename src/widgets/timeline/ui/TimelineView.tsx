@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 
-import { useResponsiveViewMode } from "@/features/device";
+import { useResponsiveViewMode } from "@/features/device/client";
 import { timelineData as rawTimelineData } from "@/shared/config/content";
 
 import TimelineEditorialRail from "./TimelineEditorialRail";

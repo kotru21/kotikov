@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 import { skillsStackLine } from "@/shared/config/content";
 import { SectionHeader } from "@/shared/ui";
 

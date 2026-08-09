@@ -3,8 +3,8 @@
 import React from "react";
 
 import { ContactCard, type ContactInfo, type ContactLayout } from "@/entities/contact";
-import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
-import { ClearPaintButton, PaintDrawHint } from "@/features/paw";
+import { InteractiveElement, InteractiveText } from "@/features/interactive-elements/client";
+import { ClearPaintButton, PaintDrawHint } from "@/features/paw/client";
 import { formatExternalLinkLabel, isHttpUrl, isSafeHref } from "@/shared/lib";
 import { Button, Section, SectionHeader } from "@/shared/ui";
 import { colors } from "@/styles/colors";

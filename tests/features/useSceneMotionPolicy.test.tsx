@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { useRef } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useSceneMotionPolicy } from "@/features/performance";
+import { useSceneMotionPolicy } from "@/features/performance/client";
 
 vi.mock("@/features/performance/usePerformanceSettings", () => ({
   usePerformanceSettings: () => ({

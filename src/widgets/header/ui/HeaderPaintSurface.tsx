@@ -7,9 +7,9 @@ import {
   InteractiveTextContext,
   useInteractiveCollision,
   useInteractiveRegistry,
-} from "@/features/interactive-elements";
-import { usePawAnimation } from "@/features/paw";
-import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
+} from "@/features/interactive-elements/client";
+import { usePawAnimation } from "@/features/paw/client";
+import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance/client";
 import type { GridPaintOverlayRef } from "@/shared/ui/client";
 
 import { HeaderBackground } from "./HeaderBackground";

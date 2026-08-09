@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { useDocumentVisibility } from "@/features/performance";
+import { useDocumentVisibility } from "@/features/performance/client";
 
 function VisibilityProbe(): React.JSX.Element {
   const isVisible = useDocumentVisibility();

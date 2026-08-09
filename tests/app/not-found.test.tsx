@@ -3,6 +3,13 @@ import { describe, expect, it, vi } from "vitest";
 
 import NotFound from "../../app/not-found";
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    back: vi.fn(),
+    push: vi.fn(),
+  }),
+}));
+
 vi.mock("@/features/nyancat", () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention -- matches feature export name
   FlyingNyancat: () => <div data-testid="flying-nyancat" />,

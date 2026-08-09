@@ -7,7 +7,7 @@ import {
   useTimelineEditorialRail,
 } from "@/widgets/timeline/hooks/useTimelineEditorialRail";
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
 

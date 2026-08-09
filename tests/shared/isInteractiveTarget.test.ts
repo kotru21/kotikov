@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { isInteractiveTarget } from "@/shared/lib";
+import { isActivatableControl, isInteractiveTarget } from "@/shared/lib";
 
 describe("isInteractiveTarget", () => {
   it("allows paw drawing on buttons with data-draw-allow", () => {
@@ -45,5 +45,22 @@ describe("isInteractiveTarget", () => {
     const both = document.getElementById("both");
 
     expect(isInteractiveTarget(both)).toBe(true);
+  });
+});
+
+describe("isActivatableControl", () => {
+  it("detects buttons and links even under data-draw-allow", () => {
+    document.body.innerHTML =
+      '<button type="button" data-draw-allow><span id="icon">icon</span></button>';
+    const icon = document.getElementById("icon");
+
+    expect(isActivatableControl(icon)).toBe(true);
+  });
+
+  it("ignores decorative draw-allow surfaces", () => {
+    document.body.innerHTML = '<div data-draw-allow><span id="line"></span></div>';
+    const line = document.getElementById("line");
+
+    expect(isActivatableControl(line)).toBe(false);
   });
 });

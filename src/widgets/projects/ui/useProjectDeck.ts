@@ -4,6 +4,11 @@ import { useCallback, useRef, useState } from "react";
 
 import { getWrappedIndex, SWIPE_THRESHOLD_PX } from "@/shared/lib";
 
+interface TouchStartPoint {
+  x: number;
+  y: number;
+}
+
 interface UseProjectDeckOptions {
   count: number;
 }
@@ -16,11 +21,22 @@ interface UseProjectDeckReturn {
   handleKeyDown: (event: React.KeyboardEvent) => void;
   handleTouchStart: (event: React.TouchEvent<HTMLDivElement>) => void;
   handleTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
+  handleTouchCancel: () => void;
+}
+
+function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return true;
+
+  return Boolean(
+    target.closest(
+      "a,button,input,textarea,select,label,[role='button'],[role='link'],[role='tab']"
+    )
+  );
 }
 
 export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeckReturn {
   const [activeIndex, setActiveIndex] = useState(0);
-  const touchStartXRef = useRef<number | null>(null);
+  const touchStartRef = useRef<TouchStartPoint | null>(null);
   const lastIndex = count - 1;
 
   const goTo = useCallback(
@@ -61,21 +77,29 @@ export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeck
   );
 
   const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>): void => {
-    if (event.touches.length === 0) return;
-    touchStartXRef.current = event.touches[0].clientX;
+    if (event.touches.length !== 1) return;
+    if (shouldIgnoreSwipeTarget(event.target)) return;
+
+    touchStartRef.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    };
   }, []);
 
   const handleTouchEnd = useCallback(
     (event: React.TouchEvent<HTMLDivElement>): void => {
-      const startX = touchStartXRef.current;
-      touchStartXRef.current = null;
-      if (startX === null) return;
+      const start = touchStartRef.current;
+      touchStartRef.current = null;
+      if (start === null) return;
       if (event.changedTouches.length === 0) return;
 
-      const delta = event.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) < SWIPE_THRESHOLD_PX) return;
+      const deltaX = event.changedTouches[0].clientX - start.x;
+      const deltaY = event.changedTouches[0].clientY - start.y;
 
-      if (delta > 0) {
+      if (Math.abs(deltaX) < SWIPE_THRESHOLD_PX) return;
+      if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+      if (deltaX > 0) {
         goPrev();
       } else {
         goNext();
@@ -83,6 +107,10 @@ export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeck
     },
     [goPrev, goNext]
   );
+
+  const handleTouchCancel = useCallback((): void => {
+    touchStartRef.current = null;
+  }, []);
 
   return {
     activeIndex,
@@ -92,5 +120,6 @@ export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeck
     handleKeyDown,
     handleTouchStart,
     handleTouchEnd,
+    handleTouchCancel,
   };
 }

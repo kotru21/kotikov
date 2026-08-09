@@ -4,7 +4,7 @@ import React from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import type { TimelineItem } from "@/entities/timeline";
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 import {
   DECK_MOTION_CLASS,
   getDeckTransform,
@@ -92,7 +92,7 @@ const TimelineMobileView: React.FC<TimelineMobileViewProps> = ({ items }) => {
               <div className={isActive ? undefined : "pointer-events-none"}>
                 <TimelineEditorialCard
                   item={item}
-                  titleId={`timeline-entry-${String(item.id)}`}
+                  titleId={`timeline-mobile-entry-${String(item.id)}`}
                   fillHeight
                   hover={false}
                 />

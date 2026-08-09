@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { timelineData } from "@/shared/config/content";
 import TimelineEditorialRail from "@/widgets/timeline/ui/TimelineEditorialRail";
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
 
@@ -31,8 +31,9 @@ describe("TimelineEditorialRail", () => {
     expect(scrollBy).toHaveBeenCalled();
 
     const toolbar = screen.getByRole("toolbar", { name: "Навигация по ленте этапов" });
-    fireEvent.keyDown(toolbar, { key: "ArrowRight" });
-    fireEvent.keyDown(toolbar, { key: "ArrowLeft" });
+    expect(toolbar).toBeInTheDocument();
+    fireEvent.keyDown(next, { key: "ArrowRight" });
+    fireEvent.keyDown(next, { key: "ArrowLeft" });
     expect(scrollBy.mock.calls.length).toBeGreaterThanOrEqual(2);
 
     expect(container.querySelectorAll("[data-timeline-card]").length).toBe(3);

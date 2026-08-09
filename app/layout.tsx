@@ -7,7 +7,7 @@ import { Geist_Mono, Manrope } from "next/font/google";
 import { headers } from "next/headers";
 import Script from "next/script";
 
-import { ScrollRestoration } from "@/features/scrolling";
+import { ScrollRestoration } from "@/features/scrolling/client";
 import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE } from "@/features/theme";
 import { ThemeColorMeta, ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";

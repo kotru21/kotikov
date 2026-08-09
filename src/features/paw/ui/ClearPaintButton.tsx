@@ -21,7 +21,7 @@ export function ClearPaintButton({
   return (
     <button
       type="button"
-      data-draw-allow
+      data-draw-exclude
       onClick={onClick}
       disabled={disabled}
       className={`inline-flex min-h-11 items-center justify-center border-2 px-4 text-xs font-bold tracking-[0.16em] uppercase transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${toneClasses[tone]} ${className}`.trim()}

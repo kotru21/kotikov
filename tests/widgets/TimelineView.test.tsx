@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { timelineData } from "@/shared/config/content";
 import { TimelineView } from "@/widgets/timeline/ui";
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
 

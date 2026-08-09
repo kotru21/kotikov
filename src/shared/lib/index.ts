@@ -16,5 +16,5 @@ export {
   getLinearDeckCardRole,
   getWrappedIndex,
 } from "./deckTransform";
-export { isInteractiveTarget } from "./dom";
+export { isActivatableControl, isInteractiveTarget } from "./dom";
 export { SWIPE_THRESHOLD_PX } from "./gestures";

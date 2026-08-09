@@ -13,11 +13,11 @@ const pawState = vi.hoisted(() => ({
   isDrawing: false,
 }));
 
-vi.mock("@/features/device", () => ({
+vi.mock("@/features/device/client", () => ({
   useIsMobile: () => false,
 }));
 
-vi.mock("@/features/interactive-elements", () => ({
+vi.mock("@/features/interactive-elements/client", () => ({
   InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
   useInteractiveCollision: () => ({
     checkCollisions: vi.fn(),
@@ -30,7 +30,7 @@ vi.mock("@/features/interactive-elements", () => ({
   }),
 }));
 
-vi.mock("@/features/paw", () => ({
+vi.mock("@/features/paw/client", () => ({
   usePawAnimation: () => ({
     isDrawing: pawState.isDrawing,
     handlers: {
@@ -44,7 +44,7 @@ vi.mock("@/features/paw", () => ({
   }),
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,
@@ -59,7 +59,7 @@ vi.mock("@/features/performance", () => ({
   }),
 }));
 
-vi.mock("@/features/scrolling", () => ({
+vi.mock("@/features/scrolling/client", () => ({
   useNavMorph: () => ({
     progress: 0,
     phase: 0,

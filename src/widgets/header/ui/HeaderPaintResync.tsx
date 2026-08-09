@@ -2,7 +2,7 @@
 
 import { useLayoutEffect } from "react";
 
-import { useNavMorph } from "@/features/scrolling";
+import { useNavMorph } from "@/features/scrolling/client";
 import { useTheme } from "@/features/theme/client";
 import type { GridPaintOverlayRef } from "@/shared/ui/client";
 

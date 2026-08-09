@@ -2,7 +2,7 @@
 
 import { type PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
-import { isInteractiveTarget } from "@/shared/lib";
+import { isActivatableControl, isInteractiveTarget } from "@/shared/lib";
 
 interface MousePosition {
   x: number;
@@ -197,6 +197,8 @@ export function usePawAnimation(
     (e: PointerEvent<HTMLElement>) => {
       if (!enabledRef.current) return;
       if (isInteractiveTarget(e.target)) return;
+      // Keep mouse paint-through on data-draw-allow controls; never steal touch clicks.
+      if (e.pointerType !== "mouse" && isActivatableControl(e.target)) return;
 
       if (e.pointerType !== "mouse") {
         e.preventDefault();

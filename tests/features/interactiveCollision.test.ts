@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { useInteractiveCollision } from "@/features/interactive-elements";
+import { useInteractiveCollision } from "@/features/interactive-elements/client";
 import type { ContrastSample } from "@/shared/lib";
 import { colors } from "@/styles/colors";
 

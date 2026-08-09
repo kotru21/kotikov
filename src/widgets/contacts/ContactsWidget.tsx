@@ -6,9 +6,9 @@ import {
   InteractiveTextContext,
   useInteractiveCollision,
   useInteractiveRegistry,
-} from "@/features/interactive-elements";
-import { usePawAnimation } from "@/features/paw";
-import { useSceneMotionPolicy } from "@/features/performance";
+} from "@/features/interactive-elements/client";
+import { usePawAnimation } from "@/features/paw/client";
+import { useSceneMotionPolicy } from "@/features/performance/client";
 import { useTheme } from "@/features/theme/client";
 import { contactsData } from "@/shared/config/content";
 

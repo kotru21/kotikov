@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 
 import type { NavigationItem } from "@/entities/navigation";
-import { InteractiveElement } from "@/features/interactive-elements";
+import { InteractiveElement } from "@/features/interactive-elements/client";
 import { Logo } from "@/shared/ui";
 
 interface NavLogoProps {

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import { useSceneMotionPolicy } from "@/features/performance";
+import { useSceneMotionPolicy } from "@/features/performance/client";
 import { skillsData, social } from "@/shared/config/content";
 import { formatExternalLinkLabel, isSafeHref } from "@/shared/lib";
 import { Button } from "@/shared/ui";

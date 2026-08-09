@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
-import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
+import { InteractiveElement, InteractiveText } from "@/features/interactive-elements/client";
 import { Button } from "@/shared/ui";
 import { colors } from "@/styles/colors";
 

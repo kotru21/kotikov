@@ -2,7 +2,7 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { InteractiveElement } from "@/features/interactive-elements";
+import { InteractiveElement } from "@/features/interactive-elements/client";
 import { colors } from "@/styles/colors";
 import { HeaderPaintSurface } from "@/widgets/header/ui";
 
@@ -29,7 +29,7 @@ const sampleContrast = vi.hoisted(() =>
   }))
 );
 
-vi.mock("@/features/paw", () => ({
+vi.mock("@/features/paw/client", () => ({
   usePawAnimation: () => ({
     isDrawing: false,
     handlers: {
@@ -43,7 +43,7 @@ vi.mock("@/features/paw", () => ({
   }),
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,
@@ -58,7 +58,7 @@ vi.mock("@/features/performance", () => ({
   }),
 }));
 
-vi.mock("@/features/scrolling", () => ({
+vi.mock("@/features/scrolling/client", () => ({
   useNavMorph: () => ({
     progress: navMorphState.progress,
     phase: navMorphState.phase,

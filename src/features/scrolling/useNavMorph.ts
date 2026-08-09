@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 
 const PHASE1_END = 40;
 const PHASE2_END = 120;

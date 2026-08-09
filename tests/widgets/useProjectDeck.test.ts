@@ -8,12 +8,19 @@ function keyEvent(key: string): KeyboardEvent {
   return { key, preventDefault: vi.fn() } as unknown as KeyboardEvent;
 }
 
-function touchStart(clientX: number): TouchEvent<HTMLDivElement> {
-  return { touches: [{ clientX }] } as unknown as TouchEvent<HTMLDivElement>;
+function touchStart(
+  clientX: number,
+  clientY = 100,
+  target: EventTarget = document.createElement("div")
+): TouchEvent<HTMLDivElement> {
+  return {
+    touches: [{ clientX, clientY }],
+    target,
+  } as unknown as TouchEvent<HTMLDivElement>;
 }
 
-function touchEnd(clientX: number): TouchEvent<HTMLDivElement> {
-  return { changedTouches: [{ clientX }] } as unknown as TouchEvent<HTMLDivElement>;
+function touchEnd(clientX: number, clientY = 100): TouchEvent<HTMLDivElement> {
+  return { changedTouches: [{ clientX, clientY }] } as unknown as TouchEvent<HTMLDivElement>;
 }
 
 describe("useProjectDeck", () => {
@@ -106,6 +113,38 @@ describe("useProjectDeck", () => {
 
     act(() => {
       result.current.handleTouchEnd(touchEnd(50));
+    });
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("ignores vertical-dominant gestures", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 3 }));
+
+    act(() => {
+      result.current.handleTouchStart(touchStart(100, 100));
+      result.current.handleTouchEnd(touchEnd(120, 220));
+    });
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("ignores swipes that start on buttons", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 3 }));
+    const button = document.createElement("button");
+
+    act(() => {
+      result.current.handleTouchStart(touchStart(200, 100, button));
+      result.current.handleTouchEnd(touchEnd(100));
+    });
+    expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("clears in-progress swipe on touchcancel", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 3 }));
+
+    act(() => {
+      result.current.handleTouchStart(touchStart(200));
+      result.current.handleTouchCancel();
+      result.current.handleTouchEnd(touchEnd(100));
     });
     expect(result.current.activeIndex).toBe(0);
   });

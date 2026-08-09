@@ -3,7 +3,7 @@
 import React, { useCallback, useRef } from "react";
 
 import type { SkillData } from "@/entities/skill";
-import { useRafWhile } from "@/features/performance";
+import { useRafWhile } from "@/features/performance/client";
 
 import { SkillMarqueeCard } from ".";
 

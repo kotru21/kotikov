@@ -1,1 +1,1 @@
-export { isInteractiveTarget } from "./isInteractiveTarget";
+export { isActivatableControl, isInteractiveTarget } from "./isInteractiveTarget";

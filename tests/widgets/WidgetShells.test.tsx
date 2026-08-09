@@ -6,7 +6,7 @@ import { FooterWidget } from "@/widgets/footer";
 import { FooterBottom, FooterInfo, FooterNavigation } from "@/widgets/footer/ui";
 import TimelineWidget from "@/widgets/timeline/TimelineWidget";
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
 }));
 

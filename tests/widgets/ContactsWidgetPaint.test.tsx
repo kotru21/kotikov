@@ -39,7 +39,7 @@ const clearDrawing = vi.fn();
 const checkCollisions = vi.fn();
 const resyncAll = vi.fn();
 
-vi.mock("@/features/interactive-elements", async () => {
+vi.mock("@/features/interactive-elements/client", async () => {
   const { MockInteractiveElement, MockInteractiveText } = await import(
     "../helpers/mockInteractiveElement"
   );
@@ -59,7 +59,7 @@ vi.mock("@/features/interactive-elements", async () => {
   };
 });
 
-vi.mock("@/features/paw", () => ({
+vi.mock("@/features/paw/client", () => ({
   ClearPaintButton: ({
     onClick,
     disabled,
@@ -85,7 +85,7 @@ vi.mock("@/features/paw", () => ({
   },
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: motionState.reducedMotion,
     lowPerformance: motionState.lowPerformance,

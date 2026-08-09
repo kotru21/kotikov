@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useRef } from "react";
 
 interface SkillsInteractionContextType {
-  activeElement: HTMLElement | null;
+  getActiveElement: () => HTMLElement | null;
   setActiveElement: (element: HTMLElement | null) => void;
 }
 
@@ -12,11 +12,17 @@ const SkillsInteractionContext = createContext<SkillsInteractionContextType | un
 export const SkillsInteractionProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [activeElement, setActiveElement] = useState<HTMLElement | null>(null);
+  const activeElementRef = useRef<HTMLElement | null>(null);
+
+  const getActiveElement = useCallback((): HTMLElement | null => activeElementRef.current, []);
+
+  const setActiveElement = useCallback((element: HTMLElement | null): void => {
+    activeElementRef.current = element;
+  }, []);
 
   const value = useMemo(
-    () => ({ activeElement, setActiveElement }),
-    [activeElement, setActiveElement]
+    () => ({ getActiveElement, setActiveElement }),
+    [getActiveElement, setActiveElement]
   );
 
   return <SkillsInteractionContext value={value}>{children}</SkillsInteractionContext>;

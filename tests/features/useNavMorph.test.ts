@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { computeNavMorph, useNavMorph } from "@/features/scrolling";
+import { computeNavMorph, useNavMorph } from "@/features/scrolling/client";
 
 const LG_MEDIA_QUERY = "(min-width: 1024px)";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
@@ -60,7 +60,7 @@ const performanceSettings = vi.hoisted(() => ({
   lowPerformance: false,
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,

@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import { useSceneMotionPolicy } from "@/features/performance";
+import { useSceneMotionPolicy } from "@/features/performance/client";
 import { BauhausGridPattern } from "@/shared/ui";
 
 import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";

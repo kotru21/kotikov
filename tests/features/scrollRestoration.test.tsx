@@ -1,7 +1,8 @@
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ScrollRestoration, shouldResetScrollOnLoad } from "@/features/scrolling";
+import { shouldResetScrollOnLoad } from "@/features/scrolling";
+import { ScrollRestoration } from "@/features/scrolling/client";
 
 describe("shouldResetScrollOnLoad", () => {
   it("returns true when there is no hash", () => {

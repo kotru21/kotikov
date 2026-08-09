@@ -1,6 +1,6 @@
 "use client";
 
-import { useResponsiveViewMode } from "@/features/device";
+import { useResponsiveViewMode } from "@/features/device/client";
 
 import { ProjectCardDeck } from "./ProjectCardDeck";
 import { ProjectsGrid } from "./ProjectsGrid";

@@ -6,6 +6,16 @@ import BauhausErrorMark from "@/app/components/BauhausErrorMark";
 import GlobalError from "@/app/global-error";
 import { colors } from "@/styles/colors";
 
+const routerBack = vi.fn();
+const routerPush = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    back: routerBack,
+    push: routerPush,
+  }),
+}));
+
 describe("BauhausErrorMark", () => {
   it("renders the bauhaus mark with the provided code", () => {
     render(<BauhausErrorMark code="404" />);
@@ -16,14 +26,29 @@ describe("BauhausErrorMark", () => {
 });
 
 describe("BackButton", () => {
-  it("calls history.back when clicked", () => {
-    const back = vi.spyOn(history, "back").mockImplementation(() => undefined);
+  beforeEach(() => {
+    routerBack.mockReset();
+    routerPush.mockReset();
+  });
+
+  it("calls router.back when history has prior entries", () => {
+    Object.defineProperty(window.history, "length", { configurable: true, value: 3 });
 
     render(<BackButton />);
     fireEvent.click(screen.getByRole("button", { name: "Назад" }));
 
-    expect(back).toHaveBeenCalledOnce();
-    back.mockRestore();
+    expect(routerBack).toHaveBeenCalledOnce();
+    expect(routerPush).not.toHaveBeenCalled();
+  });
+
+  it("navigates home when there is no history to go back to", () => {
+    Object.defineProperty(window.history, "length", { configurable: true, value: 1 });
+
+    render(<BackButton />);
+    fireEvent.click(screen.getByRole("button", { name: "Назад" }));
+
+    expect(routerPush).toHaveBeenCalledWith("/");
+    expect(routerBack).not.toHaveBeenCalled();
   });
 });
 

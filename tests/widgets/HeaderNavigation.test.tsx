@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import type * as ScrollingFeature from "@/features/scrolling";
 import { HeaderNavigation } from "@/widgets/header/ui";
 
 const navigation = [
@@ -21,25 +20,20 @@ const navMorphState = vi.hoisted(() => ({
   isIsland: false,
 }));
 
-vi.mock("@/features/performance", () => ({
+vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,
   }),
 }));
 
-vi.mock("@/features/scrolling", async () => {
-  const actual = await vi.importActual<typeof ScrollingFeature>("@/features/scrolling");
-
-  return {
-    ...actual,
-    useNavMorph: () => ({
-      progress: navMorphState.progress,
-      phase: navMorphState.phase,
-      isIsland: navMorphState.isIsland,
-    }),
-  };
-});
+vi.mock("@/features/scrolling/client", () => ({
+  useNavMorph: () => ({
+    progress: navMorphState.progress,
+    phase: navMorphState.phase,
+    isIsland: navMorphState.isIsland,
+  }),
+}));
 
 vi.mock("@/features/theme/client", () => {
   function themeToggleMock(): React.JSX.Element {

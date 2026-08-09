@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { useRafWhile } from "@/features/performance";
+import { useRafWhile } from "@/features/performance/client";
 
 import { useSkillsInteraction } from "../model/SkillsInteractionContext";
 
@@ -35,12 +35,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const { activeElement } = useSkillsInteraction();
-  const activeElementRef = useRef(activeElement);
-
-  useEffect(() => {
-    activeElementRef.current = activeElement;
-  }, [activeElement]);
+  const { getActiveElement } = useSkillsInteraction();
 
   const shouldAnimate = isMotionActive && isVisible;
 
@@ -87,7 +82,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
     (time: number): void => {
       if (!catRef.current || !containerRef.current) return;
 
-      const active = activeElementRef.current;
+      const active = getActiveElement();
       const pos = mousePosRef.current;
       const targetX = pos.x;
       const targetY = pos.y;
@@ -161,7 +156,7 @@ const SkillsCursorNyancat: React.FC<SkillsCursorNyancatProps> = ({
       const y = currentPos.current.y - 25;
       catRef.current.style.transform = `translate3d(${String(x)}px, ${String(y)}px, 0)`;
     },
-    [containerRef]
+    [containerRef, getActiveElement]
   );
 
   useRafWhile(shouldAnimate, animate);

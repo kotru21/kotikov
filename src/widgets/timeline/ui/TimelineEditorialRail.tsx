@@ -50,8 +50,6 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
         <div
           role="toolbar"
           aria-label="Навигация по ленте этапов"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
           className="flex shrink-0 gap-2"
         >
           <button
@@ -59,6 +57,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
             onClick={() => {
               scrollByCard(-1);
             }}
+            onKeyDown={handleKeyDown}
             disabled={!canScrollLeft}
             aria-label="Прокрутить к предыдущему этапу"
             className={timelineNavButtonClass}
@@ -70,6 +69,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
             onClick={() => {
               scrollByCard(1);
             }}
+            onKeyDown={handleKeyDown}
             disabled={!canScrollRight}
             aria-label="Прокрутить к следующему этапу"
             className={timelineNavButtonClass}
@@ -88,7 +88,7 @@ const TimelineEditorialRail: React.FC<TimelineEditorialRailProps> = ({ items }) 
         >
           <div className="relative flex items-start gap-10" role="list" aria-label="Этапы опыта">
             {items.map((item) => {
-              const titleId = `timeline-entry-${String(item.id)}`;
+              const titleId = `timeline-desktop-entry-${String(item.id)}`;
 
               return (
                 <div key={item.id} role="listitem" data-timeline-card className={cardSlotClass}>

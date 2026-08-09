@@ -9,7 +9,7 @@ import type { GridPaintOverlayRef } from "@/shared/ui/client";
 import { colors } from "@/styles/colors";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
-vi.mock("@/features/interactive-elements", async () => {
+vi.mock("@/features/interactive-elements/client", async () => {
   const { MockInteractiveElement, MockInteractiveText } = await import(
     "../helpers/mockInteractiveElement"
   );

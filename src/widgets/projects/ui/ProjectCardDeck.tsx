@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { ProjectCard } from "@/entities/project";
-import { usePerformanceSettings } from "@/features/performance";
+import { usePerformanceSettings } from "@/features/performance/client";
 import { projectsData } from "@/shared/config/content";
 import {
   DECK_MOTION_CLASS,
@@ -28,7 +28,14 @@ export function ProjectCardDeck(): React.JSX.Element | null {
   const motionClass = reducedMotion ? "" : DECK_MOTION_CLASS;
   const controlRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const shouldFocusActiveControlRef = useRef(false);
-  const { activeIndex, goTo, handleKeyDown, handleTouchStart, handleTouchEnd } = useProjectDeck({
+  const {
+    activeIndex,
+    goTo,
+    handleKeyDown,
+    handleTouchStart,
+    handleTouchEnd,
+    handleTouchCancel,
+  } = useProjectDeck({
     count: projects.length,
   });
 
@@ -55,6 +62,7 @@ export function ProjectCardDeck(): React.JSX.Element | null {
         className="relative mx-auto grid w-full max-w-md"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchCancel}
       >
         {projects.map((project, index) => {
           const role = getCyclicDeckCardRole(index, activeIndex, projects.length);

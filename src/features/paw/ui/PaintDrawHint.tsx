@@ -1,7 +1,7 @@
 "use client";
 
-import { useIsMobile } from "@/features/device";
-import { InteractiveElement, InteractiveText } from "@/features/interactive-elements";
+import { useIsMobile } from "@/features/device/client";
+import { InteractiveElement, InteractiveText } from "@/features/interactive-elements/client";
 import { colors } from "@/styles/colors";
 
 interface PaintDrawHintProps {
