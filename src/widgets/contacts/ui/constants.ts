@@ -1,6 +1,7 @@
 import { colors } from "@/styles/colors";
 
-export const CONTACT_CANVAS_PIXEL_SIZE = 8;
+/** Coarser than 8px — fewer fillRect ops on full-viewport background rebuilds. */
+export const CONTACT_CANVAS_PIXEL_SIZE = 14;
 export const CONTACT_BRUSH_RADIUS = 20;
 
 /** Shared gradient for canvas CSS background and reduced-motion fallback. */

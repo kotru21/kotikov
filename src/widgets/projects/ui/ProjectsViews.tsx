@@ -19,7 +19,7 @@ export function ProjectsViews(): React.JSX.Element {
       <div data-projects-view="mobile" className="md:hidden">
         {showMobile ? <ProjectCardDeck /> : null}
       </div>
-      <div data-projects-view="desktop">
+      <div data-projects-view="desktop" className="hidden md:block">
         {showDesktop ? <ProjectsGrid /> : null}
       </div>
     </>

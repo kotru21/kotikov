@@ -4,11 +4,12 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
+import { headers } from "next/headers";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
 import { THEME_CRITICAL_CSS, THEME_INIT_SCRIPT, THEME_SURFACE } from "@/features/theme";
-import { ThemeProvider } from "@/features/theme/client";
+import { ThemeColorMeta, ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
@@ -123,33 +124,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): React.JSX.Element {
+}>): Promise<React.JSX.Element> {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
         {/* eslint-disable-next-line react/no-danger -- trusted static theme CSS for FOUC prevention */}
-        <style dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
+        <style nonce={nonce} dangerouslySetInnerHTML={{ __html: THEME_CRITICAL_CSS }} />
         {/* eslint-disable-next-line react/no-danger -- trusted blocking theme init before hydration */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className={`${manrope.variable} ${geistMono.variable} antialiased`}>
         {/*
           Theme init runs via blocking inline script in <head>.
           Scroll reset must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts.
         */}
-        <Script id="scroll-init" strategy="beforeInteractive">
+        <Script id="scroll-init" strategy="beforeInteractive" nonce={nonce}>
           {`(function(){try{if('scrollRestoration' in history)history.scrollRestoration='manual';var h=location.hash;if(h.length<=1)window.scrollTo(0,0);}catch(e){}})();`}
         </Script>
         <ThemeProvider>
+          <ThemeColorMeta />
           <ScrollRestoration />
           <SkipLinks />
           {children}
         </ThemeProvider>
-        {gaId !== null ? <GoogleAnalytics measurementId={gaId} /> : null}
+        {gaId !== null ? <GoogleAnalytics measurementId={gaId} nonce={nonce} /> : null}
         <Analytics />
         <SpeedInsights />
       </body>

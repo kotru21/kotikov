@@ -16,7 +16,7 @@ interface UseExplosionReturn {
   isExploded: boolean;
   pixels: Pixel[];
   explosionPosition: Position;
-  nyancatRef: React.RefObject<HTMLDivElement | null>;
+  nyancatRef: React.RefObject<HTMLButtonElement | null>;
   explode: () => void;
 }
 
@@ -27,7 +27,7 @@ export const useExplosion = (size: NyancatSize): UseExplosionReturn => {
     x: 0,
     y: 0,
   });
-  const nyancatRef = useRef<HTMLDivElement>(null);
+  const nyancatRef = useRef<HTMLButtonElement>(null);
   const pixelsRef = useRef<Pixel[]>([]);
   const rafRef = useRef<number | null>(null);
   const explodingRef = useRef(false);

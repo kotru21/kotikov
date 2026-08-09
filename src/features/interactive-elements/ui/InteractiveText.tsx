@@ -10,12 +10,12 @@ interface InteractiveTextProps {
   className?: string;
 }
 
-const InteractiveChar = memo(
+const InteractiveUnit = memo(
   ({
-    char,
+    text,
     register,
     unregister,
-  }: { char: string } & InteractiveTextRegistry): React.JSX.Element => {
+  }: { text: string } & InteractiveTextRegistry): React.JSX.Element => {
     const ref = useRef<HTMLSpanElement>(null);
 
     useLayoutEffect(() => {
@@ -28,13 +28,13 @@ const InteractiveChar = memo(
 
     return (
       <span ref={ref} className="relative inline-block transition-colors duration-200">
-        {char === " " ? "\u00A0" : char}
+        {text === " " ? "\u00A0" : text}
       </span>
     );
   }
 );
 
-InteractiveChar.displayName = "InteractiveChar";
+InteractiveUnit.displayName = "InteractiveUnit";
 
 function clearPaintInlineStyles(el: HTMLElement): void {
   el.style.removeProperty("color");
@@ -97,28 +97,23 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, classNam
   const words = text.split(" ");
   return (
     <span className={className}>
-      {/* inline-block glyphs split the a11y name; keep a single readable string for AT */}
+      {/* Word-level paint targets (fewer layout reads than per-glyph). */}
       <span className="sr-only">{text}</span>
       <span aria-hidden="true">
         {words.map((word, wordIndex) => (
           <React.Fragment key={`word-${word}-${String(wordIndex)}`}>
-            <span className="inline-block whitespace-nowrap">
-              {word.split("").map((char, charIndex) => (
-                <InteractiveChar
-                  key={`char-${word}-${String(charIndex)}`}
-                  char={char}
-                  register={registry.register}
-                  unregister={registry.unregister}
-                />
-              ))}
-            </span>
-            {wordIndex < words.length - 1 && (
-              <InteractiveChar
-                char=" "
+            <InteractiveUnit
+              text={word}
+              register={registry.register}
+              unregister={registry.unregister}
+            />
+            {wordIndex < words.length - 1 ? (
+              <InteractiveUnit
+                text=" "
                 register={registry.register}
                 unregister={registry.unregister}
               />
-            )}
+            ) : null}
           </React.Fragment>
         ))}
       </span>

@@ -19,10 +19,10 @@ function expectPointerInteraction(wrapper: Element, callbacks: MovingWrapperCall
   expect(callbacks.onMouseEnter).toHaveBeenCalledTimes(1);
 }
 
-function expectHiddenFromKeyboard(wrapper: Element): void {
-  expect(wrapper).not.toHaveAttribute("role", "button");
-  expect(wrapper).not.toHaveAttribute("tabindex", "0");
-  expect(wrapper).toHaveAttribute("aria-hidden", "true");
+function expectAccessibleControl(wrapper: Element): void {
+  expect(wrapper.tagName).toBe("BUTTON");
+  expect(wrapper).toHaveAttribute("aria-label", "Взорвать нянкэта");
+  expect(wrapper).not.toHaveAttribute("aria-hidden", "true");
 }
 
 function getMovingWrapper(container: HTMLElement): Element {
@@ -32,7 +32,7 @@ function getMovingWrapper(container: HTMLElement): Element {
   return wrapper;
 }
 
-function stubElementCenter(node: HTMLDivElement): void {
+function stubElementCenter(node: HTMLButtonElement): void {
   node.getBoundingClientRect = (): DOMRect => ({
     left: 10,
     top: 20,
@@ -59,7 +59,7 @@ vi.mock("@/features/performance", () => ({
 }));
 
 describe("NyancatImage", () => {
-  it("keeps pointer interaction without exposing the moving wrapper to keyboard users", () => {
+  it("exposes an accessible control while keeping pointer interaction", () => {
     const callbacks = { onClick: vi.fn(), onMouseEnter: vi.fn() };
     const { container } = render(
       <NyancatImage
@@ -73,7 +73,7 @@ describe("NyancatImage", () => {
     );
     const wrapper = getMovingWrapper(container);
 
-    expectHiddenFromKeyboard(wrapper);
+    expectAccessibleControl(wrapper);
     expectPointerInteraction(wrapper, callbacks);
   });
 });
@@ -102,11 +102,11 @@ describe("useExplosion", () => {
     vi.stubGlobal("cancelAnimationFrame", cancelAnimationFrame);
 
     const { result, unmount } = renderHook(() => useExplosion("small"));
-    const node = document.createElement("div");
+    const node = document.createElement("button");
     stubElementCenter(node);
 
     act(() => {
-      (result.current.nyancatRef as { current: HTMLDivElement | null }).current = node;
+      (result.current.nyancatRef as { current: HTMLButtonElement | null }).current = node;
       result.current.explode();
     });
 
@@ -125,11 +125,11 @@ describe("useExplosion", () => {
     vi.stubGlobal("cancelAnimationFrame", vi.fn());
 
     const { result } = renderHook(() => useExplosion("xlarge"));
-    const node = document.createElement("div");
+    const node = document.createElement("button");
     stubElementCenter(node);
 
     act(() => {
-      (result.current.nyancatRef as { current: HTMLDivElement | null }).current = node;
+      (result.current.nyancatRef as { current: HTMLButtonElement | null }).current = node;
       result.current.explode();
     });
 
@@ -148,11 +148,11 @@ describe("useExplosion", () => {
     vi.stubGlobal("cancelAnimationFrame", cancelAnimationFrame);
 
     const { result } = renderHook(() => useExplosion("small"));
-    const node = document.createElement("div");
+    const node = document.createElement("button");
     stubElementCenter(node);
 
     act(() => {
-      (result.current.nyancatRef as { current: HTMLDivElement | null }).current = node;
+      (result.current.nyancatRef as { current: HTMLButtonElement | null }).current = node;
       result.current.explode();
       result.current.explode();
       result.current.explode();

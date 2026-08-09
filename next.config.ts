@@ -2,56 +2,12 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-const scriptSrc = [
-  "'self'",
-  "'unsafe-inline'",
-  // React DevTools / callstack reconstruction use eval() only in development.
-  ...(isDev ? ["'unsafe-eval'"] : []),
-  "https://www.googletagmanager.com",
-  "https://va.vercel-scripts.com",
-].join(" ");
-
-const connectSrc = [
-  "'self'",
-  "https://www.google-analytics.com",
-  "https://analytics.google.com",
-  "https://region1.google-analytics.com",
-  "https://va.vercel-scripts.com",
-  "https://vitals.vercel-insights.com",
-  // Next.js HMR / Turbopack websocket in local development.
-  ...(isDev ? ["ws:", "wss:"] : []),
-].join(" ");
-
-const imgSrc = [
-  "'self'",
-  "data:",
-  "blob:",
-  // GA / gtag image beacons when NEXT_PUBLIC_GA_ID is set.
-  "https://www.google-analytics.com",
-  "https://www.googletagmanager.com",
-].join(" ");
-
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  `script-src ${scriptSrc}`,
-  "style-src 'self' 'unsafe-inline'",
-  `img-src ${imgSrc}`,
-  "font-src 'self' data:",
-  `connect-src ${connectSrc}`,
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'",
-  ...(isDev ? [] : ["upgrade-insecure-requests"]),
-].join("; ");
-
+// CSP is set per-request in proxy.ts (nonce + strict-dynamic for scripts).
 const securityHeaders = [
-  { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  // Explicit HSTS for non-Vercel / self-hosted deploys (browsers ignore on HTTP).
   ...(isDev
     ? []
     : [

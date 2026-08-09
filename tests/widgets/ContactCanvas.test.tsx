@@ -23,6 +23,9 @@ function createMockContext(): CanvasRenderingContext2D {
     stroke: vi.fn(),
     setTransform: vi.fn(),
     scale: vi.fn(),
+    createLinearGradient: vi.fn(() => ({
+      addColorStop: vi.fn(),
+    })),
     globalAlpha: 1,
     fillStyle: "",
     strokeStyle: "",

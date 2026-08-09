@@ -19,12 +19,17 @@ describe("ProjectsWidget", () => {
   });
 
   it("renders section chrome and prunes to the desktop grid after matchMedia sync", async () => {
-    render(<ProjectsWidget />);
+    const { container } = render(<ProjectsWidget />);
 
     const section = document.getElementById("projects");
     expect(section).not.toBeNull();
     expect(screen.getByRole("heading", { name: projectsSection.title })).toBeInTheDocument();
     expect(screen.getByText(projectsSection.eyebrow)).toBeInTheDocument();
+
+    const mobileView = container.querySelector('[data-projects-view="mobile"]');
+    const desktopView = container.querySelector('[data-projects-view="desktop"]');
+    expect(mobileView).toHaveClass("md:hidden");
+    expect(desktopView).toHaveClass("hidden", "md:block");
 
     await waitFor(() => {
       expect(screen.queryByRole("region", { name: "Избранные проекты" })).not.toBeInTheDocument();

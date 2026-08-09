@@ -13,7 +13,7 @@ import {
   THEME_STORAGE_KEY,
   THEME_SURFACE,
 } from "@/features/theme";
-import { ThemeProvider, ThemeToggle, useTheme } from "@/features/theme/client";
+import { ThemeColorMeta, ThemeProvider, ThemeToggle, useTheme } from "@/features/theme/client";
 import { resetThemeChoiceStore } from "@/features/theme/themeChoiceStore";
 
 const wrapper = ({ children }: { children: React.ReactNode }): React.JSX.Element => (
@@ -270,5 +270,34 @@ describe("theme surface tokens", () => {
     expect(darkForeground).toBe(THEME_SURFACE.dark.foreground);
     expect(systemDarkBackground).toBe(THEME_SURFACE.dark.background);
     expect(systemDarkForeground).toBe(THEME_SURFACE.dark.foreground);
+  });
+});
+
+describe("ThemeColorMeta", () => {
+  it("syncs theme-color meta and color-scheme with the applied theme", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: ({ children }) => (
+        <ThemeProvider>
+          <ThemeColorMeta />
+          {children}
+        </ThemeProvider>
+      ),
+    });
+
+    expect(document.querySelector('meta[name="theme-color"]')).toHaveAttribute(
+      "content",
+      THEME_SURFACE.light.background
+    );
+    expect(document.documentElement.style.colorScheme).toBe("light");
+
+    act(() => {
+      result.current.toggle();
+    });
+
+    expect(document.querySelector('meta[name="theme-color"]')).toHaveAttribute(
+      "content",
+      THEME_SURFACE.dark.background
+    );
+    expect(document.documentElement.style.colorScheme).toBe("dark");
   });
 });

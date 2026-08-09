@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { RefObject, TouchEvent } from "react";
+import type { Ref, TouchEvent } from "react";
 
 import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 
@@ -13,7 +13,7 @@ interface NyancatImageProps {
   isMobile: boolean;
   onMouseEnter: () => void;
   onClick: () => void;
-  forwardRef?: RefObject<HTMLDivElement | null>;
+  forwardRef?: Ref<HTMLButtonElement | null>;
   priority?: boolean;
   isMotionActive?: boolean;
   bankAnimationName?: string;
@@ -50,18 +50,20 @@ export function NyancatImage({
     />
   );
 
-  const handleTouchEnd = (e: TouchEvent<HTMLDivElement>): void => {
+  const handleTouchEnd = (e: TouchEvent<HTMLButtonElement>): void => {
     // Prevent the following synthetic click so explode() runs once per tap.
     e.preventDefault();
     onClick();
   };
 
   return (
-    <div
+    <button
+      type="button"
       ref={forwardRef}
-      aria-hidden="true"
+      aria-label="Взорвать нянкэта"
       data-testid={testId}
       data-motion-active={isMotionActive}
+      className="border-0 bg-transparent p-0"
       style={{
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
@@ -90,6 +92,6 @@ export function NyancatImage({
       ) : (
         image
       )}
-    </div>
+    </button>
   );
 }

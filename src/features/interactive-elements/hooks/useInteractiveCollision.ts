@@ -26,13 +26,33 @@ export interface PaintContrastSurface {
 export const DEFAULT_PAINT_COVERAGE_THRESHOLD = 0.7;
 
 const COLLISION_BUFFER = 60;
+/** Reuse layout boxes briefly across stroke samples in the same paint gesture. */
+const RECT_CACHE_TTL_MS = 32;
+
+interface RectCacheEntry {
+  rect: DOMRect;
+  at: number;
+}
+
+const rectCache = new WeakMap<HTMLElement, RectCacheEntry>();
+
+function getCachedRect(el: HTMLElement): DOMRect {
+  const now = performance.now();
+  const cached = rectCache.get(el);
+  if (cached !== undefined && now - cached.at < RECT_CACHE_TTL_MS) {
+    return cached.rect;
+  }
+  const rect = el.getBoundingClientRect();
+  rectCache.set(el, { rect, at: now });
+  return rect;
+}
 
 export const useInteractiveCollision = (
   interactiveElementsRef: React.RefObject<Set<HTMLElement>>,
   coverageThreshold = DEFAULT_PAINT_COVERAGE_THRESHOLD
 ): CheckCollisionsResult => {
   const syncElementContrast = useCallback(
-    (el: HTMLElement, paint: PaintContrastSurface, rect = el.getBoundingClientRect()): void => {
+    (el: HTMLElement, paint: PaintContrastSurface, rect = getCachedRect(el)): void => {
       applyPaintContrast(el, paint.sampleContrast(rect), coverageThreshold);
     },
     [coverageThreshold]
@@ -57,7 +77,7 @@ export const useInteractiveCollision = (
       interactiveElementsRef.current.forEach((el) => {
         if (el.dataset.drawExclude !== undefined) return;
 
-        const rect = el.getBoundingClientRect();
+        const rect = getCachedRect(el);
         if (rect.right < minX || rect.left > maxX || rect.bottom < minY || rect.top > maxY) {
           return;
         }

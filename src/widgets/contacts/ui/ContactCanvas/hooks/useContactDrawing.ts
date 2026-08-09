@@ -37,23 +37,24 @@ export const useContactDrawing = (
 
     const cols = Math.ceil(rect.width / pixelSize);
     const rows = Math.ceil(rect.height / pixelSize);
-    const baseColors = [colors.primary[900], colors.primary[800], colors.primary[700]];
 
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * pixelSize;
-        const y = row * pixelSize;
-        const key = `${String(col)},${String(row)}`;
-        const isCat = catMapRef.current.has(key);
+    // One gradient fill instead of per-cell base colors.
+    const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+    gradient.addColorStop(0, colors.primary[900]);
+    gradient.addColorStop(0.5, colors.primary[800]);
+    gradient.addColorStop(1, colors.primary[700]);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, cols * pixelSize, rows * pixelSize);
 
-        const progress = (row + col) / (rows + cols);
-        const colorIndex = Math.floor(progress * (baseColors.length - 1));
-
-        // Ячейки котов чуть темнее фона — едва заметная подсказка под покрытием.
-        ctx.fillStyle = isCat ? colors.primary[950] : baseColors[colorIndex];
-        ctx.fillRect(x, y, pixelSize, pixelSize);
-      }
-    }
+    // Cat hint cells only (sparse) — darker than the gradient base.
+    ctx.fillStyle = colors.primary[950];
+    catMapRef.current.forEach((_value, key) => {
+      const [colRaw, rowRaw] = key.split(",");
+      const col = Number(colRaw);
+      const row = Number(rowRaw);
+      if (!Number.isFinite(col) || !Number.isFinite(row)) return;
+      ctx.fillRect(col * pixelSize, row * pixelSize, pixelSize, pixelSize);
+    });
 
     // Grid lines as row/col strokes (cheaper than strokeRect per cell).
     ctx.strokeStyle = `${colors.primary[600]}20`;

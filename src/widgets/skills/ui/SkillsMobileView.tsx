@@ -5,7 +5,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { useSceneMotionPolicy } from "@/features/performance";
 import { skillsData, social } from "@/shared/config/content";
-import { formatExternalLinkLabel } from "@/shared/lib";
+import { formatExternalLinkLabel, isSafeHref } from "@/shared/lib";
 import { Button } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
@@ -39,19 +39,21 @@ const SkillsMobileView: React.FC<SkillsMobileViewProps> = ({ headingId }) => {
         stackClassName="text-text-secondary mx-auto -mt-4 mb-8 max-w-sm text-center text-base font-semibold dark:text-neutral-300"
       />
 
-      <div className="flex justify-center px-6 pb-8">
-        <Button
-          href={social.linkedin.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="primary"
-          size="lg"
-          aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
-        >
-          <FaLinkedinIn className="text-xl" aria-hidden="true" />
-          <span>Смотреть мой LinkedIn</span>
-        </Button>
-      </div>
+      {isSafeHref(social.linkedin.url) ? (
+        <div className="flex justify-center px-6 pb-8">
+          <Button
+            href={social.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            size="lg"
+            aria-label={formatExternalLinkLabel("Смотреть мой LinkedIn")}
+          >
+            <FaLinkedinIn className="text-xl" aria-hidden="true" />
+            <span>Смотреть мой LinkedIn</span>
+          </Button>
+        </div>
+      ) : null}
 
       {/* Бегущие строки скиллов — въезжают при появлении во вьюпорте; только при включённой анимации */}
       {showMarquee ? (

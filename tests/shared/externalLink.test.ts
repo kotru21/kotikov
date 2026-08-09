@@ -29,8 +29,11 @@ describe("isSafeHref", () => {
     ["mailto:test@example.com", true],
     ["#projects", true],
     ["/projects", true],
+    ["//evil.com", false],
+    ["  //evil.com", false],
     ["data:text/html,hi", false],
     ["", false],
+    ["mailto:", false],
   ])("classifies %s as %s", (url, expected) => {
     expect(isSafeHref(url)).toBe(expected);
   });

@@ -4,7 +4,7 @@ import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
 
 import { skillsData, social } from "@/shared/config/content";
-import { formatExternalLinkLabel } from "@/shared/lib";
+import { formatExternalLinkLabel, isSafeHref } from "@/shared/lib";
 import { Button } from "@/shared/ui";
 
 import { SkillMarqueeRow, SkillsGroupedTags } from ".";
@@ -46,19 +46,21 @@ const SkillsMarquee: React.FC<SkillsMarqueeProps> = ({ headingId, isMotionActive
         <SkillsGroupedTags />
       </div>
 
-      <div className="z-20 px-6 pt-2 lg:px-8">
-        <Button
-          href={social.linkedin.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="primary"
-          size="lg"
-          aria-label={formatExternalLinkLabel("Мой профиль в LinkedIn")}
-        >
-          <FaLinkedinIn className="text-xl" aria-hidden="true" />
-          <span>Мой профиль в LinkedIn</span>
-        </Button>
-      </div>
+      {isSafeHref(social.linkedin.url) ? (
+        <div className="z-20 px-6 pt-2 lg:px-8">
+          <Button
+            href={social.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="primary"
+            size="lg"
+            aria-label={formatExternalLinkLabel("Мой профиль в LinkedIn")}
+          >
+            <FaLinkedinIn className="text-xl" aria-hidden="true" />
+            <span>Мой профиль в LinkedIn</span>
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };
