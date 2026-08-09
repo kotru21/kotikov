@@ -21,7 +21,7 @@ interface HeaderPaintSurfaceProps {
 }
 
 /**
- * Client island: paint overlay, paw pointer drawing, scene motion, interactive registry.
+ * Client island: paint overlay, pointer drawing, scene motion, interactive registry.
  * Pointer handlers stay on #main-content (not an ancestor of nav) so chrome clicks
  * are never intercepted by the paint shell.
  */
@@ -82,7 +82,6 @@ export function HeaderPaintSurface({
           tabIndex={-1}
           style={{
             touchAction: isDrawing ? "none" : "pan-y",
-            cursor: isDrawing ? "none" : undefined,
           }}
           onPointerEnter={handlePointerEnter}
           onPointerMove={handlePointerMove}

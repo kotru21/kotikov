@@ -129,4 +129,22 @@ describe("TimelineView responsive shells", () => {
     expect(container.querySelector('[data-testid="timeline-mobile"]')).toBeNull();
     expect(screen.getByRole("region", { name: /Лента этапов опыта/i })).toBeInTheDocument();
   });
+
+  it("mounts only one active timeline tree after matchMedia sync", async () => {
+    stubMatchMedia(true);
+    const { container } = render(<TimelineView />);
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    const mountedTrees = [
+      container.querySelector('[data-testid="timeline-mobile"]'),
+      container.querySelector('[aria-label*="Лента этапов опыта"]'),
+    ].filter((node) => node !== null);
+
+    expect(mountedTrees).toHaveLength(1);
+    expect(container.querySelector('[data-testid="timeline-mobile"]')).toBeTruthy();
+    expect(container.querySelectorAll("[data-timeline-view]")).toHaveLength(2);
+  });
 });

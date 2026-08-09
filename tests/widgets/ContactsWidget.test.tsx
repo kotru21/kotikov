@@ -49,8 +49,6 @@ vi.mock("@/features/paw", () => ({
   ),
   PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   usePawAnimation: () => ({
-    pawPos: { x: 0, y: 0 },
-    pawVelocity: { x: 0, y: 0 },
     isDrawing: false,
     handlers: {
       handlePointerEnter: vi.fn(),
@@ -107,6 +105,5 @@ describe("ContactsWidget", () => {
     // paw interaction is gated via enablePaint / disabled clear button.
     expect(document.querySelector("canvas")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeDisabled();
-    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 });

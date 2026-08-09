@@ -9,6 +9,10 @@ const performanceSettings = vi.hoisted(() => ({
   lowPerformance: false,
 }));
 
+const pawState = vi.hoisted(() => ({
+  isDrawing: false,
+}));
+
 vi.mock("@/features/device", () => ({
   useIsMobile: () => false,
 }));
@@ -24,7 +28,7 @@ vi.mock("@/features/interactive-elements", () => ({
 
 vi.mock("@/features/paw", () => ({
   usePawAnimation: () => ({
-    isDrawing: false,
+    isDrawing: pawState.isDrawing,
     handlers: {
       handlePointerEnter: vi.fn(),
       handlePointerMove: vi.fn(),
@@ -111,6 +115,7 @@ describe("HeaderWidget", () => {
 
   it("does not apply drawing cursor or touch-action none when reduced motion is on", () => {
     performanceSettings.reducedMotion = true;
+    pawState.isDrawing = false;
 
     const { container } = render(<HeaderWidget />);
     const main = container.querySelector("#main-content");
@@ -120,5 +125,17 @@ describe("HeaderWidget", () => {
     expect(screen.queryByTestId("header-nyancat")).not.toBeInTheDocument();
 
     performanceSettings.reducedMotion = false;
+  });
+
+  it("keeps the system cursor while paint drawing is active", () => {
+    pawState.isDrawing = true;
+
+    const { container } = render(<HeaderWidget />);
+    const main = container.querySelector("#main-content");
+
+    expect(main).toHaveStyle({ touchAction: "none" });
+    expect(main).not.toHaveStyle({ cursor: "none" });
+
+    pawState.isDrawing = false;
   });
 });

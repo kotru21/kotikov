@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
 import { SkipLinks } from "./components/SkipLinks";
+import { resolveGaMeasurementId } from "./gaMeasurementId";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +24,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const gaId = resolveGaMeasurementId(process.env.NEXT_PUBLIC_GA_ID);
 
 const siteTitle = `${personData.nameRu} (${personData.nickname}) — SOC / AppSec | Портфолио`;
 const siteDescription = `${personData.description}. БГУИР, hoster.by, SAST и безопасная разработка.`;
@@ -146,7 +147,7 @@ export default function RootLayout({
           <SkipLinks />
           {children}
         </ThemeProvider>
-        {gaId !== undefined && gaId !== "" ? (
+        {gaId !== null ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}

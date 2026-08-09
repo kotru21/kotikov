@@ -79,9 +79,6 @@ vi.mock("@/features/paw", () => ({
     </button>
   ),
   PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
-  PawCursorIcon: ({ className }: { className?: string }) => (
-    <svg data-testid="paw-icon" className={className} />
-  ),
   usePawAnimation: (
     onDraw: (x: number, y: number, prevX: number, prevY: number) => void,
     options?: { enabled?: boolean }
@@ -89,8 +86,6 @@ vi.mock("@/features/paw", () => ({
     pawMock.latestDraw = onDraw;
     pawMock.latestEnabled = options?.enabled;
     return {
-      pawPos: { x: 12, y: 12 },
-      pawVelocity: { x: 1, y: 1 },
       isDrawing: pawMock.isDrawing && (options?.enabled ?? true),
       handlers: pawHandlers,
     };
@@ -168,8 +163,8 @@ describe("ContactsWidget paint-enabled path", () => {
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
     expect(screen.getByText(/проведи мышью/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeInTheDocument();
-    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
     expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "none" });
+    expect(document.getElementById("contacts")).not.toHaveStyle({ cursor: "none" });
     expect(resyncAll).toHaveBeenCalledTimes(1);
 
     pawMock.latestDraw?.(10, 10, 0, 0);
@@ -198,7 +193,6 @@ describe("ContactsWidget paint-enabled path", () => {
     expect(pawMock.latestEnabled).toBe(false);
     expect(screen.queryByTestId("contact-canvas")).not.toBeInTheDocument();
     expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "pan-y" });
-    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
   });
 
   it("keeps the canvas mounted when the section leaves the viewport", () => {

@@ -88,7 +88,7 @@ describe("ContactsView", () => {
     expect(httpxLink).not.toHaveAccessibleName(/откроется в новой вкладке/i);
   });
 
-  it("does not render the paw cursor while paint is enabled", () => {
+  it("does not hide the system cursor while paint drawing is active", () => {
     vi.stubGlobal("matchMedia", (query: string) => ({
       matches: false,
       media: query,
@@ -98,7 +98,8 @@ describe("ContactsView", () => {
 
     render(<ContactsView {...viewProps} isDrawing mountPaint enablePaint />);
 
-    expect(screen.queryByTestId("paw-icon")).not.toBeInTheDocument();
+    expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "none" });
+    expect(document.getElementById("contacts")).not.toHaveStyle({ cursor: "none" });
   });
 
   it("locks production contact layouts by label identity (S7-07)", () => {

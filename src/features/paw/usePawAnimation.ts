@@ -12,8 +12,9 @@ interface MousePosition {
 interface PawAnimationState {
   mousePos: MousePosition;
   smoothMousePos: MousePosition;
-  pawPos: MousePosition;
-  pawVelocity: MousePosition;
+  /** Internal lag target for RAF settle (not a visible cursor). */
+  lagPos: MousePosition;
+  lagVelocity: MousePosition;
   isDrawing: boolean;
 }
 
@@ -31,27 +32,28 @@ interface UsePawAnimationOptions {
   enabled?: boolean;
 }
 
-interface UsePawAnimationReturn extends PawAnimationState {
+interface UsePawAnimationReturn {
+  isDrawing: boolean;
   handlers: PawAnimationHandlers;
 }
 
 const INITIAL_STATE: PawAnimationState = {
   mousePos: { x: 0, y: 0 },
   smoothMousePos: { x: 0, y: 0 },
-  pawPos: { x: 0, y: 0 },
-  pawVelocity: { x: 0, y: 0 },
+  lagPos: { x: 0, y: 0 },
+  lagVelocity: { x: 0, y: 0 },
   isDrawing: false,
 };
 
 function withDrawingStart(prev: PawAnimationState, x: number, y: number): PawAnimationState {
-  const needsOrigin = prev.pawPos.x === 0 && prev.pawPos.y === 0;
+  const needsOrigin = prev.lagPos.x === 0 && prev.lagPos.y === 0;
   return {
     ...prev,
     isDrawing: true,
     mousePos: { x, y },
     ...(needsOrigin
       ? {
-          pawPos: { x, y },
+          lagPos: { x, y },
           smoothMousePos: { x, y },
         }
       : {}),
@@ -93,7 +95,7 @@ export function usePawAnimation(
     setState((prev) => ({
       ...prev,
       isDrawing: false,
-      pawVelocity: { x: 0, y: 0 },
+      lagVelocity: { x: 0, y: 0 },
     }));
   }
 
@@ -125,7 +127,7 @@ export function usePawAnimation(
       const next = {
         ...prev,
         isDrawing: false,
-        pawVelocity: { x: 0, y: 0 },
+        lagVelocity: { x: 0, y: 0 },
       };
       stateRef.current = next;
       return next;
@@ -273,9 +275,9 @@ export function usePawAnimation(
         y: prev.smoothMousePos.y + deltaY * mouseSmoothness,
       };
 
-      const pawDeltaX = newSmoothMousePos.x - prev.pawPos.x;
-      const pawDeltaY = newSmoothMousePos.y - prev.pawPos.y;
-      const distance = Math.sqrt(pawDeltaX * pawDeltaX + pawDeltaY * pawDeltaY);
+      const lagDeltaX = newSmoothMousePos.x - prev.lagPos.x;
+      const lagDeltaY = newSmoothMousePos.y - prev.lagPos.y;
+      const distance = Math.sqrt(lagDeltaX * lagDeltaX + lagDeltaY * lagDeltaY);
 
       const mouseSpeed = Math.sqrt(
         mouseVelocityRef.current.x ** 2 + mouseVelocityRef.current.y ** 2
@@ -297,21 +299,21 @@ export function usePawAnimation(
       const ease = (t: number): number => 1 - Math.pow(1 - t, 3);
       const easedSmoothness = ease(smoothness);
 
-      const newPawPos = {
-        x: prev.pawPos.x + pawDeltaX * easedSmoothness,
-        y: prev.pawPos.y + pawDeltaY * easedSmoothness,
+      const newLagPos = {
+        x: prev.lagPos.x + lagDeltaX * easedSmoothness,
+        y: prev.lagPos.y + lagDeltaY * easedSmoothness,
       };
 
-      const velocityX = (newPawPos.x - prev.pawPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
-      const velocityY = (newPawPos.y - prev.pawPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+      const velocityX = (newLagPos.x - prev.lagPos.x) * (60 / (deltaTime !== 0 ? deltaTime : 16));
+      const velocityY = (newLagPos.y - prev.lagPos.y) * (60 / (deltaTime !== 0 ? deltaTime : 16));
 
-      if (Math.abs(pawDeltaX) > 0.1 || Math.abs(pawDeltaY) > 0.1) {
+      if (Math.abs(lagDeltaX) > 0.1 || Math.abs(lagDeltaY) > 0.1) {
         onDrawRef.current(prev.mousePos.x, prev.mousePos.y, newSmoothMousePos.x, newSmoothMousePos.y);
       }
 
       const posDeltaSmall =
-        Math.abs(newPawPos.x - prev.pawPos.x) < 0.25 &&
-        Math.abs(newPawPos.y - prev.pawPos.y) < 0.25 &&
+        Math.abs(newLagPos.x - prev.lagPos.x) < 0.25 &&
+        Math.abs(newLagPos.y - prev.lagPos.y) < 0.25 &&
         Math.abs(newSmoothMousePos.x - prev.smoothMousePos.x) < 0.25 &&
         Math.abs(newSmoothMousePos.y - prev.smoothMousePos.y) < 0.25;
       const velDeltaSmall = Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1;
@@ -324,8 +326,8 @@ export function usePawAnimation(
       const next: PawAnimationState = {
         ...prev,
         smoothMousePos: newSmoothMousePos,
-        pawPos: newPawPos,
-        pawVelocity: { x: velocityX, y: velocityY },
+        lagPos: newLagPos,
+        lagVelocity: { x: velocityX, y: velocityY },
       };
       stateRef.current = next;
       setState(next);
@@ -352,7 +354,7 @@ export function usePawAnimation(
   }, [state.isDrawing, enabled]);
 
   return {
-    ...state,
+    isDrawing: state.isDrawing,
     handlers: {
       handlePointerEnter,
       handlePointerMove,

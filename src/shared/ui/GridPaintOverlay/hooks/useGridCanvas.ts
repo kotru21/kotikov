@@ -23,10 +23,18 @@ export const useGridCanvas = (
 
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio, 2);
+    const nextWidth = Math.max(1, Math.floor(rect.width * dpr));
+    const nextHeight = Math.max(1, Math.floor(rect.height * dpr));
+
+    // Resize/URL-bar churn can re-fire init with an unchanged CSS box × DPR.
+    // Reassigning canvas.width/height clears the bitmap — skip when unchanged.
+    if (canvas.width === nextWidth && canvas.height === nextHeight) {
+      return;
+    }
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
     ctx.scale(dpr, dpr);
 
     ctx.imageSmoothingEnabled = false;
