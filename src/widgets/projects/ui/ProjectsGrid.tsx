@@ -7,6 +7,12 @@ function isOrphanOnTablet(index: number, total: number): boolean {
   return remaining % 2 === 1 && index === total - 1;
 }
 
+function getGridItemClass(isFeatured: boolean, wideOnTablet: boolean): string | undefined {
+  if (isFeatured) return "col-span-full";
+  if (wideOnTablet) return "max-xl:col-span-2";
+  return undefined;
+}
+
 export function ProjectsGrid(): React.JSX.Element {
   const total = projectsData.length;
 
@@ -20,12 +26,7 @@ export function ProjectsGrid(): React.JSX.Element {
         const wideOnTablet = isOrphanOnTablet(index, total);
 
         return (
-          <div
-            key={project.slug}
-            className={
-              isFeatured ? "col-span-full" : wideOnTablet ? "max-xl:col-span-2" : undefined
-            }
-          >
+          <div key={project.slug} className={getGridItemClass(isFeatured, wideOnTablet)}>
             <ProjectCard
               project={project}
               featured={isFeatured}

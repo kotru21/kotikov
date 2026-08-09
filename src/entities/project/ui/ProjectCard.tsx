@@ -56,6 +56,39 @@ function getArticleLayoutClass(layout: CardLayout): string {
   return "min-h-88 flex-col p-6 sm:min-h-96 sm:p-7";
 }
 
+function getHeaderLayoutClass(layout: CardLayout): string {
+  if (layout === "wideOnTablet") return "flex-col xl:flex-row";
+  if (layout === "featured") return "flex-col";
+  return "";
+}
+
+function getBodyLayoutClass(layout: CardLayout): string {
+  if (layout === "featured") return "justify-center pt-0";
+  if (layout === "wideOnTablet") {
+    return "justify-center pt-0 xl:mt-auto xl:justify-start xl:pt-10";
+  }
+  return "mt-auto pt-10";
+}
+
+function getTitleClass(isBanner: boolean): string {
+  if (isBanner) return "text-xl leading-tight sm:text-2xl xl:text-[1.75rem]";
+  return "text-2xl leading-tight sm:text-[1.75rem]";
+}
+
+function getSummaryClass(layout: CardLayout): string {
+  if (layout === "featured") return "mt-3 text-sm sm:mt-4 sm:text-base";
+  if (layout === "wideOnTablet") return "mt-3 text-sm sm:text-base xl:mt-4 xl:text-base";
+  return "mt-4 text-base";
+}
+
+function getFooterLayoutClass(layout: CardLayout): string {
+  if (layout === "featured") return "flex-col items-end justify-between self-stretch";
+  if (layout === "wideOnTablet") {
+    return "flex-col items-end justify-between self-stretch xl:mt-6 xl:flex-row xl:items-end xl:justify-between";
+  }
+  return "mt-6 items-end justify-between";
+}
+
 export function ProjectCard({
   project,
   isStacked = false,
@@ -75,9 +108,7 @@ export function ProjectCard({
       <ProjectCardPattern pattern={project.cardPattern} color={project.accentColor} />
 
       <div
-        className={`relative z-10 flex shrink-0 items-start justify-between gap-4 ${
-          layout === "wideOnTablet" ? "flex-col xl:flex-row" : layout === "featured" ? "flex-col" : ""
-        }`}
+        className={`relative z-10 flex shrink-0 items-start justify-between gap-4 ${getHeaderLayoutClass(layout)}`}
       >
         <div
           className="flex size-11 shrink-0 items-center justify-center rounded-none border-2 border-black text-neutral-950 dark:border-white"
@@ -91,23 +122,13 @@ export function ProjectCard({
       </div>
 
       <div
-        className={`relative z-10 flex min-w-0 flex-1 flex-col ${
-          layout === "featured"
-            ? "justify-center pt-0"
-            : layout === "wideOnTablet"
-              ? "justify-center pt-0 xl:mt-auto xl:justify-start xl:pt-10"
-              : "mt-auto pt-10"
-        }`}
+        className={`relative z-10 flex min-w-0 flex-1 flex-col ${getBodyLayoutClass(layout)}`}
       >
         <p className="text-xs font-semibold tracking-[0.14em] text-neutral-500 uppercase">
           {project.eyebrow}
         </p>
         <h3
-          className={`mt-2 font-bold text-neutral-950 dark:text-white ${
-            isBanner
-              ? "text-xl leading-tight sm:text-2xl xl:text-[1.75rem]"
-              : "text-2xl leading-tight sm:text-[1.75rem]"
-          }`}
+          className={`mt-2 font-bold text-neutral-950 dark:text-white ${getTitleClass(isBanner)}`}
         >
           {project.title}
         </h3>
@@ -115,26 +136,14 @@ export function ProjectCard({
           {project.role}
         </p>
         <p
-          className={`max-w-[70ch] leading-relaxed text-neutral-600 dark:text-neutral-400 ${
-            layout === "featured"
-              ? "mt-3 text-sm sm:mt-4 sm:text-base"
-              : layout === "wideOnTablet"
-                ? "mt-3 text-sm sm:text-base xl:mt-4 xl:text-base"
-                : "mt-4 text-base"
-          }`}
+          className={`max-w-[70ch] leading-relaxed text-neutral-600 dark:text-neutral-400 ${getSummaryClass(layout)}`}
         >
           {project.summary}
         </p>
       </div>
 
       <div
-        className={`relative z-10 flex shrink-0 gap-4 ${
-          layout === "featured"
-            ? "flex-col items-end justify-between self-stretch"
-            : layout === "wideOnTablet"
-              ? "flex-col items-end justify-between self-stretch xl:mt-6 xl:flex-row xl:items-end xl:justify-between"
-              : "mt-6 items-end justify-between"
-        }`}
+        className={`relative z-10 flex shrink-0 gap-4 ${getFooterLayoutClass(layout)}`}
       >
         <p className="text-sm font-medium text-neutral-500">{project.cardMeta}</p>
 
