@@ -274,7 +274,7 @@ describe("theme surface tokens", () => {
 });
 
 describe("ThemeColorMeta", () => {
-  it("syncs theme-color meta and color-scheme with the applied theme", () => {
+  it("syncs theme-color meta with the applied theme", () => {
     const { result } = renderHook(() => useTheme(), {
       wrapper: ({ children }) => (
         <ThemeProvider>
@@ -288,7 +288,6 @@ describe("ThemeColorMeta", () => {
       "content",
       THEME_SURFACE.light.background
     );
-    expect(document.documentElement.style.colorScheme).toBe("light");
 
     act(() => {
       result.current.toggle();
@@ -298,6 +297,5 @@ describe("ThemeColorMeta", () => {
       "content",
       THEME_SURFACE.dark.background
     );
-    expect(document.documentElement.style.colorScheme).toBe("dark");
   });
 });

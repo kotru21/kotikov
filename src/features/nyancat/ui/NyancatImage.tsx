@@ -63,8 +63,13 @@ export function NyancatImage({
       aria-label="Взорвать нянкэта"
       data-testid={testId}
       data-motion-active={isMotionActive}
-      className="border-0 bg-transparent p-0"
+      className="appearance-none border-0 bg-transparent p-0"
       style={{
+        display: "block",
+        margin: 0,
+        font: "inherit",
+        color: "inherit",
+        lineHeight: 1,
         animation: `${animationName} ${animationDuration} linear infinite`,
         animationDelay,
         animationPlayState: isMotionActive ? "running" : "paused",

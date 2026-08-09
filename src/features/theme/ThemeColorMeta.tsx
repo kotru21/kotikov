@@ -18,7 +18,6 @@ export function ThemeColorMeta(): null {
       document.head.appendChild(meta);
     }
     meta.setAttribute("content", color);
-    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
   }, [isDark]);
 
   return null;
