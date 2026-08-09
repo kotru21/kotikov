@@ -1,7 +1,7 @@
+import "@testing-library/jest-dom/vitest";
+
 import { mockAnimationsApi } from "jsdom-testing-mocks";
 import { vi } from "vitest";
-
-import "@testing-library/jest-dom/vitest";
 
 mockAnimationsApi();
 
