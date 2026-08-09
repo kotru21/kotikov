@@ -1,6 +1,7 @@
 "use client";
 
-import { headerContent, navigation } from "@/shared/config/content";
+import { headerContent } from "@/shared/config/content/header";
+import { navigation } from "@/shared/config/content/navigation";
 
 import { HeaderHero, HeaderNavigation, HeaderPaintSurface } from "./ui";
 

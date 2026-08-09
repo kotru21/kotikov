@@ -1,5 +1,5 @@
-import { render, screen, within } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { projectsData, projectsSection } from "@/shared/config/content";
 import { ProjectsWidget } from "@/widgets/projects";
@@ -14,7 +14,11 @@ describe("ProjectsWidget", () => {
     }));
   });
 
-  it("renders the section chrome, dual trees, and action links per project", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("renders section chrome and prunes to the desktop grid after matchMedia sync", async () => {
     render(<ProjectsWidget />);
 
     const section = document.getElementById("projects");
@@ -22,14 +26,33 @@ describe("ProjectsWidget", () => {
     expect(screen.getByRole("heading", { name: projectsSection.title })).toBeInTheDocument();
     expect(screen.getByText(projectsSection.eyebrow)).toBeInTheDocument();
 
-    const carousel = screen.getByRole("region", { name: "Избранные проекты" });
-    const grid = screen.getByTestId("projects-grid");
+    await waitFor(() => {
+      expect(screen.queryByRole("region", { name: "Избранные проекты" })).not.toBeInTheDocument();
+    });
 
-    // JSDOM ignores CSS visibility: active (non-inert) deck slide + full grid are both exposed.
-    // Inactive deck slides use aria-hidden + inert, so only one deck "Код" link is queryable.
-    expect(within(carousel).getAllByRole("link", { name: /код/i })).toHaveLength(1);
+    const grid = screen.getByTestId("projects-grid");
     expect(within(grid).getAllByRole("link", { name: /код/i })).toHaveLength(projectsData.length);
     expect(screen.queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
-    expect(screen.getAllByText("CodeAnalyzer")).toHaveLength(2);
+    expect(screen.getAllByText("CodeAnalyzer")).toHaveLength(1);
+  });
+
+  it("prunes to the mobile deck when matchMedia reports a narrow viewport", async () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({
+      matches: query.includes("max-width"),
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+
+    render(<ProjectsWidget />);
+
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("projects-grid")).not.toBeInTheDocument();
+    });
+    expect(screen.getByRole("region", { name: "Избранные проекты" })).toBeInTheDocument();
   });
 });

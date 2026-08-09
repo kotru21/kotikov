@@ -27,4 +27,17 @@ describe("home page composition", () => {
       "footer",
     ]);
   });
+
+  it("keeps the banner header outside main and targets main for skip links", () => {
+    const { container } = render(<Home />);
+    const main = container.querySelector("main#main-content");
+    const header = container.querySelector("#header");
+
+    expect(main).not.toBeNull();
+    expect(main).toHaveAttribute("tabindex", "-1");
+    expect(header).not.toBeNull();
+    expect(main?.contains(header)).toBe(false);
+    expect(main?.querySelector("#about")).not.toBeNull();
+    expect(main?.querySelector("#projects")).not.toBeNull();
+  });
 });

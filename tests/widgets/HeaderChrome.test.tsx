@@ -5,7 +5,8 @@ import { describe, expect, it, vi } from "vitest";
 
 import { headerContent } from "@/shared/config/content";
 import type * as SharedUi from "@/shared/ui";
-import type { GridPaintOverlayRef } from "@/shared/ui";
+import type * as SharedUiClient from "@/shared/ui/client";
+import type { GridPaintOverlayRef } from "@/shared/ui/client";
 import { colors } from "@/styles/colors";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
@@ -44,6 +45,15 @@ vi.mock("@/shared/ui", async () => {
     return <div data-testid="grid-pattern" />;
   }
 
+  return {
+    ...actual,
+    BauhausGridPattern,
+  };
+});
+
+vi.mock("@/shared/ui/client", async () => {
+  const actual = await vi.importActual<typeof SharedUiClient>("@/shared/ui/client");
+
   function GridPaintOverlay({ ref }: { ref?: React.Ref<unknown> }): React.JSX.Element {
     if (typeof ref === "function") ref({ drawOnCanvas: vi.fn() });
     else if (ref && typeof ref === "object") {
@@ -54,7 +64,6 @@ vi.mock("@/shared/ui", async () => {
 
   return {
     ...actual,
-    BauhausGridPattern,
     GridPaintOverlay,
   };
 });

@@ -5,7 +5,7 @@ import {
   computeCoverage,
   type ContrastSample,
 } from "@/shared/lib";
-import { useCanvasLifecycle } from "@/shared/ui";
+import { useCanvasLifecycle } from "@/shared/ui/client";
 import { colors } from "@/styles/colors";
 
 import type { RevealedPaintEntry } from "./useContactPaintState";

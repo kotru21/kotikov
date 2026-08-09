@@ -1,4 +1,7 @@
-import { BauhausGridPattern, GridPaintOverlay, type GridPaintOverlayRef } from "@/shared/ui";
+"use client";
+
+import { BauhausGridPattern } from "@/shared/ui";
+import { GridPaintOverlay, type GridPaintOverlayRef } from "@/shared/ui/client";
 
 interface HeaderBackgroundProps {
   paintRef?: React.Ref<GridPaintOverlayRef>;

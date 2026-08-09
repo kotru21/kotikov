@@ -1,12 +1,11 @@
 import { projectsSection } from "@/shared/config/content";
 import { Section, SectionHeader } from "@/shared/ui";
 
-import { ProjectCardDeck, ProjectsGrid } from "./ui";
+import { ProjectsViews } from "./ui/ProjectsViews";
 
 /**
  * Projects section composition root (Server Component).
- * Intentionally dual-mounts mobile deck + desktop grid; visibility is CSS-only
- * (`md:hidden` / `hidden md:grid`) so breakpoints stay layout-stable.
+ * Responsive trees are owned by client `ProjectsViews` (dual-mount then prune).
  */
 export function ProjectsWidget(): React.JSX.Element {
   return (
@@ -21,11 +20,7 @@ export function ProjectsWidget(): React.JSX.Element {
         description={projectsSection.description}
       />
 
-      <div className="md:hidden">
-        <ProjectCardDeck />
-      </div>
-
-      <ProjectsGrid />
+      <ProjectsViews />
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 export * from "./about";
 export * from "./contact";
 export * from "./footer";
+export * from "./footerSocial";
 export * from "./header";
 export * from "./navigation";
 export * from "./person";

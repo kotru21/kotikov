@@ -11,9 +11,9 @@ import StructuredData from "./components/StructuredData";
 export default function Home(): React.JSX.Element {
   return (
     <>
-      <main>
-        <StructuredData />
-        <Header />
+      <StructuredData />
+      <Header />
+      <main id="main-content" tabIndex={-1}>
         <About />
         <Projects />
         <Skills />

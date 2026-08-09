@@ -3,7 +3,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Manrope } from "next/font/google";
 import Script from "next/script";
 
 import { ScrollRestoration } from "@/features/scrolling";
@@ -14,9 +14,10 @@ import { personData } from "@/shared/config/content";
 import { SkipLinks } from "./components/SkipLinks";
 import { resolveGaMeasurementId } from "./gaMeasurementId";
 
-const geistSans = Geist({
+/** Manrope covers Latin + Cyrillic for `lang="ru"` body copy. */
+const manrope = Manrope({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
 });
 
 const geistMono = Geist_Mono({
@@ -134,7 +135,7 @@ export default function RootLayout({
         {/* eslint-disable-next-line react/no-danger -- trusted blocking theme init before hydration */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${manrope.variable} ${geistMono.variable} antialiased`}>
         {/*
           Theme init runs via blocking inline script in <head>.
           Scroll reset must stay in sync with shouldResetScrollOnLoad() in scrollUtils.ts.

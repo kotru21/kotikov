@@ -1,3 +1,5 @@
+"use client";
+
 import { type RefObject, useCallback, useMemo, useRef } from "react";
 
 import type { InteractiveTextRegistry } from "../model/types";

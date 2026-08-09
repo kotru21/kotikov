@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { type ReactNode, useCallback, useRef } from "react";
 
 import {
@@ -9,11 +10,14 @@ import {
 } from "@/features/interactive-elements";
 import { usePawAnimation } from "@/features/paw";
 import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance";
-import type { GridPaintOverlayRef } from "@/shared/ui";
+import type { GridPaintOverlayRef } from "@/shared/ui/client";
 
 import { HeaderBackground } from "./HeaderBackground";
-import { HeaderNyancat } from "./HeaderNyancat";
 import { HeaderPaintResync } from "./HeaderPaintResync";
+
+const HeaderNyancat = dynamic(() =>
+  import("./HeaderNyancat").then((mod) => ({ default: mod.HeaderNyancat }))
+);
 
 interface HeaderPaintSurfaceProps {
   navigation: ReactNode;
@@ -22,8 +26,9 @@ interface HeaderPaintSurfaceProps {
 
 /**
  * Client island: paint overlay, pointer drawing, scene motion, interactive registry.
- * Pointer handlers stay on #main-content (not an ancestor of nav) so chrome clicks
- * are never intercepted by the paint shell.
+ * Pointer handlers stay on the hero surface (not an ancestor of nav) so chrome clicks
+ * are never intercepted by the paint shell. Document `#main-content` lives on `<main>`
+ * in `app/page.tsx` (skip-link target); this surface is `#hero`.
  */
 export function HeaderPaintSurface({
   navigation,
@@ -77,9 +82,8 @@ export function HeaderPaintSurface({
         {navigation}
 
         <div
-          id="main-content"
+          id="hero"
           className="relative isolate flex w-full grow items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 md:px-8"
-          tabIndex={-1}
           style={{
             touchAction: isDrawing ? "none" : "pan-y",
           }}

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo, useLayoutEffect, useRef } from "react";
 
 import { InteractiveTextContext } from "../model/context";

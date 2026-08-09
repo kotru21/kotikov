@@ -89,16 +89,16 @@ vi.mock("@/widgets/header/ui/HeaderHero", () => ({
 }));
 
 describe("HeaderWidget", () => {
-  it("places the main content target after global navigation around the hero", () => {
+  it("places the hero paint surface after global navigation around the hero", () => {
     const { container } = render(<HeaderWidget />);
 
-    const targets = container.querySelectorAll("#main-content");
+    const targets = container.querySelectorAll("#hero");
     const target = targets.item(0);
     const globalNavigation = screen.getByRole("navigation", { name: "Global navigation" });
     const hero = screen.getByRole("region", { name: "Hero content" });
 
     expect(targets).toHaveLength(1);
-    expect(target).toHaveAttribute("tabindex", "-1");
+    expect(container.querySelector("#main-content")).toBeNull();
     expect(
       globalNavigation.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING
     ).not.toBe(0);
@@ -118,10 +118,10 @@ describe("HeaderWidget", () => {
     pawState.isDrawing = false;
 
     const { container } = render(<HeaderWidget />);
-    const main = container.querySelector("#main-content");
+    const hero = container.querySelector("#hero");
 
-    expect(main).toHaveStyle({ touchAction: "pan-y" });
-    expect(main).not.toHaveStyle({ cursor: "none" });
+    expect(hero).toHaveStyle({ touchAction: "pan-y" });
+    expect(hero).not.toHaveStyle({ cursor: "none" });
     expect(screen.queryByTestId("header-nyancat")).not.toBeInTheDocument();
 
     performanceSettings.reducedMotion = false;
@@ -131,10 +131,10 @@ describe("HeaderWidget", () => {
     pawState.isDrawing = true;
 
     const { container } = render(<HeaderWidget />);
-    const main = container.querySelector("#main-content");
+    const hero = container.querySelector("#hero");
 
-    expect(main).toHaveStyle({ touchAction: "none" });
-    expect(main).not.toHaveStyle({ cursor: "none" });
+    expect(hero).toHaveStyle({ touchAction: "none" });
+    expect(hero).not.toHaveStyle({ cursor: "none" });
 
     pawState.isDrawing = false;
   });

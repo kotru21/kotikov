@@ -1,12 +1,16 @@
 import { act, renderHook } from "@testing-library/react";
-import { type RefObject } from "react";
+import type { RefObject } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useGridCanvas } from "@/shared/ui/GridPaintOverlay/hooks/useGridCanvas";
 
-function createMockContext(): CanvasRenderingContext2D {
-  return {
-    clearRect: vi.fn(),
+function createMockContext(): {
+  ctx: CanvasRenderingContext2D;
+  clearRect: ReturnType<typeof vi.fn>;
+} {
+  const clearRect = vi.fn();
+  const ctx = {
+    clearRect,
     fillRect: vi.fn(),
     setTransform: vi.fn(),
     scale: vi.fn(),
@@ -15,6 +19,8 @@ function createMockContext(): CanvasRenderingContext2D {
     imageSmoothingEnabled: true,
     globalCompositeOperation: "source-over",
   } as unknown as CanvasRenderingContext2D;
+
+  return { ctx, clearRect };
 }
 
 function mockCanvasElement(
@@ -56,7 +62,7 @@ describe("useGridCanvas", () => {
   });
 
   it("skips redraw when initCanvas repeats with the same CSS size and DPR", () => {
-    const ctx = createMockContext();
+    const { ctx, clearRect } = createMockContext();
     const canvas = mockCanvasElement(ctx, { width: 160, height: 120 });
     const canvasRef = { current: canvas };
     const ctxRef: RefObject<CanvasRenderingContext2D | null> = { current: null };
@@ -68,7 +74,7 @@ describe("useGridCanvas", () => {
       useGridCanvas(canvasRef, ctxRef, 0.5, 8, paintedRef)
     );
 
-    const clearsAfterMount = (ctx.clearRect as ReturnType<typeof vi.fn>).mock.calls.length;
+    const clearsAfterMount = clearRect.mock.calls.length;
     expect(clearsAfterMount).toBeGreaterThan(0);
     expect(canvas.width).toBe(160);
     expect(canvas.height).toBe(120);
@@ -78,11 +84,11 @@ describe("useGridCanvas", () => {
       result.current.initCanvas();
     });
 
-    expect(ctx.clearRect).toHaveBeenCalledTimes(clearsAfterMount);
+    expect(clearRect).toHaveBeenCalledTimes(clearsAfterMount);
   });
 
   it("reinitializes when CSS size changes", () => {
-    const ctx = createMockContext();
+    const { ctx, clearRect } = createMockContext();
     const canvas = mockCanvasElement(ctx, { width: 160, height: 120 });
     const canvasRef = { current: canvas };
     const ctxRef: RefObject<CanvasRenderingContext2D | null> = { current: null };
@@ -94,14 +100,14 @@ describe("useGridCanvas", () => {
       useGridCanvas(canvasRef, ctxRef, 0.5, 8, paintedRef)
     );
 
-    const clearsAfterMount = (ctx.clearRect as ReturnType<typeof vi.fn>).mock.calls.length;
+    const clearsAfterMount = clearRect.mock.calls.length;
     canvas.setMockSize({ width: 200, height: 150 });
 
     act(() => {
       result.current.initCanvas();
     });
 
-    expect(ctx.clearRect).toHaveBeenCalledTimes(clearsAfterMount + 1);
+    expect(clearRect).toHaveBeenCalledTimes(clearsAfterMount + 1);
     expect(canvas.width).toBe(200);
     expect(canvas.height).toBe(150);
   });
