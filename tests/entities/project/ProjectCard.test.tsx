@@ -38,4 +38,13 @@ describe("ProjectCard", () => {
     expect(card?.className).toMatch(/min-h-56/);
     expect(card?.className).toMatch(/xl:flex-col/);
   });
+
+  it("keeps the featured banner horizontal at every breakpoint", () => {
+    const { container } = render(<ProjectCard project={project} featured />);
+
+    const card = container.querySelector("article");
+    expect(card?.className).toMatch(/flex-row/);
+    expect(card?.className).toMatch(/min-h-56/);
+    expect(card?.className).not.toMatch(/xl:flex-col/);
+  });
 });

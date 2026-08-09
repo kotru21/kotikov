@@ -15,14 +15,26 @@ interface ProjectCardProps {
   isStacked?: boolean;
   className?: string;
   /**
-   * Widget layout mode: last grid card is short/horizontal below xl.
+   * Full-width featured banner in `ProjectsGrid` (always horizontal).
+   */
+  featured?: boolean;
+  /**
+   * Widget layout mode: orphan grid card is short/horizontal below xl.
    * Owned by `ProjectsGrid`; prop stays here to preserve identical class output.
    */
   wideOnTablet?: boolean;
 }
 
+type CardLayout = "default" | "wideOnTablet" | "featured";
+
 const pressButtonClassName =
   "focus-visible:ring-primary-400 inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-none border-2 border-black px-4 text-xs font-bold uppercase transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] focus-visible:ring-2 focus-visible:outline-none dark:border-white dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
+
+function resolveCardLayout(featured: boolean, wideOnTablet: boolean): CardLayout {
+  if (featured) return "featured";
+  if (wideOnTablet) return "wideOnTablet";
+  return "default";
+}
 
 function getShadowClass(isStacked: boolean): string {
   if (isStacked) {
@@ -32,28 +44,39 @@ function getShadowClass(isStacked: boolean): string {
   return "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-[transform,box-shadow] duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] dark:hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]";
 }
 
+function getArticleLayoutClass(layout: CardLayout): string {
+  if (layout === "featured") {
+    return "min-h-56 flex-row items-stretch gap-6 p-5 sm:min-h-60 sm:gap-8 sm:p-6 lg:min-h-64 lg:p-7";
+  }
+
+  if (layout === "wideOnTablet") {
+    return "min-h-56 flex-row items-stretch gap-6 p-5 sm:min-h-60 sm:p-6 xl:min-h-96 xl:flex-col xl:gap-0 xl:p-6 sm:xl:p-7";
+  }
+
+  return "min-h-88 flex-col p-6 sm:min-h-96 sm:p-7";
+}
+
 export function ProjectCard({
   project,
   isStacked = false,
   className = "",
+  featured = false,
   wideOnTablet = false,
 }: ProjectCardProps): React.JSX.Element {
   const CardIcon = project.cardIcon;
+  const layout = resolveCardLayout(featured, wideOnTablet);
+  const isBanner = layout === "featured" || layout === "wideOnTablet";
   const shadowClass = getShadowClass(isStacked);
 
   return (
     <article
-      className={`group relative flex overflow-visible rounded-none border-2 border-black bg-white dark:border-white dark:bg-neutral-900 ${shadowClass} ${
-        wideOnTablet
-          ? "min-h-56 flex-row items-stretch gap-6 p-5 sm:min-h-60 sm:p-6 xl:min-h-96 xl:flex-col xl:gap-0 xl:p-6 sm:xl:p-7"
-          : "min-h-88 flex-col p-6 sm:min-h-96 sm:p-7"
-      } ${className}`}
+      className={`group relative flex overflow-visible rounded-none border-2 border-black bg-white dark:border-white dark:bg-neutral-900 ${shadowClass} ${getArticleLayoutClass(layout)} ${className}`}
     >
       <ProjectCardPattern pattern={project.cardPattern} color={project.accentColor} />
 
       <div
         className={`relative z-10 flex shrink-0 items-start justify-between gap-4 ${
-          wideOnTablet ? "flex-col xl:flex-row" : ""
+          layout === "wideOnTablet" ? "flex-col xl:flex-row" : layout === "featured" ? "flex-col" : ""
         }`}
       >
         <div
@@ -69,9 +92,11 @@ export function ProjectCard({
 
       <div
         className={`relative z-10 flex min-w-0 flex-1 flex-col ${
-          wideOnTablet
-            ? "justify-center pt-0 xl:mt-auto xl:justify-start xl:pt-10"
-            : "mt-auto pt-10"
+          layout === "featured"
+            ? "justify-center pt-0"
+            : layout === "wideOnTablet"
+              ? "justify-center pt-0 xl:mt-auto xl:justify-start xl:pt-10"
+              : "mt-auto pt-10"
         }`}
       >
         <p className="text-xs font-semibold tracking-[0.14em] text-neutral-500 uppercase">
@@ -79,7 +104,7 @@ export function ProjectCard({
         </p>
         <h3
           className={`mt-2 font-bold text-neutral-950 dark:text-white ${
-            wideOnTablet
+            isBanner
               ? "text-xl leading-tight sm:text-2xl xl:text-[1.75rem]"
               : "text-2xl leading-tight sm:text-[1.75rem]"
           }`}
@@ -91,7 +116,11 @@ export function ProjectCard({
         </p>
         <p
           className={`max-w-[70ch] leading-relaxed text-neutral-600 dark:text-neutral-400 ${
-            wideOnTablet ? "mt-3 text-sm sm:text-base xl:mt-4 xl:text-base" : "mt-4 text-base"
+            layout === "featured"
+              ? "mt-3 text-sm sm:mt-4 sm:text-base"
+              : layout === "wideOnTablet"
+                ? "mt-3 text-sm sm:text-base xl:mt-4 xl:text-base"
+                : "mt-4 text-base"
           }`}
         >
           {project.summary}
@@ -100,9 +129,11 @@ export function ProjectCard({
 
       <div
         className={`relative z-10 flex shrink-0 gap-4 ${
-          wideOnTablet
-            ? "flex-col items-end justify-between self-stretch xl:mt-6 xl:flex-row xl:items-end xl:justify-between"
-            : "mt-6 items-end justify-between"
+          layout === "featured"
+            ? "flex-col items-end justify-between self-stretch"
+            : layout === "wideOnTablet"
+              ? "flex-col items-end justify-between self-stretch xl:mt-6 xl:flex-row xl:items-end xl:justify-between"
+              : "mt-6 items-end justify-between"
         }`}
       >
         <p className="text-sm font-medium text-neutral-500">{project.cardMeta}</p>

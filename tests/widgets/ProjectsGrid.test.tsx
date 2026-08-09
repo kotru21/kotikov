@@ -14,18 +14,24 @@ describe("ProjectsGrid", () => {
     expect(within(grid).queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
   });
 
-  it("keeps the last card wide on tablet breakpoints", () => {
+  it("spans the first card full-width and widens an orphan on tablet", () => {
     render(<ProjectsGrid />);
 
     const grid = screen.getByTestId("projects-grid");
     const cardRoots = Array.from(grid.children);
     expect(cardRoots).toHaveLength(projectsData.length);
 
+    expect(cardRoots[0]?.className).toMatch(/col-span-full/);
+
+    const remaining = projectsData.length - 1;
+    const orphanIndex = remaining % 2 === 1 ? remaining : -1;
+
     for (const [index, root] of cardRoots.entries()) {
-      if (index === projectsData.length - 1) {
+      if (index === 0) continue;
+      if (index === orphanIndex) {
         expect(root.className).toMatch(/col-span-2/);
       } else {
-        expect(root.className).not.toMatch(/col-span-2/);
+        expect(root.className).not.toMatch(/col-span/);
       }
     }
   });
