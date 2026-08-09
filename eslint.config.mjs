@@ -21,7 +21,7 @@ const boundariesSharedTo = [
   "lib/**",
   "ui/**",
   "styles/**",
-].map((internalPath) => ({ type: "shared", internalPath }));
+].map((internalPath) => ({ element: { type: "shared", internalPath } }));
 
 /** Public slice entry paths for entities / features / widgets. */
 function boundariesSliceTo(/** @type {string} */ elementType) {
@@ -34,8 +34,7 @@ function boundariesSliceTo(/** @type {string} */ elementType) {
     "*/client.ts",
     "*/client.tsx",
   ].map((internalPath) => ({
-    type: elementType,
-    internalPath,
+    element: { type: elementType, internalPath },
   }));
 }
 
@@ -407,24 +406,23 @@ export default defineConfig(
       ],
 
       // ─────────────────────────────────────────────────────────────────────────
-      // FSD layer boundaries + public API (entry paths via internalPath)
-      // v6: boundaries/dependencies + object selectors (replaces element-types + entry-point)
+      // FSD layer boundaries + public API (entry paths via element.internalPath)
       // ─────────────────────────────────────────────────────────────────────────
       "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
-          rules: [
+          policies: [
             {
-              from: { type: "shared" },
+              from: { element: { type: "shared" } },
               allow: { to: boundariesSharedTo },
             },
             {
-              from: { type: "entities" },
+              from: { element: { type: "entities" } },
               allow: { to: [...boundariesSliceTo("entities"), ...boundariesSharedTo] },
             },
             {
-              from: { type: "features" },
+              from: { element: { type: "features" } },
               allow: {
                 to: [
                   ...boundariesSliceTo("features"),
@@ -434,7 +432,7 @@ export default defineConfig(
               },
             },
             {
-              from: { type: "widgets" },
+              from: { element: { type: "widgets" } },
               allow: {
                 to: [
                   ...boundariesSliceTo("widgets"),
@@ -445,10 +443,10 @@ export default defineConfig(
               },
             },
             {
-              from: { type: "app" },
+              from: { element: { type: "app" } },
               allow: {
                 to: [
-                  { type: "app", internalPath: "**" },
+                  { element: { type: "app", internalPath: "**" } },
                   ...boundariesSliceTo("widgets"),
                   ...boundariesSliceTo("features"),
                   ...boundariesSliceTo("entities"),
