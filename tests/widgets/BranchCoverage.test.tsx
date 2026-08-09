@@ -13,19 +13,20 @@ import TimelineYearDisplay from "@/widgets/timeline/ui/TimelineYearDisplay";
 
 import ErrorPage from "../../app/error";
 
-vi.mock("next/image", () => ({
-  default: ({
-    alt = "",
-    onError,
-    ...rest
-  }: {
-    alt?: string;
-    onError?: () => void;
-  } & Record<string, unknown>) => (
-    /* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- test stub triggers onError */
-    <img alt={alt} data-testid="year-cat" onClick={() => onError?.()} {...rest} />
-  ),
-}));
+vi.mock("next/image", async () => {
+  const { MockNextImage } = await import("../helpers/mockNextImage");
+  return {
+    default: (props: React.ComponentProps<typeof MockNextImage>) => (
+      <MockNextImage
+        {...props}
+        data-testid="year-cat"
+        onClick={() => {
+          props.onError?.();
+        }}
+      />
+    ),
+  };
+});
 
 describe("branch coverage gaps", () => {
   describe("ErrorPage", () => {

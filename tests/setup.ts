@@ -1,4 +1,37 @@
 import "@testing-library/jest-dom/vitest";
+import { mockAnimationsApi } from "jsdom-testing-mocks";
+import { vi } from "vitest";
+
+mockAnimationsApi();
+
+// jsdom has no canvas implementation; stub a minimal 2d context for paint paths.
+HTMLCanvasElement.prototype.getContext = vi.fn(function getContext(
+  this: HTMLCanvasElement,
+  contextId: string
+): CanvasRenderingContext2D | null {
+  if (contextId !== "2d") return null;
+  return {
+    canvas: this,
+    clearRect: vi.fn(),
+    fillRect: vi.fn(),
+    strokeRect: vi.fn(),
+    beginPath: vi.fn(),
+    moveTo: vi.fn(),
+    lineTo: vi.fn(),
+    stroke: vi.fn(),
+    setTransform: vi.fn(),
+    scale: vi.fn(),
+    createLinearGradient: vi.fn(() => ({
+      addColorStop: vi.fn(),
+    })),
+    globalAlpha: 1,
+    fillStyle: "",
+    strokeStyle: "",
+    lineWidth: 1,
+    imageSmoothingEnabled: true,
+    globalCompositeOperation: "source-over",
+  } as unknown as CanvasRenderingContext2D;
+}) as unknown as typeof HTMLCanvasElement.prototype.getContext;
 
 // Bun's runtime injects native `localStorage`/`sessionStorage` globals that
 // shadow jsdom's Storage. When no `--localstorage-file` is configured (the case
@@ -31,7 +64,7 @@ class MemoryStorage {
   }
 
   setItem(key: string, value: string): void {
-    this.store.set(key, value);
+    this.store.set(key, String(value));
   }
 }
 

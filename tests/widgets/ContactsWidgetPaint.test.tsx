@@ -39,36 +39,25 @@ const clearDrawing = vi.fn();
 const checkCollisions = vi.fn();
 const resyncAll = vi.fn();
 
-vi.mock("@/features/interactive-elements", () => ({
-  InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
-  InteractiveElement: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href?: string;
-  } & Record<string, unknown>) => {
-    if (typeof href === "string") {
-      return (
-        <a href={href} {...props}>
-          {children}
-        </a>
-      );
-    }
-    return <div {...props}>{children}</div>;
-  },
-  InteractiveText: ({ text }: { text: string }) => text,
-  useInteractiveCollision: () => ({
-    checkCollisions,
-    resyncAll,
-    clearAllContrast: vi.fn(),
-  }),
-  useInteractiveRegistry: () => ({
-    registry: {},
-    interactiveElementsRef: { current: [] },
-  }),
-}));
+vi.mock("@/features/interactive-elements", async () => {
+  const { MockInteractiveElement, MockInteractiveText } = await import(
+    "../helpers/mockInteractiveElement"
+  );
+  return {
+    InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
+    InteractiveElement: MockInteractiveElement,
+    InteractiveText: MockInteractiveText,
+    useInteractiveCollision: () => ({
+      checkCollisions,
+      resyncAll,
+      clearAllContrast: vi.fn(),
+    }),
+    useInteractiveRegistry: () => ({
+      registry: {},
+      interactiveElementsRef: { current: [] },
+    }),
+  };
+});
 
 vi.mock("@/features/paw", () => ({
   ClearPaintButton: ({

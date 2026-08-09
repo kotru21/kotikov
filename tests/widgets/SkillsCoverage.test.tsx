@@ -11,13 +11,10 @@ import {
 } from "@/widgets/skills/ui";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
 
-vi.mock("next/image", () => ({
-  default: (props: Record<string, unknown>) => {
-    const { alt = "", ...rest } = props;
-    // eslint-disable-next-line @next/next/no-img-element -- test stub
-    return <img alt={String(alt)} {...rest} />;
-  },
-}));
+vi.mock("next/image", async () => {
+  const { MockNextImage } = await import("../helpers/mockNextImage");
+  return { default: MockNextImage };
+});
 
 const performanceSettings = {
   reducedMotion: false,

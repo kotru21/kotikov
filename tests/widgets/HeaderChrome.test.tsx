@@ -10,32 +10,14 @@ import type { GridPaintOverlayRef } from "@/shared/ui/client";
 import { colors } from "@/styles/colors";
 import { HeaderBackground, HeaderHero } from "@/widgets/header/ui";
 
-vi.mock("@/features/interactive-elements", () => {
-  function InteractiveElement({
-    children,
-    href,
-    as: Component = "div",
-    ...props
-  }: {
-    children?: React.ReactNode;
-    href?: string;
-    as?: React.ElementType;
-  } & Record<string, unknown>): React.JSX.Element {
-    if (typeof href === "string") {
-      return (
-        <a href={href} {...props}>
-          {children}
-        </a>
-      );
-    }
-    return <Component {...props}>{children}</Component>;
-  }
-
-  function InteractiveText({ text }: { text: string }): string {
-    return text;
-  }
-
-  return { InteractiveElement, InteractiveText };
+vi.mock("@/features/interactive-elements", async () => {
+  const { MockInteractiveElement, MockInteractiveText } = await import(
+    "../helpers/mockInteractiveElement"
+  );
+  return {
+    InteractiveElement: MockInteractiveElement,
+    InteractiveText: MockInteractiveText,
+  };
 });
 
 vi.mock("@/shared/ui", async () => {

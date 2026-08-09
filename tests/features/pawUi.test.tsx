@@ -7,17 +7,15 @@ vi.mock("@/features/device", () => ({
   useIsMobile: () => false,
 }));
 
-vi.mock("@/features/interactive-elements", () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention -- mock mirrors real PascalCase exports
-  InteractiveElement: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-  } & Record<string, unknown>) => <p {...props}>{children}</p>,
-  // eslint-disable-next-line @typescript-eslint/naming-convention -- mock mirrors real PascalCase exports
-  InteractiveText: ({ text }: { text: string }) => text,
-}));
+vi.mock("@/features/interactive-elements", async () => {
+  const { MockInteractiveElement, MockInteractiveText } = await import(
+    "../helpers/mockInteractiveElement"
+  );
+  return {
+    InteractiveElement: MockInteractiveElement,
+    InteractiveText: MockInteractiveText,
+  };
+});
 
 describe("ClearPaintButton", () => {
   it("renders with data-draw-allow and handles click", () => {
