@@ -1,0 +1,15 @@
+{
+  "schedule": "weekly",
+  "ignoredFiles": [
+    "e2e/*",
+    "e2e/**",
+    "**/e2e/**",
+    "**/*snapshots*",
+    "src/*",
+    "src/**",
+    "app/*",
+    "app/**",
+    ".github/*",
+    ".github/**"
+  ]
+}
