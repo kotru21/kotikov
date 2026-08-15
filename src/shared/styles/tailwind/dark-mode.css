@@ -15,6 +15,7 @@
   --background: #f5f5f3;
   --foreground: #111111;
   --chrome-bar-offset: 3.5rem;
+  --chrome-title-offset: 3rem;
   color-scheme: light;
   --shadow-hard-sm: 4px 4px 0 0 #111111;
   --shadow-hard-lg: 8px 8px 0 0 #111111;

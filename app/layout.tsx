@@ -33,6 +33,7 @@ const siteDescription = `${personData.description}. БГУИР, hoster.by, SAST 
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: THEME_SURFACE.light.background },
     { media: "(prefers-color-scheme: dark)", color: THEME_SURFACE.dark.background },

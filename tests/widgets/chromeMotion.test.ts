@@ -13,7 +13,7 @@ describe("chromeSlideClass", () => {
         "translate-x-0",
       ])
     );
-    expect(chromeSlideClass(true, "right", false)).toContain("translate-x-0");
+    expect(chromeSlideClass(true, "top", false)).toContain("translate-y-0");
     expect(chromeSlideClass(true, "bottom", false)).toContain("translate-y-0");
   });
 
@@ -21,7 +21,7 @@ describe("chromeSlideClass", () => {
     expect(chromeSlideClass(false, "left", false).split(/\s+/)).toEqual(
       expect.arrayContaining(["-translate-x-full", "motion-safe:ease-in"])
     );
-    expect(chromeSlideClass(false, "right", false)).toContain("translate-x-full");
+    expect(chromeSlideClass(false, "top", false)).toContain("-translate-y-full");
     expect(chromeSlideClass(false, "bottom", false)).toContain("translate-y-full");
     expect(chromeSlideClass(false, "left", false)).not.toContain("ease-out");
   });

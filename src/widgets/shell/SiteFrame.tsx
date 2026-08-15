@@ -11,8 +11,9 @@ import { MobileChrome } from "./ui/MobileChrome";
 
 const SECTION_IDS = ["about", "projects", "skills", "experience", "contacts"] as const;
 
-/** Mobile rail inset. Desktop chrome clearance is `md:pb-14` on this wrapper — never on `main > *`, which painted a 3.5rem hole inside bordered bands. Hash jumps already use `html { scroll-padding-bottom: var(--chrome-bar-offset) }`. */
-const CONTENT_OFFSET = "max-md:pl-10 max-md:pr-20 md:pb-14";
+/** Mobile title+bar inset. Desktop clearance is `md:pb-14` on this wrapper — never on `main > *`. */
+const CONTENT_OFFSET =
+  "max-md:pt-[calc(3rem+env(safe-area-inset-top,0px))] max-md:pb-[calc(3.5rem+env(safe-area-inset-bottom,0px))] md:pb-14";
 
 interface SiteFrameProps {
   puzzle: React.ReactNode;
@@ -52,7 +53,9 @@ export function SiteFrame({ puzzle, children }: SiteFrameProps): React.JSX.Eleme
     <>
       <PuzzleSlot puzzleRef={puzzleRef}>{puzzle}</PuzzleSlot>
       <ChromeIsland open={chromeVisible} />
-      <div className={CONTENT_OFFSET}>{children}</div>
+      <div className={CONTENT_OFFSET} data-content-offset>
+        {children}
+      </div>
     </>
   );
 }

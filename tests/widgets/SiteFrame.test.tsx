@@ -106,14 +106,28 @@ function wordCellNames(): string[] {
   return ["Проекты", "Обо мне", "Опыт", "Контакты"];
 }
 
-function navByClass(token: string): HTMLElement {
-  const nav = screen
-    .getAllByRole("navigation", { name: "Основная навигация" })
-    .find((el) => classTokens(el).includes(token));
-  if (nav === undefined) {
-    throw new Error(`Missing chrome nav with ${token}`);
+function chromeByName(name: "desktop" | "mobile"): HTMLElement {
+  const el = document.querySelector(`[data-chrome="${name}"]`);
+  if (!(el instanceof HTMLElement)) {
+    throw new Error(`Missing chrome ${name}`);
   }
-  return nav;
+  return el;
+}
+
+function titleBar(): HTMLElement {
+  const el = document.querySelector("[data-chrome='title']");
+  if (!(el instanceof HTMLElement)) {
+    throw new Error("Missing chrome title bar");
+  }
+  return el;
+}
+
+function titleSlide(): HTMLElement {
+  const slide = titleBar().parentElement;
+  if (slide === null) {
+    throw new Error("Missing chrome title slide");
+  }
+  return slide;
 }
 
 function requireSpine(): HTMLElement {
@@ -213,7 +227,7 @@ describe("SiteFrame", () => {
     }
   });
 
-  it("rotates the mobile spine title as a sideways line", () => {
+  it("shows the mobile section title as a horizontal top strip", () => {
     renderSiteFrame();
     showChrome();
     fireSection("projects", 0.9);
@@ -223,18 +237,15 @@ describe("SiteFrame", () => {
     expect(spine).toHaveAttribute("aria-hidden", "true");
     expect(spine).toHaveTextContent("Избранные работы");
     expect(classTokens(spine)).toEqual(
-      expect.arrayContaining([
-        "overflow-hidden",
-        "whitespace-nowrap",
-        "tracking-[0.24em]",
-        "[writing-mode:vertical-rl]",
-        "rotate-180",
-      ])
+      expect.arrayContaining(["truncate", "tracking-[-0.05em]", "uppercase"])
     );
-    expect(classTokens(spine)).not.toContain("tracking-[-0.05em]");
-    expect(classTokens(spine)).not.toContain("[text-orientation:upright]");
-    expect(classTokens(spine.parentElement!)).toEqual(
-      expect.arrayContaining(["w-10", "h-full", "overflow-hidden", "translate-x-0"])
+    expect(classTokens(spine)).not.toContain("[writing-mode:vertical-rl]");
+    expect(classTokens(spine)).not.toContain("rotate-180");
+    expect(classTokens(titleBar())).toEqual(
+      expect.arrayContaining(["h-12", "divide-x-2"])
+    );
+    expect(classTokens(titleSlide())).toEqual(
+      expect.arrayContaining(["translate-y-0", "top-0"])
     );
   });
 
@@ -253,13 +264,21 @@ describe("SiteFrame", () => {
     }
   });
 
-  it("offsets rails on small screens and keeps chrome clearance outside section borders", () => {
+  it("offsets top and bottom chrome on small screens instead of side rails", () => {
     renderSiteFrame();
-    const offset = document.querySelector(".max-md\\:pl-10.max-md\\:pr-20");
+    const offset = document.querySelector("[data-content-offset]");
     expect(offset).not.toBeNull();
     expect(offset?.className.split(/\s+/)).toEqual(
-      expect.arrayContaining(["max-md:pl-10", "max-md:pr-20", "md:pb-14"])
+      expect.arrayContaining([
+        "max-md:pt-[calc(3rem+env(safe-area-inset-top,0px))]",
+        "max-md:pb-[calc(3.5rem+env(safe-area-inset-bottom,0px))]",
+        "md:pb-14",
+      ])
     );
+    expect(offset?.className).not.toContain("max-md:pl-12");
+    expect(offset?.className).not.toContain("max-md:pr-24");
+    expect(offset?.className).not.toContain("max-md:pl-10");
+    expect(offset?.className).not.toContain("max-md:pr-20");
     expect(offset?.className).not.toContain("[&>main>*]:pb-14");
     expect(offset?.className).not.toContain("[&>footer]:pb-14");
     expect(offset?.querySelector("main")).not.toBeNull();
@@ -271,7 +290,7 @@ describe("SiteFrame", () => {
     renderSiteFrame();
     showChrome();
 
-    const desktop = navByClass("grid-cols-5");
+    const desktop = chromeByName("desktop");
     expect(classTokens(desktop)).toEqual(
       expect.arrayContaining(["border-2", "divide-x-2", "h-14", "grid-cols-5"])
     );
@@ -280,9 +299,9 @@ describe("SiteFrame", () => {
     expect(desktopHome).not.toBeNull();
     expect(desktopHome).not.toHaveClass("border-2");
 
-    const mobile = navByClass("grid-rows-5");
+    const mobile = chromeByName("mobile");
     expect(classTokens(mobile)).toEqual(
-      expect.arrayContaining(["border-2", "divide-y-2", "w-20", "grid-rows-5"])
+      expect.arrayContaining(["border-2", "divide-x-2", "h-14", "grid-cols-5"])
     );
     expect(within(mobile).getByRole("link", { name: "Обо мне" })).not.toHaveClass("border-2");
     const mobileHome = within(mobile).getByRole("link", { name: "Kotikov" }).parentElement;
@@ -290,46 +309,42 @@ describe("SiteFrame", () => {
     expect(mobileHome).not.toHaveClass("border-2");
   });
 
-  it("keeps the stacked home mark and theme toggle as a padded group", () => {
+  it("keeps the mobile home mark in the bottom bar and theme toggle in the title strip", () => {
     renderSiteFrame();
     showChrome();
 
-    const mobileNav = navByClass("grid-rows-5");
+    const mobileNav = chromeByName("mobile");
     const homeLink = within(mobileNav).getByRole("link", { name: "Kotikov" });
-    const homeTokens = classTokens(homeLink);
-    expect(homeTokens).toEqual(expect.arrayContaining(["min-h-11", "min-w-11"]));
-    expect(homeTokens).not.toContain("flex-1");
-    expect(homeTokens).not.toContain("w-full");
+    expect(classTokens(homeLink)).toEqual(expect.arrayContaining(["min-h-11", "min-w-11"]));
+    expect(within(mobileNav).queryByRole("button", { name: /тему/i })).not.toBeInTheDocument();
 
-    const homeCell = homeLink.parentElement;
-    expect(homeCell).not.toBeNull();
-    expect(classTokens(homeCell!)).toEqual(
-      expect.arrayContaining(["flex-col", "gap-2", "p-2", "justify-center"])
-    );
-
-    const themeToggle = within(homeCell!).getByRole("button", { name: /тему/i });
-    expect(classTokens(themeToggle)).toContain("size-11");
+    const titleTheme = within(titleBar()).getByRole("button", { name: /тему/i });
+    expect(classTokens(titleTheme)).toContain("size-11");
   });
 
-  it("wraps stacked rail labels inside w-20 instead of giant type", () => {
+  it("keeps compact labels in the mobile bottom bar instead of giant type", () => {
     renderSiteFrame();
     showChrome();
 
-    const mobileNav = navByClass("grid-rows-5");
-    expect(classTokens(mobileNav)).toEqual(expect.arrayContaining(["w-20", "grid-rows-5"]));
+    const mobileNav = chromeByName("mobile");
+    expect(classTokens(mobileNav)).toEqual(expect.arrayContaining(["h-14", "grid-cols-5"]));
+    expect(classTokens(mobileNav)).not.toContain("w-20");
+    expect(classTokens(mobileNav)).not.toContain("grid-rows-5");
 
     const about = within(mobileNav).getByRole("link", { name: "Обо мне" });
-    expect(classTokens(about)).toEqual(
-      expect.arrayContaining(["flex-col", "break-words", "whitespace-normal", "text-[0.65rem]"])
+    const label = about.querySelector("span");
+    expect(label).not.toBeNull();
+    expect(classTokens(label!)).toEqual(
+      expect.arrayContaining(["uppercase", "font-black", "text-[clamp(0.62rem,12cqi,0.8rem)]"])
     );
-    expect(about.className).not.toMatch(/clamp/);
+    expect(about.className).not.toMatch(/clamp\(1\.5rem/);
   });
 
   it("scales desktop bar labels to the cell instead of clipping giant type", () => {
     renderSiteFrame();
     showChrome();
 
-    const desktop = navByClass("grid-cols-5");
+    const desktop = chromeByName("desktop");
     const contacts = within(desktop).getByRole("link", { name: "Контакты" });
     expect(classTokens(contacts)).toEqual(
       expect.arrayContaining(["@container", "min-h-11", "min-w-0"])
@@ -357,24 +372,24 @@ describe("SiteFrame", () => {
     showChrome();
     fireSection("projects", 0.9);
 
-    const mobile = navByClass("grid-rows-5");
-    expect(classTokens(mobile)).toEqual(
+    const mobileSlide = chromeByName("mobile").parentElement;
+    expect(mobileSlide).not.toBeNull();
+    expect(classTokens(mobileSlide!)).toEqual(
       expect.arrayContaining([
-        "translate-x-0",
+        "translate-y-0",
         "motion-safe:transition-transform",
         "motion-safe:duration-300",
         "motion-safe:ease-out",
       ])
     );
-    const desktop = navByClass("grid-cols-5");
+    const desktop = chromeByName("desktop");
     expect(classTokens(desktop)).toEqual(
       expect.arrayContaining(["translate-y-0", "motion-safe:ease-out"])
     );
-    const spineBar = document.querySelector("[data-chrome-spine]")?.parentElement;
-    expect(classTokens(spineBar!)).toEqual(
-      expect.arrayContaining(["translate-x-0", "motion-safe:ease-out"])
+    expect(classTokens(titleSlide())).toEqual(
+      expect.arrayContaining(["translate-y-0", "motion-safe:ease-out"])
     );
-    expect(classTokens(spineBar!)).not.toContain("-translate-x-full");
+    expect(classTokens(titleSlide())).not.toContain("-translate-y-full");
   });
 
   it("slides chrome back out when returning to the puzzle", () => {
@@ -387,20 +402,18 @@ describe("SiteFrame", () => {
       screen.queryByRole("navigation", { name: "Основная навигация" })
     ).not.toBeInTheDocument();
 
-    const mobile = document.querySelector("nav.grid-rows-5");
-    const desktop = document.querySelector("nav.grid-cols-5");
-    expect(mobile).not.toBeNull();
+    const mobileSlide = document.querySelector("[data-chrome='mobile']")?.parentElement;
+    const desktop = document.querySelector("[data-chrome='desktop']");
+    expect(mobileSlide).not.toBeNull();
     expect(desktop).not.toBeNull();
-    expect(classTokens(mobile!)).toEqual(
-      expect.arrayContaining(["translate-x-full", "motion-safe:ease-in"])
+    expect(classTokens(mobileSlide!)).toEqual(
+      expect.arrayContaining(["translate-y-full", "motion-safe:ease-in"])
     );
     expect(classTokens(desktop!)).toEqual(
       expect.arrayContaining(["translate-y-full", "motion-safe:ease-in"])
     );
-
-    const spineBar = document.querySelector("[data-chrome-spine]")?.parentElement;
-    expect(classTokens(spineBar!)).toEqual(
-      expect.arrayContaining(["-translate-x-full", "motion-safe:ease-in"])
+    expect(classTokens(titleSlide())).toEqual(
+      expect.arrayContaining(["-translate-y-full", "motion-safe:ease-in"])
     );
   });
 
@@ -409,13 +422,14 @@ describe("SiteFrame", () => {
     renderSiteFrame();
     showChrome();
 
-    const mobile = navByClass("grid-rows-5");
-    expect(classTokens(mobile)).toEqual(
-      expect.arrayContaining(["transition-none", "translate-x-0"])
+    const mobileSlide = chromeByName("mobile").parentElement;
+    expect(mobileSlide).not.toBeNull();
+    expect(classTokens(mobileSlide!)).toEqual(
+      expect.arrayContaining(["transition-none", "translate-y-0"])
     );
-    expect(classTokens(mobile)).not.toContain("motion-safe:transition-transform");
+    expect(classTokens(mobileSlide!)).not.toContain("motion-safe:transition-transform");
 
-    const desktop = navByClass("grid-cols-5");
+    const desktop = chromeByName("desktop");
     expect(classTokens(desktop)).toEqual(
       expect.arrayContaining(["transition-none", "translate-y-0"])
     );

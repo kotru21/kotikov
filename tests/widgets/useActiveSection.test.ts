@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ACTIVE_SECTION_OBSERVER_OPTIONS,
   ACTIVE_SECTION_THRESHOLDS,
+  MOBILE_CHROME_ROOT_MARGIN,
   useActiveSection,
 } from "@/widgets/shell/hooks/useActiveSection";
 
@@ -127,7 +128,7 @@ describe("useActiveSection", () => {
     expect(lastOptions?.rootMargin).toBe(ACTIVE_SECTION_OBSERVER_OPTIONS.rootMargin);
   });
 
-  it("does not apply the desktop chrome bar offset on a mobile viewport", () => {
+  it("insets the observer by the mobile title bar and bottom nav", () => {
     vi.stubGlobal("matchMedia", (query: string) => ({
       matches: false,
       media: query,
@@ -141,7 +142,7 @@ describe("useActiveSection", () => {
     mountSections(SECTION_IDS);
     renderHook(() => useActiveSection(SECTION_IDS));
 
-    expect(lastOptions?.rootMargin).toBe("0px");
+    expect(lastOptions?.rootMargin).toBe(MOBILE_CHROME_ROOT_MARGIN);
   });
 
   it("updates the winner while both sections stay intersecting", () => {

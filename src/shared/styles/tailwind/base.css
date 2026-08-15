@@ -23,6 +23,8 @@ button:disabled,
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--chrome-title-offset) + env(safe-area-inset-top, 0px));
+  scroll-padding-bottom: calc(var(--chrome-bar-offset) + env(safe-area-inset-bottom, 0px));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -33,6 +35,7 @@ html {
 
 @media (min-width: 768px) {
   html {
+    scroll-padding-top: 0;
     scroll-padding-bottom: var(--chrome-bar-offset);
   }
 }

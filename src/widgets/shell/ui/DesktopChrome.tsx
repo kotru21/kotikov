@@ -16,33 +16,32 @@ import { chromeSlideClass } from "../lib/chromeMotion";
 
 const CELL_INTERACTION = `${CELL_HOVER} focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#111] dark:focus-visible:ring-[#ededed]`;
 
-const STACKED_WORD =
-  "min-w-0 w-full px-1 text-center text-[0.65rem] leading-tight font-black break-words whitespace-normal uppercase tracking-[-0.04em]";
 const BAR_WORD =
   "px-1.5 text-center text-[clamp(1.35rem,17cqi,2.5rem)] leading-none font-black whitespace-nowrap uppercase tracking-[-0.05em]";
+const COMPACT_WORD =
+  "px-0.5 text-center text-[clamp(0.62rem,12cqi,0.8rem)] leading-tight font-black whitespace-normal uppercase tracking-[-0.04em]";
 
 interface ChromeNavCellProps {
   item: ChromeNavItem;
   activeSection: ActiveSectionId;
-  stacked?: boolean;
+  compact?: boolean;
 }
 
 interface HomeCellProps {
   href: ChromeNavItem["href"];
   label: string;
-  stacked?: boolean;
+  compact?: boolean;
 }
 
 interface WordCellProps {
   item: ChromeNavItem;
   active: boolean;
-  stacked?: boolean;
+  compact?: boolean;
 }
 
-function HomeCell({ href, label, stacked = false }: HomeCellProps): React.JSX.Element {
-  const layout = stacked ? "min-h-11 flex-col gap-2 p-2" : "flex-row gap-2";
+function HomeCell({ href, label, compact = false }: HomeCellProps): React.JSX.Element {
   return (
-    <div className={`${GRID_SURFACE} flex items-center justify-center ${layout}`}>
+    <div className={`${GRID_SURFACE} flex items-center justify-center ${compact ? "" : "gap-2"}`}>
       <a
         aria-label={label}
         className={`flex min-h-11 min-w-11 shrink-0 touch-manipulation items-center justify-center text-[#111] dark:text-[#ededed] ${CELL_INTERACTION}`}
@@ -50,23 +49,20 @@ function HomeCell({ href, label, stacked = false }: HomeCellProps): React.JSX.El
       >
         <KMark className="h-7 w-7" />
       </a>
-      <ThemeToggle className={stacked ? "size-11" : "size-8"} />
+      {compact ? null : <ThemeToggle className="size-8" />}
     </div>
   );
 }
 
-function WordCell({ item, active, stacked = false }: WordCellProps): React.JSX.Element {
+function WordCell({ item, active, compact = false }: WordCellProps): React.JSX.Element {
   const fill = active ? TEAL_FILL : GRID_SURFACE;
-  const layout = stacked
-    ? "min-h-11 min-w-0 w-full flex-col"
-    : "@container min-h-11 min-w-0 w-full";
   return (
     <a
       aria-current={active ? "location" : undefined}
-      className={`flex touch-manipulation items-center justify-center no-underline ${layout} ${stacked ? STACKED_WORD : ""} ${CELL_INTERACTION} ${fill}`}
+      className={`@container flex min-h-11 min-w-0 w-full touch-manipulation items-center justify-center no-underline ${CELL_INTERACTION} ${fill}`}
       href={item.href}
     >
-      {stacked ? item.label : <span className={BAR_WORD}>{item.label}</span>}
+      <span className={compact ? COMPACT_WORD : BAR_WORD}>{item.label}</span>
     </a>
   );
 }
@@ -74,12 +70,12 @@ function WordCell({ item, active, stacked = false }: WordCellProps): React.JSX.E
 export function ChromeNavCell({
   item,
   activeSection,
-  stacked = false,
+  compact = false,
 }: ChromeNavCellProps): React.JSX.Element {
   if (item.kind === "home") {
-    return <HomeCell href={item.href} label={item.label} stacked={stacked} />;
+    return <HomeCell compact={compact} href={item.href} label={item.label} />;
   }
-  return <WordCell active={item.id === activeSection} item={item} stacked={stacked} />;
+  return <WordCell active={item.id === activeSection} compact={compact} item={item} />;
 }
 
 interface DesktopChromeProps {
@@ -99,6 +95,7 @@ export function DesktopChrome({
       aria-hidden={!open}
       aria-label="Основная навигация"
       className={`${GRID_SURFACE} fixed inset-x-0 bottom-0 z-50 hidden h-14 grid-cols-5 md:grid ${GRID_STROKE} ${GRID_DIVIDE_X} ${events} ${chromeSlideClass(open, "bottom", instant)}`}
+      data-chrome="desktop"
       inert={!open}
     >
       {chromeNavItems.map((item) => (

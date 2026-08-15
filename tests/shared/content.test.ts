@@ -62,7 +62,7 @@ describe("content model", () => {
     expect(puzzleTickers.bottom).toContain(" × ");
   });
 
-  it("keeps section titles for the mobile spine", () => {
+  it("keeps section titles for the mobile top chrome strip", () => {
     expect(sectionTitles.about).toBe("Коротко обо мне");
     expect(sectionTitles.projects).toBe("Избранные работы");
     expect(sectionTitles.skills).toBe("Мои навыки");
