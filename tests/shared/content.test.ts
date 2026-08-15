@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   aboutContent,
+  chromeNavItems,
   contactsData,
   footerInfo,
   headerContent,
@@ -9,6 +10,9 @@ import {
   personData,
   projectsData,
   projectsSection,
+  puzzleCells,
+  puzzleTickers,
+  sectionTitles,
   skillGroups,
   skillsData,
   skillsStackLine,
@@ -35,15 +39,35 @@ describe("content model", () => {
     expect(navigation.map((n) => n.name)).not.toContain("Туда");
   });
 
-  it("prioritizes contact as the primary recruiter action", () => {
-    expect(headerContent.buttons.primary).toEqual({
-      text: "Связаться",
-      href: "#contacts",
-    });
-    expect(headerContent.buttons.secondary).toEqual({
-      text: "Смотреть проекты",
-      href: "#projects",
-    });
+  it("exposes puzzle cells in desktop tab order", () => {
+    expect(puzzleCells.map((c) => c.id)).toEqual(["about", "contacts", "projects", "experience"]);
+    expect(puzzleCells.map((c) => c.href)).toEqual([
+      "#about",
+      "#contacts",
+      "#projects",
+      "#experience",
+    ]);
+    expect(puzzleCells.map((c) => c.area)).toEqual(["about", "contacts", "projects", "experience"]);
+  });
+
+  it("puts skills only on the puzzle bottom ticker, not in chrome cells", () => {
+    expect(chromeNavItems.map((i) => i.id)).toEqual([
+      "about",
+      "projects",
+      "home",
+      "experience",
+      "contacts",
+    ]);
+    expect(puzzleTickers.bottom).toContain("OWASP / SAST");
+    expect(puzzleTickers.bottom).toContain(" × ");
+  });
+
+  it("keeps section titles for the mobile spine", () => {
+    expect(sectionTitles.about).toBe("Коротко обо мне");
+    expect(sectionTitles.projects).toBe("Избранные работы");
+    expect(sectionTitles.skills).toBe("Мои навыки");
+    expect(sectionTitles.experience).toBe("Мой путь");
+    expect(sectionTitles.contacts).toBe("Напишите мне");
   });
 
   it("positions the hero as SOC, not frontend", () => {
@@ -72,7 +96,7 @@ describe("content model", () => {
       expect(p.summary.length).toBeGreaterThan(20);
       expect(p.repoUrl).toMatch(/^https:\/\/github\.com\//);
       expect(p.cardMeta).toBeTruthy();
-      expect(["dots", "chevrons", "stripes"]).toContain(p.cardPattern);
+      expect(p.accentColor).toMatch(/^#/);
     }
   });
 

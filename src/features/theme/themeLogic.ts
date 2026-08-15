@@ -1,7 +1,9 @@
 import { THEME_COOKIE_NAME, THEME_STORAGE_KEY, type ThemeChoice } from "./themeConstants";
 import { readThemeCookie } from "./themeCookie";
 
-export function isPersistedThemeChoice(value: string | null | undefined): value is "light" | "dark" {
+export function isPersistedThemeChoice(
+  value: string | null | undefined
+): value is "light" | "dark" {
   return value === "light" || value === "dark";
 }
 
@@ -28,11 +30,13 @@ export function applyChoice(choice: ThemeChoice, root?: HTMLElement): boolean {
 
   if (choice === "light") {
     target.classList.add("light");
+    target.style.colorScheme = "light";
     return false;
   }
 
   const dark = resolveIsDark(choice);
   target.classList.toggle("dark", dark);
+  target.style.colorScheme = dark ? "dark" : "light";
   return dark;
 }
 

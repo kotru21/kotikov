@@ -37,6 +37,7 @@ beforeEach(() => {
   localStorage.clear();
   document.cookie = `${THEME_COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
   document.documentElement.classList.remove("dark", "light", "theme-ready");
+  document.documentElement.style.colorScheme = "";
   resetThemeChoiceStore();
   stubMatchMedia(false);
 });
@@ -170,6 +171,7 @@ describe("theme init script parity with applyChoice/readChoice", () => {
 
     runInitScript();
     const scriptIsDark = document.documentElement.classList.contains("dark");
+    expect(document.documentElement.style.colorScheme).toBe("dark");
 
     document.documentElement.classList.remove("dark", "light", "theme-ready");
     const choice = readChoice();
@@ -178,6 +180,7 @@ describe("theme init script parity with applyChoice/readChoice", () => {
     expect(choice).toBe("dark");
     expect(scriptIsDark).toBe(true);
     expect(appliedIsDark).toBe(true);
+    expect(document.documentElement.style.colorScheme).toBe("dark");
     expect(resolveIsDark(choice, false)).toBe(true);
   });
 
@@ -243,6 +246,15 @@ describe("theme surface tokens", () => {
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.dark.background);
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.light.foreground);
     expect(THEME_CRITICAL_CSS).toContain(THEME_SURFACE.dark.foreground);
+    expect(THEME_CRITICAL_CSS).toContain("color-scheme:light");
+    expect(THEME_CRITICAL_CSS).toContain("color-scheme:dark");
+  });
+
+  it("sets html color-scheme from applyChoice", () => {
+    applyChoice("dark");
+    expect(document.documentElement.style.colorScheme).toBe("dark");
+    applyChoice("light");
+    expect(document.documentElement.style.colorScheme).toBe("light");
   });
 
   it("keeps dark-mode.css canvas vars aligned with THEME_SURFACE", async () => {

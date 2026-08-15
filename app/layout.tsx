@@ -13,12 +13,11 @@ import { ThemeColorMeta, ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
-import { SkipLinks } from "./components/SkipLinks";
 import { resolveGaMeasurementId } from "./gaMeasurementId";
 
 /** Manrope covers Latin + Cyrillic for `lang="ru"` body copy. */
 const manrope = Manrope({
-  variable: "--font-geist-sans",
+  variable: "--font-manrope",
   subsets: ["latin", "cyrillic"],
 });
 
@@ -150,7 +149,6 @@ export default async function RootLayout({
         <ThemeProvider>
           <ThemeColorMeta />
           <ScrollRestoration />
-          <SkipLinks />
           {children}
         </ThemeProvider>
         {gaId !== null ? <GoogleAnalytics measurementId={gaId} nonce={nonce} /> : null}

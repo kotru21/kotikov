@@ -13,7 +13,7 @@ export function buildThemeInitScript(
 ): string {
   const cookiePattern = `(?:^|; )${escapeForRegExp(cookieName)}=([^;]*)`;
 
-  return `(function(){try{var r=document.documentElement;var c=null;try{c=localStorage.getItem(${JSON.stringify(storageKey)});}catch(e){}if(c!=='light'&&c!=='dark'){try{var m=document.cookie.match(/${cookiePattern}/);if(m)c=decodeURIComponent(m[1]);}catch(e){}}if(c!=='light'&&c!=='dark')c=null;r.classList.remove('dark','light');if(c==='light'){r.classList.add('light');}else{var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);r.classList.toggle('dark',d);}r.classList.add('theme-ready');}catch(e){try{document.documentElement.classList.add('theme-ready');}catch(e2){}}})();`;
+  return `(function(){try{var r=document.documentElement;var c=null;try{c=localStorage.getItem(${JSON.stringify(storageKey)});}catch(e){}if(c!=='light'&&c!=='dark'){try{var m=document.cookie.match(/${cookiePattern}/);if(m)c=decodeURIComponent(m[1]);}catch(e){}}if(c!=='light'&&c!=='dark')c=null;r.classList.remove('dark','light');if(c==='light'){r.classList.add('light');r.style.colorScheme='light';}else{var d=c==='dark'||((c===null||c==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches);r.classList.toggle('dark',d);r.style.colorScheme=d?'dark':'light';}r.classList.add('theme-ready');}catch(e){try{document.documentElement.classList.add('theme-ready');}catch(e2){}}})();`;
 }
 
 export const THEME_INIT_SCRIPT = buildThemeInitScript();

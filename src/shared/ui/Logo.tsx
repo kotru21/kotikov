@@ -1,3 +1,5 @@
+import { KMark } from "./KMark";
+
 interface LogoProps {
   variant?: "pc" | "mobile";
   className?: string;
@@ -5,37 +7,7 @@ interface LogoProps {
 
 export function Logo({ variant = "pc", className = "" }: LogoProps): React.JSX.Element {
   if (variant === "mobile") {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="120"
-        height="120"
-        fill="none"
-        viewBox="0 0 120 120"
-        className={className}
-        aria-hidden="true"
-      >
-        {/* Mobile logo (uses currentColor so it responds to painting) */}
-        <rect width="40" height="120" fill="currentColor" />
-        <rect
-          width="40"
-          height="120"
-          x="120"
-          y="80"
-          fill="currentColor"
-          transform="rotate(90 120 80)"
-        />
-        <rect
-          width="80"
-          height="80"
-          x="80"
-          y="40"
-          fill="currentColor"
-          transform="rotate(90 80 40)"
-        />
-        <rect width="40" height="40" x="120" fill="currentColor" transform="rotate(90 120 0)" />
-      </svg>
-    );
+    return <KMark className={className} />;
   }
 
   return (
