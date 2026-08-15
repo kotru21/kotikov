@@ -17,6 +17,7 @@ export async function prepareStableVisual(page: Page, theme: "light" | "dark"): 
         caret-color: transparent !important;
       }
       canvas { visibility: hidden !important; }
+      nextjs-portal { display: none !important; }
     `,
   });
 }
