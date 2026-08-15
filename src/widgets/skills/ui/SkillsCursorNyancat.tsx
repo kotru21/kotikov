@@ -41,17 +41,18 @@ function bindSkillsPointerTracking(
   const onMouseMove = (event: MouseEvent): void => {
     updateFromClient(event.clientX, event.clientY);
   };
-  const onTouchMove = (event: TouchEvent): void => {
-    const touch = event.touches?.[0];
-    if (touch === undefined) return;
+  const onTouchMove = (event: Event): void => {
+    if (!(event instanceof TouchEvent)) return;
+    const touch = event.touches.item(0);
+    if (touch === null) return;
     updateFromClient(touch.clientX, touch.clientY);
   };
-  const onTouchStart = (event: TouchEvent): void => {
-    const touch = event.touches?.[0];
-    if (touch !== undefined) {
-      updateFromClient(touch.clientX, touch.clientY);
-    }
+  const onTouchStart = (event: Event): void => {
     setVisible(true);
+    if (!(event instanceof TouchEvent)) return;
+    const touch = event.touches.item(0);
+    if (touch === null) return;
+    updateFromClient(touch.clientX, touch.clientY);
   };
   const show = (): void => {
     setVisible(true);

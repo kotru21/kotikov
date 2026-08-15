@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  PERCH_TOP_SLOP,
   clamp,
   collectPerchBoxes,
   findPerchAtPointer,
   isPointerOnPerch,
+  PERCH_TOP_SLOP,
   perchSitTarget,
   resolveNyancatTarget,
   spriteTranslate3d,
-} from "@/features/nyancat/lib/perch";
+} from "@/features/nyancat";
 
 const BOX = { left: 100, top: 40, right: 300, bottom: 180 };
 

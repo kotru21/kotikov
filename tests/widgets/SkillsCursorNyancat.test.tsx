@@ -143,8 +143,8 @@ describe("SkillsCursorNyancat", () => {
       y: 80,
       toJSON: () => ({}),
     };
-    containerEl.getBoundingClientRect = (): DOMRect => origin as DOMRect;
-    perch.getBoundingClientRect = (): DOMRect => ledge as DOMRect;
+    containerEl.getBoundingClientRect = () => origin;
+    perch.getBoundingClientRect = () => ledge;
 
     act(() => {
       containerEl.dispatchEvent(new Event("mouseenter"));
@@ -155,7 +155,7 @@ describe("SkillsCursorNyancat", () => {
 
     act(() => {
       for (const time of [0, 100, 250, 500, 600]) {
-        const cb = requestAnimationFrame.mock.calls.at(-1)?.[0] as FrameRequestCallback | undefined;
+        const cb = requestAnimationFrame.mock.calls.at(-1)?.[0];
         cb?.(time);
       }
     });

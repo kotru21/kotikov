@@ -12,9 +12,11 @@ test.describe("desktop projects", () => {
 
     const projects = page.locator("#projects");
     await expect(projects.getByRole("article")).toHaveCount(projectsData.length);
-    for (const project of projectsData) {
-      await expect(projects.getByRole("heading", { name: project.title })).toBeVisible();
-    }
+    await Promise.all(
+      projectsData.map((project) =>
+        expect(projects.getByRole("heading", { name: project.title })).toBeVisible()
+      )
+    );
     await expect(projects.getByRole("link", { name: /код/i })).toHaveCount(projectsData.length);
     await expect(projects.getByRole("button", { name: "Подробнее" })).toHaveCount(0);
     await expect(projects.getByRole("button", { name: "Следующий проект" })).toHaveCount(0);

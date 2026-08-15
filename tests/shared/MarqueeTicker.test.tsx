@@ -44,7 +44,7 @@ describe("MarqueeTicker", () => {
 
   it("drops unsafe hrefs instead of rendering a link", () => {
     motion.reducedMotion = true;
-    render(<MarqueeTicker text="skills" href="javascript:alert(1)" />);
+    render(<MarqueeTicker text="skills" href="//evil.example" />);
     expect(screen.queryByRole("link")).toBeNull();
   });
 
