@@ -1,10 +1,13 @@
 import { expect, test } from "@playwright/test";
 
+import { scrollSectionToTop } from "./helpers/scrollSectionToTop";
+
 test.describe("mobile contacts paint well", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
   test("hash #contacts lands on cells with a paint well below", async ({ page }) => {
-    await page.goto("/#contacts");
+    await page.goto("/");
+    await scrollSectionToTop(page, "contacts");
 
     const section = page.locator("#contacts");
     await expect(section).toBeVisible();
@@ -34,7 +37,8 @@ test.describe("mobile contacts paint well", () => {
   });
 
   test("paint stroke changes canvas pixels without blocking Email", async ({ page }) => {
-    await page.goto("/#contacts");
+    await page.goto("/");
+    await scrollSectionToTop(page, "contacts");
     const section = page.locator("#contacts");
     const well = section.locator("[data-contacts-paint-well]");
     const canvas = section.locator("canvas");
@@ -42,6 +46,7 @@ test.describe("mobile contacts paint well", () => {
 
     await expect(well).toBeVisible();
     await expect(canvas).toBeVisible();
+    await expect(section.getByRole("button", { name: "Очистить рисунок" })).toBeEnabled();
     await expect(email).toHaveAttribute("href", /mailto:/);
 
     const samplePixels = async (): Promise<number> =>
@@ -62,15 +67,17 @@ test.describe("mobile contacts paint well", () => {
     await expect.poll(samplePixels).not.toBe(0);
     const before = await samplePixels();
 
-    const box = await well.boundingBox();
+    const box = await canvas.boundingBox();
     expect(box).toBeTruthy();
     if (box === null) {
       return;
     }
 
-    await page.mouse.move(box.x + box.width / 2, box.y + 24);
+    const x = box.x + Math.min(80, box.width * 0.35);
+    const y = box.y + Math.min(80, box.height * 0.35);
+    await page.mouse.move(x, y);
     await page.mouse.down();
-    await page.mouse.move(box.x + box.width / 2 + 40, box.y + 64, { steps: 8 });
+    await page.mouse.move(x + 48, y + 36, { steps: 8 });
     await page.mouse.up();
 
     await expect.poll(samplePixels).not.toBe(before);

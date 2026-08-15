@@ -117,7 +117,7 @@ function CarouselTrack({
   strokeClassName,
 }: CarouselChromeProps): React.JSX.Element {
   return (
-    <div className="grid grid-cols-[auto_1fr_auto]">
+    <div className="grid grid-cols-[auto_minmax(0,1fr)_auto]">
       <ChevronButton direction="prev" disabled={!controls.canGoPrev} onClick={controls.goPrev} />
       <CarouselSlides
         items={items}

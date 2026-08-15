@@ -34,7 +34,7 @@ test.describe("desktop navigation", () => {
 test.describe("mobile navigation", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
-  test("exposes right-rail contacts without a hamburger menu", async ({ page }) => {
+  test("exposes bottom-bar contacts without a hamburger menu", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("button", { name: "Открыть меню" })).toHaveCount(0);
 

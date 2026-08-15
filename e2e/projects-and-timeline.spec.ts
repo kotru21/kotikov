@@ -2,13 +2,14 @@ import { expect, test } from "@playwright/test";
 
 import { projectsData } from "../src/shared/config/content/projects";
 import { timelineData } from "../src/shared/config/content/timeline";
+import { scrollSectionToTop } from "./helpers/scrollSectionToTop";
 
 test.describe("desktop projects", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
   test("shows every project card in the editorial grid", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#projects").scrollIntoViewIfNeeded();
+    await scrollSectionToTop(page, "projects");
 
     const projects = page.locator("#projects");
     await expect(projects.getByRole("article")).toHaveCount(projectsData.length);
@@ -26,7 +27,7 @@ test.describe("desktop projects", () => {
     page,
   }) => {
     await page.goto("/");
-    await page.locator("#projects").scrollIntoViewIfNeeded();
+    await scrollSectionToTop(page, "projects");
 
     const metrics = await page.locator("#projects").evaluate((section) => {
       const articles = [...section.querySelectorAll("article")];
@@ -47,7 +48,7 @@ test.describe("desktop projects", () => {
 
   test("advances the editorial timeline rail", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#experience").scrollIntoViewIfNeeded();
+    await scrollSectionToTop(page, "experience");
 
     const nextStep = page.getByRole("button", { name: "Прокрутить к следующему этапу" });
     await expect(nextStep).toBeEnabled();
@@ -64,7 +65,7 @@ test.describe("mobile projects and timeline", () => {
 
   test("advances the project slider with chevrons", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#projects").scrollIntoViewIfNeeded();
+    await scrollSectionToTop(page, "projects");
 
     const projects = page.locator("#projects");
     const first = projectsData[0];
@@ -102,7 +103,7 @@ test.describe("mobile projects and timeline", () => {
 
   test("shows one timeline stage with chevrons", async ({ page }) => {
     await page.goto("/");
-    await page.locator("#experience").scrollIntoViewIfNeeded();
+    await scrollSectionToTop(page, "experience");
 
     const experience = page.locator("#experience");
     const first = timelineData[0];
