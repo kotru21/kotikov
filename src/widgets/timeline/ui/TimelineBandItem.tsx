@@ -1,6 +1,8 @@
 import type { TimelineItem } from "@/entities/timeline";
 import { GIANT_LABEL, GRID_STROKE, GRID_SURFACE, TEAL_FILL } from "@/shared/ui";
 
+import { TIMELINE_BAND_GRID } from "./timelineSlideLock";
+
 interface TimelineBandItemProps {
   item: TimelineItem;
   strokeClassName?: string;
@@ -24,7 +26,9 @@ function TechList({ technologies }: { technologies: readonly string[] }): React.
 
 function ItemCopy({ item }: { item: TimelineItem }): React.JSX.Element {
   return (
-    <div className={`${GRID_SURFACE} flex flex-col justify-center gap-3 p-6 md:p-10`}>
+    <div
+      className={`${GRID_SURFACE} flex h-full min-h-0 flex-col justify-center gap-3 p-6 md:p-10`}
+    >
       <h3 className={GIANT_LABEL}>{item.title}</h3>
       <p className="font-bold">{item.company}</p>
       <p className="text-base leading-8 font-medium">{item.description}</p>
@@ -38,9 +42,9 @@ export function TimelineBandItem({
   strokeClassName = GRID_STROKE,
 }: TimelineBandItemProps): React.JSX.Element {
   return (
-    <article className={`${strokeClassName} grid md:grid-cols-[minmax(11rem,16rem)_1fr]`}>
+    <article className={`${strokeClassName} ${TIMELINE_BAND_GRID}`}>
       <div
-        className={`${TEAL_FILL} ${GIANT_LABEL} flex items-center justify-center p-6 text-center`}
+        className={`${TEAL_FILL} ${GIANT_LABEL} flex h-full min-h-0 items-center justify-center p-6 text-center`}
       >
         {item.period}
       </div>

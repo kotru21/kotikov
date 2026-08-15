@@ -49,6 +49,22 @@ function slideWrappers(): HTMLElement[] {
   });
 }
 
+function slidesGrid(): HTMLElement {
+  const grid = slideWrappers()[0]?.parentElement;
+  if (!(grid instanceof HTMLElement)) {
+    throw new Error("expected slides grid");
+  }
+  return grid;
+}
+
+function carouselTrack(): HTMLElement {
+  const track = experienceRegion().querySelector("[aria-live='polite']")?.nextElementSibling;
+  if (!(track instanceof HTMLElement)) {
+    throw new Error("expected carousel track");
+  }
+  return track;
+}
+
 function visibleArticle(): HTMLElement {
   const wrap = slideWrappers().find((el) => el.classList.contains("visible"));
   const article = wrap?.querySelector("article");
@@ -72,7 +88,8 @@ function expectStackedSlideLock(): void {
   );
 
   for (const wrap of wrappers) {
-    expect(wrap).toHaveClass("col-start-1", "row-start-1", "grid");
+    expect(wrap).toHaveClass("col-start-1", "row-start-1", "grid", "min-w-0");
+    expect(wrap.className.split(/\s+/)).not.toContain("hidden");
   }
   expect(wrappers.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
   expect(wrappers.filter((wrap) => wrap.classList.contains("invisible"))).toHaveLength(
@@ -81,6 +98,35 @@ function expectStackedSlideLock(): void {
   expect(wrappers.filter((wrap) => wrap.getAttribute("aria-hidden") === "true")).toHaveLength(
     timelineData.length - 1
   );
+}
+
+function expectBandRowLock(): void {
+  expect(slidesGrid()).toHaveClass("grid", "min-w-0", "grid-rows-[auto_1fr]", "md:grid-rows-none");
+
+  for (const wrap of slideWrappers()) {
+    expect(wrap).toHaveClass(
+      "row-span-2",
+      "grid-rows-subgrid",
+      "min-w-0",
+      "md:row-span-1",
+      "md:grid-rows-none"
+    );
+
+    const article = wrap.querySelector("article");
+    expect(article).toHaveClass(
+      "row-span-2",
+      "h-full",
+      "min-h-0",
+      "min-w-0",
+      "grid-rows-subgrid",
+      "md:row-span-1",
+      "md:grid-cols-[minmax(11rem,16rem)_1fr]",
+      "md:grid-rows-none"
+    );
+    expect(article?.children).toHaveLength(2);
+    expect(article?.children[0]).toHaveClass("h-full", "min-h-0", "bg-primary-500", "text-[#111]");
+    expect(article?.children[1]).toHaveClass("h-full", "min-h-0");
+  }
 }
 
 describe("TimelineWidget", () => {
@@ -167,5 +213,30 @@ describe("TimelineView", () => {
     fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
 
     expect(visibleItemTitles()).toEqual([SECOND.title]);
+  });
+
+  it("keeps teal date and paper copy rows equal across every mobile slide", () => {
+    viewMode.current = "mobile";
+    render(<TimelineView />);
+
+    expectBandRowLock();
+    expect(carouselTrack()).toHaveClass("min-w-0", "grid-cols-[auto_minmax(0,1fr)_auto]");
+
+    fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
+    expectBandRowLock();
+    expect(visibleItemTitles()).toEqual([SECOND.title]);
+  });
+
+  it("keeps the desktop band as one stacked two-column cell", () => {
+    viewMode.current = "desktop";
+    render(<TimelineView />);
+
+    expect(visibleArticle()).toHaveClass(
+      "md:grid-cols-[minmax(11rem,16rem)_1fr]",
+      "md:grid-rows-none",
+      "md:row-span-1"
+    );
+    expect(slidesGrid()).toHaveClass("md:grid-rows-none");
+    expect(slideWrappers()[0]).toHaveClass("md:row-span-1", "md:grid-rows-none");
   });
 });
