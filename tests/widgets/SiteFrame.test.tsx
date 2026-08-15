@@ -307,6 +307,14 @@ describe("SiteFrame", () => {
     const mobileHome = within(mobile).getByRole("link", { name: "Kotikov" }).parentElement;
     expect(mobileHome).not.toBeNull();
     expect(mobileHome).not.toHaveClass("border-2");
+
+    expect(classTokens(titleBar())).toEqual(
+      expect.arrayContaining(["border-2", "divide-x-2", "h-12"])
+    );
+    const titleTheme = within(titleBar()).getByRole("button", { name: /тему/i });
+    expect(titleTheme).not.toHaveClass("border-2");
+    expect(classTokens(titleTheme)).toContain("border-0");
+    expect(within(desktop).getByRole("button", { name: /тему/i })).toHaveClass("border-2");
   });
 
   it("keeps the mobile home mark in the bottom bar and theme toggle in the title strip", () => {
@@ -319,7 +327,8 @@ describe("SiteFrame", () => {
     expect(within(mobileNav).queryByRole("button", { name: /тему/i })).not.toBeInTheDocument();
 
     const titleTheme = within(titleBar()).getByRole("button", { name: /тему/i });
-    expect(classTokens(titleTheme)).toContain("size-11");
+    expect(classTokens(titleTheme)).toEqual(expect.arrayContaining(["w-12", "border-0"]));
+    expect(classTokens(titleTheme)).not.toContain("border-2");
   });
 
   it("keeps compact labels in the mobile bottom bar instead of giant type", () => {

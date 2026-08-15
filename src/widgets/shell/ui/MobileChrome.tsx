@@ -60,9 +60,7 @@ export function MobileChrome({
           ) : (
             <span className="flex-1" />
           )}
-          <div className="flex w-12 shrink-0 items-center justify-center">
-            <ThemeToggle className="size-11" />
-          </div>
+          <ThemeToggle className="h-full w-12" framed={false} />
         </div>
       </div>
       <div className={barWrapClass(open, instant)}>
