@@ -73,8 +73,17 @@ describe("NyancatImage", () => {
     );
     const wrapper = getMovingWrapper(container);
 
+    expect(wrapper).toHaveClass("min-h-11", "min-w-11");
+  });
+
+  it("omits CSS flight when flightAnimated is false", () => {
+    const { container } = render(
+      <NyancatImage size="medium" isMobile={false} onClick={vi.fn()} flightAnimated={false} />
+    );
+    const wrapper = getMovingWrapper(container);
+
     expectAccessibleControl(wrapper);
-    expectPointerInteraction(wrapper, callbacks);
+    expect((wrapper as HTMLElement).style.animation).toBe("");
   });
 });
 

@@ -1,13 +1,18 @@
-import { act, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { sectionTitles, skillGroups, skillsData } from "@/shared/config/content";
 import { SkillsWidget } from "@/widgets/skills";
-import { SkillsDesktopView, SkillsMobileView } from "@/widgets/skills/ui";
 
 const performanceSettings = {
-  reducedMotion: true,
+  reducedMotion: false,
   lowPerformance: false,
 };
+
+vi.mock("next/image", async () => {
+  const { MockNextImage } = await import("../helpers/mockNextImage");
+  return { default: MockNextImage };
+});
 
 vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
@@ -15,7 +20,7 @@ vi.mock("@/features/performance/client", () => ({
     lowPerformance: performanceSettings.lowPerformance,
   }),
   useSceneMotionPolicy: () => ({
-    canRunContinuous: false,
+    canRunContinuous: !performanceSettings.reducedMotion && !performanceSettings.lowPerformance,
     isInView: true,
     reducedMotion: performanceSettings.reducedMotion,
     lowPerformance: performanceSettings.lowPerformance,
@@ -35,122 +40,84 @@ class IntersectionObserverMock {
   readonly unobserve = vi.fn();
 }
 
-function requireElement(element: HTMLElement | null, selector: string): HTMLElement {
-  if (element === null) throw new Error(`Expected ${selector} to be rendered`);
-  return element;
+function requireSkillsSection(container: HTMLElement): HTMLElement {
+  const section = container.querySelector<HTMLElement>("#skills");
+  if (section === null) {
+    throw new Error("Expected #skills to be rendered");
+  }
+  return section;
 }
 
-function stubMatchMedia(isMobile: boolean): void {
-  vi.stubGlobal(
-    "matchMedia",
-    vi.fn((query: string) => ({
-      matches: query.includes("max-width") ? isMobile : false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    }))
-  );
-}
-
-describe("SkillsWidget responsive rendering", () => {
+describe("SkillsWidget", () => {
   beforeEach(() => {
-    performanceSettings.reducedMotion = true;
+    performanceSettings.reducedMotion = false;
     performanceSettings.lowPerformance = false;
     vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
-    vi.stubGlobal("requestAnimationFrame", () => 0);
-    vi.stubGlobal("cancelAnimationFrame", () => undefined);
-    stubMatchMedia(false);
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
   });
 
-  it("keeps CSS shells and mounts the desktop tree after matchMedia sync", async () => {
-    stubMatchMedia(false);
+  it("renders group cells and nyancat inside #skills without a puzzle header", async () => {
     const { container } = render(<SkillsWidget />);
+    const skills = requireSkillsSection(container);
+    expect(skills).not.toHaveClass("border-2");
+    expect(document.querySelector("#header")).toBeNull();
+    expect(await screen.findByTestId("skills-nyancat")).toBeInTheDocument();
 
-    await act(async () => {
-      await Promise.resolve();
+    const heading = within(skills).getByRole("heading", {
+      level: 2,
+      name: sectionTitles.skills,
     });
+    expect(heading).toHaveAttribute("id", "skills-heading");
+    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(skills.querySelector(".relative.overflow-hidden")).not.toBeNull();
 
-    const mobileView = requireElement(
-      container.querySelector<HTMLElement>('[data-skills-view="mobile"]'),
-      "mobile Skills view"
-    );
-    const desktopView = requireElement(
-      container.querySelector<HTMLElement>('[data-skills-view="desktop"]'),
-      "desktop Skills view"
-    );
+    expect(within(skills).getAllByText(skillsData[0].name).length).toBeGreaterThan(0);
+    const ticker = skills.querySelector("[data-ticker-orientation='horizontal']");
+    expect(ticker).toHaveClass("border-0");
+    expect(ticker).not.toHaveClass("border-2");
+    expect(skills.querySelectorAll("[data-ticker-mark='k']").length).toBeGreaterThan(0);
 
-    expect(container.querySelectorAll("#skills")).toHaveLength(1);
-    expect(mobileView).toHaveClass("md:hidden");
-    expect(desktopView).toHaveClass("hidden", "md:block");
-    expect(mobileView.querySelector('[aria-labelledby="skills-heading-mobile"]')).toBeNull();
-    expect(
-      desktopView.querySelector('[aria-labelledby="skills-heading-desktop"]')
-    ).toBeTruthy();
-
-    const desktopHeading = within(desktopView).getByRole("heading", {
-      name: "Мои навыки",
-      hidden: true,
-    });
-    expect(desktopHeading).toHaveAttribute("id", "skills-heading-desktop");
+    for (const group of skillGroups) {
+      expect(within(skills).getByRole("heading", { name: group.title })).toBeInTheDocument();
+    }
+    const groups = within(skills).getAllByRole("article");
+    expect(groups).toHaveLength(skillGroups.length);
+    expect(groups.every((group) => group.hasAttribute("data-nyancat-perch"))).toBe(true);
+    expect(groups.every((group) => group.className.includes("border-0"))).toBe(true);
+    expect(groups.every((group) => !group.className.includes("border-2"))).toBe(true);
+    expect(groups[0].parentElement?.className).toMatch(/border-t-2/);
+    expect(groups[0].parentElement?.className).not.toMatch(/divide-/);
+    expect(groups[0].querySelector("li")?.className).toContain("border-2");
+    expect(skills.querySelector("[data-nyancat-perch] [data-ticker-orientation]")).not.toBeNull();
+    expect(groups[0].className).toMatch(/bg-background-primary/);
+    expect(groups[1]).toHaveClass("bg-primary-500", "text-[#111]");
+    expect(groups[2].className).toMatch(/bg-background-primary/);
+    expect(within(skills).getByRole("heading", { name: "Security & DFIR" })).toBeInTheDocument();
   });
 
-  it("mounts the mobile tree after matchMedia sync on small viewports", async () => {
-    stubMatchMedia(true);
+  it("does not use teal as small text on paper", () => {
     const { container } = render(<SkillsWidget />);
+    const skills = requireSkillsSection(container);
 
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    const mobileView = requireElement(
-      container.querySelector<HTMLElement>('[data-skills-view="mobile"]'),
-      "mobile Skills view"
-    );
-    const desktopView = requireElement(
-      container.querySelector<HTMLElement>('[data-skills-view="desktop"]'),
-      "desktop Skills view"
-    );
-
-    expect(mobileView.querySelector('[aria-labelledby="skills-heading-mobile"]')).toBeTruthy();
-    expect(desktopView.querySelector('[aria-labelledby="skills-heading-desktop"]')).toBeNull();
+    expect(screen.queryAllByText("Навыки")).toHaveLength(0);
+    expect(skills.querySelector("[class*='text-primary']")).toBeNull();
   });
-});
 
-describe("Skills reduced-motion gating", () => {
-  beforeEach(() => {
+  it("keeps groups and a static ticker when motion is reduced", () => {
     performanceSettings.reducedMotion = true;
-    performanceSettings.lowPerformance = false;
-    vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
-    vi.stubGlobal("requestAnimationFrame", () => 0);
-    vi.stubGlobal("cancelAnimationFrame", () => undefined);
-  });
+    const { container } = render(<SkillsWidget />);
+    const skills = requireSkillsSection(container);
 
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it("renders grouped tags without marquee tracks or cursor under reduced motion", () => {
-    const { container: desktopRoot } = render(
-      <SkillsDesktopView headingId="skills-heading-desktop" />
-    );
-    expect(screen.getByRole("heading", { name: "Мои навыки" })).toBeInTheDocument();
-    expect(screen.getAllByRole("list").length).toBeGreaterThan(0);
-    expect(desktopRoot.querySelector('[data-testid="skill-marquee-track"]')).toBeNull();
-    expect(desktopRoot.querySelector('img[src="/nyancat.svg"]')).toBeNull();
-
-    const { container: mobileRoot, unmount } = render(
-      <SkillsMobileView headingId="skills-heading-mobile" />
-    );
-    expect(mobileRoot.querySelector('[data-testid="skill-marquee-track"]')).toBeNull();
-    expect(within(mobileRoot).getAllByRole("list").length).toBeGreaterThan(0);
-    unmount();
+    expect(within(skills).getByRole("heading", { name: "Security & DFIR" })).toBeInTheDocument();
+    expect(skills.querySelector('img[src="/nyancat.svg"]')).toBeNull();
+    expect(skills.querySelector("[data-marquee='on']")).toBeNull();
+    const ticker = skills.querySelector("[data-ticker-orientation='horizontal']");
+    expect(ticker?.textContent).toContain("OWASP / SAST");
+    expect(ticker).toHaveClass("border-0");
+    expect(ticker).not.toHaveClass("border-2");
+    expect(ticker?.querySelector("[data-ticker-mark='k']")).not.toBeNull();
   });
 });

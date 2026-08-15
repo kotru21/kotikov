@@ -22,6 +22,24 @@ interface RainbowTrailProps {
   isMotionActive?: boolean;
 }
 
+interface AttachedRainbowTrailProps {
+  size: NyancatSize;
+  isMotionActive?: boolean;
+}
+
+function TrailBand({ index, size }: { index: number; size: NyancatSize }): React.JSX.Element {
+  return (
+    <div
+      style={{
+        width: `${String(calculateTrailWidth(size))}px`,
+        height: `${String(calculateTrailHeight(size))}px`,
+        background: generateTrailGradient(index),
+        transform: calculateTrailTransform(index, size),
+      }}
+    />
+  );
+}
+
 export function RainbowTrail({
   size,
   position,
@@ -52,14 +70,39 @@ export function RainbowTrail({
             backfaceVisibility: "hidden",
           }}
         >
-          <div
-            style={{
-              width: `${String(calculateTrailWidth(size))}px`,
-              height: `${String(calculateTrailHeight(size))}px`,
-              background: generateTrailGradient(i),
-              transform: calculateTrailTransform(i, size),
-            }}
-          />
+          <TrailBand index={i} size={size} />
+        </div>
+      ))}
+    </>
+  );
+}
+
+/** Cape trail that rides the cursor-follow transform (no CSS flight path). */
+export function AttachedRainbowTrail({
+  size,
+  isMotionActive = true,
+}: AttachedRainbowTrailProps): React.JSX.Element {
+  const config = SIZE_CONFIG[size];
+
+  return (
+    <>
+      {Array.from({ length: config.trailSegments }, (_, i) => (
+        <div
+          key={`trail-${String(i)}`}
+          data-nyancat-trail
+          data-motion-active={isMotionActive}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: -1,
+            pointerEvents: "none",
+            opacity: calculateTrailOpacity(i, size),
+            willChange: isMotionActive ? "transform" : "auto",
+            backfaceVisibility: "hidden",
+          }}
+        >
+          <TrailBand index={i} size={size} />
         </div>
       ))}
     </>

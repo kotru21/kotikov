@@ -201,7 +201,7 @@ export function usePawAnimation(
       if (e.pointerType !== "mouse" && isActivatableControl(e.target)) return;
 
       if (e.pointerType !== "mouse") {
-        e.preventDefault();
+        // Do not preventDefault here: pan-y must keep working until a draw move.
         pointerDownRef.current = true;
         pointerIdRef.current = e.pointerId;
         startDrawingAt(e.clientX, e.clientY);

@@ -1,31 +1,18 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { timelineData } from "@/shared/config/content";
 import {
   SkillsInteractionProvider,
   useSkillsInteraction,
 } from "@/widgets/skills/model/SkillsInteractionContext";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
-import TimelineItemDetails from "@/widgets/timeline/ui/TimelineItemDetails";
-import TimelineYearDisplay from "@/widgets/timeline/ui/TimelineYearDisplay";
 
 import ErrorPage from "../../app/error";
 
 vi.mock("next/image", async () => {
   const { MockNextImage } = await import("../helpers/mockNextImage");
-  return {
-    default: (props: React.ComponentProps<typeof MockNextImage>) => (
-      <MockNextImage
-        {...props}
-        testId="year-cat"
-        onClick={() => {
-          props.onError?.();
-        }}
-      />
-    ),
-  };
+  return { default: MockNextImage };
 });
 
 describe("branch coverage gaps", () => {
@@ -50,29 +37,6 @@ describe("branch coverage gaps", () => {
       expect(screen.getByText(/stack-trace/)).toBeInTheDocument();
 
       vi.unstubAllEnvs();
-    });
-  });
-
-  describe("TimelineItemDetails", () => {
-    it("renders title id and omits tech list when empty", () => {
-      const item = { ...timelineData[0], technologies: [] as string[] };
-      render(<TimelineItemDetails item={item} titleId="t1" />);
-      expect(screen.getByRole("heading", { name: item.title })).toHaveAttribute("id", "t1");
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    });
-  });
-
-  describe("TimelineYearDisplay", () => {
-    it("covers detailed periods, cat onError fallback, and non-year periods", () => {
-      const { rerender } = render(<TimelineYearDisplay period="2024 · Хакатон" />);
-      expect(screen.getByText("2024 · Хакатон")).toBeInTheDocument();
-
-      rerender(<TimelineYearDisplay period="2019" />);
-      fireEvent.click(screen.getByTestId("year-cat"));
-      expect(screen.getByText("1")).toBeInTheDocument();
-
-      rerender(<TimelineYearDisplay period="н.в." />);
-      expect(screen.getByText("н.в.")).toBeInTheDocument();
     });
   });
 

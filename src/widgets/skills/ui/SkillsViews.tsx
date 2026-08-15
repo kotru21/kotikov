@@ -1,31 +1,60 @@
 "use client";
 
-import React from "react";
+import dynamic from "next/dynamic";
+import { type ReactNode, type RefObject, useRef } from "react";
 
-import { useResponsiveViewMode } from "@/features/device/client";
+import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance/client";
+import { skillsData } from "@/shared/config/content";
+import { MarqueeTicker } from "@/shared/ui/MarqueeTicker";
 
-import SkillsDesktopView from "./SkillsDesktopView";
-import SkillsMobileView from "./SkillsMobileView";
+import { SkillsInteractionProvider } from "../model/SkillsInteractionContext";
+import SkillsGroupedTags from "./SkillsGroupedTags";
 
-/**
- * Keeps CSS dual shells for layout, then mounts only the active breakpoint tree after
- * matchMedia sync (S5-02: SSR dual-mounts; layout effect prunes before paint).
- */
-const SkillsViews: React.FC = () => {
-  const mode = useResponsiveViewMode();
-  const showMobile = mode === "both" || mode === "mobile";
-  const showDesktop = mode === "both" || mode === "desktop";
+const SkillsCursorNyancat = dynamic(() => import("./SkillsCursorNyancat"));
+
+const SKILLS_TICKER = skillsData.map((skill) => skill.name).join(" × ");
+const TICKER_CLASS = "border-0 px-6 py-3 font-bold tracking-wide uppercase";
+
+interface SkillsNyancatProps {
+  containerRef: RefObject<HTMLDivElement | null>;
+  isMotionActive: boolean;
+}
+
+function useShowSkillsNyancat(): boolean {
+  const { reducedMotion, lowPerformance } = usePerformanceSettings();
+  return !reducedMotion && !lowPerformance;
+}
+
+function SkillsNyancat({
+  containerRef,
+  isMotionActive,
+}: SkillsNyancatProps): React.JSX.Element | null {
+  const showNyancat = useShowSkillsNyancat();
+  if (!showNyancat) {
+    return null;
+  }
+
+  return <SkillsCursorNyancat containerRef={containerRef} isMotionActive={isMotionActive} />;
+}
+
+interface SkillsViewsProps {
+  heading: ReactNode;
+}
+
+export default function SkillsViews({ heading }: SkillsViewsProps): React.JSX.Element {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const motion = useSceneMotionPolicy(containerRef, { dominantEffect: "marquee" });
 
   return (
-    <>
-      <div data-skills-view="mobile" className="md:hidden">
-        {showMobile ? <SkillsMobileView headingId="skills-heading-mobile" /> : null}
+    <SkillsInteractionProvider>
+      <div ref={containerRef} className="relative overflow-hidden">
+        <SkillsNyancat containerRef={containerRef} isMotionActive={motion.canRunContinuous} />
+        {heading}
+        <div data-nyancat-perch>
+          <MarqueeTicker text={SKILLS_TICKER} className={TICKER_CLASS} />
+        </div>
+        <SkillsGroupedTags />
       </div>
-      <div data-skills-view="desktop" className="hidden md:block">
-        {showDesktop ? <SkillsDesktopView headingId="skills-heading-desktop" /> : null}
-      </div>
-    </>
+    </SkillsInteractionProvider>
   );
-};
-
-export default SkillsViews;
+}

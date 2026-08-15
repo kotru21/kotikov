@@ -6,6 +6,5 @@
  */
 export { useExplosion } from "./hooks/useExplosion";
 export { ExplosionPixels } from "./ui/ExplosionPixels";
-export { default as FlyingNyancat } from "./ui/FlyingNyancat";
 export { NyancatImage } from "./ui/NyancatImage";
-export { RainbowTrail } from "./ui/RainbowTrail";
+export { AttachedRainbowTrail, RainbowTrail } from "./ui/RainbowTrail";
