@@ -3,7 +3,7 @@
 import { FiMoon, FiSun } from "react-icons/fi";
 
 // Intentional feature→feature use: InteractiveElement owns paint-collision /
-// data-draw-exclude behavior shared with header chrome. Do not swap for a
+// data-draw-exclude behavior shared with site chrome. Do not swap for a
 // plain button without preserving paint exclusion (Stage 9 if extracting shared).
 import { InteractiveElement } from "@/features/interactive-elements/client";
 

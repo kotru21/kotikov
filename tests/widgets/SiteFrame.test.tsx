@@ -183,6 +183,7 @@ describe("SiteFrame", () => {
     expect(
       screen.queryByRole("navigation", { name: "Основная навигация" })
     ).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /тему/i })).not.toBeInTheDocument();
 
     firePuzzle(0.8, 720);
     expect(

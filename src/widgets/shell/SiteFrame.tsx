@@ -5,7 +5,7 @@ import { memo, useRef } from "react";
 import { usePerformanceSettings } from "@/features/performance/client";
 
 import { useActiveSection } from "./hooks/useActiveSection";
-import { ChromeVisibleProvider, useChromeVisible } from "./hooks/useChromeVisible";
+import { useChromeVisible } from "./hooks/useChromeVisible";
 import { DesktopChrome } from "./ui/DesktopChrome";
 import { MobileChrome } from "./ui/MobileChrome";
 
@@ -49,10 +49,10 @@ export function SiteFrame({ puzzle, children }: SiteFrameProps): React.JSX.Eleme
   const chromeVisible = useChromeVisible(puzzleRef);
 
   return (
-    <ChromeVisibleProvider open={chromeVisible}>
+    <>
       <PuzzleSlot puzzleRef={puzzleRef}>{puzzle}</PuzzleSlot>
       <ChromeIsland open={chromeVisible} />
       <div className={CONTENT_OFFSET}>{children}</div>
-    </ChromeVisibleProvider>
+    </>
   );
 }

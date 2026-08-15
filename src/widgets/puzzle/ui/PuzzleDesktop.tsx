@@ -16,7 +16,6 @@ import { MarqueeTicker } from "@/shared/ui/MarqueeTicker";
 import { puzzleBoardTracks } from "../lib/puzzleBoardTracks";
 import { type PuzzleBoardHover, usePuzzleBoardHover } from "../lib/usePuzzleBoardHover";
 import { PuzzleCellLink } from "./PuzzleCellLink";
-import { PuzzleThemeToggle } from "./PuzzleThemeToggle";
 
 const PUZZLE_AREA_CLASS = {
   about: `col-start-1 col-end-3 row-start-1 z-[1] ${GRID_STROKE_OMIT_BOTTOM}`,
@@ -43,13 +42,12 @@ interface PuzzleBoardPointerHandlers {
 function PuzzleLogoCell({ onEnter, onLeave }: PuzzleBoardPointerHandlers): React.JSX.Element {
   return (
     <div
-      className={`z-10 col-start-2 row-start-2 m-0 box-border flex min-h-0 min-w-0 flex-col items-center justify-center gap-2 ${GRID_STROKE} ${TEAL_FILL}`}
+      className={`z-10 col-start-2 row-start-2 m-0 box-border flex min-h-0 min-w-0 items-center justify-center ${GRID_STROKE} ${TEAL_FILL}`}
       data-area="k"
       onPointerEnter={(event) => onEnter(event, "k")}
       onPointerLeave={onLeave}
     >
       <KMark className="h-auto w-[32%] text-[#111]" />
-      <PuzzleThemeToggle className="size-8" />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { KMark } from "@/shared/ui/KMark";
 import { MarqueeTicker } from "@/shared/ui/MarqueeTicker";
 
 import { PuzzleCellLink } from "./PuzzleCellLink";
-import { PuzzleThemeToggle } from "./PuzzleThemeToggle";
 
 const MOBILE_CELL_ORDER: readonly PuzzleCellId[] = ["about", "projects", "experience", "contacts"];
 
@@ -16,9 +15,8 @@ export function PuzzleMobile(): React.JSX.Element {
   return (
     <div className={`flex min-h-dvh flex-col ${GRID_GAP} ${GRID_STROKE} md:hidden`}>
       <MarqueeTicker text={puzzleTickers.top} />
-      <div className={`flex min-h-12 items-center justify-center gap-2 ${TEAL_FILL}`}>
+      <div className={`flex min-h-12 items-center justify-center ${TEAL_FILL}`}>
         <KMark className="h-8 w-auto text-[#111]" />
-        <PuzzleThemeToggle className="size-11" />
       </div>
       <div className={`flex flex-1 flex-col ${GRID_GAP}`} data-puzzle="mobile">
         {MOBILE_PUZZLE_CELLS.map((cell) => (

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ThemeProvider } from "@/features/theme/client";
 import { puzzleCells } from "@/shared/config/content";
 import { GRID_STROKE } from "@/shared/ui";
 import { PuzzleHome } from "@/widgets/puzzle";
@@ -48,11 +47,7 @@ function desktopLogo(): HTMLElement {
 }
 
 function renderPuzzle(): void {
-  render(
-    <ThemeProvider>
-      <PuzzleHome />
-    </ThemeProvider>
-  );
+  render(<PuzzleHome />);
 }
 
 describe("PuzzleHome", () => {
@@ -166,6 +161,11 @@ describe("PuzzleHome", () => {
     expect(heading.closest(".max-md\\:hidden")).toBeNull();
   });
 
+  it("does not expose a theme toggle on the puzzle", () => {
+    renderPuzzle();
+    expect(screen.queryByRole("button", { name: /тему/i })).not.toBeInTheDocument();
+  });
+
   it("stacks mobile rows as Обо мне, Проекты, Опыт, Контакты", () => {
     renderPuzzle();
     const mobile = document.querySelector("[data-puzzle='mobile']");
@@ -267,8 +267,10 @@ describe("PuzzleHome", () => {
     expect(logo).not.toHaveClass("-m-[2px]");
     expect(logo.className).toContain(GRID_STROKE);
     expect(logo.querySelector("a")).toBeNull();
-    expect(logo).toHaveClass("flex-col", "gap-2");
-    expect(within(logo).getByRole("button", { name: /тему/i })).toHaveClass("size-8");
+    expect(logo).toHaveClass("items-center", "justify-center");
+    expect(logo).not.toHaveClass("flex-col");
+    expect(logo).not.toHaveClass("gap-2");
+    expect(within(logo).queryByRole("button", { name: /тему/i })).not.toBeInTheDocument();
 
     const skillsTicker = document.querySelector(
       "[data-ticker-orientation='horizontal'][href='#skills']"
