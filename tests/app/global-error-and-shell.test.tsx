@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import BackButton from "@/app/components/BackButton";
-import BauhausErrorMark from "@/app/components/BauhausErrorMark";
+import { GridErrorMark } from "@/app/components/GridErrorMark";
 import GlobalError from "@/app/global-error";
 import { colors } from "@/styles/colors";
 
@@ -16,12 +16,31 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-describe("BauhausErrorMark", () => {
-  it("renders the bauhaus mark with the provided code", () => {
-    render(<BauhausErrorMark code="404" />);
+describe("GridErrorMark", () => {
+  it("renders giant code and the geometric K", () => {
+    const { container } = render(<GridErrorMark code="404" />);
+    const svg = container.querySelector("svg");
 
-    expect(screen.getByTestId("bauhaus-error-mark")).toBeInTheDocument();
-    expect(screen.getByTestId("bauhaus-error-mark")).toHaveTextContent("404");
+    expect(container).toHaveTextContent("404");
+    expect(screen.queryByTestId("bauhaus-error-mark")).not.toBeInTheDocument();
+    expect(svg).not.toBeNull();
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(svg?.querySelector("rect")).toHaveAttribute("fill", "currentColor");
+  });
+
+  it("renders the error code", () => {
+    const { container } = render(<GridErrorMark code="error" />);
+
+    expect(container).toHaveTextContent("error");
+  });
+
+  it("centers the plaque in the column without overflowing", () => {
+    const { container } = render(<GridErrorMark code="error" />);
+    const wrap = container.firstElementChild;
+    const plaque = wrap?.firstElementChild;
+
+    expect(wrap).toHaveStyle({ display: "flex", justifyContent: "center", width: "100%" });
+    expect(plaque).toHaveStyle({ maxWidth: "100%", minWidth: 0, width: "fit-content" });
   });
 });
 
@@ -64,13 +83,23 @@ describe("GlobalError", () => {
   it("offers reload and home recovery", () => {
     const reset = vi.fn();
     const error = Object.assign(new Error("critical"), { digest: "global-digest" });
-
-    render(<GlobalError error={error} reset={reset} />);
+    const { container } = render(<GlobalError error={error} reset={reset} />);
+    const svg = container.querySelector("svg");
 
     fireEvent.click(screen.getByRole("button", { name: "Перезагрузить" }));
     expect(reset).toHaveBeenCalledOnce();
     expect(screen.getByRole("link", { name: "На главную" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("heading", { name: "Критическая ошибка" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Критическая ошибка" })).toHaveStyle({
+      color: colors.text.onDark,
+    });
+    expect(container).toHaveTextContent("error");
+    expect(screen.queryByTestId("bauhaus-error-mark")).not.toBeInTheDocument();
+    expect(svg).not.toBeNull();
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("button", { name: "Перезагрузить" }).parentElement?.className).toBe(
+      "global-error-actions",
+    );
   });
 });
 
@@ -79,10 +108,10 @@ describe("global-error palette parity", () => {
     const { readFile } = await import("node:fs/promises");
     const source = await readFile("app/global-error.tsx", "utf8");
 
+    expect(source).toContain(`background: "${colors.background.dark}"`);
+    expect(source).toContain(`primary: "${colors.text.onDark}"`);
     expect(source).toContain(`bg: "${colors.primary[500]}"`);
     expect(source).toContain(`hover: "${colors.primary[600]}"`);
     expect(source).toContain(`text: "${colors.neutral[900]}"`);
-    expect(source).toContain(`primary: "${colors.primary[500]}"`);
-    expect(source).toContain(`badge: "${colors.neutral[900]}"`);
   });
 });

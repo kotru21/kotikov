@@ -24,41 +24,59 @@ function touchEnd(clientX: number, clientY = 100): TouchEvent<HTMLDivElement> {
 }
 
 describe("useProjectDeck", () => {
-  it("navigates with goTo, goNext, goPrev and wraps around", () => {
-    const { result } = renderHook(() => useProjectDeck({ count: 3 }));
+  it("starts at index 0 with correct canGo flags", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
 
     expect(result.current.activeIndex).toBe(0);
+    expect(result.current.canGoPrev).toBe(false);
+    expect(result.current.canGoNext).toBe(true);
+  });
+
+  it("does not wrap past the last slide", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
+
+    act(() => {
+      result.current.goTo(3);
+    });
+    expect(result.current.activeIndex).toBe(3);
+    expect(result.current.canGoNext).toBe(false);
 
     act(() => {
       result.current.goNext();
     });
-    expect(result.current.activeIndex).toBe(1);
+    expect(result.current.activeIndex).toBe(3);
+  });
+
+  it("does not wrap before the first slide", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
 
     act(() => {
       result.current.goPrev();
     });
     expect(result.current.activeIndex).toBe(0);
+    expect(result.current.canGoPrev).toBe(false);
+  });
+
+  it("clamps goTo to valid range and ignores empty decks", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
+
+    act(() => {
+      result.current.goTo(99);
+    });
+    expect(result.current.activeIndex).toBe(3);
 
     act(() => {
       result.current.goTo(-1);
     });
-    expect(result.current.activeIndex).toBe(2);
-
-    act(() => {
-      result.current.goNext();
-    });
     expect(result.current.activeIndex).toBe(0);
-  });
 
-  it("ignores navigation when count is zero", () => {
-    const { result } = renderHook(() => useProjectDeck({ count: 0 }));
-
+    const empty = renderHook(() => useProjectDeck({ count: 0 }));
     act(() => {
-      result.current.goTo(2);
-      result.current.goNext();
-      result.current.goPrev();
+      empty.result.current.goTo(2);
+      empty.result.current.goNext();
+      empty.result.current.goPrev();
     });
-    expect(result.current.activeIndex).toBe(0);
+    expect(empty.result.current.activeIndex).toBe(0);
   });
 
   it("handles keyboard Home/End and arrows", () => {

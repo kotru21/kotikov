@@ -1,38 +1,63 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { projectsData } from "@/shared/config/content";
 import { ProjectsGrid } from "@/widgets/projects/ui/ProjectsGrid";
 
 describe("ProjectsGrid", () => {
-  it("renders project cards with code links and no details toggle", () => {
+  it("renders every project as a grid cell with the first card featured", () => {
     render(<ProjectsGrid />);
 
+    const articles = screen.getAllByRole("article");
+    expect(articles).toHaveLength(projectsData.length);
+    expect(articles[0]).toHaveClass("bg-primary-500", "text-[#111]", "border-0");
+    expect(articles[0].className).not.toContain("border-2");
+    expect(articles[1]).toHaveClass("border-0");
+    expect(articles[1].className).not.toContain("border-2");
+    expect(articles[1].className).toMatch(/bg-background-primary/);
+
+    for (const project of projectsData) {
+      expect(screen.getByRole("heading", { level: 3, name: project.title })).toBeInTheDocument();
+    }
+    expect(screen.getAllByRole("link", { name: "Код (откроется в новой вкладке)" })).toHaveLength(
+      projectsData.length
+    );
+
     const grid = screen.getByTestId("projects-grid");
-    expect(within(grid).getAllByRole("article")).toHaveLength(projectsData.length);
-    expect(within(grid).getAllByRole("link", { name: /код/i })).toHaveLength(projectsData.length);
-    expect(within(grid).queryByRole("button", { name: /подробнее/i })).not.toBeInTheDocument();
+    expect(grid).toHaveClass(
+      "grid",
+      "grid-cols-1",
+      "content-start",
+      "items-stretch",
+      "border-t-2",
+      "md:grid-cols-2",
+      "xl:grid-cols-3"
+    );
+    expect(grid.className).not.toMatch(/divide-/);
+    expect(grid.className).not.toMatch(/min-h-/);
+    expect(screen.queryByRole("button", { name: /следующий проект/i })).not.toBeInTheDocument();
   });
 
-  it("spans the first card full-width and widens an orphan on tablet", () => {
+  it("stretches cards to the row height without a decorative pattern layer", () => {
     render(<ProjectsGrid />);
 
     const grid = screen.getByTestId("projects-grid");
-    const cardRoots = Array.from(grid.children);
-    expect(cardRoots).toHaveLength(projectsData.length);
-
-    expect(cardRoots[0]?.className).toMatch(/col-span-full/);
-
-    const remaining = projectsData.length - 1;
-    const orphanIndex = remaining % 2 === 1 ? remaining : -1;
-
-    for (const [index, root] of cardRoots.entries()) {
-      if (index === 0) continue;
-      if (index === orphanIndex) {
-        expect(root.className).toMatch(/col-span-2/);
-      } else {
-        expect(root.className).not.toMatch(/col-span/);
-      }
+    for (const cell of Array.from(grid.children)) {
+      expect(cell).toHaveClass("h-full", "min-h-0");
     }
+
+    const articles = screen.getAllByRole("article");
+    for (const article of articles) {
+      expect(article).toHaveClass("border-0");
+      expect(article.className).not.toContain("border-2");
+      expect(article.className).toMatch(/h-full/);
+      expect(article.className).toMatch(/min-h-0/);
+      expect(article.className).toMatch(/min-w-0/);
+      expect(article.className).toMatch(/flex-col/);
+      expect(article.className).not.toMatch(/writing-mode/);
+      expect(article.querySelector(".pointer-events-none")).toBeNull();
+    }
+    expect(grid.className).not.toMatch(/divide-/);
+    expect(articles[0].className).toMatch(/md:flex-row/);
   });
 });

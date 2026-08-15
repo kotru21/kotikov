@@ -8,14 +8,17 @@ import type { InteractiveTextRegistry } from "../model/types";
 interface InteractiveTextProps {
   text: string;
   className?: string;
+  /** Solid paint fill so giant headings keep contrast over speckled canvas. */
+  contrast?: "solid";
+}
+
+interface InteractiveUnitProps extends InteractiveTextRegistry {
+  text: string;
+  contrast?: "solid";
 }
 
 const InteractiveUnit = memo(
-  ({
-    text,
-    register,
-    unregister,
-  }: { text: string } & InteractiveTextRegistry): React.JSX.Element => {
+  ({ text, register, unregister, contrast }: InteractiveUnitProps): React.JSX.Element => {
     const ref = useRef<HTMLSpanElement>(null);
 
     useLayoutEffect(() => {
@@ -27,7 +30,11 @@ const InteractiveUnit = memo(
     }, [register, unregister]);
 
     return (
-      <span ref={ref} className="relative inline-block transition-colors duration-200">
+      <span
+        ref={ref}
+        className="relative inline-block transition-colors duration-200"
+        data-interactive-mode={contrast}
+      >
         {text === " " ? "\u00A0" : text}
       </span>
     );
@@ -87,7 +94,11 @@ export const InteractiveElement = <T extends React.ElementType = "div">({
   return <Component {...props}>{children}</Component>;
 };
 
-export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, className }) => {
+export const InteractiveText: React.FC<InteractiveTextProps> = ({
+  text,
+  className,
+  contrast,
+}) => {
   const registry = React.useContext(InteractiveTextContext);
 
   if (!registry) {
@@ -103,12 +114,14 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, classNam
         {words.map((word, wordIndex) => (
           <React.Fragment key={`word-${word}-${String(wordIndex)}`}>
             <InteractiveUnit
+              contrast={contrast}
               text={word}
               register={registry.register}
               unregister={registry.unregister}
             />
             {wordIndex < words.length - 1 ? (
               <InteractiveUnit
+                contrast={contrast}
                 text=" "
                 register={registry.register}
                 unregister={registry.unregister}

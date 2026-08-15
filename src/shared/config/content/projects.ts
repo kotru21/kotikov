@@ -6,8 +6,6 @@ import { SiTypescript } from "react-icons/si";
  * Featured projects content. Canonical in `@/shared/config/content`; entity
  * `ProjectCard` renders it. Domain copy stays shared — entities are type/UI facades.
  */
-export type ProjectCardPattern = "dots" | "chevrons" | "stripes";
-
 export interface ProjectContent {
   slug: string;
   title: string;
@@ -18,7 +16,6 @@ export interface ProjectContent {
   liveUrl?: string;
   cardPeriod: string;
   cardMeta: string;
-  cardPattern: ProjectCardPattern;
   accentColor: string;
   cardIcon: IconType;
 }
@@ -47,7 +44,6 @@ export const projectsData: ProjectContent[] = [
     repoUrl: "https://github.com/kotru21/evtx-viewer",
     cardPeriod: "2026",
     cardMeta: "DFIR · Open Source",
-    cardPattern: "stripes",
     accentColor: "#1ae6b0",
     cardIcon: FaPython,
   },
@@ -61,7 +57,6 @@ export const projectsData: ProjectContent[] = [
     repoUrl: "https://github.com/kotru21/CodeAnalyzerPython",
     cardPeriod: "2025–26",
     cardMeta: "SAST · Open Source",
-    cardPattern: "chevrons",
     accentColor: "#2cffc7",
     cardIcon: FaPython,
   },
@@ -75,7 +70,6 @@ export const projectsData: ProjectContent[] = [
     repoUrl: "https://github.com/kotru21/bsuir-iis-api",
     cardPeriod: "2025–26",
     cardMeta: "SDK · Maintained",
-    cardPattern: "stripes",
     accentColor: "#63ffd5",
     cardIcon: SiTypescript,
   },
@@ -89,7 +83,6 @@ export const projectsData: ProjectContent[] = [
     repoUrl: "https://github.com/kotru21/webchat",
     cardPeriod: "2025",
     cardMeta: "Auth · Realtime",
-    cardPattern: "dots",
     accentColor: "#00ffb9",
     cardIcon: FaReact,
   },

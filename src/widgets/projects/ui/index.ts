@@ -1,4 +1,4 @@
 export { ProjectCardDeck } from "./ProjectCardDeck";
 export { ProjectsGrid } from "./ProjectsGrid";
-export { ProjectsViews } from "./ProjectsViews";
+export { ProjectsMobileDeck } from "./ProjectsMobileDeck";
 export { useProjectDeck } from "./useProjectDeck";

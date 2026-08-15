@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 
-import { getWrappedIndex, SWIPE_THRESHOLD_PX } from "@/shared/lib";
+import { SWIPE_THRESHOLD_PX } from "@/shared/lib";
 
 interface TouchStartPoint {
   x: number;
@@ -22,6 +22,8 @@ interface UseProjectDeckReturn {
   handleTouchStart: (event: React.TouchEvent<HTMLDivElement>) => void;
   handleTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
   handleTouchCancel: () => void;
+  canGoPrev: boolean;
+  canGoNext: boolean;
 }
 
 function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
@@ -37,25 +39,23 @@ function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
 export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeckReturn {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartRef = useRef<TouchStartPoint | null>(null);
-  const lastIndex = count - 1;
+  const lastIndex = Math.max(0, count - 1);
 
   const goTo = useCallback(
     (index: number): void => {
       if (count <= 0) return;
-      setActiveIndex(((index % count) + count) % count);
+      setActiveIndex(Math.max(0, Math.min(lastIndex, index)));
     },
-    [count]
+    [count, lastIndex]
   );
 
   const goNext = useCallback((): void => {
-    if (count <= 0) return;
-    setActiveIndex((current) => getWrappedIndex(current, 1, count));
-  }, [count]);
+    setActiveIndex((current) => Math.min(lastIndex, current + 1));
+  }, [lastIndex]);
 
   const goPrev = useCallback((): void => {
-    if (count <= 0) return;
-    setActiveIndex((current) => getWrappedIndex(current, -1, count));
-  }, [count]);
+    setActiveIndex((current) => Math.max(0, current - 1));
+  }, []);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent): void => {
@@ -121,5 +121,7 @@ export function useProjectDeck({ count }: UseProjectDeckOptions): UseProjectDeck
     handleTouchStart,
     handleTouchEnd,
     handleTouchCancel,
+    canGoPrev: activeIndex > 0,
+    canGoNext: activeIndex < lastIndex,
   };
 }
