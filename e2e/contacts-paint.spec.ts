@@ -67,7 +67,12 @@ test.describe("mobile contacts paint well", () => {
     await expect.poll(samplePixels).not.toBe(0);
     const before = await samplePixels();
 
-    const box = await canvas.boundingBox();
+    // Canvas covers the whole section (`inset-0`); contact links at the top
+    // swallow pointer events. Stroke on the empty well below the cells.
+    await well.evaluate((el) => {
+      el.scrollIntoView({ block: "center" });
+    });
+    const box = await well.boundingBox();
     expect(box).toBeTruthy();
     if (box === null) {
       return;
