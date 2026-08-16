@@ -1,14 +1,9 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { skillsData } from "@/shared/config/content";
+import { SkillsWidget } from "@/widgets/skills";
 import { SkillsInteractionProvider } from "@/widgets/skills/model/SkillsInteractionContext";
-import {
-  SkillMarqueeCard,
-  SkillMarqueeRow,
-  SkillsDesktopView,
-  SkillsMobileView,
-} from "@/widgets/skills/ui";
 import SkillsCursorNyancat from "@/widgets/skills/ui/SkillsCursorNyancat";
 
 vi.mock("next/image", async () => {
@@ -77,46 +72,6 @@ describe("Skills coverage gaps", () => {
     vi.unstubAllGlobals();
   });
 
-  it("renders SkillMarqueeCard without provider and with provider toggle", () => {
-    const { unmount } = render(<SkillMarqueeCard skill={skillsData[0]} />);
-    const card = screen.getByText(skillsData[0].name).closest("[aria-hidden='true']");
-    expect(card).toBeTruthy();
-    if (!(card instanceof HTMLElement)) throw new Error("expected skill card element");
-    fireEvent.mouseEnter(card);
-    fireEvent.mouseLeave(card);
-    unmount();
-
-    render(
-      <SkillsInteractionProvider>
-        <SkillMarqueeCard skill={skillsData[0]} />
-      </SkillsInteractionProvider>
-    );
-    const interactive = screen.getByText(skillsData[0].name).closest("[aria-hidden='true']");
-    if (!(interactive instanceof HTMLElement)) throw new Error("expected skill card element");
-    fireEvent.mouseEnter(interactive);
-    fireEvent.mouseLeave(interactive);
-  });
-
-  it("runs curved marquee arc updates while motion is active", () => {
-    render(<SkillMarqueeRow skills={skillsData.slice(0, 2)} curved isMotionActive />);
-
-    expect(screen.getByTestId("skill-marquee-track")).toHaveAttribute("data-motion-active", "true");
-  });
-
-  it("renders flat marquee track when not curved", () => {
-    render(<SkillMarqueeRow skills={skillsData.slice(0, 1)} isMotionActive={false} />);
-
-    expect(screen.getByTestId("skill-marquee-track")).toHaveStyle({
-      animationPlayState: "paused",
-    });
-  });
-
-  it("uses four copies of the base skills list for seamless -25% loops", () => {
-    render(<SkillMarqueeRow skills={skillsData.slice(0, 2)} curved isMotionActive />);
-    const cards = screen.getAllByText(skillsData[0].name);
-    expect(cards).toHaveLength(4);
-  });
-
   it("animates SkillsCursorNyancat after pointer entry and movement", () => {
     const container = document.createElement("section");
     Object.defineProperty(container, "getBoundingClientRect", {
@@ -152,33 +107,20 @@ describe("Skills coverage gaps", () => {
     container.remove();
   });
 
-  it("renders desktop and mobile skills views with marquee when motion allowed", () => {
-    const { rerender } = render(<SkillsDesktopView headingId="skills-heading-desktop" />);
-    const desktopGroup = screen.getByRole("group", { name: "Мои навыки" });
-    expect(desktopGroup).toBeInTheDocument();
-    expect(screen.getByText("SOC, AppSec, DFIR, Python, TypeScript")).toBeInTheDocument();
+  it("renders a skills ticker and group cells when motion is allowed", () => {
+    render(<SkillsWidget />);
 
-    const track = screen.getByTestId("skill-marquee-track");
-    expect(track).toHaveAttribute("data-motion-active", "true");
-    expect(track).toHaveStyle({ animationPlayState: "running" });
-    expect(track).toHaveStyle({ animationDuration: "30s" });
-
-    fireEvent.pointerEnter(desktopGroup);
-    expect(track).toHaveAttribute("data-motion-active", "true");
-
-    fireEvent.pointerLeave(desktopGroup);
-    expect(track).toHaveAttribute("data-motion-active", "true");
-
-    rerender(<SkillsMobileView headingId="skills-heading-mobile" />);
     expect(screen.getByRole("heading", { name: "Мои навыки" })).toBeInTheDocument();
-    expect(screen.getByText("SOC, AppSec, DFIR, Python, TypeScript")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /LinkedIn/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Security & DFIR" })).toBeInTheDocument();
+    expect(screen.getAllByText(skillsData[0].name).length).toBeGreaterThan(0);
+    expect(document.querySelectorAll("[data-ticker-mark='k']").length).toBeGreaterThan(0);
+    expect(document.querySelector("[data-marquee='on']")).not.toBeNull();
   });
 
   it("does not mount cursor nyancat when reduced motion is on", () => {
     performanceSettings.reducedMotion = true;
-    const { container } = render(<SkillsDesktopView headingId="skills-heading-desktop" />);
+    const { container } = render(<SkillsWidget />);
     expect(container.querySelector('img[src="/nyancat.svg"]')).toBeNull();
-    expect(container.querySelector('[data-testid="skill-marquee-track"]')).toBeNull();
+    expect(container.querySelector("[data-marquee='on']")).toBeNull();
   });
 });

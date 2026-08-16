@@ -48,8 +48,9 @@ bun install
 
 | File                                                                                        | Description                                                |
 | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `app/page.tsx`                                                                              | Main page — Header, Skills, Timeline, Contacts.            |
-| `src/widgets/header/HeaderWidget.tsx`                                                       | Interactive header with Nyancat and canvas effects.        |
+| `app/page.tsx`                                                                              | Main page — Puzzle, About, Projects, Skills, Experience, Contacts. |
+| `src/widgets/puzzle/PuzzleHome.tsx`                                                         | First-screen puzzle (`#header`) and section cells.         |
+| `src/widgets/shell/SiteFrame.tsx`                                                           | Shell: puzzle plus chrome after scroll.                    |
 | `src/features/nyancat/*`                                                                    | Nyancat — animation and explosion effects.                 |
 | `src/widgets/skills/SkillsWidget.tsx`                                                       | Responsive skills block (desktop + mobile scroll).         |
 | `src/widgets/timeline/TimelineWidget.tsx`                                                   | Timeline of experience and projects.                       |

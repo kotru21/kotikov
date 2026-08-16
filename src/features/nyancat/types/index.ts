@@ -1,5 +1,3 @@
-import type { NyancatSize } from "../lib/constants";
-
 export interface Position {
   x: number;
   y: number;
@@ -17,24 +15,4 @@ export interface Pixel {
   rotation: number;
   rotationSpeed: number;
   opacity: number;
-}
-
-export interface FlyingNyancatProps {
-  size: NyancatSize;
-  position: {
-    top: string;
-    left: string;
-  };
-  animationName: string;
-  animationDuration: string;
-  animationDelay?: string;
-  zIndex?: number;
-  /** Defaults to true for finite / one-shot consumers. */
-  isMotionActive?: boolean;
-  /**
-   * Optional secondary keyframe applied to the cat only (not the trail) for
-   * banking/tilt. Shares duration + delay with the flight path to stay in sync.
-   */
-  bankAnimationName?: string;
-  testId?: string;
 }

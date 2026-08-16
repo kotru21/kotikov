@@ -46,8 +46,9 @@ bun install
 
 | Файл                                                                                        | Описание                                                                  |
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `app/page.tsx`                                                                              | Главная страница — Header, About, Projects, Skills, Experience, Contacts. |
-| `src/widgets/header/HeaderWidget.tsx`                                                       | Интерактивный header с Nyancat и canvas-эффектами.                        |
+| `app/page.tsx`                                                                              | Главная страница — Puzzle, About, Projects, Skills, Experience, Contacts. |
+| `src/widgets/puzzle/PuzzleHome.tsx`                                                         | Первая сетка-пазл (`#header`) и ячейки-якоря.                             |
+| `src/widgets/shell/SiteFrame.tsx`                                                           | Оболочка: пазл + chrome после скролла.                                    |
 | `src/widgets/projects/ProjectsWidget.tsx`                                                   | Секция проектов.                                                          |
 | `src/features/nyancat/*`                                                                    | Nyancat — анимация и эффект explosion.                                    |
 | `src/widgets/skills/SkillsWidget.tsx`                                                       | Адаптивный блок навыков (desktop + mobile scroll).                        |

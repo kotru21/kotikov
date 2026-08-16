@@ -3,6 +3,10 @@ export const social = {
     url: "https://github.com/kotru21",
     display: "github.com/kotru21",
   },
+  habr: {
+    url: "https://habr.com/ru/users/kotru21/articles/",
+    display: "habr.com/ru/users/kotru21",
+  },
   linkedin: {
     url: "https://www.linkedin.com/in/arseni-batura/",
   },

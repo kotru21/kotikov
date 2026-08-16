@@ -43,7 +43,6 @@ export default mergeConfig(
           "**/client.ts",
           "**/types.ts",
           "**/model/types.ts",
-          "src/features/nyancat/ui/FlyingNyancat.tsx",
           // Paw RAF settle loop is exercised via pawUi tests; keep UI chrome gated.
           "src/features/paw/usePawAnimation.ts",
         ],

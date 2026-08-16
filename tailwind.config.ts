@@ -26,7 +26,7 @@ const config: Config = {
         border: colors.border,
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "sans-serif"],
+        sans: ["var(--font-manrope)", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
       },
     },

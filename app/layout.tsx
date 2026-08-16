@@ -13,12 +13,11 @@ import { ThemeColorMeta, ThemeProvider } from "@/features/theme/client";
 import { personData } from "@/shared/config/content";
 
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
-import { SkipLinks } from "./components/SkipLinks";
 import { resolveGaMeasurementId } from "./gaMeasurementId";
 
 /** Manrope covers Latin + Cyrillic for `lang="ru"` body copy. */
 const manrope = Manrope({
-  variable: "--font-geist-sans",
+  variable: "--font-manrope",
   subsets: ["latin", "cyrillic"],
 });
 
@@ -34,6 +33,7 @@ const siteDescription = `${personData.description}. БГУИР, hoster.by, SAST 
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: THEME_SURFACE.light.background },
     { media: "(prefers-color-scheme: dark)", color: THEME_SURFACE.dark.background },
@@ -150,7 +150,6 @@ export default async function RootLayout({
         <ThemeProvider>
           <ThemeColorMeta />
           <ScrollRestoration />
-          <SkipLinks />
           {children}
         </ThemeProvider>
         {gaId !== null ? <GoogleAnalytics measurementId={gaId} nonce={nonce} /> : null}

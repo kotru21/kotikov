@@ -1,28 +1,16 @@
-import React from "react";
-
-import { Section, SectionHeader } from "@/shared/ui";
+import { sectionTitles } from "@/shared/config/content";
+import { GIANT_LABEL, GRID_SURFACE, Section } from "@/shared/ui";
 
 import { TimelineView } from "./ui";
 
-/**
- * Timeline section composition root (Server Component).
- * Responsive trees are owned by client `TimelineView`.
- */
-const TimelineWidget: React.FC = () => (
-  <Section
-    id="experience"
-    backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-    className="md:overflow-x-clip"
-    innerClassName="relative z-10"
-  >
-    <SectionHeader
-      eyebrow="Опыт"
-      title="Мой путь"
-      titleId="experience-heading"
-      description="Образование и опыт работы"
-    />
-    <TimelineView />
-  </Section>
-);
-
-export default TimelineWidget;
+/** Experience section composition root (Server Component). Carousel lives in TimelineView. */
+export default function TimelineWidget(): React.JSX.Element {
+  return (
+    <Section id="experience" contained={false} spacing="none" backgroundClassName={GRID_SURFACE}>
+      <h2 className={`${GIANT_LABEL} p-6 md:p-10`} id="experience-heading">
+        {sectionTitles.experience}
+      </h2>
+      <TimelineView />
+    </Section>
+  );
+}

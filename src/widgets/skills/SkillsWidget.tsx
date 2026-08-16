@@ -1,23 +1,13 @@
-import React from "react";
+import { GRID_SURFACE, Section } from "@/shared/ui";
 
-import { Section } from "@/shared/ui";
+import { SkillsSectionIntro } from "./ui/SkillsSectionIntro";
+import SkillsViews from "./ui/SkillsViews";
 
-import { SkillsViews } from "./ui";
-
-const SkillsWidget: React.FC = () => {
+/** Skills section composition root (Server Component). Nyancat lives in SkillsViews. */
+export default function SkillsWidget(): React.JSX.Element {
   return (
-    <Section
-      id="skills"
-      spacing="dense"
-      contained={false}
-      backgroundClassName="bg-background-primary dark:bg-background-tertiary"
-      className="overflow-x-clip"
-      innerClassName="relative z-10"
-      aria-label="Навыки"
-    >
-      <SkillsViews />
+    <Section id="skills" contained={false} spacing="none" backgroundClassName={GRID_SURFACE}>
+      <SkillsViews heading={<SkillsSectionIntro />} />
     </Section>
   );
-};
-
-export default SkillsWidget;
+}

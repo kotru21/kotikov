@@ -6,6 +6,8 @@ import type { ComponentType } from "react";
 import { FaGithub, FaTelegram } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
+import { HabrIcon } from "@/shared/ui/HabrIcon";
+
 import { social } from "./social";
 
 export type ContactLayout = "hero" | "secondary-light" | "secondary-dark";
@@ -39,5 +41,12 @@ export const contactsData = [
     link: social.github.url,
     icon: FaGithub,
     layout: "secondary-dark",
+  },
+  {
+    label: "Habr",
+    value: social.habr.display,
+    link: social.habr.url,
+    icon: HabrIcon,
+    layout: "hero",
   },
 ] as const satisfies readonly ContactInfo[];

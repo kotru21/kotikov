@@ -1,150 +1,194 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
-import { timelineData } from "@/shared/config/content";
+import { sectionTitles, timelineData } from "@/shared/config/content";
+import TimelineWidget from "@/widgets/timeline/TimelineWidget";
 import { TimelineView } from "@/widgets/timeline/ui";
 
-vi.mock("@/features/performance/client", () => ({
-  usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
-}));
+const PREV_STAGE = "Прокрутить к предыдущему этапу";
+const NEXT_STAGE = "Прокрутить к следующему этапу";
+const FIRST = timelineData[0];
+const SECOND = timelineData[1];
+const STROKE_CLASSES = [
+  "border-2",
+  "border-x-2",
+  "border-y-2",
+  "border-t-2",
+  "border-b-2",
+  "border-l-2",
+  "border-r-2",
+] as const;
 
-function stubMatchMedia(isMobile: boolean): void {
-  vi.stubGlobal(
-    "matchMedia",
-    vi.fn((query: string) => ({
-      matches: query.includes("max-width") ? isMobile : false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    }))
+function visibleItemTitles(): string[] {
+  return timelineData
+    .map((item) => item.title)
+    .filter((title) => screen.queryByRole("heading", { name: title }) !== null);
+}
+
+function experienceRegion(): HTMLElement {
+  return screen.getByRole("region", {
+    name: new RegExp(sectionTitles.experience),
+    hidden: true,
+  });
+}
+
+function slideWrappers(): HTMLElement[] {
+  return [...experienceRegion().querySelectorAll("article")].map((article) => {
+    const parent = article.parentElement;
+    if (!(parent instanceof HTMLElement)) {
+      throw new Error("expected stacked slide wrapper");
+    }
+    return parent;
+  });
+}
+
+function slidesGrid(): HTMLElement {
+  const grid = slideWrappers()[0]?.parentElement;
+  if (!(grid instanceof HTMLElement)) {
+    throw new Error("expected slides grid");
+  }
+  return grid;
+}
+
+function carouselTrack(): HTMLElement {
+  const track = experienceRegion().querySelector("[aria-live='polite']")?.nextElementSibling;
+  if (!(track instanceof HTMLElement)) {
+    throw new Error("expected carousel track");
+  }
+  return track;
+}
+
+function visibleArticle(): HTMLElement {
+  const wrap = slideWrappers().find((el) => el.classList.contains("visible"));
+  const article = wrap?.querySelector("article");
+  if (!(article instanceof HTMLElement)) {
+    throw new Error("expected visible timeline article");
+  }
+  return article;
+}
+
+function expectChevronHasNoStroke(button: HTMLElement): void {
+  for (const className of STROKE_CLASSES) {
+    expect(button).not.toHaveClass(className);
+  }
+}
+
+function expectStackedSlideLock(): void {
+  const wrappers = slideWrappers();
+  expect(wrappers).toHaveLength(timelineData.length);
+  expect(screen.getAllByRole("heading", { level: 3, hidden: true })).toHaveLength(
+    timelineData.length
+  );
+
+  for (const wrap of wrappers) {
+    expect(wrap).toHaveClass("col-start-1", "row-start-1", "grid", "min-w-0");
+    expect(wrap.className.split(/\s+/)).not.toContain("hidden");
+    expect(wrap.className.split(/\s+/).some((token) => token.includes("row-span"))).toBe(false);
+  }
+  expect(wrappers.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
+  expect(wrappers.filter((wrap) => wrap.classList.contains("invisible"))).toHaveLength(
+    timelineData.length - 1
+  );
+  expect(wrappers.filter((wrap) => wrap.getAttribute("aria-hidden") === "true")).toHaveLength(
+    timelineData.length - 1
   );
 }
 
-describe("TimelineView mobile a11y", () => {
-  beforeEach(() => {
-    stubMatchMedia(true);
-  });
+function expectProjectStyleChrome(): void {
+  const region = experienceRegion();
+  expect(region).toHaveClass("border-t-2");
+  expect(region).not.toHaveClass("border-2", "border-x-2");
+    expect(carouselTrack()).toHaveClass(
+    "min-w-0",
+    "grid-cols-[auto_minmax(0,1fr)_auto]",
+    "divide-x-2",
+    "divide-[#111]"
+  );
+  expect(slidesGrid()).toHaveClass("grid", "min-w-0");
+  expect(slidesGrid()).not.toHaveClass("max-md:grid-rows-[auto_auto]");
 
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+  const prev = screen.getByRole("button", { name: PREV_STAGE });
+  const next = screen.getByRole("button", { name: NEXT_STAGE });
+  expectChevronHasNoStroke(prev);
+  expectChevronHasNoStroke(next);
+  expect(prev).toHaveClass("min-h-11", "min-w-11", "px-3", "self-stretch");
+  expect(next).toHaveClass("min-h-11", "min-w-11", "px-3", "self-stretch");
+}
 
-  it("renders native controls before the labelled active panel", async () => {
-    const { container } = render(<TimelineView />);
+describe("TimelineWidget", () => {
+  it("renders a full-bleed #experience band with a visible h2", () => {
+    const { container } = render(<TimelineWidget />);
 
-    await act(async () => {
-      await Promise.resolve();
-    });
+    const section = container.querySelector("section#experience");
+    expect(section).not.toBeNull();
+    expect(section).not.toHaveClass("border-2");
 
-    const mobileSection = container.querySelector('[data-testid="timeline-mobile"]');
+    const heading = screen.getByRole("heading", { level: 2, name: sectionTitles.experience });
+    expect(heading).toHaveAttribute("id", "experience-heading");
+    expect(heading).toHaveClass("p-6", "md:p-10");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
+    expect(heading).not.toHaveClass("border-2");
+    expect(heading).not.toHaveClass("bg-[#111]", "text-[#f5f5f3]", "bg-primary-500");
+    expect(heading.className).not.toMatch(/dark:bg-\[#ededed\]/);
 
-    expect(mobileSection).toBeTruthy();
-    expect(container.querySelector('[style*="linear-gradient(to right"]')).toBeNull();
-
-    const controls = mobileSection?.querySelector('[role="group"][aria-label="Этапы опыта"]');
-    const activePanel = mobileSection?.querySelector(
-      '[role="group"][aria-roledescription="этап карьеры"]'
+    const carousel = experienceRegion();
+    expect(carousel).toHaveClass("border-t-2", "outline-none", "focus-visible:ring-2");
+    expect(carousel).not.toHaveClass("border-x-2", "border-2");
+    expect(carousel).toHaveAttribute(
+      "aria-label",
+      `${sectionTitles.experience}, 1 из ${String(timelineData.length)}`
     );
-
-    expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
-    expect(controls).toBeTruthy();
-    expect(activePanel).toHaveAttribute("aria-label", `1 из ${String(timelineData.length)}`);
-
-    const controlsIndex = Array.from(mobileSection?.children ?? []).findIndex((child) =>
-      child.contains(controls ?? null)
-    );
-    const activePanelIndex = Array.from(mobileSection?.children ?? []).findIndex((child) =>
-      child.contains(activePanel ?? null)
-    );
-
-    expect(controlsIndex).toBeGreaterThanOrEqual(0);
-    expect(activePanelIndex).toBeGreaterThan(controlsIndex);
-  });
-
-  it("marks inactive slides with inert", async () => {
-    render(<TimelineView />);
-
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    const activePanel = screen.getByRole("group", {
-      name: `1 из ${String(timelineData.length)}`,
-    });
-    const slides = activePanel.querySelectorAll(":scope > div");
-    const inactiveSlides = Array.from(slides).filter(
-      (slide) => slide.getAttribute("aria-hidden") === "true"
-    );
-
-    expect(inactiveSlides.length).toBeGreaterThan(0);
-    for (const slide of inactiveSlides) {
-      expect(slide).toHaveAttribute("inert");
-    }
-  });
-
-  it("updates keyboard focus, panel label, and live counter together", async () => {
-    render(<TimelineView />);
-
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    const chips = screen.getAllByRole("button", { name: /\d{4} · / });
-    const firstChip = chips[0];
-    const secondChip = chips[1];
-
-    firstChip.focus();
-    fireEvent.keyDown(firstChip, { key: "ArrowRight" });
-
-    expect(secondChip).toHaveFocus();
-    expect(
-      screen.getByRole("group", { name: `2 из ${String(timelineData.length)}` })
-    ).toBeInTheDocument();
-    expect(screen.getByText(`2 / ${String(timelineData.length)}`)).toBeInTheDocument();
+    expect(carousel.querySelector("[aria-live='polite']")).toHaveTextContent(FIRST.title);
   });
 });
 
-describe("TimelineView responsive shells", () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
+describe("TimelineView", () => {
+  it("shows one item and project-style full-height chevrons", () => {
+    render(<TimelineView />);
+
+    expect(visibleItemTitles()).toEqual([FIRST.title]);
+    expect(screen.getByText(FIRST.company)).toBeInTheDocument();
+    expect(screen.getByText(FIRST.description)).toBeInTheDocument();
+    expect(screen.getByText(FIRST.technologies[0])).toBeInTheDocument();
+    expect(screen.getByText(FIRST.period)).toHaveClass("bg-primary-500", "text-[#111]");
+
+    expect(visibleArticle()).toHaveClass("border-0");
+    expect(visibleArticle()).not.toHaveClass("border-2", "border-x-2", "border-t-2");
+    expectProjectStyleChrome();
+
+    fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
+
+    expect(visibleItemTitles()).toEqual([SECOND.title]);
   });
 
-  it("keeps CSS shells and mounts desktop rail after matchMedia sync", async () => {
-    stubMatchMedia(false);
-    const { container } = render(<TimelineView />);
+  it("locks band height by stacking every slide in one grid cell", () => {
+    render(<TimelineView />);
 
-    await act(async () => {
-      await Promise.resolve();
-    });
+    expectStackedSlideLock();
+    fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
 
-    const mobileShell = container.querySelector('[data-timeline-view="mobile"]');
-    const desktopShell = container.querySelector('[data-timeline-view="desktop"]');
-
-    expect(mobileShell).toHaveClass("md:hidden");
-    expect(desktopShell).toHaveClass("hidden", "md:block");
-    expect(container.querySelector('[data-testid="timeline-mobile"]')).toBeNull();
-    expect(screen.getByRole("region", { name: /Лента этапов опыта/i })).toBeInTheDocument();
+    const after = slideWrappers();
+    expect(after).toHaveLength(timelineData.length);
+    expect(after.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
+    expect(visibleItemTitles()).toEqual([SECOND.title]);
   });
 
-  it("mounts only one active timeline tree after matchMedia sync", async () => {
-    stubMatchMedia(true);
-    const { container } = render(<TimelineView />);
+  it("stacks date above copy on mobile and date beside copy on desktop", () => {
+    render(<TimelineView />);
 
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    const mountedTrees = [
-      container.querySelector('[data-testid="timeline-mobile"]'),
-      container.querySelector('[aria-label*="Лента этапов опыта"]'),
-    ].filter((node) => node !== null);
-
-    expect(mountedTrees).toHaveLength(1);
-    expect(container.querySelector('[data-testid="timeline-mobile"]')).toBeTruthy();
-    expect(container.querySelectorAll("[data-timeline-view]")).toHaveLength(2);
+    expect(visibleArticle()).toHaveClass(
+      "h-full",
+      "min-h-0",
+      "min-w-0",
+      "grid-rows-[auto_1fr]",
+      "md:grid-rows-none",
+      "md:grid-cols-[minmax(11rem,16rem)_1fr]"
+    );
+    expect(visibleArticle()).not.toHaveClass("max-md:grid-rows-subgrid");
+    expect(visibleArticle().children).toHaveLength(2);
+    expect(visibleArticle().children[0]).toHaveClass("h-full", "min-h-0", "bg-primary-500", "text-[#111]");
+    expect(visibleArticle().children[1]).toHaveClass("h-full", "min-h-0");
+    expect(slideWrappers()[0]).toHaveClass("col-start-1", "row-start-1");
+    expect(slideWrappers()[0]).not.toHaveClass("md:row-span-1", "row-end-2");
   });
 });

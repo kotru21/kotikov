@@ -12,6 +12,7 @@ async function stabilizeAfterNavigate(page: Page): Promise<void> {
         caret-color: transparent !important;
       }
       canvas { visibility: hidden !important; }
+      nextjs-portal { display: none !important; }
     `,
   });
 }
@@ -22,10 +23,10 @@ const timelineWidths = [375, 1024] as const;
 for (const theme of ["light", "dark"] as const) {
   for (const width of heroWidths) {
     const widthLabel = String(width);
-    test(`hero ${theme} ${widthLabel}`, async ({ page }) => {
+    test(`puzzle ${theme} ${widthLabel}`, async ({ page }) => {
       await page.setViewportSize({ width, height: width === 375 ? 812 : 900 });
       await prepareStableVisual(page, theme);
-      await expect(page.locator("#header")).toHaveScreenshot(`hero-${theme}-${widthLabel}.png`);
+      await expect(page.locator("#header")).toHaveScreenshot(`puzzle-${theme}-${widthLabel}.png`);
     });
   }
 }
@@ -39,6 +40,13 @@ for (const width of heroWidths) {
     await expect(page.locator("#projects")).toHaveScreenshot(`projects-light-${widthLabel}.png`);
   });
 }
+
+test("about dark 1440", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await prepareStableVisual(page, "dark");
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  await expect(page.locator("#about")).toHaveScreenshot("about-dark-1440.png");
+});
 
 test("skills reduced-motion 1440", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -66,14 +74,6 @@ for (const width of heroWidths) {
     await expect(page.locator("#contacts")).toHaveScreenshot(`contacts-light-${widthLabel}.png`);
   });
 }
-
-test("mobile menu 375", async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 812 });
-  await prepareStableVisual(page, "light");
-  await page.getByRole("button", { name: "Открыть меню" }).click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await expect(page.getByRole("dialog")).toHaveScreenshot("mobile-menu-light-375.png");
-});
 
 for (const width of heroWidths) {
   const widthLabel = String(width);

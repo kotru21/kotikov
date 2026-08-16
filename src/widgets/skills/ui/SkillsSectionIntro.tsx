@@ -1,39 +1,13 @@
-"use client";
+import { sectionTitles } from "@/shared/config/content";
+import { GIANT_LABEL } from "@/shared/ui/gridChrome";
 
-import React from "react";
+const HEADING_ID = "skills-heading";
 
-import { usePerformanceSettings } from "@/features/performance/client";
-import { skillsStackLine } from "@/shared/config/content";
-import { SectionHeader } from "@/shared/ui";
-
-interface SkillsSectionIntroProps {
-  headingId: string;
-  className?: string;
-  stackClassName?: string;
-}
-
-/** Shared skills heading + stack line (CTA/marquee order stay view-specific). */
-export function SkillsSectionIntro({
-  headingId,
-  className,
-  stackClassName,
-}: SkillsSectionIntroProps): React.JSX.Element {
+/** In-page section title — visible on mobile so bands don't run together. */
+export function SkillsSectionIntro(): React.JSX.Element {
   return (
-    <div className={className}>
-      <SectionHeader
-        align="center"
-        eyebrow="Навыки"
-        title="Мои навыки"
-        titleId={headingId}
-        description="Технологии и инструменты, которыми я владею"
-      />
-      <p className={stackClassName}>{skillsStackLine}</p>
-    </div>
+    <h2 id={HEADING_ID} className={`${GIANT_LABEL} p-6 md:p-10`}>
+      {sectionTitles.skills}
+    </h2>
   );
-}
-
-/** True when skills marquees / cursor decoration are allowed to mount. */
-export function useShowSkillsMarquee(): boolean {
-  const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  return !reducedMotion && !lowPerformance;
 }

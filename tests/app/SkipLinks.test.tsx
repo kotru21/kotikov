@@ -14,8 +14,16 @@ describe("SkipLinks", () => {
 
     expect(links).toEqual([mainLink, projectsLink]);
     expect(mainLink).toHaveAttribute("href", "#main-content");
-    expect(mainLink).toHaveClass("focus:not-sr-only", "focus:left-4");
+    expect(mainLink).toHaveClass("focus:not-sr-only", "focus:top-4", "focus:left-4");
     expect(projectsLink).toHaveAttribute("href", "#projects");
-    expect(projectsLink).toHaveClass("focus:not-sr-only", "focus:left-56");
+    expect(projectsLink).toHaveClass("focus:not-sr-only", "focus:top-16", "focus:left-4");
+  });
+
+  it("is composed on the home page where skip targets exist", async () => {
+    const { readFile } = await import("node:fs/promises");
+    const page = await readFile("app/page.tsx", "utf8");
+    const layout = await readFile("app/layout.tsx", "utf8");
+    expect(page).toContain("SkipLinks");
+    expect(layout).not.toContain("SkipLinks");
   });
 });

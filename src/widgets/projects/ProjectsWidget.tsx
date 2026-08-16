@@ -1,26 +1,31 @@
 import { projectsSection } from "@/shared/config/content";
-import { Section, SectionHeader } from "@/shared/ui";
+import { GIANT_LABEL, GRID_SURFACE, Section } from "@/shared/ui";
 
-import { ProjectsViews } from "./ui/ProjectsViews";
+import { ProjectsGrid } from "./ui/ProjectsGrid";
+import { ProjectsMobileDeck } from "./ui/ProjectsMobileDeck";
 
-/**
- * Projects section composition root (Server Component).
- * Responsive trees are owned by client `ProjectsViews` (dual-mount then prune).
- */
+/** Projects section composition root (Server Component). Mobile deck is the only client island. */
 export function ProjectsWidget(): React.JSX.Element {
   return (
     <Section
       id="projects"
       tabIndex={-1}
-      backgroundClassName="bg-neutral-100 dark:bg-background-tertiary"
+      contained={false}
+      spacing="none"
+      backgroundClassName={GRID_SURFACE}
     >
-      <SectionHeader
-        eyebrow={projectsSection.eyebrow}
-        title={projectsSection.title}
-        description={projectsSection.description}
-      />
-
-      <ProjectsViews />
+      <div className="flex flex-col justify-start gap-6 p-6 md:p-10">
+        <h2 className={GIANT_LABEL} id="projects-heading">
+          {projectsSection.title}
+        </h2>
+        <p className="text-base leading-8 font-medium text-[#111] dark:text-[#ededed]">
+          {projectsSection.description}
+        </p>
+      </div>
+      <ProjectsMobileDeck />
+      <div className="hidden md:block" data-projects-view="desktop">
+        <ProjectsGrid />
+      </div>
     </Section>
   );
 }

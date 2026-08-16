@@ -5,5 +5,4 @@
  * Prefer `@/features/paw/client` from app/widgets (RSC-safe barrel split).
  */
 export { ClearPaintButton } from "./ui/ClearPaintButton";
-export { PaintDrawHint } from "./ui/PaintDrawHint";
 export { usePawAnimation } from "./usePawAnimation";

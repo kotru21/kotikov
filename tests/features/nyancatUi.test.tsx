@@ -1,23 +1,9 @@
-import { act, fireEvent, render, renderHook } from "@testing-library/react";
+import { act, render, renderHook } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { buildNyancatKeyframes } from "@/features/nyancat";
 import { useExplosion } from "@/features/nyancat/hooks/useExplosion";
 import { NyancatImage } from "@/features/nyancat/ui/NyancatImage";
-
-interface MovingWrapperCallbacks {
-  onClick: ReturnType<typeof vi.fn>;
-  onMouseEnter: ReturnType<typeof vi.fn>;
-}
-
-function expectPointerInteraction(wrapper: Element, callbacks: MovingWrapperCallbacks): void {
-  fireEvent.click(wrapper);
-  fireEvent.touchEnd(wrapper);
-  fireEvent.mouseEnter(wrapper);
-
-  expect(callbacks.onClick).toHaveBeenCalledTimes(2);
-  expect(callbacks.onMouseEnter).toHaveBeenCalledTimes(1);
-}
 
 function expectAccessibleControl(wrapper: Element): void {
   expect(wrapper.tagName).toBe("BUTTON");
@@ -73,8 +59,17 @@ describe("NyancatImage", () => {
     );
     const wrapper = getMovingWrapper(container);
 
+    expect(wrapper).toHaveClass("min-h-11", "min-w-11");
+  });
+
+  it("omits CSS flight when flightAnimated is false", () => {
+    const { container } = render(
+      <NyancatImage size="medium" isMobile={false} onClick={vi.fn()} flightAnimated={false} />
+    );
+    const wrapper = getMovingWrapper(container);
+
     expectAccessibleControl(wrapper);
-    expectPointerInteraction(wrapper, callbacks);
+    expect((wrapper as HTMLElement).style.animation).toBe("");
   });
 });
 

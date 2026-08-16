@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { scrollSectionToTop } from "./helpers/scrollSectionToTop";
+
 test("theme persists after reload", async ({ page }) => {
   await page.addInitScript(() => {
     // Seed light once; keep subsequent reloads free to restore the chosen theme.
@@ -9,6 +11,7 @@ test("theme persists after reload", async ({ page }) => {
     window.sessionStorage.setItem("e2e-theme-seeded", "1");
   });
   await page.goto("/");
+  await scrollSectionToTop(page, "about");
 
   await page.getByRole("button", { name: "Включить тёмную тему" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);

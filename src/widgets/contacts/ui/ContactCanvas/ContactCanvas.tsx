@@ -70,7 +70,8 @@ const ContactCanvas: React.FC<ContactCanvasProps> = ({ ref }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 h-full w-full"
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full"
       style={{
         background: CONTACTS_GRADIENT,
         pointerEvents: "none",

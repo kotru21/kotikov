@@ -59,7 +59,7 @@ describe("useTimelineCarousel", () => {
       result.current.handleKeyDown({
         key: "ArrowRight",
         preventDefault: vi.fn(),
-      } as unknown as KeyboardEvent);
+      } as unknown as KeyboardEvent<HTMLDivElement>);
     });
     expect(result.current.activeIndex).toBe(1);
 
@@ -67,7 +67,7 @@ describe("useTimelineCarousel", () => {
       result.current.handleKeyDown({
         key: "Home",
         preventDefault: vi.fn(),
-      } as unknown as KeyboardEvent);
+      } as unknown as KeyboardEvent<HTMLDivElement>);
     });
     expect(result.current.activeIndex).toBe(0);
   });
@@ -79,13 +79,13 @@ describe("useTimelineCarousel", () => {
       result.current.handleTouchStart({
         touches: [{ clientX: 200, clientY: 100 }],
         target: document.createElement("div"),
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     act(() => {
       result.current.handleTouchEnd({
         changedTouches: [{ clientX: 100, clientY: 110 }],
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     expect(result.current.activeIndex).toBe(1);
@@ -102,13 +102,13 @@ describe("useTimelineCarousel", () => {
       result.current.handleTouchStart({
         touches: [{ clientX: 100, clientY: 100 }],
         target: document.createElement("div"),
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     act(() => {
       result.current.handleTouchEnd({
         changedTouches: [{ clientX: 200, clientY: 110 }],
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     expect(result.current.activeIndex).toBe(1);
@@ -121,13 +121,13 @@ describe("useTimelineCarousel", () => {
       result.current.handleTouchStart({
         touches: [{ clientX: 100, clientY: 100 }],
         target: document.createElement("div"),
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     act(() => {
       result.current.handleTouchEnd({
         changedTouches: [{ clientX: 120, clientY: 220 }],
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     expect(result.current.activeIndex).toBe(0);
@@ -141,13 +141,13 @@ describe("useTimelineCarousel", () => {
       result.current.handleTouchStart({
         touches: [{ clientX: 200, clientY: 100 }],
         target: button,
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     act(() => {
       result.current.handleTouchEnd({
         changedTouches: [{ clientX: 100, clientY: 100 }],
-      } as unknown as TouchEvent);
+      } as unknown as TouchEvent<HTMLDivElement>);
     });
 
     expect(result.current.activeIndex).toBe(0);

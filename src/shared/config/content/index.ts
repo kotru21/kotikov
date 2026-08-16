@@ -1,4 +1,5 @@
 export * from "./about";
+export * from "./chrome";
 export * from "./contact";
 export * from "./footer";
 export * from "./footerSocial";

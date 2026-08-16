@@ -1,7 +1,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
   overflow-x: clip;
 }
 
@@ -23,5 +23,19 @@ button:disabled,
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-anchor-offset);
+  scroll-padding-top: calc(var(--chrome-title-offset) + env(safe-area-inset-top, 0px));
+  scroll-padding-bottom: calc(var(--chrome-bar-offset) + env(safe-area-inset-bottom, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 0;
+    scroll-padding-bottom: var(--chrome-bar-offset);
+  }
 }

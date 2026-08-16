@@ -71,7 +71,6 @@ vi.mock("@/features/paw/client", () => ({
       Очистить рисунок
     </button>
   ),
-  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   usePawAnimation: (
     onDraw: (x: number, y: number, prevX: number, prevY: number) => void,
     options?: { enabled?: boolean }
@@ -154,7 +153,7 @@ describe("ContactsWidget paint-enabled path", () => {
 
     expect(pawMock.latestEnabled).toBe(true);
     expect(screen.getByTestId("contact-canvas")).toBeInTheDocument();
-    expect(screen.getByText(/проведи мышью/i)).toBeInTheDocument();
+    expect(screen.queryByText(/проведи мышью/i)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeInTheDocument();
     expect(document.getElementById("contacts")).toHaveStyle({ touchAction: "none" });
     expect(document.getElementById("contacts")).not.toHaveStyle({ cursor: "none" });

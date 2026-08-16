@@ -8,5 +8,6 @@
  */
 export * from "./lib/constants";
 export * from "./lib/keyframes";
+export * from "./lib/perch";
 export * from "./lib/utils";
 export type * from "./types";

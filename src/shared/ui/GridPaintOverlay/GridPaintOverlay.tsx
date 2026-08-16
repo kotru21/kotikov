@@ -62,6 +62,7 @@ export function GridPaintOverlay({
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className={
         className ??
         "pointer-events-none absolute inset-0 h-full w-full mix-blend-multiply dark:mix-blend-screen"

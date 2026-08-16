@@ -1,1 +1,2 @@
-export { AboutSpecPanel } from "./AboutSpecPanel";
+export { AboutPaintSurface } from "./AboutPaintSurface";
+export { AboutSpecGrid } from "./AboutSpecGrid";

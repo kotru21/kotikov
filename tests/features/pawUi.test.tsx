@@ -1,21 +1,7 @@
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { ClearPaintButton, PaintDrawHint, usePawAnimation } from "@/features/paw/client";
-
-vi.mock("@/features/device/client", () => ({
-  useIsMobile: () => false,
-}));
-
-vi.mock("@/features/interactive-elements/client", async () => {
-  const { MockInteractiveElement, MockInteractiveText } = await import(
-    "../helpers/mockInteractiveElement"
-  );
-  return {
-    InteractiveElement: MockInteractiveElement,
-    InteractiveText: MockInteractiveText,
-  };
-});
+import { ClearPaintButton, usePawAnimation } from "@/features/paw/client";
 
 describe("ClearPaintButton", () => {
   it("renders with data-draw-exclude and handles click", () => {
@@ -31,14 +17,6 @@ describe("ClearPaintButton", () => {
 
     fireEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe("PaintDrawHint", () => {
-  it("explains desktop paint interaction", () => {
-    render(<PaintDrawHint tone="on-gradient" />);
-
-    expect(screen.getByText(/проведи мышью/i)).toBeInTheDocument();
   });
 });
 
@@ -84,7 +62,7 @@ describe("usePawAnimation", () => {
     expect(result.current.isDrawing).toBe(true);
   });
 
-  it("requires pointer down for touch drawing", () => {
+  it("does not start touch drawing until the gesture is not a vertical pan", () => {
     const onDraw = vi.fn();
     const { result } = renderHook(() => usePawAnimation(onDraw));
 
@@ -104,6 +82,7 @@ describe("usePawAnimation", () => {
     });
     expect(result.current.isDrawing).toBe(false);
 
+    const preventDefault = vi.fn();
     act(() => {
       result.current.handlers.handlePointerDown({
         pointerType: "touch",
@@ -112,7 +91,43 @@ describe("usePawAnimation", () => {
         clientX: 5,
         clientY: 5,
         currentTarget: target,
-        preventDefault: vi.fn(),
+        preventDefault,
+      } as unknown as React.PointerEvent<HTMLElement>);
+    });
+    expect(result.current.isDrawing).toBe(false);
+    expect(preventDefault).not.toHaveBeenCalled();
+
+    act(() => {
+      result.current.handlers.handlePointerMove({
+        pointerType: "touch",
+        pointerId: 1,
+        target,
+        clientX: 5,
+        clientY: 40,
+        currentTarget: target,
+      } as unknown as React.PointerEvent<HTMLElement>);
+    });
+    expect(result.current.isDrawing).toBe(false);
+
+    act(() => {
+      result.current.handlers.handlePointerDown({
+        pointerType: "touch",
+        pointerId: 2,
+        target,
+        clientX: 5,
+        clientY: 5,
+        currentTarget: target,
+        preventDefault,
+      } as unknown as React.PointerEvent<HTMLElement>);
+    });
+    act(() => {
+      result.current.handlers.handlePointerMove({
+        pointerType: "touch",
+        pointerId: 2,
+        target,
+        clientX: 40,
+        clientY: 8,
+        currentTarget: target,
       } as unknown as React.PointerEvent<HTMLElement>);
     });
     expect(result.current.isDrawing).toBe(true);

@@ -2,6 +2,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
+import { sectionTitles } from "@/shared/config/content";
 import ContactsWidget from "@/widgets/contacts/ContactsWidget";
 
 const themeState = vi.hoisted(() => ({
@@ -9,9 +10,8 @@ const themeState = vi.hoisted(() => ({
 }));
 
 vi.mock("@/features/interactive-elements/client", async () => {
-  const { MockInteractiveElement, MockInteractiveText } = await import(
-    "../helpers/mockInteractiveElement"
-  );
+  const { MockInteractiveElement, MockInteractiveText } =
+    await import("../helpers/mockInteractiveElement");
   return {
     InteractiveTextContext: ({ children }: { children: React.ReactNode }) => children,
     InteractiveElement: MockInteractiveElement,
@@ -29,18 +29,11 @@ vi.mock("@/features/interactive-elements/client", async () => {
 });
 
 vi.mock("@/features/paw/client", () => ({
-  ClearPaintButton: ({
-    onClick,
-    disabled,
-  }: {
-    onClick: () => void;
-    disabled?: boolean;
-  }) => (
+  ClearPaintButton: ({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) => (
     <button type="button" onClick={onClick} disabled={disabled}>
       Очистить рисунок
     </button>
   ),
-  PaintDrawHint: () => <p>Проведи мышью — оставь след лапы</p>,
   usePawAnimation: () => ({
     isDrawing: false,
     handlers: {
@@ -85,16 +78,29 @@ vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 describe("ContactsWidget", () => {
   it("keeps contact links while paint is gated off for an inactive scene", () => {
     render(<ContactsWidget />);
+    const section = document.getElementById("contacts");
+    const heading = screen.getByRole("heading", {
+      level: 2,
+      name: sectionTitles.contacts,
+    });
 
-    expect(screen.getByRole("link", { name: "Написать: inbox@ktkv.me" })).toBeInTheDocument();
+    expect(section).not.toBeNull();
+    expect(section).not.toHaveClass("border-2");
+    expect(section).toHaveClass("min-h-[20rem]");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
+    expect(heading).not.toHaveClass("border-2");
+    expect(section?.querySelector("form, input, textarea")).toBeNull();
+
+    expect(screen.getByRole("link", { name: /Email.*inbox@ktkv\.me/ })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /GitHub.*откроется в новой вкладке/ })).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "GitHub (откроется в новой вкладке)" })
+      screen.getByRole("link", { name: /Telegram.*откроется в новой вкладке/ })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Telegram (откроется в новой вкладке)" })
+      screen.getByRole("link", { name: /Habr.*откроется в новой вкладке/ })
     ).toBeInTheDocument();
 
-    // Canvas + paint chrome stay mounted for stable section height (avoids scroll teleport);
+    // Canvas + overlay clear control stay mounted for stable section height (avoids scroll teleport);
     // paw interaction is gated via enablePaint / disabled clear button.
     expect(document.querySelector("canvas")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Очистить рисунок" })).toBeDisabled();

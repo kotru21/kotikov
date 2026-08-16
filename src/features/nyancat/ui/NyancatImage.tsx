@@ -7,16 +7,18 @@ import { type NyancatSize, SIZE_CONFIG } from "../lib/constants";
 
 interface NyancatImageProps {
   size: NyancatSize;
-  animationName: string;
-  animationDuration: string;
-  animationDelay: string;
+  animationName?: string;
+  animationDuration?: string;
+  animationDelay?: string;
   isMobile: boolean;
-  onMouseEnter: () => void;
+  onMouseEnter?: () => void;
   onClick: () => void;
   forwardRef?: Ref<HTMLButtonElement | null>;
   priority?: boolean;
   isMotionActive?: boolean;
   bankAnimationName?: string;
+  /** When false, parent motion (cursor follow) owns transform — no CSS flight. */
+  flightAnimated?: boolean;
   testId?: string;
 }
 
@@ -24,7 +26,7 @@ export function NyancatImage({
   size,
   animationName,
   animationDuration,
-  animationDelay,
+  animationDelay = "0s",
   isMobile,
   onMouseEnter,
   onClick,
@@ -32,9 +34,16 @@ export function NyancatImage({
   priority = false,
   isMotionActive = true,
   bankAnimationName,
+  flightAnimated = true,
   testId,
 }: NyancatImageProps): React.JSX.Element {
   const config = SIZE_CONFIG[size];
+  const playFlight =
+    flightAnimated &&
+    animationName !== undefined &&
+    animationName !== "" &&
+    animationDuration !== undefined &&
+    animationDuration !== "";
 
   const image = (
     <Image
@@ -42,6 +51,7 @@ export function NyancatImage({
       alt=""
       width={config.width}
       height={config.height}
+      unoptimized
       priority={priority}
       style={{
         width: `${String(config.width)}px`,
@@ -56,6 +66,9 @@ export function NyancatImage({
     onClick();
   };
 
+  const flightPlayState = isMotionActive ? "running" : "paused";
+  const bankName = playFlight ? bankAnimationName : undefined;
+
   return (
     <button
       type="button"
@@ -63,30 +76,31 @@ export function NyancatImage({
       aria-label="Взорвать нянкэта"
       data-testid={testId}
       data-motion-active={isMotionActive}
-      className="appearance-none border-0 bg-transparent p-0"
+      className="inline-flex min-h-11 min-w-11 appearance-none items-center justify-center border-0 bg-transparent p-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#111] focus-visible:outline-none dark:focus-visible:ring-[#ededed]"
       style={{
-        display: "block",
         margin: 0,
         font: "inherit",
         color: "inherit",
         lineHeight: 1,
-        animation: `${animationName} ${animationDuration} linear infinite`,
-        animationDelay,
-        animationPlayState: isMotionActive ? "running" : "paused",
+        animation: playFlight
+          ? `${animationName} ${animationDuration} linear infinite`
+          : undefined,
+        animationDelay: playFlight ? animationDelay : undefined,
+        animationPlayState: playFlight ? flightPlayState : undefined,
         cursor: isMobile ? "pointer" : "default",
-        willChange: isMotionActive ? "transform" : "auto",
+        willChange: playFlight && isMotionActive ? "transform" : "auto",
         backfaceVisibility: "hidden",
       }}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       onTouchEnd={handleTouchEnd}
     >
-      {bankAnimationName !== undefined && bankAnimationName !== "" ? (
+      {bankName !== undefined && bankName !== "" ? (
         <div
           style={{
-            animation: `${bankAnimationName} ${animationDuration} linear infinite`,
+            animation: `${bankName} ${animationDuration ?? "0s"} linear infinite`,
             animationDelay,
-            animationPlayState: isMotionActive ? "running" : "paused",
+            animationPlayState: flightPlayState,
             transformOrigin: "center",
             willChange: isMotionActive ? "transform" : "auto",
             backfaceVisibility: "hidden",

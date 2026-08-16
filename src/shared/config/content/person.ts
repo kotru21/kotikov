@@ -8,7 +8,7 @@ export const personData = {
   description:
     "Арсений Котиков (Kotikov) — студент информационной безопасности, Intern SOC и практик AppSec: DFIR, SAST и разбор уязвимостей приложений",
   url: "https://ktkv.me",
-  sameAs: [social.github.url, social.telegram.url, social.linkedin.url],
+  sameAs: [social.github.url, social.telegram.url, social.linkedin.url, social.habr.url],
   email: social.email.address,
   skills: [
     "SOC",

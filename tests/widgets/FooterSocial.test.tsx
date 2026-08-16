@@ -1,60 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import type { SocialLink } from "@/entities/navigation";
-import { FooterSocial } from "@/widgets/footer/ui";
+import { FooterWidget } from "@/widgets/footer";
 
-function DummyIcon({ className }: { className?: string }): React.JSX.Element {
-  return <svg className={className} />;
-}
+describe("FooterWidget", () => {
+  it("renders title and year only, without in-page nav", () => {
+    render(<FooterWidget />);
 
-const socialLinks: SocialLink[] = [
-  { name: "GitHub", url: "http://example.com/github", icon: DummyIcon },
-  { name: "LinkedIn", url: "HTTPS://example.com/linkedin", icon: DummyIcon },
-  { name: "Email", url: "mailto:test@example.com", icon: DummyIcon },
-  { name: "HTTPX", url: "httpx://example.com", icon: DummyIcon },
-];
-
-describe("FooterSocial", () => {
-  it("opens only HTTP links in a new tab", () => {
-    render(<FooterSocial title="Соцсети" socialLinks={socialLinks} />);
-
-    const httpLink = screen.getByRole("link", {
-      name: "GitHub (откроется в новой вкладке)",
-    });
-    const httpsLink = screen.getByRole("link", {
-      name: "LinkedIn (откроется в новой вкладке)",
-    });
-
-    expect(httpLink).toHaveAttribute("target", "_blank");
-    expect(httpLink).toHaveAttribute("rel", "noopener noreferrer");
-    expect(httpsLink).toHaveAttribute("target", "_blank");
-    expect(httpsLink).toHaveAttribute("rel", "noopener noreferrer");
-  });
-
-  it("keeps mailto in-context and omits unsupported protocol links", () => {
-    render(<FooterSocial title="Соцсети" socialLinks={socialLinks} />);
-
-    const emailLink = screen.getByRole("link", {
-      name: "Написать по электронной почте",
-    });
-
-    expect(emailLink).not.toHaveAttribute("target");
-    expect(emailLink).not.toHaveAttribute("rel");
-    expect(screen.queryByRole("link", { name: "HTTPX" })).not.toBeInTheDocument();
-  });
-
-  it("aligns title with the accessible name", () => {
-    render(<FooterSocial title="Соцсети" socialLinks={socialLinks} />);
-
-    const httpLink = screen.getByRole("link", {
-      name: "GitHub (откроется в новой вкладке)",
-    });
-    const emailLink = screen.getByRole("link", {
-      name: "Написать по электронной почте",
-    });
-
-    expect(httpLink).toHaveAttribute("title", "GitHub (откроется в новой вкладке)");
-    expect(emailLink).toHaveAttribute("title", "Написать по электронной почте");
+    const footer = screen.getByRole("contentinfo");
+    expect(footer.textContent).toContain("Kotikov");
+    expect(footer.textContent).toContain("2026");
+    expect(footer).toHaveClass("bg-primary-500", "text-[#111]");
+    expect(within(footer).queryByText("Быстрые ссылки")).not.toBeInTheDocument();
   });
 });

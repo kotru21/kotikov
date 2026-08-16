@@ -1,115 +1,152 @@
-/* eslint-disable @typescript-eslint/naming-convention -- vi.mock factory keys must match named exports */
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
-import { projectsData } from "@/shared/config/content";
+import { projectsData, projectsSection } from "@/shared/config/content";
 import { ProjectCardDeck } from "@/widgets/projects/ui/ProjectCardDeck";
 
-vi.mock("@/entities/project", () => ({
-  ProjectCard: () => <div />,
-}));
+const PREV_PROJECT = "Предыдущий проект";
+const NEXT_PROJECT = "Следующий проект";
+const FIRST = projectsData[0];
+const SECOND = projectsData[1];
 
-vi.mock("@/features/performance/client", () => ({
-  usePerformanceSettings: () => ({ reducedMotion: true, lowPerformance: false }),
-}));
+function visibleTitles(): string[] {
+  return projectsData
+    .map((project) => project.title)
+    .filter((title) => screen.queryByRole("heading", { name: title }) !== null);
+}
 
-function getProjectControl(index: number): HTMLElement {
-  return screen.getByRole("button", {
-    name: `Выбрать проект ${projectsData[index].title}`,
+function deckRegion(): HTMLElement {
+  return screen.getByRole("region", { name: new RegExp(projectsSection.title) });
+}
+
+function slideWrappers(): HTMLElement[] {
+  return [...deckRegion().querySelectorAll("article")].map((article) => {
+    const parent = article.parentElement;
+    if (!(parent instanceof HTMLElement)) {
+      throw new Error("expected stacked slide wrapper");
+    }
+    return parent;
   });
 }
 
-describe("ProjectCardDeck semantics", () => {
-  it("exposes the carousel and native project controls", () => {
+describe("ProjectCardDeck", () => {
+  it("shows one card, teal featured treatment, and timeline-style chevrons", () => {
     render(<ProjectCardDeck />);
 
-    const carousel = screen.getByRole("region", { name: "Избранные проекты" });
-    const controls = screen.getByRole("group", { name: "Выбор проекта" });
-    const projectButtons = within(controls).getAllByRole("button", {
-      name: /Выбрать проект/,
-    });
-
+    const carousel = deckRegion();
     expect(carousel).toHaveAttribute("aria-roledescription", "карусель");
-    expect(controls).not.toHaveAttribute("tabindex");
-    expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
-    expect(projectButtons).toHaveLength(projectsData.length);
-    expect(
-      within(controls).getByRole("button", {
-        name: `Выбрать проект ${projectsData[0].title}`,
-      })
-    ).toHaveAttribute("aria-pressed", "true");
+    expect(carousel).toHaveClass("border-t-2");
+    expect(visibleTitles()).toEqual([FIRST.title]);
+
+    const articles = carousel.querySelectorAll("article");
+    expect(articles[0]).toHaveClass(
+      "bg-primary-500",
+      "text-[#111]",
+      "border-0",
+      "min-w-0",
+      "flex-col"
+    );
+    expect(articles[0].className).not.toMatch(/writing-mode/);
+    expect(articles[1].className).not.toMatch(/bg-primary-500/);
+
+    expect(screen.getByRole("button", { name: PREV_PROJECT })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: NEXT_PROJECT }));
+    expect(visibleTitles()).toEqual([SECOND.title]);
   });
 
-  it("labels the active project as a carousel slide", () => {
+  it("locks band height by stacking every slide in one grid cell", () => {
     render(<ProjectCardDeck />);
 
-    const activeSlide = screen.getByRole("group", {
-      name: `1 из ${String(projectsData.length)}: ${projectsData[0].title}`,
-    });
+    const wrappers = slideWrappers();
+    expect(wrappers).toHaveLength(projectsData.length);
+    expect(screen.getAllByRole("heading", { level: 3, hidden: true })).toHaveLength(
+      projectsData.length
+    );
 
-    expect(activeSlide).toHaveAttribute("aria-roledescription", "слайд");
-  });
-
-  it("synchronizes focus, state, slide, and counter for keyboard navigation", () => {
-    render(<ProjectCardDeck />);
-    const firstControl = getProjectControl(0);
-    const secondControl = getProjectControl(1);
-
-    firstControl.focus();
-    fireEvent.keyDown(firstControl, { key: "ArrowRight" });
-
-    expect(secondControl).toHaveFocus();
-    expect(firstControl).toHaveAttribute("aria-pressed", "false");
-    expect(secondControl).toHaveAttribute("aria-pressed", "true");
-    expect(
-      screen.getByRole("group", {
-        name: `2 из ${String(projectsData.length)}: ${projectsData[1].title}`,
-      })
-    ).toBeInTheDocument();
-    expect(screen.getByText(`2 / ${String(projectsData.length)}`)).toBeInTheDocument();
-  });
-
-  it("moves focus to the Home and End destinations", () => {
-    render(<ProjectCardDeck />);
-    const firstControl = getProjectControl(0);
-    const secondControl = getProjectControl(1);
-    const lastControl = getProjectControl(projectsData.length - 1);
-
-    secondControl.focus();
-    fireEvent.keyDown(secondControl, { key: "End" });
-    expect(lastControl).toHaveFocus();
-    fireEvent.keyDown(lastControl, { key: "Home" });
-    expect(firstControl).toHaveFocus();
-  });
-
-  it("sizes the deck from active card content instead of a fixed 28rem height", () => {
-    render(<ProjectCardDeck />);
-
-    const deck = screen.getByRole("region", { name: "Избранные проекты" });
-    const stack = deck.querySelector(".relative.mx-auto");
-
-    expect(stack).not.toBeNull();
-    expect(deck.querySelector('[style*="28rem"]')).toBeNull();
-    expect(stack).toHaveClass("grid", "w-full", "max-w-md");
-    if (!(stack instanceof HTMLElement)) {
-      throw new Error("Expected deck stack element");
+    for (const wrap of wrappers) {
+      expect(wrap).toHaveClass("col-start-1", "row-start-1", "grid", "min-w-0");
     }
-    expect(stack.querySelectorAll(".col-start-1.row-start-1").length).toBe(projectsData.length);
+    expect(wrappers.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
+    expect(wrappers.filter((wrap) => wrap.classList.contains("invisible"))).toHaveLength(
+      projectsData.length - 1
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: NEXT_PROJECT }));
+    expect(visibleTitles()).toEqual([SECOND.title]);
+    expect(slideWrappers().filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
   });
 
-  it("activates a peeking card when its overlay control is clicked", () => {
+  it("keeps chevrons out of extra stroked cells", () => {
     render(<ProjectCardDeck />);
 
-    const activateSecond = screen.getByRole("button", {
-      name: `Показать проект ${projectsData[1].title}`,
-    });
-    fireEvent.click(activateSecond);
+    const carousel = deckRegion();
+    const live = carousel.querySelector("[aria-live='polite']");
+    const track = live?.nextElementSibling;
+    expect(live).toHaveClass("sr-only");
+    expect(live).toHaveTextContent(FIRST.title);
+    expect(carousel).toHaveAttribute(
+      "aria-label",
+      `${projectsSection.title}, 1 из ${String(projectsData.length)}`
+    );
+    expect(track).toHaveClass(
+      "grid",
+      "grid-cols-[auto_minmax(0,1fr)_auto]",
+      "divide-x-2",
+      "divide-[#111]"
+    );
+    expect(track?.className).not.toMatch(/gap-\[2px\]/);
 
-    expect(
-      screen.getByRole("group", {
-        name: `2 из ${String(projectsData.length)}: ${projectsData[1].title}`,
-      })
-    ).toBeInTheDocument();
-    expect(getProjectControl(1)).toHaveAttribute("aria-pressed", "true");
+    const prev = screen.getByRole("button", { name: PREV_PROJECT });
+    const next = screen.getByRole("button", { name: NEXT_PROJECT });
+    expect(prev.className).not.toContain("border-2");
+    expect(next.className).not.toContain("border-2");
+    expect(prev).toHaveClass("focus-visible:ring-2", "focus-visible:ring-inset");
+    expect(next).toHaveClass("focus-visible:ring-2", "focus-visible:ring-inset");
+  });
+
+  it("advances from the focused band with ArrowRight", () => {
+    render(<ProjectCardDeck />);
+
+    const carousel = deckRegion();
+    carousel.focus();
+    fireEvent.keyDown(carousel, { key: "ArrowRight" });
+
+    expect(visibleTitles()).toEqual([SECOND.title]);
+    expect(screen.getByRole("button", { name: PREV_PROJECT })).toBeEnabled();
+  });
+
+  it("does not leave Код focus inside an aria-hidden slide on ArrowRight", () => {
+    render(<ProjectCardDeck />);
+
+    const codeLink = screen.getByRole("link", { name: /Код/ });
+    codeLink.focus();
+    fireEvent.keyDown(codeLink, { key: "ArrowRight" });
+
+    expect(visibleTitles()).toEqual([FIRST.title]);
+    expect(codeLink).toHaveFocus();
+    const hiddenSlides = slideWrappers().filter(
+      (wrap) => wrap.getAttribute("aria-hidden") === "true"
+    );
+    expect(hiddenSlides.length).toBeGreaterThan(0);
+    for (const wrap of hiddenSlides) {
+      expect(wrap.contains(document.activeElement)).toBe(false);
+    }
+  });
+
+  it("moves focus back to the band when the outgoing slide becomes hidden", () => {
+    render(<ProjectCardDeck />);
+
+    const codeLink = screen.getByRole("link", { name: /Код/ });
+    codeLink.focus();
+    fireEvent.click(screen.getByRole("button", { name: NEXT_PROJECT }));
+
+    expect(visibleTitles()).toEqual([SECOND.title]);
+    expect(deckRegion()).toHaveFocus();
+    const hiddenSlides = slideWrappers().filter(
+      (wrap) => wrap.getAttribute("aria-hidden") === "true"
+    );
+    for (const wrap of hiddenSlides) {
+      expect(wrap.contains(document.activeElement)).toBe(false);
+    }
   });
 });
