@@ -46,4 +46,26 @@ test.describe("mobile navigation", () => {
     await expect(contacts).toBeVisible();
     await expect(contacts).toHaveAttribute("href", "#contacts");
   });
+
+  test("hash navigation keeps the heading below the title bar", async ({ page }) => {
+    await page.goto("/");
+    await page.locator("#header").getByRole("link", { name: "Проекты" }).click();
+    await expect(page).toHaveURL(/#projects$/);
+    await expect(page.locator("#projects-heading")).toBeInViewport();
+
+    await expect
+      .poll(async () => {
+        return page.evaluate(() => {
+          const heading = document.getElementById("projects-heading");
+          const titleBar = document.querySelector("[data-chrome='title']");
+          if (heading === null || !(titleBar instanceof HTMLElement)) {
+            return null;
+          }
+          const titleBottom = titleBar.getBoundingClientRect().bottom;
+          if (titleBottom < 8) return null;
+          return heading.getBoundingClientRect().top - titleBottom;
+        });
+      })
+      .toBeGreaterThanOrEqual(-2);
+  });
 });

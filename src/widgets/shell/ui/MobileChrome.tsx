@@ -48,7 +48,7 @@ export function MobileChrome({
       className="pointer-events-none fixed inset-0 z-50 overflow-hidden md:hidden"
       inert={!open}
     >
-      <div className={titleBarClass(open, instant)}>
+      <div className={titleBarClass(open, instant)} data-chrome-shell="title">
         <div
           className={`flex h-12 items-stretch ${GRID_STROKE} ${GRID_DIVIDE_X}`}
           data-chrome="title"
@@ -63,7 +63,7 @@ export function MobileChrome({
           <ThemeToggle className="h-full w-12" framed={false} />
         </div>
       </div>
-      <div className={barWrapClass(open, instant)}>
+      <div className={barWrapClass(open, instant)} data-chrome-shell="mobile">
         <nav
           aria-label="Основная навигация"
           className={`grid h-14 grid-cols-5 touch-manipulation ${GRID_STROKE} ${GRID_DIVIDE_X}`}

@@ -114,11 +114,18 @@ test.describe("mobile projects and timeline", () => {
 
     const nextStep = experience.getByRole("button", { name: "Прокрутить к следующему этапу" });
     await expect(nextStep).toBeEnabled();
+
+    const deck = experience.getByTestId("timeline-deck");
+    const beforeHeight = await deck.evaluate((el) => el.getBoundingClientRect().height);
+
     await nextStep.click();
 
     await expect(experience.getByRole("heading", { name: second.title })).toBeVisible();
     await expect(
       experience.getByRole("button", { name: "Прокрутить к предыдущему этапу" })
     ).toBeEnabled();
+
+    const afterHeight = await deck.evaluate((el) => el.getBoundingClientRect().height);
+    expect(Math.abs(afterHeight - beforeHeight)).toBeLessThan(2);
   });
 });

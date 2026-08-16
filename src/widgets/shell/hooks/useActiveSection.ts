@@ -6,8 +6,12 @@ export type ActiveSectionId = "about" | "projects" | "skills" | "experience" | "
 
 export const ACTIVE_SECTION_THRESHOLDS = [0, 0.25, 0.5, 0.75, 1] as const;
 
+const MD_MIN_WIDTH = "(min-width: 768px)";
+const FALLBACK_TITLE_INSET_PX = 48;
+const FALLBACK_BAR_INSET_PX = 56;
+
 export const DESKTOP_CHROME_ROOT_MARGIN = "0px 0px -56px 0px";
-/** Inset by mobile title bar (h-12 = 48px) and bottom nav (h-14 = 56px). IO only accepts px/%. */
+/** Fallback when chrome is not in the DOM. IO only accepts px/%. */
 export const MOBILE_CHROME_ROOT_MARGIN = "-48px 0px -56px 0px";
 
 export const ACTIVE_SECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
@@ -19,14 +23,61 @@ function isDesktopViewport(): boolean {
   if (typeof window.matchMedia !== "function") {
     return true;
   }
-  return window.matchMedia("(min-width: 768px)").matches;
+  return window.matchMedia(MD_MIN_WIDTH).matches;
+}
+
+function roundPx(value: number): string {
+  return `${String(Math.round(value))}px`;
+}
+
+function measuredHeight(el: Element | null): number | null {
+  if (!(el instanceof HTMLElement)) return null;
+  const height = el.getBoundingClientRect().height;
+  return height > 0 ? height : null;
+}
+
+function paddingPx(el: Element | null, side: "paddingTop" | "paddingBottom"): number {
+  if (!(el instanceof HTMLElement)) return 0;
+  const raw = Number.parseFloat(getComputedStyle(el)[side]);
+  return Number.isFinite(raw) ? raw : 0;
+}
+
+function desktopRootMargin(): string {
+  const bar = document.querySelector("[data-chrome='desktop']");
+  const height = measuredHeight(bar) ?? FALLBACK_BAR_INSET_PX;
+  return `0px 0px -${roundPx(height)} 0px`;
+}
+
+function mobileRootMargin(): string {
+  const titleBar = document.querySelector("[data-chrome='title']");
+  const navBar = document.querySelector("[data-chrome='mobile']");
+  const titleShell = document.querySelector("[data-chrome-shell='title']");
+  const navShell = document.querySelector("[data-chrome-shell='mobile']");
+  const top =
+    (measuredHeight(titleBar) ?? FALLBACK_TITLE_INSET_PX) + paddingPx(titleShell, "paddingTop");
+  const bottom =
+    (measuredHeight(navBar) ?? FALLBACK_BAR_INSET_PX) + paddingPx(navShell, "paddingBottom");
+  return `-${roundPx(top)} 0px -${roundPx(bottom)} 0px`;
+}
+
+function chromeRootMargin(): string {
+  return isDesktopViewport() ? desktopRootMargin() : mobileRootMargin();
 }
 
 function observerOptionsForViewport(): IntersectionObserverInit {
   return {
     threshold: [...ACTIVE_SECTION_THRESHOLDS],
-    rootMargin: isDesktopViewport() ? DESKTOP_CHROME_ROOT_MARGIN : MOBILE_CHROME_ROOT_MARGIN,
+    rootMargin: chromeRootMargin(),
   };
+}
+
+function subscribeMdBreakpoint(onChange: () => void): () => void {
+  if (typeof window.matchMedia !== "function") {
+    return () => undefined;
+  }
+  const media = window.matchMedia(MD_MIN_WIDTH);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
 }
 
 const KNOWN_SECTION_IDS = new Set<string>([
@@ -100,7 +151,17 @@ function observeSections(
 export function useActiveSection(ids: readonly string[]): ActiveSectionId {
   const [active, setActive] = useState<ActiveSectionId>(null);
 
-  useEffect(() => observeSections(ids, setActive), [ids]);
+  useEffect(() => {
+    let teardown = observeSections(ids, setActive);
+    const unsubscribe = subscribeMdBreakpoint(() => {
+      teardown();
+      teardown = observeSections(ids, setActive);
+    });
+    return () => {
+      unsubscribe();
+      teardown();
+    };
+  }, [ids]);
 
   return active;
 }

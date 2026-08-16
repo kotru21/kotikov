@@ -45,6 +45,45 @@ class MockIntersectionObserver implements IntersectionObserver {
 
 const SECTION_IDS = ["about", "projects", "skills", "experience", "contacts"] as const;
 
+interface MatchMediaMock {
+  matches: boolean;
+  media: string;
+  onchange: null;
+  addEventListener: (type: string, listener: EventListener) => void;
+  removeEventListener: (type: string, listener: EventListener) => void;
+  addListener: ReturnType<typeof vi.fn>;
+  removeListener: ReturnType<typeof vi.fn>;
+  dispatchEvent: ReturnType<typeof vi.fn>;
+  change: (matches: boolean) => void;
+}
+
+function stubMatchMedia(matchesMd: boolean): MatchMediaMock {
+  const listeners = new Set<EventListener>();
+  const mock: MatchMediaMock = {
+    matches: matchesMd,
+    media: "(min-width: 768px)",
+    onchange: null,
+    addEventListener: (_type, listener) => {
+      listeners.add(listener);
+    },
+    removeEventListener: (_type, listener) => {
+      listeners.delete(listener);
+    },
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+    change: (matches: boolean) => {
+      mock.matches = matches;
+      const event = { matches, media: mock.media } as MediaQueryListEvent;
+      for (const listener of listeners) {
+        listener(event);
+      }
+    },
+  };
+  vi.stubGlobal("matchMedia", () => mock);
+  return mock;
+}
+
 function mountSections(ids: readonly string[]): HTMLElement[] {
   return ids.map((id) => {
     const el = document.createElement("section");
@@ -69,20 +108,12 @@ describe("useActiveSection", () => {
     observe.mockClear();
     disconnect.mockClear();
     vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      matches: query.includes("min-width: 768px"),
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    }));
+    stubMatchMedia(true);
   });
 
   afterEach(() => {
     document.body.replaceChildren();
+    vi.restoreAllMocks();
     vi.unstubAllGlobals();
   });
 
@@ -143,23 +174,76 @@ describe("useActiveSection", () => {
   it("uses only px or percent in observer rootMargin", () => {
     assertValidRootMargin(DESKTOP_CHROME_ROOT_MARGIN);
     assertValidRootMargin(MOBILE_CHROME_ROOT_MARGIN);
+    mountSections(SECTION_IDS);
+    renderHook(() => useActiveSection(SECTION_IDS));
+    assertValidRootMargin(String(lastOptions?.rootMargin));
   });
 
   it("insets the observer by the mobile title bar and bottom nav", () => {
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    }));
+    stubMatchMedia(false);
     mountSections(SECTION_IDS);
     renderHook(() => useActiveSection(SECTION_IDS));
 
     expect(lastOptions?.rootMargin).toBe(MOBILE_CHROME_ROOT_MARGIN);
+    assertValidRootMargin(String(lastOptions?.rootMargin));
+  });
+
+  it("recreates the observer when the md breakpoint changes", () => {
+    const media = stubMatchMedia(true);
+    mountSections(SECTION_IDS);
+    renderHook(() => useActiveSection(SECTION_IDS));
+
+    expect(lastOptions?.rootMargin).toBe(DESKTOP_CHROME_ROOT_MARGIN);
+    const firstCallback = observerCallback;
+
+    act(() => {
+      media.change(false);
+    });
+
+    expect(disconnect).toHaveBeenCalled();
+    expect(observerCallback).not.toBe(firstCallback);
+    expect(lastOptions?.rootMargin).toBe(MOBILE_CHROME_ROOT_MARGIN);
+    assertValidRootMargin(String(lastOptions?.rootMargin));
+  });
+
+  it("adds computed chrome padding into mobile rootMargin as px", () => {
+    stubMatchMedia(false);
+    const titleShell = document.createElement("div");
+    titleShell.setAttribute("data-chrome-shell", "title");
+    const titleBar = document.createElement("div");
+    titleBar.setAttribute("data-chrome", "title");
+    titleShell.append(titleBar);
+
+    const navShell = document.createElement("div");
+    navShell.setAttribute("data-chrome-shell", "mobile");
+    const navBar = document.createElement("div");
+    navBar.setAttribute("data-chrome", "mobile");
+    navShell.append(navBar);
+    document.body.append(titleShell, navShell);
+
+    vi.spyOn(titleBar, "getBoundingClientRect").mockReturnValue({
+      height: 48,
+    } as DOMRect);
+    vi.spyOn(navBar, "getBoundingClientRect").mockReturnValue({
+      height: 56,
+    } as DOMRect);
+    const originalComputed = window.getComputedStyle.bind(window);
+    vi.spyOn(window, "getComputedStyle").mockImplementation((el: Element) => {
+      if (el === titleShell) {
+        return { paddingTop: "12px", paddingBottom: "0px" } as CSSStyleDeclaration;
+      }
+      if (el === navShell) {
+        return { paddingTop: "0px", paddingBottom: "8px" } as CSSStyleDeclaration;
+      }
+      return originalComputed(el);
+    });
+
+    mountSections(SECTION_IDS);
+    renderHook(() => useActiveSection(SECTION_IDS));
+
+    expect(lastOptions?.rootMargin).toBe("-60px 0px -64px 0px");
+    assertValidRootMargin(String(lastOptions?.rootMargin));
+    expect(String(lastOptions?.rootMargin)).not.toMatch(/rem/);
   });
 
   it("updates the winner while both sections stay intersecting", () => {

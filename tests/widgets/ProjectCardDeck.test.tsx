@@ -114,4 +114,39 @@ describe("ProjectCardDeck", () => {
     expect(visibleTitles()).toEqual([SECOND.title]);
     expect(screen.getByRole("button", { name: PREV_PROJECT })).toBeEnabled();
   });
+
+  it("does not leave Код focus inside an aria-hidden slide on ArrowRight", () => {
+    render(<ProjectCardDeck />);
+
+    const codeLink = screen.getByRole("link", { name: /Код/ });
+    codeLink.focus();
+    fireEvent.keyDown(codeLink, { key: "ArrowRight" });
+
+    expect(visibleTitles()).toEqual([FIRST.title]);
+    expect(codeLink).toHaveFocus();
+    const hiddenSlides = slideWrappers().filter(
+      (wrap) => wrap.getAttribute("aria-hidden") === "true"
+    );
+    expect(hiddenSlides.length).toBeGreaterThan(0);
+    for (const wrap of hiddenSlides) {
+      expect(wrap.contains(document.activeElement)).toBe(false);
+    }
+  });
+
+  it("moves focus back to the band when the outgoing slide becomes hidden", () => {
+    render(<ProjectCardDeck />);
+
+    const codeLink = screen.getByRole("link", { name: /Код/ });
+    codeLink.focus();
+    fireEvent.click(screen.getByRole("button", { name: NEXT_PROJECT }));
+
+    expect(visibleTitles()).toEqual([SECOND.title]);
+    expect(deckRegion()).toHaveFocus();
+    const hiddenSlides = slideWrappers().filter(
+      (wrap) => wrap.getAttribute("aria-hidden") === "true"
+    );
+    for (const wrap of hiddenSlides) {
+      expect(wrap.contains(document.activeElement)).toBe(false);
+    }
+  });
 });

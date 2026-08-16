@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useLayoutEffect, useRef } from "react";
 
 import { CELL_HOVER, GRID_DIVIDE_X, GRID_STROKE_COLOR, GRID_SURFACE } from "../gridChrome";
 import type { UseBandCarouselReturn } from "./useBandCarousel";
@@ -37,6 +37,7 @@ function ChevronButton({
   return (
     <button
       type="button"
+      data-carousel-chevron=""
       onClick={onClick}
       disabled={disabled}
       aria-label={isPrev ? prevLabel : nextLabel}
@@ -45,6 +46,16 @@ function ChevronButton({
       <span aria-hidden="true">{isPrev ? "<<" : ">>"}</span>
     </button>
   );
+}
+
+function restoreFocusFromHiddenSlide(region: HTMLDivElement | null): void {
+  if (region === null) return;
+  const active = document.activeElement;
+  if (!(active instanceof HTMLElement) || !region.contains(active)) return;
+  if (active.closest("[data-carousel-chevron]") !== null) return;
+  const hiddenSlide = active.closest('[aria-hidden="true"]');
+  if (hiddenSlide === null || !region.contains(hiddenSlide)) return;
+  region.focus({ preventScroll: true });
 }
 
 function regionLabel(name: string, index: number, total: number): string {
@@ -88,9 +99,16 @@ export function BandCarousel({
   testId,
   children,
 }: BandCarouselProps): React.JSX.Element {
+  const regionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    restoreFocusFromHiddenSlide(regionRef.current);
+  }, [controls.activeIndex]);
+
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex -- spec: arrow keys on the focused carousel band */
   return (
     <div
+      ref={regionRef}
       role="region"
       aria-roledescription="карусель"
       aria-label={regionLabel(label, controls.activeIndex, total)}

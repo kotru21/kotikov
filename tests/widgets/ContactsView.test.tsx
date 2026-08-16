@@ -118,7 +118,7 @@ describe("ContactsView", () => {
     expect(document.getElementById("contacts")).not.toHaveStyle({ cursor: "none" });
   });
 
-  it("renders three editorial cells from contactsData without a form", () => {
+  it("renders four editorial cells from contactsData without a form", () => {
     const { container } = renderContacts({}, [...contactsData]);
     const section = requireContactsSection();
     const heading = screen.getByRole("heading", {
@@ -169,6 +169,15 @@ describe("ContactsView", () => {
       "hover:text-[#111]",
       "focus-visible:ring-[#ededed]"
     );
+
+    const habr = screen.getByRole("link", {
+      name: /Habr.*откроется в новой вкладке/,
+    });
+    expect(habr).toHaveAttribute("href", "https://habr.com/ru/users/kotru21/articles/");
+    expect(habr).toHaveAttribute("target", "_blank");
+    expect(habr).toHaveAttribute("rel", "noopener noreferrer");
+    expect(habr.className).toContain(TEAL_FILL);
+    expect(habr).toHaveTextContent("habr.com/ru/users/kotru21");
   });
 
   it("registers the heading with InteractiveText for paint contrast", () => {
@@ -271,7 +280,7 @@ describe("ContactsView", () => {
     expect(section).toHaveClass("relative", "min-h-[20rem]");
     expect(section.querySelector(":scope > div")).toHaveClass("relative", "min-h-[20rem]");
     expect(stack).toHaveClass("flex", "min-h-[20rem]", "flex-col", "md:block");
-    expect(heading.nextElementSibling).toHaveClass("divide-y-2", "md:grid-cols-3");
+    expect(heading.nextElementSibling).toHaveClass("divide-y-2", "md:grid-cols-4");
     expect(well).toHaveClass("min-h-[12rem]", "flex-1", "relative");
     expect(well?.previousElementSibling).toHaveClass("divide-y-2");
     expect(chrome).toHaveClass("absolute", "top-3", "right-3", "z-10");

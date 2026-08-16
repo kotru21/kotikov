@@ -67,6 +67,12 @@ function WordCell({ item, active, compact = false }: WordCellProps): React.JSX.E
   );
 }
 
+function isWordCellCurrent(item: ChromeNavItem, activeSection: ActiveSectionId): boolean {
+  if (item.kind !== "section") return false;
+  if (activeSection === null || activeSection === "skills") return false;
+  return item.id === activeSection;
+}
+
 export function ChromeNavCell({
   item,
   activeSection,
@@ -75,7 +81,9 @@ export function ChromeNavCell({
   if (item.kind === "home") {
     return <HomeCell compact={compact} href={item.href} label={item.label} />;
   }
-  return <WordCell active={item.id === activeSection} compact={compact} item={item} />;
+  return (
+    <WordCell active={isWordCellCurrent(item, activeSection)} compact={compact} item={item} />
+  );
 }
 
 interface DesktopChromeProps {

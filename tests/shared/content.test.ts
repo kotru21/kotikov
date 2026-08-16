@@ -138,8 +138,13 @@ describe("content model", () => {
     expect(footerInfo.description.toLowerCase()).not.toContain("frontend-разработчик");
   });
 
-  it("orders contacts Email then Telegram then GitHub", () => {
-    expect(contactsData.map(({ label }) => label)).toEqual(["Email", "Telegram", "GitHub"]);
+  it("orders contacts Email then Telegram then GitHub then Habr", () => {
+    expect(contactsData.map(({ label }) => label)).toEqual([
+      "Email",
+      "Telegram",
+      "GitHub",
+      "Habr",
+    ]);
   });
 });
 

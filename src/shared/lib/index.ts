@@ -8,13 +8,5 @@ export {
   sampleBrushAtPoint,
   sampleBrushStroke,
 } from "./canvas";
-export type { DeckCardRole, DeckTransform } from "./deckTransform";
-export {
-  DECK_MOTION_CLASS,
-  getCyclicDeckCardRole,
-  getDeckTransform,
-  getLinearDeckCardRole,
-  getWrappedIndex,
-} from "./deckTransform";
 export { isActivatableControl, isInteractiveTarget } from "./dom";
 export { SWIPE_THRESHOLD_PX } from "./gestures";

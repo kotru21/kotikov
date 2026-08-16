@@ -4,8 +4,16 @@ import { describe, expect, it, vi } from "vitest";
 
 import { useProjectDeck } from "@/widgets/projects/ui/useProjectDeck";
 
-function keyEvent(key: string): KeyboardEvent {
-  return { key, preventDefault: vi.fn() } as unknown as KeyboardEvent;
+function keyEvent(
+  key: string,
+  nodes?: { target: EventTarget; currentTarget: EventTarget }
+): KeyboardEvent<HTMLDivElement> {
+  return {
+    key,
+    preventDefault: vi.fn(),
+    target: nodes?.target,
+    currentTarget: nodes?.currentTarget,
+  } as unknown as KeyboardEvent<HTMLDivElement>;
 }
 
 function touchStart(
@@ -106,6 +114,46 @@ describe("useProjectDeck", () => {
       result.current.handleKeyDown(keyEvent("Enter"));
     });
     expect(result.current.activeIndex).toBe(0);
+  });
+
+  it("ignores arrow and Home keys when focus is on a link inside a slide", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
+    const region = document.createElement("div");
+    const link = document.createElement("a");
+    region.append(link);
+    const preventArrow = vi.fn();
+    const preventHome = vi.fn();
+
+    act(() => {
+      result.current.handleKeyDown({
+        ...keyEvent("ArrowRight", { target: link, currentTarget: region }),
+        preventDefault: preventArrow,
+      });
+      result.current.handleKeyDown({
+        ...keyEvent("Home", { target: link, currentTarget: region }),
+        preventDefault: preventHome,
+      });
+    });
+
+    expect(result.current.activeIndex).toBe(0);
+    expect(preventArrow).not.toHaveBeenCalled();
+    expect(preventHome).not.toHaveBeenCalled();
+  });
+
+  it("still advances from a chevron button", () => {
+    const { result } = renderHook(() => useProjectDeck({ count: 4 }));
+    const region = document.createElement("div");
+    const chevron = document.createElement("button");
+    chevron.setAttribute("data-carousel-chevron", "");
+    region.append(chevron);
+
+    act(() => {
+      result.current.handleKeyDown(
+        keyEvent("ArrowRight", { target: chevron, currentTarget: region })
+      );
+    });
+
+    expect(result.current.activeIndex).toBe(1);
   });
 
   it("swipes left and right past the threshold", () => {

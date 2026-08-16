@@ -19,7 +19,7 @@ interface CarouselSlideProps {
 
 function CarouselSlide({ featured, isActive, project }: CarouselSlideProps): React.JSX.Element {
   return (
-    <div className={bandCarouselSlideClass(isActive)} aria-hidden={!isActive}>
+    <div className={bandCarouselSlideClass(isActive)} aria-hidden={!isActive} inert={!isActive}>
       <ProjectCard project={project} featured={featured} />
     </div>
   );

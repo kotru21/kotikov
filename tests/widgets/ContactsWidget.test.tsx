@@ -96,6 +96,9 @@ describe("ContactsWidget", () => {
     expect(
       screen.getByRole("link", { name: /Telegram.*откроется в новой вкладке/ })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Habr.*откроется в новой вкладке/ })
+    ).toBeInTheDocument();
 
     // Canvas + overlay clear control stay mounted for stable section height (avoids scroll teleport);
     // paw interaction is gated via enablePaint / disabled clear button.

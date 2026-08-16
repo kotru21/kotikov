@@ -24,7 +24,7 @@ interface CarouselSlideProps {
 
 function CarouselSlide({ item, isActive }: CarouselSlideProps): React.JSX.Element {
   return (
-    <div className={bandCarouselSlideClass(isActive)} aria-hidden={!isActive}>
+    <div className={bandCarouselSlideClass(isActive)} aria-hidden={!isActive} inert={!isActive}>
       <TimelineBandItem item={item} />
     </div>
   );
@@ -42,6 +42,7 @@ export function TimelineCarousel({ items }: TimelineCarouselProps): React.JSX.El
       prevLabel={PREV_LABEL}
       nextLabel={NEXT_LABEL}
       controls={controls}
+      testId="timeline-deck"
     >
       {items.map((item, index) => (
         <CarouselSlide key={item.id} item={item} isActive={index === controls.activeIndex} />

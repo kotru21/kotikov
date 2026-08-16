@@ -16,6 +16,7 @@ test.describe("mobile contacts paint well", () => {
     await expect(email).toBeVisible();
     await expect(section.getByRole("link", { name: /Telegram/ })).toBeVisible();
     await expect(section.getByRole("link", { name: /GitHub/ })).toBeVisible();
+    await expect(section.getByRole("link", { name: /Habr/ })).toBeVisible();
 
     const well = section.locator("[data-contacts-paint-well]");
     await expect(well).toBeVisible();

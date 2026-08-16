@@ -24,6 +24,7 @@ test("recruiter can understand the profile and reach contact", async ({ page }) 
   await expect(page.locator("#contacts")).toBeVisible();
   await expect(page.locator("#contacts").getByRole("link", { name: /Email/ })).toBeVisible();
   await expect(page.locator("#contacts").getByRole("link", { name: /Telegram/ })).toBeVisible();
+  await expect(page.locator("#contacts").getByRole("link", { name: /Habr/ })).toBeVisible();
   await expect(page.getByText(/проведи мышью|закрась сетку|след лапы/i)).toHaveCount(0);
   await expect(page.locator("#contacts").getByRole("button", { name: "Очистить рисунок" })).toBeVisible();
 

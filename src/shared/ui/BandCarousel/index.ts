@@ -1,5 +1,6 @@
 "use client";
 
+export type { BandCarouselProps } from "./BandCarousel";
 export {
   BAND_CAROUSEL_SLIDE,
   BAND_CAROUSEL_SLIDES,
@@ -7,6 +8,5 @@ export {
   BandCarousel,
   bandCarouselSlideClass,
 } from "./BandCarousel";
-export type { BandCarouselProps } from "./BandCarousel";
-export { useBandCarousel } from "./useBandCarousel";
 export type { UseBandCarouselReturn } from "./useBandCarousel";
+export { useBandCarousel } from "./useBandCarousel";

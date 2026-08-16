@@ -1,6 +1,6 @@
 "use client";
 
-import { type UseBandCarouselReturn, useBandCarousel } from "@/shared/ui/BandCarousel";
+import { useBandCarousel, type UseBandCarouselReturn } from "@/shared/ui/BandCarousel";
 
 interface UseTimelineCarouselOptions {
   itemCount: number;

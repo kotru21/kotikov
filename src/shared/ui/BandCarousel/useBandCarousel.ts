@@ -9,6 +9,8 @@ interface TouchStartPoint {
   y: number;
 }
 
+const CAROUSEL_CHEVRON_SELECTOR = "[data-carousel-chevron]";
+
 interface UseBandCarouselOptions {
   count: number;
 }
@@ -29,6 +31,18 @@ export interface UseBandCarouselReturn {
 function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
   if (!(target instanceof Element)) return true;
   return isActivatableControl(target);
+}
+
+function isCarouselNavKey(key: string): boolean {
+  return key === "ArrowLeft" || key === "ArrowRight" || key === "Home" || key === "End";
+}
+
+/** Arrow/Home/End belong on the band or chevrons — not on links inside a slide. */
+function isCarouselChromeTarget(event: React.KeyboardEvent<HTMLDivElement>): boolean {
+  const { target, currentTarget } = event;
+  if (target === currentTarget) return true;
+  if (!(target instanceof Element)) return false;
+  return target.closest(CAROUSEL_CHEVRON_SELECTOR) !== null;
 }
 
 export function useBandCarousel({ count }: UseBandCarouselOptions): UseBandCarouselReturn {
@@ -54,19 +68,12 @@ export function useBandCarousel({ count }: UseBandCarouselOptions): UseBandCarou
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>): void => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        goPrev();
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault();
-        goNext();
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        goTo(0);
-      } else if (event.key === "End") {
-        event.preventDefault();
-        goTo(lastIndex);
-      }
+      if (!isCarouselNavKey(event.key) || !isCarouselChromeTarget(event)) return;
+      event.preventDefault();
+      if (event.key === "ArrowLeft") goPrev();
+      else if (event.key === "ArrowRight") goNext();
+      else if (event.key === "Home") goTo(0);
+      else goTo(lastIndex);
     },
     [goPrev, goNext, goTo, lastIndex]
   );

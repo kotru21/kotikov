@@ -68,7 +68,7 @@ export function ContactsBand({ contacts }: ContactsBandProps): React.JSX.Element
       <h2 id="contacts-heading" className={`${GIANT_LABEL} p-6 md:p-10`}>
         <InteractiveText contrast="solid" text={sectionTitles.contacts} />
       </h2>
-      <div className="grid divide-y-2 divide-[#111] border-[#111] md:grid-cols-3 md:divide-x-2 md:divide-y-0 md:border-t-2 dark:divide-[#ededed] dark:border-[#ededed]">
+      <div className="grid divide-y-2 divide-[#111] border-[#111] md:grid-cols-4 md:divide-x-2 md:divide-y-0 md:border-t-2 dark:divide-[#ededed] dark:border-[#ededed]">
         {contacts.map((contact) => (
           <ContactCell key={contact.label} contact={contact} />
         ))}
