@@ -81,11 +81,12 @@ describe("MarqueeTicker", () => {
     expect(track).toHaveClass("flex", "h-full", "items-center", "animate-ticker-x");
     expect(track?.parentElement).toHaveClass(
       "flex",
-      "h-full",
+      "flex-none",
       "items-center",
       "overflow-hidden",
       "[padding-block:0.375rem]"
     );
+    expect(track?.parentElement).not.toHaveClass("h-full");
     expect(track?.parentElement).not.toHaveClass("px-1", "py-1", "min-h-[2.1rem]");
     expect(track?.parentElement?.className).not.toContain("border-2");
     expect(track?.parentElement?.className).toContain(GRID_SURFACE);

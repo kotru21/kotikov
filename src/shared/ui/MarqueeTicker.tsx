@@ -108,7 +108,7 @@ function tickerClassName(
   href?: string
 ): string {
   return [
-    "box-border flex h-full min-h-0 min-w-0 items-center overflow-hidden [padding-block:0.375rem]",
+    "box-border flex min-h-0 min-w-0 flex-none items-center overflow-hidden [padding-block:0.375rem]",
     reducedMotion ? "leading-tight whitespace-normal" : "leading-none whitespace-nowrap",
     GRID_SURFACE,
     href !== undefined ? `cursor-pointer ${CELL_HOVER}` : "",

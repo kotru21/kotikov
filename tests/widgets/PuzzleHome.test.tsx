@@ -113,9 +113,11 @@ describe("PuzzleHome", () => {
     expect(desktopClasses).not.toContain("min-h-dvh");
     const header = document.querySelector("header#header");
     const headerClasses = header?.className.split(/\s+/) ?? [];
-    expect(headerClasses).toContain("md:h-dvh");
-    expect(headerClasses).toContain("md:max-h-dvh");
-    expect(headerClasses).toContain("md:overflow-hidden");
+    expect(headerClasses).toContain("h-dvh");
+    expect(headerClasses).toContain("max-h-dvh");
+    expect(headerClasses).toContain("overflow-hidden");
+    expect(headerClasses).not.toContain("min-h-dvh");
+    expect(headerClasses).not.toContain("h-svh");
     expect(desktop?.children).toHaveLength(5);
     expect(desktop?.querySelectorAll("[data-puzzle-corner]")).toHaveLength(0);
     expect(topTicker).toHaveClass("col-span-full", "border-2", "z-[4]");
@@ -175,6 +177,18 @@ describe("PuzzleHome", () => {
     }
     const labels = [...mobile.querySelectorAll("a")].map((el) => el.textContent);
     expect(labels).toEqual(["Обо мне", "Проекты", "Опыт", "Контакты"]);
+    const mobileShell = mobile.parentElement;
+    expect(mobileShell).toHaveClass("flex", "h-dvh", "max-h-dvh", "overflow-hidden");
+    expect(mobileShell?.className.split(/\s+/)).not.toContain("min-h-dvh");
+    const mobileTickers = mobileShell?.querySelectorAll(":scope > [data-ticker-orientation]");
+    expect(mobileTickers?.length).toBe(2);
+    mobileTickers?.forEach((ticker) => {
+      expect(ticker).toHaveClass("flex-none");
+      expect(ticker).not.toHaveClass("h-full");
+    });
+    expect([...mobile.querySelectorAll("a")].every((cell) => cell.classList.contains("flex-1"))).toBe(
+      true
+    );
   });
 
   it("resizes desktop grid tracks on mouse hover and restores on leave", () => {

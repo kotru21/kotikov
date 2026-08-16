@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import type { ResponsiveViewMode } from "@/features/device/client";
 import { sectionTitles, skillGroups, skillsData } from "@/shared/config/content";
 import { SkillsWidget } from "@/widgets/skills";
 
@@ -9,10 +10,16 @@ const performanceSettings = {
   lowPerformance: false,
 };
 
+const viewMode = vi.hoisted((): { current: ResponsiveViewMode } => ({ current: "desktop" }));
+
 vi.mock("next/image", async () => {
   const { MockNextImage } = await import("../helpers/mockNextImage");
   return { default: MockNextImage };
 });
+
+vi.mock("@/features/device/client", () => ({
+  useResponsiveViewMode: () => viewMode.current,
+}));
 
 vi.mock("@/features/performance/client", () => ({
   usePerformanceSettings: () => ({
@@ -52,6 +59,7 @@ describe("SkillsWidget", () => {
   beforeEach(() => {
     performanceSettings.reducedMotion = false;
     performanceSettings.lowPerformance = false;
+    viewMode.current = "desktop";
     vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
   });
 
@@ -96,6 +104,12 @@ describe("SkillsWidget", () => {
     expect(groups[1]).toHaveClass("bg-primary-500", "text-[#111]");
     expect(groups[2].className).toMatch(/bg-background-primary/);
     expect(within(skills).getByRole("heading", { name: "Security & DFIR" })).toBeInTheDocument();
+  });
+
+  it("does not mount nyancat on mobile", () => {
+    viewMode.current = "mobile";
+    render(<SkillsWidget />);
+    expect(screen.queryByTestId("skills-nyancat")).not.toBeInTheDocument();
   });
 
   it("does not use teal as small text on paper", () => {

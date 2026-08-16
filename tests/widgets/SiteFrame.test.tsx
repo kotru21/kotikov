@@ -237,7 +237,7 @@ describe("SiteFrame", () => {
     expect(spine).toHaveAttribute("aria-hidden", "true");
     expect(spine).toHaveTextContent("Избранные работы");
     expect(classTokens(spine)).toEqual(
-      expect.arrayContaining(["truncate", "tracking-[-0.05em]", "uppercase"])
+      expect.arrayContaining(["flex", "items-center", "truncate", "tracking-[-0.05em]", "uppercase"])
     );
     expect(classTokens(spine)).not.toContain("[writing-mode:vertical-rl]");
     expect(classTokens(spine)).not.toContain("rotate-180");

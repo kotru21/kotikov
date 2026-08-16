@@ -18,9 +18,9 @@ export function PuzzleViews({ mobile }: PuzzleViewsProps): React.JSX.Element {
   const showDesktop = mode === "both" || mode === "desktop";
 
   return (
-    <>
-      {showMobile ? <div className="md:hidden">{mobile}</div> : null}
+    <div className="h-full min-h-0">
+      {showMobile ? <div className="h-full md:hidden">{mobile}</div> : null}
       {showDesktop ? <PuzzleDesktop /> : null}
-    </>
+    </div>
   );
 }

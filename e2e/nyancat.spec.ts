@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("skills nyancat lives in the skills band, not the puzzle", async ({ page }) => {
+test("skills nyancat lives in the skills band, not the puzzle", async ({ isMobile, page }) => {
+  test.skip(isMobile, "nyancat is desktop-only");
   await page.goto("/");
   await page.locator("#skills").scrollIntoViewIfNeeded();
 
@@ -8,7 +9,17 @@ test("skills nyancat lives in the skills band, not the puzzle", async ({ page })
   await expect(page.locator("#skills img[src='/nyancat.svg']")).toHaveCount(1);
 });
 
-test("skills nyancat explodes on click", async ({ page }) => {
+test("skills nyancat is not mounted on mobile", async ({ isMobile, page }) => {
+  test.skip(!isMobile, "desktop keeps the cursor nyancat");
+  await page.goto("/");
+  await page.locator("#skills").scrollIntoViewIfNeeded();
+
+  await expect(page.getByTestId("skills-nyancat")).toHaveCount(0);
+  await expect(page.locator("#skills img[src='/nyancat.svg']")).toHaveCount(0);
+});
+
+test("skills nyancat explodes on click", async ({ isMobile, page }) => {
+  test.skip(isMobile, "nyancat is desktop-only");
   await page.goto("/");
   await page.locator("#skills").scrollIntoViewIfNeeded();
 
@@ -21,7 +32,8 @@ test("skills nyancat explodes on click", async ({ page }) => {
   await expect(cat).toHaveCount(0);
 });
 
-test("skills nyancat perches on the Development group article", async ({ page }) => {
+test("skills nyancat perches on the Development group article", async ({ isMobile, page }) => {
+  test.skip(isMobile, "nyancat is desktop-only");
   await page.goto("/");
   await page.locator("#skills").scrollIntoViewIfNeeded();
 

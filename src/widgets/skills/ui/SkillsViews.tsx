@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { type ReactNode, type RefObject, useRef } from "react";
 
+import { useResponsiveViewMode } from "@/features/device/client";
 import { usePerformanceSettings, useSceneMotionPolicy } from "@/features/performance/client";
 import { skillsData } from "@/shared/config/content";
 import { MarqueeTicker } from "@/shared/ui/MarqueeTicker";
@@ -22,7 +23,8 @@ interface SkillsNyancatProps {
 
 function useShowSkillsNyancat(): boolean {
   const { reducedMotion, lowPerformance } = usePerformanceSettings();
-  return !reducedMotion && !lowPerformance;
+  const mode = useResponsiveViewMode();
+  return mode === "desktop" && !reducedMotion && !lowPerformance;
 }
 
 function SkillsNyancat({

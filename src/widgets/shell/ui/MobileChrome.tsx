@@ -9,7 +9,7 @@ import { chromeSlideClass } from "../lib/chromeMotion";
 import { ChromeNavCell } from "./DesktopChrome";
 
 const TITLE_TYPE =
-  "min-w-0 flex-1 truncate px-3 text-left font-black uppercase tracking-[-0.05em] text-[clamp(1rem,5vw,1.5rem)]";
+  "flex min-h-0 min-w-0 flex-1 items-center truncate px-3 text-left font-black uppercase tracking-[-0.05em] text-[clamp(1rem,5vw,1.5rem)]";
 
 interface MobileChromeProps {
   activeSection: ActiveSectionId;
