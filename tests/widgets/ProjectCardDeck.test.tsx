@@ -88,8 +88,12 @@ describe("ProjectCardDeck", () => {
       "aria-label",
       `${projectsSection.title}, 1 из ${String(projectsData.length)}`
     );
-    expect(track).toHaveClass("grid", "grid-cols-[auto_minmax(0,1fr)_auto]");
-    expect(track?.className).not.toMatch(/divide-/);
+    expect(track).toHaveClass(
+      "grid",
+      "grid-cols-[auto_minmax(0,1fr)_auto]",
+      "divide-x-2",
+      "divide-[#111]"
+    );
     expect(track?.className).not.toMatch(/gap-\[2px\]/);
 
     const prev = screen.getByRole("button", { name: PREV_PROJECT });

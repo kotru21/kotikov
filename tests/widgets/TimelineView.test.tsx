@@ -1,16 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import type { ResponsiveViewMode } from "@/features/device/client";
 import { sectionTitles, timelineData } from "@/shared/config/content";
 import TimelineWidget from "@/widgets/timeline/TimelineWidget";
 import { TimelineView } from "@/widgets/timeline/ui";
-
-const viewMode = vi.hoisted((): { current: ResponsiveViewMode } => ({ current: "desktop" }));
-
-vi.mock("@/features/device/client", () => ({
-  useResponsiveViewMode: () => viewMode.current,
-}));
 
 const PREV_STAGE = "Прокрутить к предыдущему этапу";
 const NEXT_STAGE = "Прокрутить к следующему этапу";
@@ -90,6 +83,7 @@ function expectStackedSlideLock(): void {
   for (const wrap of wrappers) {
     expect(wrap).toHaveClass("col-start-1", "row-start-1", "grid", "min-w-0");
     expect(wrap.className.split(/\s+/)).not.toContain("hidden");
+    expect(wrap.className.split(/\s+/).some((token) => token.includes("row-span"))).toBe(false);
   }
   expect(wrappers.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
   expect(wrappers.filter((wrap) => wrap.classList.contains("invisible"))).toHaveLength(
@@ -100,39 +94,29 @@ function expectStackedSlideLock(): void {
   );
 }
 
-function expectBandRowLock(): void {
-  expect(slidesGrid()).toHaveClass("grid", "min-w-0", "max-md:grid-rows-[auto_auto]");
-  expect(slidesGrid()).not.toHaveClass("md:grid-rows-none");
+function expectProjectStyleChrome(): void {
+  const region = experienceRegion();
+  expect(region).toHaveClass("border-t-2");
+  expect(region).not.toHaveClass("border-2", "border-x-2");
+    expect(carouselTrack()).toHaveClass(
+    "min-w-0",
+    "grid-cols-[auto_minmax(0,1fr)_auto]",
+    "divide-x-2",
+    "divide-[#111]"
+  );
+  expect(slidesGrid()).toHaveClass("grid", "min-w-0");
+  expect(slidesGrid()).not.toHaveClass("max-md:grid-rows-[auto_auto]");
 
-  for (const wrap of slideWrappers()) {
-    expect(wrap).toHaveClass(
-      "col-start-1",
-      "row-start-1",
-      "row-end-2",
-      "max-md:row-end-3",
-      "max-md:grid-rows-subgrid",
-      "min-w-0"
-    );
-    expect(wrap.className.split(/\s+/).some((token) => token.includes("row-span"))).toBe(false);
-
-    const article = wrap.querySelector("article");
-    expect(article).toHaveClass(
-      "h-full",
-      "min-h-0",
-      "min-w-0",
-      "max-md:grid-rows-subgrid",
-      "md:grid-cols-[minmax(11rem,16rem)_1fr]"
-    );
-    expect(article).not.toHaveClass("md:row-span-1", "md:grid-rows-none");
-    expect(article?.children).toHaveLength(2);
-    expect(article?.children[0]).toHaveClass("h-full", "min-h-0", "bg-primary-500", "text-[#111]");
-    expect(article?.children[1]).toHaveClass("h-full", "min-h-0");
-  }
+  const prev = screen.getByRole("button", { name: PREV_STAGE });
+  const next = screen.getByRole("button", { name: NEXT_STAGE });
+  expectChevronHasNoStroke(prev);
+  expectChevronHasNoStroke(next);
+  expect(prev).toHaveClass("min-h-11", "min-w-11", "px-3", "self-stretch");
+  expect(next).toHaveClass("min-h-11", "min-w-11", "px-3", "self-stretch");
 }
 
 describe("TimelineWidget", () => {
   it("renders a full-bleed #experience band with a visible h2", () => {
-    viewMode.current = "desktop";
     const { container } = render(<TimelineWidget />);
 
     const section = container.querySelector("section#experience");
@@ -148,10 +132,8 @@ describe("TimelineWidget", () => {
     expect(heading.className).not.toMatch(/dark:bg-\[#ededed\]/);
 
     const carousel = experienceRegion();
-    expect(carousel).not.toHaveClass("border-t-2");
-    expect(carousel).not.toHaveClass("border-x-2");
-    expect(carousel).not.toHaveClass("border-2");
-    expect(carousel).toHaveClass("outline-none", "focus-visible:ring-2");
+    expect(carousel).toHaveClass("border-t-2", "outline-none", "focus-visible:ring-2");
+    expect(carousel).not.toHaveClass("border-x-2", "border-2");
     expect(carousel).toHaveAttribute(
       "aria-label",
       `${sectionTitles.experience}, 1 из ${String(timelineData.length)}`
@@ -161,8 +143,7 @@ describe("TimelineWidget", () => {
 });
 
 describe("TimelineView", () => {
-  it("shows one item and chevrons on desktop", () => {
-    viewMode.current = "desktop";
+  it("shows one item and project-style full-height chevrons", () => {
     render(<TimelineView />);
 
     expect(visibleItemTitles()).toEqual([FIRST.title]);
@@ -171,72 +152,43 @@ describe("TimelineView", () => {
     expect(screen.getByText(FIRST.technologies[0])).toBeInTheDocument();
     expect(screen.getByText(FIRST.period)).toHaveClass("bg-primary-500", "text-[#111]");
 
-    expect(visibleArticle()).toHaveClass("border-t-2");
-    expect(visibleArticle()).not.toHaveClass("border-2");
-    expect(visibleArticle()).not.toHaveClass("border-x-2");
-    expect(visibleArticle()).not.toHaveClass("border-b-2");
-    expectChevronHasNoStroke(screen.getByRole("button", { name: PREV_STAGE }));
-    expectChevronHasNoStroke(screen.getByRole("button", { name: NEXT_STAGE }));
-
-    fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
-
-    expect(visibleItemTitles()).toEqual([SECOND.title]);
-  });
-
-  it.each(["desktop", "mobile"] as const)(
-    "locks %s band height by stacking every slide in one grid cell",
-    (mode) => {
-      viewMode.current = mode;
-      render(<TimelineView />);
-
-      expectStackedSlideLock();
-      fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
-
-      const after = slideWrappers();
-      expect(after).toHaveLength(timelineData.length);
-      expect(after.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
-      expect(visibleItemTitles()).toEqual([SECOND.title]);
-    }
-  );
-
-  it("shows one item and chevrons on mobile without doubling section strokes", () => {
-    viewMode.current = "mobile";
-    render(<TimelineView />);
-
-    expect(visibleItemTitles()).toEqual([FIRST.title]);
-    expect(screen.getByText(FIRST.period)).toHaveClass("bg-primary-500", "text-[#111]");
-
     expect(visibleArticle()).toHaveClass("border-0");
-    expect(visibleArticle()).not.toHaveClass("border-2");
-    expect(visibleArticle()).not.toHaveClass("border-x-2");
-    expectChevronHasNoStroke(screen.getByRole("button", { name: PREV_STAGE }));
-    expectChevronHasNoStroke(screen.getByRole("button", { name: NEXT_STAGE }));
+    expect(visibleArticle()).not.toHaveClass("border-2", "border-x-2", "border-t-2");
+    expectProjectStyleChrome();
 
     fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
 
     expect(visibleItemTitles()).toEqual([SECOND.title]);
   });
 
-  it("keeps teal date and paper copy rows equal across every mobile slide", () => {
-    viewMode.current = "mobile";
+  it("locks band height by stacking every slide in one grid cell", () => {
     render(<TimelineView />);
 
-    expectBandRowLock();
-    expect(carouselTrack()).toHaveClass("min-w-0", "grid-cols-[auto_minmax(0,1fr)_auto]");
-
+    expectStackedSlideLock();
     fireEvent.click(screen.getByRole("button", { name: NEXT_STAGE }));
-    expectBandRowLock();
+
+    const after = slideWrappers();
+    expect(after).toHaveLength(timelineData.length);
+    expect(after.filter((wrap) => wrap.classList.contains("visible"))).toHaveLength(1);
     expect(visibleItemTitles()).toEqual([SECOND.title]);
   });
 
-  it("keeps the desktop band as one stacked two-column cell", () => {
-    viewMode.current = "desktop";
+  it("stacks date above copy on mobile and date beside copy on desktop", () => {
     render(<TimelineView />);
 
-    expect(visibleArticle()).toHaveClass("md:grid-cols-[minmax(11rem,16rem)_1fr]");
-    expect(visibleArticle()).not.toHaveClass("md:row-span-1", "md:grid-rows-none");
-    expect(slidesGrid()).not.toHaveClass("md:grid-rows-none");
+    expect(visibleArticle()).toHaveClass(
+      "h-full",
+      "min-h-0",
+      "min-w-0",
+      "grid-rows-[auto_1fr]",
+      "md:grid-rows-none",
+      "md:grid-cols-[minmax(11rem,16rem)_1fr]"
+    );
+    expect(visibleArticle()).not.toHaveClass("max-md:grid-rows-subgrid");
+    expect(visibleArticle().children).toHaveLength(2);
+    expect(visibleArticle().children[0]).toHaveClass("h-full", "min-h-0", "bg-primary-500", "text-[#111]");
+    expect(visibleArticle().children[1]).toHaveClass("h-full", "min-h-0");
     expect(slideWrappers()[0]).toHaveClass("col-start-1", "row-start-1");
-    expect(slideWrappers()[0]).not.toHaveClass("md:row-span-1");
+    expect(slideWrappers()[0]).not.toHaveClass("md:row-span-1", "row-end-2");
   });
 });

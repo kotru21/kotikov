@@ -1,0 +1,122 @@
+"use client";
+
+import { useCallback, useRef, useState } from "react";
+
+import { isActivatableControl, SWIPE_THRESHOLD_PX } from "@/shared/lib";
+
+interface TouchStartPoint {
+  x: number;
+  y: number;
+}
+
+interface UseBandCarouselOptions {
+  count: number;
+}
+
+export interface UseBandCarouselReturn {
+  activeIndex: number;
+  goTo: (index: number) => void;
+  goNext: () => void;
+  goPrev: () => void;
+  handleKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  handleTouchStart: (event: React.TouchEvent<HTMLDivElement>) => void;
+  handleTouchEnd: (event: React.TouchEvent<HTMLDivElement>) => void;
+  handleTouchCancel: () => void;
+  canGoPrev: boolean;
+  canGoNext: boolean;
+}
+
+function shouldIgnoreSwipeTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return true;
+  return isActivatableControl(target);
+}
+
+export function useBandCarousel({ count }: UseBandCarouselOptions): UseBandCarouselReturn {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartRef = useRef<TouchStartPoint | null>(null);
+  const lastIndex = Math.max(0, count - 1);
+
+  const goTo = useCallback(
+    (index: number): void => {
+      if (count <= 0) return;
+      setActiveIndex(Math.max(0, Math.min(lastIndex, index)));
+    },
+    [count, lastIndex]
+  );
+
+  const goNext = useCallback((): void => {
+    setActiveIndex((current) => Math.min(lastIndex, current + 1));
+  }, [lastIndex]);
+
+  const goPrev = useCallback((): void => {
+    setActiveIndex((current) => Math.max(0, current - 1));
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>): void => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goPrev();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goNext();
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        goTo(lastIndex);
+      }
+    },
+    [goPrev, goNext, goTo, lastIndex]
+  );
+
+  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>): void => {
+    if (event.touches.length !== 1) return;
+    if (shouldIgnoreSwipeTarget(event.target)) return;
+
+    touchStartRef.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    };
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLDivElement>): void => {
+      const start = touchStartRef.current;
+      touchStartRef.current = null;
+      if (start === null) return;
+      if (event.changedTouches.length === 0) return;
+
+      const deltaX = event.changedTouches[0].clientX - start.x;
+      const deltaY = event.changedTouches[0].clientY - start.y;
+
+      if (Math.abs(deltaX) < SWIPE_THRESHOLD_PX) return;
+      if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+      if (deltaX > 0) {
+        goPrev();
+      } else {
+        goNext();
+      }
+    },
+    [goPrev, goNext]
+  );
+
+  const handleTouchCancel = useCallback((): void => {
+    touchStartRef.current = null;
+  }, []);
+
+  return {
+    activeIndex,
+    goTo,
+    goNext,
+    goPrev,
+    handleKeyDown,
+    handleTouchStart,
+    handleTouchEnd,
+    handleTouchCancel,
+    canGoPrev: activeIndex > 0,
+    canGoNext: activeIndex < lastIndex,
+  };
+}
