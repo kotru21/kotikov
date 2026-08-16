@@ -23,6 +23,7 @@ export {
   gridStrokeForBand,
   TEAL_FILL,
 } from "./gridChrome";
+export { HabrIcon } from "./HabrIcon";
 export { KMark } from "./KMark";
 export { default as Logo } from "./Logo";
 export { Section } from "./Section";

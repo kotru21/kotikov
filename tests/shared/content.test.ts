@@ -18,6 +18,7 @@ import {
   skillsStackLine,
   timelineData,
 } from "@/shared/config/content";
+import { HabrIcon } from "@/shared/ui/HabrIcon";
 
 function aboutField(key: string): string | undefined {
   return aboutContent.spec.fields.find((f) => f.key === key)?.value;
@@ -145,6 +146,7 @@ describe("content model", () => {
       "GitHub",
       "Habr",
     ]);
+    expect(contactsData[3].icon).toBe(HabrIcon);
   });
 });
 

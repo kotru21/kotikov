@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { scrollSectionToTop } from "./helpers/scrollSectionToTop";
+import { scrollLocatorInstant, scrollSectionToTop } from "./helpers/scrollSectionToTop";
 
 test.describe("mobile contacts paint well", () => {
   test.use({ viewport: { width: 375, height: 812 } });
@@ -68,31 +68,33 @@ test.describe("mobile contacts paint well", () => {
     await expect.poll(samplePixels).not.toBe(0);
     const before = await samplePixels();
 
-    // Canvas covers the whole section (`inset-0`); contact links at the top
-    // swallow pointer events. Stroke on the empty well below the cells.
-    await well.evaluate((el) => {
-      el.scrollIntoView({ block: "center" });
-    });
-    const box = await well.boundingBox();
-    expect(box).toBeTruthy();
-    if (box === null) {
-      return;
-    }
-
-    const x = box.x + Math.min(80, box.width * 0.35);
-    const y = box.y + Math.min(80, box.height * 0.35);
-    await page.mouse.move(x, y);
-    await page.mouse.down();
-    await page.mouse.move(x + 48, y + 36, { steps: 8 });
-    await page.mouse.up();
-
-    await expect.poll(samplePixels).not.toBe(before);
-
     const emailHit = await email.evaluate((el) => {
       const rect = el.getBoundingClientRect();
       const top = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
       return top !== null && (top === el || el.contains(top));
     });
     expect(emailHit).toBe(true);
+
+    // Canvas covers the whole section (`inset-0`); contact links at the top
+    // swallow pointer events. Stroke on the empty well below the cells.
+    // Instant scroll: smooth `scrollIntoView` races the bounding box in CI.
+    await scrollLocatorInstant(well, "center");
+    await expect(well).toBeInViewport();
+    await expect.poll(async () => (await well.boundingBox())?.y ?? 0).toBeGreaterThan(48);
+
+    const box = await well.boundingBox();
+    expect(box).toBeTruthy();
+    if (box === null) {
+      return;
+    }
+
+    const x = box.x + Math.min(64, box.width * 0.25);
+    const y = box.y + box.height * 0.55;
+    await page.mouse.move(x, y);
+    await page.mouse.down();
+    await page.mouse.move(x + 72, y + 8, { steps: 12 });
+    await page.mouse.up();
+
+    await expect.poll(samplePixels).not.toBe(before);
   });
 });

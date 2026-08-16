@@ -1,4 +1,4 @@
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 const PUZZLE_CLEARANCE_PX = 8;
 
@@ -23,4 +23,18 @@ export async function scrollSectionToTop(page: Page, sectionId: string): Promise
     if (header === null) return false;
     return header.getBoundingClientRect().bottom <= 0;
   });
+}
+
+/** Instant scroll — `html { scroll-behavior: smooth }` would otherwise race bounding boxes. */
+export async function scrollLocatorInstant(
+  locator: Locator,
+  block: ScrollLogicalPosition = "center"
+): Promise<void> {
+  await locator.evaluate((el, align) => {
+    const html = document.documentElement;
+    const previousBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    el.scrollIntoView({ block: align });
+    html.style.scrollBehavior = previousBehavior;
+  }, block);
 }

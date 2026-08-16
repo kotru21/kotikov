@@ -4,7 +4,9 @@
  */
 import type { ComponentType } from "react";
 import { FaGithub, FaTelegram } from "react-icons/fa";
-import { MdArticle, MdEmail } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
+
+import { HabrIcon } from "@/shared/ui/HabrIcon";
 
 import { social } from "./social";
 
@@ -44,7 +46,7 @@ export const contactsData = [
     label: "Habr",
     value: social.habr.display,
     link: social.habr.url,
-    icon: MdArticle,
+    icon: HabrIcon,
     layout: "hero",
   },
 ] as const satisfies readonly ContactInfo[];

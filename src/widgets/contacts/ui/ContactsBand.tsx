@@ -48,7 +48,7 @@ function ContactCell({ contact }: { contact: ContactInfo }): React.JSX.Element {
   return (
     <a
       href={href}
-      className={className}
+      className={`${className} cursor-pointer`}
       target={opensNewTab ? "_blank" : undefined}
       rel={opensNewTab ? "noopener noreferrer" : undefined}
     >

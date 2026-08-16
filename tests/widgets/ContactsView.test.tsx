@@ -177,20 +177,22 @@ describe("ContactsView", () => {
     expect(habr).toHaveAttribute("target", "_blank");
     expect(habr).toHaveAttribute("rel", "noopener noreferrer");
     expect(habr.className).toContain(TEAL_FILL);
+    expect(habr).toHaveClass("cursor-pointer");
     expect(habr).toHaveTextContent("habr.com/ru/users/kotru21");
+    const habrIcon = habr.querySelector("svg");
+    expect(habrIcon).toHaveAttribute("aria-hidden", "true");
+    expect(habrIcon).toHaveAttribute("viewBox", "0 0 24 24");
+    expect(habrIcon).toHaveClass("size-8", "shrink-0");
+    expect(habrIcon).toHaveAttribute("fill", "currentColor");
   });
 
   it("registers the heading with InteractiveText for paint contrast", () => {
     const registry = { register: vi.fn(), unregister: vi.fn() };
     render(
       <InteractiveTextContext value={registry}>
-    render(
-      <InteractiveTextContext value={registry}>
         <ContactsView {...viewProps}>
           <ContactsBand contacts={[...contactsData]} />
         </ContactsView>
-      </InteractiveTextContext>
-    );
       </InteractiveTextContext>
     );
 
