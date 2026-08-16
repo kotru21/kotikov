@@ -130,7 +130,7 @@ describe("ContactsView", () => {
     expect(section).toHaveClass("min-h-[20rem]");
     expect(section.querySelector(".max-w-6xl")).toBeNull();
     expect(heading).toHaveAttribute("id", "contacts-heading");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
     expect(heading).not.toHaveClass("border-2");
     expect(heading).not.toHaveClass("bg-[#111]", "text-[#f5f5f3]", "bg-primary-500");
     const cellGrid = heading.nextElementSibling;

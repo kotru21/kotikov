@@ -5,7 +5,8 @@ import { CELL_HOVER, GIANT_LABEL, TEAL_FILL } from "@/shared/ui";
 
 const FOCUS_RING =
   "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#111] dark:focus-visible:ring-[#ededed]";
-const FOCUS_RING_ON_INK = "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#ededed]";
+const FOCUS_RING_ON_INK =
+  "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#ededed]";
 const CELL_BASE = `border-0 relative z-10 flex min-h-40 flex-col justify-center gap-3 p-6 md:p-10 ${CELL_HOVER}`;
 const PAPER_CELL = "bg-[#f5f5f3] text-[#111] dark:bg-[#0a0a0a] dark:text-[#f5f5f3]";
 const GITHUB_CELL = "bg-[#111] text-[#f5f5f3]";
@@ -64,7 +65,7 @@ interface ContactsBandProps {
 export function ContactsBand({ contacts }: ContactsBandProps): React.JSX.Element {
   return (
     <>
-      <h2 id="contacts-heading" className={`sr-only md:not-sr-only ${GIANT_LABEL} md:p-10`}>
+      <h2 id="contacts-heading" className={`${GIANT_LABEL} p-6 md:p-10`}>
         <InteractiveText contrast="solid" text={sectionTitles.contacts} />
       </h2>
       <div className="grid divide-y-2 divide-[#111] border-[#111] md:grid-cols-3 md:divide-x-2 md:divide-y-0 md:border-t-2 dark:divide-[#ededed] dark:border-[#ededed]">

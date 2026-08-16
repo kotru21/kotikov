@@ -41,7 +41,7 @@ export function AboutWidget(): React.JSX.Element {
           className={`${GRID_DIVIDE} grid items-stretch md:grid-cols-2 md:divide-x-2 md:divide-y-0`}
         >
           <div className="flex h-full min-h-0 min-w-0 flex-col justify-center gap-6 p-6 md:p-10 md:pb-16">
-            <h2 className={`sr-only md:not-sr-only ${GIANT_LABEL}`} id="about-heading">
+            <h2 className={GIANT_LABEL} id="about-heading">
               <InteractiveText contrast="solid" text={aboutContent.title} />
             </h2>
             <p className="text-base leading-8 font-medium text-[#111] dark:text-[#ededed]">

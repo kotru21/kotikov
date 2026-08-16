@@ -32,7 +32,7 @@ describe("ProjectsWidget", () => {
 
     const heading = screen.getByRole("heading", { level: 2, name: projectsSection.title });
     expect(heading).toHaveAttribute("id", "projects-heading");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
     expect(heading).not.toHaveClass("bg-[#111]", "bg-primary-500");
     expect(screen.getByText(projectsSection.description)).toBeInTheDocument();
   });

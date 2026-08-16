@@ -7,8 +7,8 @@ export type ActiveSectionId = "about" | "projects" | "skills" | "experience" | "
 export const ACTIVE_SECTION_THRESHOLDS = [0, 0.25, 0.5, 0.75, 1] as const;
 
 export const DESKTOP_CHROME_ROOT_MARGIN = "0px 0px -56px 0px";
-/** Inset the observer by the mobile title bar (3rem) and bottom nav (3.5rem). */
-export const MOBILE_CHROME_ROOT_MARGIN = "-3rem 0px -3.5rem 0px";
+/** Inset by mobile title bar (h-12 = 48px) and bottom nav (h-14 = 56px). IO only accepts px/%. */
+export const MOBILE_CHROME_ROOT_MARGIN = "-48px 0px -56px 0px";
 
 export const ACTIVE_SECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
   threshold: [...ACTIVE_SECTION_THRESHOLDS],

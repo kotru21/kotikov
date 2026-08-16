@@ -87,7 +87,7 @@ describe("ContactsWidget", () => {
     expect(section).not.toBeNull();
     expect(section).not.toHaveClass("border-2");
     expect(section).toHaveClass("min-h-[20rem]");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
     expect(heading).not.toHaveClass("border-2");
     expect(section?.querySelector("form, input, textarea")).toBeNull();
 

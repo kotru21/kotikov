@@ -24,27 +24,30 @@ describe("timelineSlideLock", () => {
     }
   });
 
-  it("locks date and copy on a two-row subgrid, reset to one cell on desktop", () => {
-    expect(TIMELINE_SLIDES_GRID.split(/\s+/)).toEqual(
-      expect.arrayContaining(["min-w-0", "grid-rows-[auto_1fr]", "md:grid-rows-none"])
-    );
-    expect(TIMELINE_SLIDE_STACK.split(/\s+/)).toEqual(
+  it("stacks slides on row-start/row-end so span shorthand cannot unstack them", () => {
+    const slides = TIMELINE_SLIDES_GRID.split(/\s+/);
+    const stack = TIMELINE_SLIDE_STACK.split(/\s+/);
+    const band = TIMELINE_BAND_GRID.split(/\s+/);
+
+    expect(slides).toEqual(expect.arrayContaining(["min-w-0", "max-md:grid-rows-[auto_auto]"]));
+    expect(slides).not.toContain("max-md:grid-rows-[auto_1fr]");
+    expect(slides).not.toContain("md:grid-rows-none");
+
+    expect(stack).toEqual(
       expect.arrayContaining([
         "col-start-1",
         "row-start-1",
-        "row-span-2",
-        "grid-rows-subgrid",
-        "md:row-span-1",
-        "md:grid-rows-none",
+        "row-end-2",
+        "max-md:row-end-3",
+        "max-md:grid-rows-subgrid",
       ])
     );
-    expect(TIMELINE_BAND_GRID.split(/\s+/)).toEqual(
-      expect.arrayContaining([
-        "grid-rows-subgrid",
-        "md:grid-cols-[minmax(11rem,16rem)_1fr]",
-        "md:grid-rows-none",
-      ])
+    expect(stack.some((token) => token.includes("row-span"))).toBe(false);
+
+    expect(band).toEqual(
+      expect.arrayContaining(["max-md:grid-rows-subgrid", "md:grid-cols-[minmax(11rem,16rem)_1fr]"])
     );
+    expect(band.some((token) => token.includes("row-span"))).toBe(false);
     expect(TIMELINE_TRACK_GRID).toContain("minmax(0,1fr)");
   });
 });

@@ -3,10 +3,10 @@ import { GIANT_LABEL } from "@/shared/ui/gridChrome";
 
 const HEADING_ID = "skills-heading";
 
-/** Section h2 stays in the a11y tree on mobile (`sr-only`); the top chrome strip is visual-only. */
+/** In-page section title — visible on mobile so bands don't run together. */
 export function SkillsSectionIntro(): React.JSX.Element {
   return (
-    <h2 id={HEADING_ID} className={`sr-only md:not-sr-only ${GIANT_LABEL} md:p-10`}>
+    <h2 id={HEADING_ID} className={`${GIANT_LABEL} p-6 md:p-10`}>
       {sectionTitles.skills}
     </h2>
   );

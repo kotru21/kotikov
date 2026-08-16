@@ -4,9 +4,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ACTIVE_SECTION_OBSERVER_OPTIONS,
   ACTIVE_SECTION_THRESHOLDS,
+  DESKTOP_CHROME_ROOT_MARGIN,
   MOBILE_CHROME_ROOT_MARGIN,
   useActiveSection,
 } from "@/widgets/shell/hooks/useActiveSection";
+
+/** IntersectionObserver accepts only px or percent — rem throws in the browser. */
+const ROOT_MARGIN_TOKEN = /^-?\d+(\.\d+)?(px|%)$/;
+
+function assertValidRootMargin(value: string): void {
+  const parts = value.trim().split(/\s+/);
+  expect(parts.length === 1 || parts.length === 4).toBe(true);
+  for (const part of parts) {
+    expect(part).toMatch(ROOT_MARGIN_TOKEN);
+  }
+}
 
 type ObserverCallback = IntersectionObserverCallback;
 
@@ -126,6 +138,11 @@ describe("useActiveSection", () => {
 
     expect(lastOptions?.threshold).toEqual([...ACTIVE_SECTION_THRESHOLDS]);
     expect(lastOptions?.rootMargin).toBe(ACTIVE_SECTION_OBSERVER_OPTIONS.rootMargin);
+  });
+
+  it("uses only px or percent in observer rootMargin", () => {
+    assertValidRootMargin(DESKTOP_CHROME_ROOT_MARGIN);
+    assertValidRootMargin(MOBILE_CHROME_ROOT_MARGIN);
   });
 
   it("insets the observer by the mobile title bar and bottom nav", () => {

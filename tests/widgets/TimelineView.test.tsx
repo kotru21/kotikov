@@ -101,28 +101,29 @@ function expectStackedSlideLock(): void {
 }
 
 function expectBandRowLock(): void {
-  expect(slidesGrid()).toHaveClass("grid", "min-w-0", "grid-rows-[auto_1fr]", "md:grid-rows-none");
+  expect(slidesGrid()).toHaveClass("grid", "min-w-0", "max-md:grid-rows-[auto_auto]");
+  expect(slidesGrid()).not.toHaveClass("md:grid-rows-none");
 
   for (const wrap of slideWrappers()) {
     expect(wrap).toHaveClass(
-      "row-span-2",
-      "grid-rows-subgrid",
-      "min-w-0",
-      "md:row-span-1",
-      "md:grid-rows-none"
+      "col-start-1",
+      "row-start-1",
+      "row-end-2",
+      "max-md:row-end-3",
+      "max-md:grid-rows-subgrid",
+      "min-w-0"
     );
+    expect(wrap.className.split(/\s+/).some((token) => token.includes("row-span"))).toBe(false);
 
     const article = wrap.querySelector("article");
     expect(article).toHaveClass(
-      "row-span-2",
       "h-full",
       "min-h-0",
       "min-w-0",
-      "grid-rows-subgrid",
-      "md:row-span-1",
-      "md:grid-cols-[minmax(11rem,16rem)_1fr]",
-      "md:grid-rows-none"
+      "max-md:grid-rows-subgrid",
+      "md:grid-cols-[minmax(11rem,16rem)_1fr]"
     );
+    expect(article).not.toHaveClass("md:row-span-1", "md:grid-rows-none");
     expect(article?.children).toHaveLength(2);
     expect(article?.children[0]).toHaveClass("h-full", "min-h-0", "bg-primary-500", "text-[#111]");
     expect(article?.children[1]).toHaveClass("h-full", "min-h-0");
@@ -130,7 +131,7 @@ function expectBandRowLock(): void {
 }
 
 describe("TimelineWidget", () => {
-  it("renders a full-bleed #experience band with desktop-only h2", () => {
+  it("renders a full-bleed #experience band with a visible h2", () => {
     viewMode.current = "desktop";
     const { container } = render(<TimelineWidget />);
 
@@ -140,7 +141,8 @@ describe("TimelineWidget", () => {
 
     const heading = screen.getByRole("heading", { level: 2, name: sectionTitles.experience });
     expect(heading).toHaveAttribute("id", "experience-heading");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).toHaveClass("p-6", "md:p-10");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
     expect(heading).not.toHaveClass("border-2");
     expect(heading).not.toHaveClass("bg-[#111]", "text-[#f5f5f3]", "bg-primary-500");
     expect(heading.className).not.toMatch(/dark:bg-\[#ededed\]/);
@@ -231,12 +233,10 @@ describe("TimelineView", () => {
     viewMode.current = "desktop";
     render(<TimelineView />);
 
-    expect(visibleArticle()).toHaveClass(
-      "md:grid-cols-[minmax(11rem,16rem)_1fr]",
-      "md:grid-rows-none",
-      "md:row-span-1"
-    );
-    expect(slidesGrid()).toHaveClass("md:grid-rows-none");
-    expect(slideWrappers()[0]).toHaveClass("md:row-span-1", "md:grid-rows-none");
+    expect(visibleArticle()).toHaveClass("md:grid-cols-[minmax(11rem,16rem)_1fr]");
+    expect(visibleArticle()).not.toHaveClass("md:row-span-1", "md:grid-rows-none");
+    expect(slidesGrid()).not.toHaveClass("md:grid-rows-none");
+    expect(slideWrappers()[0]).toHaveClass("col-start-1", "row-start-1");
+    expect(slideWrappers()[0]).not.toHaveClass("md:row-span-1");
   });
 });

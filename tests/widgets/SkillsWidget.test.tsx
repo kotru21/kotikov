@@ -71,7 +71,7 @@ describe("SkillsWidget", () => {
       name: sectionTitles.skills,
     });
     expect(heading).toHaveAttribute("id", "skills-heading");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
     expect(skills.querySelector(".relative.overflow-hidden")).not.toBeNull();
 
     expect(within(skills).getAllByText(skillsData[0].name).length).toBeGreaterThan(0);

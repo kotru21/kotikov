@@ -15,7 +15,7 @@ export function ProjectsWidget(): React.JSX.Element {
       backgroundClassName={GRID_SURFACE}
     >
       <div className="flex flex-col justify-start gap-6 p-6 md:p-10">
-        <h2 className={`sr-only md:not-sr-only ${GIANT_LABEL}`} id="projects-heading">
+        <h2 className={GIANT_LABEL} id="projects-heading">
           {projectsSection.title}
         </h2>
         <p className="text-base leading-8 font-medium text-[#111] dark:text-[#ededed]">

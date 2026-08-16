@@ -119,7 +119,7 @@ describe("AboutWidget", () => {
     expect(container.querySelector("section#about")).not.toBeNull();
     const heading = screen.getByRole("heading", { name: aboutContent.title });
     expect(heading).toHaveAttribute("id", "about-heading");
-    expect(heading).toHaveClass("sr-only", "md:not-sr-only");
+    expect(heading).not.toHaveClass("sr-only", "max-md:sr-only");
   });
 
   it("shows body and spec fields without a pre code panel", () => {
