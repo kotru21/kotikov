@@ -13,7 +13,7 @@ const MOBILE_PUZZLE_CELLS = MOBILE_CELL_ORDER.flatMap((id) =>
 
 export function PuzzleMobile(): React.JSX.Element {
   return (
-    <div className={`flex h-dvh max-h-dvh min-h-0 flex-col overflow-hidden ${GRID_GAP} ${GRID_STROKE} md:hidden`}>
+    <div className={`flex h-full min-h-0 flex-col overflow-hidden ${GRID_GAP} ${GRID_STROKE} md:hidden`}>
       <MarqueeTicker text={puzzleTickers.top} />
       <div className={`flex min-h-12 items-center justify-center ${TEAL_FILL}`}>
         <KMark className="h-8 w-auto text-[#111]" />

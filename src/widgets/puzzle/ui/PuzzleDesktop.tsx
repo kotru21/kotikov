@@ -85,7 +85,7 @@ function PuzzleBoard(): React.JSX.Element {
 export function PuzzleDesktop(): React.JSX.Element {
   return (
     <div
-      className="relative isolate box-border grid h-dvh max-h-dvh min-h-0 grid-cols-[2.4rem_minmax(0,1fr)_2.4rem] grid-rows-[2.1rem_minmax(0,1fr)_2.1rem] overflow-hidden max-md:hidden"
+      className="relative isolate box-border grid h-full min-h-0 grid-cols-[2.4rem_minmax(0,1fr)_2.4rem] grid-rows-[2.1rem_minmax(0,1fr)_2.1rem] overflow-hidden max-md:hidden"
     >
       <PuzzleBoard />
       <MarqueeTicker className={TICKER_PLACE.left} orientation="vertical" text={puzzleTickers.left} />

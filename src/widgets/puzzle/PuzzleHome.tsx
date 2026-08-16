@@ -5,7 +5,10 @@ import { PuzzleViews } from "./ui/PuzzleViews";
 
 export function PuzzleHome(): React.JSX.Element {
   return (
-    <header className={`${GRID_SURFACE} h-dvh max-h-dvh overflow-hidden`} id="header">
+    <header
+      className={`${GRID_SURFACE} h-svh max-h-svh overflow-hidden [overflow-anchor:none]`}
+      id="header"
+    >
       <h1 className="sr-only">Kotikov</h1>
       <PuzzleViews mobile={<PuzzleMobile />} />
     </header>

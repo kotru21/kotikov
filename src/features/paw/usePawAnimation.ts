@@ -60,12 +60,27 @@ function withDrawingStart(prev: PawMotionState, x: number, y: number): PawMotion
   };
 }
 
+function capturePointer(target: HTMLElement, pointerId: number): void {
+  try {
+    target.setPointerCapture(pointerId);
+  } catch {
+    // ignore
+  }
+}
+
 function releasePointerCapture(target: HTMLElement, pointerId: number): void {
   try {
     target.releasePointerCapture(pointerId);
   } catch {
     // ignore
   }
+}
+
+const TOUCH_COMMIT_PX = 10;
+const TOUCH_PAN_Y_RATIO = 1.25;
+
+function isVerticalTouchPan(dx: number, dy: number): boolean {
+  return Math.abs(dy) > Math.abs(dx) * TOUCH_PAN_Y_RATIO;
 }
 
 export function usePawAnimation(
@@ -93,6 +108,7 @@ export function usePawAnimation(
   const mouseVelocityRef = useRef({ x: 0, y: 0 });
   const pointerDownRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
+  const pendingTouchRef = useRef<MousePosition | null>(null);
   const kickAnimationRef = useRef<() => void>(() => undefined);
 
   // Adjust React state during render when drawing is disabled (not in an effect).
@@ -110,6 +126,7 @@ export function usePawAnimation(
     mouseVelocityRef.current = { x: 0, y: 0 };
     pointerDownRef.current = false;
     pointerIdRef.current = null;
+    pendingTouchRef.current = null;
     if (animationFrameRef.current !== null) {
       cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = null;
@@ -162,6 +179,27 @@ export function usePawAnimation(
     [startDrawingAt, stopDrawing]
   );
 
+  const commitTouchPaint = useCallback(
+    (e: PointerEvent<HTMLElement>): boolean => {
+      if (motionRef.current.isDrawing) return true;
+      const origin = pendingTouchRef.current;
+      if (origin === null) return false;
+      const dx = e.clientX - origin.x;
+      const dy = e.clientY - origin.y;
+      if (Math.hypot(dx, dy) < TOUCH_COMMIT_PX) return false;
+      if (isVerticalTouchPan(dx, dy)) {
+        pointerDownRef.current = false;
+        pendingTouchRef.current = null;
+        return false;
+      }
+      pendingTouchRef.current = null;
+      startDrawingAt(origin.x, origin.y);
+      capturePointer(e.currentTarget, e.pointerId);
+      return true;
+    },
+    [startDrawingAt]
+  );
+
   const handlePointerMove = useCallback(
     (e: PointerEvent<HTMLElement>) => {
       if (!enabledRef.current) return;
@@ -179,10 +217,10 @@ export function usePawAnimation(
         return;
       }
 
-      if (!pointerDownRef.current) return;
+      if (!pointerDownRef.current || !commitTouchPaint(e)) return;
       updatePointerPos(e.clientX, e.clientY);
     },
-    [startDrawingAt, stopDrawing, updatePointerPos]
+    [commitTouchPaint, startDrawingAt, stopDrawing, updatePointerPos]
   );
 
   const handlePointerLeave = useCallback(
@@ -201,19 +239,13 @@ export function usePawAnimation(
       if (e.pointerType !== "mouse" && isActivatableControl(e.target)) return;
 
       if (e.pointerType !== "mouse") {
-        // Do not preventDefault here: pan-y must keep working until a draw move.
+        // Defer capture/draw until the gesture is not a vertical pan.
         pointerDownRef.current = true;
         pointerIdRef.current = e.pointerId;
-        startDrawingAt(e.clientX, e.clientY);
-
-        try {
-          e.currentTarget.setPointerCapture(e.pointerId);
-        } catch {
-          // ignore
-        }
+        pendingTouchRef.current = { x: e.clientX, y: e.clientY };
       }
     },
-    [startDrawingAt]
+    []
   );
 
   const handlePointerUp = useCallback(
@@ -222,6 +254,7 @@ export function usePawAnimation(
 
       pointerDownRef.current = false;
       pointerIdRef.current = null;
+      pendingTouchRef.current = null;
       releasePointerCapture(e.currentTarget, e.pointerId);
 
       if (!enabledRef.current) return;
@@ -236,6 +269,7 @@ export function usePawAnimation(
 
       pointerDownRef.current = false;
       pointerIdRef.current = null;
+      pendingTouchRef.current = null;
       releasePointerCapture(e.currentTarget, e.pointerId);
 
       if (!enabledRef.current) return;
