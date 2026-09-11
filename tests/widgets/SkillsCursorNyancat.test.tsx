@@ -27,7 +27,7 @@ function renderCursorCat(isMotionActive = true): {
 
 describe("SkillsCursorNyancat", () => {
   const requestAnimationFrame = vi.fn((callback: FrameRequestCallback): number => {
-    void callback;
+    callback;
     return 1;
   });
   const cancelAnimationFrame = vi.fn();
