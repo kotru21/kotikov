@@ -1,6 +1,6 @@
 # <a href="https://ktkv.me"><img src="./public/logo_mobile.svg" alt="Kotikov logo" width="36" height="36" style="vertical-align:middle;margin-right:8px" /></a> Kotikov
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.3.1-eafff8?logo=next.js&logoColor=eafff8)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.3.14-eafff8?logo=bun&logoColor=eafff8)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-eafff8?logo=typescript&logoColor=eafff8)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-eafff8?logo=tailwindcss&&logoColor=eafff8)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-eafff8?logo=vercel&logoColor=eafff8)](https://vercel.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.3.8-eafff8?logo=next.js&logoColor=eafff8)](https://nextjs.org/) [![Bun](https://img.shields.io/badge/Bun-1.4.2-eafff8?logo=bun&logoColor=eafff8)](https://bun.sh/) [![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-eafff8?logo=typescript&logoColor=eafff8)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3.3-eafff8?logo=tailwindcss&&logoColor=eafff8)](https://tailwindcss.com/) [![Vercel](https://img.shields.io/badge/Vercel-Deploy-eafff8?logo=vercel&logoColor=eafff8)](https://vercel.com/)
 
 Портфолио Kotikov — современный сайт фронтенд‑разработчика, созданный на Next.js, TypeScript и Tailwind.
 
@@ -16,7 +16,7 @@
 
 ### Требования
 
-- Bun v1.3+
+- Bun v1.4+
 
 ### Установка
 
@@ -61,8 +61,8 @@ bun install
 
 ## Технологии
 
-- Next.js 16.3, React 19.2, TypeScript 7.0, Tailwind CSS 4.3
-- Bun (`bun@1.3.14`)
+- Next.js 16.3, React 19.3, TypeScript 7.0, Tailwind CSS 4.3
+- Bun (`bun@1.4.2`)
 - Vercel (Analytics, Speed Insights)
 - ESLint (строгая конфигурация TypeScript / FSD)
 
@@ -70,7 +70,7 @@ bun install
 
 ## Деплой
 
-Деплой на Vercel: `vercel.json` содержит `bunVersion: 1.3.x` — убедитесь, что Vercel использует Bun v1.3+ при сборке.  
+Деплой на Vercel: `vercel.json` содержит `bunVersion: 1.4.x` — убедитесь, что Vercel использует Bun v1.4+ при сборке.  
 Команда сборки: `bun run build`.
 
 ---
