@@ -40,7 +40,7 @@ function resolveBunVersion() {
   return "";
 }
 
-/** Vercel supports e.g. "1.3.x"; keeps deploy on the same minor as the lockfile. */
+/** Vercel supports e.g. "1.4.x"; keeps deploy on the same minor as the lockfile. */
 function vercelBunRange(bunSemver) {
   if (/^\d+\.\d+\.\d+/.test(bunSemver)) return `${majorMinor(bunSemver)}.x`;
   if (/^\d+\.\d+$/.test(bunSemver)) return `${bunSemver}.x`;
@@ -102,6 +102,7 @@ const STACK_LINE_RE = /^- Next\.js [\d.]+, React [\d.]+, TypeScript [\d.]+, Tail
 const BUN_STACK_LINE_RE = /^- Bun \(`bun@[^`]+\`\)$/m;
 const REQUIREMENTS_LINE_RE = /^- Bun v[^\n]+$/m;
 const VERCEL_BUN_IN_BACKTICKS_RE = /`bunVersion: [^`]+`/g;
+const BUN_MIN_VERSION_RE = /Bun v\d+\.\d+\+/g;
 
 const STACK_README_NAMES = new Set(["README.ru.md", "README.en.md"]);
 
@@ -140,6 +141,7 @@ function patchReadme(filePath) {
 
   if (bunMM) {
     s = s.split("Bun v1.x").join(`Bun v${bunMM}+`);
+    s = s.replace(BUN_MIN_VERSION_RE, `Bun v${bunMM}+`);
   }
 
   if (s !== before) {

@@ -9,10 +9,7 @@ function RafProbe({ active, onFrame }: { active: boolean; onFrame: (time: number
 }
 
 describe("useRafWhile", () => {
-  const requestAnimationFrame = vi.fn((callback: FrameRequestCallback): number => {
-    void callback;
-    return 1;
-  });
+  const requestAnimationFrame = vi.fn<(callback: FrameRequestCallback) => number>(() => 1);
   const cancelAnimationFrame = vi.fn();
 
   beforeEach(() => {
